@@ -13,7 +13,7 @@ Las líneas de código que definen los márgenes son:
   outer	=	3.0cm, % Margen exterior
   top	=	2.5cm, % Margen superior
   bottom=	2.5cm, % Margen inferior
-  includeheadfoot, % Incluye cabecera y pide de página en los márgenes
+  includeheadfoot, % Incluye cabecera y pie de página en los márgenes
 ]{geometry}
 ```
 Se ha dejado una función para mostrar una regla vertical y horizontal, para poder revisar los márgenes. Se encuentra comentada pero si se desea utilizar para revisar en algún momento los margenes, se puede eliminar el comentario:
@@ -21,8 +21,9 @@ Se ha dejado una función para mostrar una regla vertical y horizontal, para pod
 % Muestra una regla para comprobar el formato de las páginas
 %\usepackage[type=upperleft,showframe,marklength=8mm]{fgruler}
 ```
-Se mostraría esto:
+Se mostraría esto (haz clic sobre la imagen para verla más grande):
 
+<img src="http://jmrplens.com/GitHub_TFGTemplate/PREGLA.png" width="30%"></img>
 
 ### Multitud de diseños predefinidos
 La plantilla incluye los colores y logotipos que cada titulación determina para los TFG y TFM. Tán solo con cambiar un número, automaticamente se modifica la información para la titulación seleccionada.
@@ -78,7 +79,7 @@ Se ha tenido en cuenta varias situaciones que podrían ser problemáticas para e
 #### Longitud del título
 Hay gran variedad de títulos, desde unos pocos carácteres hasta incluso más de 200. Esto se ha tenido en cuenta y se ha primado el mantener consolidado el diseño frente al tamaño de fuente definido en la guía de estilo. 
 
-El tamaño de fuente del título en la portada por defecto es 55, tal como establece la guía de estilo, pero en el caso de que el titulo exceda cierto número de carácteres, automaticamente se reduce el tamaño y el interlineado del titulo. Este control del titulo se realiza a tráves de estas líneas:
+El tamaño de fuente del título en la portada por defecto es 55, tal como establece la guía de estilo, pero en el caso de que el titulo exceda cierto número de carácteres, automaticamente se reduce el tamaño y el interlineado del titulo para que no sobrepase el espacio disponible. Este control del titulo se realiza a tráves de estas líneas:
 ```latex
 % Según la longitud del titulo se determina un tamaño e interlineado para él
 \StrLen{\titulo}[\longitudtitulo]
