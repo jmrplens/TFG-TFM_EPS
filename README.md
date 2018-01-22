@@ -4,7 +4,7 @@ Esta plantilla se ha creado después de observar la idea concebida por Pedro Per
 
 Esta plantilla puede ser divulgada, modificada y compartida libremente. Este proyecto se ha realizado por y para los alumnos de la Escuela Politécnica Superior de la Universidad de Alicante, esperando facilitar un poco la introducción al trabajo con LaTex. Se ruega enviar sugerencias de todo tipo, el contenido de la plantilla intenta mostrar un poco de todo lo que se puede hacer con LaTex, pero si es complejo el uso y asi lo indicasen los usuarios se modificará para hacerla más manejable.
 
-<!-- MarkdownTOC depth=4 -->
+<!-- MarkdownTOC depth=5 -->
 
 - [Características](#caracter%C3%ADsticas)
 	- [Directrices de estilo](#directrices-de-estilo)
@@ -18,8 +18,9 @@ Esta plantilla puede ser divulgada, modificada y compartida libremente. Este pro
 		- [Precontenido](#precontenido)
 		- [Capítulos](#cap%C3%ADtulos)
 		- [Postcontenido](#postcontenido)
+	- [Archivos 'include'](#archivos-include)
 - [Control de errores](#control-de-errores)
-		- [Longitud del título](#longitud-del-t%C3%ADtulo)
+	- [Longitud del título](#longitud-del-t%C3%ADtulo)
 
 <!-- /MarkdownTOC -->
 
@@ -105,6 +106,7 @@ Para ello se ha utilizado los archivos de capítulos y en cada uno de ellos se h
 Estos capítulos son meramente de ejemplo y pueden ser eliminados sin miedo a que deje de funcionar alguna cosa o editados con el contenido del trabajo.
 
 ## Uso
+El uso de la plantilla es muy sencillo si se conoce que hace cada uno de los archivos. A continuación se describen cada uno de ellos.
 
 ### Estructura de archivos
 La plantilla esta estructurada del siguiente modo:
@@ -279,10 +281,39 @@ Hay tres partes diferenciadas:
 * Bibliografía: Esta parte debe aparecer siempre en el trabajo y para poder generarla de la forma mas sencilla se pueden utilizar herramientas como <a href="http://www.jabref.org/">JabRef</a> o <a href="https://bibdesk.sourceforge.io/">BibDesk</a>. El archivo generado (.bib) se debe cargar con la línea de código mostrada en el bloque de arriba `\bibliography{bibliografia/bibliografia}`, donde `bibliografia/bibliografia` es la ruta del archivo.
 * Apendices: Aquí se pueden incluir anexos del mismo modo que se hace con los capítulos, pero que al estar debajo de la línea `\appendix` se añaden al documento como anexos. Si tu trabajo no tiene anexos puedes eliminar esta parte.
 
+### Archivos 'include'
+Los archivos de la carpeta 'include' son los que configuran la plantilla y por ello no deben ser modificados a no ser que sepas lo que haces.
+
+El archivo `configuracioninicial.tex` define el formato del documento, e incluye todos los paquetes y comandos que pueden ser utilizados en la plantilla. Se han añadido muchisimos paquetes para diferentes cuestiones que serán utiles para realizar el documento. En este archivo se encuentran comentados los paquetes y lo que hacen cada uno de ellos, y si se desea incluir algun paquete a la plantilla es en este archivo donde se recomienda incluirlo.
+
+El archivo `configuraciontitulacion.tex` es el archivo que diseña automaticamente las portadas segun la titulación seleccionada. En él se encuentran definidos los colores de cada titulación, los logotipos comunes y despues la información para cada titulación tal que:
+
+```latex
+\if\IDtitulo 1 % Teleco
+		% Logos
+		\newcommand{\logoFacultadPortada}{include/logos-universidad/LogoEPSBlanco}
+		\newcommand{\logoGradoPortada}{include/logos-titulaciones/LogoTelecoBlanco}
+		\newcommand{\logoGrado}{include/logos-titulaciones/LogoTelecoNegro}
+		% Texto
+		\newcommand{\miGrado}{Grado en Ingeniería en Sonido e Imagen en Telecomunicación}
+		\newcommand{\tipotrabajo}{Trabajo Fin de Grado}
+		% Color
+		\newcommand{\colorgrado}{teleco}
+		\newcommand{\colortexto}{blanco}
+```
+
+En el archivo `estiloscodigoprogramacion.tex` se definen los estilos para mostrar código de distintos lenguajes de programación. Si al mostrar código en tu trabajo, el codigo no se colorea correctamente o prefieres mostrarlo en otros colores, aquí es donde debes modificar esos detalles. El formato del cuadro donde se muestra el codigo del documento esta definido en el archivo `configuracioninicial.tex`.
+
+La carpeta `portada` contiene los archivos que configuran tanto la portada como la subportada, no es necesario editar nada en ellos a no ser que cambien las directrices de estilo de la EPS.
+
+Las carpetas `logos-universidad` y `logos-titulaciones` contienen todos los logotipos necesarios para cada una de la titulaciones prediseñadas.
+
+La carpeta `fuentes` contienen las fuentes utilizadas para el texto de la portada tal como establece la guia de estilo de la EPS.
+
 ## Control de errores
 Se ha tenido en cuenta varias situaciones que podrían ser problemáticas para el diseño del documento, como:
 
-#### Longitud del título
+### Longitud del título
 Hay gran variedad de títulos, desde unos pocos carácteres hasta incluso más de 200. Esto se ha tenido en cuenta y se ha primado el mantener consolidado el diseño frente al tamaño de fuente definido en la guía de estilo. 
 
 El tamaño de fuente del título en la portada por defecto es 55, tal como establece la guía de estilo, pero en el caso de que el titulo exceda cierto número de carácteres, automaticamente se reduce el tamaño y el interlineado del titulo para que no sobrepase el espacio disponible. Este control del titulo se realiza a tráves de estas líneas:
