@@ -308,7 +308,7 @@ El archivo `configuraciontitulacion.tex` es el archivo que diseña automaticamen
 		\newcommand{\colortexto}{blanco}
 ```
 
-En el archivo `estiloscodigoprogramacion.tex` se definen los estilos para mostrar código de distintos lenguajes de programación. Si al mostrar código en tu trabajo, el codigo no se colorea correctamente o prefieres mostrarlo en otros colores, aquí es donde debes modificar esos detalles. El formato del cuadro donde se muestra el codigo del documento esta definido en el archivo `configuracioninicial.tex`.
+En el archivo `estiloscodigoprogramacion.tex` se definen los estilos para mostrar código de distintos lenguajes de programación. Si al mostrar código en tu trabajo, el codigo no se colorea correctamente o prefieres mostrarlo en otros colores, aquí es donde debes modificar esos detalles. El formato del cuadro donde se muestra el codigo dentro del documento esta definido en el archivo `configuracioninicial.tex`.
 
 La carpeta `portada` contiene los archivos que configuran tanto la portada como la subportada, no es necesario editar nada en ellos a no ser que cambien las directrices de estilo de la EPS.
 
