@@ -36,8 +36,8 @@ Las líneas de código que definen los márgenes son:
 ```latex
 % MARGENES DE LAS PÁGINAS
 \usepackage[
-  inner	=	2.5cm, % Margen interior
-  outer	=	3.0cm, % Margen exterior
+  inner	=	3.0cm, % Margen interior
+  outer	=	2.5cm, % Margen exterior
   top	=	2.5cm, % Margen superior
   bottom=	2.5cm, % Margen inferior
   includeheadfoot, % Incluye cabecera y pie de página en los márgenes
