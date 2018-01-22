@@ -100,9 +100,30 @@ A continuación se muestran el resto de portadas que se pueden generar automáti
 <img src="http://jmrplens.com/GitHub_TFGTemplate/P2.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/P3.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/P4.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/P5.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/P6.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/P7.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PA.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PB.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PC.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PD.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PE.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PF.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PG.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PH.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PI.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PJ.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PK.png" width="20%"></img>
 </p>
 
-#### Fuente de texto
+### Fuente de texto
 
 La fuente general para el documento es la estándar de LaTeX, pero tal como indica la guía de estilo, la fuente para la portada es 'Helvetica' y 'Helvetica LT STD Cond'.
+
+### Lenguajes de programación
+Se ha diseñado una 'caja' donde mostrar código de diferentes lenguajes de programación de forma sencilla y muy clara a la hora de leerlo.
+
+Para utilizarlo en el documento, por ejemplo para lenguaje C++:
+
+```latex
+\begin{lstlisting}[style=C-color, caption={ejemplo código C en color},label=C_code-color]
+	#include <stdio.h>
+	// Comentario
+	int main(int argc, char* argv[]) {
+  	puts("Hola mundo!");
+	}
+\end{lstlisting}
+```
+Se puede mostrar el código en color o en blanco y negro, todos los estilos se encuentran definidos en el archivo `estiloscodigoprogramacion.tex`, donde se pueden añadir más lenguajes o modificar el estilo de los ya existentes.
+El formato de la caja se define en el archivo `configuracioninicial.tex` en el apartado de código, si se desea se puede cambiar el formato del titulo de la caja o de la caja misma, o eliminar ambas.
+
+El resultado obtenido dentro del documento para, por ejemplo, lenguaje Python en color y en blanco y negro es el siguiente:
+
+<img src="http://jmrplens.com/GitHub_TFGTemplate/ejemplocodigo.png" width="40%"></img>
 
 ### Contenido de ejemplo
 Se ha incluido contenido de ejemplo para mostrar, a aquellos que aun no conocen LaTeX, el potecial que tiene este sistema y enseñar sutílmente como manejarlo.
