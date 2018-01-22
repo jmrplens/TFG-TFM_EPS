@@ -10,6 +10,7 @@ Esta plantilla puede ser divulgada, modificada y compartida libremente. Este pro
 - [Características](#caracter%C3%ADsticas)
 	- [Directrices de estilo](#directrices-de-estilo)
 	- [Multitud de diseños predefinidos](#multitud-de-dise%C3%B1os-predefinidos)
+		- [Fuente de texto](#fuente-de-texto)
 	- [Contenido de ejemplo](#contenido-de-ejemplo)
 - [Uso](#uso)
 	- [Estructura de archivos](#estructura-de-archivos)
