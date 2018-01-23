@@ -321,21 +321,7 @@ Los archivos de la carpeta 'include' son los que configuran la plantilla y por e
 
 El archivo `configuracioninicial.tex` define el formato del documento, e incluye todos los paquetes y comandos que pueden ser utilizados en la plantilla. Se han añadido muchisimos paquetes para diferentes cuestiones que serán utiles para realizar el documento. En este archivo se encuentran comentados los paquetes y lo que hacen cada uno de ellos, y si se desea incluir algun paquete a la plantilla es en este archivo donde se recomienda incluirlo.
 
-El archivo `configuraciontitulacion.tex` es el archivo que diseña automaticamente las portadas segun la titulación seleccionada. En él se encuentran definidos los colores de cada titulación, los logotipos comunes y despues la información para cada titulación tal que:
-
-```latex
-\if\IDtitulo 1 % Teleco
-		% Logos
-		\newcommand{\logoFacultadPortada}{include/logos-universidad/LogoEPSBlanco}
-		\newcommand{\logoGradoPortada}{include/logos-titulaciones/LogoTelecoBlanco}
-		\newcommand{\logoGrado}{include/logos-titulaciones/LogoTelecoNegro}
-		% Texto
-		\newcommand{\miGrado}{Grado en Ingeniería en Sonido e Imagen en Telecomunicación}
-		\newcommand{\tipotrabajo}{Trabajo Fin de Grado}
-		% Color
-		\newcommand{\colorgrado}{teleco}
-		\newcommand{\colortexto}{blanco}
-```
+El archivo `configuraciontitulacion.tex` es el archivo que diseña automaticamente las portadas segun la titulación seleccionada. En él se encuentran definidos los colores de cada titulación, los logotipos comunes y despues la información para cada titulación.
 
 En el archivo `estiloscodigoprogramacion.tex` se definen los estilos para mostrar código de distintos lenguajes de programación. Si al mostrar código en tu trabajo, el codigo no se colorea correctamente o prefieres mostrarlo en otros colores, aquí es donde debes modificar esos detalles. El formato del cuadro donde se muestra el codigo dentro del documento esta definido en el archivo `configuracioninicial.tex`.
 
