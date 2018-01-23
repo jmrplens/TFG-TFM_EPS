@@ -1,11 +1,12 @@
 # Plantilla TFG/TFM (Publicación prevista Enero-Febrero 2018)
 Esta plantilla se ha creado después de observar la idea concebida por Pedro Pernías y otros colaboradores en su plantilla: <a href="https://github.com/lcg51/tfg">tfg</a>. Se ha mantenido algún contenido de los capítulos de esa plantilla, y la clase de documento _scrbook_ pero el resto de la plantilla esta realizada de cero.
 
-Esta plantilla puede ser divulgada, modificada y compartida libremente. Este proyecto se ha realizado por y para los alumnos de la Escuela Politécnica Superior de la Universidad de Alicante, esperando facilitar un poco la introducción al trabajo con LaTex. Se ruega enviar sugerencias de todo tipo. El contenido de la plantilla intenta mostrar un poco de todo lo que se puede hacer con LaTex, pero si el uso es complejo y asi lo indicasen los usuarios se modificará para hacerla más manejable.
+Esta plantilla puede ser divulgada, modificada y compartida libremente. Este proyecto se ha realizado por y para los alumnos de la Escuela Politécnica Superior de la Universidad de Alicante, esperando facilitar un poco la introducción al trabajo con LaTex. Se ruega enviar sugerencias de todo tipo, el contenido de la plantilla intenta mostrar un poco de todo lo que se puede hacer con LaTex, pero si es complejo el uso y asi lo indicasen los usuarios se modificará para hacerla más manejable.
 
 ## Índice
 <!-- MarkdownTOC depth=5 -->
 
+- [Introducción](#introducci%C3%B3n)
 - [Características](#caracter%C3%ADsticas)
 	- [Directrices de estilo](#directrices-de-estilo)
 	- [Multitud de diseños predefinidos](#multitud-de-dise%C3%B1os-predefinidos)
@@ -30,6 +31,15 @@ Esta plantilla puede ser divulgada, modificada y compartida libremente. Este pro
 	- [Fuentes de la portada](#fuentes-de-la-portada)
 
 <!-- /MarkdownTOC -->
+
+## Introducción
+Para conocer mejor el entorno LaTeX he elegido algunas fuentes de información relevantes:
+
+* <a href="https://tecdigital.tec.ac.cr/revistamatematica/Libros/LATEX/LaTeX_2014.pdf">Libro/Manual - Tecnológico de Costa Rica (español)</a>
+* <a href="http://www.texdoc.net/"> TeXdoc - Web con documentación de paquetes y comandos LaTeX (inglés)</a>
+* <a href="https://www.youtube.com/user/ShareLaTeX"> Canal de YouTube de ShareLaTeX con videotutoriales (inglés)</a>
+* <a href="https://es.wikipedia.org/wiki/Ayuda:Uso_de_TeX">Artículo de la Wikipedia con muchos ejemplos (español)</a>
+* <a href="https://upload.wikimedia.org/wikipedia/commons/2/2d/LaTeX.pdf">Manual LaTeX realizado por Wikimedia (inglés)</a>
 
 ## Características
 
@@ -321,7 +331,21 @@ Los archivos de la carpeta 'include' son los que configuran la plantilla y por e
 
 El archivo `configuracioninicial.tex` define el formato del documento, e incluye todos los paquetes y comandos que pueden ser utilizados en la plantilla. Se han añadido muchisimos paquetes para diferentes cuestiones que serán utiles para realizar el documento. En este archivo se encuentran comentados los paquetes y lo que hacen cada uno de ellos, y si se desea incluir algun paquete a la plantilla es en este archivo donde se recomienda incluirlo.
 
-El archivo `configuraciontitulacion.tex` es el archivo que diseña automaticamente las portadas segun la titulación seleccionada. En él se encuentran definidos los colores de cada titulación, los logotipos comunes y despues la información para cada titulación.
+El archivo `configuraciontitulacion.tex` es el archivo que diseña automaticamente las portadas segun la titulación seleccionada. En él se encuentran definidos los colores de cada titulación, los logotipos comunes y despues la información para cada titulación tal que:
+
+```latex
+\if\IDtitulo 1 % Teleco
+		% Logos
+		\newcommand{\logoFacultadPortada}{include/logos-universidad/LogoEPSBlanco}
+		\newcommand{\logoGradoPortada}{include/logos-titulaciones/LogoTelecoBlanco}
+		\newcommand{\logoGrado}{include/logos-titulaciones/LogoTelecoNegro}
+		% Texto
+		\newcommand{\miGrado}{Grado en Ingeniería en Sonido e Imagen en Telecomunicación}
+		\newcommand{\tipotrabajo}{Trabajo Fin de Grado}
+		% Color
+		\newcommand{\colorgrado}{teleco}
+		\newcommand{\colortexto}{blanco}
+```
 
 En el archivo `estiloscodigoprogramacion.tex` se definen los estilos para mostrar código de distintos lenguajes de programación. Si al mostrar código en tu trabajo, el codigo no se colorea correctamente o prefieres mostrarlo en otros colores, aquí es donde debes modificar esos detalles. El formato del cuadro donde se muestra el codigo dentro del documento esta definido en el archivo `configuracioninicial.tex`.
 
@@ -476,8 +500,6 @@ Encima de esta linea deberás agregar el condicional con la ID que llevará la t
 
 Segun el color de fuente de la portada (blanco o negro) deberás incluir en el mismo color el logotipo de la EPS (ya incluido en la plantilla tanto en negro como en blanco) y el logotipo de tu titulación. Para la subportada el logotipo de tu titulación debe ser negro obligatoriamente. Introduce el texto de tu grado y titulación correspondiente. Y por ultimo define tu color de grado al inicio del archivo (en RGB) y añade el nombre del color definido, e indica si la fuente de texto de la portada es negro o blanco.
 
-Después de añadir la nueva titulación debes agregar un `\fi` a la línea:
-`\fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi`
 ### Fuentes de la portada
 
 Las fuentes de la portada están establecidas en las directrices de estilo de la EPS, pero si cambian estas directrices puedes modificar las fuentes en el archivo `portada_color.tex` en las líneas:
@@ -498,4 +520,4 @@ El tamaño de la fuente se puede modificar en las siguientes líneas del mismo a
 \def\TamTrabajo{20pt} 	% Tamaño para el tipo de trabajo (grado o máster)
 \def\TamOtros{12pt} 	% Tamaño para datos personales y fecha
 \def\FuenteTamano{55pt}	% Tamaño para el titulo del trabajo
-```
+``
