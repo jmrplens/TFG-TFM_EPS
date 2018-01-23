@@ -1,4 +1,3 @@
-
 # Plantilla TFG/TFM 
 Esta plantilla se ha creado después de observar la idea concebida por Pedro Pernías y otros colaboradores en su plantilla: <a href="https://github.com/lcg51/tfg">tfg</a>. Se ha mantenido algún contenido de los capítulos de esa plantilla, y la clase de documento _scrbook_ pero el resto de la plantilla esta realizada de cero.
 
@@ -10,7 +9,8 @@ Esta plantilla puede ser divulgada, modificada y compartida libremente. Este pro
 - [Características](#caracter%C3%ADsticas)
 	- [Directrices de estilo](#directrices-de-estilo)
 	- [Multitud de diseños predefinidos](#multitud-de-dise%C3%B1os-predefinidos)
-		- [Fuente de texto](#fuente-de-texto)
+	- [Fuente de texto](#fuente-de-texto)
+	- [Lenguajes de programación](#lenguajes-de-programaci%C3%B3n)
 	- [Contenido de ejemplo](#contenido-de-ejemplo)
 - [Uso](#uso)
 	- [Estructura de archivos](#estructura-de-archivos)
@@ -23,6 +23,9 @@ Esta plantilla puede ser divulgada, modificada y compartida libremente. Este pro
 	- [Archivos 'include'](#archivos-include)
 - [Control de errores](#control-de-errores)
 	- [Longitud del título](#longitud-del-t%C3%ADtulo)
+- [Aspectos avanzados](#aspectos-avanzados)
+	- [Formato del documento](#formato-del-documento)
+	- [Idioma del documento](#idioma-del-documento)
 
 <!-- /MarkdownTOC -->
 
@@ -133,6 +136,9 @@ Para ello se ha utilizado los archivos de capítulos y en cada uno de ellos se h
 Estos capítulos son meramente de ejemplo y pueden ser eliminados sin miedo a que deje de funcionar alguna cosa o editados con el contenido del trabajo.
 
 ## Uso
+La plantilla necesita el motor XeLaTeX (el más recomendable actualmente), por lo que si el programa que utilizas compila la plantilla con el motor pdfLaTeX (el más habitual pero menos potente) debes cambiarlo por XeLaTeX en las opciones del programa. Si no sabes como hacerlo busca en el manual del programa o en google.
+
+
 El uso de la plantilla es muy sencillo si se conoce que hace cada uno de los archivos. A continuación se describen cada uno de ellos.
 
 ### Estructura de archivos
@@ -363,4 +369,63 @@ El tamaño de fuente del título en la portada por defecto es 55, tal como estab
 {} % Si no, no modifica el tamaño
 } }
 
+```
+
+## Aspectos avanzados
+
+### Formato del documento
+El formato del documento está definido en el archivo `configuracioninicial.tex`. Tanto el tipo de documento, como el formato y contenido de cabecera y pie de página y los márgenes se definen en las siguientes líneas:
+
+```latex
+%%%%%%%%%%%%%%%%%%%%%%%%
+% FORMATO DEL DOCUMENTO
+%%%%%%%%%%%%%%%%%%%%%%%%
+% scrbook es la clase de documento
+% Si se desea que no haya pagina en blanco entre capítulos añadir "openany" en los parámetros de la clase.
+\documentclass[a4paper,11pt,titlepage,headings]{scrbook}
+% Paquete de formato para scrbook. Con marcas, linea-separador superior e inferior
+\usepackage[automark,headsepline,footsepline]{scrlayer-scrpage}
+\clearpairofpagestyles		% Borra los estilos por defecto
+\ihead{\headmark}			% Información de capitulo/sección en cabecera e interno
+\ohead{\pagemark} 			% Número de pagina en cabecera y externo
+\ofoot[\pagemark]{} 		% Número de pagina en pie de pagina y externo. Solo en páginas sin cabecera
+% Formato de texto de las distintas partes de la cabecera
+\renewcommand{\chaptermark}[1]{\markboth{\color{gray30}\small#1}{}} % Capitulo
+\renewcommand{\sectionmark}[1]{\markright{\color{gray30}\small\thesection. #1}} % Sección
+\setkomafont{pagenumber}{\normalfont} % Número de pagina
+
+% Añade al indice y numera hasta la profundidad 4.
+% 1:section,2:subsection,3:subsubsection,4:paragraph
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+% Muestra una regla para comprobar el formato de las páginas
+%\usepackage[type=upperleft,showframe,marklength=8mm]{fgruler}
+% MÁRGENES DE LAS PÁGINAS
+\usepackage[
+  inner	=	3cm, % Margen interior
+  outer	=	2.5cm, % Margen exterior
+  top	=	2.5cm, % Margen superior
+  bottom=	2.5cm, % Margen inferior
+  includeheadfoot, % Incluye cabecera y pide de página en los márgenes
+]{geometry}
+```
+
+### Idioma del documento
+
+Tambien en el archivo `configuracioninicial.tex` el documento está configurado para texto en español, por razones obvias, pero si se va a realizar en otro idioma o en varios idiomas se puede modificar (siguiendo este manual: <a href="http://osl.ugr.es/CTAN/macros/latex/contrib/polyglossia/polyglossia.pdf">Polyglossia</a>) en las líneas siguientes:
+
+```latex
+%%%%%%%%%%%%%%%%%%%%%%%%
+% DOCUMENTO EN ESPAÑOL
+%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{polyglossia}
+\setmainlanguage{spanish}
+\addto\captionsspanish{%
+	\renewcommand{\listtablename}{Índice de tablas} 
+	\renewcommand{\tablename}{Tabla}
+	\renewcommand{\lstlistingname}{Código}
+	\renewcommand{\lstlistlistingname}{Índice de \lstlistingname s}
+	\renewcommand{\glossaryname}{Glosario}
+	\renewcommand{\acronymname}{Acrónimos}
+}
 ```
