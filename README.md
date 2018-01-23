@@ -520,4 +520,4 @@ El tamaño de la fuente se puede modificar en las siguientes líneas del mismo a
 \def\TamTrabajo{20pt} 	% Tamaño para el tipo de trabajo (grado o máster)
 \def\TamOtros{12pt} 	% Tamaño para datos personales y fecha
 \def\FuenteTamano{55pt}	% Tamaño para el titulo del trabajo
-``
+```
