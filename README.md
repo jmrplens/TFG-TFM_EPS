@@ -490,6 +490,8 @@ Encima de esta linea deberás agregar el condicional con la ID que llevará la t
 
 Segun el color de fuente de la portada (blanco o negro) deberás incluir en el mismo color el logotipo de la EPS (ya incluido en la plantilla tanto en negro como en blanco) y el logotipo de tu titulación. Para la subportada el logotipo de tu titulación debe ser negro obligatoriamente. Introduce el texto de tu grado y titulación correspondiente. Y por ultimo define tu color de grado al inicio del archivo (en RGB) y añade el nombre del color definido, e indica si la fuente de texto de la portada es negro o blanco.
 
+Después de añadir la nueva titulación debes agregar un `\fi` a la línea:
+`\fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi`
 ### Fuentes de la portada
 
 Las fuentes de la portada están establecidas en las directrices de estilo de la EPS, pero si cambian estas directrices puedes modificar las fuentes en el archivo `portada_color.tex` en las líneas:
