@@ -503,3 +503,11 @@ Las fuentes de la portada están establecidas en las directrices de estilo de la
 ```
 
 Si tienes que cambiar la fuente debes modificar el tipo de fuente para el titulo de la portada (actualmente HelveticaLTStd-Cond) por el nuevo, y lo mismo para la otra fuente para el resto del texto de la portada (actualmente Helvetica). Estas fuentes deben estar en la carpeta `include/fuentes` para poder ser cargadas por la plantilla.
+
+El tamaño de la fuente se puede modificar en las siguientes líneas del mismo archivo:
+```latex
+% Tamaño por defecto de la fuente de texto para:
+\def\TamTrabajo{20pt} 	% Tamaño para el tipo de trabajo (grado o máster)
+\def\TamOtros{12pt} 	% Tamaño para datos personales y fecha
+\def\FuenteTamano{55pt}	% Tamaño para el titulo del trabajo
+```
