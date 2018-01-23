@@ -26,6 +26,8 @@ Esta plantilla puede ser divulgada, modificada y compartida libremente. Este pro
 - [Aspectos avanzados](#aspectos-avanzados)
 	- [Formato del documento](#formato-del-documento)
 	- [Idioma del documento](#idioma-del-documento)
+	- [Añadir/Editar formato de titulaciones](#a%C3%B1adireditar-formato-de-titulaciones)
+	- [Fuentes de la portada](#fuentes-de-la-portada)
 
 <!-- /MarkdownTOC -->
 
@@ -393,7 +395,11 @@ El formato del documento está definido en el archivo `configuracioninicial.tex`
 \renewcommand{\chaptermark}[1]{\markboth{\color{gray30}\small#1}{}} % Capitulo
 \renewcommand{\sectionmark}[1]{\markright{\color{gray30}\small\thesection. #1}} % Sección
 \setkomafont{pagenumber}{\normalfont} % Número de pagina
+```
 
+Las funciones de este primer bloque están definidas en el manual de la clase de documento, que es parte de un paquete llamado KOMA-Script y su manual se puede leer aquí: <a href="http://osl.ugr.es/CTAN/macros/latex/contrib/koma-script/doc/scrguien.pdf">Manual KOMA-Script</a>. Si modificas algo del formato definido en este bloque, confirma con tu tutor de TFG/TFM si el nuevo formato es correcto para el documento. 
+
+```latex
 % Añade al indice y numera hasta la profundidad 4.
 % 1:section,2:subsection,3:subsubsection,4:paragraph
 \setcounter{tocdepth}{4}
@@ -409,6 +415,9 @@ El formato del documento está definido en el archivo `configuracioninicial.tex`
   includeheadfoot, % Incluye cabecera y pide de página en los márgenes
 ]{geometry}
 ```
+
+En este segundo bloque se define hasta que profundidad se genera el índice y el valor de los márgenes. Si lo deseas puedes modificar la profundidad del índice pero los márgenes solo se deben modificar si las directrices de estilo de la EPS han cambiado.
+
 
 ### Idioma del documento
 
@@ -429,3 +438,68 @@ Tambien en el archivo `configuracioninicial.tex` el documento está configurado 
 	\renewcommand{\acronymname}{Acrónimos}
 }
 ```
+
+Las líneas que siguen a `\addto...` renombran algunos términos estandar para traducirlos al español. Si tu trabajo está en otro idioma cambialos por el idioma del trabajo.
+
+### Añadir/Editar formato de titulaciones
+
+Si el color o logotipo de tu titulación ha cambiado, o tu titulación no se encuentra actualmente en la plantilla, en primer lugar ponte en contacto conmigo para que actualice la plantilla, y si no puedes esperar a la actualización puedes añadirlo tu del siguiente modo en el archivo `configuraciontitulacion.tex`
+
+El formato de una titulacion se define despues de comprobar el valor de la ID introducida en el archivo principal, por lo que si deseas actualizar tu titulación debes buscar donde el condicional comprueba tu ID. Esto lo realiza en esta línea:
+
+`\if\IDtitulo X`
+
+Donde 'X' es la ID de la titulación. 
+
+El condicional completo se compone de lo siguiente:
+```latex
+\if\IDtitulo 1 % Teleco
+		% Logos
+		\newcommand{\logoFacultadPortada}{include/logos-universidad/LogoEPSBlanco} % Logo EPS en portada
+		\newcommand{\logoGradoPortada}{include/logos-titulaciones/LogoTelecoBlanco} % Logo titulación en portada
+		\newcommand{\logoGrado}{include/logos-titulaciones/LogoTelecoNegro} % Logo titulación en subportada
+		% Texto
+		\newcommand{\miGrado}{Grado en Ingeniería en Sonido e Imagen en Telecomunicación} % Nombre de la titulación
+		\newcommand{\tipotrabajo}{Trabajo Fin de Grado} % Tipo de trabajo (grado o máster)
+		% Color
+		\newcommand{\colorgrado}{teleco} % Color de la portada. Definido al inicio del archivo
+		\newcommand{\colortexto}{blanco} % Color del texto de la portada (blanco o negro)
+```
+
+Si tu titulación ya esta en la plantilla edita las líneas que hayan sido modificadas para tu titulación.
+
+Si tu titulación no está en la plantilla y deseas añadirla, debes añadirla al final del condicional, justo encima de la línea:
+
+`\fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi`
+
+Encima de esta linea deberás agregar el condicional con la ID que llevará la titulación que vayas a añadir tal que:
+
+```latex
+\else \if\IDtitulo X % ID de tu titulación añadida
+% Logos
+		\newcommand{\logoFacultadPortada}{include/logos-universidad/LogoEPS____} % Logo EPS en portada (blanco o negro)
+		\newcommand{\logoGradoPortada}{include/logos-titulaciones/Logo_____} % Logo titulación en portada (blanco o negro)
+		\newcommand{\logoGrado}{include/logos-titulaciones/Logo____Negro} % Logo titulación en subportada (solo negro)
+		% Texto
+		\newcommand{\miGrado}{_____________} % Nombre de la titulación
+		\newcommand{\tipotrabajo}{Trabajo Fin de ______} % Tipo de trabajo (grado o máster)
+		% Color
+		\newcommand{\colorgrado}{_______} % Color de la portada. Definido al inicio del archivo
+		\newcommand{\colortexto}{_______} % Color del texto de la portada (blanco o negro)
+```
+
+Segun el color de fuente de la portada (blanco o negro) deberás incluir en el mismo color el logotipo de la EPS (ya incluido en la plantilla tanto en negro como en blanco) y el logotipo de tu titulación. Para la subportada el logotipo de tu titulación debe ser negro obligatoriamente. Introduce el texto de tu grado y titulación correspondiente. Y por ultimo define tu color de grado al inicio del archivo (en RGB) y añade el nombre del color definido, e indica si la fuente de texto de la portada es negro o blanco.
+
+### Fuentes de la portada
+
+Las fuentes de la portada están establecidas en las directrices de estilo de la EPS, pero si cambian estas directrices puedes modificar las fuentes en el archivo `portada_color.tex` en las líneas:
+
+```latex
+% Establece las fuentes de texto de la portada
+% Helvetica LS Std Cond. Uso: {\FuenteTitulo tutexto}
+\newfontfamily\FuenteTitulo{HelveticaLTStd-Cond}[Path=./include/fuentes/]  
+% Helvetica. Uso: {\FuentePortada tutexto}
+\newfontfamily\FuentePortada{Helvetica}[Path=./include/fuentes/] 
+```
+
+Si tienes que cambiar la fuente debes modificar el tipo de fuente para el titulo de la portada (actualmente HelveticaLTStd-Cond) por el nuevo, y lo mismo para la otra fuente para el resto del texto de la portada (actualmente Helvetica). Estas fuentes deben estar en la carpeta `include/fuentes` para poder ser cargadas por la plantilla.
