@@ -24,6 +24,7 @@ Esta plantilla puede ser divulgada, modificada y compartida libremente. Este pro
 	- [Archivos 'include'](#archivos-include)
 	- [Lista de acrónimos y abreviaturas](#lista-de-acr%C3%B3nimos-y-abreviaturas)
 	- [Bibliografía](#bibliograf%C3%ADa)
+		- [Citar bibliografía](#citar-bibliograf%C3%ADa)
 - [Control de errores](#control-de-errores)
 	- [Longitud del título](#longitud-del-t%C3%ADtulo)
 - [Aspectos avanzados](#aspectos-avanzados)
@@ -376,7 +377,7 @@ Tanto la introducción de acrónimos como el uso en el documento es sencillo. En
 ```
 
 ### Bibliografía
-Para la bibliografía es recomendable utilizar herramientas como <a href="https://bibdesk.sourceforge.io/">BibDesk</a> solo para Mac OS, <a href="http://www.jabref.org/">JabRef</a> para Windows, Mac OS y Linux.
+Para la bibliografía es recomendable utilizar herramientas como <a href="http://www.jabref.org/">JabRef</a> para Windows, Mac OS y Linux.
 
 Cualquier aplicación para bibliografía para LaTeX que utilices puede generar un archivo en formato `.bib` (BibTeX), que contiene toda la información de cada referencia que agregues.
 Este archivo es el que se carga en el bloque de [postcontenido](#postcontenido) y automaticamente agrega un capítulo de bibliografia a tu documento con la información incluida en tu archivo `.bib` (BibTeX).
@@ -392,6 +393,24 @@ Para realizar una referencia de un texto en tu documento debes escribir lo sigui
 `\cite{XXXXX}`
 
 Donde 'XXXX' es la ID que se refiere al texto (lo puedes buscas dentro del archivo .bib).
+
+#### Citar bibliografía
+Hay disponibles varios metodos para citar (todos ajustados al sistema APA en su última versión), gracias a los paquetes incluidos en la plantilla `apacite` y `natbib`.
+
+Los comandos y un ejemplo de lo que generara en el documento son los siguientes (donde `idbib` es la id de texto a citar que está dentro de tu archivo .bib):
+
+| Comando | Resultado | 
+| ------------- | ------------- |
+| `\citet{idbib}`  | Shaw y Garlan (1996)  |
+| `\citep{idbib}`  | (Shaw y Garlan, 1996)  |
+| `\citep[ver][cap. 2]{idbib}`  | (ver Shaw y Garlan, 1996, cap. 2)  |
+| `\citep[ver][]{idbib}`  | (ver Shaw y Garlan, 1996)  |
+| `\citep[cap. 2]{idbib}`  | (Shaw y Garlan, 1996, cap. 2)  |
+| `\citep{idbib,idbib2}`  | (Shaw y Garlan, 1996; Akyildiz y cols., 1995)  |
+| `\citet*{idbib2}`  | Akyildiz, Pompili, y Melodia (2005)  |
+| `\citep*{idbib2}`  | (Akyildiz, Pompili, y Melodia, 2005)  |
+
+Cuanto hay una 't' delante del comando, la cita se mostrará como texto y el año entre paréntesis. Si hay una 'p' todo estará entre paréntesis. Si el documento a citar tiene mas de dos autores se mostrará 'Autor1 y cols', pero si se pone un asterisco delante del comando se mostrarán todos los autores.
 
 ## Control de errores
 Se ha tenido en cuenta varias situaciones que podrían ser problemáticas para el diseño del documento, como:
