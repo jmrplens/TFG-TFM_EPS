@@ -49,7 +49,7 @@ La plantilla respeta las directrices de estilo que determina la Escuela Politéc
 Lo márgenes se establecen en el archivo `configuracióninicial.tex`, que no es necesario editar salvo que las directrices de estilo se hayan modificado y esta plantilla no se haya actualizado.
 Las líneas de código que definen los márgenes son:
 ```latex
-% MARGENES DE LAS PÁGINAS
+% MÁRGENES DE LAS PÁGINAS
 \usepackage[
   inner	=	3.0cm, % Margen interior
   outer	=	2.5cm, % Margen exterior
@@ -259,7 +259,7 @@ El contenido del trabajo se debe desarrollar en archivos separados, es una buena
 \input{include/portada/portada_color} % Portada Color
 \input{include/portada/portada_bn} % Portada B/N
 
-%%%%% PREÁMBULO
+%%%%% PREAMBULO
 % Incluye el .tex que contiene el preámbulo, agradecimientos y dedicatorias.
 \input{capitulos/preliminaresconagradecimientos} 
 
@@ -299,23 +299,23 @@ Despues del contenido principal del trabajo se debe incluir la bibliografía, y 
 
 ```latex
 %%%%
-% CONTENIDO. LISTA DE ACRÓNIMOS. Comenta la lineas si no lo deseas incluir.
-%%%%
-% Incluye el listado de acrónimos
-\input{anexos/acronimos.tex}
-% Incluye en el índice el listado de acrónimos
-\addcontentsline{toc}{chapter}{Lista de Acrónimos}
-
-%%%%
-% CONTENIDO. BIBLIOGRAFÍA. Comenta la lineas si no lo deseas incluir.
+% CONTENIDO. BIBLIOGRAFÍA.
 %%%%
 %\nocite{*} %incluye TODOS los documentos de la base de datos bibliográfica sean o no citados en el texto
 \bibliography{bibliografia/bibliografia}
-\addcontentsline{toc}{chapter}{Bibliografía} 
 \bibliographystyle{apalike}
 
 %%%%
-% CONTENIDO. APENDICES - Añade o elimina según tus necesidades
+% CONTENIDO. LISTA DE ACRÓNIMOS. Comenta la lineas si no lo deseas incluir.
+%%%%
+\input{anexos/acronimos.tex} % Archivo que contiene los acrónimos
+% Incluye el listado de acrónimos utilizados en el trabajo. 
+\printglossary[style=modsuper,type=\acronymtype,title={Lista de Acrónimos y Abreviaturas}]
+% Añade el resto de acrónimos si así se desea. Si no elimina el comando siguiente
+\glsaddallunused 
+
+%%%%
+% CONTENIDO. Anexos - Añade o elimina según tus necesidades
 %%%%
 \appendix % Inicio de los apéndices
 \input{anexos/anexo_I}
@@ -331,21 +331,7 @@ Los archivos de la carpeta 'include' son los que configuran la plantilla y por e
 
 El archivo `configuracioninicial.tex` define el formato del documento, e incluye todos los paquetes y comandos que pueden ser utilizados en la plantilla. Se han añadido muchisimos paquetes para diferentes cuestiones que serán utiles para realizar el documento. En este archivo se encuentran comentados los paquetes y lo que hacen cada uno de ellos, y si se desea incluir algun paquete a la plantilla es en este archivo donde se recomienda incluirlo.
 
-El archivo `configuraciontitulacion.tex` es el archivo que diseña automaticamente las portadas segun la titulación seleccionada. En él se encuentran definidos los colores de cada titulación, los logotipos comunes y despues la información para cada titulación tal que:
-
-```latex
-\if\IDtitulo 1 % Teleco
-		% Logos
-		\newcommand{\logoFacultadPortada}{include/logos-universidad/LogoEPSBlanco}
-		\newcommand{\logoGradoPortada}{include/logos-titulaciones/LogoTelecoBlanco}
-		\newcommand{\logoGrado}{include/logos-titulaciones/LogoTelecoNegro}
-		% Texto
-		\newcommand{\miGrado}{Grado en Ingeniería en Sonido e Imagen en Telecomunicación}
-		\newcommand{\tipotrabajo}{Trabajo Fin de Grado}
-		% Color
-		\newcommand{\colorgrado}{teleco}
-		\newcommand{\colortexto}{blanco}
-```
+El archivo `configuraciontitulacion.tex` es el archivo que diseña automaticamente las portadas segun la titulación seleccionada. En él se encuentran definidos los colores de cada titulación, los logotipos comunes y despues la información para cada titulación.
 
 En el archivo `estiloscodigoprogramacion.tex` se definen los estilos para mostrar código de distintos lenguajes de programación. Si al mostrar código en tu trabajo, el codigo no se colorea correctamente o prefieres mostrarlo en otros colores, aquí es donde debes modificar esos detalles. El formato del cuadro donde se muestra el codigo dentro del documento esta definido en el archivo `configuracioninicial.tex`.
 
@@ -364,10 +350,7 @@ Hay gran variedad de títulos, desde unos pocos carácteres hasta incluso más d
 El tamaño de fuente del título en la portada por defecto es 55, tal como establece la guía de estilo, pero en el caso de que el titulo exceda cierto número de carácteres, automaticamente se reduce el tamaño y el interlineado del titulo para que no sobrepase el espacio disponible. Este control del titulo se realiza a tráves de estas líneas:
 ```latex
 % Según la longitud del titulo se determina un tamaño e interlineado para él
-\StrLen{\titulo}[\longitudtitulo]
-\def\FuenteTamano{55pt} % Tamaño por defecto
-\def\interlinportada{5.0} % Interlineado por defecto
-
+\StrLen{\titulo}[\longitudtitulo] % Cuenta los caracteres del título
 % Comprueba la longitud del titulo y según sea este determina unos valores nuevos
 \ifthenelse{\longitudtitulo > 180}{
 \def\FuenteTamano{35pt}		% Si es mayor a 180 caracteres tamaño de fuente 35pt
@@ -380,7 +363,6 @@ El tamaño de fuente del título en la portada por defecto es 55, tal como estab
 \def\interlinportada{4.5}} 	% Establece nuevo interlineado
 {} % Si no, no modifica el tamaño
 } }
-
 ```
 
 ## Aspectos avanzados
@@ -395,10 +377,11 @@ El formato del documento está definido en el archivo `configuracioninicial.tex`
 % scrbook es la clase de documento
 % Si se desea que no haya pagina en blanco entre capítulos añadir "openany" en los parámetros de la clase.
 \documentclass[a4paper,11pt,titlepage,headings]{scrbook}
+\KOMAoption{toc}{bib,chapterentryfill}
 % Paquete de formato para scrbook. Con marcas, linea-separador superior e inferior
 \usepackage[automark,headsepline,footsepline]{scrlayer-scrpage}
 \clearpairofpagestyles		% Borra los estilos por defecto
-\ihead{\headmark}			% Información de capitulo/sección en cabecera e interno
+\ihead{\headmark}			% Información de capitulo en cabecera e interno
 \ohead{\pagemark} 			% Número de pagina en cabecera y externo
 \ofoot[\pagemark]{} 		% Número de pagina en pie de pagina y externo. Solo en páginas sin cabecera
 % Formato de texto de las distintas partes de la cabecera
@@ -418,7 +401,7 @@ Las funciones de este primer bloque están definidas en el manual de la clase de
 %\usepackage[type=upperleft,showframe,marklength=8mm]{fgruler}
 % MÁRGENES DE LAS PÁGINAS
 \usepackage[
-  inner	=	3cm, % Margen interior
+  inner	=	3.0cm, % Margen interior
   outer	=	2.5cm, % Margen exterior
   top	=	2.5cm, % Margen superior
   bottom=	2.5cm, % Margen inferior
@@ -517,7 +500,10 @@ Si tienes que cambiar la fuente debes modificar el tipo de fuente para el titulo
 El tamaño de la fuente se puede modificar en las siguientes líneas del mismo archivo:
 ```latex
 % Tamaño por defecto de la fuente de texto para:
-\def\TamTrabajo{20pt} 	% Tamaño para el tipo de trabajo (grado o máster)
-\def\TamOtros{12pt} 	% Tamaño para datos personales y fecha
-\def\FuenteTamano{55pt}	% Tamaño para el titulo del trabajo
+\def\FuenteTamano{55pt}	  % Tamaño para el titulo del trabajo
+\def\interlinportada{5.0} % Interlineado por defecto para el título
+\def\TamTrabajo{20pt} 	  % Tamaño para el tipo de trabajo (grado o máster)
+\def\TamTrabajoIn{20pt}   % Tamaño para el salto de línea después de tipo de trabajo
+\def\TamOtros{12pt} 	  % Tamaño para datos personales y fecha
+\def\TamOtrosIn{1pt} 	  % Tamaño para los saltos de línea en la info personal
 ```
