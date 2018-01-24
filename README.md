@@ -397,7 +397,7 @@ Donde 'XXXX' es la ID que se refiere al texto (lo puedes buscas dentro del archi
 #### Citar bibliografía
 Hay disponibles varios metodos para citar (todos ajustados al sistema APA en su última versión), gracias a los paquetes incluidos en la plantilla `apacite` y `natbib`.
 
-Los comandos y un ejemplo de lo que generara en el documento son los siguientes (donde `idbib` es la id de texto a citar que está dentro de tu archivo .bib):
+Los comandos y un ejemplo de lo que generara en el documento son los siguientes (donde `idbib` es la id del texto a citar que está dentro de tu archivo .bib):
 
 | Comando | Resultado | 
 | ------------- | ------------- |
