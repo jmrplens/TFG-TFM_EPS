@@ -341,6 +341,45 @@ Las carpetas `logos-universidad` y `logos-titulaciones` contienen todos los logo
 
 La carpeta `fuentes` contienen las fuentes utilizadas para el texto de la portada tal como establece la guia de estilo de la EPS.
 
+### Lista de acrónimos y abreviaturas
+La plantilla tiene configurado un sistema para realizar una base de datos de acrónimos o abreviaturas para ser utilizadas en el documento.
+Tanto el archivo donde se almacenan los acrónimos como el comando para mostrarlos o no se encuentra en el bloque de [postcontenido](#postcontenido).
+
+Tanto la introducción de acrónimos como el uso en el documento es sencillo. En el archivo de `acronimos.tex` se encuentran definidos algunos de ellos y la información par definirlos y usarlos:
+
+```latex
+% La forma de definir un acrónimo es la siguiente:
+% \newacronyn{id}{siglas}{descripción}
+% Donde:
+% 	'id' es como vas a llamarlo desde el documento.
+%	'siglas' son las siglas del acrónimo.
+%	'descripción' es el texto que representan las siglas.
+%
+% Para usarlo en el documento tienes 4 formas:
+% \gls{id} - Añade el acrónimo en su forma larga y con las siglas (tal que: descripcion (siglas)) si es la primera vez que se utiliza, el resto de veces solo añade las siglas. (No utilices este comando en títulos de capítulos o secciones).
+% \glsentryshort{id} - Añade solo las siglas de la id
+% \glsentrylong{id} - Añade solo la descripción de la id
+% \glsentryfull{id} - Añade tanto la descripción como las siglas
+```
+
+### Bibliografía
+Para la bibliografía es recomendable utilizar herramientas como <a href="https://bibdesk.sourceforge.io/">BibDesk</a> solo para Mac OS, <a href="http://www.jabref.org/">JabRef</a> para Windows, Mac OS y Linux.
+
+Cualquier aplicación para bibliografía para LaTeX que utilices puede generar un archivo en formato `.bib`, que contiene toda la información de cada referencia que agregues.
+Este archivo es el que se carga en el bloque de [postcontenido](#postcontenido) y automaticamente agrega un capítulo de bibliografia a tu documento con la información incluida en tu archivo `.bib`.
+
+Si mantienes comentada la línea:
+
+`%\nocite{*}`
+
+Solo se mostrará en el capítulo de bibliografía aquellos textos referenciados en tu documento, si eliminas el comentario (el carácter %), se incluiran todas las referencias que hayan en el archivo `.bib`.
+
+Para realizar una referencia de un texto en tu documento debes escribir lo siguiente:
+
+`\cite{XXXXX}`
+
+Donde 'XXXX' es la ID que se refiere al texto (lo puedes buscas dentro del archivo .bib).
+
 ## Control de errores
 Se ha tenido en cuenta varias situaciones que podrían ser problemáticas para el diseño del documento, como:
 
