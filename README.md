@@ -369,7 +369,9 @@ Tanto la introducción de acrónimos como el uso en el documento es sencillo. En
 %	'descripción' es el texto que representan las siglas.
 %
 % Para usarlo en el documento tienes 4 formas:
-% \gls{id} - Añade el acrónimo en su forma larga y con las siglas (tal que: descripcion (siglas)) si es la primera vez que se utiliza, el resto de veces solo añade las siglas. (No utilices este comando en títulos de capítulos o secciones).
+% \gls{id} - Añade el acrónimo en su forma larga y con las siglas (tal que: descripcion (siglas)) 
+% 	     si es la primera vez que se utiliza, el resto de veces solo añade las siglas. 
+%            (No utilices este comando en títulos de capítulos o secciones).
 % \glsentryshort{id} - Añade solo las siglas de la id
 % \glsentrylong{id} - Añade solo la descripción de la id
 % \glsentryfull{id} - Añade tanto la descripción como las siglas
