@@ -22,6 +22,8 @@ Esta plantilla puede ser divulgada, modificada y compartida libremente. Este pro
 		- [Capítulos](#cap%C3%ADtulos)
 		- [Postcontenido](#postcontenido)
 	- [Archivos 'include'](#archivos-include)
+	- [Lista de acrónimos y abreviaturas](#lista-de-acr%C3%B3nimos-y-abreviaturas)
+	- [Bibliografía](#bibliograf%C3%ADa)
 - [Control de errores](#control-de-errores)
 	- [Longitud del título](#longitud-del-t%C3%ADtulo)
 - [Aspectos avanzados](#aspectos-avanzados)
