@@ -4,7 +4,7 @@ Esta plantilla se ha creado después de observar la idea concebida por Pedro Per
 Esta plantilla puede ser divulgada, modificada y compartida libremente. Este proyecto se ha realizado por y para los alumnos de la Escuela Politécnica Superior de la Universidad de Alicante, esperando facilitar un poco la introducción al trabajo con LaTex. Se ruega enviar sugerencias de todo tipo, el contenido de la plantilla intenta mostrar un poco de todo lo que se puede hacer con LaTex, pero si es complejo el uso y asi lo indicasen los usuarios se modificará para hacerla más manejable.
 
 ## Índice
-<!-- MarkdownTOC depth=5 -->
+<!-- MarkdownTOC depth=5 autolink="true" autoanchor="true" bracket="round" -->
 
 - [Introducción](#introducci%C3%B3n)
 - [Características](#caracter%C3%ADsticas)
@@ -35,6 +35,7 @@ Esta plantilla puede ser divulgada, modificada y compartida libremente. Este pro
 
 <!-- /MarkdownTOC -->
 
+<a name="introducci%C3%B3n"></a>
 ## Introducción
 Para conocer mejor el entorno LaTeX he elegido algunas fuentes de información relevantes:
 
@@ -44,8 +45,10 @@ Para conocer mejor el entorno LaTeX he elegido algunas fuentes de información r
 * <a href="https://es.wikipedia.org/wiki/Ayuda:Uso_de_TeX">Artículo de la Wikipedia con muchos ejemplos (español)</a>
 * <a href="https://upload.wikimedia.org/wikipedia/commons/2/2d/LaTeX.pdf">Manual LaTeX realizado por Wikimedia (inglés)</a>
 
+<a name="caracter%C3%ADsticas"></a>
 ## Características
 
+<a name="directrices-de-estilo"></a>
 ### Directrices de estilo
 La plantilla respeta las directrices de estilo que determina la Escuela Politécnica Superior de La Universidad de Alicante para los TFG y TFM. Se pueden revisar estas directrices en: <a href="https://eps.ua.es/es/ingenieria-sonido-imagen-telecomunicacion/documentos/tfg/libro-de-estilo.pdf">Guía de estilo</a>
 
@@ -70,6 +73,7 @@ Se mostraría esto (haz clic sobre la imagen para verla más grande):
 
 <img src="http://jmrplens.com/GitHub_TFGTemplate/PREGLA.png" width="30%"></img>
 
+<a name="multitud-de-dise%C3%B1os-predefinidos"></a>
 ### Multitud de diseños predefinidos
 La plantilla incluye los colores y logotipos que cada titulación determina para los TFG y TFM. Tán solo con cambiar un número, automaticamente se modifica la información para la titulación seleccionada.
 La lista de titulaciónes prediseñadas a día de hoy (Enero 2018) son:
@@ -118,10 +122,12 @@ A continuación se muestran el resto de portadas que se pueden generar automáti
 <img src="http://jmrplens.com/GitHub_TFGTemplate/P2.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/P3.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/P4.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/P5.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/P6.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/P7.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PA.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PB.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PC.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PD.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PE.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PF.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PG.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PH.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PI.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PJ.png" width="20%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PK.png" width="20%"></img>
 </p>
 
+<a name="fuente-de-texto"></a>
 ### Fuente de texto
 
 La fuente general para el documento es la estándar de LaTeX, pero tal como indica la guía de estilo, la fuente para la portada es 'Helvetica' y 'Helvetica LT STD Cond'.
 
+<a name="lenguajes-de-programaci%C3%B3n"></a>
 ### Lenguajes de programación
 Se ha diseñado una 'caja' donde mostrar código de diferentes lenguajes de programación de forma sencilla y muy clara a la hora de leerlo.
 
@@ -143,6 +149,7 @@ El resultado obtenido dentro del documento para, por ejemplo, lenguaje Python en
 
 <img src="http://jmrplens.com/GitHub_TFGTemplate/ejemplocodigo.png" width="40%"></img>
 
+<a name="contenido-de-ejemplo"></a>
 ### Contenido de ejemplo
 Se ha incluido contenido de ejemplo para mostrar, a aquellos que aun no conocen LaTeX, el potecial que tiene este sistema y enseñar sutílmente como manejarlo.
 
@@ -150,12 +157,14 @@ Para ello se ha utilizado los archivos de capítulos y en cada uno de ellos se h
 
 Estos capítulos son meramente de ejemplo y pueden ser eliminados sin miedo a que deje de funcionar alguna cosa o editados con el contenido del trabajo.
 
+<a name="uso"></a>
 ## Uso
 La plantilla necesita el motor XeLaTeX (el más recomendable actualmente), por lo que si el programa que utilizas compila la plantilla con el motor pdfLaTeX (el más habitual pero menos potente) debes cambiarlo por XeLaTeX en las opciones del programa. Si no sabes como hacerlo busca en el manual del programa o en google.
 
 
 El uso de la plantilla es muy sencillo si se conoce que hace cada uno de los archivos. A continuación se describen cada uno de ellos.
 
+<a name="estructura-de-archivos"></a>
 ### Estructura de archivos
 La plantilla esta estructurada del siguiente modo:
 * `anexos` -> Contiene los archivos de los anexos.
@@ -169,6 +178,7 @@ El archivo principal es el lugar donde se introduce la información del trabajo,
 
 La carpeta include tiene todo el codigo que hace funcionar la plantilla y por ello no debe ser modificada o alterada a no ser que sepas lo que estás haciendo.
 
+<a name="introduce-la-informaci%C3%B3n-del-trabajo"></a>
 ### Introduce la información del trabajo
 En el archivo principal `TFG-TFM_EPS_UA.tex` se encuentra remarcada la zona donde debes editar la información de tu trabajo y aparece del siguiente modo:
 
@@ -201,6 +211,7 @@ El contenido a modificar es el que se encuentra entre `{}`, siempre el ultimo tr
 `\newcommand{\miNombre}{Nombre Apellido1 Apellido2 (alumno)}` solo se debe modificar el contenido dentro de los corchetes del ultimo bloque qué es: `{Nombre Apellido1 Apellido2 (alumno)}`, y quedaría tal que: `\newcommand{\miNombre}{Jose Manuel Requena Plens}`
 
 Así con el resto de la información
+<a name="selecciona-tu-titulaci%C3%B3n"></a>
 ### Selecciona tu titulación
 En el mismo archivo, justo a continuación de la información del trabajo se debe indicar la titulación. En el código se muestra así:
 ```latex
@@ -242,9 +253,11 @@ Para indicar tu titulación tan solo debes editar el caracter contenido entre `{
 
 Y listo, con este indicador ya estara tu trabajo prediseñado segun las directrices de estilo de tu grado o máster.
 
+<a name="contenido"></a>
 ### Contenido
 El contenido del trabajo se debe desarrollar en archivos separados, es una buena práctica. En el archivo principal de la plantilla (`TFG-TFM_EPS_UA.tex`) se encuentran las líneas que incluyen en el documento las portadas preconfiguradas, los diferentes capítulos, bibliografía y anexos.
 
+<a name="precontenido"></a>
 #### Precontenido
  Las primeras páginas del documento deben estar dedicadas a las portadas, preámbulo, índice, listado de figuras, tablas, etc. En el archivo principal se definen estas partes justo despues de seleccionar la titulación:
 
@@ -279,6 +292,7 @@ El contenido del trabajo se debe desarrollar en archivos separados, es una buena
 Como se puede observar, las líneas que comienzan con 'input' son aquellas que cargan archivos separados. En primer lugar se establece numeración de páginas romana, después se incluye la portada principal y la subportada, a continuación el archivo de preliminares (contiene el preámbulo, agradecimientos, dedicatorias,... a modificar por al autor del trabajo). 
 Después de los preliminares se ejecutan los comandos que incluyen en el documento el índice (`\tableofcontents`), la lista de figuras (`\listoffigures`), la lista de tablas (`\listoftables`) y la lista de códigos (`\lstlistoflistings`), si no vas a hacer uso de alguno de ellos puedes eliminar o comentar (con %) la línea que no quieras incluir en el documento. Por ultimo inicia la numeración de páginas normal (1,2,3,...).
 
+<a name="cap%C3%ADtulos"></a>
 #### Capítulos
 Si creas un nuevo archivo de capítulo que deseas añadir al documento debes agregarlo en el archivo principal justo en el apartado indicado de capítulos. Estos se mostrarán en el mismo orden en el que esten escritos, por ejemplo, en la plantilla actualmente están declarados los siguientes capítulos:
 
@@ -308,6 +322,7 @@ El comando `\chapter{}` genera el titulo del capítulo y lo incluye en el índic
 
 Después de estas dos líneas puedes desarrollar tu contenido, añadiendo texto, secciones (`\section{nombreseccion}`), etc.
 
+<a name="postcontenido"></a>
 #### Postcontenido
 Despues del contenido principal del trabajo se debe incluir la bibliografía, y si es necesario un listado de acrónimos utilizados y anexos. En la plantilla están definidos del siguiente modo:
 
@@ -340,6 +355,7 @@ Hay tres partes diferenciadas:
 * Bibliografía: Esta parte debe aparecer siempre en el trabajo y para poder generarla de la forma mas sencilla se pueden utilizar herramientas como <a href="http://www.jabref.org/">JabRef</a> o <a href="https://bibdesk.sourceforge.io/">BibDesk</a>. El archivo generado (.bib) se debe cargar con la línea de código mostrada en el bloque de arriba `\bibliography{bibliografia/bibliografia}`, donde `bibliografia/bibliografia` es la ruta del archivo.
 * Apendices: Aquí se pueden incluir anexos del mismo modo que se hace con los capítulos, pero que al estar debajo de la línea `\appendix` se añaden al documento como anexos. Si tu trabajo no tiene anexos puedes eliminar esta parte.
 
+<a name="archivos-include"></a>
 ### Archivos 'include'
 Los archivos de la carpeta 'include' son los que configuran la plantilla y por ello no deben ser modificados a no ser que sepas lo que haces.
 
@@ -355,6 +371,7 @@ Las carpetas `logos-universidad` y `logos-titulaciones` contienen todos los logo
 
 La carpeta `fuentes` contienen las fuentes utilizadas para el texto de la portada tal como establece la guia de estilo de la EPS.
 
+<a name="lista-de-acr%C3%B3nimos-y-abreviaturas"></a>
 ### Lista de acrónimos y abreviaturas
 La plantilla tiene configurado un sistema para realizar una base de datos de acrónimos o abreviaturas para ser utilizadas en el documento.
 Tanto el archivo donde se almacenan los acrónimos como el comando para mostrarlos o no se encuentra en el bloque de [postcontenido](#postcontenido).
@@ -376,6 +393,7 @@ Tanto la introducción de acrónimos como el uso en el documento es sencillo. En
 % \glsentryfull{id} - Añade tanto la descripción como las siglas
 ```
 
+<a name="bibliograf%C3%ADa"></a>
 ### Bibliografía
 Para la bibliografía es recomendable utilizar herramientas como <a href="http://www.jabref.org/">JabRef</a> para Windows, Mac OS y Linux.
 
@@ -394,6 +412,7 @@ Para realizar una referencia de un texto en tu documento debes escribir lo sigui
 
 Donde 'XXXX' es la ID que se refiere al texto (lo puedes buscas dentro del archivo .bib).
 
+<a name="citar-bibliograf%C3%ADa"></a>
 #### Citar bibliografía
 Hay disponibles varios metodos para citar (todos ajustados al sistema APA en su última versión), gracias a los paquetes incluidos en la plantilla `apacite` y `natbib`.
 
@@ -412,9 +431,11 @@ Los comandos y un ejemplo de lo que generara en el documento son los siguientes 
 
 Cuanto hay una 't' delante del comando, la cita se mostrará como texto y el año entre paréntesis. Si hay una 'p' todo estará entre paréntesis. Si el documento a citar tiene mas de dos autores se mostrará 'Autor1 y cols', pero si se pone un asterisco delante del comando se mostrarán todos los autores.
 
+<a name="control-de-errores"></a>
 ## Control de errores
 Se ha tenido en cuenta varias situaciones que podrían ser problemáticas para el diseño del documento, como:
 
+<a name="longitud-del-t%C3%ADtulo"></a>
 ### Longitud del título
 Hay gran variedad de títulos, desde unos pocos carácteres hasta incluso más de 200. Esto se ha tenido en cuenta y se ha primado el mantener consolidado el diseño frente al tamaño de fuente definido en la guía de estilo. 
 
@@ -436,8 +457,10 @@ El tamaño de fuente del título en la portada por defecto es 55, tal como estab
 } }
 ```
 
+<a name="aspectos-avanzados"></a>
 ## Aspectos avanzados
 
+<a name="formato-del-documento"></a>
 ### Formato del documento
 El formato del documento está definido en el archivo `configuracioninicial.tex`. Tanto el tipo de documento, como el formato y contenido de cabecera y pie de página y los márgenes se definen en las siguientes líneas:
 
@@ -483,6 +506,7 @@ Las funciones de este primer bloque están definidas en el manual de la clase de
 En este segundo bloque se define hasta que profundidad se genera el índice y el valor de los márgenes. Si lo deseas puedes modificar la profundidad del índice pero los márgenes solo se deben modificar si las directrices de estilo de la EPS han cambiado.
 
 
+<a name="idioma-del-documento"></a>
 ### Idioma del documento
 
 Tambien en el archivo `configuracioninicial.tex` el documento está configurado para texto en español, por razones obvias, pero si se va a realizar en otro idioma o en varios idiomas se puede modificar (siguiendo este manual: <a href="http://osl.ugr.es/CTAN/macros/latex/contrib/polyglossia/polyglossia.pdf">Polyglossia</a>) en las líneas siguientes:
@@ -505,6 +529,7 @@ Tambien en el archivo `configuracioninicial.tex` el documento está configurado 
 
 Las líneas que siguen a `\addto...` renombran algunos términos estandar para traducirlos al español. Si tu trabajo está en otro idioma cambialos por el idioma del trabajo.
 
+<a name="a%C3%B1adireditar-formato-de-titulaciones"></a>
 ### Añadir/Editar formato de titulaciones
 
 Si el color o logotipo de tu titulación ha cambiado, o tu titulación no se encuentra actualmente en la plantilla, en primer lugar ponte en contacto conmigo para que actualice la plantilla, y si no puedes esperar a la actualización puedes añadirlo tu del siguiente modo en el archivo `configuraciontitulacion.tex`
@@ -554,6 +579,7 @@ Encima de esta linea deberás agregar el condicional con la ID que llevará la t
 
 Segun el color de fuente de la portada (blanco o negro) deberás incluir en el mismo color el logotipo de la EPS (ya incluido en la plantilla tanto en negro como en blanco) y el logotipo de tu titulación. Para la subportada el logotipo de tu titulación debe ser negro obligatoriamente. Introduce el texto de tu grado y titulación correspondiente. Y por ultimo define tu color de grado al inicio del archivo (en RGB) y añade el nombre del color definido, e indica si la fuente de texto de la portada es negro o blanco.
 
+<a name="fuentes-de-la-portada"></a>
 ### Fuentes de la portada
 
 Las fuentes de la portada están establecidas en las directrices de estilo de la EPS, pero si cambian estas directrices puedes modificar las fuentes en el archivo `portada_color.tex` en las líneas:
