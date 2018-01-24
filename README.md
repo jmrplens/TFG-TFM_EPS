@@ -158,7 +158,7 @@ La plantilla esta estructurada del siguiente modo:
 * `anexos` -> Contiene los archivos de los anexos.
 * `bibliografia` -> Contiene un archivo BibTeX con la bibliografía.
 * `capitulos` -> Contiene los archivos de cada capítulo.
-* `imagenes` -> Contiene las imágenes utilizadas en el contenido de ejemplo.
+* `archivos` -> Contiene los archivos utilizados en el contenido de ejemplo.
 * `include` -> Contiene todo lo necesario para que la plantilla funcione.
 * `TFG-TFM_EPS_UA.tex` -> Archivo principal de la plantilla.
 
