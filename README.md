@@ -296,6 +296,17 @@ Si creas un nuevo archivo de capítulo que deseas añadir al documento debes agr
 
 Y en el documento generado se mostraran en ese orden.
 
+Un capítulo es tan solo un archivo .tex donde sus dos primeras líneas deben contener:
+
+```latex
+\chapter{Título del capítulo}
+\label{etiquetacapitulo}
+```
+
+El comando `\chapter{}` genera el titulo del capítulo y lo incluye en el índice y el comando `\label{}` añade una etiqueta al capitulo por si quieres hacer referencia a él en algún punto del documento escribiendo `\ref{etiqueta}` (incluye el número de lo referenciado) o `\pageref{etiqueta}` (incluye el número de página de lo referenciado).
+
+Después de estas dos líneas puedes desarrollar tu contenido, añadiendo texto, secciones (`\section{nombreseccion}`), etc.
+
 #### Postcontenido
 Despues del contenido principal del trabajo se debe incluir la bibliografía, y si es necesario un listado de acrónimos utilizados y anexos. En la plantilla están definidos del siguiente modo:
 
