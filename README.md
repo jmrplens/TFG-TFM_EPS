@@ -316,7 +316,7 @@ Despues del contenido principal del trabajo se debe incluir la bibliografía, y 
 %%%%
 %\nocite{*} %incluye TODOS los documentos de la base de datos bibliográfica sean o no citados en el texto
 \bibliography{bibliografia/bibliografia}
-\bibliographystyle{apalike}
+\bibliographystyle{apacite}
 
 %%%%
 % CONTENIDO. LISTA DE ACRÓNIMOS. Comenta la lineas si no lo deseas incluir.
@@ -369,9 +369,7 @@ Tanto la introducción de acrónimos como el uso en el documento es sencillo. En
 %	'descripción' es el texto que representan las siglas.
 %
 % Para usarlo en el documento tienes 4 formas:
-% \gls{id} - Añade el acrónimo en su forma larga y con las siglas (tal que: descripcion (siglas)) 
-% 	     si es la primera vez que se utiliza, el resto de veces solo añade las siglas. 
-%            (No utilices este comando en títulos de capítulos o secciones).
+% \gls{id} - Añade el acrónimo en su forma larga y con las siglas (tal que: descripcion (siglas)) si es la primera vez que se utiliza, el resto de veces solo añade las siglas. (No utilices este comando en títulos de capítulos o secciones).
 % \glsentryshort{id} - Añade solo las siglas de la id
 % \glsentrylong{id} - Añade solo la descripción de la id
 % \glsentryfull{id} - Añade tanto la descripción como las siglas
@@ -380,14 +378,14 @@ Tanto la introducción de acrónimos como el uso en el documento es sencillo. En
 ### Bibliografía
 Para la bibliografía es recomendable utilizar herramientas como <a href="https://bibdesk.sourceforge.io/">BibDesk</a> solo para Mac OS, <a href="http://www.jabref.org/">JabRef</a> para Windows, Mac OS y Linux.
 
-Cualquier aplicación para bibliografía para LaTeX que utilices puede generar un archivo en formato `.bib`, que contiene toda la información de cada referencia que agregues.
-Este archivo es el que se carga en el bloque de [postcontenido](#postcontenido) y automaticamente agrega un capítulo de bibliografia a tu documento con la información incluida en tu archivo `.bib`.
+Cualquier aplicación para bibliografía para LaTeX que utilices puede generar un archivo en formato `.bib` (BibTeX), que contiene toda la información de cada referencia que agregues.
+Este archivo es el que se carga en el bloque de [postcontenido](#postcontenido) y automaticamente agrega un capítulo de bibliografia a tu documento con la información incluida en tu archivo `.bib` (BibTeX).
 
 Si mantienes comentada la línea:
 
 `%\nocite{*}`
 
-Solo se mostrará en el capítulo de bibliografía aquellos textos referenciados en tu documento, si eliminas el comentario (el carácter %), se incluiran todas las referencias que hayan en el archivo `.bib`.
+Solo se mostrará en el capítulo de bibliografía aquellos textos referenciados en tu documento, si eliminas el comentario (el carácter %), se incluiran todas las referencias que hayan en el archivo `.bib` (BibTeX).
 
 Para realizar una referencia de un texto en tu documento debes escribir lo siguiente:
 
