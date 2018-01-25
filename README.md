@@ -68,7 +68,9 @@ Se ha dejado una función para mostrar una regla vertical y horizontal, para pod
 ```
 Se mostraría esto (haz clic sobre la imagen para verla más grande):
 
-<img src="http://jmrplens.com/GitHub_TFGTemplate/PREGLA.png" width="30%"></img>
+<img src="http://jmrplens.com/GitHub_TFGTemplate/PREGLA1.png" width="30%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/PREGLA2.png" width="30%"></img>
+
+Estilo de página par e impar o página izquierda y página derecha.
 
 ### Multitud de diseños predefinidos
 La plantilla incluye los colores y logotipos que cada titulación determina para los TFG y TFM. Tán solo con cambiar un número, automaticamente se modifica la información para la titulación seleccionada.
