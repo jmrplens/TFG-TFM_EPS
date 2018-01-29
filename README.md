@@ -25,6 +25,7 @@ Esta plantilla puede ser divulgada, modificada y compartida libremente. Este pro
 	1. [Lista de acrónimos y abreviaturas](#lista-de-acr%C3%B3nimos-y-abreviaturas)
 	1. [Bibliografía](#bibliograf%C3%ADa)
 		1. [Citar bibliografía](#citar-bibliograf%C3%ADa)
+	1. [Comentarios](#comentarios)
 1. [Control de errores](#control-de-errores)
 	1. [Longitud del título](#longitud-del-t%C3%ADtulo)
 1. [Aspectos avanzados](#aspectos-avanzados)
@@ -148,7 +149,7 @@ El formato de la caja se define en el archivo `configuracioninicial.tex` en el a
 
 El resultado obtenido dentro del documento para, por ejemplo, lenguaje Python en color y en blanco y negro es el siguiente:
 
-<img src="http://jmrplens.com/GitHub_TFGTemplate/EC.png" width="40%"></img>
+<img src="http://jmrplens.com/GitHub_TFGTemplate/ECc.png" width="40%"></img>
 
 ### Contenido de ejemplo
 Se ha incluido contenido de ejemplo para mostrar, a aquellos que aun no conocen LaTeX, el potecial que tiene este sistema y enseñar sutílmente como manejarlo.
@@ -418,6 +419,17 @@ Los comandos y un ejemplo de lo que generara en el documento son los siguientes 
 | `\citep*{idbib2}`  | (Akyildiz, Pompili, y Melodia, 2005)  |
 
 Cuanto hay una 't' delante del comando, la cita se mostrará como texto y el año entre paréntesis. Si hay una 'p' todo estará entre paréntesis. Si el documento a citar tiene mas de dos autores se mostrará 'Autor1 y cols', pero si se pone un asterisco delante del comando se mostrarán todos los autores.
+
+### Comentarios
+En todo proceso de realizar un documento hay momentos en los que se necesita dejar algún comentario para que más adelante se añada algun contenido o se corrija algo. Teniendo en cuenta esto se ha añadido un paquete que ayuda a dejar comentarios en el texto, tiene varios comandos para utilizar aunque los principales son:
+```latex
+\todo{tu comentario}
+\todo[inline]{tu comentario}
+\missingfigure{tu comentario}
+```
+Obteniendo estos resultados (estos ejemplos se encuentran en la plantilla):
+
+<img src="http://jmrplens.com/GitHub_TFGTemplate/tareas.png" width="40%"></img>
 
 ## Control de errores
 Se ha tenido en cuenta varias situaciones que podrían ser problemáticas para el diseño del documento, como:
