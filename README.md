@@ -155,7 +155,7 @@ El formato de la caja se define en el archivo `configuracioninicial.tex` en el a
 
 El resultado obtenido dentro del documento para, por ejemplo, lenguaje Python en color y en blanco y negro es el siguiente:
 
-<img src="http://jmrplens.com/GitHub_TFGTemplate/ECo.png" width="40%"></img>
+<img src="http://jmrplens.com/GitHub_TFGTemplate/ECod.png" width="40%"></img>
 
 ### Contenido de ejemplo
 Se ha incluido contenido de ejemplo para mostrar, a aquellos que aun no conocen LaTeX, el potecial que tiene este sistema y enseñar sutílmente como manejarlo.
