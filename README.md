@@ -67,7 +67,7 @@ Las líneas de código que definen los márgenes son:
   includeheadfoot, % Incluye cabecera y pie de página en los márgenes
 ]{geometry}
 ```
-El interlineado indicado en la guía de estilo no se ha aplicado por que no creo que sea cómoda la lectura con el interlineado indicado en la guía. De todos modos he dejado el comando para modificarlo fácilmente:
+El interlineado indicado en la guía de estilo no se ha aplicado porque no creo que sea cómoda la lectura con el interlineado indicado en la guía. De todos modos he dejado el comando para modificarlo fácilmente:
 ```latex
 % Valor de interlineado
 \renewcommand{\baselinestretch}{1.0} % 1 línea de interlineado
@@ -329,14 +329,13 @@ Despues del contenido principal del trabajo se debe incluir la bibliografía, y 
 %%%%
 % CONTENIDO. BIBLIOGRAFÍA.
 %%%%
-%\nocite{*} %incluye TODOS los documentos de la base de datos bibliográfica sean o no citados en el texto
-\bibliography{bibliografia/bibliografia}
+\nocite{*} %incluye TODOS los documentos de la base de datos bibliográfica sean o no citados en el texto
+\bibliography{bibliografia/bibliografia} % Archivo que contiene la bibliografía
 \bibliographystyle{apacite}
 
 %%%%
 % CONTENIDO. LISTA DE ACRÓNIMOS. Comenta la lineas si no lo deseas incluir.
 %%%%
-\input{anexos/acronimos.tex} % Archivo que contiene los acrónimos
 % Incluye el listado de acrónimos utilizados en el trabajo. 
 \printglossary[style=modsuper,type=\acronymtype,title={Lista de Acrónimos y Abreviaturas}]
 % Añade el resto de acrónimos si así se desea. Si no elimina el comando siguiente
@@ -347,10 +346,14 @@ Despues del contenido principal del trabajo se debe incluir la bibliografía, y 
 %%%%
 \appendix % Inicio de los apéndices
 \input{anexos/anexo_I}
+\input{anexos/anexo_2}
+\input{anexos/anexo_3}
+
+\end{document}
 ```
 
 Hay tres partes diferenciadas:
-* Acrónimos: Si se quiere mostrar un listado de acrónimos se debe mantener esas líneas, ademas de editar el archivo `anexos/acronimos.tex` con los acrónimos utilizados en tu trabajo.
+* Acrónimos: Si se quiere mostrar un listado de acrónimos se debe mantener esas líneas, ademas de editar el archivo `anexos/acronimos.tex` con los acrónimos utilizados en tu trabajo. Este archivo se carga justo antes del precontenido.
 * Bibliografía: Esta parte debe aparecer siempre en el trabajo y para poder generarla de la forma mas sencilla se pueden utilizar herramientas como <a href="http://www.jabref.org/">JabRef</a> o <a href="https://bibdesk.sourceforge.io/">BibDesk</a>. El archivo generado (.bib) se debe cargar con la línea de código mostrada en el bloque de arriba `\bibliography{bibliografia/bibliografia}`, donde `bibliografia/bibliografia` es la ruta del archivo.
 * Apendices: Aquí se pueden incluir anexos del mismo modo que se hace con los capítulos, pero que al estar debajo de la línea `\appendix` se añaden al documento como anexos. Si tu trabajo no tiene anexos puedes eliminar esta parte.
 
