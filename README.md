@@ -67,6 +67,12 @@ Las líneas de código que definen los márgenes son:
   includeheadfoot, % Incluye cabecera y pie de página en los márgenes
 ]{geometry}
 ```
+El interlineado indicado en la guía de estilo no se ha aplicado por que no creo que sea cómoda la lectura con el interlineado indicado en la guía. De todos modos he dejado el comando para modificarlo fácilmente:
+```latex
+% Valor de interlineado
+\renewcommand{\baselinestretch}{1.0} % 1 línea de interlineado
+```
+
 Se ha dejado una función para mostrar una regla vertical y horizontal, para poder revisar los márgenes. Se encuentra comentada pero si se desea utilizar para revisar en algún momento los margenes, se puede eliminar el comentario:
 ```latex
 % Muestra una regla para comprobar el formato de las páginas
@@ -495,12 +501,17 @@ Las funciones de este primer bloque están definidas en el manual de la clase de
   outer	=	2.5cm, % Margen exterior
   top	=	2.5cm, % Margen superior
   bottom=	2.5cm, % Margen inferior
-  includeheadfoot, % Incluye cabecera y pide de página en los márgenes
+  includeheadfoot, % Incluye cabecera y pie de página en los márgenes
 ]{geometry}
+% Valor de interlineado
+\renewcommand{\baselinestretch}{1.0} % 1 línea de interlineado
+% Para poder generar paginas horizontales
+\usepackage{lscape}
+% Ancho de la zona para comentarios en el margen. (modificado para todonotes)
+\setlength{\marginparwidth}{1.9cm}
 ```
 
-En este segundo bloque se define hasta que profundidad se genera el índice y el valor de los márgenes. Si lo deseas puedes modificar la profundidad del índice pero los márgenes solo se deben modificar si las directrices de estilo de la EPS han cambiado.
-
+En este segundo bloque se define hasta que profundidad se genera el índice y el valor de los márgenes, tambien el interlineado y otros detalles. Si lo deseas puedes modificar la profundidad del índice pero los márgenes solo se deben modificar si las directrices de estilo de la EPS han cambiado.
 
 ### Idioma del documento
 
