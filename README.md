@@ -474,18 +474,19 @@ El formato del documento está definido en el archivo `configuracioninicial.tex`
 % FORMATO DEL DOCUMENTO
 %%%%%%%%%%%%%%%%%%%%%%%%
 % scrbook es la clase de documento
-% Si se desea que no haya pagina en blanco entre capítulos añadir "openany" en los parámetros de la clase.
+% Si se desea que no haya pagina en blanco entre capítulos añadir "openany"
+% en los parámetros de la clase. Sino siempre los capítulos empezarán en página impar.
 \documentclass[a4paper,11pt,titlepage,headings]{scrbook}
-\KOMAoption{toc}{bib,chapterentryfill}
+\KOMAoption{toc}{bib,chapterentryfill} % Opciones del índice
 % Paquete de formato para scrbook. Con marcas, linea-separador superior e inferior
 \usepackage[automark,headsepline,footsepline]{scrlayer-scrpage}
-\clearpairofpagestyles		% Borra los estilos por defecto
-\ihead{\headmark}			% Información de capitulo en cabecera e interno
-\ohead{\pagemark} 			% Número de pagina en cabecera y externo
-\ofoot[\pagemark]{} 		% Número de pagina en pie de pagina y externo. Solo en páginas sin cabecera
+\clearpairofpagestyles	% Borra los estilos por defecto
+\ihead{\headmark}	% Información de capitulo en cabecera e interno
+\ohead{\pagemark} 	% Número de pagina en cabecera y externo
+\ofoot[\pagemark]{} 	% Número de pagina en pie de pagina y externo. Solo en páginas sin cabecera
 % Formato de texto de las distintas partes de la cabecera
-\renewcommand{\chaptermark}[1]{\markboth{\color{gray30}\small#1}{}} % Capitulo
-\renewcommand{\sectionmark}[1]{\markright{\color{gray30}\small\thesection. #1}} % Sección
+\renewcommand{\chaptermark}[1]{\markboth{\color{gray30}\scshape\small#1}{}} % Capitulo
+\renewcommand{\sectionmark}[1]{\markright{\color{gray30}\scshape\small\thesection. #1}} % Sección
 \setkomafont{pagenumber}{\normalfont} % Número de pagina
 ```
 
