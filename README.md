@@ -45,15 +45,16 @@ Para conocer mejor el entorno LaTeX he elegido algunas fuentes de información r
 * <a href="https://es.wikipedia.org/wiki/Ayuda:Uso_de_TeX">Artículo de la Wikipedia con muchos ejemplos (español)</a>
 * <a href="https://upload.wikimedia.org/wikipedia/commons/2/2d/LaTeX.pdf">Manual LaTeX realizado por Wikimedia (inglés)</a>
 
-Recomiendo utilizar programas LaTeX que permitan trabajar con estructura de archivos para poder editar el conjunto de capítulos en la misma ventana. Este tipo de función lo tienen programas como <a href="https://www.texstudio.org/">TexStudio</a>, es multiplataforma.
+Recomiendo utilizar programas LaTeX que permitan trabajar con estructura de archivos para poder editar el conjunto de capítulos en la misma ventana. Este tipo de función lo tienen programas como <a href="https://www.texstudio.org/">TexStudio</a> o <a href="http://www.xm1math.net/texmaker/">Texmaker</a>, ambos multiplataforma.
 
 * Para Mac OS es necesario instalar en primer lugar <a href="http://www.tug.org/mactex/">MacTex</a>.
-* En Windows o Linux, el programa descargará automaticamente los paquetes necesarios en la primera ejecución de la plantilla, se paciente, el resto de ejecuciones irán más rápido.
+* En Windows o Linux recomiendo instalar en primer lugar <a href="https://miktex.org/">MiKTeX</a>.
 
-Detalle de trabajar con la estructura de archivos en <a href="https://www.texstudio.org/">TexStudio</a>:
+Detalle de trabajar con la estructura de archivos en <a href="https://www.texstudio.org/">TexStudio</a> (en <a href="http://www.xm1math.net/texmaker/">Texmaker</a> es igual) :
 
 <img src="http://jmrplens.com/GitHub_TFGTemplate/texstudio.png" width="30%"></img>
 
+Existen herramientas de pago que facilitan más aun el trabajo con proyectos latex formados por varios archivos y generan más rapido los documentos como <a href="https://www.texpad.com/">Texpad</a> para Mac OS (utilizado para crear esta plantilla) o <a href="http://www.winedt.com/">WinEdt</a> para Windows.
 
 ## Características
 
