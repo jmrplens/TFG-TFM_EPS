@@ -480,20 +480,28 @@ El formato del documento está definido en el archivo `configuracioninicial.tex`
 % FORMATO DEL DOCUMENTO
 %%%%%%%%%%%%%%%%%%%%%%%%
 % scrbook es la clase de documento
-% Si se desea que no haya pagina en blanco entre capítulos añadir "openany"
-% en los parámetros de la clase. Sino siempre los capítulos empezarán en página impar.
-\documentclass[a4paper,11pt,titlepage,headings]{scrbook}
+% Si se desea que no haya pagina en blanco entre capítulos añadir "openany" en los parámetros de la clase. Sino siempre los capítulos empezarán en página impar.
+\documentclass[a4paper,11pt,titlepage]{scrbook}
 \KOMAoption{toc}{bib,chapterentryfill} % Opciones del índice
+\usepackage{scrhack} % Previene algunos errores
 % Paquete de formato para scrbook. Con marcas, linea-separador superior e inferior
 \usepackage[automark,headsepline,footsepline]{scrlayer-scrpage}
-\clearpairofpagestyles	% Borra los estilos por defecto
-\ihead{\headmark}	% Información de capitulo en cabecera e interno
-\ohead{\pagemark} 	% Número de pagina en cabecera y externo
-\ofoot[\pagemark]{} 	% Número de pagina en pie de pagina y externo. Solo en páginas sin cabecera
-% Formato de texto de las distintas partes de la cabecera
-\renewcommand{\chaptermark}[1]{\markboth{\color{gray30}\scshape\small#1}{}} % Capitulo
-\renewcommand{\sectionmark}[1]{\markright{\color{gray30}\scshape\small\thesection. #1}} % Sección
-\setkomafont{pagenumber}{\normalfont} % Número de pagina
+\clearpairofpagestyles		% Borra los estilos por defecto
+%%
+% Formato y contenido de la información de cabecera y pie de página
+%%
+% Información de capitulo en cabecera e interno
+\ihead{{\color{gray30}\scshape\small\headmark}}	
+% Número de página en cabecera y externo
+\ohead{\normalfont\pagemark} 
+% Número de página en pie de página y externo. Solo en páginas sin cabecera
+\ofoot[\normalfont\pagemark]{}
+%% 		
+% Edición del contenido de las distintas partes de la cabecera
+%%
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}} % Capítulo (Solo texto)
+\renewcommand{\sectionmark}[1]{\markright{\thesection. #1}} % Sección (Número y texto)
+\setkomafont{pagenumber}{} % Número de página (Sin nada añadido)
 ```
 
 Las funciones de este primer bloque están definidas en el manual de la clase de documento, que es parte de un paquete llamado KOMA-Script y su manual se puede leer aquí: <a href="http://osl.ugr.es/CTAN/macros/latex/contrib/koma-script/doc/scrguien.pdf">Manual KOMA-Script</a>. Si modificas algo del formato definido en este bloque, confirma con tu tutor de TFG/TFM si el nuevo formato es correcto para el documento. 
