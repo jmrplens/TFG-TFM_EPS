@@ -1,4 +1,4 @@
-# Plantilla TFG/TFM (Publicación prevista Enero-Febrero 2018)
+# Plantilla TFG/TFM
 Esta plantilla se ha creado después de observar la idea concebida por Pedro Pernías y otros colaboradores en su plantilla: <a href="https://github.com/lcg51/tfg">tfg</a>. Se ha mantenido algún contenido de los capítulos de esa plantilla, y la clase de documento _scrbook_ pero el resto de la plantilla está realizada de cero. El diseño se ha ajustado a lo indicado en la <a href="https://eps.ua.es/es/ingenieria-sonido-imagen-telecomunicacion/documentos/tfg/libro-de-estilo.pdf">Guía de estilo</a> de la EPS. Siempre se debe comprobar que no hayan cambiado los criterios, ya que esta plantilla se actualiza periódicamente y no cada vez que se establezca una modificación por parte de la EPS. Si algún parámetro cambia es sencillo actualizar ese cambio en la plantilla, se ha realizado de tal modo que todos los parámetros sean fácilmente editables.
 
 Esta plantilla puede ser divulgada, modificada y compartida libremente. Este proyecto se ha realizado para los alumnos de la Escuela Politécnica Superior de la Universidad de Alicante, esperando facilitar un poco la introducción al trabajo con LaTeX. Se ruega enviar sugerencias de todo tipo, el contenido de la plantilla intenta mostrar un poco de todo lo que se puede hacer con LaTeX, pero si es complejo el uso y así lo indicasen los usuarios se modificará para hacerla más manejable.
@@ -33,6 +33,7 @@ Esta plantilla puede ser divulgada, modificada y compartida libremente. Este pro
 	1. [Idioma del documento](#idioma-del-documento)
 	1. [Añadir/Editar formato de titulaciones](#a%C3%B1adireditar-formato-de-titulaciones)
 	1. [Fuentes de la portada](#fuentes-de-la-portada)
+1. [Contacto](#contacto)
 
 <!-- /MarkdownTOC -->
 
@@ -626,3 +627,9 @@ El tamaño de la fuente se puede modificar en las siguientes líneas del mismo a
 \def\TamOtros{12pt} 	  % Tamaño para datos personales y fecha
 \def\TamOtrosIn{1pt} 	  % Tamaño para los saltos de línea en la info personal
 ```
+
+## Contacto
+Si no deseas publicar en GitHub una sugerencia o algún error encontrado puedes ponerte en contacto conmigo a través de:
+
+* Email: <a href="mailto:info@jmrplens.com">info@jmrplens.com</a>
+* Telegram: <a href="https://t.me/jmrplens">@jmrplens</a>
