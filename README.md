@@ -1,7 +1,7 @@
 # Plantilla TFG/TFM (Publicación prevista Enero-Febrero 2018)
-Esta plantilla se ha creado después de observar la idea concebida por Pedro Pernías y otros colaboradores en su plantilla: <a href="https://github.com/lcg51/tfg">tfg</a>. Se ha mantenido algún contenido de los capítulos de esa plantilla, y la clase de documento _scrbook_ pero el resto de la plantilla esta realizada de cero. El diseño se ha ajustado a lo indicado en la <a href="https://eps.ua.es/es/ingenieria-sonido-imagen-telecomunicacion/documentos/tfg/libro-de-estilo.pdf">Guía de estilo</a> de la EPS. Siempre se debe comprobar que no hayan cambiado los criterios, ya que esta plantilla se actualiza periodicamente y no cada vez que se establezca una modificación por parte de la EPS. Si algún parámetro cambia es sencillo actualizar ese cambio en la plantilla, se ha realizado de tal modo que todos los parámetros sean facilmente editables.
+Esta plantilla se ha creado después de observar la idea concebida por Pedro Pernías y otros colaboradores en su plantilla: <a href="https://github.com/lcg51/tfg">tfg</a>. Se ha mantenido algún contenido de los capítulos de esa plantilla, y la clase de documento _scrbook_ pero el resto de la plantilla está realizada de cero. El diseño se ha ajustado a lo indicado en la <a href="https://eps.ua.es/es/ingenieria-sonido-imagen-telecomunicacion/documentos/tfg/libro-de-estilo.pdf">Guía de estilo</a> de la EPS. Siempre se debe comprobar que no hayan cambiado los criterios, ya que esta plantilla se actualiza periódicamente y no cada vez que se establezca una modificación por parte de la EPS. Si algún parámetro cambia es sencillo actualizar ese cambio en la plantilla, se ha realizado de tal modo que todos los parámetros sean fácilmente editables.
 
-Esta plantilla puede ser divulgada, modificada y compartida libremente. Este proyecto se ha realizado para los alumnos de la Escuela Politécnica Superior de la Universidad de Alicante, esperando facilitar un poco la introducción al trabajo con LaTex. Se ruega enviar sugerencias de todo tipo, el contenido de la plantilla intenta mostrar un poco de todo lo que se puede hacer con LaTex, pero si es complejo el uso y asi lo indicasen los usuarios se modificará para hacerla más manejable.
+Esta plantilla puede ser divulgada, modificada y compartida libremente. Este proyecto se ha realizado para los alumnos de la Escuela Politécnica Superior de la Universidad de Alicante, esperando facilitar un poco la introducción al trabajo con LaTex. Se ruega enviar sugerencias de todo tipo, el contenido de la plantilla intenta mostrar un poco de todo lo que se puede hacer con LaTex, pero si es complejo el uso y así lo indicasen los usuarios se modificará para hacerla más manejable.
 
 ## Índice
 <!-- MarkdownTOC depth=5 bracket="round" style="ordered" -->
@@ -54,7 +54,7 @@ Detalle de trabajar con la estructura de archivos en <a href="https://www.texstu
 
 <img src="http://jmrplens.com/GitHub_TFGTemplate/texstudio.png" width="30%"></img>
 
-Existen herramientas de pago que facilitan más aun el trabajo con proyectos latex formados por varios archivos y generan más rapido los documentos como <a href="https://www.texpad.com/">Texpad</a> para Mac OS (utilizado para crear esta plantilla) o <a href="http://www.winedt.com/">WinEdt</a> para Windows.
+Existen herramientas de pago que facilitan más aún el trabajo con proyectos latex formados por varios archivos y generan más rapido los documentos como <a href="https://www.texpad.com/">Texpad</a> para Mac OS (utilizado para crear esta plantilla) o <a href="http://www.winedt.com/">WinEdt</a> para Windows.
 
 ## Características
 
@@ -79,7 +79,7 @@ El interlineado indicado en la guía de estilo no se ha aplicado porque no creo 
 \renewcommand{\baselinestretch}{1.0} % 1 línea de interlineado
 ```
 
-Se ha dejado una función para mostrar una regla vertical y horizontal, para poder revisar los márgenes. Se encuentra comentada pero si se desea utilizar para revisar en algún momento los margenes, se puede eliminar el comentario:
+Se ha dejado una función para mostrar una regla vertical y horizontal, para poder revisar los márgenes. Se encuentra comentada pero si se desea utilizar para revisar en algún momento los márgenes, se puede eliminar el comentario:
 ```latex
 % Muestra una regla para comprobar el formato de las páginas
 %\usepackage[type=upperleft,showframe,marklength=8mm]{fgruler}
@@ -91,7 +91,7 @@ Se mostraría esto (haz clic sobre la imagen para verla más grande):
 Estilo de página par e impar o página izquierda y página derecha.
 
 ### Multitud de diseños predefinidos
-La plantilla incluye los colores y logotipos que cada titulación determina para los TFG y TFM. Tán solo con cambiar un número, automaticamente se modifica la información para la titulación seleccionada.
+La plantilla incluye los colores y logotipos que cada titulación determina para los TFG y TFM. Tan solo con cambiar un número, automáticamente se modifica la información para la titulación seleccionada.
 La lista de titulaciónes prediseñadas a día de hoy (Enero 2018) son:
 
 | ID  | Titulación |
@@ -105,7 +105,7 @@ La lista de titulaciónes prediseñadas a día de hoy (Enero 2018) son:
 | `7`  | Grado en Arquitectura  |
 | `8` | Grado en Ingeniería Robótica (falta definir color y logo)  |
 | `A`  | Máster Universitario en Telecomunicación  |
-| `B` | Máster Universitario en Ingeniería de Camino, Canales y Puentes  |
+| `B` | Máster Universitario en Ingeniería de Caminos, Canales y Puentes  |
 | `C`  | Máster Universitario en Gestión de la Edificación  |
 | `D` | Máster Universitario en Desarrollo de Aplicaciones y Servicios Web  |
 | `E`  | Máster Universitario en Ingeniería de los Materiales, Agua y Terreno  |
@@ -126,7 +126,7 @@ Donde `X` es la ID de la titulación correspondiente.
 
 Los cambios en la plantilla al cambiar la `ID` suceden en la portada y en la subportada, estableciendo los logotipos correspondientes, color del texto, nombre de la titulación, tipo de trabajo (máster o grado).
 
-Por ejemplo, para la titulación con el `ID=1` se genera automaticamente esta portada y subportada
+Por ejemplo, para la titulación con el `ID=1` se genera automáticamente esta portada y subportada
 
 <p align="center">
 <img src="http://jmrplens.com/GitHub_TFGTemplate/P1.png" width="30%"></img><img src="http://jmrplens.com/GitHub_TFGTemplate/PN1.png" width="30%"></img>
@@ -157,24 +157,24 @@ Para utilizarlo en el documento, por ejemplo para lenguaje C++:
 \end{lstlisting}
 ```
 Se puede mostrar el código en color o en blanco y negro, todos los estilos se encuentran definidos en el archivo `estiloscodigoprogramacion.tex`, donde se pueden añadir más lenguajes o modificar el estilo de los ya existentes.
-El formato de la caja se define en el archivo `configuracioninicial.tex` en el apartado de código, si se desea se puede cambiar el formato del titulo de la caja o de la caja misma, o eliminar ambas.
+El formato de la caja se define en el archivo `configuracioninicial.tex` en el apartado de código, si se desea se puede cambiar el formato del título de la caja o de la caja misma, o eliminar ambas.
 
 El resultado obtenido dentro del documento para, por ejemplo, lenguaje Python en color y en blanco y negro es el siguiente:
 
 <img src="http://jmrplens.com/GitHub_TFGTemplate/ECod.png" width="40%"></img>
 
 ### Contenido de ejemplo
-Se ha incluido contenido de ejemplo para mostrar, a aquellos que aun no conocen LaTeX, el potecial que tiene este sistema y enseñar sutílmente como manejarlo.
+Se ha incluido contenido de ejemplo para mostrar, a aquellos que aún no conocen LaTeX, el potencial que tiene este sistema y enseñar sutílmente cómo manejarlo.
 
-Para ello se ha utilizado los archivos de capítulos y en cada uno de ellos se ha introducido distintos temas de ejemplo (figuras, códigos, tablas, etc)
+Para ello se han utilizado los archivos de capítulos y en cada uno de ellos se han introducido distintos temas de ejemplo (figuras, códigos, tablas, etc)
 
 Estos capítulos son meramente de ejemplo y pueden ser eliminados sin miedo a que deje de funcionar alguna cosa o editados con el contenido del trabajo.
 
 ## Uso
-La plantilla necesita el motor XeLaTeX (el más recomendable actualmente), por lo que si el programa que utilizas compila la plantilla con el motor pdfLaTeX (el más habitual pero menos potente) debes cambiarlo por XeLaTeX en las opciones del programa. Si no sabes como hacerlo busca en el manual del programa o en google.
+La plantilla necesita el motor XeLaTeX (el más recomendable actualmente), por lo que si el programa que utilizas compila la plantilla con el motor pdfLaTeX (el más habitual pero menos potente) debes cambiarlo por XeLaTeX en las opciones del programa. Si no sabes cómo hacerlo busca en el manual del programa o en google.
 
 
-El uso de la plantilla es muy sencillo si se conoce que hace cada uno de los archivos. A continuación se describen cada uno de ellos.
+El uso de la plantilla es muy sencillo si se conoce qué hace cada uno de los archivos. A continuación se describen cada uno de ellos.
 
 ### Estructura de archivos
 La plantilla esta estructurada del siguiente modo:
@@ -185,9 +185,9 @@ La plantilla esta estructurada del siguiente modo:
 * `include` -> Contiene todo lo necesario para que la plantilla funcione.
 * `TFG-TFM_EPS_UA.tex` -> Archivo principal de la plantilla.
 
-El archivo principal es el lugar donde se introduce la información del trabajo, se indica que titulación para la que se realiza el trabajo y se incluyen los diferentes capitulos. En este archivo no se desarrolla el contenido, este se desarrolla en archivos separados tales como los capítulos o anexos.
+El archivo principal es el lugar donde se introduce la información del trabajo, se indica la titulación para la que se realiza el trabajo y se incluyen los diferentes capítulos. En este archivo no se desarrolla el contenido, este se desarrolla en archivos separados tales como los capítulos o anexos.
 
-La carpeta include tiene todo el codigo que hace funcionar la plantilla y por ello no debe ser modificada o alterada a no ser que sepas lo que estás haciendo.
+La carpeta 'include' tiene todo el código que hace funcionar la plantilla y por ello no debe ser modificada o alterada a no ser que sepas lo que estás haciendo.
 
 ### Introduce la información del trabajo
 En el archivo principal `TFG-TFM_EPS_UA.tex` se encuentra remarcada la zona donde debes editar la información de tu trabajo y aparece del siguiente modo:
@@ -217,8 +217,8 @@ En el archivo principal `TFG-TFM_EPS_UA.tex` se encuentra remarcada la zona dond
 
 * Si en tu caso no tienes dos tutores, puedes eliminar o comentar (con % delante) tanto la línea de código del nombre del tutor 2 como del departamento del cotutor.
 
-El contenido a modificar es el que se encuentra entre `{}`, siempre el ultimo tramo de cada línea, por ejemplo, en la línea:
-`\newcommand{\miNombre}{Nombre Apellido1 Apellido2 (alumno)}` solo se debe modificar el contenido dentro de los corchetes del ultimo bloque qué es: `{Nombre Apellido1 Apellido2 (alumno)}`, y quedaría tal que: `\newcommand{\miNombre}{Jose Manuel Requena Plens}`
+El contenido a modificar es el que se encuentra entre `{}`, siempre el último tramo de cada línea, por ejemplo, en la línea:
+`\newcommand{\miNombre}{Nombre Apellido1 Apellido2 (alumno)}` sólo se debe modificar el contenido dentro de los corchetes del último bloque qué es: `{Nombre Apellido1 Apellido2 (alumno)}`, y quedaría tal que: `\newcommand{\miNombre}{Jose Manuel Requena Plens}`
 
 Así con el resto de la información
 ### Selecciona tu titulación
@@ -257,16 +257,16 @@ En el mismo archivo, justo a continuación de la información del trabajo se deb
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ``` 
 
-Para indicar tu titulación tan solo debes editar el caracter contenido entre `{}` del último bloque. Por ejemplo, si tu trabajo es de Ingeniería en Imagen y Sonido en Telecomunicación, deberias editar la línea de codigo para indicar la ID de tu titulación, que en este caso es 1, del siguiente modo:
+Para indicar tu titulación tan solo debes editar el carácter contenido entre `{}` del último bloque. Por ejemplo, si tu trabajo es de Ingeniería en Imagen y Sonido en Telecomunicación, deberías editar la línea de código para indicar la ID de tu titulación, que en este caso es 1, del siguiente modo:
 `\def\IDtitulo{1} % INTRODUCE LA ID DE TU TITULACIÓN`
 
-Y listo, con este indicador ya estara tu trabajo prediseñado segun las directrices de estilo de tu grado o máster.
+Y listo, con este indicador ya estará tu trabajo prediseñado según las directrices de estilo de tu grado o máster.
 
 ### Contenido
 El contenido del trabajo se debe desarrollar en archivos separados, es una buena práctica. En el archivo principal de la plantilla (`TFG-TFM_EPS_UA.tex`) se encuentran las líneas que incluyen en el documento las portadas preconfiguradas, los diferentes capítulos, bibliografía y anexos.
 
 #### Precontenido
- Las primeras páginas del documento deben estar dedicadas a las portadas, preámbulo, índice, listado de figuras, tablas, etc. En el archivo principal se definen estas partes justo despues de seleccionar la titulación:
+ Las primeras páginas del documento deben estar dedicadas a las portadas, preámbulo, índice, listado de figuras, tablas, etc. En el archivo principal se definen estas partes justo después de seleccionar la titulación:
 
 ```latex
 %%%%%%%%%%%%%%%%%%%%%%%% 
@@ -275,7 +275,7 @@ El contenido del trabajo se debe desarrollar en archivos separados, es una buena
 %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 
-% Numeros romanos hasta el mainmatter.
+% Números romanos hasta el mainmatter.
 \frontmatter
 
 % PORTADA
@@ -297,25 +297,25 @@ El contenido del trabajo se debe desarrollar en archivos separados, es una buena
  ```
 
 Como se puede observar, las líneas que comienzan con 'input' son aquellas que cargan archivos separados. En primer lugar se establece numeración de páginas romana, después se incluye la portada principal y la subportada, a continuación el archivo de preliminares (contiene el preámbulo, agradecimientos, dedicatorias,... a modificar por al autor del trabajo). 
-Después de los preliminares se ejecutan los comandos que incluyen en el documento el índice (`\tableofcontents`), la lista de figuras (`\listoffigures`), la lista de tablas (`\listoftables`) y la lista de códigos (`\lstlistoflistings`), si no vas a hacer uso de alguno de ellos puedes eliminar o comentar (con %) la línea que no quieras incluir en el documento. Por ultimo inicia la numeración de páginas normal (1,2,3,...).
+Después de los preliminares se ejecutan los comandos que incluyen en el documento el índice (`\tableofcontents`), la lista de figuras (`\listoffigures`), la lista de tablas (`\listoftables`) y la lista de códigos (`\lstlistoflistings`), si no vas a hacer uso de alguno de ellos puedes eliminar o comentar (con %) la línea que no quieras incluir en el documento. Por último inicia la numeración de páginas normal (1,2,3,...).
 
 #### Capítulos
-Si creas un nuevo archivo de capítulo que deseas añadir al documento debes agregarlo en el archivo principal justo en el apartado indicado de capítulos. Estos se mostrarán en el mismo orden en el que esten escritos, por ejemplo, en la plantilla actualmente están declarados los siguientes capítulos:
+Si creas un nuevo archivo de capítulo que deseas añadir al documento debes agregarlo en el archivo principal justo en el apartado indicado de capítulos. Estos se mostrarán en el mismo orden en el que estén escritos, por ejemplo, en la plantilla actualmente están declarados los siguientes capítulos:
 
 ```latex
 %%%%
-% CONTENIDO. CAPITULOS DEL TRABAJO - Añade o elimina según tus necesidades
+% CONTENIDO. CAPÍTULOS DEL TRABAJO - Añade o elimina según tus necesidades
 %%%%
 \input{capitulos/Introduccion}
 \input{capitulos/marcoteorico}	% Plantilla: Se muestran listas
-\input{capitulos/objetivos}		% Plantilla: Se muestran tablas
+\input{capitulos/objetivos}	% Plantilla: Se muestran tablas
 \input{capitulos/metodologia}	% Plantilla: Se muestran figuras
-\input{capitulos/desarrollo}		% Plantilla: Se muestran listados
-\input{capitulos/resultados}		% Plantilla: Se muestran gráficas
+\input{capitulos/desarrollo}	% Plantilla: Se muestran listados
+\input{capitulos/resultados}	% Plantilla: Se muestran gráficas
 \input{capitulos/conclusiones}	% Plantilla: Se muestran matemáticas
 ```
 
-Y en el documento generado se mostraran en ese orden.
+Y en el documento generado se mostrarán en ese orden.
 
 Un capítulo es tan solo un archivo .tex donde sus dos primeras líneas deben contener:
 
@@ -324,12 +324,12 @@ Un capítulo es tan solo un archivo .tex donde sus dos primeras líneas deben co
 \label{etiquetacapitulo}
 ```
 
-El comando `\chapter{}` genera el titulo del capítulo y lo incluye en el índice y el comando `\label{}` añade una etiqueta al capitulo por si quieres hacer referencia a él en algún punto del documento escribiendo `\ref{etiqueta}` (incluye el número de lo referenciado) o `\pageref{etiqueta}` (incluye el número de página de lo referenciado).
+El comando `\chapter{}` genera el título del capítulo y lo incluye en el índice y el comando `\label{}` añade una etiqueta al capítulo por si quieres hacer referencia a él en algún punto del documento escribiendo `\ref{etiqueta}` (incluye el número de lo referenciado) o `\pageref{etiqueta}` (incluye el número de página de lo referenciado).
 
 Después de estas dos líneas puedes desarrollar tu contenido, añadiendo texto, secciones (`\section{nombreseccion}`), etc.
 
 #### Postcontenido
-Despues del contenido principal del trabajo se debe incluir la bibliografía, y si es necesario un listado de acrónimos utilizados y anexos. En la plantilla están definidos del siguiente modo:
+Después del contenido principal del trabajo se debe incluir la bibliografía, y si es necesario un listado de acrónimos utilizados y anexos. En la plantilla están definidos del siguiente modo:
 
 ```latex
 %%%%
@@ -340,7 +340,7 @@ Despues del contenido principal del trabajo se debe incluir la bibliografía, y 
 \bibliographystyle{apacite}
 
 %%%%
-% CONTENIDO. LISTA DE ACRÓNIMOS. Comenta la lineas si no lo deseas incluir.
+% CONTENIDO. LISTA DE ACRÓNIMOS. Comenta las líneas si no lo deseas incluir.
 %%%%
 % Incluye el listado de acrónimos utilizados en el trabajo. 
 \printglossary[style=modsuper,type=\acronymtype,title={Lista de Acrónimos y Abreviaturas}]
@@ -359,30 +359,30 @@ Despues del contenido principal del trabajo se debe incluir la bibliografía, y 
 ```
 
 Hay tres partes diferenciadas:
-* Acrónimos: Si se quiere mostrar un listado de acrónimos se debe mantener esas líneas, ademas de editar el archivo `anexos/acronimos.tex` con los acrónimos utilizados en tu trabajo. Este archivo se carga justo antes del precontenido.
-* Bibliografía: Esta parte debe aparecer siempre en el trabajo y para poder generarla de la forma mas sencilla se pueden utilizar herramientas como <a href="http://www.jabref.org/">JabRef</a> o <a href="https://bibdesk.sourceforge.io/">BibDesk</a>. El archivo generado (.bib) se debe cargar con la línea de código mostrada en el bloque de arriba `\bibliography{bibliografia/bibliografia}`, donde `bibliografia/bibliografia` es la ruta del archivo.
-* Apendices: Aquí se pueden incluir anexos del mismo modo que se hace con los capítulos, pero que al estar debajo de la línea `\appendix` se añaden al documento como anexos. Si tu trabajo no tiene anexos puedes eliminar esta parte.
+* Acrónimos: Si se quiere mostrar un listado de acrónimos se debe mantener esas líneas, además de editar el archivo `anexos/acronimos.tex` con los acrónimos utilizados en tu trabajo. Este archivo se carga justo antes del precontenido.
+* Bibliografía: Esta parte debe aparecer siempre en el trabajo y para poder generarla de la forma más sencilla se pueden utilizar herramientas como <a href="http://www.jabref.org/">JabRef</a> o <a href="https://bibdesk.sourceforge.io/">BibDesk</a>. El archivo generado (.bib) se debe cargar con la línea de código mostrada en el bloque de arriba `\bibliography{bibliografia/bibliografia}`, donde `bibliografia/bibliografia` es la ruta del archivo.
+* Apéndices: Aquí se pueden incluir anexos del mismo modo que se hace con los capítulos, pero que al estar debajo de la línea `\appendix` se añaden al documento como anexos. Si tu trabajo no tiene anexos puedes eliminar esta parte.
 
 ### Archivos 'include'
 Los archivos de la carpeta 'include' son los que configuran la plantilla y por ello no deben ser modificados a no ser que sepas lo que haces.
 
-El archivo `configuracioninicial.tex` define el formato del documento, e incluye todos los paquetes y comandos que pueden ser utilizados en la plantilla. Se han añadido muchisimos paquetes para diferentes cuestiones que serán utiles para realizar el documento. En este archivo se encuentran comentados los paquetes y lo que hacen cada uno de ellos, y si se desea incluir algun paquete a la plantilla es en este archivo donde se recomienda incluirlo.
+El archivo `configuracioninicial.tex` define el formato del documento, e incluye todos los paquetes y comandos que pueden ser utilizados en la plantilla. Se han añadido muchísimos paquetes para diferentes cuestiones que serán útiles para realizar el documento. En este archivo se encuentran comentados los paquetes y lo que hacen cada uno de ellos, y si se desea incluir algún paquete a la plantilla es en este archivo donde se recomienda incluirlo.
 
 El archivo `configuraciontitulacion.tex` es el archivo que diseña automaticamente las portadas segun la titulación seleccionada. En él se encuentran definidos los colores de cada titulación, los logotipos comunes y despues la información para cada titulación.
 
-En el archivo `estiloscodigoprogramacion.tex` se definen los estilos para mostrar código de distintos lenguajes de programación. Si al mostrar código en tu trabajo, el codigo no se colorea correctamente o prefieres mostrarlo en otros colores, aquí es donde debes modificar esos detalles. El formato del cuadro donde se muestra el codigo dentro del documento esta definido en el archivo `configuracioninicial.tex`.
+En el archivo `estiloscodigoprogramacion.tex` se definen los estilos para mostrar código de distintos lenguajes de programación. Si al mostrar código en tu trabajo, el código no se colorea correctamente o prefieres mostrarlo en otros colores, aquí es donde debes modificar esos detalles. El formato del cuadro donde se muestra el código dentro del documento está definido en el archivo `configuracioninicial.tex`.
 
 La carpeta `portada` contiene los archivos que configuran tanto la portada como la subportada, no es necesario editar nada en ellos a no ser que cambien las directrices de estilo de la EPS.
 
 Las carpetas `logos-universidad` y `logos-titulaciones` contienen todos los logotipos necesarios para cada una de la titulaciones prediseñadas.
 
-La carpeta `fuentes` contienen las fuentes utilizadas para el texto de la portada tal como establece la guia de estilo de la EPS.
+La carpeta `fuentes` contiene las fuentes utilizadas para el texto de la portada tal como establece la guía de estilo de la EPS.
 
 ### Lista de acrónimos y abreviaturas
 La plantilla tiene configurado un sistema para realizar una base de datos de acrónimos o abreviaturas para ser utilizadas en el documento.
-Tanto el archivo donde se almacenan los acrónimos como el comando para mostrarlos o no se encuentra en el bloque de [postcontenido](#postcontenido).
+El archivo donde se almacenan los acrónimos y el comando para mostrarlos o no, se encuentran en el bloque de [postcontenido](#postcontenido).
 
-Tanto la introducción de acrónimos como el uso en el documento es sencillo. En el archivo de `acronimos.tex` se encuentran definidos algunos de ellos y la información par definirlos y usarlos:
+Tanto la introducción de acrónimos como el uso en el documento es sencillo. En el archivo de `acronimos.tex` se encuentran definidos algunos de ellos y la información para definirlos y usarlos:
 
 ```latex
 % La forma de definir un acrónimo es la siguiente:
@@ -403,13 +403,13 @@ Tanto la introducción de acrónimos como el uso en el documento es sencillo. En
 Para la bibliografía es recomendable utilizar herramientas como <a href="http://www.jabref.org/">JabRef</a> para Windows, Mac OS y Linux.
 
 Cualquier aplicación para bibliografía para LaTeX que utilices puede generar un archivo en formato `.bib` (BibTeX), que contiene toda la información de cada referencia que agregues.
-Este archivo es el que se carga en el bloque de [postcontenido](#postcontenido) y automaticamente agrega un capítulo de bibliografia a tu documento con la información incluida en tu archivo `.bib` (BibTeX).
+Este archivo es el que se carga en el bloque de [postcontenido](#postcontenido) y automáticamente agrega un capítulo de bibliografía a tu documento con la información incluida en tu archivo `.bib` (BibTeX).
 
 Si mantienes comentada la línea:
 
 `%\nocite{*}`
 
-Solo se mostrará en el capítulo de bibliografía aquellos textos referenciados en tu documento, si eliminas el comentario (el carácter %), se incluiran todas las referencias que hayan en el archivo `.bib` (BibTeX).
+Sólo se mostrará en el capítulo de bibliografía aquellos textos referenciados en tu documento, si eliminas el comentario (el carácter %), se incluirán todas las referencias que hayan en el archivo `.bib` (BibTeX).
 
 Para realizar una referencia de un texto en tu documento debes escribir lo siguiente:
 
@@ -418,7 +418,7 @@ Para realizar una referencia de un texto en tu documento debes escribir lo sigui
 Donde 'XXXX' es la ID que se refiere al texto (lo puedes buscas dentro del archivo .bib).
 
 #### Citar bibliografía
-Hay disponibles varios metodos para citar (todos ajustados al sistema APA en su última versión), gracias a los paquetes incluidos en la plantilla `apacite` y `natbib`.
+Hay disponibles varios métodos para citar (todos ajustados al sistema APA en su última versión), gracias a los paquetes incluidos en la plantilla `apacite` y `natbib`.
 
 Los comandos y un ejemplo de lo que generara en el documento son los siguientes (donde `idbib` es la id del texto a citar que está dentro de tu archivo .bib):
 
@@ -433,7 +433,7 @@ Los comandos y un ejemplo de lo que generara en el documento son los siguientes 
 | `\citet*{idbib2}`  | Akyildiz, Pompili, y Melodia (2005)  |
 | `\citep*{idbib2}`  | (Akyildiz, Pompili, y Melodia, 2005)  |
 
-Cuanto hay una 't' delante del comando, la cita se mostrará como texto y el año entre paréntesis. Si hay una 'p' todo estará entre paréntesis. Si el documento a citar tiene mas de dos autores se mostrará 'Autor1 y cols', pero si se pone un asterisco delante del comando se mostrarán todos los autores.
+Cuando hay una 't' delante del comando, la cita se mostrará como texto y el año entre paréntesis. Si hay una 'p' todo estará entre paréntesis. Si el documento a citar tiene mas de dos autores se mostrará 'Autor1 y cols', pero si se pone un asterisco delante del comando se mostrarán todos los autores.
 
 ### Comentarios
 En todo proceso de realizar un documento hay momentos en los que se necesita dejar algún comentario para que más adelante se añada algun contenido o se corrija algo. Teniendo en cuenta esto se ha añadido un paquete que ayuda a dejar comentarios en el texto, tiene varios comandos para utilizar aunque los principales son:
@@ -447,16 +447,16 @@ Obteniendo estos resultados (estos ejemplos se encuentran en la plantilla):
 <img src="http://jmrplens.com/GitHub_TFGTemplate/tareas.png" width="40%"></img>
 
 ## Control de errores
-Se ha tenido en cuenta varias situaciones que podrían ser problemáticas para el diseño del documento, como:
+Se han tenido en cuenta varias situaciones que podrían ser problemáticas para el diseño del documento, como:
 
 ### Longitud del título
 Hay gran variedad de títulos, desde unos pocos carácteres hasta incluso más de 200. Esto se ha tenido en cuenta y se ha primado el mantener consolidado el diseño frente al tamaño de fuente definido en la guía de estilo. 
 
-El tamaño de fuente del título en la portada por defecto es 55, tal como establece la guía de estilo, pero en el caso de que el titulo exceda cierto número de carácteres, automaticamente se reduce el tamaño y el interlineado del titulo para que no sobrepase el espacio disponible. Este control del titulo se realiza a tráves de estas líneas:
+El tamaño de fuente del título en la portada por defecto es 55, tal como establece la guía de estilo, pero en el caso de que el título exceda cierto número de carácteres, automáticamente se reduce el tamaño y el interlineado del título para que no sobrepase el espacio disponible. Este control del título se realiza a través de estas líneas:
 ```latex
-% Según la longitud del titulo se determina un tamaño e interlineado para él
+% Según la longitud del título se determina un tamaño e interlineado para él
 \StrLen{\titulo}[\longitudtitulo] % Cuenta los caracteres del título
-% Comprueba la longitud del titulo y según sea este determina unos valores nuevos
+% Comprueba la longitud del título y según sea este determina unos valores nuevos
 \ifthenelse{\longitudtitulo > 180}{
 \def\FuenteTamano{35pt}		% Si es mayor a 180 caracteres tamaño de fuente 35pt
 \def\interlinportada{3.5}} 	% Establece nuevo interlineado
@@ -480,7 +480,7 @@ El formato del documento está definido en el archivo `configuracioninicial.tex`
 % FORMATO DEL DOCUMENTO
 %%%%%%%%%%%%%%%%%%%%%%%%
 % scrbook es la clase de documento
-% Si se desea que no haya pagina en blanco entre capítulos añadir "openany" en los parámetros de la clase. Sino siempre los capítulos empezarán en página impar.
+% Si se desea que no haya página en blanco entre capítulos añadir "openany" en los parámetros de la clase. Sino siempre los capítulos empezarán en página impar.
 \documentclass[a4paper,11pt,titlepage]{scrbook}
 \KOMAoption{toc}{bib,chapterentryfill} % Opciones del índice
 \usepackage{scrhack} % Previene algunos errores
@@ -490,11 +490,11 @@ El formato del documento está definido en el archivo `configuracioninicial.tex`
 %%
 % Formato y contenido de la información de cabecera y pie de página
 %%
-% Información de capitulo en cabecera e interno
+% Información de capítulo en cabecera e interno
 \ihead{{\color{gray30}\scshape\small\headmark}}	
 % Número de página en cabecera y externo
 \ohead{\normalfont\pagemark} 
-% Número de página en pie de página y externo. Solo en páginas sin cabecera
+% Número de página en pie de página y externo. Sólo en páginas sin cabecera
 \ofoot[\normalfont\pagemark]{}
 %% 		
 % Edición del contenido de las distintas partes de la cabecera
@@ -507,7 +507,7 @@ El formato del documento está definido en el archivo `configuracioninicial.tex`
 Las funciones de este primer bloque están definidas en el manual de la clase de documento, que es parte de un paquete llamado KOMA-Script y su manual se puede leer aquí: <a href="http://osl.ugr.es/CTAN/macros/latex/contrib/koma-script/doc/scrguien.pdf">Manual KOMA-Script</a>. Si modificas algo del formato definido en este bloque, confirma con tu tutor de TFG/TFM si el nuevo formato es correcto para el documento. 
 
 ```latex
-% Añade al indice y numera hasta la profundidad 4.
+% Añade al índice y numera hasta la profundidad 4.
 % 1:section,2:subsection,3:subsubsection,4:paragraph
 \setcounter{tocdepth}{4}
 \setcounter{secnumdepth}{4}
@@ -523,17 +523,17 @@ Las funciones de este primer bloque están definidas en el manual de la clase de
 ]{geometry}
 % Valor de interlineado
 \renewcommand{\baselinestretch}{1.0} % 1 línea de interlineado
-% Para poder generar paginas horizontales
+% Para poder generar páginas horizontales
 \usepackage{lscape}
 % Ancho de la zona para comentarios en el margen. (modificado para todonotes)
 \setlength{\marginparwidth}{1.9cm}
 ```
 
-En este segundo bloque se define hasta que profundidad se genera el índice y el valor de los márgenes, tambien el interlineado y otros detalles. Si lo deseas puedes modificar la profundidad del índice pero los márgenes solo se deben modificar si las directrices de estilo de la EPS han cambiado.
+En este segundo bloque se define hasta qué profundidad se genera el índice, el valor de los márgenes, también el interlineado y otros detalles. Si lo deseas puedes modificar la profundidad del índice pero los márgenes solo se deben modificar si las directrices de estilo de la EPS han cambiado.
 
 ### Idioma del documento
 
-Tambien en el archivo `configuracioninicial.tex` el documento está configurado para texto en español, por razones obvias, pero si se va a realizar en otro idioma o en varios idiomas se puede modificar (siguiendo este manual: <a href="http://osl.ugr.es/CTAN/macros/latex/contrib/polyglossia/polyglossia.pdf">Polyglossia</a>) en las líneas siguientes:
+También en el archivo `configuracioninicial.tex` el documento está configurado para texto en español, por razones obvias, pero si se va a realizar en otro idioma o en varios idiomas se puede modificar (siguiendo este manual: <a href="http://osl.ugr.es/CTAN/macros/latex/contrib/polyglossia/polyglossia.pdf">Polyglossia</a>) en las líneas siguientes:
 
 ```latex
 %%%%%%%%%%%%%%%%%%%%%%%%
@@ -551,13 +551,13 @@ Tambien en el archivo `configuracioninicial.tex` el documento está configurado 
 }
 ```
 
-Las líneas que siguen a `\addto...` renombran algunos términos estandar para traducirlos al español. Si tu trabajo está en otro idioma cambialos por el idioma del trabajo.
+Las líneas que siguen a `\addto...` renombran algunos términos estándar para traducirlos al español. Si tu trabajo está en otro idioma cámbialos por el idioma del trabajo.
 
 ### Añadir/Editar formato de titulaciones
 
-Si el color o logotipo de tu titulación ha cambiado, o tu titulación no se encuentra actualmente en la plantilla, en primer lugar ponte en contacto conmigo para que actualice la plantilla, y si no puedes esperar a la actualización puedes añadirlo tu del siguiente modo en el archivo `configuraciontitulacion.tex`
+Si el color o logotipo de tu titulación ha cambiado, o tu titulación no se encuentra actualmente en la plantilla, en primer lugar ponte en contacto conmigo para que actualice la plantilla, y si no puedes esperar a la actualización puedes añadirlo tú del siguiente modo en el archivo `configuraciontitulacion.tex`
 
-El formato de una titulacion se define despues de comprobar el valor de la ID introducida en el archivo principal, por lo que si deseas actualizar tu titulación debes buscar donde el condicional comprueba tu ID. Esto lo realiza en esta línea:
+El formato de una titulación se define después de comprobar el valor de la ID introducida en el archivo principal, por lo que si deseas actualizar tu titulación debes buscar donde el condicional comprueba tu ID. Esto lo realiza en esta línea:
 
 `\if\IDtitulo X`
 
@@ -578,7 +578,7 @@ El condicional completo se compone de lo siguiente:
 		\newcommand{\colortexto}{blanco} % Color del texto de la portada (blanco o negro)
 ```
 
-Si tu titulación ya esta en la plantilla edita las líneas que hayan sido modificadas para tu titulación.
+Si tu titulación ya está en la plantilla edita las líneas que hayan sido modificadas para tu titulación.
 
 Si tu titulación no está en la plantilla y deseas añadirla, debes añadirla al final del condicional, justo encima de la línea:
 
@@ -600,7 +600,7 @@ Encima de esta linea deberás agregar el condicional con la ID que llevará la t
 		\newcommand{\colortexto}{_______} % Color del texto de la portada (blanco o negro)
 ```
 
-Segun el color de fuente de la portada (blanco o negro) deberás incluir en el mismo color el logotipo de la EPS (ya incluido en la plantilla tanto en negro como en blanco) y el logotipo de tu titulación. Para la subportada el logotipo de tu titulación debe ser negro obligatoriamente. Introduce el texto de tu grado y titulación correspondiente. Y por ultimo define tu color de grado al inicio del archivo (en RGB) y añade el nombre del color definido, e indica si la fuente de texto de la portada es negro o blanco.
+Según el color de fuente de la portada (blanco o negro) deberás incluir en el mismo color el logotipo de la EPS (ya incluido en la plantilla tanto en negro como en blanco) y el logotipo de tu titulación. Para la subportada el logotipo de tu titulación debe ser negro obligatoriamente. Introduce el texto de tu grado y titulación correspondiente. Y por último define tu color de grado al inicio del archivo (en RGB) y añade el nombre del color definido, e indica si la fuente de texto de la portada es negro o blanco.
 
 ### Fuentes de la portada
 
@@ -614,12 +614,12 @@ Las fuentes de la portada están establecidas en las directrices de estilo de la
 \newfontfamily\FuentePortada{Helvetica}[Path=./include/fuentes/] 
 ```
 
-Si tienes que cambiar la fuente debes modificar el tipo de fuente para el titulo de la portada (actualmente HelveticaLTStd-Cond) por el nuevo, y lo mismo para la otra fuente para el resto del texto de la portada (actualmente Helvetica). Estas fuentes deben estar en la carpeta `include/fuentes` para poder ser cargadas por la plantilla.
+Si tienes que cambiar la fuente debes modificar el tipo de fuente para el título de la portada (actualmente HelveticaLTStd-Cond) por el nuevo, y lo mismo para la otra fuente para el resto del texto de la portada (actualmente Helvetica). Estas fuentes deben estar en la carpeta `include/fuentes` para poder ser cargadas por la plantilla.
 
 El tamaño de la fuente se puede modificar en las siguientes líneas del mismo archivo:
 ```latex
 % Tamaño por defecto de la fuente de texto para:
-\def\FuenteTamano{55pt}	  % Tamaño para el titulo del trabajo
+\def\FuenteTamano{55pt}	  % Tamaño para el título del trabajo
 \def\interlinportada{5.0} % Interlineado por defecto para el título
 \def\TamTrabajo{20pt} 	  % Tamaño para el tipo de trabajo (grado o máster)
 \def\TamTrabajoIn{20pt}   % Tamaño para el salto de línea después de tipo de trabajo
