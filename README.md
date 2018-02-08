@@ -35,7 +35,7 @@ Esta plantilla puede ser divulgada, modificada y compartida libremente. Este pro
 	1. [Idioma del documento](#idioma-del-documento)
 	1. [Añadir/Editar formato de titulaciones](#a%C3%B1adireditar-formato-de-titulaciones)
 	1. [Fuentes de la portada](#fuentes-de-la-portada)
-1. [Contacto](#contacto)
+1. [Contacto \(sugerencias, errores, etc\)](#contacto-sugerencias-errores-etc)
 
 <!-- /MarkdownTOC -->
 
@@ -630,7 +630,7 @@ El tamaño de la fuente se puede modificar en las siguientes líneas del mismo a
 \def\TamOtrosIn{1pt} 	  % Tamaño para los saltos de línea en la info personal
 ```
 
-## Contacto
+## Contacto (sugerencias, errores, etc)
 Si no deseas publicar en GitHub una sugerencia o algún error encontrado puedes ponerte en contacto conmigo a través de:
 
 * Email: <a href="mailto:info@jmrplens.com">info@jmrplens.com</a>
