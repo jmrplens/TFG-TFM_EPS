@@ -1,0 +1,257 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Plantilla TFG/TFM
+% Escuela Politécnica Superior de la Universidad de Alicante
+% Realizado por: Jose Manuel Requena Plens
+% Contacto: info@jmrplens.com / Telegram:@jmrplens
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% 
+% CÓDIGO. CONFIGURACIÓN. En el siguiente bloque están los estilos.
+%%%%%%%%%%%%%%%%%%%%%%%%
+% Paquete para mostrar código de matlab. En caja y lineas numeradas
+\usepackage[framed,numbered]{matlab-prettifier}
+% Paquete mostrar código de programación de distintos lenguajes
+\usepackage{listings}
+\lstset{ inputencoding=utf8,
+extendedchars=true,
+frame=single, % Caja donde se ubica el código
+backgroundcolor=\color{gray97}, % Color del fondo de la caja
+rulesepcolor=\color{black},
+boxpos=c,
+abovecaptionskip=-4pt,
+aboveskip=12pt,
+belowskip=0pt,
+lineskip=0pt,
+framerule=0pt,
+framextopmargin=4pt,
+framexbottommargin=4pt,
+framexleftmargin=11pt,
+framexrightmargin=0pt,
+linewidth=\linewidth,
+xleftmargin=\parindent,
+framesep=0pt,
+rulesep=.4pt,
+stringstyle=\ttfamily,
+showstringspaces = false,
+showspaces = false,
+showtabs = false,
+columns=fullflexible,
+basicstyle=\small\ttfamily,
+commentstyle=\color{gray45},
+keywordstyle=\bfseries,
+tabsize=4,
+numbers=left,
+numbersep=1pt,
+numberstyle=\tiny\ttfamily\color{gray75},
+numberfirstline = false,
+breaklines=true,
+postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space}, % Flecha al saltar de linea
+prebreak=\mbox{\textcolor{red}{$\hookleftarrow$}\space}, % Flecha al saltar de linea
+literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1,
+  }
+
+% Intenta no dividir los códigos en diferentes paginas si es posible
+\lstnewenvironment{listing}[1][]
+   {\lstset{#1}\pagebreak[0]}{\pagebreak[0]}
+
+% Formato de títulos de los códigos
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth - 2\fboxsep}{#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white,font= scriptsize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% 
+% CÓDIGO. ESTILOS. Ajústalos a tu gusto
+%%%%%%%%%%%%%%%%%%%%%%%%
+\lstdefinestyle{Consola}
+	{
+	basicstyle=\scriptsize\bf\ttfamily,
+	}
+   
+\lstdefinestyle{C}
+	{
+	basicstyle=\scriptsize,
+	language=C,
+	}
+\lstdefinestyle{C-color}
+	{
+  	breaklines=true,
+  	language=C,
+  	basicstyle=\scriptsize,
+  	keywordstyle=\bfseries\color{green!40!black},
+  	commentstyle=\itshape\color{purple!40!black},
+  	identifierstyle=\color{blue},
+  	stringstyle=\color{orange},
+    }
+\lstdefinestyle{CSharp}
+	{
+	basicstyle=\scriptsize
+	language=[Sharp]C,
+	escapeinside={(*@}{@*)},
+	keywordstyle=\bfseries,
+	}
+\lstdefinestyle{CSharp-color}
+	{
+	basicstyle=\scriptsize
+	language=[Sharp]C,
+	escapeinside={(*@}{@*)},
+	commentstyle=\color{greencomments},
+	keywordstyle=\color{bluekeywords}\bfseries,
+	stringstyle=\color{redstrings},
+	}
+\lstdefinestyle{C++}
+	{
+	basicstyle=\scriptsize,
+	language=C++,
+ 	}
+ 	
+\lstdefinestyle{C++-color}
+	{
+  	breaklines=true,
+  	language=C++,
+  	basicstyle=\scriptsize,
+  	keywordstyle=\bfseries\color{green!40!black},
+  	commentstyle=\itshape\color{purple!40!black},
+  	identifierstyle=\color{blue},
+  	stringstyle=\color{orange},
+    }
+    
+\lstdefinestyle{PHP}
+	{
+	basicstyle=\scriptsize,
+	language=PHP,
+	}
+	
+\lstdefinestyle{PHP-color}
+	{
+	basicstyle=\scriptsize,
+	language=PHP,
+	keywordstyle    = \color{dkblue},
+  	stringstyle     = \color{red},
+  	identifierstyle = \color{dkgreen},
+  	commentstyle    = \color{gray},
+  	emph            =[1]{php},
+  	emphstyle       =[1]\color{black},
+  	emph            =[2]{if,and,or,else},
+  	emphstyle       =[2]\color{dkyellow}
+  }
+  
+\lstdefinestyle{Matlab}
+	{
+	basicstyle=\scriptsize,
+	language=Matlab,
+	numberstyle=\tiny\ttfamily\color{gray75},
+	}
+	
+\lstdefinestyle{Matlab-color}
+	{
+	style = Matlab-editor,
+	basicstyle=\scriptsize,
+	numberstyle=\tiny\ttfamily\color{gray75},
+	}
+	
+\lstdefinestyle{Latex}
+	{
+	language=[LaTeX]{Tex},
+    basicstyle=\scriptsize,
+    literate={\$}{{{\bfseries\$}}}1,
+    alsoletter={\\,*,\&},
+    emph =[1]{\\begin,\\end,\\caption,\\label,\\centering,\\FloatBarrier,
+              \\lstinputlisting,\\scalefont,\\addplot,\\input,
+              \\legend,\\item,\\subitem,\\includegraphics,\\textwidth,
+              \\section,\\subsection,\\subsubsection,\\paragraph,
+              \\cite,\\citet,\\citep,\\gls,\\bibliographystyle,\\url,
+              \\citet*,\\citep*,\\todo,\\missingfigure,\\footnote},
+  	emphstyle =[1]\bfseries,
+  	emph = [2]{equation,subequations,eqnarray,figure,subfigure,
+  			   condiciones,flalign,tikzpicture,axis,lstlisting,
+  			   itemize,description
+  			   },
+  	emphstyle =[2]\bfseries,
+    numbers=none,
+	}
+	
+\lstdefinestyle{Latex-color}
+	{
+	language=[LaTeX]{Tex},
+    basicstyle=\scriptsize,
+    commentstyle=\color{dkgreen},
+    identifierstyle=\color{black},
+    literate={\$}{{{\bfseries\color{Dandelion}\$}}}1, % Colorea el simbolo dollar
+    alsoletter={\\,*,\&},
+    emph =[1]{\\begin,\\end,\\caption,\\label,\\centering,\\FloatBarrier,
+              \\lstinputlisting,\\scalefont,\\addplot,\\input,
+              \\legend,\\item,\\subitem,\\includegraphics,\\textwidth,
+              \\section,\\subsection,\\subsubsection,\\paragraph,
+              \\cite,\\citet,\\citep,\\gls,\\bibliographystyle,\\url,
+              \\citet*,\\citep*,\\todo,\\missingfigure,\\footnote},
+  	emphstyle =[1]\bfseries\color{RoyalBlue},
+  	emph = [2]{equation,subequations,eqnarray,figure,subfigure,
+  			   condiciones,flalign,tikzpicture,axis,lstlisting,
+  			   itemize,description
+  			   },
+  	emphstyle =[2]\bfseries,
+    numbers=none,
+	}
+\lstdefinestyle{Java}
+{
+	basicstyle=\scriptsize,
+	language=Java,
+}
+
+\lstdefinestyle{Java-color}
+{
+	basicstyle=\scriptsize,
+	language=Java,
+  	keywordstyle=\color{blue},
+  	commentstyle=\color{dkgreen},
+  	stringstyle=\color{mauve},
+}
+\lstdefinestyle{Python}
+{
+	language=Python,
+	basicstyle=\scriptsize,
+	otherkeywords={self},  
+	keywordstyle=\bfseries,     
+	emphstyle=\bfseries,    
+	emph={MyClass,__init__},         
+}
+
+\lstdefinestyle{Python-color}
+{
+	language=Python,
+	basicstyle=\scriptsize,
+	otherkeywords={self},          
+	keywordstyle=\bfseries\color{deepblue},
+	emph={MyClass,__init__},         
+	emphstyle=\bfseries\color{deepred},    
+	stringstyle=\color{deepgreen},
+}
+\lstdefinestyle{R}
+{
+	language=R,                     
+  	basicstyle=\scriptsize,
+  	keywordstyle=\bfseries, 
+}
+\lstdefinestyle{R-color}
+{
+	language=R,                     
+  	basicstyle=\scriptsize,
+  	keywordstyle=\bfseries\color{RoyalBlue}, 
+  	commentstyle=\color{YellowGreen},
+  	stringstyle=\color{ForestGreen}  
+}

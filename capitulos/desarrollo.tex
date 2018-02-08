@@ -1,0 +1,305 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Plantilla TFG/TFM
+% Escuela Politécnica Superior de la Universidad de Alicante
+% Realizado por: Jose Manuel Requena Plens
+% Contacto: info@jmrplens.com / Telegram:@jmrplens
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Desarrollo (Con ejemplos de código)}
+\label{desarrollo}
+
+\section{Inserción de código}
+A veces tendrás que insertar algún pedazo de código fuente para explicar algo relacionado con él. No sustituyas explicaciones con códigos enormes. Si pones algo de código en tu TFG que sea para demostrar algo o explicar alguna solución.
+
+\LaTeX~te ayuda a escribir código de manera que su presentación tenga las marcas y tabulaciones propias de este tipo de texto. Para ello, debes poner el código que escribas DENTRO de un entorno  que se llama ``listings''.  La plantilla ya tiene una serie de instrucciones para incluir el paquete ``listings'' y añadirle algunos modificadores por lo que no tienes que incluirlo tú. Simplemente, mete tu código en el entorno ``lstlisting'' y ya está. Puedes indicar el lenguaje en el que está escrito el código y así \LaTeX~lo mostrará mejor. 
+\\
+\par En el archivo \textit{estiloscodigoprogramacion.tex} están definidos algunos lenguajes para mostrarlos con un diseño concreto, se pueden modificar para cambiar el coloreado del código, qué términos se ponen en negrita, etc.
+Si se quiere profundizar más en la función ``listings'' se puede consultar su manual en \url{http://osl.ugr.es/CTAN/macros/latex/contrib/listings/listings.pdf}, aunque hay mucha información en foros y blog's que es más fácil de comprender.
+
+\par Veamos un ejemplo en la figura \ref{C_code}:
+
+\begin{lstlisting}[style=Latex-color]
+\begin{lstlisting}[style=C, caption={ejemplo código C},label=C_code]
+	#include <stdio.h>
+	int main(int argc, char* argv[]) {
+  	puts("Hola mundo!");
+	}
+\ end{lstlisting}	
+\end{lstlisting}
+
+El resultado será:
+\begin{lstlisting}[style=C, caption={ejemplo código C},label=C_code]
+#include <stdio.h>
+// Comentario
+int main(int argc, char* argv[]) {
+  puts("Hola mundo!");
+}
+\end{lstlisting}
+\vspace{1em}
+\noindent\hrule
+\vspace{1em}
+Si lo quieres en color, está definido el estilo C-color en el archivo \textit{estiloscodigoprogramacion.tex}, con algunos parámetros para mejorar la visualización:
+\begin{lstlisting}[style=Latex-color]
+\begin{lstlisting}[style=C-color, caption={ejemplo código C en color},label=C_code-color]
+#include <stdio.h>
+// Comentario
+int main(int argc, char* argv[]) {
+  puts("Hola mundo!");
+}
+\ end{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}[style=C-color, caption={ejemplo código C en color},label=C_code-color]
+	#include <stdio.h>
+	// Comentario
+	int main(int argc, char* argv[]) {
+  	puts("Hola mundo!");
+	}
+\end{lstlisting}
+\vspace{1em}
+\noindent\hrule
+\vspace{1em}
+Por supuesto, puedes mejorar esta presentación utilizando más modificadores. En la sección \ref{usos} se indican algunos detalles.
+
+Otro ejemplo, ahora para mostrar código PHP, sería escribir en tu fichero \LaTeX~lo siguiente:
+\begin{lstlisting}[style=Latex-color,numbers=none]
+ \begin{lstlisting}[style=PHP, caption={ejemplo código PHP},label=PHP_code]
+ /* 
+Ejemplo de código en PHP para escribir tu primer programa en este lenguaje
+Copia este código en tu ordenador y ejecútalo
+*/
+<html>
+  <head>
+    <title>Prueba de PHP</title>
+  </head>
+  <body>
+    <?php echo '<p>Hola Mundo</p>'; ?> //esto lo escribe TODO el mundo
+  </body>
+</html>
+ \ end{lstlisting}
+\end{lstlisting}
+ 
+ y el resultado es el siguiente:
+ 
+ \begin{lstlisting}[style=PHP, caption={ejemplo código PHP},label=PHP_code,firstnumber=100]
+/* 
+Ejemplo de código en PHP para escribir tu primer programa en este lenguaje. Copia este código en tu ordenador y ejecútalo
+*/
+ <html>
+  <head>
+    <title>Prueba de PHP</title>
+  </head>
+  <body>
+    <?php echo '<p>Hola Mundo</p>'; ?> //esto lo escribe TODO el mundo
+  </body>
+</html>
+ \end{lstlisting}
+ \vspace{1em}
+\noindent\hrule
+\vspace{1em}
+ O también en color: 
+ \begin{lstlisting}[style=PHP-color, caption={ejemplo código PHP},label=PHP_code2]
+/* 
+Ejemplo de código en PHP para escribir tu primer programa en este lenguaje. Copia este código en tu ordenador y ejecútalo
+*/
+ <html>
+  <head>
+    <title>Prueba de PHP</title>
+  </head>
+  <body>
+    <?php echo '<p>Hola Mundo</p>'; ?> //esto lo escribe TODO el mundo
+  </body>
+</html>
+ \end{lstlisting}
+ 
+ Observa cómo \LaTeX~ha puesto los comentarios en gris y ajustado el código para que se muestre más claro.
+\vspace{1em}
+\noindent\hrule
+\vspace{1em}
+ A continuación se muestran otros ejemplos:
+ \begin{lstlisting}[style=Matlab-color, caption={ejemplo código Matlab en color},label=Matlab_code]
+%% Code sections are highlighted.
+% System command are supported...
+!touch testFile.txt
+A = [1, 2, 3;... %... as is line continuation.
+     4, 5, 6];
+fid = fopen('testFile.text', 'w');
+for k=1:10
+  fprintf(fid, '%6.2f \n', k)
+end
+x=1; %% this is just a comment, not the start of a section
+% Context-sensitive keywords get highlighted correctly...
+p = properties(person); %(here, properties is a function)
+x = linspace(0,1,101);
+y = x(end:-1:1);
+% ... even in nonsensical code.
+]end()()(((end while {    end    )end ))))end (end
+%{
+    block comments are supported
+%} even
+runaway block comments are
+\end{lstlisting}
+
+\begin{lstlisting}[style=Matlab, caption={ejemplo código Matlab en blanco y negro},label=Matlab_codebn]
+%% Code sections are highlighted.
+% System command are supported...
+!touch testFile.txt
+A = [1, 2, 3;... %... as is line continuation.
+     4, 5, 6];
+fid = fopen('testFile.text', 'w');
+for k=1:10
+  fprintf(fid, '%6.2f \n', k)
+end
+x=1; %% this is just a comment, not the start of a section
+% Context-sensitive keywords get highlighted correctly...
+p = properties(person); %(here, properties is a function)
+x = linspace(0,1,101);
+y = x(end:-1:1);
+% ... even in nonsensical code.
+]end()()(((end while {    end    )end ))))end (end
+%{
+    block comments are supported
+%} even
+runaway block comments are
+\end{lstlisting}
+\newpage
+\begin{lstlisting}[style=Python-color, caption={ejemplo código Python en color}]
+class Example (object):
+    def __init__ (self, account, password):
+        """e.g. account  = 'bob@example.com/test'
+                password = 'bigbob'
+        """
+
+        reg = telepathy.client.ManagerRegistry()
+        reg.LoadManagers()
+
+        # get the gabble Connection Manager
+        self.cm = cm = reg.GetManager('gabble')
+
+        # get the parameters required to make a Jabber connection
+        # begin ex.basics.dbus.language-bindings.python.methods.call
+        cm[CONNECTION_MANAGER].RequestConnection('jabber',
+            {
+                'account':  account,
+                'password': password,
+            },
+            reply_handler = self.request_connection_cb,
+            error_handler = self.error_cb)
+        # end ex.basics.dbus.language-bindings.python.methods.call
+\end{lstlisting}
+
+\begin{lstlisting}[style=Python, caption={ejemplo código Python en blanco y negro}]
+class Example (object):
+    def __init__ (self, account, password):
+        """e.g. account  = 'bob@example.com/test'
+                password = 'bigbob'
+        """
+
+        reg = telepathy.client.ManagerRegistry()
+        reg.LoadManagers()
+
+        # get the gabble Connection Manager
+        self.cm = cm = reg.GetManager('gabble')
+
+        # get the parameters required to make a Jabber connection
+        # begin ex.basics.dbus.language-bindings.python.methods.call
+        cm[CONNECTION_MANAGER].RequestConnection('jabber',
+            {
+                'account':  account,
+                'password': password,
+            },
+            reply_handler = self.request_connection_cb,
+            error_handler = self.error_cb)
+        # end ex.basics.dbus.language-bindings.python.methods.call
+\end{lstlisting}
+
+\section{Usos y personalización}
+\label{usos}
+
+El texto que acompaña al código puedes incluirlo o no, también puedes decidir si el texto va numerado o no. A continuación se muestra como:
+\begin{lstlisting}[style=Latex-color]
+	% Con esta línea el código no tendrá título
+	\begin{lstlisting}[style=Python]
+		micodigo
+	\ end{lstlisting}
+\end{lstlisting}
+
+\begin{lstlisting}[style=Python]
+	micodigo
+\end{lstlisting}
+\vspace{1em}
+\noindent\hrule
+\vspace{1em}
+\begin{lstlisting}[style=Latex-color]
+	% Con esta línea el código tendrá el título abajo
+	\begin{lstlisting}[style=Python, caption={Ejemplo de título abajo},captionpos=b]
+		micodigo
+	\ end{lstlisting}
+\end{lstlisting}
+
+\begin{lstlisting}[style=Python,caption={Ejemplo de título abajo},captionpos=b]
+	micodigo
+\end{lstlisting}
+\vspace{1em}
+\noindent\hrule
+\vspace{1em}
+\begin{lstlisting}[style=Latex-color]
+	% Con esta línea el código tendrá título no numerado
+	\begin{lstlisting}[style=Python, title={Ejemplo de título no numerado}]
+		micodigo
+	\ end{lstlisting}
+\end{lstlisting}
+
+\begin{lstlisting}[style=Python,title={Ejemplo de título no numerado}]
+	micodigo
+\end{lstlisting}
+\vspace{1em}
+\noindent\hrule
+\vspace{1em}
+\begin{lstlisting}[style=Latex-color]
+	% Con esta línea el código no tendrá las líneas numeradas
+\begin{lstlisting}[style=Python,numbers=none, title={Ejemplo de código sin número de líneas}]
+	micodigo
+	sin
+	número
+	de
+	líneas
+\ end{lstlisting}
+\end{lstlisting}
+
+\begin{lstlisting}[style=Python,numbers=none,title={Ejemplo de código sin número de líneas}]
+		micodigo
+		sin
+		número
+		de
+		líneas
+\end{lstlisting}
+
+\section{Importar archivos fuente}
+
+Existe la posibilidad de importar un archivo de código en lugar de copiar su contenido y pegarlo en \LaTeX.
+
+Para realizarlo debes escribir:
+
+\begin{lstlisting}[style=Latex-color]
+\lstinputlisting[style=C++-color,caption={Archivo C++ importado}]{archivos/ejemplos/holamundo.cpp}	
+\end{lstlisting}
+
+Y se importará con el formato establecido entre los '[ ]':
+\newpage
+\lstinputlisting[style=C++-color,caption={Archivo C++ importado}]{archivos/ejemplos/holamundo.cpp}
+
+A continuación se muestran otros ejemplos
+
+\begin{lstlisting}[style=Latex-color]
+\lstinputlisting[style=Python-color,caption={Archivo Py importado},label=importado_py]{archivos/ejemplos/holamundo.py}	
+\end{lstlisting}
+
+\lstinputlisting[style=Python-color,caption={Archivo Py importado},label=importado_py2]{archivos/ejemplos/holamundo.py}	
+
+\begin{lstlisting}[style=Latex-color]
+\lstinputlisting[style=Matlab-color,caption={Archivo Matlab importado},label=importado_m]{archivos/ejemplos/holamundo.m}	
+\end{lstlisting}
+
+\lstinputlisting[style=Matlab-color,caption={Archivo Matlab importado},label=importado_m]{archivos/ejemplos/holamundo.m}
+
+

@@ -1,0 +1,115 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Plantilla TFG/TFM
+% Escuela Politécnica Superior de la Universidad de Alicante
+% Realizado por: Jose Manuel Requena Plens
+% Contacto: info@jmrplens.com / Telegram:@jmrplens
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Marco Teórico (Con ejemplos de listas)}
+\label{marcoteorico}
+
+\section{Listas}
+Hacer una lista es simple en \LaTeX. Para ello has de crear un entorno (así se llama) itemize con
+\begin{lstlisting}[style=Latex-color]
+\begin{itemize}
+...
+\end{itemize}
+\end{lstlisting}
+Y dentro de esa estructura, añadir cada elemento de la lista precedido de 
+\begin{lstlisting}[style=Latex-color]
+\item primer ítem de lista
+\item segundo ítem de lista
+...
+\item ultimo ítem de lista
+\end{lstlisting}
+
+Es importante que revises este texto tal como aparece en la plantilla y relaciones el aspecto que tiene el PDF final con cómo está escrito el documento \LaTeX.
+\vspace{1em}
+\noindent\hrule
+\vspace{1em}
+
+Aquí va una lista con subtérminos:
+\begin{lstlisting}[style=Latex-color]
+	\begin{itemize}
+    \item Ingeniería Informática.
+    \item Ingeniería Sonido e Imagen en Telecomunicación.
+    \item Ingeniería Multimedia.
+         \subitem Mención: Creación y ocio digital.
+         \subitem Mención: Gestión de Contenidos.
+	\end{itemize}
+\end{lstlisting}
+
+El resultado es el siguiente:
+\begin{itemize}
+    \item Ingeniería Informática.
+    \item Ingeniería Sonido e Imagen en Telecomunicación.
+    \item Ingeniería Multimedia.
+         \subitem Mención: Creación y ocio digital.
+         \subitem Mención: Gestión de Contenidos.
+\end{itemize}
+\vspace{1em}
+\noindent\hrule
+\vspace{1em}
+Aquí va una lista con subtérminos pero numerada:
+\begin{lstlisting}[style=Latex-color]
+\begin{enumerate}
+    \item Ingeniería Informática.
+    \item Ingeniería Sonido e Imagen en Telecomunicación.
+    \item Ingeniería Multimedia.
+    \begin{enumerate}
+         \item Mención: Creación y ocio digital.
+         \item Mención: Gestión de Contenidos.
+   	\end{enumerate}
+\end{enumerate}
+\end{lstlisting}
+
+El resultado es el siguiente:
+\begin{enumerate}
+    \item Ingeniería Informática.
+    \item Ingeniería Sonido e Imagen en Telecomunicación.
+    \item Ingeniería Multimedia.
+    \begin{enumerate}
+         \item Mención: Creación y ocio digital.
+         \item Mención: Gestión de Contenidos.
+   	\end{enumerate}
+\end{enumerate}
+
+\section{Listas de definición}
+ 
+ Puedes realizar una lista de conceptos con su definición del siguiente modo:
+ 
+\begin{lstlisting}[style=Latex-color]
+\begin{description} % Inicio de la lista
+ 	\item[MAPP XT:] Programa desarrollado por \textit{Meyer Sound} para el diseño y ajuste de sistemas formados por altavoces de su marca.
+  	\begin{description} % Realiza una lista dentro de la lista
+  		\item[Ventajas:]~ 
+  		El programa permite realizar múltiples ajustes tal como se podría realizar en la realidad con un procesador real.
+  	
+  		Permite analizar la fase recibida en cualquier punto y compararla con otras mediciones.
+  	
+  		Dispone de varios tipos de filtros, inversiones de fase, etc.
+  		\item[Inconvenientes:]~ 
+  		No existe una lista global de los altavoces ubicados en el plano, por lo tanto solo se pueden editar seleccionándolos sobre el plano.
+  	
+  		Sólo permite diseñar en 2 dimensiones, principalmente sobre la vista lateral ya que los array de altavoces no permite voltearlos.
+  	\end{description}
+\end{description}
+\end{lstlisting}
+
+ Y \LaTeX~genera lo siguiente:
+ 
+\begin{description} % Inicio de la lista
+ 	\item[MAPP XT:] Programa desarrollado por \textit{Meyer Sound} para el diseño y ajuste de sistemas formados por altavoces de su marca.
+  	\begin{description} % Realiza una lista dentro de la lista
+  		\item[Ventajas:]~ 
+  		El programa permite realizar múltiples ajustes tal como se podría realizar en la realidad con un procesador real.
+  	
+  		Permite analizar la fase recibida en cualquier punto y compararla con otras mediciones.
+  	
+  		Dispone de varios tipos de filtros, inversiones de fase, etc.
+  		\item[Inconvenientes:]~ 
+  		No existe una lista global de los altavoces ubicados en el plano, por lo tanto solo se pueden editar seleccionándolos sobre el plano.
+  	
+  		Sólo permite diseñar en 2 dimensiones, principalmente sobre la vista lateral ya que los array de altavoces no permite voltearlos.
+  	\end{description}
+\end{description}

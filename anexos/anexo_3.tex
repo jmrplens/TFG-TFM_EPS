@@ -1,0 +1,29 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Plantilla TFG/TFM
+% Escuela Politécnica Superior de la Universidad de Alicante
+% Realizado por: Jose Manuel Requena Plens
+% Contacto: info@jmrplens.com / Telegram:@jmrplens
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Ejemplo de inclusión de páginas de un PDF
+
+\chapter{Importar PDF}
+
+A continuación se muestra una página importada de un PDF externo. Observar los comentarios en el código de este anexo para más información. También puedes leer el manual con todas las opciones en \url{http://osl.ugr.es/CTAN/macros/latex/contrib/pdfpages/pdfpages.pdf}.
+
+\includepdf[pages={1}]{archivos/ES_a_DF7_Agg_Alicante.pdf}
+
+% Para incluir una página:
+% [pages={0}] % Donde '0' es el número de la pagina del PDF que se quiere incluir
+
+% Para incluir varias páginas consecutivas
+% [pages={1-4}] % Con estos valores importa de la página 1 a la 4.
+
+% Para incluir varias páginas salteadas
+% [pages={1,4,7,10}] % Incluye las páginas 1,4,7 y 10
+
+% Para incluir todo el documento PDF
+% [pages=-]
+
+% Si ademas de pages=... se incluye landscape, se importa en horizontal
+% [pages{1},landscape]
