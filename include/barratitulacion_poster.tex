@@ -35,16 +35,18 @@
 \def\tabularxcolumn#1{m{#1}}
 
 \settitle{
-\begin{tabularx}{\linewidth}{Xm{0.05\linewidth}m{0.01\linewidth}m{0.25\linewidth}m{0.01\linewidth}m{0.11\linewidth}}
+\vspace{-1cm}
+\begin{tabularx}{\linewidth}{Xm{0.06\linewidth}m{0.01\linewidth}m{0.25\linewidth}m{0.01\linewidth}m{0.13\linewidth}}
 
-\color{titlefgcolor} {\FuentePortada\FuenteTamano\titulo}
+\centering \color{titlefgcolor} {\FuentePortada\FuenteTamano\titulo}
 & 
-\raggedleft\includegraphics[height=0.028\paperheight]{\logoGradoPortada} 
+\raggedleft\includegraphics[height=0.04\paperheight]{\logoGradoPortada} 
 & ~ &
 \centering \color{titlefgcolor} {\FuentePortada\large\miGrado}
 & ~ &
-\raggedright\includegraphics[height=0.028\paperheight]{\logoFacultadPortada}
+\raggedright\includegraphics[height=0.035\paperheight]{\logoFacultadPortada}
 \end{tabularx}
+\vspace{-1cm}
 }
 
 
@@ -57,23 +59,23 @@
 	\node [above right,
        outer sep=0pt,
        minimum width=\paperwidth-2*\pgflinewidth,
-       minimum height=7cm,
+       minimum height=6cm,
        draw,fill=white] at (bottomleft) {};
     % Información autor   
  	\node [above right,
-       outer sep=0pt] at ([shift={(0.5cm,4.5cm)}]bottomleft) {
+       outer sep=0pt] at ([shift={(0.5cm,3.5cm)}]bottomleft) {
        \FuentePortada\Large \color{black} Autor/a: \autor
        };
  	% Tipo de trabajo
  	\node [above right,
-       outer sep=0pt,minimum height=7cm,minimum width=\paperwidth-2*\pgflinewidth,
+       outer sep=0pt,minimum height=6cm,minimum width=\paperwidth-2*\pgflinewidth,
        align=center] at ([shift={(0.5*\pgflinewidth,0.5*\pgflinewidth)}]bottomleft) {\LARGE \FuentePortada\color{black}\tipotrabajo};
     % Fecha   
   	\node [above right,
        outer sep=0pt] at ([shift={(0.5cm,1cm)}]bottomleft) {
-       \FuentePortada\Large \color{black} \today
+       \FuentePortada\Large \color{black} \Hoy
        };
   	% Logotipo universidad
   	\node[above left,outer sep=1.5cm] at (bottomleft -| topright)
-  	{\includegraphics[height=0.03\paperheight]{\logoFooter}};
+  	{\includegraphics[height=0.031\paperheight]{\logoFooter}};
        }

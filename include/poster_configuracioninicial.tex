@@ -16,16 +16,16 @@
 \documentclass[
 		25pt,a0paper,portrait,
 		margin				= 0mm, 	% Margen general (no modificar)
-		innermargin			= 10mm,	% Margen interno
+		innermargin			= 12mm,	% Margen interno
 		blockverticalspace	= 15mm,	% Espacio vertical entre bloques
-		colspace			= 15mm,	% Espacio horizontal entre columnas
+		colspace			= 12mm,	% Espacio horizontal entre columnas
 		subcolspace			= 8mm	% Espacio horizontal entre subcolumnas
 		]{tikzposter}  
 
-% Si se debe establecer un tamaño de página concreto elimina el comentario de abajo
-%\geometry{paperwidth=70cm,paperheight=100cm}
-% Si se utiliza una medida personalizada es posible que haya que modificar otros
-% parámetros para ajustar la cabecera y pie de página.
+% Para modificar el tamaño establecido del poster (DINA0) incluir a continuación
+% las dimensiones
+\geometry{paperwidth=70cm,paperheight=100cm}
+
 
 % Gestión de los márgenes para cualquier tamaño de página
 \makeatletter
@@ -196,7 +196,24 @@
 \input{include/estilos_poster}
 
 
-
+% Para mostrar la fecha actual (mes año) con \Hoy
+\newcommand{\MES}{%
+  \ifcase\month% 0
+    \or Enero% 1
+    \or Febrero% 2
+    \or Marzo% 3
+    \or Abril% 4
+    \or Mayo% 5
+    \or Junio% 6
+    \or Julio% 7
+    \or Agosto% 8
+    \or Septiembre% 9
+    \or Octubre% 10
+    \or Noviembre% 11
+    \or Diciembre% 12
+  \fi}
+\newcommand{\ANYO}{\number\year}
+\newcommand{\Hoy}{\MES\ \ANYO}
 
 
 

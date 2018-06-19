@@ -188,32 +188,46 @@
 		%%%%%%%%%%%%%%%%%%
 		% Bloque: Ejemplo de múltiples imágenes
 		%%%%%%%%%%%%%%%%%%     
-     	\block{Ejemplo de múltiples imágenes}{
-	     	{\centering    
-			\begin{tabular}{@{}rccccccc@{}} 
-			\begin{sideways}\makebox[0pt][c]{Aciertos}\end{sideways} &
-			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_fa_success_1.pdf}} &
-			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_fb_success_1.pdf}} &
-			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_ql_success_1.pdf}} &
-			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_qr_success_1.pdf}} &
-			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_hl_success_1.pdf}} &
-			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_hr_success_1.pdf}} &
-			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_rc_success_1.pdf}} \\
-			\midrule
-			\begin{sideways}\makebox[0pt][c]{Fallos}\end{sideways} &
-			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_fa_fail.pdf}} &
-			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_fb_fail.pdf}} &
-			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_ql_fail.pdf}} &
-			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_qr_fail.pdf}} &
-			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_hl_fail.pdf}} &
-			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_hr_fail.pdf}} &
-			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_rc_fail.pdf}} 
-			\end{tabular}
-			\\[1em]
-			}
-			Se puede observar que el reconocimiento facial ha sido exitoso en la mayoría de las ocasiones aunque hay algunas excepciones.
-	     }
+%     	\block{Ejemplo de múltiples imágenes}{
+%	     	{\centering    
+%			\begin{tabular}{@{}rccccccc@{}} 
+%			\begin{sideways}\makebox[0pt][c]{Aciertos}\end{sideways} &
+%			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_fa_success_1.pdf}} &
+%			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_fb_success_1.pdf}} &
+%			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_ql_success_1.pdf}} &
+%			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_qr_success_1.pdf}} &
+%			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_hl_success_1.pdf}} &
+%			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_hr_success_1.pdf}} &
+%			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_rc_success_1.pdf}} \\
+%			\midrule
+%			\begin{sideways}\makebox[0pt][c]{Fallos}\end{sideways} &
+%			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_fa_fail.pdf}} &
+%			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_fb_fail.pdf}} &
+%			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_ql_fail.pdf}} &
+%			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_qr_fail.pdf}} &
+%			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_hl_fail.pdf}} &
+%			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_hr_fail.pdf}} &
+%			\parbox[c]{0.11\linewidth}{\includegraphics[width=\linewidth]{archivos/l_rc_fail.pdf}} 
+%			\end{tabular}
+%			\\[1em]
+%			}
+%			Se puede observar que el reconocimiento facial ha sido exitoso en la mayoría de las ocasiones aunque hay algunas excepciones.
+%	     }
      
+%     	%%%%%%%%%%%%%%%%%%
+%		% Bloque: Colores
+%		%%%%%%%%%%%%%%%%%% 
+%		\block{Colores}{
+%		La configuración de colores puede hacerse individualmente o aprovechar algunos paquetes de colores prediseñados.
+%		Las líneas que configuran los colores por separado se encuentran a continuación de la configuración de estilo. \\
+%		Después de las líneas de colores individuales se encuentra el comando para elegir un paquete de colores, si se desea utilizar los colores individuales elimina el comando para paquetes de colores, ya que sobreescribirá los colores elegidos anteriormente. El comando para elegir un paquete de colores es:
+%		\begin{quote}
+%	         	\texttt{\bs usecolorstyle\{COLORES\}}
+%	   	\end{quote}
+%	   	donde ``COLORES" puede ser \texttt{TFGTFM, Default, Australia, Britain, Sweden, Spain, Russia, Denmark, Germany, Utah, Data, Qacolor, Elena}. \\
+%	   	El color ``TFGTFM" utiliza en partes el mismo color que el de la titulación.
+%		}
+
      
      	%%%%%%%%%%%%%%%%%%
 		% Bloque: Estilos
@@ -248,7 +262,7 @@
 		%%%%%%%%%%%%%%%%%%
 		% Nota: Ejemplo largo
 		%%%%%%%%%%%%%%%%%%     
-     	\note[targetoffsetx=20cm, targetoffsety=-1cm,rotate=0.5,angle=270,radius=17cm,width=.85\textwidth,innersep=.4cm]{
+     	\note[targetoffsetx=18cm, targetoffsety=-4cm,rotate=0.5,angle=270,radius=17cm,width=.85\textwidth,innersep=.4cm]{
 	         Puedes añadir notas ``ancladas" al bloque escrito anteriormente con el comando
 	         \begin{quote} \texttt{\bs note[{\it opciones}]\{{\it contenido}\}}\end{quote}
 	         La nota (sin opciones añadidas) se genera ligeramente a la derecha y en el centro del bloque anterior. Con las opciones se puede ajustar la posición o tamaño. \\
@@ -289,7 +303,7 @@
 			\labelblock{subcolumnas} % Etiqueta del bloque
 			
 			% Subcolumna que ocupa el 50% de la columna actual
-	     	\subcolumn{.5}
+	     	\subcolumn{.55}
 	     	% Bloque sin título
 	       	\block{}{Ejemplo de uso de subcolumnas. Se debe utilizar dentro de una columna.
 	      		\begin{quote}
@@ -343,19 +357,6 @@
     		\coloredbox[bgcolor=lightgray,framecolor=black]{Por defecto \bs\texttt{coloredbox} no tiene marco. Tanto el marco como el color se pueden definir en las opciones.}
 		}
 		
-		%%%%%%%%%%%%%%%%%%
-		% Bloque: Colores
-		%%%%%%%%%%%%%%%%%% 
-		\block{Colores}{
-		La configuración de colores puede hacerse individualmente o aprovechar algunos paquetes de colores prediseñados.
-		Las líneas que configuran los colores por separado se encuentran a continuación de la configuración de estilo. \\
-		Después de las líneas de colores individuales se encuentra el comando para elegir un paquete de colores, si se desea utilizar los colores individuales elimina el comando para paquetes de colores, ya que sobreescribirá los colores elegidos anteriormente. El comando para elegir un paquete de colores es:
-		\begin{quote}
-	         	\texttt{\bs usecolorstyle\{COLORES\}}
-	   	\end{quote}
-	   	donde ``COLORES" puede ser \texttt{TFGTFM, Default, Australia, Britain, Sweden, Spain, Russia, Denmark, Germany, Utah, Data, Qacolor, Elena}. \\
-	   	El color ``TFGTFM" utiliza en partes el mismo color que el de la titulación.
-		}
      \end{columns}
      
     %%%%%%%%%%%%%%%%%%
