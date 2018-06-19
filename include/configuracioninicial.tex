@@ -215,8 +215,24 @@
 %%%%%%%%%%%%%%%%%%%%%%%% 
 % COMANDOS AÑADIDOS
 %%%%%%%%%%%%%%%%%%%%%%%%
-% Para mostrar la fecha actual con \Hoy
-\newcommand{\Hoy}{\today}
+% Para mostrar la fecha actual (mes año) con \Hoy
+\newcommand{\MES}{%
+  \ifcase\month% 0
+    \or Enero% 1
+    \or Febrero% 2
+    \or Marzo% 3
+    \or Abril% 4
+    \or Mayo% 5
+    \or Junio% 6
+    \or Julio% 7
+    \or Agosto% 8
+    \or Septiembre% 9
+    \or Octubre% 10
+    \or Noviembre% 11
+    \or Diciembre% 12
+  \fi}
+\newcommand{\ANYO}{\number\year}
+\newcommand{\Hoy}{\MES\ \ANYO}
 
 %%%%%%%%%%%%%%%%%%%%%%%% 
 % MATEMÁTICAS
