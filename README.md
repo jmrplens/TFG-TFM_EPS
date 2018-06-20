@@ -1,6 +1,8 @@
 # Plantilla TFG/TFM
 **Para ver la información del póster haz clic <a href="https://github.com/jmrplens/TFG-TFM_EPS/wiki/P%C3%B3ster">aquí</a>.**
 
+**Ejemplo real de TFG y póster:  <a href="http://jmrplens.com/GitHub_TFGTemplate/TFG+Poster.zip">Descargar proyecto LaTeX</a>**
+
 Esta plantilla se ha creado después de observar la idea concebida por Pedro Pernías y otros colaboradores en su plantilla: <a href="https://github.com/lcg51/tfg">tfg</a>. Se ha mantenido algún contenido de los capítulos de esa plantilla, y la clase de documento _scrbook_ pero el resto de la plantilla está realizada de cero. El diseño se ha ajustado a lo indicado en la <a href="https://eps.ua.es/es/ingenieria-sonido-imagen-telecomunicacion/documentos/tfg/libro-de-estilo.pdf">Guía de estilo</a> de la EPS. Siempre se debe comprobar que no hayan cambiado los criterios, ya que esta plantilla se actualiza periódicamente y no cada vez que se establezca una modificación por parte de la EPS. Si algún parámetro cambia es sencillo actualizar ese cambio en la plantilla, se ha realizado de tal modo que todos los parámetros sean fácilmente editables.
 
 Esta plantilla puede ser divulgada, modificada y compartida libremente. Este proyecto se ha realizado para los alumnos de la Escuela Politécnica Superior de la Universidad de Alicante, esperando facilitar un poco la introducción al trabajo con LaTeX. Se ruega enviar sugerencias de todo tipo, el contenido de la plantilla intenta mostrar un poco de todo lo que se puede hacer con LaTeX, pero si es complejo el uso y así lo indicasen los usuarios se modificará para hacerla más manejable.
