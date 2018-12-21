@@ -118,13 +118,53 @@ El formato estándar de las columnas es c, l o r, así lo genera la web menciona
 \par Para conocer más sobre las tablas puedes leer manuales como este: \url{https://latexlive.files.wordpress.com/2009/04/tablas.pdf} que contiene muchos ejemplos y explicaciones.
 
 
+\section{Otros diseños de tablas}
 
+% EJEMPLO 1
+\begin{table}[ht]
+	\centering
+	{\scalefont{0.9}
+	\begin{tabular}{@{}lcc@{}}
+	\toprule
+	Modelo			& 	15LEX1600Nd	&	15P1000Fe V2	 	\\ \midrule
+	fs ($Hz$)		& 	41          & 	45           	\\
+	Re ($ohm$)		& 5.5         	& 5.2         	 	\\
+	Le ($\mu H$)	& 1600        	& 1500         		\\
+	Bl ($N/A$)		& 25.7        	& 27.4         		\\
+	M\textsubscript{MS} ($g$)		& 175	& 157		\\
+	C\textsubscript{MS} ($\mu m/N$)	& 84		& 78			\\
+	R\textsubscript{MS} ($kg/s$)		& 6.8 	& 7.6   	 	\\
+	d ($cm$)		& 33.5			& 33           		\\
+	Vas ($dm^3$)   	& 91          	& 80.7         		\\
+	$Q_\text{TS}$  	& 0.36        	& 0.30         		\\
+	$Q_\text{MS}$  	& 6.6         	& 5.9          		\\
+	$Q_\text{ES}$  	& 0.38        	& 0.31         		\\
+	Sens (dB @ 2.83V/1m) & 96      	& 98           		\\
+	$\eta$          & 1.7\%       	& 2.4\%        		\\
+	Sd ($cm^2$)   	& 880         	& 855          		\\ \bottomrule
+	\end{tabular}
+	}
+	\caption{Parámetros de los altavoces elegidos de la marca Beyma\textsuperscript{\tiny\textregistered}.}
+	\label{tablaparametros}
+\end{table}
 
-
-
-
-
-
+% EJEMPLO 2
+\begin{table}[ht]
+\centering
+\begin{tabular}{l|l|c|c|c|c||c|c|c|c} %l:left c:center r:right |:table lines
+\cmidrule[1pt]{3-10}                  % 1pt is the thickness 3-10 is column number
+\multicolumn{2}{c|}{}&\multicolumn{4}{c||}{140PU}&\multicolumn{4}{c}{50PU} \\\cmidrule{3-10}
+\multicolumn{2}{c|}{}&\multicolumn{2}{c|}{Phase II}&\multicolumn{2}{c||}{Phase I}&\multicolumn{2}{c|}{Phase II}&\multicolumn{2}{c}{Phase I}\\\midrule
+\multicolumn{2}{c|}{\# BJet}&$ \geq 4 $ & 2 or 3 &$ \geq 4 $ & 2 or 3&$ \geq 4 $ & 2 or 3 &$ \geq 4 $ & 2 or 3 \\\midrule
+\multicolumn{2}{c|}{\# Bkg} & 123 & 76 & 12 & 7 & 84 & 35 & 7 & 3 \\\midrule\midrule
+\multirow{4}{3mm}{\begin{sideways}\parbox{15mm}{Asimov}\end{sideways}}
+& NM1 & 13 & 6 & 9 & 3 & 15 & 9 & 11 & 4 \\
+& NM2 & 6 & 2 & 4 & 1 & 7 & 3 & 5 & 1 \\
+& NM3 & 3 & 1 & 2 & 0 & 4 & 1 & 2 & 0 \\
+& STC & 6 & 3 & 4 & 1 & 7 & 5 & 5 & 2 \\\midrule
+\end{tabular}
+\caption{Ejemplo 2}
+\end{table}
 
 
 

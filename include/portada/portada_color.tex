@@ -40,6 +40,10 @@
 {} % Si no, no modifica el tamaño
 } }
 
+\if\OptimizaTikZ 1
+\tikzexternaldisable % Desactiva la exportación com figura
+\fi 
+
 % Inicio de portada
 \begin{titlepage}
 % Offset horizontal para toda la portada
@@ -98,6 +102,10 @@
 
 
 \end{titlepage}
+
+\if\OptimizaTikZ 1
+\tikzexternalenable % Reactiva la exportación como figura
+\fi
 
 \pagecolor{white}
 

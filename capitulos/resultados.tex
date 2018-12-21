@@ -99,6 +99,7 @@ En muchas ocasiones es necesario realizar un diagrama de bloques, más abajo se 
 
 Existen múltiples formas de generar gráficas para latex. Hay disponibles herramientas como GeoGebra que dispone de la utilidad para exportar los gráficos en formato Tkiz. También funciones para Matlab que genera las gráficas que muestra habitualmente pero en código para Tkiz.
 
+\subsection{Línea}
 La forma más simple, aunque no sencilla cuando abarca muchos datos es la siguiente:
 
 \begin{lstlisting}[style=Latex-color]
@@ -135,9 +136,16 @@ El resultado es el siguiente:
 \caption{Gráfica sencilla.}
 \end{figure}
 \FloatBarrier
-\vspace{1em}
-\noindent\hrule
-\vspace{1em}
+
+Otro ejemplo, en este caso las lineas están calculadas directamente en LaTex y después cada una tiene una anotación (el código se encuentra en el archivo archivos/ejemplos/perjudicialesopticacentro.tex):
+
+\begin{figure}[H]
+	\centering%
+    \input{archivos/ejemplos/perjudicialesopticacentro}%
+    \caption{OP/S003}%
+\end{figure}%
+
+\subsection{Barras}
 Otro ejemplo es la gráfica de barras:
 \begin{lstlisting}[style=Latex-color]
 \begin{figure}[ht]
@@ -201,8 +209,21 @@ El resultado es el siguiente:
 \caption{Gráfica barras.}
 \end{figure}
 \FloatBarrier
-\section{Importados de Matlab}
 
+\subsection{Polar}
+Un ejemplo de gráfica polar semicircular (ver archivo archivos/ejemplos/polarnorm.tex):
+
+\begin{figure}[H]
+    	\centering%
+         {\scalefont{0.8}%
+    \input{archivos/ejemplos/polarnorm}%
+    }
+    \caption{Directividad normalizada del altavoz (0 dBV en el eje).}\label{norma}
+\end{figure}
+
+
+\section{Importados de MATLAB}
+\label{impmatlab}
 Gracias a la herramienta \textit{matlab2tikz} (\url{https://es.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz}) se pueden exportar las gráficas de cualquier tipo de Matlab a latex.
 Después de incluir los archivos de \textit{matlab2tikz} se debe escribir una llamada después de crear la figura tal que:
 

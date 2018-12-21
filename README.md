@@ -3,6 +3,13 @@
 
 **Ejemplo real de TFG y póster:  <a href="http://jmrplens.com/GitHub_TFGTemplate/TFG+Poster.zip">Descargar proyecto LaTeX</a>**
 
+**Novedades Diciembre 2018:** 
+* Si utilizas figuras generadas con TikZ o PGF y quieres reducir el tiempo de compilado activa la optimización poniendo un `1` en la línea `\def\OptimizaTikZ{1}` que se encuentra al principio del archivo principal `TFG-TFM_EPS.tex`. Esto almacenará tus figuras en `archivos/figuras-procesadas` y mientras no sean editadas se cargarán desde ahi y no se ejecutará su código, además puedes darles otros usos (powerpoint, word, etc).
+*  Se han añadido _comentarios mágicos_ en la cabecera del archivo principal para que el proyecto se compile con las opciones necesarias en TeXstudio, si eres un usuario/a medio o avanzado/a puedes seleccionarlas tu mismo/a en tu editor preferido, es necesario utilizar XeLaTeX y si quieres reducir el tiempo utilizando la externalización de TikZ debes añadir -shell-escape a tus comandos.
+* Si vas a utilizar el proyecto en <a href="https://www.overleaf.com/">Overleaf</a> (recuerda cambiar el motor a XeLaTex) o si tienes problemas con la exportación de TikZ y PGF desactiva la optimización. En algunos casos es interesante activarlo en Overleaf aunque se muestre que se han producido errores ya que el resultado es el correcto y se reduce el tiempo de procesado (las cuentas gratuitas tienen limite de tiempo de ejecución).
+
+---
+
 Esta plantilla se ha creado después de observar la idea concebida por Pedro Pernías y otros colaboradores en su plantilla: <a href="https://github.com/lcg51/tfg">tfg</a>. Se ha mantenido algún contenido de los capítulos de esa plantilla, y la clase de documento _scrbook_ pero el resto de la plantilla está realizada de cero. El diseño se ha ajustado a lo indicado en la <a href="https://eps.ua.es/es/ingenieria-sonido-imagen-telecomunicacion/documentos/tfg/libro-de-estilo.pdf">Guía de estilo</a> de la EPS. Siempre se debe comprobar que no hayan cambiado los criterios, ya que esta plantilla se actualiza periódicamente y no cada vez que se establezca una modificación por parte de la EPS. Si algún parámetro cambia es sencillo actualizar ese cambio en la plantilla, se ha realizado de tal modo que todos los parámetros sean fácilmente editables.
 
 Esta plantilla puede ser divulgada, modificada y compartida libremente. Este proyecto se ha realizado para los alumnos de la Escuela Politécnica Superior de la Universidad de Alicante, esperando facilitar un poco la introducción al trabajo con LaTeX. Se ruega enviar sugerencias de todo tipo, el contenido de la plantilla intenta mostrar un poco de todo lo que se puede hacer con LaTeX, pero si es complejo el uso y así lo indicasen los usuarios se modificará para hacerla más manejable.
@@ -176,7 +183,7 @@ Para ello se han utilizado los archivos de capítulos y en cada uno de ellos se 
 Estos capítulos son meramente de ejemplo y pueden ser eliminados sin miedo a que deje de funcionar alguna cosa o editados con el contenido del trabajo.
 
 ## Uso
-La plantilla necesita el motor XeLaTeX (el más recomendable actualmente), por lo que si el programa que utilizas compila la plantilla con el motor pdfLaTeX (el más habitual pero menos potente) debes cambiarlo por XeLaTeX en las opciones del programa. Si no sabes cómo hacerlo busca en el manual del programa o en google.
+La plantilla necesita el motor XeLaTeX (el más recomendable actualmente), por lo que si el programa que utilizas compila la plantilla con el motor pdfLaTeX (el más habitual pero menos potente) debes cambiarlo por XeLaTeX en las opciones del programa. En el archivo principal se han añadido dos lineas de comandos que fuerza al programa TeXstudio a utilizar el motor XeLateX sin tener que configurar nada, de todos modos si no funcionan será necesario buscar en la ayuda del programa como elegir como motor XeLaTeX. 
 
 
 El uso de la plantilla es muy sencillo si se conoce qué hace cada uno de los archivos. A continuación se describen cada uno de ellos.
@@ -187,6 +194,7 @@ La plantilla esta estructurada del siguiente modo:
 * `bibliografia` -> Contiene un archivo BibTeX con la bibliografía.
 * `capitulos` -> Contiene los archivos de cada capítulo.
 * `archivos` -> Contiene los archivos utilizados en el contenido de ejemplo.
+	* `archivos/figuras-procesadas` -> Aquí se almacenan las figuras generadas con TikZ y PGF para no regenerarlas cada vez que se compila el proyecto (no elimines la carpeta sino se generará un error). Ademas puedes aprovechar las figuras generadas para utilizarlas en tu powerpoint o cualquier otro software que vayas a utilizar para presentar tu TFG o TFM.
 * `include` -> Contiene todo lo necesario para que la plantilla funcione.
 * `TFG-TFM_EPS_UA.tex` -> Archivo principal de la plantilla.
 

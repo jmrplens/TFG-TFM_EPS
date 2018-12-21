@@ -107,7 +107,7 @@
 % TABLAS
 %%%%%%%%%%%%%%%%%%%%%%%%
 % Paquetes para tablas
-\usepackage{longtable,booktabs,array,multirow,tabularx,ragged2e,array}
+\usepackage{longtable,booktabs,array,multirow,multicol,tabularx,ragged2e,array}
 % Nuevos tipos de columna para tabla, se pueden utilizar como por ejemplo C{3cm} en la definición de columnas de la función tabular
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
@@ -118,10 +118,23 @@
 %%%%%%%%%%%%%%%%%%%%%%%% 
 % Paquete para todo tipo de gráficas, diagramas, modificación de imágenes, etc
 \usepackage{tikz,tikzpagenodes}
-\usetikzlibrary{tikzmark,calc,shapes.geometric,arrows,backgrounds,shadings,shapes.arrows,shapes.symbols,shadows,positioning,fit,automata}
+\usetikzlibrary{tikzmark,calc,shapes.geometric,arrows,backgrounds,shadings,shapes.arrows,shapes.symbols,shadows,positioning,fit,automata,patterns,intersections}
 \usepackage{pgfplots}
+\pgfplotsset{colormap/jet}
 \pgfplotsset{compat=newest} % Compatibilidad
+\usepgfplotslibrary{patchplots,groupplots,fillbetween,polar}
 \usepackage{pgfplotstable}
+% Guardar las figuras realizadas con Tikz y Pgf en una carpeta externa
+% para agilizar el procesado y tenerlas para utilizarlas en otros
+% documentos
+\if\OptimizaTikZ 1
+\usepgfplotslibrary{external}
+\tikzexternalize[prefix=archivos/figuras-procesadas/] % Ruta
+\tikzset{%
+    external/system call ={xelatex -enable-write18 -halt-on-error -interaction=batchmode -jobname "\image" "\texsource"},
+}
+\fi
+
 % Estilos para elementos graficos
 % Cajas y cajas de texto
 \tikzstyle{Caja1} = [green,very thick,rounded corners,fill=white, fill opacity=0.5]
@@ -195,10 +208,23 @@
 \usepackage{xstring,xifthen}
 % Paquete para realizar calculos en el código
 \usepackage{calc}
-% Para incluir comentrios en el texto. El parámetro 'disable' oculta todas las notas.
+% Para rotar tablas o figuras o su contenido
+\usepackage{rotating} 
+% Para incluir comentarios en el texto. El parámetro 'disable' oculta todas las notas.
 % USO: \todo{tutexto}
 \usepackage[textsize=tiny,spanish,shadow,textwidth=2cm]{todonotes}
 %\reversemarginpar % Descomentar si se quiere todos los comentarios en el mismo lado
+% Desactiva la exportación de los ToDo y Missingfigures como figuras
+\if\OptimizaTikZ 1
+\makeatletter
+\renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
+\makeatother
+\usepackage{letltxmacro}
+\LetLtxMacro{\oldmissingfigure}{\missingfigure}
+\makeatletter
+\renewcommand{\missingfigure}[2][]{\tikzexternaldisable\oldmissingfigure[{#1}]{#2}\tikzexternalenable}
+\makeatother
+\fi
 
 %%%%%%%%%%%%%%%%%%%%%%%% 
 % GLOSARIOS
@@ -237,8 +263,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%% 
 % MATEMÁTICAS
 %%%%%%%%%%%%%%%%%%%%%%%%
-\RequirePackage{mathtools,amsthm,amsfonts,amssymb,bm,mathrsfs} 
-\RequirePackage{upgreek}
+\usepackage{mathtools,amsthm,amsfonts,amssymb,bm,mathrsfs,nicefrac,upgreek,bigints} 
 % Comando para añadir información de variables a las ecuaciones
 % Uso: \begin{condiciones}[donde:] ....... \end{condiciones}
 \newenvironment{condiciones}[1][2]

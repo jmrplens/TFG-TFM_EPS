@@ -1,0 +1,1 @@
+Si quieres mantener la posibilidad de utilizar la optimización de figuras TikZ y PGF (primera linea de código en el archivo principal), no elimines esta carpeta o se producirá un error al ejecutar.
