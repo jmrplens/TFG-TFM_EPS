@@ -17,7 +17,7 @@
 \definecolor{multimedia}{RGB}{239,206,53}	% Multimedia
 \definecolor{arquitecnica}{RGB}{0,179,148}	% Arquitectura técnica
 \definecolor{arquitectura}{RGB}{181,0,0}		% Arquitectura
-\definecolor{robotica}{RGB}{0,128,255}		% Robótica
+\definecolor{robotica}{RGB}{255,255,128}		% Robótica
 % Másteres
 \definecolor{masterteleco}{RGB}{32,2,116}	% Teleco
 \definecolor{caminos}{RGB}{201,56,140}		% Caminos, Canales y Puertos
@@ -29,7 +29,8 @@
 \definecolor{prevencion}{RGB}{0,100,0}		% Prevención Riesgos
 \definecolor{gestionagua}{RGB}{7,138,197}	% Gestión Agua
 \definecolor{moviles}{RGB}{121,11,21}		% Aplicaciones Móviles
-\definecolor{masterquimica}{RGB}{41,199,255}	% Aplicaciones Móviles
+\definecolor{masterquimica}{RGB}{41,199,255}	% Quimica
+\definecolor{ciberseguridad}{RGB}{9,111,192}	% Ciberseguridad
 
 % Logotipos comunes de todas las titulaciones
 \newcommand{\logoFacultad}{include/logos-universidad/LogoEPSNegro}
@@ -124,15 +125,15 @@
 		\newcommand{\colortexto}{blanco}
 	\else \if\IDtitulo 8 % Robotica
 		% Logos
-		\newcommand{\logoFacultadPortada}{include/logos-universidad/LogoEPSBlanco}
-		\newcommand{\logoGradoPortada}{include/logos-titulaciones/LogoInformaticaBlanco}
-		\newcommand{\logoGrado}{include/logos-titulaciones/LogoInformaticaNegro}
+		\newcommand{\logoFacultadPortada}{include/logos-universidad/LogoEPSNegro}
+		\newcommand{\logoGradoPortada}{include/logos-titulaciones/LogoRoboticaColor}
+		\newcommand{\logoGrado}{include/logos-titulaciones/LogoRoboticaNegro}
 		% Texto
 		\newcommand{\miGrado}{Grado en Ingeniería Robótica}
 		\newcommand{\tipotrabajo}{Trabajo Fin de Grado}
 		% Color
 		\newcommand{\colorgrado}{robotica}
-		\newcommand{\colortexto}{blanco}
+		\newcommand{\colortexto}{negro}
 % Másteres
 	\else \if\IDtitulo A % Teleco
 		% Logos
@@ -255,9 +256,20 @@
 		% Color
 		\newcommand{\colorgrado}{masterquimica}
 		\newcommand{\colortexto}{negro}
+	\else \if\IDtitulo L % Ciberseguridad
+		% Logos
+		\newcommand{\logoFacultadPortada}{include/logos-universidad/LogoEPSBlanco}
+		\newcommand{\logoGradoPortada}{include/logos-titulaciones/LogoMasterCiberseguridadColor}
+		\newcommand{\logoGrado}{include/logos-titulaciones/LogoMasterCiberseguridadNegro}
+		% Texto
+		\newcommand{\miGrado}{Máster Universitario en Ciberseguridad}
+		\newcommand{\tipotrabajo}{Trabajo Fin de Máster}
+		% Color
+		\newcommand{\colorgrado}{ciberseguridad}
+		\newcommand{\colortexto}{blanco}
 
 
-	\fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi
+	\fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 % ¿COMO AÑADIR MÁS TITULACIONES?
