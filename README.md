@@ -175,7 +175,7 @@ El resultado obtenido dentro del documento para, por ejemplo, lenguaje Python en
 
 ### Optimización
 
-Si utilizas figuras generadas con TikZ o PGF y quieres reducir el tiempo de compilado activa la optimización poniendo un `1` en la línea `\def\OptimizaTikZ{1}` que se encuentra al principio del archivo principal `TFG-TFM_EPS.tex`. Esto almacenará tus figuras en `archivos/figuras-procesadas` y mientras no sean editadas se cargarán desde ahi y no se ejecutará su código, además puedes darles otros usos (powerpoint, word, etc).
+Si utilizas figuras generadas con TikZ o PGF y quieres reducir el tiempo de compilado activa la optimización poniendo un `1` en la línea `\def\OptimizaTikZ{1}` que se encuentra al principio del archivo principal `TFG-TFM_EPS.tex`. Esto almacenará tus figuras en `archivos/figuras-procesadas` como imágenes vectoriales en PDF y mientras no sean editadas se cargarán desde ahi y no se ejecutará su código, además puedes darles otros usos (powerpoint, word, etc).
 
 ### Contenido de ejemplo
 Se ha incluido contenido de ejemplo para mostrar, a aquellos que aún no conocen LaTeX, el potencial que tiene este sistema y enseñar sutílmente cómo manejarlo.
