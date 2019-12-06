@@ -204,6 +204,13 @@ Y en el archivo principal `TFG-TFM_EPS_UA.tex` colocar estas líneas depues de l
 ...
 ```
 
+Cuando el proyecto en GitHub sufre alguna actualización importante se sube una nueva versión a Overleaf, en el siguiente enlace encontrarás la plantilla en Overleaf con la modificación anterior aplicada y con las actualizaciones hasta diciembre de 2019: <a href="_blank">Plantilla Overleaf</a> 
+
+Recuerda que debes seleccionar en el menú el compilador _XeLateX_ y el archivo principal `TFG-TFM_EPS_UA.tex` tal que:
+
+<img src="http://jmrplens.com/GitHub_TFGTemplate/overleafconfig.png" width="30%"></img>
+
+
 ## Uso
 La plantilla necesita el motor XeLaTeX (el más recomendable actualmente), por lo que si el programa que utilizas compila la plantilla con el motor pdfLaTeX (el más habitual pero menos potente) debes cambiarlo por XeLaTeX en las opciones del programa. En el archivo principal se han añadido dos lineas de comandos que fuerza al programa TeXstudio a utilizar el motor XeLateX sin tener que configurar nada, de todos modos si no funcionan será necesario buscar en la ayuda del programa como elegir como motor XeLaTeX. 
 
