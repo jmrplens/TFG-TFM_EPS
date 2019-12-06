@@ -3,11 +3,6 @@
 
 **Ejemplo real de TFG y póster:  <a href="http://jmrplens.com/GitHub_TFGTemplate/TFG+Poster.zip">Descargar proyecto LaTeX</a>**
 
-**Novedades Diciembre 2018:** 
-* Si utilizas figuras generadas con TikZ o PGF y quieres reducir el tiempo de compilado activa la optimización poniendo un `1` en la línea `\def\OptimizaTikZ{1}` que se encuentra al principio del archivo principal `TFG-TFM_EPS.tex`. Esto almacenará tus figuras en `archivos/figuras-procesadas` y mientras no sean editadas se cargarán desde ahi y no se ejecutará su código, además puedes darles otros usos (powerpoint, word, etc).
-*  Se han añadido _comentarios mágicos_ en la cabecera del archivo principal para que el proyecto se compile con las opciones necesarias en TeXstudio, si eres un usuario/a medio o avanzado/a puedes seleccionarlas tu mismo/a en tu editor preferido, es necesario utilizar XeLaTeX y si quieres reducir el tiempo utilizando la externalización de TikZ debes añadir -shell-escape a tus comandos.
-* Si vas a utilizar el proyecto en <a href="https://www.overleaf.com/">Overleaf</a> (recuerda cambiar el motor a XeLaTex) o si tienes problemas con la exportación de TikZ y PGF desactiva la optimización. En algunos casos es interesante activarlo en Overleaf aunque se muestre que se han producido errores ya que el resultado es el correcto y se reduce el tiempo de procesado (las cuentas gratuitas tienen limite de tiempo de ejecución).
-
 ---
 
 Esta plantilla se ha creado después de observar la idea concebida por Pedro Pernías y otros colaboradores en su plantilla: <a href="https://github.com/lcg51/tfg">tfg</a>. Se ha mantenido algún contenido de los capítulos de esa plantilla, y la clase de documento _scrbook_ pero el resto de la plantilla está realizada de cero. El diseño se ha ajustado a lo indicado en la <a href="https://eps.ua.es/es/ingenieria-sonido-imagen-telecomunicacion/documentos/tfg/libro-de-estilo.pdf">Guía de estilo</a> de la EPS. Siempre se debe comprobar que no hayan cambiado los criterios, ya que esta plantilla se actualiza periódicamente y no cada vez que se establezca una modificación por parte de la EPS. Si algún parámetro cambia es sencillo actualizar ese cambio en la plantilla, se ha realizado de tal modo que todos los parámetros sean fácilmente editables.
@@ -23,7 +18,9 @@ Esta plantilla puede ser divulgada, modificada y compartida libremente. Este pro
 	1. [Multitud de diseños predefinidos](#multitud-de-dise%C3%B1os-predefinidos)
 	1. [Fuente de texto](#fuente-de-texto)
 	1. [Lenguajes de programación](#lenguajes-de-programaci%C3%B3n)
+	1. [Optimización](#optimizaci%C3%B3n)
 	1. [Contenido de ejemplo](#contenido-de-ejemplo)
+	1. [Overleaf](#overleaf)
 1. [Uso](#uso)
 	1. [Estructura de archivos](#estructura-de-archivos)
 	1. [Introduce la información del trabajo](#introduce-la-informaci%C3%B3n-del-trabajo)
@@ -176,12 +173,36 @@ El resultado obtenido dentro del documento para, por ejemplo, lenguaje Python en
 
 <img src="http://jmrplens.com/GitHub_TFGTemplate/ECod.png" width="40%"></img>
 
+### Optimización
+
+Si utilizas figuras generadas con TikZ o PGF y quieres reducir el tiempo de compilado activa la optimización poniendo un `1` en la línea `\def\OptimizaTikZ{1}` que se encuentra al principio del archivo principal `TFG-TFM_EPS.tex`. Esto almacenará tus figuras en `archivos/figuras-procesadas` y mientras no sean editadas se cargarán desde ahi y no se ejecutará su código, además puedes darles otros usos (powerpoint, word, etc).
+
 ### Contenido de ejemplo
 Se ha incluido contenido de ejemplo para mostrar, a aquellos que aún no conocen LaTeX, el potencial que tiene este sistema y enseñar sutílmente cómo manejarlo.
 
 Para ello se han utilizado los archivos de capítulos y en cada uno de ellos se han introducido distintos temas de ejemplo (figuras, códigos, tablas, etc)
 
 Estos capítulos son meramente de ejemplo y pueden ser eliminados sin miedo a que deje de funcionar alguna cosa o editados con el contenido del trabajo.
+
+### Overleaf
+
+Para el correcto funcionamiento de la plantilla en Overleaf es necesario realizar algunos cambios:
+
+En el archivo `include\configuracioninicial.tex` se debe eliminar la línea 132:
+```latex
+\tikzexternalize[prefix=archivos/figuras-procesadas/] % Ruta
+```
+Y en el archivo principal `TFG-TFM_EPS_UA.tex` colocar estas líneas depues de la carga del archivo `include\configuracioninicial.tex` (línea 16) tal que:
+```latex
+...
+\input{include/configuracioninicial}
+
+% Obligatorio colocar en el main en la version para Overleaf, no eliminar
+\if\OptimizaTikZ 1
+\tikzexternalize[prefix=archivos/figuras-procesadas/] % Ruta
+\fi 
+...
+```
 
 ## Uso
 La plantilla necesita el motor XeLaTeX (el más recomendable actualmente), por lo que si el programa que utilizas compila la plantilla con el motor pdfLaTeX (el más habitual pero menos potente) debes cambiarlo por XeLaTeX en las opciones del programa. En el archivo principal se han añadido dos lineas de comandos que fuerza al programa TeXstudio a utilizar el motor XeLateX sin tener que configurar nada, de todos modos si no funcionan será necesario buscar en la ayuda del programa como elegir como motor XeLaTeX. 
