@@ -204,7 +204,7 @@ Y en el archivo principal `TFG-TFM_EPS_UA.tex` colocar estas líneas depues de l
 ...
 ```
 
-Cuando el proyecto en GitHub sufre alguna actualización importante se sube una nueva versión a Overleaf, en el siguiente enlace encontrarás la plantilla en Overleaf con la modificación anterior aplicada y con las actualizaciones hasta diciembre de 2019: <a href="_blank">Plantilla Overleaf</a> 
+Cuando el proyecto en GitHub sufre alguna actualización importante se sube una nueva versión a Overleaf, en el siguiente enlace encontrarás la plantilla en Overleaf con la modificación anterior aplicada y con las actualizaciones hasta diciembre de 2019: <a href="https://www.overleaf.com/latex/templates/plantilla-latex-v2019-tfg-y-tfm-para-la-eps-de-la-universidad-de-alicante/zrvfhcndfptf">Plantilla Overleaf</a> 
 
 Recuerda que debes seleccionar en el menú de Overleaf el compilador _XeLateX_ y el archivo principal `TFG-TFM_EPS_UA.tex` tal que:
 
