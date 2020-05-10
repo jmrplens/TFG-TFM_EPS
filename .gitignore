@@ -1,4 +1,3 @@
-
 *.aux
 *.out
 *.gz
@@ -16,10 +15,6 @@
 *.lol
 *.lot
 *.toc
-.texpadtmp/Poster_TFG-TFM_EPS_UA.log
-.texpadtmp/TFG-TFM_EPS_UA.log
-archivos/.DS_Store
-archivos/ejemplos/.DS_Store
-.DS_Store
+*.DS_Store
 *.md5
 *.log
