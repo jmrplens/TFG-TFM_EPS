@@ -40,6 +40,24 @@
 {} % Si no, no modifica el tamaño
 } }
 
+% Segun el numero de tutores indica "Tutor" o "Tutores" 
+\ifx \miTutorB\undefined
+	\def\EtiquetaTutor{Tutor:}
+	\else
+	\def\EtiquetaTutor{Tutores:}
+\fi
+% Género del autore
+\def \GeneroF{f}
+\def \GeneroM{m}
+\if \miGenero\GeneroF
+	\def\EtiquetaAutore{Autora:}
+\else 	\if \miGenero\GeneroM
+			\def\EtiquetaAutore{Autor:}
+		\else
+			\def\EtiquetaAutore{Autore:}
+		\fi
+\fi	
+
 \if\OptimizaTikZ 1
 \tikzexternaldisable % Desactiva la exportación com figura
 \fi 
