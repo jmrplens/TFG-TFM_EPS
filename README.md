@@ -674,3 +674,5 @@ Si no deseas publicar en GitHub una sugerencia o algún error encontrado puedes 
 
 * Email: <a href="mailto:info@jmrplens.com">info@jmrplens.com</a>
 * Telegram: <a href="https://t.me/jmrplens">@jmrplens</a>
+
+DONACIONES: https://paypal.me/jmrplens
