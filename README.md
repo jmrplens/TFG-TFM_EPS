@@ -1,3 +1,5 @@
+[![Donación](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?hosted_button_id=BLP3R6VGYJB4Q)
+
 # Plantilla TFG/TFM
 **Para ver la información del póster haz clic <a href="https://github.com/jmrplens/TFG-TFM_EPS/wiki/P%C3%B3ster">aquí</a>.**
 
@@ -674,5 +676,5 @@ Si no deseas publicar en GitHub una sugerencia o algún error encontrado puedes 
 
 * Email: <a href="mailto:info@jmrplens.com">info@jmrplens.com</a>
 * Telegram: <a href="https://t.me/jmrplens">@jmrplens</a>
-
-DONACIONES: https://paypal.me/jmrplens
+* 
+[![Donación](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?hosted_button_id=BLP3R6VGYJB4Q)
