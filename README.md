@@ -675,8 +675,8 @@ El tamaño de la fuente se puede modificar en las siguientes líneas del mismo a
 ## Contacto (sugerencias, errores, etc)
 Si no deseas publicar en GitHub una sugerencia o algún error encontrado puedes ponerte en contacto conmigo a través de:
 
-* Email: <a href="mailto:info@jmrplens.com">info@jmrplens.com</a>
-* Telegram: <a href="https://t.me/jmrplens">@jmrplens</a>
+* Email: <a href="mailto:info@jmrplens.com">joreple@upv.es</a>
+* Web: <a href="https://jmrplens.github.io/">jmrplens.github.io</a>
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?hosted_button_id=BLP3R6VGYJB4Q)
 [![Donate](https://img.shields.io/badge/Donate-Ko--fi-brightgreen?color=ff5f5f)](https://ko-fi.com/jmrplens) 
