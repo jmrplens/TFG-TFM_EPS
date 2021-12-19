@@ -4,7 +4,7 @@
 # Plantilla TFG/TFM
 **Para ver la información del póster haz clic <a href="https://github.com/jmrplens/TFG-TFM_EPS/wiki/P%C3%B3ster">aquí</a>.**
 
-**Ejemplo real de TFG y póster:  <a href="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/TFG+Poster.zip">Descargar proyecto LaTeX</a>**
+**Ejemplo real de TFG y póster:  <a href="https://jmrplens.github.io/assets/pdf/paper-resources/TFG-latex.zip">Descargar proyecto LaTeX</a>**
 
 ---
 
