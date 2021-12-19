@@ -64,7 +64,7 @@ Recomiendo utilizar programas LaTeX que permitan trabajar con estructura de arch
 
 Detalle de trabajar con la estructura de archivos en <a href="https://www.texstudio.org/">TexStudio</a> (en <a href="http://www.xm1math.net/texmaker/">Texmaker</a> es igual) :
 
-<img src="http://jmrplens.com/GitHub_TFGTemplate/texstudio.png" width="30%"></img>
+<img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/texstudio.png" width="30%"></img>
 
 Existen herramientas de pago que facilitan más aún el trabajo con proyectos latex formados por varios archivos y generan más rapido los documentos como <a href="https://www.texpad.com/">Texpad</a> para Mac OS (utilizado para crear esta plantilla) o <a href="http://www.winedt.com/">WinEdt</a> para Windows.
 
@@ -98,7 +98,7 @@ Se ha dejado una función para mostrar una regla vertical y horizontal, para pod
 ```
 Se mostraría esto (haz clic sobre la imagen para verla más grande):
 
-<img src="http://jmrplens.com/GitHub_TFGTemplate/REG1.png" width="30%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/REG2.png" width="30%"></img>
+<img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/REG1.png" width="30%"></img> <img src="http://jmrplens.com/GitHub_TFGTemplate/REG2.png" width="30%"></img>
 
 Estilo de página par e impar o página izquierda y página derecha.
 
