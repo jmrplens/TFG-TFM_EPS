@@ -128,6 +128,7 @@ La lista de titulaciónes prediseñadas a día de hoy (Enero 2018) son:
 | `J` | Máster Universitario en Desarrollo de Software para Dispositivos Móviles  |
 | `K`  | Máster Universitario en Ingeniería Química  |
 | `L`  | Máster Universitario en Ciberseguridad  |
+| `M`  | Máster Universitario en Ingeniería Geológica  |
 
 El lugar donde indicar la `ID` de la titulación es en el archivo principal `TFG-TFM_EPS_UA.tex`, en la siguiente línea:
 
