@@ -31,6 +31,7 @@
 \definecolor{moviles}{RGB}{121,11,21}		% Aplicaciones Móviles
 \definecolor{masterquimica}{RGB}{41,199,255}	% Quimica
 \definecolor{ciberseguridad}{RGB}{9,111,192}	% Ciberseguridad
+\definecolor{geologica}{RGB}{245,125,0}		% Ingeniería Geológica
 
 % Logotipos comunes de todas las titulaciones
 \newcommand{\logoFacultad}{include/logos-universidad/LogoEPSNegro}
@@ -267,9 +268,20 @@
 		% Color
 		\newcommand{\colorgrado}{ciberseguridad}
 		\newcommand{\colortexto}{blanco}
+	\else \if\IDtitulo M % Ingenieria geologica
+		% Logos
+		\newcommand{\logoFacultadPortada}{include/logos-universidad/LogoEPSBlanco}
+		\newcommand{\logoGradoPortada}{include/logos-titulaciones/LogoMasterGeologicaColor}
+		\newcommand{\logoGrado}{include/logos-titulaciones/LogoMasterGeologicaNegro}
+		% Texto
+		\newcommand{\miGrado}{Máster Universitario en Ingeniería Geológica}
+		\newcommand{\tipotrabajo}{Trabajo Fin de Máster}
+		% Color
+		\newcommand{\colorgrado}{geologica}
+		\newcommand{\colortexto}{blanco}
 
 
-	\fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi
+	\fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi
 	
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 % ¿COMO AÑADIR MÁS TITULACIONES?
