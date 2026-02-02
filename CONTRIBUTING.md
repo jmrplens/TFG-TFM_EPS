@@ -37,6 +37,16 @@ Este proyecto sigue un código de conducta basado en el respeto mutuo. Por favor
 - Ejemplos de uso avanzado (TikZ, pgfplots, etc.)
 - Compatibilidad con Overleaf
 - Optimizaciones de rendimiento en compilación
+- Mejoras en la documentación y archivos de contexto para IA
+
+### 🤖 Trabajar con asistentes de IA
+
+Si usas ChatGPT, Claude, Copilot u otro asistente de IA para contribuir, el proyecto incluye archivos de contexto que les ayudan a entender mejor la plantilla:
+
+- `AGENTS.md` - Guía general para cualquier IA
+- `CLAUDE.md` - Instrucciones específicas para Claude
+- `.github/copilot-instructions.md` - Contexto para GitHub Copilot
+- `docs/AI_CONTEXT.md` - Referencia técnica detallada
 
 ## 🛠️ Configuración del entorno
 

@@ -5,6 +5,28 @@ Todos los cambios notables de este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
+## [Unreleased]
+
+### Añadido
+
+- **Archivos de contexto para IA**: `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md` y `docs/AI_CONTEXT.md` para ayudar a ChatGPT, Claude, Copilot y otros asistentes a dar respuestas precisas sobre la plantilla
+- **CI/CD mejorado**: Comentarios automáticos en PRs con enlace al PDF compilado y tabla de estado de portadas
+- **Opciones de género neutro**: `genero = n` muestra "Autoría" en lugar de "Autor/Autora"
+- **Género para tutores**: Nuevas opciones `tutor-genero` y `cotutor-genero`
+- **Script unificado**: `actualizar_previews.py` combina generación e inserción de previews
+- **Paralelización**: Scripts de generación de portadas y previews ahora usan múltiples procesos
+
+### Corregido
+
+- **Portadas**: Eliminado borde blanco de 1px en el borde derecho
+- **Portadas**: Corregida altura de la barra negra (6.86cm según diseño original)
+
+### Cambiado
+
+- **Funding**: Simplificado a solo GitHub Sponsors (eliminado Ko-fi y PayPal)
+
+---
+
 ## [2.0.0] - 2026-02-02
 
 ### 🚀 Cambios mayores - Modernización completa
@@ -114,11 +136,13 @@ Esta versión representa una reescritura completa de la plantilla con tecnologí
 
 - [ ] Reimplementar plantilla de póster
 - [ ] Añadir tema de presentación Beamer
-- [ ] GitHub Actions para CI/CD
-- [ ] Plantilla de overleaf
+- [x] ~~GitHub Actions para CI/CD~~ ✅ Implementado
+- [ ] Plantilla de Overleaf verificada
+- [x] ~~Archivos de contexto para asistentes IA~~ ✅ Implementado
 
 ### Versión 2.2 (futura)
 
 - [ ] Soporte para múltiples idiomas adicionales
 - [ ] Temas de color alternativos
 - [ ] Exportación a formatos accesibles (PDF/A)
+- [ ] Integración con Zotero/Mendeley

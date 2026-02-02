@@ -58,7 +58,21 @@ Guías detalladas para cada aspecto de tu documento:
 
 ---
 
-## �🚀 Inicio Rápido
+## 🤖 Ayuda con IA
+
+¿Usas ChatGPT, Claude, Copilot u otro asistente de IA? Este proyecto incluye archivos de contexto para que las IAs te ayuden mejor:
+
+| Archivo | Propósito |
+|---------|----------|
+| [AGENTS.md](AGENTS.md) | Guía general para cualquier IA |
+| [CLAUDE.md](CLAUDE.md) | Instrucciones específicas para Claude |
+| [docs/AI_CONTEXT.md](docs/AI_CONTEXT.md) | Referencia técnica detallada |
+
+**Tip:** Copia el contenido de `AGENTS.md` en tu chat con la IA para obtener respuestas más precisas sobre esta plantilla.
+
+---
+
+## 🚀 Inicio Rápido
 
 ### Requisitos
 
@@ -111,15 +125,14 @@ TFG-TFM_EPS/
 ├── referencias.bib             # Bibliografía
 ├── Makefile                    # Comandos de compilación
 ├── .latexmkrc                  # Configuración de latexmk
-├── CHANGELOG.md                # Historial de cambios
-├── CONTRIBUTING.md             # Guía de contribución
 │
 ├── cls/
 │   └── eps-tfg.cls             # Clase principal
 │
 ├── sty/
 │   ├── eps-portadas.sty        # Paquete de portadas
-│   └── eps-codigo.sty          # Estilos de código
+│   ├── eps-codigo.sty          # Estilos de código
+│   └── ...                     # Otros paquetes de estilo
 │
 ├── contenido/
 │   ├── frontmatter/
@@ -134,16 +147,24 @@ TFG-TFM_EPS/
 │   │   └── conclusiones.tex
 │   └── anexos/
 │       ├── acronimos.tex
-│       ├── anexo-a.tex
-│       └── anexo-b.tex
+│       └── anexo-X.tex         # Tus anexos
 │
-└── recursos/
-    ├── logos/                  # Logos institucionales (PDF)
-    │   ├── titulaciones/       # Logos de cada titulación
-    │   └── universidad/        # Logos UA y EPS
-    ├── fuentes/                # Fuentes tipográficas opcionales
-    ├── figuras/                # Tus figuras e imágenes
-    └── ejemplos/               # Ejemplos de código fuente
+├── recursos/
+│   ├── logos/                  # Logos institucionales (PDF)
+│   ├── fuentes/                # Fuentes tipográficas
+│   ├── figuras/                # Tus figuras e imágenes
+│   └── ejemplos/               # Ejemplos de código fuente
+│
+├── docs/                       # Documentación detallada
+│   ├── GUIA_PRINCIPIANTES.md
+│   ├── CODIGO_FUENTE.md
+│   ├── ECUACIONES.md
+│   └── ...                     # Más guías especializadas
+│
+├── AGENTS.md                   # Contexto para asistentes IA
+├── CLAUDE.md                   # Instrucciones para Claude
+├── CHANGELOG.md                # Historial de cambios
+└── CONTRIBUTING.md             # Guía de contribución
 ```
 
 ---
