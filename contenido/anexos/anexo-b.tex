@@ -1,0 +1,192 @@
+\chapter{Documentación técnica}
+\label{anexo:tecnico}
+
+Este anexo contiene la documentación técnica del sistema.
+
+\section{Arquitectura del sistema}
+
+\subsection{Diagrama de componentes}
+
+El sistema está compuesto por los siguientes componentes principales:
+
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[
+    component/.style={draw, rectangle, rounded corners, minimum width=3cm, minimum height=1.5cm, fill=blue!10, align=center},
+    database/.style={draw, cylinder, shape border rotate=90, aspect=0.3, minimum width=2cm, minimum height=1.5cm, fill=green!10},
+    external/.style={draw, rectangle, dashed, minimum width=2.5cm, minimum height=1.5cm, fill=gray!10},
+    arrow/.style={->, thick}
+  ]
+    % Frontend
+    \node[component] (frontend) at (0,4) {Frontend\\ (React)};
+    
+    % Backend
+    \node[component] (api) at (0,2) {API Gateway\\ (FastAPI)};
+    \node[component] (auth) at (-3,0) {Auth Service};
+    \node[component] (core) at (0,0) {Core Service};
+    \node[component] (notify) at (3,0) {Notification\\ Service};
+    
+    % Database
+    \node[database] (db) at (0,-2) {PostgreSQL};
+    \node[database] (cache) at (-3,-2) {Redis};
+    
+    % External
+    \node[external] (mail) at (5,0) {SMTP Server};
+    
+    % Connections
+    \draw[arrow] (frontend) -- (api);
+    \draw[arrow] (api) -- (auth);
+    \draw[arrow] (api) -- (core);
+    \draw[arrow] (api) -- (notify);
+    \draw[arrow] (auth) -- (db);
+    \draw[arrow] (core) -- (db);
+    \draw[arrow] (auth) -- (cache);
+    \draw[arrow] (notify) -- (mail);
+  \end{tikzpicture}
+  \caption{Diagrama de componentes del sistema}
+  \label{fig:componentes}
+\end{figure}
+
+\section{API REST}
+
+\subsection{Endpoints principales}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Endpoints de la API}
+  \label{tab:endpoints}
+  \begin{tabular}{@{}llp{5cm}@{}}
+    \toprule
+    \textbf{Método} & \textbf{Endpoint} & \textbf{Descripción} \\
+    \midrule
+    POST & /api/auth/login & Autenticación de usuarios \\
+    POST & /api/auth/logout & Cierre de sesión \\
+    GET & /api/users & Lista de usuarios \\
+    GET & /api/users/\{id\} & Detalle de usuario \\
+    POST & /api/users & Crear usuario \\
+    PUT & /api/users/\{id\} & Actualizar usuario \\
+    DELETE & /api/users/\{id\} & Eliminar usuario \\
+    GET & /api/reports & Lista de informes \\
+    POST & /api/reports/generate & Generar informe \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Ejemplo de petición}
+
+Ejemplo de petición para crear un usuario:
+
+\begin{jsoncode}[title={POST /api/users}]
+{
+  "nombre": "Juan García",
+  "email": "juan.garcia@ejemplo.com",
+  "rol": "usuario",
+  "activo": true,
+  "preferencias": {
+    "idioma": "es",
+    "notificaciones": true,
+    "tema": "claro"
+  }
+}
+\end{jsoncode}
+
+\subsection{Ejemplo de respuesta}
+
+Respuesta exitosa:
+
+\begin{jsoncode}[title={Respuesta 201 Created}]
+{
+  "id": 123,
+  "nombre": "Juan García",
+  "email": "juan.garcia@ejemplo.com",
+  "rol": "usuario",
+  "activo": true,
+  "createdAt": "2026-02-02T10:30:00Z",
+  "updatedAt": "2026-02-02T10:30:00Z"
+}
+\end{jsoncode}
+
+\section{Modelo de datos}
+
+\subsection{Esquema de base de datos}
+
+Las principales tablas del sistema son:
+
+\begin{sqlcode}[title={Esquema de la tabla usuarios}]
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    rol VARCHAR(50) DEFAULT 'usuario',
+    activo BOOLEAN DEFAULT TRUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    CONSTRAINT chk_rol CHECK (rol IN ('admin', 'usuario', 'invitado'))
+);
+
+CREATE INDEX idx_usuarios_email ON usuarios(email);
+CREATE INDEX idx_usuarios_activo ON usuarios(activo);
+\end{sqlcode}
+
+\section{Configuración del entorno}
+
+\subsection{Variables de entorno}
+
+\begin{yamlcode}[title={Archivo .env de configuración}]
+# Base de datos
+DATABASE_URL: postgresql://user:pass@localhost:5432/app
+DATABASE_POOL_SIZE: 10
+
+# Redis
+REDIS_URL: redis://localhost:6379/0
+
+# Autenticación
+JWT_SECRET: tu-clave-secreta-muy-larga
+JWT_EXPIRATION: 3600
+
+# Email
+SMTP_HOST: smtp.ejemplo.com
+SMTP_PORT: 587
+SMTP_USER: noreply@ejemplo.com
+SMTP_PASSWORD: contraseña-smtp
+
+# Aplicación
+APP_ENV: production
+APP_DEBUG: false
+LOG_LEVEL: INFO
+\end{yamlcode}
+
+\section{Instrucciones de despliegue}
+
+\subsection{Requisitos previos}
+
+\begin{itemize}
+  \item Docker 24.0+ y Docker Compose 2.20+
+  \item 4GB de RAM disponible
+  \item 20GB de espacio en disco
+\end{itemize}
+
+\subsection{Pasos de despliegue}
+
+\begin{bashcode}[title={Comandos de despliegue}]
+# Clonar repositorio
+git clone https://github.com/ejemplo/proyecto.git
+cd proyecto
+
+# Configurar variables de entorno
+cp .env.example .env
+nano .env  # Editar configuración
+
+# Construir e iniciar contenedores
+docker compose build
+docker compose up -d
+
+# Ejecutar migraciones
+docker compose exec app python manage.py migrate
+
+# Verificar estado
+docker compose ps
+curl http://localhost:8000/health
+\end{bashcode}

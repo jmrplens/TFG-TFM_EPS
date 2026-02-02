@@ -1,0 +1,61 @@
+name: Build LaTeX Document
+
+on:
+  push:
+    branches: [ master, main, modernization ]
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Python for Pygments
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Install Pygments
+      run: pip install Pygments
+      
+    - name: Compile LaTeX document
+      uses: xu-cheng/latex-action@v3
+      with:
+        root_file: main.tex
+        latexmk_use_lualatex: true
+        latexmk_shell_escape: true
+        extra_system_packages: |
+          python3-pygments
+        
+    - name: Upload PDF artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: TFG-TFM_EPS_UA
+        path: main.pdf
+        
+    - name: Upload PDF to release
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: main.pdf
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  check-links:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Check README links
+      uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'yes'
+        config-file: '.github/mlc_config.json'
+      continue-on-error: true

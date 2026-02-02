@@ -1,20 +1,75 @@
+# Archivos auxiliares de LaTeX
 *.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
 *.out
-*.gz
+*.synctex.gz
+*.synctex.gz(busy)
+*.toc
+*.lot
+*.lof
+*.run.xml
+*.xdv
+
+# Bibliografía
+*-blx.bib
+
+# Glosarios
 *.acn
 *.acr
 *.alg
-*.auxlock
-*.bbl
-*.blg
 *.glo
 *.gls
 *.glg
 *.ist
-*.lof
+
+# Índices
+*.idx
+*.ilg
+*.ind
+
+# Minted (caché de código)
+_minted-*/
+
+# Figuras externalizadas TikZ (mantener solo los archivos necesarios)
+archivos/figuras-procesadas/*.log
+archivos/figuras-procesadas/*.auxlock
+
+# Build directory
+build/
+
+# Archivos de respaldo
+*.bak
+*.backup
+*~
+\#*\#
+.\#*
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+*.swp
+*.swo
+.vscode/
+.idea/
+*.sublime-*
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# PDFs generados (descomenta si no quieres versionarlos)
+# *.pdf
+
+# Archivos específicos de Overleaf
+output/
+_minted/
+*.listing
 *.lol
-*.lot
-*.toc
-*.DS_Store
-*.md5
-*.log

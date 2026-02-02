@@ -1,0 +1,235 @@
+%% eps-portadas.sty
+%% Paquete de portadas para TFG/TFM EPS Universidad de Alicante
+%%
+%% Versión 2.0 - Febrero 2026
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{eps-portadas}[2026/02/02 v2.0 Portadas TFG/TFM EPS UA]
+
+\RequirePackage{xparse}
+\RequirePackage{tikz}
+\RequirePackage{tikzpagenodes}
+\RequirePackage{textpos}
+\RequirePackage{setspace}
+\RequirePackage{xstring}
+\RequirePackage{geometry}
+
+%% ============================================================================
+%% VARIABLES PARA PORTADAS
+%% ============================================================================
+
+% Tamaños por defecto
+\newcommand{\eps@FuenteTamano}{55pt}
+\newcommand{\eps@interlinportada}{5.0}
+\newcommand{\eps@TamTrabajo}{20pt}
+\newcommand{\eps@TamTrabajoIn}{20pt}
+\newcommand{\eps@TamOtros}{12pt}
+\newcommand{\eps@TamOtrosIn}{1pt}
+
+%% ============================================================================
+%% AJUSTE AUTOMÁTICO DE TAMAÑO DEL TÍTULO
+%% ============================================================================
+\newcommand{\eps@ajustar@tamano@titulo}{%
+  \StrLen{\EPStitulo}[\eps@longitudtitulo]%
+  \ifnum\eps@longitudtitulo>180
+    \renewcommand{\eps@FuenteTamano}{35pt}%
+    \renewcommand{\eps@interlinportada}{3.5}%
+  \else
+    \ifnum\eps@longitudtitulo>140
+      \renewcommand{\eps@FuenteTamano}{40pt}%
+      \renewcommand{\eps@interlinportada}{4.0}%
+    \else
+      \ifnum\eps@longitudtitulo>120
+        \renewcommand{\eps@FuenteTamano}{50pt}%
+        \renewcommand{\eps@interlinportada}{4.5}%
+      \fi
+    \fi
+  \fi
+}
+
+%% ============================================================================
+%% PORTADA A COLOR
+%% ============================================================================
+\NewDocumentCommand{\portadacolor}{}{%
+  \eps@ajustar@tamano@titulo
+  %
+  % Guardar geometría y establecer nueva
+  \newgeometry{ignoreall,top=2cm,outer=2cm,inner=2cm}%
+  %
+  % Desactivar externalización TikZ si está activa
+  \ifdefined\tikzexternaldisable\tikzexternaldisable\fi
+  %
+  \begin{titlepage}
+    % Offset horizontal
+    \newlength{\eps@centeroffset}%
+    \setlength{\eps@centeroffset}{-0.5\oddsidemargin}%
+    \addtolength{\eps@centeroffset}{0.5\evensidemargin}%
+    \thispagestyle{empty}%
+    %
+    % Fondo del color del grado
+    \pagecolor{\EPScolorGrado}%
+    %
+    % Logo de la facultad en esquina superior derecha
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[anchor=north west,inner sep=0pt] 
+        at ($(current page.north west)+(13.65cm,-1.4cm)$)
+        {\includegraphics[width=5.3cm]{\EPSlogoFacultadPortada}};
+    \end{tikzpicture}%
+    %
+    % Título
+    \hspace{0pt}%
+    \vfill
+    \hspace{-0.8cm}\begin{tabular}{L{18cm}}
+      \begin{spacing}{\eps@interlinportada}
+        {\raggedleft{\FuenteTitulo\fontsize{\eps@FuenteTamano}{110pt}\selectfont\color{\EPScolorTexto}\EPStitulo}}
+        \vspace{-7em}
+      \end{spacing}
+    \end{tabular}
+    \hfill\linebreak\\
+    %
+    % Logo del grado y nombre de titulación
+    \begin{tabular}{lL{12cm}}
+      \raisebox{-.35\height}{\includegraphics[width=2cm]{\EPSlogoGradoPortada}} & 
+      \begin{spacing}{1.5}
+        {\raggedleft{\FuentePortada\fontsize{20pt}{40pt}\selectfont\color{\EPScolorTexto}\EPStitulacion}}
+      \end{spacing}\\
+    \end{tabular}
+    \vspace{2cm}
+    \vfill
+    \hspace{0pt}%
+    %
+    % Franja negra inferior con logo UA
+    \begin{tikzpicture}[overlay, remember picture, inner sep=0pt, outer sep=0pt]
+      \fill [black] (current page.south west) rectangle (\paperwidth,\paperheight-26.4cm);
+      \node[anchor=south west,inner sep=0pt] 
+        at ($(current page.south west)+(13.2cm,1.6cm)$)
+        {\includegraphics[width=6.2cm]{\EPSlogoUniversidadPortada}};
+    \end{tikzpicture}%
+    %
+    % Información personal y fecha
+    \begin{textblock*}{\textwidth}(0.3cm,-2.35cm)
+      \noindent{\FuentePortada\fontsize{\eps@TamTrabajo}{45pt}\selectfont\color{white}\EPStipoTrabajo}\\[\eps@TamTrabajoIn]
+      {\FuentePortada\fontsize{\eps@TamOtros}{30pt}\selectfont\color{white}\EPSetiquetaAutor:}\\[\eps@TamOtrosIn]
+      {\FuentePortada\fontsize{\eps@TamOtros}{50pt}\selectfont\color{white}\EPSautor}\\[\eps@TamOtrosIn]
+      {\FuentePortada\fontsize{\eps@TamOtros}{30pt}\selectfont\color{white}\EPSetiquetaTutor:}\\[\eps@TamOtrosIn]
+      {\FuentePortada\fontsize{\eps@TamOtros}{30pt}\selectfont\color{white}\EPStutor}\\[\eps@TamOtrosIn]
+      \EPSsiCotutor{{\FuentePortada\fontsize{\eps@TamOtros}{30pt}\selectfont\color{white}\EPScotutor}\\[\eps@TamOtrosIn]}{}%
+      \\[\eps@TamOtrosIn]
+      {\FuentePortada\fontsize{\eps@TamOtros}{30pt}\selectfont\color{white}\EPSfecha}
+    \end{textblock*}
+  \end{titlepage}
+  %
+  % Reactivar externalización TikZ
+  \ifdefined\tikzexternalenable\tikzexternalenable\fi
+  %
+  % Restaurar color de página
+  \pagecolor{white}%
+}
+
+%% ============================================================================
+%% PORTADA EN BLANCO Y NEGRO
+%% ============================================================================
+\NewDocumentCommand{\portadabn}{}{%
+  \begin{titlepage}
+    % Márgenes de esta página
+    \newgeometry{ignoreall,top=2cm,bottom=2cm}%
+    %
+    % Offset horizontal
+    \newlength{\eps@centeroffsetbn}%
+    \setlength{\eps@centeroffsetbn}{-0.5\oddsidemargin}%
+    \addtolength{\eps@centeroffsetbn}{0.5\evensidemargin}%
+    \thispagestyle{empty}%
+    %
+    % Título y subtítulo
+    \noindent\hspace*{\eps@centeroffsetbn}\begin{minipage}{\textwidth}
+      \centering
+      \begin{spacing}{1.5}
+        {\huge\bfseries\EPStitulo}
+      \end{spacing}
+      \noindent\rule[-1ex]{\textwidth}{3pt}\\[3.5ex]
+      {\large\bfseries\EPSsubtitulo\\[4cm]}
+    \end{minipage}
+    %
+    % Relleno hasta zona central
+    \vspace{2.5cm}
+    %
+    % Autor y Tutores
+    \noindent\hspace*{\eps@centeroffsetbn}%
+    \begin{minipage}{\textwidth}
+      \centering
+      \textbf{\EPSetiquetaAutor}\\
+      {\EPSautor}\\[2.5ex]
+      \textbf{\EPSetiquetaTutor}\\
+      {\normalsize\EPStutor\\
+        \ifx\EPStutorDpto\empty\else\small\textit{\EPStutorDpto}\\\fi
+        \EPSsiCotutor{%
+          \normalsize\EPScotutor\\
+          \ifx\EPScotutorDpto\empty\else\small\textit{\EPScotutorDpto}\\\fi
+        }{}%
+      }
+    \end{minipage}
+    %
+    % Relleno hasta zona inferior
+    \vspace*{\fill}
+    %
+    % Logos y fecha
+    \noindent\hspace*{\eps@centeroffsetbn}%
+    \begin{minipage}{\textwidth}
+      \centering
+      \begin{center}
+        \includegraphics[width=3cm]{\EPSlogoGrado}\\
+        {\raggedleft\EPStitulacion}
+      \end{center}
+      \vspace*{2em}
+      \centering
+      \begin{minipage}[l]{6cm}
+        \includegraphics[width=5cm]{\EPSlogoFacultad}
+      \end{minipage}
+      \begin{minipage}[r]{6cm}
+        \includegraphics[width=5cm]{\EPSlogoUniversidad}
+      \end{minipage}
+      \\[1cm]
+      \MakeUppercase{\EPSubicacion}, \EPSfecha
+    \end{minipage}
+  \end{titlepage}
+  %
+  % Restaurar geometría
+  \restoregeometry
+}
+
+%% ============================================================================
+%% COMANDO UNIFICADO PARA GENERAR PORTADAS
+%% ============================================================================
+\newif\ifeps@portadacolor
+\newif\ifeps@portadabn
+
+\pgfkeys{
+  /eps/portada/.cd,
+  color/.is if=eps@portadacolor,
+  color/.default=true,
+  bn/.is if=eps@portadabn,
+  bn/.default=true,
+  blanco-negro/.is if=eps@portadabn,
+  ambas/.style={color=true,bn=true},
+  solo-color/.style={color=true,bn=false},
+  solo-bn/.style={color=false,bn=true},
+}
+
+\NewDocumentCommand{\generarportada}{O{ambas}}{%
+  \eps@portadacolorfalse
+  \eps@portadabnfalse
+  \pgfkeys{/eps/portada/.cd,#1}%
+  \ifeps@portadacolor
+    \portadacolor
+  \fi
+  \ifeps@portadabn
+    \portadabn
+  \fi
+}
+
+%% ============================================================================
+%% ALIAS PARA COMPATIBILIDAD
+%% ============================================================================
+\let\portada\generarportada
+
+\endinput

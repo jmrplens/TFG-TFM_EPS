@@ -1,0 +1,535 @@
+%% eps-codigo.sty
+%% Paquete de estilos de código para TFG/TFM EPS Universidad de Alicante
+%%
+%% Versión 2.0 - Febrero 2026
+%% Usa minted para resaltado de sintaxis con Pygments
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{eps-codigo}[2026/02/02 v2.0 Estilos de código TFG/TFM EPS UA]
+
+\RequirePackage{xparse}
+\RequirePackage{xcolor}
+
+% Cargar minted ANTES de tcolorbox para evitar option clash
+\RequirePackage[newfloat]{minted}
+
+\RequirePackage{tcolorbox}
+% No cargamos 'listings' para evitar conflicto con minted sobre 'lol'
+\tcbuselibrary{minted,skins,breakable}
+
+%% ============================================================================
+%% COLORES PARA CÓDIGO
+%% ============================================================================
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codeframe}{RGB}{200,200,200}
+\definecolor{codenumber}{RGB}{150,150,150}
+\definecolor{codecomment}{RGB}{0,128,0}
+\definecolor{codestring}{RGB}{163,21,21}
+\definecolor{codekeyword}{RGB}{0,0,255}
+\definecolor{codeidentifier}{RGB}{0,0,0}
+
+% Tema oscuro
+\definecolor{darkbg}{RGB}{40,44,52}
+\definecolor{darkframe}{RGB}{60,64,72}
+\definecolor{darknumber}{RGB}{100,100,100}
+\definecolor{darkcomment}{RGB}{92,99,112}
+\definecolor{darkstring}{RGB}{152,195,121}
+\definecolor{darkkeyword}{RGB}{198,120,221}
+\definecolor{darkidentifier}{RGB}{171,178,191}
+\definecolor{darkfunction}{RGB}{97,175,239}
+
+%% ============================================================================
+%% CONFIGURACIÓN DE MINTED
+%% ============================================================================
+% minted ya fue cargado arriba antes de tcolorbox
+
+% Configuración global de minted
+\setminted{
+  bgcolor=codebg,
+  fontsize=\small,
+  linenos=true,
+  numbersep=8pt,
+  tabsize=4,
+  breaklines=true,
+  breakanywhere=false,
+  breakautoindent=true,
+  breaksymbolleft={\textcolor{codenumber}{\small$\hookrightarrow$}},
+  breaksymbolright={},
+  frame=single,
+  framesep=2mm,
+  baselinestretch=1.1,
+  xleftmargin=0pt,
+  xrightmargin=0pt,
+}
+
+%% ============================================================================
+%% ESTILOS DE CAJA TCOLORBOX PARA CÓDIGO
+%% ============================================================================
+
+% Estilo claro (por defecto)
+\tcbset{
+  eps-code-light/.style={
+    enhanced,
+    breakable,
+    colback=codebg,
+    colframe=codeframe,
+    boxrule=0.5pt,
+    arc=2pt,
+    left=2pt,
+    right=2pt,
+    top=4pt,
+    bottom=4pt,
+    listing only,
+  },
+  eps-code-title/.style={
+    coltitle=white,
+    fonttitle=\small\ttfamily\bfseries,
+    attach boxed title to top left={xshift=10pt, yshift=-\tcboxedtitleheight/2},
+    boxed title style={
+      colback=gray!70!black,
+      boxrule=0pt,
+      arc=2pt,
+    },
+  },
+}
+
+% Estilo oscuro
+\tcbset{
+  eps-code-dark/.style={
+    enhanced,
+    breakable,
+    colback=darkbg,
+    colframe=darkframe,
+    coltext=darkidentifier,
+    boxrule=0.5pt,
+    arc=2pt,
+    left=2pt,
+    right=2pt,
+    top=4pt,
+    bottom=4pt,
+    listing only,
+  },
+}
+
+%% ============================================================================
+%% ENTORNOS DE CÓDIGO CON MINTED
+%% ============================================================================
+
+% Python
+\newtcblisting{pythoncode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=python,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={Python},
+  eps-code-title,
+  #1
+}
+
+\newtcblisting{pythoncode*}[1][]{
+  eps-code-dark,
+  listing engine=minted,
+  minted language=python,
+  minted style=monokai,
+  minted options={linenos,fontsize=\small},
+  title={\textcolor{white}{Python}},
+  eps-code-title,
+  #1
+}
+
+% JavaScript
+\newtcblisting{jscode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=javascript,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={JavaScript},
+  eps-code-title,
+  #1
+}
+
+\newtcblisting{jscode*}[1][]{
+  eps-code-dark,
+  listing engine=minted,
+  minted language=javascript,
+  minted style=monokai,
+  minted options={linenos,fontsize=\small},
+  title={\textcolor{white}{JavaScript}},
+  eps-code-title,
+  #1
+}
+
+% TypeScript
+\newtcblisting{tscode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=typescript,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={TypeScript},
+  eps-code-title,
+  #1
+}
+
+% Java
+\newtcblisting{javacode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=java,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={Java},
+  eps-code-title,
+  #1
+}
+
+% C
+\newtcblisting{ccode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=c,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={C},
+  eps-code-title,
+  #1
+}
+
+% C++
+\newtcblisting{cppcode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=cpp,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={C++},
+  eps-code-title,
+  #1
+}
+
+% C#
+\newtcblisting{csharpcode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=csharp,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={C\#},
+  eps-code-title,
+  #1
+}
+
+% Rust
+\newtcblisting{rustcode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=rust,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={Rust},
+  eps-code-title,
+  #1
+}
+
+% Go
+\newtcblisting{gocode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=go,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={Go},
+  eps-code-title,
+  #1
+}
+
+% SQL
+\newtcblisting{sqlcode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=sql,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={SQL},
+  eps-code-title,
+  #1
+}
+
+% HTML
+\newtcblisting{htmlcode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=html,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={HTML},
+  eps-code-title,
+  #1
+}
+
+% CSS
+\newtcblisting{csscode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=css,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={CSS},
+  eps-code-title,
+  #1
+}
+
+% PHP
+\newtcblisting{phpcode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=php,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={PHP},
+  eps-code-title,
+  #1
+}
+
+% Ruby
+\newtcblisting{rubycode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=ruby,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={Ruby},
+  eps-code-title,
+  #1
+}
+
+% Swift
+\newtcblisting{swiftcode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=swift,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={Swift},
+  eps-code-title,
+  #1
+}
+
+% Kotlin
+\newtcblisting{kotlincode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=kotlin,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={Kotlin},
+  eps-code-title,
+  #1
+}
+
+% R
+\newtcblisting{rcode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=r,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={R},
+  eps-code-title,
+  #1
+}
+
+% MATLAB
+\newtcblisting{matlabcode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=matlab,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={MATLAB},
+  eps-code-title,
+  #1
+}
+
+% Shell/Bash
+\newtcblisting{bashcode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=bash,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={Bash},
+  eps-code-title,
+  #1
+}
+
+% PowerShell
+\newtcblisting{pshlcode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=powershell,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={PowerShell},
+  eps-code-title,
+  #1
+}
+
+% LaTeX
+\newtcblisting{latexcode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=latex,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={\LaTeX},
+  eps-code-title,
+  #1
+}
+
+% YAML
+\newtcblisting{yamlcode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=yaml,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={YAML},
+  eps-code-title,
+  #1
+}
+
+% JSON
+\newtcblisting{jsoncode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=json,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={JSON},
+  eps-code-title,
+  #1
+}
+
+% XML
+\newtcblisting{xmlcode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=xml,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={XML},
+  eps-code-title,
+  #1
+}
+
+% Dockerfile
+\newtcblisting{dockercode}[1][]{
+  eps-code-light,
+  listing engine=minted,
+  minted language=dockerfile,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={Dockerfile},
+  eps-code-title,
+  #1
+}
+
+%% ============================================================================
+%% ENTORNO GENÉRICO PARA CUALQUIER LENGUAJE
+%% ============================================================================
+\NewTCBListing{codigo}{ O{} m O{} }{
+  eps-code-light,
+  listing engine=minted,
+  minted language=#2,
+  minted style=friendly,
+  minted options={linenos,fontsize=\small},
+  title={#2},
+  eps-code-title,
+  #1,#3
+}
+
+\NewTCBListing{codigo*}{ O{} m O{} }{
+  eps-code-dark,
+  listing engine=minted,
+  minted language=#2,
+  minted style=monokai,
+  minted options={linenos,fontsize=\small},
+  title={\textcolor{white}{#2}},
+  eps-code-title,
+  #1,#3
+}
+
+%% ============================================================================
+%% COMANDO PARA INCLUIR CÓDIGO DESDE ARCHIVO
+%% ============================================================================
+\NewDocumentCommand{\codigoarchivo}{ O{} m m }{%
+  % #1 = opciones adicionales de tcolorbox
+  % #2 = lenguaje
+  % #3 = ruta del archivo
+  \begin{tcolorbox}[
+    eps-code-light,
+    eps-code-title,
+    title={#2: \texttt{#3}},
+    #1
+  ]
+    \inputminted[
+      linenos,
+      fontsize=\small,
+      breaklines,
+      tabsize=4,
+    ]{#2}{#3}
+  \end{tcolorbox}
+}
+
+%% ============================================================================
+%% ENTORNO PARA CONSOLA/TERMINAL
+%% ============================================================================
+\newtcblisting{consola}[1][]{
+  enhanced,
+  breakable,
+  colback=black!95,
+  colframe=black,
+  coltext=green!70!white,
+  boxrule=0.5pt,
+  arc=2pt,
+  listing only,
+  listing engine=minted,
+  minted language=console,
+  minted style=native,
+  minted options={fontsize=\small},
+  title={\textcolor{white}{Terminal}},
+  coltitle=white,
+  fonttitle=\small\ttfamily\bfseries,
+  attach boxed title to top left={xshift=10pt, yshift=-\tcboxedtitleheight/2},
+  boxed title style={
+    colback=gray!50!black,
+    boxrule=0pt,
+    arc=2pt,
+  },
+  #1
+}
+
+%% ============================================================================
+%% CÓDIGO INLINE
+%% ============================================================================
+\NewDocumentCommand{\code}{ O{text} m }{%
+  \mintinline[bgcolor=codebg,fontsize=\small]{#1}{#2}%
+}
+
+%% ============================================================================
+%% CONFIGURACIÓN DEL CAPTION PARA CÓDIGO
+%% ============================================================================
+\SetupFloatingEnvironment{listing}{
+  name=Código,
+  listname=Índice de códigos
+}
+
+%% ============================================================================
+%% ÍNDICE DE CÓDIGOS
+%% ============================================================================
+\newcommand{\indiceCodigos}{\listoflistings}
+
+\endinput
