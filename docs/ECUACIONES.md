@@ -59,6 +59,16 @@ El valor de $\pi \approx 3.14159$.
 Para $x > 0$, tenemos $\sqrt{x} \geq 0$.
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/ECUACIONES_001.webp)
+
+[📄 Ver PDF](assets/previews/ECUACIONES_001.pdf)
+
+</details>
+
+
 ### Matemáticas en bloque (display)
 
 ```latex <!-- preview -->
@@ -71,6 +81,16 @@ La fórmula cuadrática es:
 $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/ECUACIONES_002.webp)
+
+[📄 Ver PDF](assets/previews/ECUACIONES_002.pdf)
+
+</details>
+
+
 ### Ecuación numerada
 
 ```latex <!-- preview:2 -->
@@ -81,6 +101,16 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 
 Como se muestra en la Ecuación~\eqref{eq:einstein}...
 ```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/ECUACIONES_003.webp)
+
+[📄 Ver PDF](assets/previews/ECUACIONES_003.pdf)
+
+</details>
+
 
 ### Ecuación sin número
 
@@ -128,6 +158,16 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
 \end{align*}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/ECUACIONES_004.webp)
+
+[📄 Ver PDF](assets/previews/ECUACIONES_004.pdf)
+
+</details>
+
+
 ### gather - Ecuaciones centradas
 
 ```latex <!-- preview -->
@@ -137,6 +177,16 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
     1 + 1 = 2
 \end{gather}
 ```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/ECUACIONES_005.webp)
+
+[📄 Ver PDF](assets/previews/ECUACIONES_005.pdf)
+
+</details>
+
 
 ### multline - Ecuación larga en varias líneas
 
@@ -171,6 +221,16 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
 \end{equation}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/ECUACIONES_006.webp)
+
+[📄 Ver PDF](assets/previews/ECUACIONES_006.pdf)
+
+</details>
+
+
 ### subequations - Subnumeración
 
 ```latex <!-- preview -->
@@ -184,6 +244,16 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
     \label{eq:maxwell}
 \end{subequations}
 ```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/ECUACIONES_007.webp)
+
+[📄 Ver PDF](assets/previews/ECUACIONES_007.pdf)
+
+</details>
+
 
 ---
 
@@ -496,6 +566,16 @@ $\sum\limits_{i=1}^n$
 \end{equation}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/ECUACIONES_008.webp)
+
+[📄 Ver PDF](assets/previews/ECUACIONES_008.pdf)
+
+</details>
+
+
 ### Matriz identidad
 
 ```latex
@@ -637,6 +717,16 @@ es invertible si $ad - bc \neq 0$.
 \end{proof}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/ECUACIONES_009.webp)
+
+[📄 Ver PDF](assets/previews/ECUACIONES_009.pdf)
+
+</details>
+
+
 ```latex <!-- preview -->
 \begin{definicion}[Derivada]
     La derivada de una función $f$ en un punto $a$ es:
@@ -647,6 +737,16 @@ es invertible si $ad - bc \neq 0$.
 \end{definicion}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/ECUACIONES_010.webp)
+
+[📄 Ver PDF](assets/previews/ECUACIONES_010.pdf)
+
+</details>
+
+
 ```latex <!-- preview -->
 \begin{lema}
     Si $f$ es continua en $[a,b]$ y derivable en $(a,b)$,
@@ -656,6 +756,16 @@ es invertible si $ad - bc \neq 0$.
     \end{equation}
 \end{lema}
 ```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/ECUACIONES_011.webp)
+
+[📄 Ver PDF](assets/previews/ECUACIONES_011.pdf)
+
+</details>
+
 
 ```latex
 \begin{ejemplo}

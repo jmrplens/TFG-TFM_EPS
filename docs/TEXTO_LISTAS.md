@@ -338,6 +338,16 @@ Línea 2 (con 1cm de separación)
 \end{itemize}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/TEXTO_LISTAS_001.webp)
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_001.pdf)
+
+</details>
+
+
 ### Lista numerada (enumerate)
 
 ```latex <!-- preview -->
@@ -347,6 +357,16 @@ Línea 2 (con 1cm de separación)
     \item Tercer paso
 \end{enumerate}
 ```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/TEXTO_LISTAS_002.webp)
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_002.pdf)
+
+</details>
+
 
 ### Listas anidadas
 
@@ -364,6 +384,16 @@ Línea 2 (con 1cm de separación)
     \item Categoría B
 \end{itemize}
 ```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/TEXTO_LISTAS_003.webp)
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_003.pdf)
+
+</details>
+
 
 ### Personalizar símbolos de itemize
 
@@ -483,6 +513,16 @@ Las opciones son \begin{itemize*}[label={}]
 \end{description}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/TEXTO_LISTAS_004.webp)
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_004.pdf)
+
+</details>
+
+
 ### Descripción con formato
 
 ```latex
@@ -537,6 +577,16 @@ Como dijo Einstein:
 \end{quote}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/TEXTO_LISTAS_005.webp)
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_005.pdf)
+
+</details>
+
+
 ### Cita larga (quotation)
 
 ```latex
@@ -560,6 +610,16 @@ Según el autor:
     jugando llamarán.
 \end{verse}
 ```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/TEXTO_LISTAS_006.webp)
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_006.pdf)
+
+</details>
+
 
 ### Bloque literal (verbatim)
 

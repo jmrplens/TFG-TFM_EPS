@@ -83,6 +83,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/FIGURAS_GRAFICAS_001.webp)
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_001.pdf)
+
+</details>
+
+
 ### Gráfica de función matemática
 
 ```latex <!-- preview -->
@@ -107,6 +117,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
     \label{fig:funciones}
 \end{figure}
 ```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/FIGURAS_GRAFICAS_002.webp)
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_002.pdf)
+
+</details>
+
 
 ### Gráfica con barras de error
 
@@ -168,6 +188,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
     \label{fig:barras-verticales}
 \end{figure}
 ```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/FIGURAS_GRAFICAS_003.webp)
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_003.pdf)
+
+</details>
+
 
 ### Gráfica de barras horizontales
 
@@ -316,6 +346,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/FIGURAS_GRAFICAS_004.webp)
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_004.pdf)
+
+</details>
+
+
 ### Gráfica de área
 
 ```latex
@@ -367,6 +407,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
     \label{fig:polar}
 \end{figure}
 ```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/FIGURAS_GRAFICAS_005.webp)
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_005.pdf)
+
+</details>
+
 
 ### Box plot
 

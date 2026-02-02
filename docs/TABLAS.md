@@ -128,6 +128,16 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 \end{table}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/TABLAS_001.webp)
+
+[📄 Ver PDF](assets/previews/TABLAS_001.pdf)
+
+</details>
+
+
 ### Tabla con agrupación
 
 ```latex
@@ -432,6 +442,16 @@ Para tablas que ocupan múltiples páginas:
 \end{table}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/TABLAS_002.webp)
+
+[📄 Ver PDF](assets/previews/TABLAS_002.pdf)
+
+</details>
+
+
 ---
 
 ## Combinar celdas
@@ -526,6 +546,16 @@ Para tablas que ocupan múltiples páginas:
     \caption{Tabla con filas y columnas combinadas}
 \end{table}
 ```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/TABLAS_003.webp)
+
+[📄 Ver PDF](assets/previews/TABLAS_003.pdf)
+
+</details>
+
 
 ---
 

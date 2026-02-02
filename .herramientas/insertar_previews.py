@@ -27,10 +27,20 @@ def obtener_snippets_disponibles() -> dict:
     if ASSETS_DIR.exists():
         for pdf in ASSETS_DIR.glob("*.pdf"):
             nombre = pdf.stem
+            # Buscar WebP primero, luego PNG
+            tiene_webp = pdf.with_suffix(".webp").exists()
             tiene_png = pdf.with_suffix(".png").exists()
+            
+            if tiene_webp:
+                img_path = f"{ASSETS_REL}/{pdf.stem}.webp"
+            elif tiene_png:
+                img_path = f"{ASSETS_REL}/{pdf.stem}.png"
+            else:
+                img_path = None
+                
             disponibles[nombre] = {
                 "pdf": f"{ASSETS_REL}/{pdf.name}",
-                "png": f"{ASSETS_REL}/{pdf.stem}.png" if tiene_png else None,
+                "img": img_path,
             }
     return disponibles
 
@@ -45,11 +55,11 @@ def generar_enlace_preview(nombre: str, disponibles: dict, formato: str) -> str:
     if formato == "link":
         return f'\n<details>\n<summary>📸 Ver resultado</summary>\n\n[📄 Ver PDF]({info["pdf"]})\n\n</details>\n'
 
-    elif formato == "imagen" and info["png"]:
-        return f'\n<details>\n<summary>📸 Ver resultado</summary>\n\n![Preview]({info["png"]})\n\n</details>\n'
+    elif formato == "imagen" and info["img"]:
+        return f'\n<details>\n<summary>📸 Ver resultado</summary>\n\n![Preview]({info["img"]})\n\n</details>\n'
 
     elif formato == "ambos":
-        img_part = f'![Preview]({info["png"]})\n\n' if info["png"] else ""
+        img_part = f'![Preview]({info["img"]})\n\n' if info["img"] else ""
         return f'\n<details>\n<summary>📸 Ver resultado</summary>\n\n{img_part}[📄 Ver PDF]({info["pdf"]})\n\n</details>\n'
 
     return ""
@@ -62,21 +72,28 @@ def procesar_archivo(archivo: Path, disponibles: dict, formato: str, dry_run: bo
     lineas = contenido.split("\n")
     nuevas_lineas = []
 
+    # Solo contar bloques MARCADOS con <!-- preview -->
+    patron_inicio_marcado = re.compile(r"^```latex\s*<!--\s*preview", re.IGNORECASE)
     patron_inicio = re.compile(r"^```latex", re.IGNORECASE)
     patron_fin = re.compile(r"^```\s*$")
-    patron_preview_existente = re.compile(r"^<details>.*Ver resultado", re.IGNORECASE)
+    patron_preview_existente = re.compile(r"^<details>", re.IGNORECASE)
 
-    numero = 0
+    numero_marcado = 0  # Solo cuenta los marcados
     i = 0
     insertados = 0
 
     while i < len(lineas):
         nuevas_lineas.append(lineas[i])
 
-        if patron_inicio.match(lineas[i]):
-            numero += 1
-            nombre_snippet = f"{archivo.stem}_{numero:03d}"
-
+        # Detectar si es un bloque latex marcado
+        es_marcado = patron_inicio_marcado.match(lineas[i])
+        es_latex = patron_inicio.match(lineas[i])
+        
+        if es_latex:
+            if es_marcado:
+                numero_marcado += 1
+                nombre_snippet = f"{archivo.stem.upper()}_{numero_marcado:03d}"
+            
             # Buscar fin del bloque
             i += 1
             while i < len(lineas) and not patron_fin.match(lineas[i]):
@@ -86,22 +103,24 @@ def procesar_archivo(archivo: Path, disponibles: dict, formato: str, dry_run: bo
             if i < len(lineas):
                 nuevas_lineas.append(lineas[i])  # Añadir ```
 
-            # Verificar si ya existe un preview después
-            siguiente_no_vacia = i + 1
-            while siguiente_no_vacia < len(lineas) and not lineas[siguiente_no_vacia].strip():
-                siguiente_no_vacia += 1
+            # Solo insertar preview para bloques marcados
+            if es_marcado:
+                # Verificar si ya existe un preview después
+                siguiente_no_vacia = i + 1
+                while siguiente_no_vacia < len(lineas) and not lineas[siguiente_no_vacia].strip():
+                    siguiente_no_vacia += 1
 
-            ya_tiene_preview = (
-                siguiente_no_vacia < len(lineas)
-                and patron_preview_existente.match(lineas[siguiente_no_vacia])
-            )
+                ya_tiene_preview = (
+                    siguiente_no_vacia < len(lineas)
+                    and patron_preview_existente.match(lineas[siguiente_no_vacia])
+                )
 
-            # Insertar enlace si hay preview disponible y no existe ya
-            if nombre_snippet in disponibles and not ya_tiene_preview:
-                enlace = generar_enlace_preview(nombre_snippet, disponibles, formato)
-                if enlace:
-                    nuevas_lineas.append(enlace)
-                    insertados += 1
+                # Insertar enlace si hay preview disponible y no existe ya
+                if nombre_snippet in disponibles and not ya_tiene_preview:
+                    enlace = generar_enlace_preview(nombre_snippet, disponibles, formato)
+                    if enlace:
+                        nuevas_lineas.append(enlace)
+                        insertados += 1
 
         i += 1
 
