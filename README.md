@@ -49,13 +49,19 @@ pip install Pygments
 ### Compilación
 
 ```bash
-# Opción 1: Usando latexmk (recomendado)
-latexmk main.tex
+# Opción 1: Usando Make (recomendado)
+make              # Compilación completa
+make quick        # Compilación rápida (sin bibliografía)
+make clean        # Limpiar archivos auxiliares
+make view         # Abrir PDF generado
 
-# Opción 2: Compilación manual
+# Opción 2: Usando latexmk (compilación continua)
+latexmk main.tex        # Compilar una vez
+latexmk -pvc main.tex   # Compilar automáticamente al guardar
+
+# Opción 3: Compilación manual
 lualatex -shell-escape main.tex
 biber main
-makeglossaries main
 lualatex -shell-escape main.tex
 lualatex -shell-escape main.tex
 ```
@@ -69,7 +75,8 @@ TFG-TFM_EPS/
 ├── main.tex                    # Documento principal
 ├── configuracion.tex           # Configuración del usuario
 ├── referencias.bib             # Bibliografía
-├── .latexmkrc                  # Configuración de latexmk
+├── Makefile                    # Comandos de compilación
+├── latexmkrc                   # Configuración de latexmk
 │
 ├── cls/
 │   └── eps-tfg.cls             # Clase principal
@@ -95,11 +102,12 @@ TFG-TFM_EPS/
 │       └── anexo-b.tex
 │
 └── recursos/
-    ├── logos/                  # Logos en PDF
-    │   ├── titulaciones/
-    │   └── universidad/
-    ├── fuentes/                # Fuentes tipográficas
-    └── ejemplos/               # Archivos de código de ejemplo
+    ├── logos/                  # Logos institucionales (PDF)
+    │   ├── titulaciones/       # Logos de cada titulación
+    │   └── universidad/        # Logos UA y EPS
+    ├── fuentes/                # Fuentes tipográficas opcionales
+    ├── figuras/                # Tus figuras e imágenes
+    └── ejemplos/               # Ejemplos de código fuente
 ```
 
 ---
@@ -343,6 +351,58 @@ Si tienes un documento con la versión anterior:
 2. Adapta la configuración al nuevo formato `\EPSsetup{}`
 3. Convierte tu bibliografía al formato BibLaTeX si usabas `apacite`
 4. Actualiza los entornos de código a los nuevos (ej: `lstlisting` → `pythoncode`)
+
+---
+
+## 🔧 Solución de Problemas
+
+### Error: "File 'minted.sty' not found"
+
+Instalar el paquete de Python Pygments:
+```bash
+pip3 install Pygments
+```
+
+### Error: "You must invoke LaTeX with -shell-escape"
+
+Asegúrate de usar la opción `-shell-escape`:
+```bash
+lualatex -shell-escape main.tex
+# O simplemente usa:
+make
+```
+
+### Error: "Font not found"
+
+La plantilla usa fuentes del sistema con fallbacks. Si aparecen warnings sobre fuentes:
+1. El documento compilará con fuentes alternativas (DejaVu Sans)
+2. Para mejores resultados, instala las fuentes del sistema
+
+### La bibliografía no aparece
+
+Ejecuta Biber entre compilaciones:
+```bash
+lualatex -shell-escape main.tex
+biber main
+lualatex -shell-escape main.tex
+```
+
+### El código fuente no tiene colores
+
+Verifica que Pygments esté instalado:
+```bash
+pygmentize -V
+# Si no está: pip3 install Pygments
+```
+
+### Compilación muy lenta
+
+Activa la caché de figuras TikZ en `configuracion.tex`:
+```latex
+\EPSsetup{
+  optimizar-tikz = true,
+}
+```
 
 ---
 
