@@ -111,6 +111,29 @@ PATRONES_TIPO = {
         r"\\newacronym",
         r"\\gls\{",
         r"\\acrshort",
+        r"\\printglossary",
+    ],
+    "image": [
+        r"\\includegraphics",
+        r"\\begin\{subfigure",
+        r"\\begin\{wrapfigure",
+        r"example-image",
+    ],
+    "bibliography": [
+        r"\\parencite",
+        r"\\textcite",
+        r"\\cite\{",
+        r"\\citet\{",
+        r"\\citep\{",
+        r"\\printbibliography",
+    ],
+    "crossref": [
+        r"\\ref\{",
+        r"\\pageref",
+        r"\\autoref",
+        r"\\nameref",
+        r"\\cref\{",
+        r"\\hyperref",
     ],
 }
 
@@ -288,19 +311,126 @@ def generar_preambulo(tipo: str) -> str:
 
 % Librerías TikZ
 \usetikzlibrary{arrows.meta, positioning, shapes, calc, patterns, fillbetween}
+
+% Imágenes y subfiguras
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{mwe}  % Para example-image placeholders
 """,
         "listing": r"""
 % Código fuente
 \usepackage{minted}
 \usepackage{tcolorbox}
-\tcbuselibrary{minted, skins, breakable}
+\tcbuselibrary{minted, skins, breakable, listings}
 
 % Configuración minted
 \setminted{
     fontsize=\small,
     breaklines=true,
-    linenos=false,
+    linenos=true,
+    numbersep=5pt,
+    frame=lines,
+    framesep=2mm,
 }
+
+% Entornos personalizados de la plantilla (simplificados)
+\newtcblisting{pythoncode}[1][]{
+    listing engine=minted,
+    minted language=python,
+    minted style=default,
+    colback=gray!5,
+    colframe=gray!75!black,
+    listing only,
+    left=5mm,
+    enhanced,
+    #1
+}
+
+\newtcblisting{pythoncodeDark}[1][]{
+    listing engine=minted,
+    minted language=python,
+    minted style=monokai,
+    colback=gray!90!black,
+    colframe=gray!50!black,
+    listing only,
+    left=5mm,
+    enhanced,
+    #1
+}
+
+\newtcblisting{jscode}[1][]{
+    listing engine=minted,
+    minted language=javascript,
+    colback=yellow!5,
+    colframe=yellow!75!black,
+    listing only,
+    left=5mm,
+    enhanced,
+    #1
+}
+
+\newtcblisting{jscodeNN}[1][]{
+    listing engine=minted,
+    minted language=javascript,
+    minted options={linenos=false},
+    colback=yellow!5,
+    colframe=yellow!75!black,
+    listing only,
+    enhanced,
+    #1
+}
+
+\newtcblisting{cppcode}[1][]{
+    listing engine=minted,
+    minted language=cpp,
+    colback=blue!5,
+    colframe=blue!75!black,
+    listing only,
+    left=5mm,
+    enhanced,
+    #1
+}
+""",
+        "image": r"""
+% Imágenes
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{float}
+
+% Imagen placeholder
+\newcommand{\placeholderimage}[2][]{%
+    \begin{tikzpicture}
+        \draw[fill=gray!20, draw=gray!50, thick] (0,0) rectangle (#2);
+        \node[gray!70] at ({#2/2}, {#2/2*0.6}) {\small Imagen};
+    \end{tikzpicture}%
+}
+
+% example-image está disponible en mwe package
+\usepackage{mwe}
+""",
+        "bibliography": r"""
+% Para simular bibliografía sin biber
+\newcommand{\parencite}[2][]{\textup{(#2, 2024)}}
+\newcommand{\textcite}[2][]{#2 (2024)}
+\newcommand{\cite}[2][]{[#2]}
+\newcommand{\citet}[2][]{#2 (2024)}
+\newcommand{\citep}[2][]{(#2, 2024)}
+\newcommand{\citeauthor}[1]{#1}
+\newcommand{\citeyear}[1]{2024}
+""",
+        "crossref": r"""
+% Referencias cruzadas simuladas
+\usepackage{hyperref}
+\usepackage{booktabs}  % Para tablas con toprule, midrule, bottomrule
+\usepackage{float}     % Para [H] float placement
+\newcounter{myfigure}
+\newcounter{mytable}
+\newcounter{myequation}
+\newcommand{\figref}[1]{Figura~\ref{#1}}
+\newcommand{\tabref}[1]{Tabla~\ref{#1}}
 """,
         "list": r"""
 % Listas
@@ -332,10 +462,48 @@ def generar_preambulo(tipo: str) -> str:
     return base + ext
 
 
+def generar_preambulo_combinado(tipos: list[str]) -> str:
+    """Genera un preámbulo combinando múltiples tipos de contenido."""
+    # Evitar duplicados de paquetes usando el preámbulo base + extensiones únicas
+    base = r"""
+\documentclass[preview, border=10pt, varwidth=15cm]{standalone}
+
+% Codificación y fuentes
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{spanish}
+
+% Matemáticas
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+% Colores
+\usepackage{xcolor}
+
+% Hyperref (desactivado para standalone)
+\usepackage[draft]{hyperref}
+"""
+    
+    # Agregar extensiones de cada tipo detectado
+    extensiones_usadas = set()
+    preambulo_extra = ""
+    
+    for tipo in tipos:
+        ext = generar_preambulo(tipo).split("\\usepackage[draft]{hyperref}")[-1]
+        if ext and ext not in extensiones_usadas:
+            extensiones_usadas.add(ext)
+            preambulo_extra += ext
+    
+    return base + preambulo_extra
+
+
 def generar_documento(snippet: Snippet) -> str:
     """Genera el documento LaTeX completo para un snippet."""
 
-    preambulo = generar_preambulo(snippet.tipo)
+    # Detectar todos los tipos necesarios y combinar preámbulos
+    tipos_necesarios = detectar_tipos_necesarios(snippet.codigo)
+    preambulo = generar_preambulo_combinado(tipos_necesarios)
 
     # Envolver código según tipo
     codigo = snippet.codigo.strip()
@@ -389,6 +557,18 @@ def detectar_tipo(codigo: str) -> str:
             if re.search(patron, codigo, re.IGNORECASE):
                 return tipo
     return "generic"
+
+
+def detectar_tipos_necesarios(codigo: str) -> list[str]:
+    """Detecta TODOS los tipos de contenido necesarios para un snippet."""
+    tipos_encontrados = []
+    for tipo, patrones in PATRONES_TIPO.items():
+        for patron in patrones:
+            if re.search(patron, codigo, re.IGNORECASE):
+                if tipo not in tipos_encontrados:
+                    tipos_encontrados.append(tipo)
+                break  # Solo necesitamos un match por tipo
+    return tipos_encontrados if tipos_encontrados else ["generic"]
 
 
 def extraer_snippets(archivo: Path) -> list[Snippet]:

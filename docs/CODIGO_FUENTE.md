@@ -127,7 +127,7 @@ pip install Pygments
 
 ### Ejemplo simple
 
-```latex
+```latex <!-- preview -->
 \begin{pythoncode}
 def fibonacci(n):
     """Calcula el n-ésimo número de Fibonacci."""
@@ -141,9 +141,19 @@ for i in range(10):
 \end{pythoncode}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/CODIGO_FUENTE_001.webp)
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_001.pdf)
+
+</details>
+
+
 ### Con tema oscuro
 
-```latex
+```latex <!-- preview -->
 \begin{pythoncodeDark}
 def quicksort(arr):
     if len(arr) <= 1:
@@ -156,14 +166,34 @@ def quicksort(arr):
 \end{pythoncodeDark}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/CODIGO_FUENTE_002.webp)
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_002.pdf)
+
+</details>
+
+
 ### Sin números de línea
 
-```latex
+```latex <!-- preview -->
 \begin{jscodeNN}
 const greeting = "Hello, World!";
 console.log(greeting);
 \end{jscodeNN}
 ```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/CODIGO_FUENTE_003.webp)
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_003.pdf)
+
+</details>
+
 
 ---
 

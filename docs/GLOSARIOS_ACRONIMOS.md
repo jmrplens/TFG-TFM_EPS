@@ -684,6 +684,132 @@ la función de pérdida \gls{sym:loss} ajustando los parámetros
 
 ---
 
+## Ejemplos visuales
+
+Estos ejemplos muestran cómo se visualizan los glosarios y acrónimos en el documento final.
+
+### Ejemplo de glosario renderizado
+
+```latex <!-- preview -->
+% Simulación visual de un glosario
+\section*{Glosario de Términos}
+
+\begin{description}[leftmargin=3cm, style=nextline, font=\bfseries]
+    \item[algoritmo] Conjunto ordenado de operaciones que permite 
+        hallar la solución de un problema.
+    \item[dataset] Conjunto de datos utilizado para entrenar o evaluar 
+        modelos de aprendizaje automático.
+    \item[red neuronal] Modelo computacional inspirado en el cerebro 
+        biológico, compuesto por capas de neuronas artificiales.
+    \item[sobreajuste] Fenómeno donde un modelo aprende demasiado bien 
+        los datos de entrenamiento.
+\end{description}
+```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/GLOSARIOS_ACRONIMOS_001.webp)
+
+[📄 Ver PDF](assets/previews/GLOSARIOS_ACRONIMOS_001.pdf)
+
+</details>
+
+
+### Ejemplo de lista de acrónimos renderizada
+
+```latex <!-- preview -->
+% Simulación visual de lista de acrónimos
+\section*{Lista de Acrónimos}
+
+\begin{tabular}{@{}ll@{}}
+    \toprule
+    \textbf{Acrónimo} & \textbf{Significado} \\
+    \midrule
+    API  & Application Programming Interface \\
+    CNN  & Convolutional Neural Network \\
+    CPU  & Central Processing Unit \\
+    GPU  & Graphics Processing Unit \\
+    IA   & Inteligencia Artificial \\
+    ML   & Machine Learning \\
+    REST & Representational State Transfer \\
+    \bottomrule
+\end{tabular}
+```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/GLOSARIOS_ACRONIMOS_002.webp)
+
+[📄 Ver PDF](assets/previews/GLOSARIOS_ACRONIMOS_002.pdf)
+
+</details>
+
+
+### Ejemplo de lista de símbolos renderizada
+
+```latex <!-- preview -->
+% Simulación visual de lista de símbolos
+\section*{Lista de Símbolos}
+
+\begin{tabular}{@{}cl@{}}
+    \toprule
+    \textbf{Símbolo} & \textbf{Descripción} \\
+    \midrule
+    $\theta$ & Parámetros del modelo \\
+    $\mathcal{L}$ & Función de pérdida \\
+    $\nabla$ & Operador gradiente \\
+    $\alpha$ & Tasa de aprendizaje \\
+    $\sigma$ & Función de activación sigmoide \\
+    $\mathbf{W}$ & Matriz de pesos \\
+    \bottomrule
+\end{tabular}
+```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/GLOSARIOS_ACRONIMOS_003.webp)
+
+[📄 Ver PDF](assets/previews/GLOSARIOS_ACRONIMOS_003.pdf)
+
+</details>
+
+
+### Uso de acrónimos en texto
+
+```latex <!-- preview -->
+% Ejemplo de cómo aparecen los acrónimos en el texto
+\noindent
+\textbf{Primera aparición:}\\[0.5em]
+La \textit{Inteligencia Artificial} (IA) está revolucionando 
+múltiples sectores.
+
+\vspace{1em}
+\textbf{Apariciones posteriores:}\\[0.5em]
+La IA utiliza técnicas de \textit{Machine Learning} (ML) 
+para aprender de los datos.
+
+\vspace{1em}
+\textbf{Solo siglas:}\\[0.5em]
+Las técnicas de ML y específicamente de \textit{Deep Learning} (DL) 
+han demostrado resultados excepcionales en tareas de 
+procesamiento de imágenes usando CNN y GPU.
+```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/GLOSARIOS_ACRONIMOS_004.webp)
+
+[📄 Ver PDF](assets/previews/GLOSARIOS_ACRONIMOS_004.pdf)
+
+</details>
+
+
+---
+
 ## Recursos adicionales
 
 - [Documentación de glossaries](https://ctan.org/pkg/glossaries)

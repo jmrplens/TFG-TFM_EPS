@@ -160,14 +160,24 @@ El entorno `figure` permite:
 
 ### Estructura básica
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{recursos/imagenes/foto.jpg}
+    \includegraphics[width=0.7\textwidth]{example-image-a}
     \caption{Descripción de la imagen}
     \label{fig:mi-figura}
 \end{figure}
 ```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/IMAGENES_SUBFIGURAS_001.webp)
+
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_001.pdf)
+
+</details>
+
 
 ### Referenciar figuras
 
@@ -235,19 +245,19 @@ La \autoref{fig:mi-figura} ilustra el proceso.
 
 ### Dos subfiguras lado a lado
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{recursos/imagenes/antes.jpg}
+        \includegraphics[width=\textwidth]{example-image-a}
         \caption{Antes del tratamiento}
         \label{fig:antes}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{recursos/imagenes/despues.jpg}
+        \includegraphics[width=\textwidth]{example-image-b}
         \caption{Después del tratamiento}
         \label{fig:despues}
     \end{subfigure}
@@ -256,28 +266,38 @@ La \autoref{fig:mi-figura} ilustra el proceso.
 \end{figure}
 ```
 
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/IMAGENES_SUBFIGURAS_002.webp)
+
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_002.pdf)
+
+</details>
+
+
 ### Tres subfiguras
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.32\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img1.jpg}
+        \includegraphics[width=\textwidth]{example-image-a}
         \caption{Caso A}
         \label{fig:caso-a}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.32\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img2.jpg}
+        \includegraphics[width=\textwidth]{example-image-b}
         \caption{Caso B}
         \label{fig:caso-b}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.32\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img3.jpg}
+        \includegraphics[width=\textwidth]{example-image-c}
         \caption{Caso C}
         \label{fig:caso-c}
     \end{subfigure}
@@ -285,6 +305,16 @@ La \autoref{fig:mi-figura} ilustra el proceso.
     \label{fig:tres-casos}
 \end{figure}
 ```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/IMAGENES_SUBFIGURAS_003.webp)
+
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_003.pdf)
+
+</details>
+
 
 ### Cuadrícula 2x2
 

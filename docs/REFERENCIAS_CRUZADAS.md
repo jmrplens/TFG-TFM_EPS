@@ -643,6 +643,98 @@ discutidos en la \cref{sec:discusion}.
 
 ---
 
+## Ejemplos visuales
+
+Estos ejemplos muestran cómo se visualizan las referencias cruzadas en el documento final.
+
+### Referencias básicas en contexto
+
+```latex <!-- preview:2 -->
+% Ejemplo de referencias en contexto
+% (Standalone: usando valores simulados)
+
+\noindent Como se muestra en la \textbf{Figura~1}, el sistema 
+presenta un comportamiento estable.
+
+\begin{figure}[htbp]
+    \centering
+    \fbox{\parbox{0.6\textwidth}{\centering\vspace{2em}
+        \textit{[Contenido de la figura]}
+    \vspace{2em}}}
+    \caption{Diagrama del sistema propuesto}
+    \label{fig:ejemplo}
+\end{figure}
+
+\noindent Los resultados se resumen en la \textbf{Tabla~1}.
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{lcc}
+        \toprule
+        Método & Precisión & Recall \\
+        \midrule
+        A & 0.95 & 0.92 \\
+        B & 0.91 & 0.94 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Comparación de métodos}
+    \label{tab:ejemplo}
+\end{table}
+
+\noindent Según la \textbf{Ecuación~(1)}, el error se minimiza cuando:
+\begin{equation}
+    E = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2
+    \label{eq:ejemplo}
+\end{equation}
+```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/REFERENCIAS_CRUZADAS_001.webp)
+
+[📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_001.pdf)
+
+</details>
+
+
+### Ejemplo de referencias múltiples
+
+```latex <!-- preview -->
+% Ejemplo de referencias múltiples en texto
+
+\noindent\textbf{Referencias con \texttt{\textbackslash ref}:}\\[0.5em]
+La Figura 3.1 muestra el diagrama principal.
+Ver también las Figuras 3.2 y 3.3 para más detalles.
+
+\vspace{1em}
+\noindent\textbf{Con \texttt{\textbackslash autoref}:}\\[0.5em]
+La Figura 3.1 muestra el diagrama.
+La Tabla 4.2 resume los resultados.
+La Sección 2.3 describe la metodología.
+
+\vspace{1em}
+\noindent\textbf{Con \texttt{\textbackslash cref} (cleveref):}\\[0.5em]
+Como se observa en las figuras 3.1, 3.2 y 3.3,
+los resultados concuerdan con las ecuaciones 1 y 2.
+
+\vspace{1em}
+\noindent\textbf{Páginas:}\\[0.5em]
+Ver la Figura 3.1 en la página 45.
+```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/REFERENCIAS_CRUZADAS_002.webp)
+
+[📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_002.pdf)
+
+</details>
+
+
+---
+
 ## Recursos adicionales
 
 - [Documentación de hyperref](https://ctan.org/pkg/hyperref)

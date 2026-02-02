@@ -721,6 +721,120 @@ Para la implementación, se utilizó TensorFlow \parencite{tensorflow2024}.
 
 ---
 
+## Ejemplos visuales
+
+Estos ejemplos muestran cómo se visualizan las citas y la bibliografía en el documento final.
+
+### Citas en el texto (estilo autor-año)
+
+```latex <!-- preview -->
+% Simulación visual de citas en texto
+
+\noindent\textbf{Cita entre paréntesis:}\\[0.5em]
+El aprendizaje profundo (Goodfellow et al., 2016) ha revolucionado 
+el campo de la inteligencia artificial.
+
+\vspace{1em}
+\noindent\textbf{Cita como parte de la oración:}\\[0.5em]
+Según Goodfellow et al. (2016), las redes neuronales profundas
+son ``representaciones composicionales de funciones''.
+
+\vspace{1em}
+\noindent\textbf{Múltiples citas:}\\[0.5em]
+Diversos autores han estudiado este fenómeno 
+(García, 2024; López, 2023; Martínez et al., 2022).
+
+\vspace{1em}
+\noindent\textbf{Cita con página:}\\[0.5em]
+Como se indica en (Goodfellow et al., 2016, p.~45), el gradiente 
+descendente es fundamental para el entrenamiento.
+```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/BIBLIOGRAFIA_001.webp)
+
+[📄 Ver PDF](assets/previews/BIBLIOGRAFIA_001.pdf)
+
+</details>
+
+
+### Bibliografía estilo APA
+
+```latex <!-- preview -->
+% Simulación visual de bibliografía estilo APA
+\section*{Referencias}
+
+\hangindent=1.5em
+\noindent García, M. (2024). \textit{Aprendizaje automático: fundamentos 
+y aplicaciones}. Editorial Universitaria.
+
+\vspace{0.5em}
+\hangindent=1.5em
+\noindent Goodfellow, I., Bengio, Y., \& Courville, A. (2016). 
+\textit{Deep Learning}. MIT Press.
+
+\vspace{0.5em}
+\hangindent=1.5em
+\noindent López, A., Martínez, B., \& Sánchez, C. (2023). Optimización 
+de redes neuronales convolucionales. \textit{Revista de Inteligencia 
+Artificial}, \textit{15}(2), 45--67.
+
+\vspace{0.5em}
+\hangindent=1.5em
+\noindent Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., 
+Gomez, A. N., Kaiser, L., \& Polosukhin, I. (2017). Attention is all 
+you need. \textit{Advances in Neural Information Processing Systems}, 
+\textit{30}, 5998--6008.
+```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/BIBLIOGRAFIA_002.webp)
+
+[📄 Ver PDF](assets/previews/BIBLIOGRAFIA_002.pdf)
+
+</details>
+
+
+### Bibliografía estilo IEEE (numérico)
+
+```latex <!-- preview -->
+% Simulación visual de bibliografía estilo IEEE
+\section*{Referencias}
+
+\noindent [1]\hspace{0.5em} M. García, \textit{Aprendizaje automático: 
+fundamentos y aplicaciones}. Editorial Universitaria, 2024.
+
+\vspace{0.5em}
+\noindent [2]\hspace{0.5em} I. Goodfellow, Y. Bengio, and A. Courville, 
+\textit{Deep Learning}. MIT Press, 2016.
+
+\vspace{0.5em}
+\noindent [3]\hspace{0.5em} A. López, B. Martínez, and C. Sánchez, 
+``Optimización de redes neuronales convolucionales,'' 
+\textit{Rev. Intel. Artif.}, vol. 15, no. 2, pp. 45--67, 2023.
+
+\vspace{0.5em}
+\noindent [4]\hspace{0.5em} A. Vaswani \textit{et al.}, ``Attention is 
+all you need,'' in \textit{Proc. Adv. Neural Inf. Process. Syst.}, 
+vol. 30, 2017, pp. 5998--6008.
+```
+
+<details>
+<summary>📸 Ver resultado</summary>
+
+![Preview](assets/previews/BIBLIOGRAFIA_003.webp)
+
+[📄 Ver PDF](assets/previews/BIBLIOGRAFIA_003.pdf)
+
+</details>
+
+
+---
+
 ## Recursos adicionales
 
 - [Documentación de BibLaTeX](https://ctan.org/pkg/biblatex)
