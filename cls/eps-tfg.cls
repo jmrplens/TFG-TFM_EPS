@@ -790,10 +790,8 @@
   \hypersetup{
     pdfauthor = {\EPSautor},
     pdftitle = {\EPStitulo},
-    pdfsubject = {\EPStipoTrabajo{} - \EPSfacultad{} - \EPSuniversidad},
-    pdfkeywords = {TFG, TFM, Universidad de Alicante, EPS, \EPStitulacionNombre},
-    pdfcreator = {LuaLaTeX con plantilla TFG-TFM\_EPS},
-    pdfproducer = {Plantilla TFG-TFM EPS - https://github.com/jmrplens/TFG-TFM\_EPS},
+    pdfsubject = {\EPStipoTrabajo},
+    pdfkeywords = {TFG, TFM, Universidad de Alicante, EPS},
     colorlinks = true,
     linkcolor = black,
     citecolor = blue!50!black,
