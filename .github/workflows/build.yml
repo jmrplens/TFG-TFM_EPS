@@ -29,13 +29,12 @@ jobs:
       run: pip install Pygments
       
     - name: Compile LaTeX document
-      uses: xu-cheng/latex-action@v3
+      uses: xu-cheng/latex-action@v4
       with:
         root_file: main.tex
         latexmk_use_lualatex: true
         latexmk_shell_escape: true
-        extra_system_packages: |
-          py3-pygments
+        extra_system_packages: py3-pygments
         
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v4
@@ -73,7 +72,7 @@ jobs:
         sudo apt-get install -y poppler-utils webp texlive-luatex texlive-latex-extra texlive-fonts-extra texlive-lang-spanish latexmk
         
     - name: Install TeX Live full (for LuaLaTeX and fonts)
-      uses: xu-cheng/latex-action@v3
+      uses: xu-cheng/latex-action@v4
       with:
         root_file: main.tex
         latexmk_use_lualatex: true
