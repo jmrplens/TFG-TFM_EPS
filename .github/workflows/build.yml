@@ -7,6 +7,11 @@ on:
     branches: [ master, main ]
   workflow_dispatch:
 
+# Permisos necesarios para comentar en PRs
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -37,6 +42,7 @@ jobs:
       with:
         name: TFG-TFM_EPS_UA
         path: main.pdf
+        retention-days: 30
         
     - name: Upload PDF to release
       if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
@@ -45,6 +51,158 @@ jobs:
         files: main.pdf
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
+  # Job para generar portadas y comentar en PRs
+  generate-covers:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: build
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+        
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y poppler-utils webp texlive-luatex texlive-latex-extra texlive-fonts-extra texlive-lang-spanish latexmk
+        
+    - name: Install TeX Live full (for LuaLaTeX and fonts)
+      uses: xu-cheng/latex-action@v3
+      with:
+        root_file: main.tex
+        latexmk_use_lualatex: true
+        latexmk_shell_escape: true
+        pre_compile: "exit 0"
+        post_compile: "exit 0"
+        
+    - name: Generate cover pages
+      id: covers
+      run: |
+        cd .herramientas
+        python3 generar_portadas.py --no-update-readme 2>&1 | tee portadas_output.txt
+        
+        # Guardar salida para el comentario
+        echo 'COVERS_OUTPUT<<EOF' >> $GITHUB_OUTPUT
+        cat portadas_output.txt >> $GITHUB_OUTPUT
+        echo 'EOF' >> $GITHUB_OUTPUT
+        
+    - name: Upload cover images artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: portadas-preview
+        path: .github/images/portadas/
+        retention-days: 30
+        if-no-files-found: warn
+        
+    - name: Download PDF artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: TFG-TFM_EPS_UA
+        path: ./pdf-artifact
+        
+    - name: Get artifact URL
+      id: artifact-url
+      run: |
+        # La URL del artefacto se construye con el run_id
+        echo "PDF_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts" >> $GITHUB_OUTPUT
+        
+    - name: Build cover table
+      id: cover-table
+      run: |
+        # Construir tabla markdown con las portadas generadas
+        echo 'COVER_TABLE<<EOF' >> $GITHUB_OUTPUT
+        echo "| Titulación | Estado |" >> $GITHUB_OUTPUT
+        echo "|------------|--------|" >> $GITHUB_OUTPUT
+        
+        # Parsear la salida del script para extraer resultados
+        while IFS= read -r line; do
+          if [[ "$line" =~ \[([0-9]+)/([0-9]+)\]\ ([a-z_]+).*\ (✅|❌) ]]; then
+            titulacion="${BASH_REMATCH[3]}"
+            status="${BASH_REMATCH[4]}"
+            echo "| \`$titulacion\` | $status |" >> $GITHUB_OUTPUT
+          fi
+        done < .herramientas/portadas_output.txt
+        
+        echo 'EOF' >> $GITHUB_OUTPUT
+        
+    - name: Comment on PR
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const artifactUrl = '${{ steps.artifact-url.outputs.PDF_URL }}';
+          const coverTable = `${{ steps.cover-table.outputs.COVER_TABLE }}`;
+          const coversOutput = `${{ steps.covers.outputs.COVERS_OUTPUT }}`;
+          
+          const body = `## 📄 Compilación del documento
+          
+          El documento **main.pdf** se ha compilado correctamente.
+          
+          ### 📥 Descargar PDF
+          
+          Puedes descargar el PDF compilado desde los artefactos de este workflow:
+          
+          👉 **[Ver artefactos del workflow](${artifactUrl})**
+          
+          > **Nota:** Los artefactos estarán disponibles durante 30 días.
+          
+          <details>
+          <summary>📚 <strong>Portadas generadas para todas las titulaciones</strong></summary>
+          
+          ${coverTable}
+          
+          ---
+          
+          <details>
+          <summary>📋 Log completo de generación</summary>
+          
+          \`\`\`
+          ${coversOutput}
+          \`\`\`
+          
+          </details>
+          
+          </details>
+          
+          ---
+          *Generado automáticamente por GitHub Actions* 🤖
+          `;
+          
+          // Buscar comentario existente del bot
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+          
+          const botComment = comments.find(comment => 
+            comment.user.type === 'Bot' && 
+            comment.body.includes('📄 Compilación del documento')
+          );
+          
+          if (botComment) {
+            // Actualizar comentario existente
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: botComment.id,
+              body: body,
+            });
+          } else {
+            // Crear nuevo comentario
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body,
+            });
+          }
 
   check-links:
     runs-on: ubuntu-latest

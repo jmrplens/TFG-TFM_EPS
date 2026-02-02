@@ -160,13 +160,15 @@ Toda la configuración se realiza en el archivo `configuracion.tex`:
   
   % Autor
   autor = {Nombre Apellido1 Apellido2},
-  genero = m,  % m = masculino, f = femenino
+  genero = m,  % m = masculino, f = femenino, n = neutro
   email = nombre@alu.ua.es,
   
   % Tutor/es
   tutor = {Dr. Nombre Apellido},
+  tutor-genero = m,  % m = masculino, f = femenino, n = neutro
   tutor-departamento = {Departamento de Ejemplo},
   % cotutor = {Dra. Nombre Apellido},  % Opcional
+  % cotutor-genero = f,
   
   % Titulación (ver lista completa abajo)
   titulacion = informatica,
@@ -223,32 +225,32 @@ Cada titulación tiene su propio diseño con colores y logotipos oficiales:
 #### Grados
 
 <p align="center">
-<img src=".github/images/portadas/portada_teleco_color.webp" width="12%" title="Grado en Ingeniería en Sonido e Imagen en Telecomunicación"></img>
+<img src=".github/images/portadas/portada_arquitectura_color.webp" width="12%" title="Grado en Arquitectura"></img>
+<img src=".github/images/portadas/portada_arquitectura-tecnica_color.webp" width="12%" title="Grado en Arquitectura Técnica"></img>
 <img src=".github/images/portadas/portada_civil_color.webp" width="12%" title="Grado en Ingeniería Civil"></img>
-<img src=".github/images/portadas/portada_quimica_color.webp" width="12%" title="Grado en Ingeniería Química"></img>
 <img src=".github/images/portadas/portada_informatica_color.webp" width="12%" title="Grado en Ingeniería Informática"></img>
 <img src=".github/images/portadas/portada_multimedia_color.webp" width="12%" title="Grado en Ingeniería Multimedia"></img>
-<img src=".github/images/portadas/portada_arquitectura-tecnica_color.webp" width="12%" title="Grado en Arquitectura Técnica"></img>
-<img src=".github/images/portadas/portada_arquitectura_color.webp" width="12%" title="Grado en Arquitectura"></img>
+<img src=".github/images/portadas/portada_quimica_color.webp" width="12%" title="Grado en Ingeniería Química"></img>
 <img src=".github/images/portadas/portada_robotica_color.webp" width="12%" title="Grado en Ingeniería Robótica"></img>
+<img src=".github/images/portadas/portada_teleco_color.webp" width="12%" title="Grado en Ingeniería en Sonido e Imagen en Telecomunicación"></img>
 </p>
 
 #### Másteres
 
 <p align="center">
-<img src=".github/images/portadas/portada_master-teleco_color.webp" width="12%" title="Máster Universitario en Ingeniería de Telecomunicación"></img>
-<img src=".github/images/portadas/portada_master-caminos_color.webp" width="12%" title="Máster Universitario en Ingeniería de Caminos, Canales y Puertos"></img>
-<img src=".github/images/portadas/portada_master-edificacion_color.webp" width="12%" title="Máster Universitario en Gestión de la Edificación"></img>
-<img src=".github/images/portadas/portada_master-web_color.webp" width="12%" title="Máster Universitario en Desarrollo de Aplicaciones y Servicios Web"></img>
-<img src=".github/images/portadas/portada_master-materiales_color.webp" width="12%" title="Máster Universitario en Ingeniería de los Materiales, del Agua y del Terreno"></img>
-<img src=".github/images/portadas/portada_master-informatica_color.webp" width="12%" title="Máster Universitario en Ingeniería Informática"></img>
-<img src=".github/images/portadas/portada_master-robotica_color.webp" width="12%" title="Máster Universitario en Automática y Robótica"></img>
-<img src=".github/images/portadas/portada_master-prevencion_color.webp" width="12%" title="Máster Universitario en Prevención de Riesgos Laborales"></img>
 <img src=".github/images/portadas/portada_master-agua_color.webp" width="12%" title="Máster Universitario en Gestión Sostenible y Tecnologías del Agua"></img>
-<img src=".github/images/portadas/portada_master-moviles_color.webp" width="12%" title="Máster Universitario en Desarrollo de Software para Dispositivos Móviles"></img>
-<img src=".github/images/portadas/portada_master-quimica_color.webp" width="12%" title="Máster Universitario en Ingeniería Química"></img>
+<img src=".github/images/portadas/portada_master-caminos_color.webp" width="12%" title="Máster Universitario en Ingeniería de Caminos, Canales y Puertos"></img>
 <img src=".github/images/portadas/portada_master-ciberseguridad_color.webp" width="12%" title="Máster Universitario en Ciberseguridad"></img>
+<img src=".github/images/portadas/portada_master-edificacion_color.webp" width="12%" title="Máster Universitario en Gestión de la Edificación"></img>
 <img src=".github/images/portadas/portada_master-geologica_color.webp" width="12%" title="Máster Universitario en Ingeniería Geológica"></img>
+<img src=".github/images/portadas/portada_master-informatica_color.webp" width="12%" title="Máster Universitario en Ingeniería Informática"></img>
+<img src=".github/images/portadas/portada_master-materiales_color.webp" width="12%" title="Máster Universitario en Ingeniería de los Materiales, del Agua y del Terreno"></img>
+<img src=".github/images/portadas/portada_master-moviles_color.webp" width="12%" title="Máster Universitario en Desarrollo de Software para Dispositivos Móviles"></img>
+<img src=".github/images/portadas/portada_master-prevencion_color.webp" width="12%" title="Máster Universitario en Prevención de Riesgos Laborales"></img>
+<img src=".github/images/portadas/portada_master-quimica_color.webp" width="12%" title="Máster Universitario en Ingeniería Química"></img>
+<img src=".github/images/portadas/portada_master-robotica_color.webp" width="12%" title="Máster Universitario en Automática y Robótica"></img>
+<img src=".github/images/portadas/portada_master-teleco_color.webp" width="12%" title="Máster Universitario en Ingeniería de Telecomunicación"></img>
+<img src=".github/images/portadas/portada_master-web_color.webp" width="12%" title="Máster Universitario en Desarrollo de Aplicaciones y Servicios Web"></img>
 </p>
 
 ### Ejemplo: Portada a color y B/N
@@ -257,7 +259,6 @@ Cada titulación tiene su propio diseño con colores y logotipos oficiales:
 <img src=".github/images/portadas/portada_teleco_color.webp" width="30%"></img>
 <img src=".github/images/portadas/portada_teleco_bn.webp" width="30%"></img>
 </p>
-
 ### Comandos de Portada
 
 ```latex

@@ -28,8 +28,10 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from datetime import datetime
+from multiprocessing import cpu_count
 from pathlib import Path
 from typing import Optional
 
@@ -699,6 +701,56 @@ def compilar_snippet(snippet: Snippet, verbose: bool = False) -> bool:
             return False
 
 
+def _compilar_snippet_worker(args: tuple) -> dict:
+    """
+    Worker para compilar un snippet en paralelo.
+    
+    Args:
+        args: Tupla con (snippet_dict, generar_imagen)
+    
+    Returns:
+        Dict con resultado: {nombre, exito, nuevo, tipo, archivo_origen, ...}
+    """
+    snippet_dict, generar_imagen = args
+    
+    # Reconstruir objeto Snippet
+    snippet = Snippet(
+        archivo_origen=snippet_dict["archivo_origen"],
+        numero=snippet_dict["numero"],
+        codigo=snippet_dict["codigo"],
+        linea_inicio=snippet_dict["linea_inicio"],
+        linea_fin=snippet_dict["linea_fin"],
+        tipo=snippet_dict["tipo"],
+        nombre_custom=snippet_dict.get("nombre_custom"),
+        pasadas=snippet_dict.get("pasadas", 1),
+    )
+    
+    resultado = {
+        "nombre": snippet.nombre_base,
+        "tipo": snippet.tipo,
+        "archivo_origen": snippet.archivo_origen,
+        "hash": snippet.hash,
+        "pasadas": snippet.pasadas,
+        "exito": False,
+        "imagen_ok": False,
+        "error": None,
+    }
+    
+    try:
+        # Compilar
+        exito = compilar_snippet(snippet, verbose=False)
+        resultado["exito"] = exito
+        
+        if exito and generar_imagen:
+            imagen_ok = convertir_a_imagen(snippet)
+            resultado["imagen_ok"] = imagen_ok
+            
+    except Exception as e:
+        resultado["error"] = str(e)
+    
+    return resultado
+
+
 def convertir_a_imagen(snippet: Snippet, densidad: int = 300, formato: str = "webp") -> bool:
     """
     Convierte un PDF a imagen usando pdftoppm o ImageMagick.
@@ -846,7 +898,7 @@ def procesar_archivos(
     generar_png: bool = False,
     verbose: bool = True,
 ) -> dict:
-    """Procesa una lista de archivos Markdown."""
+    """Procesa una lista de archivos Markdown con compilación paralela."""
 
     manifest = Manifest()
     manifest.cargar()
@@ -860,65 +912,101 @@ def procesar_archivos(
         "excluidos": 0,
     }
 
+    # Recopilar todos los snippets que necesitan procesarse
+    snippets_a_procesar = []
+    snippets_sin_cambios = []
+    
     for archivo in archivos:
         if not archivo.exists():
             print(f"⚠️  Archivo no encontrado: {archivo}")
             continue
 
-        if verbose:
-            print(f"\n📄 Procesando: {archivo.name}")
-
         snippets = extraer_snippets(archivo)
-        if verbose:
-            print(f"   Snippets encontrados: {len(snippets)}")
-
+        
         for snippet in snippets:
             estadisticas["total"] += 1
-
+            
             # Verificar si necesita regenerarse
             necesita = forzar or manifest.necesita_regenerar(snippet)
-
+            
             if not necesita:
                 estadisticas["sin_cambios"] += 1
-                if verbose:
-                    print(f"   ⏭️  {snippet.nombre_base} (sin cambios)")
-                continue
-
-            # Compilar
-            if verbose:
-                print(f"   🔨 {snippet.nombre_base} [{snippet.tipo}]...", end=" ")
-
-            exito = compilar_snippet(snippet, verbose=verbose)
-
-            if exito:
-                if manifest.snippets.get(snippet.nombre_base):
-                    estadisticas["actualizados"] += 1
-                else:
-                    estadisticas["nuevos"] += 1
-
-                if verbose:
-                    print("✅")
-
-                # Convertir a imagen si se solicita
-                if generar_png:
-                    if convertir_a_png(snippet):
-                        # Verificar qué formato se generó
-                        webp_path = snippet.png_path.with_suffix(".webp")
-                        if webp_path.exists():
-                            if verbose:
-                                print(f"      📸 WebP generado (alta resolución)")
-                        elif snippet.png_path.exists():
-                            if verbose:
-                                print(f"      📸 PNG generado (alta resolución)")
-                    else:
-                        if verbose:
-                            print(f"      ⚠️  Imagen no disponible (instalar poppler-utils)")
+                snippets_sin_cambios.append(snippet.nombre_base)
             else:
-                estadisticas["errores"] += 1
-                if verbose:
-                    print("❌")
-
-            manifest.registrar(snippet, exito)
+                # Preparar para procesamiento paralelo
+                snippet_dict = {
+                    "archivo_origen": snippet.archivo_origen,
+                    "numero": snippet.numero,
+                    "codigo": snippet.codigo,
+                    "linea_inicio": snippet.linea_inicio,
+                    "linea_fin": snippet.linea_fin,
+                    "tipo": snippet.tipo,
+                    "nombre_custom": snippet.nombre_custom,
+                    "pasadas": snippet.pasadas,
+                    "hash": snippet.hash,
+                    "es_nuevo": snippet.nombre_base not in manifest.snippets,
+                }
+                snippets_a_procesar.append(snippet_dict)
+    
+    # Mostrar snippets sin cambios
+    if verbose and snippets_sin_cambios:
+        print(f"\n⏭️  {len(snippets_sin_cambios)} snippets sin cambios (usar --forzar para regenerar)")
+    
+    # Procesar en paralelo si hay snippets que compilar
+    if snippets_a_procesar:
+        num_workers = min(cpu_count(), 8, len(snippets_a_procesar))
+        
+        if verbose:
+            print(f"\n🔨 Compilando {len(snippets_a_procesar)} snippets con {num_workers} procesos paralelos...")
+        
+        # Preparar tareas
+        tareas = [(s, generar_png) for s in snippets_a_procesar]
+        
+        completados = 0
+        with ProcessPoolExecutor(max_workers=num_workers) as executor:
+            futuros = {executor.submit(_compilar_snippet_worker, tarea): tarea for tarea in tareas}
+            
+            for futuro in as_completed(futuros):
+                completados += 1
+                try:
+                    resultado = futuro.result()
+                    nombre = resultado["nombre"]
+                    exito = resultado["exito"]
+                    
+                    # Encontrar el snippet_dict original
+                    snippet_dict = futuros[futuro][0]
+                    es_nuevo = snippet_dict["es_nuevo"]
+                    
+                    if exito:
+                        if es_nuevo:
+                            estadisticas["nuevos"] += 1
+                        else:
+                            estadisticas["actualizados"] += 1
+                        
+                        status = "✅"
+                        img_info = " 📸" if resultado.get("imagen_ok") else ""
+                    else:
+                        estadisticas["errores"] += 1
+                        status = "❌"
+                        img_info = ""
+                    
+                    if verbose:
+                        print(f"   [{completados}/{len(snippets_a_procesar)}] {nombre} [{resultado['tipo']}] {status}{img_info}")
+                    
+                    # Registrar en manifest
+                    manifest.snippets[nombre] = {
+                        "hash": resultado["hash"],
+                        "archivo_origen": resultado["archivo_origen"],
+                        "tipo": resultado["tipo"],
+                        "generado": datetime.now().isoformat(),
+                        "exito": exito,
+                        "pasadas": resultado["pasadas"],
+                    }
+                    
+                except Exception as e:
+                    estadisticas["errores"] += 1
+                    if verbose:
+                        print(f"   [{completados}/{len(snippets_a_procesar)}] Error: {e}")
 
     manifest.guardar()
     return estadisticas

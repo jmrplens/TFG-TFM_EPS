@@ -302,9 +302,15 @@
     tutor .tl_gset:N = \g__eps_tutor_tl,
     tutor .value_required:n = true,
     
+    tutor-genero .tl_gset:N = \g__eps_tutor_genero_tl,
+    tutor-genero .initial:n = {m},
+    
     tutor-departamento .tl_gset:N = \g__eps_tutor_dpto_tl,
     
     cotutor .tl_gset:N = \g__eps_cotutor_tl,
+    
+    cotutor-genero .tl_gset:N = \g__eps_cotutor_genero_tl,
+    cotutor-genero .initial:n = {m},
     
     cotutor-departamento .tl_gset:N = \g__eps_cotutor_dpto_tl,
     
@@ -402,21 +408,40 @@
     \tl_if_empty:NTF \g__eps_cotutor_tl { #2 } { #1 }
   }
 
-% Comando para obtener etiqueta de autor según género
+% Comando para obtener etiqueta de autor según género (m=masculino, f=femenino, n=neutro)
 \NewDocumentCommand{\EPSetiquetaAutor}{}
   {
     \str_case:VnF \g__eps_autor_genero_tl
       {
         {f} {Autora}
         {m} {Autor}
+        {n} {Autoría}
       }
-      {Autore}
+      {Autoría}
   }
 
-% Comando para obtener etiqueta de tutor/es
+% Comando para obtener etiqueta de tutor según género (m=masculino, f=femenino, n=neutro)
 \NewDocumentCommand{\EPSetiquetaTutor}{}
   {
-    \tl_if_empty:NTF \g__eps_cotutor_tl {Tutor} {Tutores}
+    \tl_if_empty:NTF \g__eps_cotutor_tl
+      {% Solo tutor principal
+        \str_case:VnF \g__eps_tutor_genero_tl
+          {
+            {f} {Tutora}
+            {m} {Tutor}
+            {n} {Tutoría}
+          }
+          {Tutoría}
+      }
+      {% Hay cotutor - usar plural
+        \str_case:VnF \g__eps_tutor_genero_tl
+          {
+            {f} {\str_case:VnF \g__eps_cotutor_genero_tl {{f}{Tutoras}}{{m}{Tutores}}{{n}{Tutorías}}{Tutorías}}
+            {m} {\str_case:VnF \g__eps_cotutor_genero_tl {{f}{Tutores}}{{m}{Tutores}}{{n}{Tutorías}}{Tutorías}}
+            {n} {Tutorías}
+          }
+          {Tutorías}
+      }
   }
 
 \ExplSyntaxOff

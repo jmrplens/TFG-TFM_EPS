@@ -19,7 +19,9 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from dataclasses import dataclass
+from multiprocessing import cpu_count
 from pathlib import Path
 from typing import Optional
 
@@ -136,7 +138,20 @@ def generar_documento_portada(titulacion: Titulacion, bn: bool = False) -> str:
 def generar_documento_portada_simple(titulacion: Titulacion, bn: bool = False) -> str:
     """Genera un documento LaTeX simple que usa la clase directamente."""
     
-    return f"""\\documentclass{{eps-tfg}}
+    # El comando es \portadacolor o \portadabn (sin argumento)
+    comando_portada = "\\portadabn" if bn else "\\portadacolor"
+    
+    return f"""% !TeX program = lualatex
+% !TeX encoding = UTF-8
+% Generado automáticamente por generar_portadas.py
+
+% Ruta donde buscar la clase y los paquetes (igual que main.tex)
+\\makeatletter
+\\providecommand\\input@path{{}}
+\\edef\\input@path{{{{cls/}}{{sty/}}\\input@path}}
+\\makeatother
+
+\\documentclass{{eps-tfg}}
 
 \\EPSsetup{{
     titulo = {{Título del Trabajo de Fin de {'Máster' if titulacion.tipo == 'tfm' else 'Grado'}}},
@@ -150,104 +165,109 @@ def generar_documento_portada_simple(titulacion: Titulacion, bn: bool = False) -
 }}
 
 \\begin{{document}}
-\\portada{'bn' if bn else 'color'}
+\\frontmatter
+{comando_portada}
 \\end{{document}}
 """
 
 
-def compilar_portada(titulacion: Titulacion, bn: bool, output_path: Path, verbose: bool = False) -> bool:
-    """Compila una portada y la convierte a WebP."""
+def _compilar_portada_worker(args: tuple) -> tuple:
+    """Worker para compilar una portada en paralelo.
     
-    # Crear archivo temporal EN el directorio del proyecto
-    tex_file = PROYECTO_ROOT / f"_temp_portada_{titulacion.id}.tex"
-    pdf_file = PROYECTO_ROOT / f"_temp_portada_{titulacion.id}.pdf"
+    Args:
+        args: Tupla con (titulacion_dict, bn, output_path_str)
+    
+    Returns:
+        Tupla con (titulacion_id, bn, success, info_dict o None)
+    """
+    titulacion_dict, bn, output_path_str = args
+    output_path = Path(output_path_str)
+    
+    # Reconstruir objeto Titulacion desde dict (necesario para multiprocessing)
+    titulacion = Titulacion(**titulacion_dict)
+    
+    # Usar sufijo único para evitar colisiones entre procesos paralelos
+    suffix = f"_{titulacion.id}{'_bn' if bn else '_color'}"
+    tex_file = PROYECTO_ROOT / f"_temp_portada{suffix}.tex"
+    pdf_file = PROYECTO_ROOT / f"_temp_portada{suffix}.pdf"
     
     try:
         # Crear documento
         documento = generar_documento_portada_simple(titulacion, bn)
         tex_file.write_text(documento, encoding="utf-8")
         
-        # Configurar TEXINPUTS para encontrar la clase y los estilos
+        # Configurar TEXINPUTS
         env = os.environ.copy()
         env["TEXINPUTS"] = f".:{PROYECTO_ROOT}/cls:{PROYECTO_ROOT}/sty:{PROYECTO_ROOT}/recursos:{env.get('TEXINPUTS', '')}"
         
-        # Compilar desde el directorio del proyecto
+        # Compilar DOS veces (necesario para TikZ overlay)
         cmd = [
             "lualatex",
             "-shell-escape",
             "-interaction=nonstopmode",
-            "-halt-on-error",
             tex_file.name
         ]
         
-        result = subprocess.run(
-            cmd,
-            cwd=PROYECTO_ROOT,
-            capture_output=True,
-            text=True,
-            timeout=120,
-            env=env
-        )
+        for _ in range(2):
+            subprocess.run(
+                cmd,
+                cwd=PROYECTO_ROOT,
+                capture_output=True,
+                text=True,
+                timeout=120,
+                env=env
+            )
         
         if not pdf_file.exists():
-            if verbose:
-                print(f"\n   Error de compilación:")
-                # Buscar errores en el log
-                log_file = PROYECTO_ROOT / f"_temp_portada_{titulacion.id}.log"
-                if log_file.exists():
-                    log = log_file.read_text(encoding="utf-8", errors="ignore")
-                    for line in log.split("\n"):
-                        if line.startswith("!") or "error" in line.lower():
-                            print(f"      {line[:100]}")
-            return False
+            return (titulacion.id, bn, False, None)
         
-        # Convertir PDF a imagen con alta calidad
-        png_file = PROYECTO_ROOT / f"_temp_portada_{titulacion.id}.png"
-        
-        # Usar pdftoppm para convertir
-        cmd_convert = [
-            "pdftoppm",
-            "-png",
-            "-r", str(DPI),
-            "-singlefile",
-            str(pdf_file),
-            str(PROYECTO_ROOT / f"_temp_portada_{titulacion.id}")
-        ]
-        
-        subprocess.run(cmd_convert, capture_output=True, timeout=60)
+        # Convertir PDF a PNG
+        png_file = PROYECTO_ROOT / f"_temp_portada{suffix}.png"
+        subprocess.run([
+            "pdftoppm", "-png", "-r", str(DPI), "-singlefile",
+            str(pdf_file), str(PROYECTO_ROOT / f"_temp_portada{suffix}")
+        ], capture_output=True, timeout=60)
         
         if not png_file.exists():
-            if verbose:
-                print(f"\n   Error: No se pudo convertir PDF a PNG")
-            return False
-        
-        # Asegurar directorio de salida
-        output_path.parent.mkdir(parents=True, exist_ok=True)
+            return (titulacion.id, bn, False, None)
         
         # Convertir a WebP
-        cmd_webp = [
-            "cwebp",
-            "-q", str(WEBP_QUALITY),
-            str(png_file),
-            "-o", str(output_path)
-        ]
-        
-        subprocess.run(cmd_webp, capture_output=True, timeout=60)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        subprocess.run([
+            "cwebp", "-q", str(WEBP_QUALITY), str(png_file), "-o", str(output_path)
+        ], capture_output=True, timeout=60)
         
         if not output_path.exists():
-            # Fallback: mantener PNG
             shutil.copy(png_file, output_path.with_suffix(".png"))
-            if verbose:
-                print(f"\n   Advertencia: WebP falló, usando PNG")
         
-        return True
+        # Construir info para resultados
+        info = {
+            "id": titulacion.id,
+            "nombre": titulacion.nombre,
+            "tipo": titulacion.tipo,
+            "archivo": str(output_path.relative_to(PROYECTO_ROOT)),
+        }
+        
+        return (titulacion.id, bn, True, info)
+        
+    except Exception as e:
+        return (titulacion.id, bn, False, None)
         
     finally:
         # Limpiar archivos temporales
-        for ext in [".tex", ".pdf", ".png", ".log", ".aux", ".out"]:
-            tmp = PROYECTO_ROOT / f"_temp_portada_{titulacion.id}{ext}"
+        for ext in [".tex", ".pdf", ".png", ".log", ".aux", ".out", ".bcf", ".run.xml"]:
+            tmp = PROYECTO_ROOT / f"_temp_portada{suffix}{ext}"
             if tmp.exists():
-                tmp.unlink()
+                try:
+                    tmp.unlink()
+                except:
+                    pass
+
+
+def compilar_portada(titulacion: Titulacion, bn: bool, output_path: Path, verbose: bool = False) -> bool:
+    """Compila una portada y la convierte a WebP (versión secuencial)."""
+    result = _compilar_portada_worker((titulacion.__dict__, bn, str(output_path)))
+    return result[2]  # success
 
 
 def generar_todas_portadas(titulaciones: list[Titulacion], verbose: bool = False) -> dict:
@@ -264,41 +284,67 @@ def generar_todas_portadas(titulaciones: list[Titulacion], verbose: bool = False
     
     total = len(titulaciones)
     
-    for i, t in enumerate(titulaciones, 1):
-        print(f"   [{i}/{total}] {t.id}...", end=" ", flush=True)
-        
-        # Archivo de salida
+    # Determinar número de workers (núcleos disponibles, máximo 8 para no saturar)
+    num_workers = min(cpu_count(), 8, total)
+    
+    # Preparar tareas para ejecución paralela
+    tareas = []
+    for t in titulaciones:
         output_color = OUTPUT_DIR / f"portada_{t.id}_color.webp"
+        tareas.append((t.__dict__, False, str(output_color)))
         
-        # Compilar portada color
-        if compilar_portada(t, bn=False, output_path=output_color, verbose=verbose):
-            print("✅")
-            
-            info = {
-                "id": t.id,
-                "nombre": t.nombre,
-                "tipo": t.tipo,
-                "archivo": output_color.relative_to(PROYECTO_ROOT),
-            }
-            
-            if t.tipo == "tfg":
-                resultados["grados"].append(info)
-            else:
-                resultados["masteres"].append(info)
-            
-            # Si es la titulación de referencia, generar también B/N
-            if t.id == TITULACION_REFERENCIA:
-                output_bn = OUTPUT_DIR / f"portada_{t.id}_bn.webp"
-                print(f"   [{i}/{total}] {t.id} (B/N)...", end=" ", flush=True)
+        # Si es la titulación de referencia, añadir también B/N
+        if t.id == TITULACION_REFERENCIA:
+            output_bn = OUTPUT_DIR / f"portada_{t.id}_bn.webp"
+            tareas.append((t.__dict__, True, str(output_bn)))
+    
+    total_tareas = len(tareas)
+    completadas = 0
+    errores = 0
+    
+    print(f"   Usando {num_workers} procesos paralelos para {total_tareas} portadas...")
+    
+    # Ejecutar en paralelo
+    with ProcessPoolExecutor(max_workers=num_workers) as executor:
+        # Enviar todas las tareas
+        futuros = {executor.submit(_compilar_portada_worker, tarea): tarea for tarea in tareas}
+        
+        # Procesar resultados a medida que completan
+        for futuro in as_completed(futuros):
+            tarea = futuros[futuro]
+            try:
+                tid, bn, success, info = futuro.result()
+                completadas += 1
                 
-                if compilar_portada(t, bn=True, output_path=output_bn, verbose=verbose):
-                    print("✅")
-                    resultados["referencia_color"] = str(output_color.relative_to(PROYECTO_ROOT))
-                    resultados["referencia_bn"] = str(output_bn.relative_to(PROYECTO_ROOT))
+                tipo_str = "(B/N)" if bn else ""
+                status = "✅" if success else "❌"
+                print(f"   [{completadas}/{total_tareas}] {tid} {tipo_str}... {status}")
+                
+                if success and info:
+                    if bn:
+                        resultados["referencia_bn"] = info["archivo"]
+                        # También guardar color si existe
+                        color_path = OUTPUT_DIR / f"portada_{tid}_color.webp"
+                        if color_path.exists():
+                            resultados["referencia_color"] = str(color_path.relative_to(PROYECTO_ROOT))
+                    else:
+                        if info["tipo"] == "tfg":
+                            resultados["grados"].append(info)
+                        else:
+                            resultados["masteres"].append(info)
                 else:
-                    print("❌")
-        else:
-            print("❌")
+                    errores += 1
+                    
+            except Exception as e:
+                errores += 1
+                print(f"   [{completadas}/{total_tareas}] Error: {e}")
+    
+    # Ordenar resultados por ID para consistencia
+    resultados["grados"].sort(key=lambda x: x["id"])
+    resultados["masteres"].sort(key=lambda x: x["id"])
+    
+    print(f"\n   ✅ Completadas: {completadas - errores}")
+    print(f"   ❌ Errores: {errores}")
     
     return resultados
 
