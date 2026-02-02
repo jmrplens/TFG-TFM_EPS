@@ -121,10 +121,10 @@ jobs:
         
         # Parsear la salida del script para extraer resultados
         while IFS= read -r line; do
-          if [[ "$line" =~ \[([0-9]+)/([0-9]+)\]\ ([a-z_]+).*\ (✅|❌) ]]; then
+          if [[ "$line" =~ \[([0-9]+)/([0-9]+)\]\ ([a-z_-]+).*\ (✅|❌) ]]; then
             titulacion="${BASH_REMATCH[3]}"
             status="${BASH_REMATCH[4]}"
-            echo "| \`$titulacion\` | $status |" >> $GITHUB_OUTPUT
+            echo "| ${titulacion} | $status |" >> $GITHUB_OUTPUT
           fi
         done < .herramientas/portadas_output.txt
         
@@ -136,8 +136,10 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
           const artifactUrl = '${{ steps.artifact-url.outputs.PDF_URL }}';
-          const coverTable = `${{ steps.cover-table.outputs.COVER_TABLE }}`;
-          const coversOutput = `${{ steps.covers.outputs.COVERS_OUTPUT }}`;
+          
+          // Escapar caracteres problemáticos del cover table
+          const coverTableRaw = `${{ steps.cover-table.outputs.COVER_TABLE }}`;
+          const coverTable = coverTableRaw.replace(/`/g, "'");
           
           const body = `## 📄 Compilación del documento
           
@@ -155,17 +157,6 @@ jobs:
           <summary>📚 <strong>Portadas generadas para todas las titulaciones</strong></summary>
           
           ${coverTable}
-          
-          ---
-          
-          <details>
-          <summary>📋 Log completo de generación</summary>
-          
-          \`\`\`
-          ${coversOutput}
-          \`\`\`
-          
-          </details>
           
           </details>
           
