@@ -486,6 +486,7 @@
   top     = 2.5cm,
   bottom  = 2.5cm,
   includeheadfoot,
+  marginparwidth = 2cm,  % Necesario para todonotes
 ]{geometry}
 
 % Interlineado
@@ -493,9 +494,6 @@
 
 % Páginas horizontales
 \RequirePackage{pdflscape}
-
-% Ancho de notas marginales
-\setlength{\marginparwidth}{1.9cm}
 
 %% ============================================================================
 %% IDIOMA (POLYGLOSSIA PARA LUALATEX)

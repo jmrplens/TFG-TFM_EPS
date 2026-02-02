@@ -1,4 +1,6 @@
-# Archivos auxiliares de LaTeX
+# ============================================================================
+# ARCHIVOS AUXILIARES DE LATEX
+# ============================================================================
 *.aux
 *.bbl
 *.bcf
@@ -18,7 +20,7 @@
 # Bibliografía
 *-blx.bib
 
-# Glosarios
+# Glosarios y acrónimos
 *.acn
 *.acr
 *.alg
@@ -33,43 +35,55 @@
 *.ind
 
 # Minted (caché de código)
+_minted*/
 _minted-*/
+*.listing
+*.lol
+*.pyg
 
-# Figuras externalizadas TikZ (mantener solo los archivos necesarios)
+# ============================================================================
+# ARCHIVOS GENERADOS
+# ============================================================================
+# Figuras externalizadas TikZ
 archivos/figuras-procesadas/*.log
 archivos/figuras-procesadas/*.auxlock
 
-# Build directory
+# Directorio de compilación
 build/
 
-# Archivos de respaldo
+# PDFs generados (descomenta si no quieres versionarlos)
+main.pdf
+# *.pdf
+
+# ============================================================================
+# ARCHIVOS TEMPORALES Y RESPALDO
+# ============================================================================
 *.bak
 *.backup
 *~
 \#*\#
 .\#*
+*.tmp
+*.temp
 
-# Archivos de sistema
+# ============================================================================
+# SISTEMA OPERATIVO
+# ============================================================================
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# Editores
+# ============================================================================
+# EDITORES E IDEs
+# ============================================================================
 *.swp
 *.swo
 .vscode/
 .idea/
 *.sublime-*
+*.code-workspace
 
-# Archivos temporales
-*.tmp
-*.temp
-
-# PDFs generados (descomenta si no quieres versionarlos)
-# *.pdf
-
-# Archivos específicos de Overleaf
+# ============================================================================
+# OVERLEAF
+# ============================================================================
 output/
-_minted/
-*.listing
-*.lol

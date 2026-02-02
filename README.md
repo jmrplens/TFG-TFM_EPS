@@ -94,14 +94,12 @@ TFG-TFM_EPS/
 │       ├── anexo-a.tex
 │       └── anexo-b.tex
 │
-├── recursos/
-│   ├── logos/                  # Logos en PDF
-│   │   ├── titulaciones/
-│   │   └── universidad/
-│   └── fuentes/                # Fuentes tipográficas
-│
-└── archivos/
-    └── figuras-procesadas/     # Caché de figuras TikZ
+└── recursos/
+    ├── logos/                  # Logos en PDF
+    │   ├── titulaciones/
+    │   └── universidad/
+    ├── fuentes/                # Fuentes tipográficas
+    └── ejemplos/               # Archivos de código de ejemplo
 ```
 
 ---
