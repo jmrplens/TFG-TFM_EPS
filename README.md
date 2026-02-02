@@ -3,7 +3,7 @@
 **Universidad de Alicante**
 
 [![LaTeX](https://img.shields.io/badge/LaTeX-LuaLaTeX-008080?logo=latex)](https://www.latex-project.org/)
-[![License](https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Version](https://img.shields.io/badge/Versión-2.0-blue.svg)](https://github.com/jmrplens/TFG-TFM_EPS/releases)
 
 Plantilla LaTeX moderna y profesional para la elaboración de **Trabajos de Fin de Grado (TFG)** y **Trabajos de Fin de Máster (TFM)** de la Escuela Politécnica Superior de la Universidad de Alicante.
@@ -24,7 +24,41 @@ Plantilla LaTeX moderna y profesional para la elaboración de **Trabajos de Fin 
 
 ---
 
-## 🚀 Inicio Rápido
+## 🆕 ¿Primera vez con LaTeX?
+
+Si nunca has usado LaTeX, no te preocupes. Hemos preparado una guía completa para principiantes:
+
+**📖 [Guía de LaTeX para Principiantes](docs/GUIA_PRINCIPIANTES.md)**
+
+Incluye:
+- Qué es LaTeX y por qué usarlo
+- Instalación paso a paso (Windows, macOS, Linux)
+- Elegir un editor
+- Tu primera compilación
+- Errores comunes y soluciones
+- Recursos de aprendizaje
+
+---
+
+## � Documentación Especializada
+
+Guías detalladas para cada aspecto de tu documento:
+
+| Guía | Descripción |
+|------|-------------|
+| 📝 [Código Fuente](docs/CODIGO_FUENTE.md) | Insertar y resaltar código con minted (40+ lenguajes) |
+| 📊 [Figuras y Gráficas](docs/FIGURAS_GRAFICAS.md) | Crear gráficos con pgfplots y TikZ |
+| 🖼️ [Imágenes y Subfiguras](docs/IMAGENES_SUBFIGURAS.md) | Incluir imágenes, subfiguras y posicionamiento |
+| 📋 [Tablas](docs/TABLAS.md) | Tablas profesionales con booktabs |
+| ✍️ [Texto y Listas](docs/TEXTO_LISTAS.md) | Formato de texto, listas y descripciones |
+| 🔢 [Ecuaciones](docs/ECUACIONES.md) | Fórmulas matemáticas con amsmath |
+| 📖 [Bibliografía](docs/BIBLIOGRAFIA.md) | Gestión de referencias con BibLaTeX |
+| 📓 [Glosarios y Acrónimos](docs/GLOSARIOS_ACRONIMOS.md) | Términos, siglas y símbolos |
+| 🔗 [Referencias Cruzadas](docs/REFERENCIAS_CRUZADAS.md) | Etiquetas, referencias y hyperref |
+
+---
+
+## �🚀 Inicio Rápido
 
 ### Requisitos
 
@@ -76,7 +110,9 @@ TFG-TFM_EPS/
 ├── configuracion.tex           # Configuración del usuario
 ├── referencias.bib             # Bibliografía
 ├── Makefile                    # Comandos de compilación
-├── latexmkrc                   # Configuración de latexmk
+├── .latexmkrc                  # Configuración de latexmk
+├── CHANGELOG.md                # Historial de cambios
+├── CONTRIBUTING.md             # Guía de contribución
 │
 ├── cls/
 │   └── eps-tfg.cls             # Clase principal
@@ -242,39 +278,121 @@ Cada titulación tiene su propio diseño con colores y logotipos oficiales:
 
 ## 💻 Código Fuente
 
-La plantilla incluye entornos predefinidos para múltiples lenguajes:
+La plantilla incluye estilos de código basados en **Visual Studio Code** con temas Light y Dark, números de línea opcionales e iconos de lenguajes.
 
-### Lenguajes Soportados
+### Temas Disponibles
 
-Python, JavaScript, TypeScript, Java, C, C++, C#, Rust, Go, SQL, HTML, CSS, PHP, Ruby, Swift, Kotlin, R, MATLAB, Bash, PowerShell, LaTeX, YAML, JSON, XML, Dockerfile...
+| Tema | Descripción | Sufijo |
+|------|-------------|--------|
+| **VS Code Light** | Fondo blanco, ideal para impresión | (ninguno) |
+| **VS Code Dark** | Fondo oscuro, ideal para presentaciones | `Dark` |
+
+### Variantes de Numeración
+
+| Variante | Descripción | Sufijo |
+|----------|-------------|--------|
+| Con números | Muestra números de línea | (ninguno) |
+| Sin números | Oculta números de línea | `NN` |
+
+### Lenguajes con Entornos Predefinidos
+
+| Lenguaje | Entorno Light | Entorno Dark | Icono |
+|----------|---------------|--------------|-------|
+| Python | `pythoncode` | `pythoncodeDark` | 🐍 |
+| JavaScript | `jscode` | `jscodeDark` | 📜 |
+| TypeScript | `tscode` | `tscodeDark` | 📜 |
+| Java | `javacode` | `javacodeDark` | ☕ |
+| C | `ccode` | `ccodeDark` | © |
+| C++ | `cppcode` | `cppcodeDark` | © |
+| C# | `csharpcode` | `csharpcodeDark` | 🪟 |
+| Go | `gocode` | `gocodeDark` | 🔵 |
+| Rust | `rustcode` | `rustcodeDark` | 🦀 |
+| PHP | `phpcode` | `phpcodeDark` | 🐘 |
+| Ruby | `rubycode` | `rubycodeDark` | 💎 |
+| R | `rcode` | `rcodeDark` | 📊 |
+| Swift | `swiftcode` | `swiftcodeDark` | 🍎 |
+| Kotlin | `kotlincode` | `kotlincodeDark` | 🤖 |
+| HTML | `htmlcode` | `htmlcodeDark` | 🌐 |
+| CSS | `csscode` | `csscodeDark` | 🎨 |
+| SQL | `sqlcode` | `sqlcodeDark` | 🗃️ |
+| JSON | `jsoncode` | `jsoncodeDark` | 📋 |
+| YAML | `yamlcode` | `yamlcodeDark` | 📄 |
+| Bash | `bashcode` | `bashcodeDark` | 💻 |
+| Docker | `dockercode` | `dockercodeDark` | 🐳 |
+| LaTeX | `latexcode` | — | 📝 |
+| Git | `gitcode` | — | 🔀 |
 
 ### Ejemplos de Uso
 
 ```latex
-% Código Python con título
-\begin{pythoncode}[title={Mi script}]
-def hola_mundo():
-    print("¡Hola, mundo!")
+% ===== TEMA LIGHT (fondo blanco) =====
+
+% Python con números de línea
+\begin{pythoncode}
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
 \end{pythoncode}
 
-% Código JavaScript con tema oscuro
-\begin{jscode*}
-const mensaje = "Hola desde JavaScript";
-console.log(mensaje);
-\end{jscode*}
+% Python SIN números de línea
+\begin{pythoncodeNN}
+print("Hola mundo")
+\end{pythoncodeNN}
 
-% Cualquier lenguaje
-\begin{codigo}{rust}
-fn main() {
-    println!("Hello, Rust!");
+% JavaScript con título personalizado
+\begin{jscode}[title={Validación de email}]
+function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
+\end{jscode}
+
+% ===== TEMA DARK (fondo oscuro) =====
+
+% Python Dark con números
+\begin{pythoncodeDark}
+import numpy as np
+resultado = np.array([1, 2, 3])
+\end{pythoncodeDark}
+
+% Python Dark SIN números
+\begin{pythoncodeDarkNN}
+print("Sin números de línea")
+\end{pythoncodeDarkNN}
+
+% ===== ENTORNO GENÉRICO (cualquier lenguaje) =====
+
+% Light con números
+\begin{codigo}{swift}
+let mensaje = "Hola desde Swift"
+print(mensaje)
 \end{codigo}
 
-% Código desde archivo
-\codigoarchivo{python}{scripts/analisis.py}
+% Light sin números
+\begin{codigoNN}{kotlin}
+fun main() = println("Hola")
+\end{codigoNN}
 
-% Código inline
-El comando \code{python}{print()} muestra texto.
+% Dark con números
+\begin{codigoDark}{scala}
+object Main extends App {
+  println("Hola Scala")
+}
+\end{codigoDark}
+
+% Dark sin números
+\begin{codigoDarkNN}{haskell}
+main = putStrLn "Hola Haskell"
+\end{codigoDarkNN}
+```
+
+### Resumen de Sufijos
+
+```
+entorno          → Light + números de línea
+entornoNN        → Light + sin números
+entornoDark      → Dark + números de línea  
+entornoDarkNN    → Dark + sin números
 ```
 
 ---
@@ -459,11 +577,45 @@ Activa la caché de figuras TikZ en `configuracion.tex`:
 4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
 5. Abre un Pull Request
 
+Consulta la [Guía de Contribución](CONTRIBUTING.md) para más detalles.
+
+---
+
+## 🛠️ Herramientas y Recursos
+
+### Editores recomendados
+
+| Editor | Plataforma | Descripción |
+|--------|------------|-------------|
+| [VS Code](https://code.visualstudio.com/) + [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) | Win/Mac/Linux | Editor moderno con excelente soporte LaTeX |
+| [TeXstudio](https://www.texstudio.org/) | Win/Mac/Linux | Editor dedicado a LaTeX, muy completo |
+| [Texmaker](https://www.xm1math.net/texmaker/) | Win/Mac/Linux | Similar a TeXstudio, más sencillo |
+| [Overleaf](https://www.overleaf.com/) | Web | Editor online, sin instalación |
+
+### Herramientas útiles
+
+| Herramienta | Para qué sirve |
+|-------------|----------------|
+| [Detexify](https://detexify.kirelabs.org/) | Dibuja un símbolo → obtén el comando LaTeX |
+| [Tables Generator](https://www.tablesgenerator.com/) | Crea tablas visualmente |
+| [Mathpix](https://mathpix.com/) | Convierte imágenes de ecuaciones a LaTeX |
+| [doi2bib](https://www.doi2bib.org/) | Genera BibTeX desde DOI |
+| [Zotero](https://www.zotero.org/) + [Better BibTeX](https://retorque.re/zotero-better-bibtex/) | Gestión bibliográfica |
+
+### Documentación y tutoriales
+
+| Recurso | Descripción |
+|---------|-------------|
+| [Overleaf Learn](https://www.overleaf.com/learn) | Tutoriales completos (EN/ES) |
+| [LaTeX Wikibook](https://en.wikibooks.org/wiki/LaTeX) | Referencia exhaustiva |
+| [TeX StackExchange](https://tex.stackexchange.com/) | Preguntas y respuestas |
+| [CTAN](https://ctan.org/) | Repositorio de paquetes LaTeX |
+
 ---
 
 ## 📄 Licencia
 
-Este proyecto está bajo la licencia [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+Este proyecto está bajo la licencia [GNU General Public License v3.0](LICENSE).
 
 Puedes:
 - ✅ Usar la plantilla para tu TFG/TFM
@@ -473,16 +625,6 @@ Puedes:
 Debes:
 - 📝 Mantener la atribución al autor original
 - 🔄 Compartir modificaciones bajo la misma licencia
-
----
-
-## 👤 Autor
-
-**José Manuel Requena Plens**
-
-- 📧 Email: info@jmrplens.com
-- 🐦 Twitter/X: [@jmrplens](https://twitter.com/jmrplens)
-- 💬 Telegram: [@jmrplens](https://t.me/jmrplens)
 
 ---
 

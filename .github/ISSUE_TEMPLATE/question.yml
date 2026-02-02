@@ -1,0 +1,101 @@
+name: ❓ Pregunta / Ayuda
+description: Necesitas ayuda con la plantilla o tienes una pregunta
+title: "[Pregunta]: "
+labels: ["question", "help wanted"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ¡Hola! 👋 Estamos aquí para ayudarte.
+        
+        > **Nota:** Antes de preguntar, revisa:
+        > - El [README](https://github.com/jmrplens/TFG-TFM_EPS#readme) con las instrucciones
+        > - La [Guía de inicio](https://github.com/jmrplens/TFG-TFM_EPS/blob/master/docs/GUIA_PRINCIPIANTES.md) si eres nuevo en LaTeX
+        > - Los [Issues cerrados](https://github.com/jmrplens/TFG-TFM_EPS/issues?q=is%3Aissue+is%3Aclosed) por si ya se respondió tu pregunta
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Categoría de la pregunta
+      options:
+        - Instalación y configuración
+        - Compilación
+        - Portadas
+        - Bibliografía y citas
+        - Código fuente
+        - Figuras e imágenes
+        - Tablas
+        - Fórmulas matemáticas
+        - Índices y estructura
+        - Personalización
+        - Overleaf
+        - Otro
+    validations:
+      required: true
+
+  - type: dropdown
+    id: experience
+    attributes:
+      label: Nivel de experiencia con LaTeX
+      description: Esto nos ayuda a adaptar la respuesta a tu nivel
+      options:
+        - 🌱 Principiante - Es mi primera vez con LaTeX
+        - 🌿 Básico - He usado LaTeX antes pero no mucho
+        - 🌳 Intermedio - Uso LaTeX regularmente
+        - 🌲 Avanzado - Tengo experiencia sólida con LaTeX
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Tu pregunta
+      description: Describe tu pregunta o lo que necesitas ayuda con
+      placeholder: "¿Cómo puedo hacer...? / No entiendo cómo..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: ¿Qué has intentado?
+      description: Cuéntanos qué has probado hasta ahora
+      placeholder: "He intentado... pero... / He buscado en..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Código relacionado
+      description: Si tu pregunta está relacionada con código específico, pégalo aquí
+      render: latex
+      placeholder: |
+        % Tu código LaTeX aquí
+        \begin{...}
+        ...
+        \end{...}
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Entorno
+      description: ¿Dónde estás trabajando?
+      options:
+        - VS Code + LaTeX Workshop
+        - TeXstudio
+        - Texmaker
+        - Overleaf
+        - Otro editor local
+        - Terminal / línea de comandos
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Contexto adicional
+      description: Cualquier otra información que pueda ayudarnos a responder tu pregunta
+      placeholder: "Mi TFG trata sobre... / Necesito esto para..."

@@ -5,7 +5,9 @@
 % Se recomienda usar un gestor como Zotero, Mendeley o JabRef.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% === LIBROS ===
+% ==========================================================================
+% LIBROS (@book)
+% ==========================================================================
 
 @book{pressman2020,
   author    = {Pressman, Roger S. and Maxim, Bruce R.},
@@ -35,7 +37,29 @@
   langid    = {english}
 }
 
-% === ARTÍCULOS ===
+@book{knuth1997,
+  author    = {Knuth, Donald E.},
+  title     = {The Art of Computer Programming, Volume 1: Fundamental Algorithms},
+  edition   = {3},
+  publisher = {Addison-Wesley Professional},
+  year      = {1997},
+  isbn      = {978-0201896831},
+  langid    = {english}
+}
+
+@book{cormen2022,
+  author    = {Cormen, Thomas H. and Leiserson, Charles E. and Rivest, Ronald L. and Stein, Clifford},
+  title     = {Introduction to Algorithms},
+  edition   = {4},
+  publisher = {MIT Press},
+  year      = {2022},
+  isbn      = {978-0262046305},
+  langid    = {english}
+}
+
+% ==========================================================================
+% ARTÍCULOS DE REVISTA (@article)
+% ==========================================================================
 
 @article{ejemplo2024,
   author  = {García, María and López, Juan},
@@ -61,7 +85,33 @@
   langid  = {english}
 }
 
-% === CONFERENCIAS ===
+@article{chen2023,
+  author  = {Chen, Wei and Zhang, Li and Wang, Ming},
+  title   = {Deep Learning for Natural Language Processing: A Comprehensive Survey},
+  journal = {ACM Computing Surveys},
+  year    = {2023},
+  volume  = {55},
+  number  = {8},
+  pages   = {1--45},
+  doi     = {10.1145/3589274},
+  langid  = {english}
+}
+
+@article{rodriguez2025,
+  author  = {Rodríguez, Ana María and González, Pedro},
+  title   = {Análisis comparativo de frameworks de desarrollo web modernos},
+  journal = {Revista Española de Informática},
+  year    = {2025},
+  volume  = {12},
+  number  = {1},
+  pages   = {23--41},
+  issn    = {1234-5678},
+  langid  = {spanish}
+}
+
+% ==========================================================================
+% CONFERENCIAS Y PROCEEDINGS (@inproceedings)
+% ==========================================================================
 
 @inproceedings{perez2024,
   author    = {Pérez, Ana and Martínez, Carlos},
@@ -74,7 +124,44 @@
   langid    = {spanish}
 }
 
-% === TESIS ===
+@inproceedings{liu2024,
+  author    = {Liu, Xiaoming and Kumar, Raj and Anderson, Sarah},
+  title     = {Scalable Container Orchestration for Edge Computing},
+  booktitle = {Proceedings of the IEEE International Conference on Cloud Computing},
+  year      = {2024},
+  pages     = {567--578},
+  publisher = {IEEE},
+  address   = {San Francisco, CA, USA},
+  doi       = {10.1109/CLOUD.2024.00089},
+  langid    = {english}
+}
+
+@inproceedings{sanchez2023,
+  author    = {Sánchez, Luis and Moreno, Elena},
+  title     = {Optimización de consultas SQL mediante técnicas de inteligencia artificial},
+  booktitle = {Jornadas de Ingeniería del Software y Bases de Datos (JISBD)},
+  year      = {2023},
+  pages     = {89--102},
+  organization = {SISTEDES},
+  address   = {Sevilla, España},
+  langid    = {spanish}
+}
+
+@inproceedings{muller2025,
+  author    = {Müller, Hans and Schmidt, Thomas and Becker, Klaus},
+  title     = {Quantum Computing Applications in Cryptography},
+  booktitle = {Proceedings of the ACM Conference on Computer and Communications Security (CCS)},
+  year      = {2025},
+  pages     = {1023--1037},
+  publisher = {ACM},
+  address   = {Berlin, Germany},
+  doi       = {10.1145/3576891.3576912},
+  langid    = {english}
+}
+
+% ==========================================================================
+% TESIS (@phdthesis, @mastersthesis)
+% ==========================================================================
 
 @mastersthesis{fernandez2023,
   author  = {Fernández, Laura},
@@ -82,10 +169,95 @@
   school  = {Universidad de Alicante},
   year    = {2023},
   type    = {Trabajo Fin de Máster},
+  address = {Alicante, España},
   langid  = {spanish}
 }
 
-% === RECURSOS ONLINE ===
+@phdthesis{wilson2024,
+  author  = {Wilson, James Robert},
+  title   = {Advances in Distributed Consensus Algorithms for Blockchain Networks},
+  school  = {Massachusetts Institute of Technology},
+  year    = {2024},
+  type    = {PhD Thesis},
+  address = {Cambridge, MA, USA},
+  langid  = {english}
+}
+
+@mastersthesis{garcia2024,
+  author  = {García Ruiz, Pablo},
+  title   = {Desarrollo de una aplicación móvil para la gestión de residuos urbanos},
+  school  = {Universidad Politécnica de Valencia},
+  year    = {2024},
+  type    = {Trabajo Fin de Grado},
+  address = {Valencia, España},
+  langid  = {spanish}
+}
+
+@phdthesis{nakamoto2023,
+  author  = {Nakamoto, Yuki},
+  title   = {Novel Approaches to Real-Time Operating Systems for Autonomous Vehicles},
+  school  = {Stanford University},
+  year    = {2023},
+  type    = {PhD Thesis},
+  address = {Stanford, CA, USA},
+  langid  = {english}
+}
+
+% ==========================================================================
+% INFORMES TÉCNICOS (@techreport)
+% ==========================================================================
+
+@techreport{iso25010,
+  author      = {{International Organization for Standardization}},
+  title       = {ISO/IEC 25010:2011 - Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE)},
+  institution = {ISO},
+  year        = {2011},
+  type        = {International Standard},
+  langid      = {english}
+}
+
+@techreport{nist2024,
+  author      = {{National Institute of Standards and Technology}},
+  title       = {NIST Cybersecurity Framework 2.0},
+  institution = {U.S. Department of Commerce},
+  year        = {2024},
+  type        = {Technical Report},
+  number      = {NIST CSF 2.0},
+  address     = {Gaithersburg, MD, USA},
+  langid      = {english}
+}
+
+@techreport{w3c2023,
+  author      = {{World Wide Web Consortium}},
+  title       = {Web Content Accessibility Guidelines (WCAG) 2.2},
+  institution = {W3C},
+  year        = {2023},
+  type        = {W3C Recommendation},
+  url         = {https://www.w3.org/TR/WCAG22/},
+  langid      = {english}
+}
+
+% ==========================================================================
+% RECURSOS ONLINE (@online)
+% ==========================================================================
+
+@online{latex2024,
+  author  = {{LaTeX Project}},
+  title   = {LaTeX -- A document preparation system},
+  year    = {2024},
+  url     = {https://www.latex-project.org/},
+  urldate = {2024-01-15},
+  langid  = {english}
+}
+
+@online{overleaf2024,
+  author  = {{Overleaf}},
+  title   = {Overleaf: Online LaTeX Editor},
+  year    = {2024},
+  url     = {https://www.overleaf.com/},
+  urldate = {2024-01-15},
+  langid  = {english}
+}
 
 @online{react2024,
   author  = {{Meta Platforms, Inc.}},
@@ -114,18 +286,18 @@
   langid  = {english}
 }
 
-% === INFORMES TÉCNICOS ===
-
-@techreport{iso25010,
-  author      = {{International Organization for Standardization}},
-  title       = {ISO/IEC 25010:2011 - Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE)},
-  institution = {ISO},
-  year        = {2011},
-  type        = {International Standard},
-  langid      = {english}
+@online{mozilla2024,
+  author  = {{Mozilla Developer Network}},
+  title   = {MDN Web Docs},
+  year    = {2024},
+  url     = {https://developer.mozilla.org/},
+  urldate = {2024-11-20},
+  langid  = {english}
 }
 
-% === SOFTWARE ===
+% ==========================================================================
+% SOFTWARE (@software)
+% ==========================================================================
 
 @software{postgresql2024,
   author  = {{PostgreSQL Global Development Group}},
@@ -143,4 +315,96 @@
   year    = {2024},
   url     = {https://fastapi.tiangolo.com},
   langid  = {english}
+}
+
+@software{tensorflow2024,
+  author  = {{Google Brain Team}},
+  title   = {TensorFlow},
+  version = {2.15},
+  year    = {2024},
+  url     = {https://www.tensorflow.org},
+  langid  = {english}
+}
+
+@software{vscode2024,
+  author  = {{Microsoft Corporation}},
+  title   = {Visual Studio Code},
+  version = {1.85},
+  year    = {2024},
+  url     = {https://code.visualstudio.com},
+  langid  = {english}
+}
+
+% ==========================================================================
+% MANUALES (@manual)
+% ==========================================================================
+
+@manual{intel2024,
+  author       = {{Intel Corporation}},
+  title        = {Intel® 64 and IA-32 Architectures Software Developer's Manual},
+  year         = {2024},
+  organization = {Intel Corporation},
+  address      = {Santa Clara, CA, USA},
+  langid       = {english}
+}
+
+@manual{arm2024,
+  author       = {{ARM Limited}},
+  title        = {ARM Architecture Reference Manual ARMv8},
+  year         = {2024},
+  organization = {ARM Limited},
+  address      = {Cambridge, UK},
+  langid       = {english}
+}
+
+% ==========================================================================
+% COLECCIONES Y CAPÍTULOS (@incollection)
+% ==========================================================================
+
+@incollection{bishop2023,
+  author    = {Bishop, Christopher M.},
+  title     = {Neural Networks and Deep Learning},
+  booktitle = {Handbook of Artificial Intelligence},
+  editor    = {Russell, Stuart and Norvig, Peter},
+  publisher = {Cambridge University Press},
+  year      = {2023},
+  pages     = {345--412},
+  chapter   = {8},
+  langid    = {english}
+}
+
+@incollection{dijkstra1972,
+  author    = {Dijkstra, Edsger W.},
+  title     = {Notes on Structured Programming},
+  booktitle = {Structured Programming},
+  editor    = {Dahl, Ole-Johan and Dijkstra, Edsger W. and Hoare, C.A.R.},
+  publisher = {Academic Press},
+  year      = {1972},
+  pages     = {1--82},
+  langid    = {english}
+}
+
+% ==========================================================================
+% MISC (otros tipos)
+% ==========================================================================
+
+@misc{arxiv2024,
+  author       = {Doe, Jane and Smith, Bob},
+  title        = {A Survey on Large Language Models: Applications and Challenges},
+  year         = {2024},
+  eprint       = {2401.12345},
+  archiveprefix = {arXiv},
+  primaryclass = {cs.CL},
+  langid       = {english}
+}
+
+@misc{rfc9110,
+  author       = {Fielding, Roy T. and Nottingham, Mark and Reschke, Julian},
+  title        = {HTTP Semantics},
+  howpublished = {RFC 9110},
+  year         = {2022},
+  month        = jun,
+  publisher    = {RFC Editor},
+  url          = {https://www.rfc-editor.org/rfc/rfc9110},
+  langid       = {english}
 }

@@ -1,19 +1,124 @@
-\chapter{Marco teórico}
+\chapter{Marco Teórico (Ejemplos de listas)}
 \label{ch:marco-teorico}
 
-Este capítulo presenta los fundamentos teóricos necesarios para el desarrollo del trabajo.
+Este capítulo presenta los fundamentos teóricos necesarios y demuestra las diferentes formas de crear listas en \LaTeX.
 
-\section{Fundamentos básicos}
+\section{Listas básicas}
 
-En esta sección se describen los conceptos fundamentales relacionados con el trabajo.
+Existen tres tipos principales de listas en \LaTeX: itemize (viñetas), enumerate (numeradas) y description (definiciones).
 
-\subsection{Concepto A}
+\subsection{Listas con viñetas (itemize)}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+\begin{latexcode}[title={Lista con viñetas}]
+\begin{itemize}
+  \item Primer elemento
+  \item Segundo elemento
+  \item Tercer elemento
+\end{itemize}
+\end{latexcode}
 
-\subsection{Concepto B}
+El resultado es:
 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+\begin{itemize}
+  \item Primer elemento de la lista
+  \item Segundo elemento de la lista
+  \item Tercer elemento de la lista
+\end{itemize}
+
+\subsection{Listas numeradas (enumerate)}
+
+\begin{latexcode}[title={Lista numerada}]
+\begin{enumerate}
+  \item Primer paso del proceso
+  \item Segundo paso del proceso
+  \item Tercer paso del proceso
+\end{enumerate}
+\end{latexcode}
+
+El resultado es:
+
+\begin{enumerate}
+  \item Primer paso del proceso
+  \item Segundo paso del proceso
+  \item Tercer paso del proceso
+\end{enumerate}
+
+\subsection{Listas anidadas}
+
+Las listas pueden anidarse hasta varios niveles:
+
+\begin{itemize}
+  \item Ingeniería Informática
+    \begin{itemize}
+      \item Mención en Computación
+      \item Mención en Ingeniería del Software
+      \item Mención en Sistemas de Información
+    \end{itemize}
+  \item Ingeniería Multimedia
+    \begin{itemize}
+      \item Mención en Creación y Ocio Digital
+      \item Mención en Gestión de Contenidos
+    \end{itemize}
+  \item Ingeniería en Sonido e Imagen
+\end{itemize}
+
+También con números:
+
+\begin{enumerate}
+  \item Fase de análisis
+    \begin{enumerate}
+      \item Recopilación de requisitos
+      \item Análisis de viabilidad
+      \item Documentación inicial
+    \end{enumerate}
+  \item Fase de diseño
+    \begin{enumerate}
+      \item Diseño arquitectónico
+      \item Diseño detallado
+    \end{enumerate}
+  \item Fase de implementación
+\end{enumerate}
+
+\section{Listas de definición}
+
+Las listas de descripción son útiles para glosarios y definiciones:
+
+\begin{latexcode}[title={Lista de definiciones}]
+\begin{description}
+  \item[Término 1:] Definición del primer término.
+  \item[Término 2:] Definición del segundo término.
+\end{description}
+\end{latexcode}
+
+\begin{description}
+  \item[LaTeX:] Sistema de composición de textos orientado a la creación de documentos científicos y técnicos de alta calidad tipográfica.
+  
+  \item[TFG:] Trabajo Fin de Grado. Proyecto final que los estudiantes de grado deben realizar y defender para obtener su título universitario.
+  
+  \item[TFM:] Trabajo Fin de Máster. Proyecto de investigación o aplicación que los estudiantes de máster deben completar.
+  
+  \item[EPS:] Escuela Politécnica Superior de la Universidad de Alicante.
+\end{description}
+
+\subsection{Listas de definición anidadas}
+
+\begin{description}
+  \item[Software de diseño:] Herramientas utilizadas en el proyecto.
+    \begin{description}
+      \item[Ventajas:]~
+        \begin{itemize}
+          \item Permite realizar simulaciones precisas
+          \item Interfaz gráfica intuitiva
+          \item Exportación a múltiples formatos
+        \end{itemize}
+      \item[Inconvenientes:]~
+        \begin{itemize}
+          \item Curva de aprendizaje pronunciada
+          \item Requiere licencia comercial
+          \item Alto consumo de recursos
+        \end{itemize}
+    \end{description}
+\end{description}
 
 \section{Estado del arte}
 
@@ -21,25 +126,42 @@ A continuación se presenta una revisión de los trabajos más relevantes en el 
 
 \subsection{Trabajos previos}
 
-Según \textcite{ejemplo2024}, el estado actual de la investigación indica que...
+Según \textcite{latex2024}, el estado actual de la investigación en sistemas de composición tipográfica indica que \LaTeX{} sigue siendo el estándar para documentos científicos.
 
-En \cite{ejemplo2023} se propone un enfoque alternativo basado en...
+En \cite{overleaf2024} se propone un enfoque basado en edición colaborativa en la nube que ha facilitado enormemente la adopción de \LaTeX{} en entornos académicos.
 
 \subsection{Tecnologías relacionadas}
 
 Las principales tecnologías utilizadas en este ámbito incluyen:
 
-\begin{itemize}
-  \item \textbf{Tecnología 1:} Descripción breve de la primera tecnología.
-  \item \textbf{Tecnología 2:} Descripción de la segunda tecnología.
-  \item \textbf{Tecnología 3:} Características de la tercera tecnología.
-\end{itemize}
+\begin{enumerate}
+  \item \textbf{LuaLaTeX:} Motor de composición moderno que permite:
+    \begin{itemize}
+      \item Uso directo de fuentes del sistema
+      \item Programación en Lua dentro del documento
+      \item Soporte nativo de Unicode
+    \end{itemize}
+    
+  \item \textbf{Overleaf:} Plataforma de edición online que ofrece:
+    \begin{itemize}
+      \item Compilación en la nube
+      \item Colaboración en tiempo real
+      \item Control de versiones integrado
+    \end{itemize}
+    
+  \item \textbf{Git:} Sistema de control de versiones útil para:
+    \begin{itemize}
+      \item Seguimiento de cambios en el documento
+      \item Trabajo en equipo
+      \item Recuperación de versiones anteriores
+    \end{itemize}
+\end{enumerate}
 
-\section{Herramientas y tecnologías utilizadas}
+\section{Herramientas utilizadas}
 
 En este trabajo se han utilizado las siguientes herramientas:
 
-\begin{table}[htbp]
+\begin{table}[H]
   \centering
   \caption{Herramientas utilizadas en el desarrollo}
   \label{tab:herramientas}
@@ -47,12 +169,13 @@ En este trabajo se han utilizado las siguientes herramientas:
     \toprule
     \textbf{Herramienta} & \textbf{Versión} & \textbf{Uso} \\
     \midrule
-    Python & 3.12 & Desarrollo principal \\
-    PostgreSQL & 16.0 & Base de datos \\
-    Docker & 25.0 & Contenedorización \\
+    TeX Live & 2024 & Distribución LaTeX \\
+    LuaLaTeX & 1.18 & Motor de compilación \\
+    VS Code & 1.85 & Editor de texto \\
     Git & 2.43 & Control de versiones \\
+    Pygments & 2.17 & Resaltado de código \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-La Tabla~\ref{tab:herramientas} muestra las principales herramientas empleadas.
+La Tabla~\ref{tab:herramientas} muestra las principales herramientas empleadas en la elaboración de este documento.

@@ -651,6 +651,9 @@
 \usepgfplotslibrary{patchplots,groupplots,fillbetween,polar}
 \RequirePackage{pgfplotstable}
 
+% Gráficas circulares (pie charts)
+\RequirePackage{pgf-pie}
+
 % Optimización TikZ (deshabilitada por defecto para evitar problemas)
 % Para habilitarla, descomentar las siguientes líneas:
 % \usepgfplotslibrary{external}
@@ -665,6 +668,7 @@
 \RequirePackage{multirow}
 \RequirePackage{multicol}
 \RequirePackage{tabularx}
+\RequirePackage{colortbl}       % Para \rowcolors y colores en tablas
 \RequirePackage{ragged2e}
 
 % Tipos de columna personalizados
@@ -756,8 +760,13 @@
 %% TEOREMAS Y DEFINICIONES
 %% ============================================================================
 \newtheorem{teorema}{Teorema}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
 \newtheorem{ejemplo}{Ejemplo}[chapter]
 \newtheorem{definicion}{Definición}[chapter]
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{lema}{Lema}[chapter]
+\newtheorem{corolario}{Corolario}[chapter]
+\newtheorem{proposicion}{Proposición}[chapter]
 
 %% ============================================================================
 %% CARGAR PAQUETES ADICIONALES
@@ -781,8 +790,10 @@
   \hypersetup{
     pdfauthor = {\EPSautor},
     pdftitle = {\EPStitulo},
-    pdfsubject = {\EPStipoTrabajo},
-    pdfkeywords = {TFG, TFM, Universidad de Alicante, EPS},
+    pdfsubject = {\EPStipoTrabajo{} - \EPSfacultad{} - \EPSuniversidad},
+    pdfkeywords = {TFG, TFM, Universidad de Alicante, EPS, \EPStitulacionNombre},
+    pdfcreator = {LuaLaTeX con plantilla TFG-TFM\_EPS},
+    pdfproducer = {Plantilla TFG-TFM EPS - https://github.com/jmrplens/TFG-TFM\_EPS},
     colorlinks = true,
     linkcolor = black,
     citecolor = blue!50!black,

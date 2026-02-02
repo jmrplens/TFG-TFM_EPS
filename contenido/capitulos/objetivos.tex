@@ -1,47 +1,204 @@
-\chapter{Objetivos}
+\chapter{Objetivos (Ejemplos de tablas)}
 \label{ch:objetivos}
 
-En este capítulo se definen los objetivos que se persiguen con el desarrollo de este trabajo.
+Este capítulo presenta los objetivos del trabajo y demuestra las diferentes formas de crear tablas en \LaTeX.
 
 \section{Objetivo general}
 
-El objetivo principal de este \EPStipoTrabajo{} es...
-
-\begin{definicion}[Objetivo general]
-Desarrollar un sistema/aplicación/solución que permita... cumpliendo con los requisitos establecidos y aportando valor en el ámbito de...
-\end{definicion}
+El objetivo general de este trabajo es...
 
 \section{Objetivos específicos}
 
-Para alcanzar el objetivo general, se plantean los siguientes objetivos específicos:
-
 \begin{enumerate}
-  \item \textbf{OE1:} Analizar y estudiar el estado actual de...
-  
+  \item \textbf{OE1:} Analizar el estado actual de...
   \item \textbf{OE2:} Diseñar una arquitectura que permita...
-  
   \item \textbf{OE3:} Implementar los componentes necesarios para...
-  
-  \item \textbf{OE4:} Evaluar y validar el sistema desarrollado mediante...
-  
-  \item \textbf{OE5:} Documentar el proceso y los resultados obtenidos.
+  \item \textbf{OE4:} Evaluar el rendimiento del sistema mediante...
+  \item \textbf{OE5:} Documentar el proceso de desarrollo y los resultados obtenidos.
 \end{enumerate}
 
-\section{Alcance del trabajo}
+\section{Tablas en LaTeX}
 
-El alcance de este trabajo incluye:
+Las tablas son elementos fundamentales en cualquier documento técnico. A continuación se muestran diferentes ejemplos.
+
+\subsection{Tabla simple}
+
+\begin{latexcode}[title={Código de tabla simple}]
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lcc}
+           & Columna A & Columna B \\
+    \hline
+    Fila 1 & Dato 1A   & Dato 1B \\
+    Fila 2 & Dato 2A   & Dato 2B \\
+    Fila 3 & Dato 3A   & Dato 3B \\
+    \hline
+  \end{tabular}
+  \caption{Ejemplo de tabla simple}
+  \label{tab:simple}
+\end{table}
+\end{latexcode}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular}{lcc}
+           & Columna A & Columna B \\
+    \hline
+    Fila 1 & Dato 1A   & Dato 1B \\
+    Fila 2 & Dato 2A   & Dato 2B \\
+    Fila 3 & Dato 3A   & Dato 3B \\
+    \hline
+  \end{tabular}
+  \caption{Ejemplo de tabla simple}
+  \label{tab:simple}
+\end{table}
+
+\subsection{Tabla con booktabs}
+
+El paquete \texttt{booktabs} proporciona líneas más profesionales:
+
+\begin{table}[H]
+  \centering
+  \caption{Tabla con estilo booktabs}
+  \label{tab:booktabs}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    \textbf{Concepto} & \textbf{Valor} & \textbf{Unidad} \\
+    \midrule
+    Velocidad máxima & 120 & km/h \\
+    Consumo medio & 5.5 & L/100km \\
+    Potencia & 150 & CV \\
+    Par motor & 250 & Nm \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Tabla con columnas de ancho fijo}
+
+Puedes especificar el ancho de las columnas usando \texttt{p\{ancho\}}, \texttt{L\{ancho\}}, \texttt{C\{ancho\}} o \texttt{R\{ancho\}}:
+
+\begin{table}[H]
+  \centering
+  \caption{Parámetros de posicionamiento de elementos flotantes}
+  \label{tab:parametros}
+  \begin{tabular}{|c|p{10cm}|}
+    \hline
+    \textbf{Parámetro} & \textbf{Significado} \\
+    \hline
+    \texttt{h} & Sitúa el elemento \emph{preferentemente} en la posición actual del texto \\
+    \texttt{t} & Sitúa el elemento en la parte superior de la página \\
+    \texttt{b} & Sitúa el elemento en la parte inferior de la página \\
+    \texttt{p} & Sitúa el elemento en una página dedicada solo a flotantes \\
+    \texttt{H} & Fuerza la posición exacta (requiere paquete \texttt{float}) \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\subsection{Tabla con multicolumna y multifila}
+
+\begin{table}[H]
+  \centering
+  \caption{Ejemplo de tabla con celdas combinadas}
+  \label{tab:multicolrow}
+  \begin{tabular}{|c|c|c|c|}
+    \hline
+    \multicolumn{4}{|c|}{\textbf{Distribución de recursos}} \\
+    \hline
+    \multirow{2}{*}{\textbf{Fase}} & \multicolumn{3}{c|}{\textbf{Recursos}} \\
+    \cline{2-4}
+     & Personal & Tiempo (h) & Coste (€) \\
+    \hline
+    Análisis & 2 & 40 & 2.000 \\
+    Diseño & 3 & 80 & 4.800 \\
+    Implementación & 4 & 160 & 9.600 \\
+    Pruebas & 2 & 60 & 3.000 \\
+    \hline
+    \textbf{Total} & -- & \textbf{340} & \textbf{19.400} \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\subsection{Tabla con colores alternados}
+
+Usando el paquete \texttt{xcolor} con la opción \texttt{table}:
+
+\begin{table}[H]
+  \centering
+  \caption{Especificaciones técnicas del sistema}
+  \label{tab:specs}
+  \rowcolors{2}{gray!15}{white}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    \textbf{Componente} & \textbf{Especificación} & \textbf{Requisito} \\
+    \midrule
+    Procesador & Intel i7 / AMD Ryzen 7 & Mínimo \\
+    Memoria RAM & 16 GB DDR4 & Recomendado \\
+    Almacenamiento & 512 GB SSD & Mínimo \\
+    GPU & NVIDIA RTX 3060 & Recomendado \\
+    Sistema Operativo & Linux / Windows 11 & Compatible \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Tabla larga (longtable)}
+
+Para tablas que ocupan varias páginas, se usa el entorno \texttt{longtable}:
+
+\begin{longtable}{@{}clp{7cm}@{}}
+  \caption{Lista de requisitos del sistema} \label{tab:requisitos} \\
+  \toprule
+  \textbf{ID} & \textbf{Tipo} & \textbf{Descripción} \\
+  \midrule
+  \endfirsthead
+  
+  \multicolumn{3}{c}{\tablename\ \thetable{} -- Continuación} \\
+  \toprule
+  \textbf{ID} & \textbf{Tipo} & \textbf{Descripción} \\
+  \midrule
+  \endhead
+  
+  \midrule
+  \multicolumn{3}{r}{\textit{Continúa en la siguiente página}} \\
+  \endfoot
+  
+  \bottomrule
+  \endlastfoot
+  
+  RF01 & Funcional & El sistema debe permitir el registro de usuarios mediante correo electrónico \\
+  RF02 & Funcional & Los usuarios deben poder iniciar sesión con sus credenciales \\
+  RF03 & Funcional & El sistema debe generar informes en formato PDF \\
+  RF04 & Funcional & Se debe implementar un sistema de notificaciones \\
+  RF05 & Funcional & Los datos deben poder exportarse en formato CSV \\
+  RNF01 & No funcional & El tiempo de respuesta no debe superar los 2 segundos \\
+  RNF02 & No funcional & El sistema debe soportar 100 usuarios concurrentes \\
+  RNF03 & No funcional & La disponibilidad debe ser del 99.5\% \\
+  RNF04 & No funcional & La interfaz debe ser accesible según WCAG 2.1 \\
+  RNF05 & No funcional & Los datos sensibles deben cifrarse con AES-256 \\
+\end{longtable}
+
+\section{Generadores de tablas}
+
+Crear tablas manualmente puede ser tedioso. Se recomienda usar generadores online:
 
 \begin{itemize}
-  \item Desarrollo de la funcionalidad principal
-  \item Integración con sistemas existentes
-  \item Pruebas y validación del sistema
-  \item Documentación técnica y de usuario
+  \item \url{https://www.tablesgenerator.com/} -- Generador visual muy completo
+  \item \url{https://www.latex-tables.com/} -- Alternativa sencilla
+  \item Excel2LaTeX -- Plugin para Microsoft Excel
 \end{itemize}
 
-\textbf{Fuera del alcance:}
+\section{Forzar posición de tablas}
 
-\begin{itemize}
-  \item Despliegue en producción
-  \item Mantenimiento posterior
-  \item Funcionalidades adicionales no especificadas
-\end{itemize}
+Para forzar que una tabla aparezca en un lugar específico, se puede usar:
+
+\begin{latexcode}[title={Forzar posición}]
+% Opción 1: Usar FloatBarrier
+\begin{table}[H]
+  ...
+\end{table}
+\FloatBarrier % Fuerza que la tabla aparezca antes
+
+% Opción 2: Usar H (requiere paquete float)
+\begin{table}[H]
+  ...
+\end{table}
+\end{latexcode}

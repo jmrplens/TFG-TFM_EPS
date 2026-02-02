@@ -1,0 +1,116 @@
+# EditorConfig - Configuración de estilo de código entre editores
+# https://editorconfig.org
+
+# Este es el archivo raíz de configuración
+root = true
+
+# =============================================================================
+# CONFIGURACIÓN GLOBAL (todos los archivos)
+# =============================================================================
+[*]
+# Codificación UTF-8 (necesario para LaTeX moderno)
+charset = utf-8
+
+# Fin de línea Unix (LF) - mejor para Git y compatibilidad
+end_of_line = lf
+
+# Añadir nueva línea al final del archivo
+insert_final_newline = true
+
+# Eliminar espacios en blanco al final de las líneas
+trim_trailing_whitespace = true
+
+# Indentación por defecto: espacios
+indent_style = space
+indent_size = 4
+
+# =============================================================================
+# ARCHIVOS LATEX (.tex, .sty, .cls)
+# =============================================================================
+[*.{tex,sty,cls}]
+indent_style = space
+indent_size = 2
+
+# Máximo ancho de línea recomendado (no forzado)
+max_line_length = 100
+
+# =============================================================================
+# ARCHIVOS BIBTEX
+# =============================================================================
+[*.bib]
+indent_style = space
+indent_size = 2
+
+# =============================================================================
+# ARCHIVOS DE CONFIGURACIÓN
+# =============================================================================
+# Makefile requiere tabs (no espacios)
+[Makefile]
+indent_style = tab
+indent_size = 4
+
+# YAML (GitHub Actions, etc.)
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# JSON
+[*.json]
+indent_style = space
+indent_size = 2
+
+# JSONC (JSON con comentarios, como settings.json de VS Code)
+[*.jsonc]
+indent_style = space
+indent_size = 4
+
+# =============================================================================
+# SCRIPTS
+# =============================================================================
+# Perl (latexmkrc)
+[.latexmkrc]
+indent_style = space
+indent_size = 4
+
+[latexmkrc]
+indent_style = space
+indent_size = 4
+
+# Shell scripts
+[*.sh]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+
+# =============================================================================
+# MARKDOWN
+# =============================================================================
+[*.md]
+indent_style = space
+indent_size = 2
+# No eliminar espacios finales en Markdown (pueden ser saltos de línea)
+trim_trailing_whitespace = false
+max_line_length = off
+
+# =============================================================================
+# ARCHIVOS DE TEXTO PLANO
+# =============================================================================
+[*.txt]
+indent_style = space
+indent_size = 4
+
+# Archivos de licencia
+[LICENSE]
+insert_final_newline = false
+
+# =============================================================================
+# ARCHIVOS GENERADOS (no modificar)
+# =============================================================================
+# No aplicar reglas a archivos auxiliares de LaTeX
+[*.{aux,log,toc,lof,lot,bbl,bcf,blg,out,fls,fdb_latexmk,synctex.gz}]
+charset = unset
+end_of_line = unset
+insert_final_newline = unset
+trim_trailing_whitespace = unset
+indent_style = unset
+indent_size = unset

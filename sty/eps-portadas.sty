@@ -129,13 +129,13 @@
 %% ============================================================================
 %% PORTADA EN BLANCO Y NEGRO
 %% ============================================================================
+\newlength{\eps@centeroffsetbn}%
 \NewDocumentCommand{\portadabn}{}{%
   \begin{titlepage}
     % Márgenes de esta página
     \newgeometry{ignoreall,top=2cm,bottom=2cm}%
     %
     % Offset horizontal
-    \newlength{\eps@centeroffsetbn}%
     \setlength{\eps@centeroffsetbn}{-0.5\oddsidemargin}%
     \addtolength{\eps@centeroffsetbn}{0.5\evensidemargin}%
     \thispagestyle{empty}%
@@ -149,10 +149,10 @@
       \noindent\rule[-1ex]{\textwidth}{3pt}\\[3.5ex]
       {\large\bfseries\EPSsubtitulo\\[4cm]}
     \end{minipage}
-    %
+
     % Relleno hasta zona central
     \vspace{2.5cm}
-    %
+
     % Autor y Tutores
     \noindent\hspace*{\eps@centeroffsetbn}%
     \begin{minipage}{\textwidth}
@@ -168,20 +168,22 @@
         }{}%
       }
     \end{minipage}
-    %
-    % Relleno hasta zona inferior
+
+    % Relleno hasta zona inferior (IMPORTANTE: fuera del minipage)
     \vspace*{\fill}
-    %
+
     % Logos y fecha
     \noindent\hspace*{\eps@centeroffsetbn}%
     \begin{minipage}{\textwidth}
       \centering
+      \noindent\hspace*{\eps@centeroffsetbn}%
       \begin{center}
         \includegraphics[width=3cm]{\EPSlogoGrado}\\
         {\raggedleft\EPStitulacion}
       \end{center}
       \vspace*{2em}
       \centering
+      \noindent\hspace*{\eps@centeroffsetbn}%
       \begin{minipage}[l]{6cm}
         \includegraphics[width=5cm]{\EPSlogoFacultad}
       \end{minipage}

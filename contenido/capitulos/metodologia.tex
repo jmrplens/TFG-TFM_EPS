@@ -1,29 +1,122 @@
-\chapter{Metodología}
+\chapter{Metodología (Ejemplos de figuras)}
 \label{ch:metodologia}
 
-Este capítulo describe la metodología seguida para el desarrollo del trabajo.
+Este capítulo describe la metodología seguida en el desarrollo del trabajo y presenta ejemplos de cómo insertar figuras en \LaTeX.
 
-\section{Metodología de desarrollo}
+\section{Metodología de trabajo}
 
-Para el desarrollo de este trabajo se ha seguido una metodología ágil basada en...
-
-\subsection{Fases del proyecto}
-
-El proyecto se ha dividido en las siguientes fases:
+Para el desarrollo de este trabajo se ha seguido una metodología ágil basada en iteraciones cortas:
 
 \begin{enumerate}
-  \item \textbf{Fase de análisis:} Estudio del problema y definición de requisitos.
-  \item \textbf{Fase de diseño:} Diseño de la arquitectura y los componentes.
-  \item \textbf{Fase de implementación:} Desarrollo del código y funcionalidades.
-  \item \textbf{Fase de pruebas:} Verificación y validación del sistema.
-  \item \textbf{Fase de documentación:} Elaboración de la memoria y manuales.
+  \item \textbf{Planificación:} Definición de objetivos y alcance
+  \item \textbf{Análisis:} Estudio del problema y requisitos
+  \item \textbf{Diseño:} Arquitectura y diseño detallado
+  \item \textbf{Implementación:} Desarrollo del código
+  \item \textbf{Pruebas:} Verificación y validación
+  \item \textbf{Documentación:} Redacción de la memoria
 \end{enumerate}
+
+\section{Inserción de figuras}
+
+Las figuras en \LaTeX{} son elementos flotantes. Esto significa que \LaTeX{} decide su ubicación óptima para mejorar la maquetación del documento.
+
+\subsection{Figura simple}
+
+\begin{latexcode}[title={Código para insertar una figura}]
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{ruta/imagen}
+  \caption{Descripción de la figura}
+  \label{fig:etiqueta}
+\end{figure}
+\end{latexcode}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \draw[fill=gray!20] (0,0) rectangle (8,4);
+    \node at (4,2) {\Large Imagen de ejemplo};
+  \end{tikzpicture}
+  \caption{Ejemplo de figura simple (placeholder)}
+  \label{fig:simple}
+\end{figure}
+
+Para referenciar la figura en el texto: ``como se muestra en la Figura~\ref{fig:simple}''.
+
+\subsection{Subfiguras}
+
+Cuando necesitas mostrar varias imágenes relacionadas:
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \begin{tikzpicture}
+      \draw[fill=blue!20] (0,0) rectangle (4,3);
+      \node at (2,1.5) {Subfigura A};
+    \end{tikzpicture}
+    \caption{Primera variante}
+    \label{fig:sub-a}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.45\textwidth}
+    \centering
+    \begin{tikzpicture}
+      \draw[fill=red!20] (0,0) rectangle (4,3);
+      \node at (2,1.5) {Subfigura B};
+    \end{tikzpicture}
+    \caption{Segunda variante}
+    \label{fig:sub-b}
+  \end{subfigure}
+  \caption{Ejemplo de subfiguras horizontales}
+  \label{fig:subfiguras}
+\end{figure}
+
+Puedes referenciar subfiguras individuales: Figura~\ref{fig:sub-a} y Figura~\ref{fig:sub-b}, o el conjunto: Figura~\ref{fig:subfiguras}.
+
+\subsection{Múltiples imágenes en tabla}
+
+Otra forma de organizar varias imágenes:
+
+\begin{figure}[H]
+  \centering
+  \begin{tabular}{ccc}
+    \begin{tikzpicture}[scale=0.5]
+      \draw[fill=green!30] (0,0) circle (1.5);
+      \node at (0,0) {1};
+    \end{tikzpicture} &
+    \begin{tikzpicture}[scale=0.5]
+      \draw[fill=yellow!30] (0,0) circle (1.5);
+      \node at (0,0) {2};
+    \end{tikzpicture} &
+    \begin{tikzpicture}[scale=0.5]
+      \draw[fill=orange!30] (0,0) circle (1.5);
+      \node at (0,0) {3};
+    \end{tikzpicture} \\
+    Config. A & Config. B & Config. C \\[1em]
+    \begin{tikzpicture}[scale=0.5]
+      \draw[fill=cyan!30] (0,0) circle (1.5);
+      \node at (0,0) {4};
+    \end{tikzpicture} &
+    \begin{tikzpicture}[scale=0.5]
+      \draw[fill=magenta!30] (0,0) circle (1.5);
+      \node at (0,0) {5};
+    \end{tikzpicture} &
+    \begin{tikzpicture}[scale=0.5]
+      \draw[fill=brown!30] (0,0) circle (1.5);
+      \node at (0,0) {6};
+    \end{tikzpicture} \\
+    Config. D & Config. E & Config. F \\
+  \end{tabular}
+  \caption{Matriz de configuraciones experimentales}
+  \label{fig:matriz}
+\end{figure}
 
 \section{Planificación temporal}
 
 La planificación temporal del proyecto se muestra en la Figura~\ref{fig:gantt}.
 
-\begin{figure}[htbp]
+\begin{figure}[H]
   \centering
   \begin{tikzpicture}[
     fase/.style={fill=informatica!60, draw=informatica!80, rounded corners=2pt, minimum height=0.6cm},
@@ -60,6 +153,63 @@ La planificación temporal del proyecto se muestra en la Figura~\ref{fig:gantt}.
   \label{fig:gantt}
 \end{figure}
 
+\section{Diagramas con TikZ}
+
+TikZ permite crear diagramas directamente en \LaTeX:
+
+\subsection{Diagrama de flujo}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[
+    node distance=1.5cm,
+    startstop/.style={rectangle, rounded corners, minimum width=2.5cm, minimum height=0.8cm, text centered, draw=black, fill=red!30},
+    process/.style={rectangle, minimum width=2.5cm, minimum height=0.8cm, text centered, draw=black, fill=blue!20},
+    decision/.style={diamond, minimum width=2cm, minimum height=0.8cm, text centered, draw=black, fill=green!20, aspect=2},
+    arrow/.style={thick,->,>=stealth}
+  ]
+    \node (start) [startstop] {Inicio};
+    \node (proc1) [process, below of=start] {Proceso 1};
+    \node (dec1) [decision, below of=proc1, yshift=-0.5cm] {¿Condición?};
+    \node (proc2) [process, below of=dec1, yshift=-0.5cm] {Proceso 2};
+    \node (proc3) [process, right of=dec1, xshift=2cm] {Alternativa};
+    \node (stop) [startstop, below of=proc2] {Fin};
+    
+    \draw [arrow] (start) -- (proc1);
+    \draw [arrow] (proc1) -- (dec1);
+    \draw [arrow] (dec1) -- node[anchor=east] {Sí} (proc2);
+    \draw [arrow] (dec1) -- node[anchor=south] {No} (proc3);
+    \draw [arrow] (proc3) |- (proc2);
+    \draw [arrow] (proc2) -- (stop);
+  \end{tikzpicture}
+  \caption{Diagrama de flujo del algoritmo principal}
+  \label{fig:flowchart}
+\end{figure}
+
+\subsection{Diagrama de bloques}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[
+    block/.style={rectangle, draw, fill=blue!20, text width=2.5cm, text centered, rounded corners, minimum height=1cm},
+    line/.style={draw, thick, -latex}
+  ]
+    \node [block] (cliente) {Cliente\\Web/Móvil};
+    \node [block, right of=cliente, xshift=3cm] (api) {API\\REST};
+    \node [block, right of=api, xshift=3cm] (logica) {Lógica de\\Negocio};
+    \node [block, below of=logica, yshift=-1.5cm] (bd) {Base de\\Datos};
+    \node [block, below of=api, yshift=-1.5cm] (cache) {Sistema\\de Caché};
+    
+    \path [line] (cliente) -- (api);
+    \path [line] (api) -- (logica);
+    \path [line] (logica) -- (bd);
+    \path [line] (api) -- (cache);
+    \path [line] (cache) -- (bd);
+  \end{tikzpicture}
+  \caption{Arquitectura del sistema}
+  \label{fig:arquitectura}
+\end{figure}
+
 \section{Recursos utilizados}
 
 \subsection{Recursos hardware}
@@ -67,6 +217,7 @@ La planificación temporal del proyecto se muestra en la Figura~\ref{fig:gantt}.
 \begin{itemize}
   \item Ordenador portátil con procesador Intel i7, 16GB RAM
   \item Servidor de desarrollo con 32GB RAM
+  \item Dispositivos móviles para pruebas
 \end{itemize}
 
 \subsection{Recursos software}
@@ -75,6 +226,7 @@ La planificación temporal del proyecto se muestra en la Figura~\ref{fig:gantt}.
   \item Sistema operativo: Linux Ubuntu 24.04 LTS
   \item Entorno de desarrollo: Visual Studio Code
   \item Control de versiones: Git y GitHub
+  \item Compilador \LaTeX: LuaLaTeX (TeX Live 2024)
 \end{itemize}
 
 \section{Gestión del proyecto}
@@ -82,7 +234,7 @@ La planificación temporal del proyecto se muestra en la Figura~\ref{fig:gantt}.
 Para la gestión del proyecto se han utilizado las siguientes herramientas:
 
 \begin{itemize}
-  \item \textbf{GitHub Projects:} Para la gestión de tareas y seguimiento del progreso.
-  \item \textbf{Git:} Para el control de versiones del código.
-  \item \textbf{Discord:} Para la comunicación con el tutor.
+  \item \textbf{GitHub Projects:} Para la gestión de tareas y seguimiento del progreso mediante tableros Kanban.
+  \item \textbf{Git:} Para el control de versiones del código y la documentación.
+  \item \textbf{Discord/Slack:} Para la comunicación con el tutor.
 \end{itemize}

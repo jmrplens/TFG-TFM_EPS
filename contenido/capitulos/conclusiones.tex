@@ -1,7 +1,131 @@
-\chapter{Conclusiones}
+\chapter{Conclusiones (Ejemplos de matemáticas)}
 \label{ch:conclusiones}
 
-Este capítulo presenta las conclusiones del trabajo realizado, así como las posibles líneas de trabajo futuro.
+Este capítulo presenta las conclusiones del trabajo y demuestra las capacidades matemáticas de \LaTeX.
+
+\section{Ecuaciones matemáticas}
+
+\LaTeX{} es el estándar para la composición de fórmulas matemáticas. A continuación se muestran diferentes formas de escribir matemáticas.
+
+\subsection{Ecuaciones numeradas}
+
+Para mostrar una ecuación numerada se usa el entorno \texttt{equation}:
+
+\begin{latexcode}[title={Ecuación numerada}]
+\begin{equation}
+  E = mc^2
+  \label{eq:einstein}
+\end{equation}
+\end{latexcode}
+
+\begin{equation}
+  E = mc^2
+  \label{eq:einstein}
+\end{equation}
+
+La famosa ecuación de Einstein (\ref{eq:einstein}) relaciona masa y energía.
+
+\subsection{Ecuaciones complejas}
+
+\begin{equation}
+  \nabla \times \mathbf{H} = \left[ \frac{1}{r} \frac{\partial}{\partial r}(r H_\theta) - \frac{1}{r} \frac{\partial H_r}{\partial \theta} \right] \hat{\mathbf{z}}
+  \label{eq:maxwell}
+\end{equation}
+
+\begin{equation}
+  \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
+  \label{eq:gauss}
+\end{equation}
+
+\subsection{Ecuaciones en línea}
+
+El texto puede contener fórmulas como $\int_{a}^{b} f(x)\,dx = F(b) - F(a)$ directamente en el párrafo, o con mayor tamaño usando doble dólar: $$\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$$
+
+\subsection{Sistemas de ecuaciones}
+
+\begin{equation}
+  \begin{cases}
+    x + y + z = 6 \\
+    2x - y + z = 3 \\
+    x + 2y - z = 2
+  \end{cases}
+  \label{eq:sistema}
+\end{equation}
+
+\subsection{Ecuaciones agrupadas}
+
+\begin{subequations}
+  \begin{align}
+    \mathbf{E} &= E_z(r,\theta) \hat{\mathbf{z}} \label{eq:E} \\
+    \mathbf{H} &= H_r(r,\theta) \hat{\mathbf{r}} + H_\theta(r,\theta) \hat{\boldsymbol{\theta}} \label{eq:H}
+  \end{align}
+\end{subequations}
+
+Las ecuaciones (\ref{eq:E}) y (\ref{eq:H}) describen los campos electromagnéticos.
+
+\subsection{Matrices}
+
+\begin{equation}
+  \mathbf{A} = \begin{pmatrix}
+    a_{11} & a_{12} & a_{13} \\
+    a_{21} & a_{22} & a_{23} \\
+    a_{31} & a_{32} & a_{33}
+  \end{pmatrix}
+  \label{eq:matriz}
+\end{equation}
+
+\begin{equation}
+  \det(\mathbf{A}) = \begin{vmatrix}
+    a & b \\
+    c & d
+  \end{vmatrix} = ad - bc
+  \label{eq:determinante}
+\end{equation}
+
+\subsection{Ecuaciones alineadas}
+
+\begin{align}
+  (a+b)^2 &= a^2 + 2ab + b^2 \\
+  (a-b)^2 &= a^2 - 2ab + b^2 \\
+  (a+b)(a-b) &= a^2 - b^2
+\end{align}
+
+\subsection{Ecuación con condiciones}
+
+La función \texttt{condiciones} de la plantilla permite documentar las variables:
+
+\begin{equation}
+  \underset{z=z_0}{\mathrm{Res}}(f(z)) = \frac{1}{(m-1)!} \lim_{z \to z_0} \left[ \frac{d^{m-1}}{dz^{m-1}} \left[ (z-z_0)^m f(z) \right] \right]
+  \label{eq:residuo}
+\end{equation}
+
+\begin{condiciones}[donde:]
+  m & \rightarrow & es la multiplicidad del polo $z_0$ \\
+  z_0 & \rightarrow & es el punto donde se calcula el residuo \\
+  f(z) & \rightarrow & es la función analítica
+\end{condiciones}
+
+\subsection{Teoremas y demostraciones}
+
+\begin{theorem}[Teorema de Pitágoras]
+  En un triángulo rectángulo, el cuadrado de la hipotenusa es igual a la suma de los cuadrados de los catetos:
+  \begin{equation}
+    c^2 = a^2 + b^2
+  \end{equation}
+\end{theorem}
+
+\begin{proof}
+  Sea un triángulo rectángulo con catetos $a$ y $b$, e hipotenusa $c$. Considerando el área del cuadrado de lado $(a+b)$...
+  
+  Por lo tanto, $c^2 = a^2 + b^2$. \qedhere
+\end{proof}
+
+\begin{definition}[Límite]
+  Sea $f: D \to \mathbb{R}$ una función y $a$ un punto de acumulación de $D$. Decimos que $L$ es el límite de $f$ en $a$ si:
+  \begin{equation}
+    \forall \varepsilon > 0, \exists \delta > 0 : 0 < |x-a| < \delta \Rightarrow |f(x) - L| < \varepsilon
+  \end{equation}
+\end{definition}
 
 \section{Conclusiones generales}
 
@@ -10,35 +134,35 @@ El desarrollo de este \EPStipoTrabajo{} ha permitido alcanzar los objetivos plan
 \begin{enumerate}
   \item Se ha desarrollado con éxito un sistema que cumple con los requisitos funcionales y no funcionales establecidos.
   
-  \item La arquitectura diseñada ha demostrado ser escalable y mantenible, facilitando futuras extensiones.
+  \item La arquitectura diseñada ha demostrado ser escalable y mantenible, facilitando futuras extensiones del sistema.
   
-  \item Los resultados de las pruebas confirman que el sistema es robusto y ofrece un rendimiento adecuado.
+  \item Los resultados de las pruebas confirman que el sistema es robusto y ofrece un rendimiento adecuado para el caso de uso planteado.
   
-  \item El proceso de desarrollo ha seguido las mejores prácticas de ingeniería de software.
+  \item El proceso de desarrollo ha seguido las mejores prácticas de ingeniería de software, incluyendo control de versiones, integración continua y documentación exhaustiva.
 \end{enumerate}
 
 \section{Aportaciones del trabajo}
 
 Las principales aportaciones de este trabajo son:
 
-\begin{itemize}
-  \item \textbf{Aportación técnica:} Desarrollo de una solución innovadora para...
+\begin{description}
+  \item[Aportación técnica:] Desarrollo de una solución innovadora que mejora en un 40\% el rendimiento respecto a sistemas anteriores.
   
-  \item \textbf{Aportación metodológica:} Aplicación de una metodología adaptada a...
+  \item[Aportación metodológica:] Aplicación de una metodología híbrida que combina prácticas ágiles con documentación formal.
   
-  \item \textbf{Aportación práctica:} Sistema funcional que puede ser utilizado por...
-\end{itemize}
+  \item[Aportación práctica:] Sistema funcional desplegado y en uso por usuarios reales.
+\end{description}
 
 \section{Dificultades encontradas}
 
 Durante el desarrollo del trabajo se han encontrado las siguientes dificultades:
 
 \begin{enumerate}
-  \item \textbf{Integración de sistemas:} La integración con sistemas externos requirió un esfuerzo adicional debido a...
+  \item \textbf{Integración de sistemas:} La integración con sistemas externos requirió un esfuerzo adicional debido a diferencias en los formatos de datos.
   
-  \item \textbf{Rendimiento:} Fue necesario optimizar varias consultas para cumplir con los requisitos de tiempo de respuesta.
+  \item \textbf{Rendimiento:} Fue necesario optimizar varias consultas a base de datos para cumplir con los requisitos de tiempo de respuesta.
   
-  \item \textbf{Documentación externa:} Parte de la documentación de las herramientas utilizadas estaba desactualizada.
+  \item \textbf{Documentación externa:} Parte de la documentación de las bibliotecas utilizadas estaba desactualizada.
 \end{enumerate}
 
 \section{Trabajo futuro}
@@ -46,15 +170,15 @@ Durante el desarrollo del trabajo se han encontrado las siguientes dificultades:
 Como líneas de trabajo futuro se proponen:
 
 \begin{enumerate}
-  \item \textbf{Ampliación de funcionalidades:} Implementar las funcionalidades identificadas como deseables pero fuera del alcance inicial.
+  \item \textbf{Ampliación de funcionalidades:} Implementar las características identificadas como deseables pero fuera del alcance inicial.
   
-  \item \textbf{Mejora del rendimiento:} Implementar un sistema de caché distribuida para mejorar los tiempos de respuesta.
+  \item \textbf{Mejora del rendimiento:} Implementar un sistema de caché distribuida para mejorar los tiempos de respuesta en escenarios de alta carga.
   
   \item \textbf{Versión móvil:} Desarrollar una aplicación móvil nativa para iOS y Android.
   
-  \item \textbf{Internacionalización:} Añadir soporte para múltiples idiomas.
+  \item \textbf{Internacionalización:} Añadir soporte para múltiples idiomas en la interfaz de usuario.
   
-  \item \textbf{Machine Learning:} Incorporar algoritmos de aprendizaje automático para...
+  \item \textbf{Machine Learning:} Incorporar algoritmos de aprendizaje automático para predicción y recomendaciones.
 \end{enumerate}
 
 \section{Valoración personal}
@@ -65,7 +189,7 @@ Entre los aprendizajes más valiosos destacan:
 
 \begin{itemize}
   \item La importancia de una buena planificación inicial
-  \item El valor de las pruebas automatizadas
+  \item El valor de las pruebas automatizadas para garantizar la calidad
   \item La necesidad de documentar adecuadamente el código
   \item Las habilidades de comunicación y gestión de proyectos
 \end{itemize}

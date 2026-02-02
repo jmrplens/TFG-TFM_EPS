@@ -1,0 +1,113 @@
+name: ✨ Solicitud de funcionalidad
+description: Sugiere una nueva funcionalidad o mejora para la plantilla
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ¡Gracias por tu sugerencia! 💡
+        Las ideas de la comunidad nos ayudan a mejorar la plantilla.
+
+  - type: checkboxes
+    id: existing-issue
+    attributes:
+      label: ¿Has buscado solicitudes existentes?
+      description: Por favor, verifica que no exista ya una solicitud similar
+      options:
+        - label: He buscado en los issues existentes y no he encontrado una solicitud similar
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: ¿Está relacionado con algún problema?
+      description: |
+        Describe claramente el problema o limitación que motiva esta solicitud.
+        Ej: "Me frustra cuando intento hacer X porque..."
+      placeholder: "Actualmente es difícil/imposible hacer..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe la solución que te gustaría
+      description: Explica de forma clara qué te gustaría que se añadiera o cambiara
+      placeholder: "Me gustaría que la plantilla incluyera... / Sería útil poder..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativas consideradas
+      description: ¿Has considerado otras soluciones o workarounds?
+      placeholder: "He probado a hacer X, pero no funciona bien porque..."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Categoría
+      description: ¿En qué área de la plantilla encaja tu sugerencia?
+      options:
+        - Portadas y diseño
+        - Nueva titulación
+        - Código fuente (minted/listings)
+        - Bibliografía
+        - Figuras y gráficos
+        - Tablas
+        - Índices y estructura
+        - Documentación
+        - Herramientas de compilación
+        - Compatibilidad (Overleaf, editores...)
+        - Accesibilidad
+        - Otro
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Prioridad sugerida
+      description: ¿Cómo de importante crees que es esta funcionalidad?
+      options:
+        - 🔴 Alta - Bloquea mi trabajo
+        - 🟡 Media - Mejoraría significativamente mi experiencia
+        - 🟢 Baja - Sería un "nice to have"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: ¿Podrías contribuir?
+      description: ¿Estarías dispuesto a ayudar a implementar esta funcionalidad?
+      options:
+        - label: Podría intentar implementarlo yo mismo y enviar un PR
+        - label: Podría ayudar a probar la implementación
+        - label: Podría ayudar con la documentación
+
+  - type: textarea
+    id: mockup
+    attributes:
+      label: Mockup o ejemplo
+      description: |
+        Si tienes algún ejemplo visual, código de muestra o referencia de cómo debería verse/funcionar,
+        añádelo aquí. Puede ser un enlace a otra plantilla, una captura, código LaTeX, etc.
+      placeholder: |
+        ```latex
+        % Ejemplo de cómo me gustaría usarlo:
+        \miNuevoComando{...}
+        ```
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Contexto adicional
+      description: Cualquier otra información relevante sobre tu solicitud
+      placeholder: "Esto sería especialmente útil para estudiantes de... / He visto algo similar en..."
