@@ -12,6 +12,9 @@ permissions:
   contents: read
   pull-requests: write
 
+env:
+  TEXLIVE_VERSION: "2024"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,13 +23,15 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       
-    - name: Setup Python for Pygments
-      uses: actions/setup-python@v5
+    - name: Cache TeX Live
+      uses: actions/cache@v4
       with:
-        python-version: '3.12'
-        
-    - name: Install Pygments
-      run: pip install Pygments
+        path: |
+          /tmp/texlive
+          ~/.texlive*
+        key: texlive-${{ env.TEXLIVE_VERSION }}-${{ runner.os }}-${{ hashFiles('.latexmkrc') }}
+        restore-keys: |
+          texlive-${{ env.TEXLIVE_VERSION }}-${{ runner.os }}-
       
     - name: Compile LaTeX document
       uses: xu-cheng/latex-action@v4
@@ -34,6 +39,7 @@ jobs:
         root_file: main.tex
         latexmk_use_lualatex: true
         latexmk_shell_escape: true
+        texlive_version: ${{ env.TEXLIVE_VERSION }}
         extra_system_packages: py3-pygments perl
         
     - name: Upload PDF artifact
@@ -41,124 +47,46 @@ jobs:
       with:
         name: TFG-TFM_EPS_UA
         path: main.pdf
-        retention-days: 30
+        retention-days: 90
         
     - name: Upload PDF to release
       if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         files: main.pdf
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   
-  # Job para generar portadas y comentar en PRs
-  generate-covers:
+  # Job para comentar en PRs con enlace al PDF
+  comment-pr:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     needs: build
     
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
-        
-    - name: Install system dependencies
+    - name: Get workflow run URL
+      id: run-url
       run: |
-        sudo apt-get update
-        sudo apt-get install -y poppler-utils webp texlive-luatex texlive-latex-extra texlive-fonts-extra texlive-lang-spanish latexmk
-        
-    - name: Install TeX Live full (for LuaLaTeX and fonts)
-      uses: xu-cheng/latex-action@v4
-      with:
-        root_file: main.tex
-        latexmk_use_lualatex: true
-        latexmk_shell_escape: true
-        pre_compile: "exit 0"
-        post_compile: "exit 0"
-        
-    - name: Generate cover pages
-      id: covers
-      run: |
-        cd .herramientas
-        python3 generar_portadas.py --no-update-readme 2>&1 | tee portadas_output.txt
-        
-        # Guardar salida para el comentario
-        echo 'COVERS_OUTPUT<<EOF' >> $GITHUB_OUTPUT
-        cat portadas_output.txt >> $GITHUB_OUTPUT
-        echo 'EOF' >> $GITHUB_OUTPUT
-        
-    - name: Upload cover images artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: portadas-preview
-        path: .github/images/portadas/
-        retention-days: 30
-        if-no-files-found: warn
-        
-    - name: Download PDF artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: TFG-TFM_EPS_UA
-        path: ./pdf-artifact
-        
-    - name: Get artifact URL
-      id: artifact-url
-      run: |
-        # La URL del artefacto se construye con el run_id
-        echo "PDF_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}/artifacts" >> $GITHUB_OUTPUT
-        
-    - name: Build cover table
-      id: cover-table
-      run: |
-        # Construir tabla markdown con las portadas generadas
-        echo 'COVER_TABLE<<EOF' >> $GITHUB_OUTPUT
-        echo "| Titulación | Estado |" >> $GITHUB_OUTPUT
-        echo "|------------|--------|" >> $GITHUB_OUTPUT
-        
-        # Parsear la salida del script para extraer resultados
-        while IFS= read -r line; do
-          if [[ "$line" =~ \[([0-9]+)/([0-9]+)\]\ ([a-z_-]+).*\ (✅|❌) ]]; then
-            titulacion="${BASH_REMATCH[3]}"
-            status="${BASH_REMATCH[4]}"
-            echo "| ${titulacion} | $status |" >> $GITHUB_OUTPUT
-          fi
-        done < .herramientas/portadas_output.txt
-        
-        echo 'EOF' >> $GITHUB_OUTPUT
+        echo "RUN_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
         
     - name: Comment on PR
       uses: actions/github-script@v7
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const artifactUrl = '${{ steps.artifact-url.outputs.PDF_URL }}';
-          
-          // Escapar caracteres problemáticos del cover table
-          const coverTableRaw = `${{ steps.cover-table.outputs.COVER_TABLE }}`;
-          const coverTable = coverTableRaw.replace(/`/g, "'");
+          const runUrl = '${{ steps.run-url.outputs.RUN_URL }}';
           
           const body = `## 📄 Compilación del documento
           
-          El documento **main.pdf** se ha compilado correctamente.
+          ✅ El documento **main.pdf** se ha compilado correctamente.
           
           ### 📥 Descargar PDF
           
-          Puedes descargar el PDF compilado desde los artefactos de este workflow:
+          👉 **[Ver workflow y descargar artefactos](${runUrl})**
           
-          👉 **[Ver artefactos del workflow](${artifactUrl})**
+          En la sección "Artifacts" encontrarás el archivo **TFG-TFM_EPS_UA** con el PDF compilado.
           
-          > **Nota:** Los artefactos estarán disponibles durante 30 días.
-          
-          <details>
-          <summary>📚 <strong>Portadas generadas para todas las titulaciones</strong></summary>
-          
-          ${coverTable}
-          
-          </details>
+          > **Nota:** Los artefactos estarán disponibles durante 90 días.
           
           ---
           *Generado automáticamente por GitHub Actions* 🤖
@@ -177,7 +105,6 @@ jobs:
           );
           
           if (botComment) {
-            // Actualizar comentario existente
             await github.rest.issues.updateComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -185,7 +112,6 @@ jobs:
               body: body,
             });
           } else {
-            // Crear nuevo comentario
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
