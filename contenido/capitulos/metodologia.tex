@@ -25,8 +25,38 @@ La planificación temporal del proyecto se muestra en la Figura~\ref{fig:gantt}.
 
 \begin{figure}[htbp]
   \centering
-  \missingfigure{Diagrama de Gantt con la planificación del proyecto}
-  \caption{Planificación temporal del proyecto}
+  \begin{tikzpicture}[
+    fase/.style={fill=informatica!60, draw=informatica!80, rounded corners=2pt, minimum height=0.6cm},
+    mes/.style={font=\footnotesize\sffamily},
+    nombre/.style={font=\footnotesize, anchor=east}
+  ]
+    % Eje temporal (meses)
+    \foreach \m/\n in {1/Sep, 2/Oct, 3/Nov, 4/Dic, 5/Ene, 6/Feb} {
+      \node[mes] at (\m*1.5, 4.5) {\n};
+    }
+    
+    % Líneas de guía verticales
+    \foreach \m in {1,...,6} {
+      \draw[gray!30] (\m*1.5-0.75, 0.5) -- (\m*1.5-0.75, 4);
+    }
+    
+    % Fases del proyecto
+    \node[nombre] at (0, 3.5) {Análisis};
+    \draw[fase] (0.75, 3.3) rectangle (2.25, 3.7);
+    
+    \node[nombre] at (0, 2.8) {Diseño};
+    \draw[fase] (1.5, 2.6) rectangle (3.75, 3);
+    
+    \node[nombre] at (0, 2.1) {Implementación};
+    \draw[fase] (3, 1.9) rectangle (6.75, 2.3);
+    
+    \node[nombre] at (0, 1.4) {Pruebas};
+    \draw[fase] (5.25, 1.2) rectangle (7.5, 1.6);
+    
+    \node[nombre] at (0, 0.7) {Documentación};
+    \draw[fase] (6, 0.5) rectangle (9, 0.9);
+  \end{tikzpicture}
+  \caption{Planificación temporal del proyecto (diagrama de Gantt simplificado)}
   \label{fig:gantt}
 \end{figure}
 

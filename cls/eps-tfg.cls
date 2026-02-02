@@ -548,6 +548,16 @@
   }%
 }
 
+% Fuente monoespaciada con soporte Unicode completo (para caracteres de caja)
+\IfFontExistsTF{DejaVu Sans Mono}{%
+  \setmonofont{DejaVu Sans Mono}[Scale=0.9]%
+}{%
+  \IfFontExistsTF{Noto Sans Mono}{%
+    \setmonofont{Noto Sans Mono}[Scale=0.9]%
+  }{% Latin Modern Mono por defecto (no soporta caracteres de caja)
+  }%
+}
+
 %% ============================================================================
 %% COLORES
 %% ============================================================================
