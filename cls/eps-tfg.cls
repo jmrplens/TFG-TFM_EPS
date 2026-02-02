@@ -752,12 +752,12 @@
 %% ============================================================================
 %% GLOSARIOS Y ACRÓNIMOS
 %% ============================================================================
-\RequirePackage[acronym,nonumberlist,toc]{glossaries}
-\RequirePackage{glossary-superragged}
+\RequirePackage[acronym,nonumberlist,toc,automake]{glossaries}
 
+% Estilo personalizado simple y robusto para acrónimos
 \newglossarystyle{modsuper}{%
-  \setglossarystyle{super}%
-  \renewcommand{\glsgroupskip}{}
+  \setglossarystyle{long}%
+  \renewcommand{\glsgroupskip}{}%
 }
 \renewcommand{\glsnamefont}[1]{\textbf{#1}}
 
