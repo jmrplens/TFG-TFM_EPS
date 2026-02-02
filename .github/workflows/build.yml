@@ -2,7 +2,7 @@ name: Build LaTeX Document
 
 on:
   push:
-    branches: [ master, main, modernization ]
+    branches: [ master, main ]
   pull_request:
     branches: [ master, main ]
   workflow_dispatch:
