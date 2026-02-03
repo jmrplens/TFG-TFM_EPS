@@ -1,0 +1,73 @@
+% Ejemplo de componentes de software
+% Compilar con: lualatex -shell-escape ejemplo-software.tex
+\documentclass{article}
+\usepackage[spanish]{babel}
+\usepackage{fontspec}
+
+% Ruta a los paquetes
+\makeatletter
+\providecommand\input@path{}
+\edef\input@path{{../../cls/}{../../sty/}\input@path}
+\makeatother
+
+% Cargar componentes de software
+\usepackage[software]{eps-componentes}
+
+\begin{document}
+
+\section*{Componentes de Software}
+
+\subsection*{API REST}
+
+\begin{apiendpoint}{GET}{/api/users}
+  Obtiene la lista de usuarios.
+  
+  \apiresponse{200}{
+    "users": [{"id": 1, "name": "Juan"}]
+  }
+\end{apiendpoint}
+
+\vspace{1em}
+
+Métodos: \httpget \quad \httppost \quad \httpput \quad \httpdelete
+
+\subsection*{Terminal}
+
+\begin{terminal}[Servidor]
+  \prompt npm install
+  \prompt npm run build
+  \promptroot systemctl restart nginx
+\end{terminal}
+
+\subsection*{Clase UML}
+
+\begin{umlclass}{Usuario}{%
+  \visibility{-} id: int \\
+  \visibility{-} nombre: string%
+}{%
+  \visibility{+} getNombre(): string%
+}
+
+\subsection*{Requisitos}
+
+\begin{requirements}
+  \reqrow{RF-001}{Login de usuarios}{Alta}{\statusdone}
+  \reqrow{RF-002}{Exportar PDF}{Media}{\statusprogress}
+  \reqrow{RF-003}{Cache}{Baja}{\statustodo}
+\end{requirements}
+
+\subsection*{Base de datos}
+
+\begin{dbtable}{usuarios}
+  \pkicon & id & INT & NOT NULL \\
+  & nombre & VARCHAR(100) & NOT NULL \\
+  \fkicon & rol\_id & INT & FK \\
+\end{dbtable}
+
+\subsection*{Git}
+
+\gitbranch{main} \quad \gitbranch{develop}
+
+\gittag{v1.0.0} \quad \gittag{v2.0.0}
+
+\end{document}

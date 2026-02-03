@@ -1,0 +1,77 @@
+% Ejemplo de componentes de prevención
+% Compilar con: lualatex -shell-escape ejemplo-prevencion.tex
+\documentclass{article}
+\usepackage[spanish]{babel}
+\usepackage{fontspec}
+
+% Ruta a los paquetes
+\makeatletter
+\providecommand\input@path{}
+\edef\input@path{{../../cls/}{../../sty/}\input@path}
+\makeatother
+
+% Cargar componentes de prevención
+\usepackage[prevencion]{eps-componentes}
+
+\begin{document}
+
+\section*{Componentes de Prevención de Riesgos}
+
+\subsection*{Matriz de Riesgos}
+
+\begin{riskmatrixbox}
+  \riskmatrix
+\end{riskmatrixbox}
+
+\subsection*{Checklist de Seguridad}
+
+\begin{safetychecklist}
+  \checkitem{EPIs disponibles}
+  \checkitem{Zona señalizada}
+  \uncheckitem{Revisión de andamios}
+  \naitem{Trabajos en altura}
+\end{safetychecklist}
+
+\subsection*{Señalización}
+
+\signwarning{Riesgo de caída}
+
+\signprohibition{Prohibido fumar}
+
+\signmandatory{Uso obligatorio de casco}
+
+\signemergency{Salida de emergencia}
+
+\signfire{Extintor}
+
+\subsection*{EPIs}
+
+\begin{epilist}
+  \item \epihardhat
+  \item \epigloves
+  \item \epigoggles
+  \item \epiboots
+\end{epilist}
+
+\subsection*{Indicadores}
+
+\noindent
+\indicatorIF{12.5}
+\hfill
+\indicatorIG{0.35}
+\hfill
+\indicatorDaysSafe{247}
+
+\subsection*{Procedimiento de Emergencia}
+
+\begin{emergencyprocedure}
+  \begin{steplist}
+    \step Proteger la zona
+    \step Avisar al 112
+    \step Socorrer si se tiene formación
+  \end{steplist}
+  
+  \emergencyphone{Emergencias}{112}
+\end{emergencyprocedure}
+
+\end{document}

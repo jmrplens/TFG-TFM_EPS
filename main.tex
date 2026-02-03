@@ -29,8 +29,16 @@
 % COMPONENTES ESPECIALIZADOS (OPCIONAL)
 % Carga modular: software, telecom, arquitectura, quimica, geologia, prevencion
 % Usa [all] para cargar todos, o especifica los que necesites
+% Descomenta la línea que corresponda a tu titulación:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[all]{eps-componentes}
+% \usepackage{eps-componentes}                    % Solo comunes
+% \usepackage[software]{eps-componentes}          % Informática
+% \usepackage[telecom]{eps-componentes}           % Telecomunicaciones
+% \usepackage[arquitectura]{eps-componentes}      % Arquitectura/Civil
+% \usepackage[quimica]{eps-componentes}           % Química
+% \usepackage[geologia]{eps-componentes}          % Geología
+% \usepackage[prevencion]{eps-componentes}        % Prevención
+% \usepackage[all]{eps-componentes}               % Todos (lento)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BIBLIOGRAFÍA
@@ -79,7 +87,6 @@
 \input{contenido/capitulos/desarrollo}
 \input{contenido/capitulos/resultados}
 \input{contenido/capitulos/conclusiones}
-\input{contenido/capitulos/componentes}
 
 %% =======================================================================
 %% BACKMATTER - Material final

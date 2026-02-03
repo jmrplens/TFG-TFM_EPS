@@ -319,11 +319,11 @@ Cargar con: \texttt{\textbackslash usepackage[software]\{eps-componentes\}}
 
 Historial de commits del proyecto:
 
-\gitcommit{a1b2c3d}{feat: Añadir sistema de autenticación}
+\gitcommit{a1b2c3d}{feat: Añadir sistema de autenticación}{Juan}{2024-01-15}
 
-\gitcommit{e4f5g6h}{fix: Corregir error en validación de email}
+\gitcommit{e4f5g6h}{fix: Corregir error en validación de email}{María}{2024-01-20}
 
-\gitcommit{i7j8k9l}{docs: Actualizar README con instrucciones}
+\gitcommit{i7j8k9l}{docs: Actualizar README con instrucciones}{Pedro}{2024-02-01}
 
 \vspace{0.5em}
 \noindent
@@ -367,14 +367,10 @@ Cargar con: \texttt{\textbackslash usepackage[telecom]\{eps-componentes\}}
 La carta de Smith es una herramienta gráfica para resolver problemas de 
 adaptación de impedancias en líneas de transmisión.
 
-\begin{smithchartbox}[Ejemplo de adaptación de impedancias]
-  \begin{tikzpicture}[scale=0.8]
-    \begin{smithchartenv}
-      \smithpoint{0.5}{0.3}{$Z_L$}
-      \smithpoint{0}{0}{$Z_0$}
-    \end{smithchartenv}
-  \end{tikzpicture}
-\end{smithchartbox}
+\begin{infobox}
+  La carta de Smith requiere la librería \texttt{pgfplots.smithchart}.
+  Para un ejemplo funcional, ver la documentación de telecom.
+\end{infobox}
 
 %% -----------------------------------------------------------------------------
 \subsection{Diagrama de Constelación}
@@ -382,13 +378,10 @@ adaptación de impedancias en líneas de transmisión.
 
 Representación de esquemas de modulación digital:
 
-\begin{center}
-\begin{tikzpicture}
-  \begin{constellation}
-    \qpsk
-  \end{constellation}
-\end{tikzpicture}
-\end{center}
+\begin{infobox}
+  Los diagramas de constelación se usan para representar modulaciones como QPSK, 16-QAM, etc.
+  Ver documentación de telecom para ejemplos con el entorno \texttt{constellation}.
+\end{infobox}
 
 %% -----------------------------------------------------------------------------
 \subsection{Máquina de Estados Finitos}
@@ -532,19 +525,17 @@ Cargar con: \texttt{\textbackslash usepackage[arquitectura]\{eps-componentes\}}
 \label{subsec:presupuesto}
 
 \begin{presupuesto}
-  \partida{1}{MOVIMIENTO DE TIERRAS}{}{18.500,00}
-  \partida{1.1}{Excavación en zanjas}{120,00 m³}{4.800,00}
-  \partida{1.2}{Transporte a vertedero}{180,00 m³}{2.700,00}
-  \partida{1.3}{Compactación de tierras}{250,00 m²}{1.000,00}
-  \hline
-  \partida{2}{CIMENTACIÓN}{}{45.200,00}
-  \partida{2.1}{Hormigón de limpieza}{15,00 m³}{1.200,00}
-  \partida{2.2}{Zapatas de hormigón armado}{42,00 m³}{12.600,00}
-  \hline
-  \partida{3}{ESTRUCTURA}{}{85.300,00}
-  \partida{3.1}{Pilares de hormigón}{28,00 m³}{11.200,00}
-  \partida{3.2}{Forjado unidireccional}{320,00 m²}{38.400,00}
-  \totalpresupuesto{149.000,00}
+  \capitulopresupuesto{1}{MOVIMIENTO DE TIERRAS}
+  \partida{1.1}{Excavación en zanjas}{m³}{120}{40}
+  \partida{1.2}{Transporte a vertedero}{m³}{180}{15}
+  \partida{1.3}{Compactación de tierras}{m²}{250}{4}
+  \capitulopresupuesto{2}{CIMENTACIÓN}
+  \partida{2.1}{Hormigón de limpieza}{m³}{15}{80}
+  \partida{2.2}{Zapatas de hormigón armado}{m³}{42}{300}
+  \capitulopresupuesto{3}{ESTRUCTURA}
+  \partida{3.1}{Pilares de hormigón}{m³}{28}{400}
+  \partida{3.2}{Forjado unidireccional}{m²}{320}{120}
+  \totalpresupuesto{74660}
 \end{presupuesto}
 
 %% -----------------------------------------------------------------------------

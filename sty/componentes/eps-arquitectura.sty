@@ -88,55 +88,54 @@
 % ============================================================================
 
 % Ficha técnica completa
-% Uso: \begin{techsheet}{Nombre del material}
-%        \techprop{Densidad}{2400}{kg/m³}
-%        \techprop{Resistencia}{25}{MPa}
-%      \end{techsheet}
-\newenvironment{techsheet}[1]{
-  \begin{tcolorbox}[
+% Uso: \\begin{techsheet}{Nombre del material}
+%        \\techprop{Densidad}{2400 kg/m³}
+%      \\end{techsheet}
+\\newenvironment{techsheet}[1]{
+  \\begin{tcolorbox}[
     enhanced,
-    title={{\footnotesize\faCubes}~Ficha técnica: #1},
+    title={{\\footnotesize\\faCubes}~Ficha técnica: #1},
     colback=white,
     colframe=eps-primary,
     coltitle=white,
     colbacktitle=eps-primary,
-    fonttitle=\bfseries\small,
+    fonttitle=\\bfseries\\small,
     boxrule=0.5pt,
     arc=4pt,
     left=0pt, right=0pt, top=0pt, bottom=0pt,
   ]
-    \footnotesize
-    \begin{tabular}{|p{5cm}|c|c|}
-      \hline
-      \rowcolor{eps-primary!10}
-      \textbf{Propiedad} & \textbf{Valor} & \textbf{Unidad} \\
-      \hline
+    \\footnotesize
+    \\begin{tabular}{|p{5cm}|p{5cm}|}
+      \\hline
+      \\rowcolor{eps-primary!10}
+      \\textbf{Propiedad} & \\textbf{Valor} \\\\
+      \\hline
 }{
-    \end{tabular}
-  \end{tcolorbox}
+    \\end{tabular}
+  \\end{tcolorbox}
 }
 
-\newcommand{\techprop}[3]{%
-  #1 & #2 & #3 \\ \hline
+\\newcommand{\\techprop}[2]{%
+  #1 & #2 \\\\ \\hline
 }
 
 % Ficha compacta
-\newcommand{\materialcard}[4]{%
-  \begin{tcolorbox}[
+% Uso: \\materialcard{Nombre}{contenido con \\techprop}
+\\newcommand{\\materialcard}[2]{%
+  \\begin{tcolorbox}[
     enhanced,
     colback=white,
     colframe=eps-gray!30,
     boxrule=0.5pt,
     arc=4pt,
-    width=0.48\textwidth,
+    width=0.48\\textwidth,
   ]
-    {\bfseries\textcolor{eps-primary}{#1}}\\[4pt]
-    {\footnotesize #2}\\[4pt]
-    \begin{tabular}{@{}ll@{}}
-      #3
-    \end{tabular}\\[4pt]
-    {\footnotesize\textcolor{eps-gray}{#4}}
-  \end{tcolorbox}
+    {\\bfseries\\textcolor{eps-primary}{#1}}\\\\[4pt]
+    {\\footnotesize
+    \\begin{tabular}{@{}p{3cm}p{2.5cm}@{}}
+      #2
+    \\end{tabular}}
+  \\end{tcolorbox}
 }
 
 % ============================================================================

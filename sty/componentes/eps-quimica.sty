@@ -8,10 +8,19 @@
 % DEPENDENCIAS
 % ============================================================================
 
-\RequirePackage{chemfig}
-\RequirePackage{chemmacros}
-\chemsetup{
-  formula=chemformula,
+\IfFileExists{chemfig.sty}{%
+  \RequirePackage{chemfig}
+}{%
+  \PackageWarning{eps-quimica}{chemfig no disponible}%
+  \newcommand{\ch}[1]{\texttt{#1}}% Fallback
+}
+\IfFileExists{chemmacros.sty}{%
+  \RequirePackage{chemmacros}
+  \chemsetup{
+    formula=chemformula,
+  }
+}{%
+  \PackageWarning{eps-quimica}{chemmacros no disponible}%
 }
 \IfFileExists{siunitx.sty}{%
   \RequirePackage{siunitx}

@@ -1,0 +1,95 @@
+% Ejemplo de componentes comunes
+% Compilar con: lualatex -shell-escape ejemplo-comunes.tex
+\documentclass{article}
+\usepackage[spanish]{babel}
+\usepackage{fontspec}
+
+% Ruta a los paquetes
+\makeatletter
+\providecommand\input@path{}
+\edef\input@path{{../../cls/}{../../sty/}\input@path}
+\makeatother
+
+% Cargar solo componentes comunes
+\usepackage{eps-componentes}
+
+\begin{document}
+
+\section*{Componentes Comunes}
+
+\subsection*{Cajas de información}
+
+\begin{infobox}
+  Esta es una caja de información general.
+\end{infobox}
+
+\begin{successbox}
+  Esta es una caja de éxito.
+\end{successbox}
+
+\begin{warningbox}
+  Esta es una caja de advertencia.
+\end{warningbox}
+
+\begin{dangerbox}
+  Esta es una caja de peligro.
+\end{dangerbox}
+
+\begin{tipbox}
+  Esta es una caja de consejo.
+\end{tipbox}
+
+\subsection*{Cajas con título}
+
+\begin{titlebox}{Mi Título}
+  Contenido de la caja.
+\end{titlebox}
+
+\begin{definitionbox}{Algoritmo}
+  Conjunto ordenado de operaciones.
+\end{definitionbox}
+
+\subsection*{Listas especiales}
+
+\begin{checklist}
+  \item[\checked] Tarea completada
+  \item[\unchecked] Tarea pendiente
+\end{checklist}
+
+\begin{proscons}
+  \pro Ventaja del sistema
+  \con Desventaja menor
+\end{proscons}
+
+\begin{steplist}
+  \step Primer paso
+  \step Segundo paso
+\end{steplist}
+
+\subsection*{Badges}
+
+\badge{Estable} \quad
+\badge[eps-success]{OK} \quad
+\badgenew \quad
+\badgewip
+
+\vspace{1em}
+Versión: \version{2.1.0}
+
+\subsection*{Indicadores}
+
+Progreso: \progressbar{75}
+
+Rating: \rating{4}{5}
+
+Nivel: \levelbar{3}{5}
+
+\subsection*{Timeline}
+
+\begin{timeline}
+  \timeitem{2024}{Inicio del proyecto}
+  \timeitem{2025}{Desarrollo principal}
+  \timeitem{2026}{Entrega final}
+\end{timeline}
+
+\end{document}
