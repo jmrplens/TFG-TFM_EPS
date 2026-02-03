@@ -79,19 +79,20 @@ Guías detalladas para cada aspecto de tu documento:
 - **TeX Live 2024** o superior (recomendado: TeX Live 2025)
 - **LuaLaTeX** como motor de compilación
 - **Biber** para bibliografía
-- **Python + Pygments** para resaltado de código (minted)
+- **Python + latexminted** para resaltado de código (minted 3.x)
 
 ```bash
 # Ubuntu/Debian
-sudo apt install texlive-full python3-pygments
+sudo apt install texlive-full
+pip3 install latexminted
 
 # macOS con Homebrew
 brew install --cask mactex
-pip3 install Pygments
+pip3 install latexminted
 
 # Windows con Chocolatey
 choco install miktex
-pip install Pygments
+pip install latexminted
 ```
 
 ### Compilación
@@ -542,9 +543,9 @@ Si tienes un documento con la versión anterior:
 
 ### Error: "File 'minted.sty' not found"
 
-Instalar el paquete de Python Pygments:
+Instalar el paquete de Python latexminted:
 ```bash
-pip3 install Pygments
+pip3 install latexminted
 ```
 
 ### Error: "You must invoke LaTeX with -shell-escape"
@@ -573,10 +574,10 @@ lualatex -shell-escape main.tex
 
 ### El código fuente no tiene colores
 
-Verifica que Pygments esté instalado:
+Verifica que latexminted esté instalado:
 ```bash
-pygmentize -V
-# Si no está: pip3 install Pygments
+latexminted --version
+# Si no está: pip3 install latexminted
 ```
 
 ### Compilación muy lenta

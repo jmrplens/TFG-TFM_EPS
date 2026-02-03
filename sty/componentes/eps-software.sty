@@ -41,34 +41,37 @@
   \ifstrequal{#1}{DELETE}{\colorbox{eps-http-delete}{\textcolor{white}{\bfseries\footnotesize~DELETE~}}}{}%
 }
 
-% Endpoint completo
+% Comandos de conveniencia para métodos HTTP
+\newcommand{\httpget}{\httpmethod{GET}}
+\newcommand{\httppost}{\httpmethod{POST}}
+\newcommand{\httpput}{\httpmethod{PUT}}
+\newcommand{\httppatch}{\httpmethod{PATCH}}
+\newcommand{\httpdelete}{\httpmethod{DELETE}}
+
+% Endpoint completo (sin caja doble, estilo limpio)
 % Uso: \begin{apiendpoint}{GET}{/api/users/:id}
 %        \apidescription{Obtiene un usuario por ID}
 %        \apiparams{
 %          id & string & ID del usuario & Sí \\
 %        }
-%        \apiresponse{200}{json}{{"id": "123", "name": "Juan"}}
+%        \apiresponse{200}{{"id": "123", "name": "Juan"}}
 %      \end{apiendpoint}
 \newenvironment{apiendpoint}[2]{%
   \def\@apimethod{#1}%
   \def\@apiurl{#2}%
-  \begin{tcolorbox}[api-endpoint]
-    \begin{tcolorbox}[
-      enhanced,
-      colback=eps-code-bg,
-      colframe=eps-code-bg,
-      boxrule=0pt,
-      left=8pt,
-      right=8pt,
-      top=6pt,
-      bottom=6pt,
-      arc=4pt,
-    ]
-      \httpmethod{\@apimethod}\hspace{8pt}%
-      {\ttfamily\textcolor{eps-code-fg}{\@apiurl}}
-    \end{tcolorbox}
+  \par\vspace{0.5em}
+  \noindent\colorbox{eps-code-bg}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \vspace{6pt}
+      \hspace{8pt}\httpmethod{\@apimethod}\hspace{8pt}%
+      {\ttfamily\textcolor{eps-code-fg}{\@apiurl}}%
+      \vspace{6pt}
+    }%
+  }
+  \par\vspace{4pt}
+  \small
 }{%
-  \end{tcolorbox}
+  \par\vspace{0.5em}
 }
 
 % Descripción del endpoint
@@ -101,37 +104,34 @@
   \vspace{4pt}
 }
 
-% Request body
+% Request body (fondo código simplificado)
 \newcommand{\apibody}[2]{%
   \vspace{4pt}
-  \textbf{Body} (\texttt{#1}):
-  \begin{tcolorbox}[
-    colback=eps-dark,
-    colframe=eps-dark,
-    boxrule=0pt,
-    arc=2pt,
-    left=6pt, right=6pt, top=4pt, bottom=4pt,
-  ]
-    {\ttfamily\footnotesize\textcolor{eps-code-fg}{#2}}
-  \end{tcolorbox}
+  \textbf{Body} (\texttt{#1}):\\[2pt]
+  \colorbox{eps-dark}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \vspace{4pt}
+      {\ttfamily\footnotesize\textcolor{eps-code-fg}{#2}}
+      \vspace{4pt}
+    }%
+  }
 }
 
-% Respuesta del endpoint
-\newcommand{\apiresponse}[3]{%
+% Respuesta del endpoint (fondo código simplificado)
+% Uso: \apiresponse{código}{contenido}
+\newcommand{\apiresponse}[2]{%
   \vspace{4pt}
   \textbf{Respuesta} \badge[%
     \ifnum#1<300 eps-success\else%
     \ifnum#1<400 eps-warning\else%
-    eps-danger\fi\fi]{#1}~(\texttt{#2}):
-  \begin{tcolorbox}[
-    colback=eps-dark,
-    colframe=eps-dark,
-    boxrule=0pt,
-    arc=2pt,
-    left=6pt, right=6pt, top=4pt, bottom=4pt,
-  ]
-    {\ttfamily\footnotesize\textcolor{eps-code-fg}{#3}}
-  \end{tcolorbox}
+    eps-danger\fi\fi]{#1}:\\[2pt]
+  \colorbox{eps-dark}{%
+    \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
+      \vspace{4pt}
+      {\ttfamily\footnotesize\textcolor{eps-code-fg}{#2}}
+      \vspace{4pt}
+    }%
+  }
 }
 
 % ============================================================================
@@ -219,26 +219,21 @@
 \newcommand{\jsonicon}{\textcolor{eps-warning}{\faCubes}}
 \newcommand{\mdicon}{\textcolor{eps-info}{\faMarkdown}}
 
-% Caja para árbol de directorios
+% Árbol de directorios (sin caja, estilo limpio con título)
 % Uso: \begin{dirtreebox}[título]
 %        \dirtreeitem[0]{proyecto/}
 %        \dirtreeitem[1]{src/}
 %        \dirtreeitem[2]{main.py}
 %      \end{dirtreebox}
-\newtcolorbox{dirtreebox}[1][Estructura del proyecto]{
-  enhanced,
-  title={{\footnotesize\faFolderTree}~#1},
-  colback=eps-light,
-  colframe=eps-gray!30,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  left=8pt,
-  right=8pt,
-  top=4pt,
-  bottom=4pt,
+\newenvironment{dirtreebox}[1][Estructura del proyecto]{%
+  \par\vspace{0.5em}
+  {\small\bfseries\faFolder\hspace{0.5em}#1}%
+  \par\vspace{2pt}%
+  {\color{eps-gray!40}\hrule height 0.5pt}%
+  \par\vspace{4pt}%
+  \ttfamily\small
+}{%
+  \par\vspace{0.5em}
 }
 
 % ============================================================================
@@ -379,19 +374,23 @@
 % TABLA DE REQUISITOS
 % ============================================================================
 
-% Entorno para tabla de requisitos
+% Tabla de requisitos estilo booktabs (profesional)
 % Uso: \begin{requirements}
 %        \requirement{RF-01}{Alta}{Pendiente}{Descripción del requisito}
 %      \end{requirements}
 \newenvironment{requirements}{%
-  \begin{longtable}{|p{1.5cm}|p{1.5cm}|p{2cm}|p{8cm}|}
-    \hline
-    \rowcolor{eps-primary!20}
+  \small
+  \begin{longtable}{@{}llll@{}}
+    \toprule
     \textbf{ID} & \textbf{Prioridad} & \textbf{Estado} & \textbf{Descripción} \\
-    \hline
+    \midrule
     \endhead
+    \midrule
+    \multicolumn{4}{r@{}}{\footnotesize\textit{Continúa...}} \\
+    \endfoot
+    \bottomrule
+    \endlastfoot
 }{%
-    \hline
   \end{longtable}
 }
 
@@ -412,23 +411,22 @@
 % MÉTRICAS Y KPIs
 % ============================================================================
 
-% Caja de métrica
+% Métrica individual estilo KPI (sin caja, minimalista)
 % Uso: \metricbox{Tiempo de respuesta}{45ms}{-12\%}{\faArrowDown}
+% Para agrupar: \metricsrow{\metricbox{...}\metricbox{...}}
 \newcommand{\metricbox}[4]{%
-  \begin{tcolorbox}[
-    enhanced,
-    colback=white,
-    colframe=eps-gray!30,
-    boxrule=0.5pt,
-    arc=4pt,
-    width=0.23\textwidth,
-    left=6pt, right=6pt, top=6pt, bottom=6pt,
-    halign=center,
-  ]
+  \begin{minipage}[t]{0.22\textwidth}
+    \centering
     {\footnotesize\textcolor{eps-gray}{#1}}\\[4pt]
     {\LARGE\bfseries #2}\\[2pt]
     {\small\textcolor{eps-success}{#4 #3}}
-  \end{tcolorbox}
+  \end{minipage}\hfill
+}
+% Fila de métricas
+\newcommand{\metricsrow}[1]{%
+  \par\vspace{0.5em}
+  \noindent #1
+  \par\vspace{0.5em}
 }
 
 % Benchmark comparativo
@@ -493,18 +491,25 @@
   }\\
 }
 
-% Caja de logs
-\newtcolorbox{logbox}[1][Logs]{
-  enhanced,
-  title={{\footnotesize\faStream}~#1},
-  colback=eps-code-bg,
-  colframe=eps-dark,
-  coltitle=eps-code-fg,
-  colbacktitle=eps-dark,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=2pt,
-  left=8pt, right=8pt, top=4pt, bottom=4pt,
+% Entorno de logs (fondo oscuro minimalista)
+% Uso: \begin{logbox}[Logs del servidor]
+%        \logentry{INFO}{...}{...}
+%      \end{logbox}
+\newsavebox{\eps@logbox}
+\newenvironment{logbox}[1][Logs]{%
+  \par\vspace{0.5em}
+  {\small\bfseries\faStream\hspace{0.5em}#1}
+  \par\vspace{2pt}
+  \begin{lrbox}{\eps@logbox}%
+    \begin{minipage}{\dimexpr\linewidth-2\fboxsep\relax}
+      \vspace{4pt}
+      \ttfamily\small\color{eps-code-fg}
+}{%
+      \vspace{4pt}
+    \end{minipage}%
+  \end{lrbox}%
+  \noindent\colorbox{eps-code-bg}{\usebox{\eps@logbox}}%
+  \par\vspace{0.5em}
 }
 
 % ============================================================================
@@ -517,25 +522,16 @@
 %        name & VARCHAR(100) & NOT NULL \\
 %      }
 \newcommand{\dbtable}[2]{%
-  \begin{tcolorbox}[
-    enhanced,
-    colback=white,
-    colframe=eps-accent,
-    boxrule=1pt,
-    arc=0pt,
-    fonttitle=\bfseries\small,
-    title={\faDatabase~#1},
-    coltitle=white,
-    colbacktitle=eps-accent,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \footnotesize
-    \begin{tabular}{@{}p{2.5cm}p{2.5cm}p{3cm}@{}}
-      \rowcolor{eps-accent!10}
-      \textbf{Campo} & \textbf{Tipo} & \textbf{Restricciones} \\
-      #2
-    \end{tabular}
-  \end{tcolorbox}
+  \noindent
+  \textbf{\faDatabase~#1}\\[4pt]
+  \begin{tabular}{@{}p{2.5cm}p{2.5cm}p{3.5cm}@{}}
+    \toprule
+    \textbf{Campo} & \textbf{Tipo} & \textbf{Restricciones} \\
+    \midrule
+    #2
+    \bottomrule
+  \end{tabular}
+  \vspace{8pt}
 }
 
 % Iconos para restricciones
@@ -553,19 +549,25 @@
   \texttt{\textcolor{eps-secondary}{#1}=\textcolor{eps-success}{"#2"}}%
 }
 
-% Caja de configuración
-\newtcolorbox{configbox}[1][.env]{
-  enhanced,
-  title={{\footnotesize\faCog}~#1},
-  colback=eps-code-bg,
-  colframe=eps-dark,
-  coltitle=eps-code-fg,
-  colbacktitle=eps-dark,
-  fonttitle=\bfseries\small\ttfamily,
-  boxrule=0.5pt,
-  arc=2pt,
-  left=8pt, right=8pt, top=4pt, bottom=4pt,
-  fontupper=\ttfamily\small\color{eps-code-fg},
+% Entorno de configuración (estilo archivo .env)
+% Uso: \begin{configbox}[.env.production]
+%        \envvar{DATABASE_URL}{...}
+%      \end{configbox}
+\newsavebox{\eps@configbox}
+\newenvironment{configbox}[1][.env]{%
+  \par\vspace{0.5em}
+  {\small\bfseries\ttfamily\faCog\hspace{0.5em}#1}
+  \par\vspace{2pt}
+  \begin{lrbox}{\eps@configbox}%
+    \begin{minipage}{\dimexpr\linewidth-2\fboxsep\relax}
+      \vspace{4pt}
+      \ttfamily\small\color{eps-code-fg}
+}{%
+      \vspace{4pt}
+    \end{minipage}%
+  \end{lrbox}%
+  \noindent\colorbox{eps-code-bg}{\usebox{\eps@configbox}}%
+  \par\vspace{0.5em}
 }
 
 \endinput

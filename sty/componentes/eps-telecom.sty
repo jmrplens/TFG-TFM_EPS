@@ -43,21 +43,16 @@
   \end{tikzpicture}
 }
 
-% Carta de Smith con caja
+% Carta de Smith con título (sin caja, centrada)
 % Uso: \begin{smithchartbox}[título]
 %        \smithpoint{0.5}{0.3}{Punto 1}
 %      \end{smithchartbox}
-\newtcolorbox{smithchartbox}[1][Carta de Smith]{
-  enhanced,
-  title={{\footnotesize\faCircle}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
+\newenvironment{smithchartbox}[1][Carta de Smith]{%
+  \begin{center}
+  {\small\bfseries\faCircle\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % Punto en carta de Smith con etiqueta
@@ -202,7 +197,7 @@
     font=\small, align=center,
   },
   % Conexiones
-  sysarrow/.style={
+  sysarrowstyle/.style={
     ->, >=stealth, thick, eps-dark,
   },
   syslabel/.style={
@@ -216,6 +211,28 @@
 % Símbolos para suma
 \newcommand{\plusmark}{\scriptsize$+$}
 \newcommand{\minusmark}{\scriptsize$-$}
+
+% Entorno para diagramas de bloques
+% Uso: \begin{blockdiagram}...\end{blockdiagram}
+\newenvironment{blockdiagram}{%
+  \begin{center}
+  \begin{tikzpicture}[node distance=2cm]
+}{%
+  \end{tikzpicture}
+  \end{center}
+}
+
+% Comando para añadir bloque
+% Uso: \sysblock{id}{x,y}{Etiqueta}
+\newcommand{\sysblock}[3]{%
+  \node[sysblock] (#1) at (#2) {#3};
+}
+
+% Comando para flecha entre bloques
+% Uso: \sysarrow{origen}{destino}
+\newcommand{\sysarrow}[2]{%
+  \draw[sysarrowstyle] (#1) -- (#2);
+}
 
 % ============================================================================
 % CRONOGRAMA DE SEÑALES (TIMING DIAGRAM)
@@ -259,54 +276,62 @@
   }
 }
 
-% Caja para timing diagram
-\newtcolorbox{timingbox}[1][Cronograma de señales]{
-  enhanced,
-  title={{\footnotesize\faWaveSquare}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
+% Cronograma de señales (sin caja, centrado)
+% Uso: \begin{timingbox}[Cronograma de la comunicación]
+%        ... TikZ timing diagram ...
+%      \end{timingbox}
+\newenvironment{timingbox}[1][Cronograma de señales]{%
+  \begin{center}
+  {\small\bfseries\faWaveSquare\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % ============================================================================
-% PARÁMETROS S
+% PARÁMETROS S - Tabla profesional estilo booktabs
 % ============================================================================
 
-% Tabla de parámetros S
-% Uso: \begin{sparameters}{Frecuencia}
-%        \sparam{1 GHz}{-15.2}{-0.8}{-25.3}{-0.5}
+% Tabla de parámetros S mejorada (sin caja, estilo booktabs)
+% Uso: \begin{sparameters}[título opcional]
+%        \sparam{1 GHz}{-15.2}{20.5}{-30.1}{-12.3}
 %      \end{sparameters}
-\newenvironment{sparameters}[1][]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faTable}~Parámetros S #1},
-    colback=white,
-    colframe=eps-accent,
-    coltitle=white,
-    colbacktitle=eps-accent,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \footnotesize
-    \begin{tabular}{|c|c|c|c|c|}
-      \hline
-      \rowcolor{eps-accent!10}
-      \textbf{Freq} & \textbf{S11 (dB)} & \textbf{S21 (dB)} & \textbf{S12 (dB)} & \textbf{S22 (dB)} \\
-      \hline
-}{
-    \end{tabular}
-  \end{tcolorbox}
+\newenvironment{sparameters}[1][]{%
+  \begingroup
+  \small
+  \begin{center}
+  \ifx\\#1\\%
+  \else
+    \textbf{#1}\par\vspace{0.5em}
+  \fi
+  \begin{tabular}{@{}ccccc@{}}
+    \toprule
+    \textbf{Frecuencia} & \textbf{S\textsubscript{11} (dB)} & \textbf{S\textsubscript{21} (dB)} & \textbf{S\textsubscript{12} (dB)} & \textbf{S\textsubscript{22} (dB)} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \endgroup
 }
 
+% Fila de parámetros S
 \newcommand{\sparam}[5]{%
-  #1 & #2 & #3 & #4 & #5 \\ \hline
+  #1 & #2 & #3 & #4 & #5 \\
 }
+
+% Fila con indicador de cumplimiento (para tablas con columna extra)
+\newcommand{\sparamrowok}[5]{%
+  #1 & #2 & #3 & #4 & #5 & \textcolor{eps-success}{\faCheck} \\
+}
+
+\newcommand{\sparamrowfail}[5]{%
+  #1 & #2 & #3 & #4 & #5 & \textcolor{eps-danger}{\faTimes} \\
+}
+
+% Indicadores inline de cumplimiento
+\newcommand{\sparamok}{\textcolor{eps-success}{\faCheck}}
+\newcommand{\sparamfail}{\textcolor{eps-danger}{\faTimes}}
 
 % ============================================================================
 % DIAGRAMA DE ESTADOS (FSM)
@@ -342,6 +367,30 @@
   \draw[fsmtransition] (#1) -- node[fsmlabel, above] {#3} (#2);
 }
 
+% Entorno para máquinas de estados finitos
+% Uso: \begin{fsmdiagram} ... \end{fsmdiagram}
+\newenvironment{fsmdiagram}{%
+  \begin{center}
+  \begin{tikzpicture}[node distance=3cm]
+}{%
+  \end{tikzpicture}
+  \end{center}
+}
+
+% Comando para estado FSM
+% Uso: \fsmstate{id}{x,y}{etiqueta}{opciones: initial, final o vacío}
+\newcommand{\fsmstate}[4]{%
+  \ifstrequal{#4}{initial}{%
+    \node[fsminitial] (#1) at (#2) {#3};
+  }{%
+    \ifstrequal{#4}{final}{%
+      \node[fsmfinal] (#1) at (#2) {#3};
+    }{%
+      \node[fsmstate] (#1) at (#2) {#3};
+    }%
+  }%
+}
+
 % ============================================================================
 % ANTENAS Y PATRONES DE RADIACIÓN
 % ============================================================================
@@ -356,18 +405,16 @@
   },
 }
 
-% Caja para patrón de radiación
-\newtcolorbox{radiationbox}[1][Patrón de radiación]{
-  enhanced,
-  title={{\footnotesize\faBroadcastTower}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
+% Patrón de radiación (sin caja, centrado)
+% Uso: \begin{radiationbox}[Patrón de la antena Yagi]
+%        \begin{tikzpicture}...
+%      \end{radiationbox}
+\newenvironment{radiationbox}[1][Patrón de radiación]{%
+  \begin{center}
+  {\small\bfseries\faBroadcastTower\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % ============================================================================
@@ -387,17 +434,16 @@
   },
 }
 
-% Caja para espectro
-\newtcolorbox{spectrumbox}[1][Espectro de frecuencias]{
-  enhanced,
-  title={{\footnotesize\faChartArea}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
+% Espectro de frecuencias (sin caja, centrado)
+% Uso: \begin{spectrumbox}[Espectro de la señal modulada]
+%        \begin{tikzpicture}...
+%      \end{spectrumbox}
+\newenvironment{spectrumbox}[1][Espectro de frecuencias]{%
+  \begin{center}
+  {\small\bfseries\faChartArea\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % ============================================================================
@@ -419,53 +465,56 @@
   },
 }
 
-% Caja para diagrama de ojo
-\newtcolorbox{eyediagrambox}[1][Diagrama de ojo]{
-  enhanced,
-  title={{\footnotesize\faEye}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
+% Diagrama de ojo (sin caja, centrado)
+% Uso: \begin{eyediagrambox}[Diagrama de la señal QPSK]
+%        \begin{tikzpicture}...
+%      \end{eyediagrambox}
+\newenvironment{eyediagrambox}[1][Diagrama de ojo]{%
+  \begin{center}
+  {\small\bfseries\faEye\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % ============================================================================
-% TABLAS DE ESPECIFICACIONES RF
+% ESPECIFICACIONES RF - Tabla profesional estilo datasheet
 % ============================================================================
 
-% Especificación de componente RF
-% Uso: \rfspec{Parámetro}{Valor}{Unidad}{Condición}
+% Tabla de especificaciones estilo datasheet (sin caja)
+% Uso: \begin{rfspecs}[título]
+%        \rfspec{Frecuencia}{2.4}{GHz}{Nominal}
+%        \rfspecrange{Potencia TX}{18}{22}{dBm}{@25°C}
+%      \end{rfspecs}
+\newenvironment{rfspecs}[1][Especificaciones]{%
+  \begingroup
+  \small
+  \begin{center}
+  \textbf{#1}\par\vspace{0.5em}
+  \begin{tabular}{@{}lccl@{}}
+    \toprule
+    \textbf{Parámetro} & \textbf{Valor} & \textbf{Unidad} & \textbf{Condiciones} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \endgroup
+}
+
+% Especificación simple
 \newcommand{\rfspec}[4]{%
-  #1 & #2 & #3 & #4 \\ \hline
+  #1 & #2 & #3 & #4 \\
 }
 
-% Tabla de especificaciones RF
-\newenvironment{rfspecs}[1][Especificaciones]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faMicrochip}~#1},
-    colback=white,
-    colframe=eps-primary,
-    coltitle=white,
-    colbacktitle=eps-primary,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \footnotesize
-    \begin{tabular}{|p{4cm}|c|c|p{4cm}|}
-      \hline
-      \rowcolor{eps-primary!10}
-      \textbf{Parámetro} & \textbf{Valor} & \textbf{Unidad} & \textbf{Condiciones} \\
-      \hline
-}{
-    \end{tabular}
-  \end{tcolorbox}
+% Especificación con rango (min-max)
+\newcommand{\rfspecrange}[5]{%
+  #1 & #2 -- #3 & #4 & #5 \\
+}
+
+% Especificación típica con min/typ/max
+\newcommand{\rfspecfull}[6]{%
+  #1 & #2/#3/#4 & #5 & #6 \\
 }
 
 % ============================================================================
@@ -479,71 +528,117 @@
   inductors/scale=0.8,
 }
 
-% Caja para circuito
-\newtcolorbox{circuitbox}[1][Esquema del circuito]{
-  enhanced,
-  title={{\footnotesize\faPlug}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
+% Circuito con CircuiTikZ (sin caja, centrado)
+% Uso: \begin{circuitbox}[Filtro paso bajo]
+%        \begin{circuitikz}...
+%      \end{circuitbox}
+\newenvironment{circuitbox}[1][Esquema del circuito]{%
+  \begin{center}
+  {\small\bfseries\faPlug\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % ============================================================================
-% PROTOCOLO DE COMUNICACIÓN
+% PROTOCOLO DE COMUNICACIÓN - TRAMAS DE DATOS
 % ============================================================================
 
-% Trama de protocolo
-% Uso: \begin{protocolframe}
+% Trama de protocolo estilo bytefield (sin caja)
+% Uso: \begin{protocolframe}[bits por fila]
 %        \framefield{8}{Preámbulo}
+%        \framebreak  % salto de línea opcional
 %        \framefield{16}{Dirección}
-%        \framefield{8}{Control}
 %      \end{protocolframe}
+
 \newcounter{framepos}
-\newlength{\fieldwidth}
+\newcounter{framerow}
+\newlength{\framebitwidth}
+\newlength{\frameheight}
+\setlength{\frameheight}{0.8cm}
 
-\newenvironment{protocolframe}[1][Formato de trama]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faNetworkWired}~#1},
-    colback=white,
-    colframe=eps-accent,
-    coltitle=white,
-    colbacktitle=eps-accent,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
+% Configuración por defecto: 32 bits por fila
+\newcommand{\framebitsperrow}{32}
+
+\newenvironment{protocolframe}[1][32]{%
+  \renewcommand{\framebitsperrow}{#1}%
+  \setlength{\framebitwidth}{\dimexpr(\linewidth-2em)/#1\relax}%
+  \setcounter{framepos}{0}%
+  \setcounter{framerow}{0}%
+  \centering
+  \begin{tikzpicture}[
+    x=\framebitwidth,
+    y=\frameheight,
+    every node/.style={font=\footnotesize}
   ]
-    \setcounter{framepos}{0}
-    \centering
-    \begin{tikzpicture}[x=0.15cm]
-}{
-    \end{tikzpicture}
-  \end{tcolorbox}
+    % Regla de bits superior
+    \foreach \b in {0,8,...,\numexpr#1-1\relax} {
+      \node[above, font=\tiny, eps-gray] at (\b+0.5, 0) {\b};
+    }
+}{%
+  \end{tikzpicture}
 }
 
+% Campo de trama básico
 \newcommand{\framefield}[2]{%
-  \pgfmathsetmacro{\startpos}{\value{framepos}}
-  \pgfmathsetmacro{\endpos}{\startpos + #1}
-  \draw[thick, eps-primary, fill=eps-primary!10] 
-    (\startpos, 0) rectangle (\endpos, 1);
-  \node[font=\tiny, align=center] at ({(\startpos+\endpos)/2}, 0.5) {#2};
-  \node[font=\tiny, eps-gray] at ({(\startpos+\endpos)/2}, -0.3) {#1 bits};
-  \addtocounter{framepos}{#1}
+  \pgfmathsetmacro{\startbit}{Mod(\value{framepos}, \framebitsperrow)}%
+  \pgfmathsetmacro{\rownum}{-\value{framerow}}%
+  \pgfmathsetmacro{\endbit}{\startbit + #1}%
+  % Dibujar campo
+  \fill[eps-primary!15] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \draw[eps-primary, thick] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \node[align=center] at ({(\startbit+\endbit)/2}, \rownum-0.5) {#2};
+  % Tamaño en bits abajo
+  \node[below, font=\tiny, eps-gray] at ({(\startbit+\endbit)/2}, \rownum-1) {#1};
+  \addtocounter{framepos}{#1}%
+  % Si llegamos al final de la fila, saltar
+  \pgfmathtruncatemacro{\newpos}{\value{framepos}}%
+  \pgfmathtruncatemacro{\check}{Mod(\newpos, \framebitsperrow)}%
+  \ifnum\check=0
+    \stepcounter{framerow}%
+  \fi
 }
 
+% Campo destacado (para campos importantes)
 \newcommand{\framefieldhighlight}[2]{%
-  \pgfmathsetmacro{\startpos}{\value{framepos}}
-  \pgfmathsetmacro{\endpos}{\startpos + #1}
-  \draw[thick, eps-warning, fill=eps-warning!20] 
-    (\startpos, 0) rectangle (\endpos, 1);
-  \node[font=\tiny, align=center] at ({(\startpos+\endpos)/2}, 0.5) {#2};
-  \node[font=\tiny, eps-gray] at ({(\startpos+\endpos)/2}, -0.3) {#1 bits};
-  \addtocounter{framepos}{#1}
+  \pgfmathsetmacro{\startbit}{Mod(\value{framepos}, \framebitsperrow)}%
+  \pgfmathsetmacro{\rownum}{-\value{framerow}}%
+  \pgfmathsetmacro{\endbit}{\startbit + #1}%
+  \fill[eps-warning!25] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \draw[eps-warning, thick] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \node[align=center, font=\footnotesize\bfseries] at ({(\startbit+\endbit)/2}, \rownum-0.5) {#2};
+  \node[below, font=\tiny, eps-gray] at ({(\startbit+\endbit)/2}, \rownum-1) {#1};
+  \addtocounter{framepos}{#1}%
+  \pgfmathtruncatemacro{\newpos}{\value{framepos}}%
+  \pgfmathtruncatemacro{\check}{Mod(\newpos, \framebitsperrow)}%
+  \ifnum\check=0
+    \stepcounter{framerow}%
+  \fi
+}
+
+% Campo de datos variable (opcional: primer argumento es el ancho en bits)
+% Uso: \framefieldvar{texto} o \framefieldvar[ancho]{texto}
+\newcommand{\framefieldvar}[2][\framebitsperrow]{%
+  \pgfmathsetmacro{\startbit}{Mod(\value{framepos}, \framebitsperrow)}%
+  \pgfmathsetmacro{\rownum}{-\value{framerow}}%
+  \pgfmathsetmacro{\endbit}{\startbit + #1}%
+  \fill[eps-gray!15, pattern=north east lines, pattern color=eps-gray!30] 
+    (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \draw[eps-gray, thick, dashed] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \node[align=center] at ({(\startbit+\endbit)/2}, \rownum-0.5) {#2};
+  \node[below, font=\tiny, eps-gray] at ({(\startbit+\endbit)/2}, \rownum-1) {variable};
+  \addtocounter{framepos}{#1}%
+  \pgfmathtruncatemacro{\newpos}{\value{framepos}}%
+  \pgfmathtruncatemacro{\check}{Mod(\newpos, \framebitsperrow)}%
+  \ifnum\check=0
+    \stepcounter{framerow}%
+  \fi
+}
+
+% Salto manual de línea
+\newcommand{\framebreak}{%
+  \stepcounter{framerow}%
+  \setcounter{framepos}{0}%
 }
 
 \endinput

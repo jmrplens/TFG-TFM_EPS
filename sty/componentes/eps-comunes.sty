@@ -198,24 +198,23 @@
 % COMPARATIVAS Y DIFERENCIAS
 % ============================================================================
 
-% Caja de comparación lado a lado
+% Tabla comparativa lado a lado (estilo booktabs, sin caja)
 % Uso: \begin{comparison}{Opción A}{Opción B}
 %        \comprow{Criterio 1}{Valor A}{Valor B}
 %      \end{comparison}
 \newenvironment{comparison}[2]{%
-  \def\@compheadA{#1}%
-  \def\@compheadB{#2}%
-  \begin{tcolorbox}[
-    eps-base,
-    colback=white,
-    colframe=eps-gray!50,
-  ]
-  \begin{tabular}{@{}p{0.3\linewidth}|p{0.3\linewidth}|p{0.3\linewidth}@{}}
-    \textbf{Criterio} & \textbf{\@compheadA} & \textbf{\@compheadB} \\
-    \hline
+  \begingroup
+  \small
+  \begin{center}
+  \begin{tabular}{@{}p{0.3\linewidth}cc@{}}
+    \toprule
+    \textbf{Criterio} & \textbf{#1} & \textbf{#2} \\
+    \midrule
 }{%
+    \bottomrule
   \end{tabular}
-  \end{tcolorbox}
+  \end{center}
+  \endgroup
 }
 
 \newcommand{\comprow}[3]{#1 & #2 & #3 \\}
@@ -224,17 +223,28 @@
 % CITAS Y REFERENCIAS DESTACADAS
 % ============================================================================
 
-% Cita destacada
+% Cita destacada (estilo barra lateral elegante)
 % Uso: \begin{quotebox}[autor]...\end{quotebox}
-\newtcolorbox{quotebox}[1][]{
-  eps-base,
-  colback=eps-light,
-  colframe=eps-light,
-  borderline west={3pt}{0pt}{eps-gray},
-  before upper={\large\textcolor{eps-gray}{\faQuoteLeft}\hspace{6pt}},
-  after upper={\hfill\textcolor{eps-gray}{\faQuoteRight}},
-  after lower={\hfill\textit{--- #1}},
+\newenvironment{quotebox}[1][]{%
+  \par\vspace{0.5em}
+  \noindent
+  \begin{minipage}{\linewidth}
+    \hspace{3pt}%
+    {\color{eps-gray!50}\vrule width 3pt}%
+    \hspace{12pt}%
+    \begin{minipage}{\dimexpr\linewidth-18pt\relax}
+      \large\textcolor{eps-gray}{\faQuoteLeft}\hspace{6pt}%
+      \itshape
+}{%
+      \hspace{6pt}\textcolor{eps-gray}{\faQuoteRight}%
+      \ifx\@quotauthor\@empty\else
+        \par\vspace{4pt}\hfill\normalfont\footnotesize--- \@quotauthor
+      \fi
+    \end{minipage}
+  \end{minipage}
+  \par\vspace{0.5em}
 }
+\def\@quotauthor{}
 
 % ============================================================================
 % INDICADORES Y MÉTRICAS
@@ -282,38 +292,28 @@
 % TARJETAS DE INFORMACIÓN
 % ============================================================================
 
-% Tarjeta de persona/perfil
+% Tarjeta de persona/perfil (estilo minipage, sin caja)
 % Uso: \personcard{Nombre}{Rol}{Descripción}
 \newcommand{\personcard}[3]{%
-  \begin{tcolorbox}[
-    eps-base,
-    colback=white,
-    colframe=eps-gray!30,
-    width=0.45\textwidth,
-  ]
-    \begin{center}
-      {\Large\faUserCircle}\\[4pt]
-      {\bfseries #1}\\
-      {\small\textcolor{eps-gray}{#2}}\\[4pt]
-      {\footnotesize #3}
-    \end{center}
-  \end{tcolorbox}
+  \begin{minipage}[t]{0.45\textwidth}
+    \centering
+    {\Large\faUserCircle}\\[4pt]
+    {\bfseries #1}\\
+    {\small\textcolor{eps-gray}{#2}}\\[4pt]
+    {\footnotesize #3}
+  \end{minipage}%
 }
 
-% Tarjeta de estadística
+% Tarjeta de estadística (estilo KPI minipage)
 % Uso: \statcard{Valor}{Etiqueta}{icono}{color}
+% Para agrupar en fila: \statcard{...}\hfill\statcard{...}
 \newcommand{\statcard}[4]{%
-  \begin{tcolorbox}[
-    eps-base,
-    colback=#4!5,
-    colframe=#4!30,
-    width=0.22\textwidth,
-    halign=center,
-  ]
+  \begin{minipage}[t]{0.22\textwidth}
+    \centering
     \textcolor{#4}{\Large #3}\\[2pt]
     {\LARGE\bfseries #1}\\
     {\footnotesize\textcolor{eps-gray}{#2}}
-  \end{tcolorbox}
+  \end{minipage}%
 }
 
 % ============================================================================

@@ -15,7 +15,7 @@ En la **Escuela Politécnica Superior de la Universidad de Alicante** (España).
 - Soporte para **21 titulaciones** diferentes (grados y másteres)
 - Portadas oficiales en color y blanco/negro
 - Bibliografía con BibLaTeX + Biber
-- Código fuente con sintaxis resaltada (minted + Pygments)
+- Código fuente con sintaxis resaltada (minted 3.x + latexminted)
 - Glosarios y acrónimos integrados
 - Cumple con la normativa de la EPS UA
 

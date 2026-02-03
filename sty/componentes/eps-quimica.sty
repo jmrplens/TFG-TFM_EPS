@@ -8,6 +8,8 @@
 % DEPENDENCIAS
 % ============================================================================
 
+\RequirePackage{longtable}  % Para tablas de resultados analíticos
+
 \IfFileExists{chemfig.sty}{%
   \RequirePackage{chemfig}
 }{%
@@ -25,7 +27,6 @@
 \IfFileExists{siunitx.sty}{%
   \RequirePackage{siunitx}
   \sisetup{
-    locale=ES,
     separate-uncertainty=true,
     per-mode=symbol,
   }
@@ -36,25 +37,21 @@
 \pgfplotsset{compat=1.18}
 
 % ============================================================================
-% REACCIONES QUÍMICAS
+% REACCIONES QUÍMICAS - Estilo limpio sin caja
 % ============================================================================
 
-% Reacción química destacada
+% Reacción química destacada (sin caja, estilo ecuación centrada)
 % Uso: \begin{reactionbox}[título]
 %        \ch{2 H2 + O2 -> 2 H2O}
 %      \end{reactionbox}
-\newtcolorbox{reactionbox}[1][Reacción química]{
-  enhanced,
-  title={{\footnotesize\faAtom}~#1},
-  colback=white,
-  colframe=eps-primary,
-  coltitle=white,
-  colbacktitle=eps-primary,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
-  before upper={\Large},
+\newenvironment{reactionbox}[1][Reacción química]{%
+  \par\vspace{0.5em}
+  \noindent{\small\textcolor{eps-primary}{\faAtom}~\textbf{#1}}\par
+  \vspace{0.3em}
+  \begin{center}\Large
+}{%
+  \end{center}
+  \vspace{0.3em}
 }
 
 % Reacción con condiciones
@@ -64,153 +61,135 @@
     \footnotesize
     \begin{tabular}{ccc}
       \textcolor{eps-danger}{\faThermometerHalf}~#1 &
-      \textcolor{eps-info}{\faCompressArrowsAlt}~#2 &
+      \textcolor{eps-info}{\faCompress}~#2 &
       \textcolor{eps-secondary}{\faFlask}~#3
     \end{tabular}
   \end{center}
 }
 
-% Mecanismo de reacción
-\newtcolorbox{mechanismbox}[1][Mecanismo de reacción]{
-  enhanced,
-  title={{\footnotesize\faProjectDiagram}~#1},
-  colback=white,
-  colframe=eps-secondary,
-  coltitle=white,
-  colbacktitle=eps-secondary,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
+% Mecanismo de reacción (sin caja, estilo diagrama centrado)
+\newenvironment{mechanismbox}[1][Mecanismo de reacción]{%
+  \par\vspace{0.5em}
+  \noindent{\small\textcolor{eps-secondary}{\faProjectDiagram}~\textbf{#1}}\par
+  \vspace{0.3em}
+  \begin{center}
+}{%
+  \end{center}
+  \vspace{0.3em}
 }
 
 % ============================================================================
-% FICHA DE COMPUESTO
+% FICHA DE COMPUESTO - Estilo profesional sin caja
 % ============================================================================
 
-% Ficha completa de compuesto químico
+% Ficha completa de compuesto químico (sin caja, estilo ficha técnica)
 % Uso: \begin{compoundsheet}{Nombre del compuesto}{Fórmula}
 %        \compprop{Masa molar}{18.015}{g/mol}
 %        \compprop{Densidad}{1.00}{g/cm³}
 %      \end{compoundsheet}
-\newenvironment{compoundsheet}[2]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faVial}~#1~(\ch{#2})},
-    colback=white,
-    colframe=eps-primary,
-    coltitle=white,
-    colbacktitle=eps-primary,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-  ]
-    \begin{minipage}[t]{0.45\textwidth}
-      \centering
-      \vspace{8pt}
-      % Aquí iría la estructura molecular
-      {\Large\ch{#2}}
-      \vspace{8pt}
-    \end{minipage}%
-    \hfill
-    \begin{minipage}[t]{0.5\textwidth}
-      \footnotesize
-      \begin{tabular}{@{}p{3.5cm}r@{~}l@{}}
-}{
-      \end{tabular}
-    \end{minipage}
-  \end{tcolorbox}
+\newenvironment{compoundsheet}[2]{%
+  \begingroup
+  \small
+  \subsection*{{\textcolor{eps-primary}{\faVial}~#1~(\ch{#2})}}
+  \vspace{-0.5em}
+  \begin{minipage}[t]{0.35\textwidth}
+    \centering
+    \vspace{8pt}
+    {\Large\ch{#2}}
+    \vspace{8pt}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[t]{0.6\textwidth}
+    \begin{tabular}{@{}p{3.5cm}r@{~}l@{}}
+      \toprule
+}{%
+      \bottomrule
+    \end{tabular}
+  \end{minipage}
+  \endgroup
 }
 
 \newcommand{\compprop}[3]{%
   \textbf{#1} & #2 & #3 \\[2pt]
 }
 
-% Tarjeta compacta de compuesto
+% Tarjeta compacta de compuesto (sin caja, inline)
 \newcommand{\compoundcard}[4]{%
-  \begin{tcolorbox}[
-    enhanced,
-    colback=white,
-    colframe=eps-gray!30,
-    boxrule=0.5pt,
-    arc=4pt,
-    width=0.3\textwidth,
-    halign=center,
-  ]
+  \begin{minipage}[t]{0.28\textwidth}
+    \centering
     {\Large\ch{#1}}\\[4pt]
     {\bfseries #2}\\[2pt]
     {\footnotesize #3}\\[2pt]
     {\footnotesize\textcolor{eps-gray}{#4}}
-  \end{tcolorbox}
+  \end{minipage}%
 }
 
 % ============================================================================
-% PROPIEDADES FÍSICO-QUÍMICAS
+% PROPIEDADES FÍSICO-QUÍMICAS - Estilo profesional
 % ============================================================================
 
-% Tabla de propiedades
-\newenvironment{proptable}[1][Propiedades físico-químicas]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faThList}~#1},
-    colback=white,
-    colframe=eps-accent,
-    coltitle=white,
-    colbacktitle=eps-accent,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \footnotesize
-    \begin{tabular}{|p{4.5cm}|r|l|p{4cm}|}
-      \hline
-      \rowcolor{eps-accent!10}
-      \textbf{Propiedad} & \textbf{Valor} & \textbf{Unidad} & \textbf{Condiciones} \\
-      \hline
-}{
-    \end{tabular}
-  \end{tcolorbox}
+% Tabla de propiedades estilo booktabs (sin caja)
+% Uso: \begin{proptable}[Propiedades del compuesto X]
+%        \property{Punto de fusión}{273.15}{K}{a 1 atm}
+%        \propertyunc{Densidad}{1.00}{0.01}{g/cm³}{a 20°C}
+%      \end{proptable}
+\newenvironment{proptable}[1][Propiedades físico-químicas]{%
+  \begingroup
+  \small
+  \subsection*{#1}
+  \begin{tabular}{@{}p{4.5cm}rlp{4cm}@{}}
+    \toprule
+    \textbf{Propiedad} & \textbf{Valor} & \textbf{Unidad} & \textbf{Condiciones} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \endgroup
 }
 
 \newcommand{\property}[4]{%
-  #1 & \num{#2} & #3 & #4 \\ \hline
+  #1 & \num{#2} & #3 & #4 \\
 }
 
 % Propiedades con incertidumbre
 \newcommand{\propertyunc}[5]{%
-  #1 & \num{#2 \pm #3} & #4 & #5 \\ \hline
+  #1 & $\num{#2} \pm \num{#3}$ & #4 & #5 \\
+}
+
+% Propiedad con rango
+\newcommand{\propertyrange}[5]{%
+  #1 & \num{#2}--\num{#3} & #4 & #5 \\
+}
+
+% Separador de sección en tabla
+\newcommand{\propsection}[1]{%
+  \midrule
+  \multicolumn{4}{@{}l}{\bfseries\textcolor{eps-primary}{#1}} \\
+  \midrule
 }
 
 % ============================================================================
-% RESULTADOS ANALÍTICOS
+% RESULTADOS ANALÍTICOS - Estilo profesional
 % ============================================================================
 
-% Tabla de resultados analíticos
-\newenvironment{analyticalresults}[1][Resultados analíticos]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faChartBar}~#1},
-    colback=white,
-    colframe=eps-success,
-    coltitle=white,
-    colbacktitle=eps-success,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-    breakable,
-  ]
-    \footnotesize
-    \begin{longtable}{|p{3cm}|r|r|l|c|}
-      \hline
-      \rowcolor{eps-success!10}
-      \textbf{Analito} & \textbf{Concentración} & \textbf{±} & \textbf{Unidad} & \textbf{Límite} \\
-      \hline
-      \endhead
-}{
-    \end{longtable}
-  \end{tcolorbox}
+% Tabla de resultados analíticos estilo booktabs
+% Uso: \begin{analyticalresults}[Análisis de muestra M-001]
+%        \analyte{Calcio (Ca)}{125.3}{2.5}{mg/L}{OK}
+%        \analytedetail{Cloro residual}{0.45}{0.02}{mg/L}{OK}{Método DPD}
+%      \end{analyticalresults}
+\newenvironment{analyticalresults}[1][Resultados analíticos]{%
+  \begingroup
+  \small
+  \noindent\textbf{\large #1}\par\medskip
+  \noindent
+  \begin{tabular}{@{}p{3.5cm}rrlc@{}}
+    \toprule
+    \textbf{Analito} & \textbf{Concentración} & \textbf{±} & \textbf{Unidad} & \textbf{Estado} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \endgroup
 }
 
 \newcommand{\analyte}[5]{%
@@ -218,78 +197,90 @@
   \ifstrequal{#5}{OK}{\textcolor{eps-success}{\faCheck}}{}%
   \ifstrequal{#5}{HIGH}{\textcolor{eps-danger}{\faArrowUp}}{}%
   \ifstrequal{#5}{LOW}{\textcolor{eps-warning}{\faArrowDown}}{}%
-  \\ \hline
+  \\
+}
+
+% Analito con límite de detección
+% Uso: \analytelod{Nombre}{límite}{unidad}
+\newcommand{\analytelod}[3]{%
+  #1 & $<$\num{#2} & --- & #3 & \textcolor{eps-success}{\faCheck} \\
+}
+
+% Indicadores de estado
+\newcommand{\analyteok}{\textcolor{eps-success}{\faCheck}}
+\newcommand{\analytehigh}{\textcolor{eps-danger}{\faArrowUp}~Alto}
+\newcommand{\analytelow}{\textcolor{eps-warning}{\faArrowDown}~Bajo}
+
+% Separador de grupo analítico
+\newcommand{\analytegroup}[1]{%
+  \midrule
+  \multicolumn{5}{@{}l}{\bfseries\textcolor{eps-primary}{#1}} \\
+  \midrule
 }
 
 % ============================================================================
-% PROTOCOLO EXPERIMENTAL
+% PROTOCOLO EXPERIMENTAL - Estilo profesional
 % ============================================================================
 
-% Protocolo paso a paso
+% Protocolo paso a paso (sin caja envolvente)
+% Uso: \begin{protocol}[Síntesis de aspirina]
+%        \protocolstep{Pesar 2.0 g de ácido salicílico}
+%        \protocolstep{Añadir 5 mL de anhídrido acético}
+%        \protocolwarning{Usar campana de extracción}
+%      \end{protocol}
 \newcounter{protocolstep}
-\newenvironment{protocol}[1][Protocolo experimental]{
+\newenvironment{protocol}[1][Protocolo experimental]{%
   \setcounter{protocolstep}{0}
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faClipboardList}~#1},
-    colback=white,
-    colframe=eps-secondary,
-    coltitle=white,
-    colbacktitle=eps-secondary,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-  ]
-}{
-  \end{tcolorbox}
+  \subsection*{#1}
+  \begin{description}[leftmargin=2em, labelwidth=1.5em, labelsep=0.5em]
+}{%
+  \end{description}
 }
 
 \newcommand{\protocolstep}[1]{%
   \stepcounter{protocolstep}
-  \noindent
-  \begin{minipage}[t]{0.08\textwidth}
-    \centering
-    \tikz{
-      \node[circle, fill=eps-secondary, text=white, 
-            minimum size=1.2em, font=\footnotesize\bfseries] 
-            {\theprotocolstep};
-    }
-  \end{minipage}%
-  \begin{minipage}[t]{0.9\textwidth}
-    #1
-  \end{minipage}
-  \vspace{6pt}
+  \item[\tikz{\node[circle, fill=eps-primary, text=white, 
+            minimum size=1.5em, font=\footnotesize\bfseries, inner sep=0pt] 
+            {\theprotocolstep};}] #1
+}
+
+% Paso con tiempo estimado
+\newcommand{\protocolsteptime}[2]{%
+  \stepcounter{protocolstep}
+  \item[\tikz{\node[circle, fill=eps-primary, text=white, 
+            minimum size=1.5em, font=\footnotesize\bfseries, inner sep=0pt] 
+            {\theprotocolstep};}] #1 \hfill \textcolor{eps-gray}{\faClock~#2}
 }
 
 % Nota de seguridad en protocolo
 \newcommand{\protocolwarning}[1]{%
-  \begin{tcolorbox}[
-    colback=eps-warning!10,
-    colframe=eps-warning,
-    boxrule=0pt,
-    borderline west={3pt}{0pt}{eps-warning},
-    left=8pt,
-  ]
-    \textcolor{eps-warning}{\faExclamationTriangle}~\textbf{Precaución:} #1
-  \end{tcolorbox}
+  \item[] \textcolor{eps-warning}{\faExclamationTriangle}~\textbf{Precaución:} #1
+}
+
+% Nota informativa
+\newcommand{\protocolnote}[1]{%
+  \item[] \textcolor{eps-info}{\faInfoCircle}~\textbf{Nota:} #1
+}
+
+% Materiales necesarios
+\newcommand{\protocolmaterials}[1]{%
+  \item[] \textcolor{eps-secondary}{\faFlask}~\textbf{Materiales:} #1
 }
 
 % ============================================================================
 % ESPECTROS
 % ============================================================================
 
-% Caja para espectro
-\newtcolorbox{spectrumbox}[1][Espectro]{
-  enhanced,
-  title={{\footnotesize\faWaveSquare}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
+% Espectro químico (sin caja, centrado)
+% Uso: \begin{chemspectrumbox}[Espectro IR del compuesto]
+%        \begin{tikzpicture}...
+%      \end{chemspectrumbox}
+\newenvironment{chemspectrumbox}[1][Espectro]{%
+  \begin{center}
+  {\small\bfseries\faWaveSquare\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % Estilos para espectros
@@ -350,18 +341,16 @@
   },
 }
 
-% Caja para diagrama de fases
-\newtcolorbox{phasediagrambox}[1][Diagrama de fases]{
-  enhanced,
-  title={{\footnotesize\faChartLine}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
+% Diagrama de fases (sin caja, centrado)
+% Uso: \begin{phasediagrambox}[Diagrama Fe-C]
+%        \begin{tikzpicture}...
+%      \end{phasediagrambox}
+\newenvironment{phasediagrambox}[1][Diagrama de fases]{%
+  \begin{center}
+  {\small\bfseries\faChartLine\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % Región de fase
@@ -375,72 +364,74 @@
 }
 
 % ============================================================================
-% EQUIPOS Y MATERIALES
+% EQUIPOS Y MATERIALES - Estilo lista simple
 % ============================================================================
 
-% Lista de equipos
-\newenvironment{equipmentlist}[1][Material y equipos]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faTools}~#1},
-    colback=white,
-    colframe=eps-info,
-    coltitle=white,
-    colbacktitle=eps-info,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-  ]
-    \begin{itemize}[leftmargin=1.5em, itemsep=2pt]
-}{
-    \end{itemize}
-  \end{tcolorbox}
+% Lista de equipos (sin caja, estilo lista con título)
+% Uso: \begin{equipmentlist}[Título]
+%        \item Equipo 1
+%      \end{equipmentlist}
+\newenvironment{equipmentlist}[1][Material y equipos]{%
+  \begingroup
+  \small
+  \noindent{\textcolor{eps-info}{\faTools}~\textbf{#1}}\par
+  \vspace{0.3em}
+  \begin{itemize}[leftmargin=1.5em, itemsep=2pt, topsep=0pt]
+}{%
+  \end{itemize}
+  \endgroup
 }
 
-% Lista de reactivos
-\newenvironment{reagentlist}[1][Reactivos]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faFlask}~#1},
-    colback=white,
-    colframe=eps-danger!70,
-    coltitle=white,
-    colbacktitle=eps-danger!70,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \footnotesize
-    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{4cm}|}
-      \hline
-      \rowcolor{eps-danger!10}
-      \textbf{Reactivo} & \textbf{Pureza} & \textbf{Cantidad} & \textbf{Proveedor} \\
-      \hline
-}{
-    \end{tabular}
-  \end{tcolorbox}
+% Lista de reactivos estilo booktabs (sin caja)
+% Uso: \begin{reagentlist}[Reactivos utilizados]
+%        \reagent{H2SO4}{98\%}{100 mL}{Merck}
+%      \end{reagentlist}
+\newenvironment{reagentlist}[1][Reactivos]{%
+  \begingroup
+  \small
+  \subsection*{#1}
+  \begin{tabular}{@{}p{4cm}ccp{4cm}@{}}
+    \toprule
+    \textbf{Reactivo} & \textbf{Pureza} & \textbf{Cantidad} & \textbf{Proveedor} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \endgroup
 }
 
 \newcommand{\reagent}[4]{%
-  \ch{#1} & #2 & #3 & #4 \\ \hline
+  \ch{#1} & #2 & #3 & #4 \\
+}
+
+% Reactivo con pictograma de seguridad
+\newcommand{\reagentghs}[5]{%
+  \ch{#1} & #2 & #3 & #4~\textcolor{eps-danger}{\footnotesize#5} \\
 }
 
 % ============================================================================
 % BALANCE DE MATERIA
 % ============================================================================
 
-% Caja de balance
-\newtcolorbox{massbalancebox}[1][Balance de materia]{
-  enhanced,
-  title={{\footnotesize\faBalanceScale}~#1},
-  colback=white,
-  colframe=eps-accent,
-  coltitle=white,
-  colbacktitle=eps-accent,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
+% Balance de materia (barra lateral coloreada)
+% Uso: \begin{massbalancebox}[Balance del reactor R-101]
+%        Entrada: ...
+%        Salida: ...
+%      \end{massbalancebox}
+\newenvironment{massbalancebox}[1][Balance de materia]{%
+  \par\vspace{0.5em}
+  \noindent
+  \begin{minipage}{\linewidth}
+    \hspace{3pt}%
+    {\color{eps-accent}\vrule width 3pt}%
+    \hspace{8pt}%
+    \begin{minipage}{\dimexpr\linewidth-14pt\relax}
+      {\small\bfseries\faBalanceScale\hspace{0.5em}#1}
+      \par\vspace{4pt}
+}{%
+    \end{minipage}
+  \end{minipage}
+  \par\vspace{0.5em}
 }
 
 % Flujo de proceso
@@ -459,36 +450,30 @@
 }
 
 % ============================================================================
-% CINÉTICA QUÍMICA
+% CINÉTICA QUÍMICA - Estilo profesional
 % ============================================================================
 
-% Tabla de datos cinéticos
-\newenvironment{kineticdata}[1][Datos cinéticos]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faClock}~#1},
-    colback=white,
-    colframe=eps-warning,
-    coltitle=white,
-    colbacktitle=eps-warning,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \footnotesize
-    \begin{tabular}{|c|c|c|c|}
-      \hline
-      \rowcolor{eps-warning!10}
-      \textbf{Tiempo (s)} & \textbf{[A] (M)} & \textbf{ln[A]} & \textbf{1/[A]} \\
-      \hline
-}{
-    \end{tabular}
-  \end{tcolorbox}
+% Tabla de datos cinéticos estilo booktabs (sin caja)
+% Uso: \begin{kineticdata}[Experimento de descomposición]
+%        \kineticpoint{0}{1.00}{0.000}{1.00}
+%        \kineticpoint{60}{0.75}{-0.288}{1.33}
+%      \end{kineticdata}
+\newenvironment{kineticdata}[1][Datos cinéticos]{%
+  \begingroup
+  \small
+  \subsection*{#1}
+  \begin{tabular}{@{}cccc@{}}
+    \toprule
+    \textbf{Tiempo (s)} & \textbf{[A] (M)} & \textbf{ln[A]} & \textbf{1/[A]} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \endgroup
 }
 
 \newcommand{\kineticpoint}[4]{%
-  \num{#1} & \num{#2} & \num{#3} & \num{#4} \\ \hline
+  \num{#1} & \num{#2} & \num{#3} & \num{#4} \\
 }
 
 % Parámetros cinéticos
@@ -501,41 +486,45 @@
 }
 
 % ============================================================================
-% CALIDAD DEL AGUA
+% CALIDAD DEL AGUA - Estilo profesional
 % ============================================================================
 
-% Tabla de calidad de agua
-\newenvironment{waterquality}[1][Parámetros de calidad del agua]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faTint}~#1},
-    colback=white,
-    colframe=eps-info,
-    coltitle=white,
-    colbacktitle=eps-info,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-    breakable,
-  ]
-    \footnotesize
-    \begin{longtable}{|p{3.5cm}|r|l|r|c|}
-      \hline
-      \rowcolor{eps-info!10}
-      \textbf{Parámetro} & \textbf{Valor} & \textbf{Unidad} & \textbf{Límite} & \textbf{Cumple} \\
-      \hline
-      \endhead
-}{
-    \end{longtable}
-  \end{tcolorbox}
+% Tabla de calidad de agua estilo booktabs (sin caja)
+% Uso: \begin{waterquality}[Análisis de aguas residuales]
+%        \waterparameter{pH}{7.2}{---}{6.5--9}{SI}
+%        \waterparameter{DBO5}{25}{mg/L}{40}{SI}
+%      \end{waterquality}
+\newenvironment{waterquality}[1][Parámetros de calidad del agua]{%
+  \begingroup
+  \small
+  \subsection*{#1}
+  \begin{longtable}{@{}p{4cm}rlrc@{}}
+    \toprule
+    \textbf{Parámetro} & \textbf{Valor} & \textbf{Unidad} & \textbf{Límite} & \textbf{Cumple} \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{5}{r}{\footnotesize\emph{Continúa...}} \\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+}{%
+  \end{longtable}
+  \endgroup
 }
 
 \newcommand{\waterparameter}[5]{%
-  #1 & \num{#2} & #3 & \num{#4} & 
+  #1 & \num{#2} & #3 & #4 & 
   \ifstrequal{#5}{SI}{\textcolor{eps-success}{\faCheck}}{}%
   \ifstrequal{#5}{NO}{\textcolor{eps-danger}{\faTimes}}{}%
-  \\ \hline
+  \\
+}
+
+% Grupo de parámetros
+\newcommand{\watergroup}[1]{%
+  \midrule
+  \multicolumn{5}{@{}l}{\bfseries\textcolor{eps-primary}{#1}} \\
+  \midrule
 }
 
 \endinput

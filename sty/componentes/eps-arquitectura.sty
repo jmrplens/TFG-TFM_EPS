@@ -10,10 +10,15 @@
 
 \RequirePackage{pgfgantt}
 \RequirePackage{eurosym}
+% Tachado para normativa derogada (compatible con LuaLaTeX)
+\IfPackageLoadedTF{ulem}{}{%
+  \IfPackageLoadedTF{soul}{}{%
+    \RequirePackage[normalem]{ulem}%
+  }%
+}
 \IfFileExists{siunitx.sty}{%
   \RequirePackage{siunitx}
   \sisetup{
-    locale=ES,
     group-separator={.},
     output-decimal-marker={,},
   }
@@ -56,26 +61,18 @@
   },
 }
 
-% Entorno para Gantt
-% Uso: \begin{ganttchart}[opciones]{fecha inicio}{fecha fin}
-%        \gantttitlecalendar{year, month=name} \\
-%        \ganttbar{Tarea 1}{2024-01-01}{2024-01-15} \\
-%      \end{ganttchart}
-\newenvironment{ganttbox}[1][Cronograma del proyecto]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faCalendarAlt}~#1},
-    colback=white,
-    colframe=eps-gray!50,
-    coltitle=eps-dark,
-    colbacktitle=eps-light,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    breakable,
-  ]
-}{
-  \end{tcolorbox}
+% Cronograma del proyecto (sin caja, centrado)
+% Uso: \begin{ganttbox}[Cronograma fase I]
+%        \begin{ganttchart}[...]{2024-01-01}{2024-06-30}
+%          ...
+%        \end{ganttchart}
+%      \end{ganttbox}
+\newenvironment{ganttbox}[1][Cronograma del proyecto]{%
+  \par\vspace{0.5em}
+  {\small\bfseries\faCalendar\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \par\vspace{0.5em}
 }
 
 % Colores para diferentes tipos de tareas
@@ -84,197 +81,230 @@
 \newcommand{\ganttcomplete}[3]{\ganttbar[bar/.style={fill=eps-success!70, draw=eps-success}]{#1}{#2}{#3}}
 
 % ============================================================================
-% FICHA TÉCNICA DE MATERIAL
+% FICHA TÉCNICA DE MATERIAL - Estilo profesional
 % ============================================================================
 
-% Ficha técnica completa
-% Uso: \\begin{techsheet}{Nombre del material}
-%        \\techprop{Densidad}{2400 kg/m³}
-%      \\end{techsheet}
-\\newenvironment{techsheet}[1]{
-  \\begin{tcolorbox}[
-    enhanced,
-    title={{\\footnotesize\\faCubes}~Ficha técnica: #1},
-    colback=white,
-    colframe=eps-primary,
-    coltitle=white,
-    colbacktitle=eps-primary,
-    fonttitle=\\bfseries\\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \\footnotesize
-    \\begin{tabular}{|p{5cm}|p{5cm}|}
-      \\hline
-      \\rowcolor{eps-primary!10}
-      \\textbf{Propiedad} & \\textbf{Valor} \\\\
-      \\hline
-}{
-    \\end{tabular}
-  \\end{tcolorbox}
+% Ficha técnica estilo booktabs (sin caja)
+% Uso: \begin{techsheet}{Hormigón HA-25}
+%        \techprop{Resistencia característica}{25 MPa}
+%        \techsection{Propiedades mecánicas}
+%        \techprop{Módulo de elasticidad}{27000 MPa}
+%      \end{techsheet}
+\newenvironment{techsheet}[1]{%
+  \begingroup
+  \small
+  \subsection*{Ficha técnica: #1}
+  \begin{tabular}{@{}p{5.5cm}p{5.5cm}@{}}
+    \toprule
+    \textbf{Propiedad} & \textbf{Valor} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \endgroup
 }
 
-\\newcommand{\\techprop}[2]{%
-  #1 & #2 \\\\ \\hline
+\newcommand{\techprop}[2]{%
+  #1 & #2 \\
 }
 
-% Ficha compacta
-% Uso: \\materialcard{Nombre}{contenido con \\techprop}
-\\newcommand{\\materialcard}[2]{%
-  \\begin{tcolorbox}[
-    enhanced,
-    colback=white,
-    colframe=eps-gray!30,
-    boxrule=0.5pt,
-    arc=4pt,
-    width=0.48\\textwidth,
-  ]
-    {\\bfseries\\textcolor{eps-primary}{#1}}\\\\[4pt]
-    {\\footnotesize
-    \\begin{tabular}{@{}p{3cm}p{2.5cm}@{}}
+% Sección dentro de ficha técnica
+\newcommand{\techsection}[1]{%
+  \midrule
+  \multicolumn{2}{@{}l}{\bfseries\textcolor{eps-primary}{#1}} \\
+  \midrule
+}
+
+% Propiedad con unidad separada
+\newcommand{\techpropunit}[3]{%
+  #1 & #2~#3 \\
+}
+
+% Ficha compacta inline (sin caja)
+% Uso: \materialcard{Acero S275}{%
+%        \techprop{fy}{275 MPa}
+%        \techprop{E}{210 GPa}
+%      }
+\newcommand{\materialcard}[2]{%
+  \noindent
+  \begin{minipage}[t]{0.48\textwidth}
+    {\bfseries\textcolor{eps-primary}{#1}}\\[4pt]
+    {\footnotesize
+    \begin{tabular}{@{}p{3cm}p{2.5cm}@{}}
       #2
-    \\end{tabular}}
-  \\end{tcolorbox}
+    \end{tabular}}
+  \end{minipage}%
 }
 
 % ============================================================================
-% PRESUPUESTOS Y MEDICIONES
+% PRESUPUESTOS Y MEDICIONES - Estilo profesional
 % ============================================================================
 
-% Partida presupuestaria
-% Uso: \begin{presupuesto}
-%        \partida{01.01}{Excavación}{m³}{150.00}{12.50}
+% Tabla de presupuesto estilo profesional (sin caja)
+% Uso: \begin{presupuesto}[título]
+%        \capitulo{1}{Movimiento de tierras}
+%        \partida{01.01}{Excavación zanja}{m³}{150}{12.50}
+%        \subtotal{1875.00}
 %      \end{presupuesto}
 \newcounter{partidanum}
-\newenvironment{presupuesto}[1][Presupuesto]{
+
+\newenvironment{presupuesto}[1][Presupuesto]{%
+  \begingroup
+  \small
   \setcounter{partidanum}{0}
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faFileInvoiceDollar}~#1},
-    colback=white,
-    colframe=eps-primary,
-    coltitle=white,
-    colbacktitle=eps-primary,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \footnotesize
-    \begin{longtable}{|p{1.2cm}|p{5cm}|c|r|r|r|}
-      \hline
-      \rowcolor{eps-primary!10}
-      \textbf{Código} & \textbf{Descripción} & \textbf{Ud.} & 
-      \textbf{Medición} & \textbf{P.U. (\euro)} & \textbf{Importe (\euro)} \\
-      \hline
-      \endhead
-}{
-      \hline
-    \end{longtable}
-  \end{tcolorbox}
+  \subsection*{#1}
+  \begin{longtable}{@{}p{1.5cm}p{6cm}crrr@{}}
+    \toprule
+    \textbf{Código} & \textbf{Descripción} & \textbf{Ud.} & 
+    \textbf{Medición} & \textbf{P.U.} & \textbf{Importe} \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{6}{r}{\footnotesize\emph{Continúa en la siguiente página...}} \\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+}{%
+  \end{longtable}
+  \endgroup
 }
 
+% Partida presupuestaria
 \newcommand{\partida}[5]{%
-  #1 & #2 & #3 & \num{#4} & \num{#5} & \num[round-mode=places,round-precision=2]{\fpeval{#4*#5}} \\ \hline
+  \texttt{#1} & #2 & #3 & \num{#4} & \num{#5}~\euro & \num[round-mode=places,round-precision=2]{\fpeval{#4*#5}}~\euro \\
 }
 
-\newcommand{\capitulopresupuesto}[2]{%
-  \multicolumn{6}{|l|}{\cellcolor{eps-gray!20}\bfseries #1 - #2} \\ \hline
+% Capítulo del presupuesto
+\newcommand{\capitulo}[2]{%
+  \midrule
+  \multicolumn{6}{@{}l}{\bfseries\textcolor{eps-primary}{Capítulo #1: #2}} \\
+  \midrule
 }
 
+% Subtotal de capítulo
+\newcommand{\subtotal}[1]{%
+  & & & & \textbf{Subtotal:} & \textbf{\num{#1}~\euro} \\
+}
+
+% Total del presupuesto
 \newcommand{\totalpresupuesto}[1]{%
-  \multicolumn{5}{|r|}{\bfseries Total:} & \bfseries\num{#1}~\euro \\ \hline
+  \midrule
+  \multicolumn{5}{r}{\bfseries\large Total presupuesto:} & \bfseries\large\num{#1}~\euro \\
+}
+
+% IVA y total con impuestos
+\newcommand{\totalconiva}[2]{%
+  \midrule
+  \multicolumn{5}{r}{Base imponible:} & \num{#1}~\euro \\
+  \multicolumn{5}{r}{IVA (21\%):} & \num[round-mode=places,round-precision=2]{\fpeval{#1*0.21}}~\euro \\
+  \midrule
+  \multicolumn{5}{r}{\bfseries\large Total:} & \bfseries\large\num{#2}~\euro \\
 }
 
 % ============================================================================
-% CUADRO DE PRECIOS
+% CUADRO DE PRECIOS - Estilo profesional sin caja
 % ============================================================================
 
-% Cuadro de precios descompuestos
-\newenvironment{cuadroprecios}[1][Cuadro de precios descompuestos]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faList}~#1},
-    colback=white,
-    colframe=eps-accent,
-    coltitle=white,
-    colbacktitle=eps-accent,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    breakable,
-  ]
-}{
-  \end{tcolorbox}
+% Cuadro de precios descompuestos (sin caja, estilo libro de precios)
+% Uso: \begin{cuadroprecios}[Título opcional]
+%        \unidadobra{Código}{Descripción}{Unidad}{Rendimiento}{Precio}
+%      \end{cuadroprecios}
+\newenvironment{cuadroprecios}[1][Cuadro de precios descompuestos]{%
+  \begingroup
+  \small
+  \subsection*{{\footnotesize\faList}~#1}
+  \vspace{-0.5em}
+  \begin{longtable}{@{}p{1.2cm}p{6.5cm}crrr@{}}
+    \toprule
+    \textbf{Código} & \textbf{Descripción} & \textbf{Ud.} & \textbf{Rend.} & \textbf{P.Unit.} & \textbf{Importe} \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{6}{r}{\footnotesize\emph{Continúa...}} \\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+}{%
+  \end{longtable}
+  \endgroup
 }
 
-% Unidad de obra
+% Unidad de obra (fila para cuadroprecios)
 % Uso: \unidadobra{Código}{Descripción}{Unidad}{Rendimiento}{Precio}
 \newcommand{\unidadobra}[5]{%
-  \noindent
-  \begin{tabular}{@{}p{1.5cm}p{7cm}crrr@{}}
-    \texttt{#1} & #2 & #3 & #4 & #5~\euro & \num[round-mode=places,round-precision=2]{\fpeval{#4*#5}}~\euro \\
-  \end{tabular}\\
+  \texttt{#1} & #2 & #3 & \num{#4} & \num{#5}~\euro & \num[round-mode=places,round-precision=2]{\fpeval{#4*#5}}~\euro \\
+}
+
+% Subtotal de partida
+\newcommand{\preciosubtotal}[2]{%
+  \midrule
+  \multicolumn{5}{r}{\textbf{#1}} & \textbf{\num{#2}~\euro} \\
+}
+
+% Separador de capítulo en cuadro de precios
+\newcommand{\preciocapitulo}[1]{%
+  \midrule
+  \multicolumn{6}{@{}l}{\bfseries\textcolor{eps-primary}{#1}} \\
+  \midrule
 }
 
 % ============================================================================
-% TABLA DE NORMATIVA
+% NORMATIVA - Lista de referencias normativas estilo profesional
 % ============================================================================
 
-% Tabla de normativa aplicable
-\newenvironment{normativa}[1][Normativa aplicable]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faBalanceScale}~#1},
-    colback=white,
-    colframe=eps-secondary,
-    coltitle=white,
-    colbacktitle=eps-secondary,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \footnotesize
-    \begin{tabular}{|p{3cm}|p{8cm}|c|}
-      \hline
-      \rowcolor{eps-secondary!10}
-      \textbf{Código} & \textbf{Título} & \textbf{Año} \\
-      \hline
-}{
-    \end{tabular}
-  \end{tcolorbox}
+% Lista de normativa (sin caja, estilo bibliografía)
+% Uso: \begin{normativa}[título]
+%        \norma{CTE DB-SE}{Seguridad estructural}{2019}
+%      \end{normativa}
+\newenvironment{normativa}[1][Normativa aplicable]{%
+  \begingroup
+  \small
+  \subsection*{#1}
+  \begin{description}[style=nextline, leftmargin=3cm, labelwidth=2.8cm]
+}{%
+  \end{description}
+  \endgroup
 }
 
+% Referencia normativa con descripción
 \newcommand{\norma}[3]{%
-  \textbf{#1} & #2 & #3 \\ \hline
+  \item[\textbf{#1} \hfill \textcolor{eps-gray}{(#3)}] #2
+}
+
+% Referencia normativa con estado (vigente/derogada)
+\newcommand{\normavigente}[3]{%
+  \item[\textbf{#1} \hfill \textcolor{eps-success}{\faCheck}] #2 \hfill \textcolor{eps-gray}{#3}
+}
+
+\newcommand{\normaderogada}[3]{%
+  \item[\textbf{#1} \hfill \textcolor{eps-danger}{\faTimes}] \sout{#2} \hfill \textcolor{eps-gray}{#3 -- Derogada}
 }
 
 % ============================================================================
-% LEYENDA DE PLANOS
+% LEYENDA DE PLANOS - Grid visual de símbolos
 % ============================================================================
 
-% Leyenda de símbolos
-\newenvironment{leyenda}[1][Leyenda]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faMapMarkerAlt}~#1},
-    colback=white,
-    colframe=eps-gray!50,
-    coltitle=eps-dark,
-    colbacktitle=eps-light,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-  ]
-    \begin{tabular}{@{}cl@{\qquad}cl@{}}
-}{
-    \end{tabular}
-  \end{tcolorbox}
+% Leyenda visual (grid de símbolos y descripciones)
+% Uso: \begin{leyenda}[columnas]
+%        \legenditem{\simboloagua}{Fontanería}
+%      \end{leyenda}
+\newenvironment{leyenda}[1][2]{%
+  \begingroup
+  \small
+  \begin{center}
+  \begin{tabular}{*{#1}{@{}c@{\quad}l@{\qquad}}}
+}{%
+  \end{tabular}
+  \end{center}
+  \endgroup
 }
 
-% Símbolo de leyenda
+% Item de leyenda
+\newcommand{\legenditem}[2]{%
+  #1 & #2
+}
+
+% Símbolo de leyenda (alias para compatibilidad)
 \newcommand{\simbolo}[2]{%
   #1 & #2
 }
@@ -291,18 +321,16 @@
 % DETALLE CONSTRUCTIVO
 % ============================================================================
 
-% Caja para detalle constructivo
-\newtcolorbox{detalleconstructivo}[1][Detalle constructivo]{
-  enhanced,
-  title={{\footnotesize\faRulerCombined}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
+% Detalle constructivo (sin caja, centrado)
+% Uso: \begin{detalleconstructivo}[Encuentro forjado-fachada]
+%        \begin{tikzpicture}...
+%      \end{detalleconstructivo}
+\newenvironment{detalleconstructivo}[1][Detalle constructivo]{%
+  \begin{center}
+  {\small\bfseries\faRulerCombined\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % Cota
@@ -389,92 +417,102 @@
   },
 }
 
-% Caja para organigrama
-\newtcolorbox{organigramabox}[1][Organigrama de obra]{
-  enhanced,
-  title={{\footnotesize\faSitemap}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
+% Organigrama de obra (sin caja, centrado)
+% Uso: \begin{organigramabox}[Organigrama del proyecto X]
+%        \begin{tikzpicture}...
+%      \end{organigramabox}
+\newenvironment{organigramabox}[1][Organigrama de obra]{%
+  \begin{center}
+  {\small\bfseries\faSitemap\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % ============================================================================
-% CONTROL DE CALIDAD
+% CONTROL DE CALIDAD - Estilo profesional
 % ============================================================================
 
-% Registro de control
-\newenvironment{controlcalidad}[1][Control de calidad]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faClipboardCheck}~#1},
-    colback=white,
-    colframe=eps-success,
-    coltitle=white,
-    colbacktitle=eps-success,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \footnotesize
-    \begin{tabular}{|p{5cm}|c|c|c|}
-      \hline
-      \rowcolor{eps-success!10}
-      \textbf{Ensayo/Control} & \textbf{Resultado} & \textbf{Límite} & \textbf{Conformidad} \\
-      \hline
-}{
-    \end{tabular}
-  \end{tcolorbox}
+% Tabla de control de calidad (sin caja)
+% Uso: \begin{controlcalidad}
+%        \controlitem{Resistencia hormigón}{32.5 MPa}{≥25 MPa}{OK}
+%      \end{controlcalidad}
+\newenvironment{controlcalidad}[1][Control de calidad]{%
+  \begingroup
+  \small
+  \subsection*{#1}
+  \begin{tabular}{@{}p{5cm}ccl@{}}
+    \toprule
+    \textbf{Ensayo/Control} & \textbf{Resultado} & \textbf{Límite} & \textbf{Estado} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \endgroup
 }
 
 \newcommand{\controlitem}[4]{%
   #1 & #2 & #3 & 
-  \ifstrequal{#4}{OK}{\textcolor{eps-success}{\faCheck~Conforme}}{}%
-  \ifstrequal{#4}{NO}{\textcolor{eps-danger}{\faTimes~No conforme}}{}%
-  \ifstrequal{#4}{PEND}{\textcolor{eps-warning}{\faClock~Pendiente}}{}%
-  \\ \hline
+  \ifstrequal{#4}{OK}{\textcolor{eps-success}{\faCheck}~Conforme}{}%
+  \ifstrequal{#4}{NO}{\textcolor{eps-danger}{\faTimes}~No conforme}{}%
+  \ifstrequal{#4}{PEND}{\textcolor{eps-warning}{\faClock}~Pendiente}{}%
+  \\
 }
 
+% Indicadores rápidos
+\newcommand{\controlok}{\textcolor{eps-success}{\faCheck}}
+\newcommand{\controlno}{\textcolor{eps-danger}{\faTimes}}
+\newcommand{\controlpend}{\textcolor{eps-warning}{\faClock}}
+
 % ============================================================================
-% SUPERFICIES Y CUADROS
+% SUPERFICIES Y CUADROS - Estilo profesional
 % ============================================================================
 
-% Cuadro de superficies
-\newenvironment{cuadrosuperficies}[1][Cuadro de superficies]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faVectorSquare}~#1},
-    colback=white,
-    colframe=eps-accent,
-    coltitle=white,
-    colbacktitle=eps-accent,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \footnotesize
-    \begin{tabular}{|p{4cm}|r|r|}
-      \hline
-      \rowcolor{eps-accent!10}
-      \textbf{Estancia/Zona} & \textbf{Sup. útil (m²)} & \textbf{Sup. construida (m²)} \\
-      \hline
-}{
-    \end{tabular}
-  \end{tcolorbox}
+% Cuadro de superficies estilo booktabs
+% Uso: \begin{cuadrosuperficies}
+%        \superficie{Salón-comedor}{25.50}{28.30}
+%        \superficietotal{Total planta baja}{85.20}{102.45}
+%      \end{cuadrosuperficies}
+\newenvironment{cuadrosuperficies}[1][Cuadro de superficies]{%
+  \begingroup
+  \small
+  \subsection*{#1}
+  \begin{tabular}{@{}p{5cm}rr@{}}
+    \toprule
+    \textbf{Estancia/Zona} & \textbf{Sup. útil (m²)} & \textbf{Sup. construida (m²)} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \endgroup
 }
 
 \newcommand{\superficie}[3]{%
-  #1 & \num{#2} & \num{#3} \\ \hline
+  #1 & \num{#2} & \num{#3} \\
 }
 
+% Superficie con nivel de planta
+\newcommand{\superficieplanta}[1]{%
+  \midrule
+  \multicolumn{3}{@{}l}{\bfseries\textcolor{eps-primary}{#1}} \\
+  \midrule
+}
+
+% Total de superficies
+\newcommand{\superficietotal}[3]{%
+  \midrule
+  \textbf{#1} & \textbf{\num{#2}} & \textbf{\num{#3}} \\
+}
+
+% Subtotal por planta
+\newcommand{\superficiesubtotal}[2]{%
+  \emph{Subtotal} & \emph{\num{#1}} & \emph{\num{#2}} \\
+}
+
+% Compatibilidad con totalsuperficie anterior
 \newcommand{\totalsuperficie}[2]{%
-  \textbf{TOTAL} & \textbf{\num{#1}} & \textbf{\num{#2}} \\ \hline
+  \midrule
+  \textbf{TOTAL} & \textbf{\num{#1}} & \textbf{\num{#2}} \\
 }
 
 \endinput

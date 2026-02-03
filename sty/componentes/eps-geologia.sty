@@ -30,17 +30,16 @@
   lito granito/.style={pattern=dots, pattern color=eps-danger!50},
 }
 
-% Caja para columna estratigráfica
-\newtcolorbox{stratigraphybox}[1][Columna estratigráfica]{
-  enhanced,
-  title={{\footnotesize\faLayerGroup}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
+% Columna estratigráfica (sin caja, centrada)
+% Uso: \begin{stratigraphybox}[Título de la columna]
+%        \begin{stratcolumn}...
+%      \end{stratigraphybox}
+\newenvironment{stratigraphybox}[1][Columna estratigráfica]{%
+  \begin{center}
+  {\small\bfseries\faLayerGroup\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % Capa estratigráfica
@@ -72,18 +71,16 @@
 % SECCIÓN GEOLÓGICA
 % ============================================================================
 
-% Caja para sección geológica
-\newtcolorbox{geologicsectionbox}[1][Sección geológica]{
-  enhanced,
-  title={{\footnotesize\faMountain}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
+% Sección geológica (sin caja, centrada)
+% Uso: \begin{geologicsectionbox}[Sección A-A']
+%        \begin{tikzpicture}...
+%      \end{geologicsectionbox}
+\newenvironment{geologicsectionbox}[1][Sección geológica]{%
+  \begin{center}
+  {\small\bfseries\faMountain\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % Símbolos geológicos
@@ -109,48 +106,42 @@
 }
 
 % ============================================================================
-% TABLA DE MINERALES
+% TABLA DE MINERALES - Estilo profesional
 % ============================================================================
 
-% Tabla de propiedades de minerales
-\newenvironment{mineraltable}[1][Identificación de minerales]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faGem}~#1},
-    colback=white,
-    colframe=eps-secondary,
-    coltitle=white,
-    colbacktitle=eps-secondary,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \footnotesize
-    \begin{tabular}{|p{2cm}|c|c|p{2cm}|p{2cm}|p{3cm}|}
-      \hline
-      \rowcolor{eps-secondary!10}
-      \textbf{Mineral} & \textbf{Dureza} & \textbf{Densidad} & \textbf{Color} & \textbf{Brillo} & \textbf{Composición} \\
-      \hline
-}{
-    \end{tabular}
-  \end{tcolorbox}
+% Tabla de propiedades de minerales estilo booktabs (sin caja)
+% Uso: \begin{mineraltable}[Minerales de la muestra X]
+%        \mineralrow{Cuarzo}{7}{2.65}{Incoloro}{Vítreo}{SiO2}
+%      \end{mineraltable}
+\newenvironment{mineraltable}[1][Identificación de minerales]{%
+  \begingroup
+  \small
+  \subsection*{#1}
+  \begin{tabular}{@{}p{2.5cm}ccp{2cm}p{2cm}l@{}}
+    \toprule
+    \textbf{Mineral} & \textbf{Dureza} & \textbf{Densidad} & \textbf{Color} & \textbf{Brillo} & \textbf{Composición} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \endgroup
 }
 
 \newcommand{\mineralrow}[6]{%
-  #1 & #2 & \num{#3} & #4 & #5 & \ch{#6} \\ \hline
+  #1 & #2 & \num{#3} & #4 & #5 & \ch{#6} \\
 }
 
-% Ficha de mineral
+% Grupo de minerales
+\newcommand{\mineralgroup}[1]{%
+  \midrule
+  \multicolumn{6}{@{}l}{\bfseries\textcolor{eps-primary}{#1}} \\
+  \midrule
+}
+
+% Ficha de mineral compacta (sin caja grande)
 \newcommand{\mineralcard}[5]{%
-  \begin{tcolorbox}[
-    enhanced,
-    colback=white,
-    colframe=eps-gray!30,
-    boxrule=0.5pt,
-    arc=4pt,
-    width=0.48\textwidth,
-  ]
+  \noindent
+  \begin{minipage}[t]{0.48\textwidth}
     \textcolor{eps-secondary}{\faGem}~{\bfseries #1}\\[4pt]
     {\footnotesize
       \begin{tabular}{@{}ll@{}}
@@ -160,7 +151,7 @@
         \textbf{Uso:} & #5 \\
       \end{tabular}
     }
-  \end{tcolorbox}
+  \end{minipage}%
 }
 
 % ============================================================================
@@ -181,52 +172,48 @@
   },
 }
 
-% Caja para rosa de orientaciones
-\newtcolorbox{rosebox}[1][Rosa de orientaciones]{
-  enhanced,
-  title={{\footnotesize\faCompass}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
+% Rosa de orientaciones (sin caja, centrada)
+% Uso: \begin{rosebox}[Rosa de fracturas]
+%        \begin{tikzpicture}...
+%      \end{rosebox}
+\newenvironment{rosebox}[1][Rosa de orientaciones]{%
+  \begin{center}
+  {\small\bfseries\faCompass\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % ============================================================================
-% DATOS ESTRUCTURALES
+% DATOS ESTRUCTURALES - Estilo profesional
 % ============================================================================
 
-% Tabla de datos estructurales
-\newenvironment{structuraldata}[1][Datos estructurales]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faRuler}~#1},
-    colback=white,
-    colframe=eps-primary,
-    coltitle=white,
-    colbacktitle=eps-primary,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \footnotesize
-    \begin{tabular}{|c|c|c|c|p{4cm}|}
-      \hline
-      \rowcolor{eps-primary!10}
-      \textbf{Estación} & \textbf{Dirección} & \textbf{Buzamiento} & \textbf{Tipo} & \textbf{Observaciones} \\
-      \hline
-}{
-    \end{tabular}
-  \end{tcolorbox}
+% Tabla de datos estructurales estilo booktabs (sin caja)
+% Uso: \begin{structuraldata}[Datos de campo - Zona A]
+%        \structurepoint{E-001}{45}{30}{S0}{Estratificación bien marcada}
+%      \end{structuraldata}
+\newenvironment{structuraldata}[1][Datos estructurales]{%
+  \begingroup
+  \small
+  \subsection*{#1}
+  \begin{tabular}{@{}ccccp{4.5cm}@{}}
+    \toprule
+    \textbf{Estación} & \textbf{Dirección} & \textbf{Buzamiento} & \textbf{Tipo} & \textbf{Observaciones} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \endgroup
 }
 
 \newcommand{\structurepoint}[5]{%
-  #1 & N#2°E & #3° & #4 & #5 \\ \hline
+  #1 & N#2°E & #3° & #4 & #5 \\
 }
+
+% Símbolos de tipo de estructura
+\newcommand{\structS}[1]{S$_{#1}$}   % Estratificación
+\newcommand{\structF}[1]{F$_{#1}$}   % Fractura/Falla
+\newcommand{\structJ}[1]{J$_{#1}$}   % Diaclasa (Joint)
 
 % Símbolo de buzamiento
 \newcommand{\dipstrike}[2]{%
@@ -238,40 +225,40 @@
 }
 
 % ============================================================================
-% ENSAYOS GEOTÉCNICOS
+% ENSAYOS GEOTÉCNICOS - Estilo profesional
 % ============================================================================
 
-% Tabla de ensayos
-\newenvironment{geotechdata}[1][Ensayos geotécnicos]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faHammer}~#1},
-    colback=white,
-    colframe=eps-warning,
-    coltitle=white,
-    colbacktitle=eps-warning,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \footnotesize
-    \begin{tabular}{|p{3cm}|c|r|l|p{4cm}|}
-      \hline
-      \rowcolor{eps-warning!10}
-      \textbf{Ensayo} & \textbf{Norma} & \textbf{Valor} & \textbf{Unidad} & \textbf{Clasificación} \\
-      \hline
-}{
-    \end{tabular}
-  \end{tcolorbox}
+% Tabla de ensayos geotécnicos estilo booktabs (sin caja)
+% Uso: \begin{geotechdata}[Ensayos sondeo S-01]
+%        \geotechtest{Límite líquido}{UNE 103103}{45.2}{\%}{Plasticidad media}
+%      \end{geotechdata}
+\newenvironment{geotechdata}[1][Ensayos geotécnicos]{%
+  \begingroup
+  \small
+  \subsection*{#1}
+  \begin{tabular}{@{}p{3.5cm}crlp{4cm}@{}}
+    \toprule
+    \textbf{Ensayo} & \textbf{Norma} & \textbf{Valor} & \textbf{Unidad} & \textbf{Clasificación} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \endgroup
 }
 
 \newcommand{\geotechtest}[5]{%
-  #1 & #2 & \num{#3} & #4 & #5 \\ \hline
+  #1 & #2 & \num{#3} & #4 & #5 \\
+}
+
+% Grupo de ensayos
+\newcommand{\geotechgroup}[1]{%
+  \midrule
+  \multicolumn{5}{@{}l}{\bfseries\textcolor{eps-primary}{#1}} \\
+  \midrule
 }
 
 % Parámetros geotécnicos comunes
-\newcommand{\sptvalue}[1]{N$_{SPT}$ = #1}
+\newcommand{\sptvalue}[1]{N$_{\text{SPT}}$ = #1}
 \newcommand{\cohesion}[1]{c = \SI{#1}{\kilo\pascal}}
 \newcommand{\friction}[1]{$\phi$ = #1°}
 
@@ -279,17 +266,24 @@
 % PERFIL DE SONDEO
 % ============================================================================
 
-% Caja para perfil de sondeo
-\newtcolorbox{boreholebox}[1][Perfil de sondeo]{
-  enhanced,
-  title={{\footnotesize\faArrowDown}~#1},
-  colback=white,
-  colframe=eps-accent,
-  coltitle=white,
-  colbacktitle=eps-accent,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
+% Perfil de sondeo (barra lateral coloreada, sin caja completa)
+% Uso: \begin{boreholebox}[Sondeo S-01]
+%        Contenido del perfil...
+%      \end{boreholebox}
+\newenvironment{boreholebox}[1][Perfil de sondeo]{%
+  \par\vspace{0.5em}
+  \noindent
+  \begin{minipage}{\linewidth}
+    \hspace{3pt}%
+    {\color{eps-accent}\vrule width 3pt}%
+    \hspace{8pt}%
+    \begin{minipage}{\dimexpr\linewidth-14pt\relax}
+      {\small\bfseries\faArrowDown\hspace{0.5em}#1}
+      \par\vspace{4pt}
+}{%
+    \end{minipage}
+  \end{minipage}
+  \par\vspace{0.5em}
 }
 
 % Nivel freático
@@ -331,18 +325,16 @@
 % MAPA DE ISOPACAS/ISOLÍNEAS
 % ============================================================================
 
-% Caja para mapa de isolíneas
-\newtcolorbox{isolinebox}[1][Mapa de isolíneas]{
-  enhanced,
-  title={{\footnotesize\faMap}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
+% Mapa de isolíneas (sin caja, centrado)
+% Uso: \begin{isolinebox}[Mapa de isopacas]
+%        \begin{tikzpicture}...
+%      \end{isolinebox}
+\newenvironment{isolinebox}[1][Mapa de isolíneas]{%
+  \begin{center}
+  {\small\bfseries\faMap\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % ============================================================================
@@ -368,19 +360,21 @@
 % RIESGOS GEOLÓGICOS
 % ============================================================================
 
-% Caja de riesgo geológico
+% Alerta de riesgo geológico (estilo barra lateral)
+% Uso: \georisk{Título}{Descripción}{eps-danger}
 \newcommand{\georisk}[3]{%
-  \begin{tcolorbox}[
-    enhanced,
-    colback=#3!5,
-    colframe=#3,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=8pt,
-  ]
-    \textcolor{#3}{\faExclamationTriangle}~\textbf{#1}\\[2pt]
-    {\footnotesize #2}
-  \end{tcolorbox}
+  \par\vspace{0.3em}
+  \noindent
+  \begin{minipage}{\linewidth}
+    \hspace{3pt}%
+    {\color{#3}\vrule width 3pt}%
+    \hspace{8pt}%
+    \begin{minipage}{\dimexpr\linewidth-14pt\relax}
+      \textcolor{#3}{\faExclamationTriangle}~\textbf{#1}\\[2pt]
+      {\footnotesize #2}
+    \end{minipage}
+  \end{minipage}
+  \par\vspace{0.3em}
 }
 
 % Riesgos predefinidos

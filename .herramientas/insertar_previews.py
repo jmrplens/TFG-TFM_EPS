@@ -46,21 +46,32 @@ def obtener_snippets_disponibles() -> dict:
 
 
 def generar_enlace_preview(nombre: str, disponibles: dict, formato: str) -> str:
-    """Genera el HTML/Markdown para mostrar el preview."""
+    """Genera el HTML/Markdown para mostrar el preview.
+    
+    Las imágenes se muestran directamente (sin details) con un tamaño
+    proporcional al que ocuparían en una página A4:
+    - El ancho de texto en A4 es aproximadamente 15cm
+    - Usamos 600px como referencia para el ancho máximo
+    """
     if nombre not in disponibles:
         return ""
 
     info = disponibles[nombre]
+    # Ancho proporcional a A4 (15cm de ancho de texto ≈ 600px)
+    ancho_max = 600
 
     if formato == "link":
-        return f'\n<details>\n<summary>📸 Ver resultado</summary>\n\n[📄 Ver PDF]({info["pdf"]})\n\n</details>\n'
+        return f'\n**Resultado:**\n\n[📄 Ver PDF]({info["pdf"]})\n'
 
     elif formato == "imagen" and info["img"]:
-        return f'\n<details>\n<summary>📸 Ver resultado</summary>\n\n![Preview]({info["img"]})\n\n</details>\n'
+        return f'\n**Resultado:**\n\n<img src="{info["img"]}" alt="Preview" width="{ancho_max}">\n\n[📄 Ver PDF]({info["pdf"]})\n'
+
+    elif formato == "ambos" and info["img"]:
+        return f'\n**Resultado:**\n\n<img src="{info["img"]}" alt="Preview" width="{ancho_max}">\n\n[📄 Ver PDF]({info["pdf"]})\n'
 
     elif formato == "ambos":
-        img_part = f'![Preview]({info["img"]})\n\n' if info["img"] else ""
-        return f'\n<details>\n<summary>📸 Ver resultado</summary>\n\n{img_part}[📄 Ver PDF]({info["pdf"]})\n\n</details>\n'
+        # Solo PDF si no hay imagen
+        return f'\n**Resultado:**\n\n[📄 Ver PDF]({info["pdf"]})\n'
 
     return ""
 
@@ -72,11 +83,15 @@ def procesar_archivo(archivo: Path, disponibles: dict, formato: str, dry_run: bo
     lineas = contenido.split("\n")
     nuevas_lineas = []
 
-    # Solo contar bloques MARCADOS con <!-- preview -->
-    patron_inicio_marcado = re.compile(r"^```latex\s*<!--\s*preview", re.IGNORECASE)
+    # Patrón para bloques marcados con nombre personalizado o sin él
+    # Captura: ```latex <!-- preview[:N] [nombre] -->
+    patron_inicio_marcado = re.compile(
+        r"^```latex\s*<!--\s*preview(?::\d)?\s*(\S+)?\s*-->",
+        re.IGNORECASE
+    )
     patron_inicio = re.compile(r"^```latex", re.IGNORECASE)
     patron_fin = re.compile(r"^```\s*$")
-    patron_preview_existente = re.compile(r"^<details>", re.IGNORECASE)
+    patron_preview_existente = re.compile(r"^\*\*Resultado:\*\*|^<details>|^<img src=", re.IGNORECASE)
 
     numero_marcado = 0  # Solo cuenta los marcados
     i = 0
@@ -86,13 +101,18 @@ def procesar_archivo(archivo: Path, disponibles: dict, formato: str, dry_run: bo
         nuevas_lineas.append(lineas[i])
 
         # Detectar si es un bloque latex marcado
-        es_marcado = patron_inicio_marcado.match(lineas[i])
+        match_marcado = patron_inicio_marcado.match(lineas[i])
         es_latex = patron_inicio.match(lineas[i])
         
         if es_latex:
-            if es_marcado:
+            if match_marcado:
                 numero_marcado += 1
-                nombre_snippet = f"{archivo.stem.upper()}_{numero_marcado:03d}"
+                nombre_custom = match_marcado.group(1)
+                # Usar nombre personalizado si existe, sino usar formato ARCHIVO_NNN
+                if nombre_custom:
+                    nombre_snippet = nombre_custom
+                else:
+                    nombre_snippet = f"{archivo.stem.upper()}_{numero_marcado:03d}"
             
             # Buscar fin del bloque
             i += 1
@@ -104,7 +124,7 @@ def procesar_archivo(archivo: Path, disponibles: dict, formato: str, dry_run: bo
                 nuevas_lineas.append(lineas[i])  # Añadir ```
 
             # Solo insertar preview para bloques marcados
-            if es_marcado:
+            if match_marcado:
                 # Verificar si ya existe un preview después
                 siguiente_no_vacia = i + 1
                 while siguiente_no_vacia < len(lineas) and not lineas[siguiente_no_vacia].strip():

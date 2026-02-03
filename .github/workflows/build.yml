@@ -39,7 +39,8 @@ jobs:
         latexmk_use_lualatex: true
         latexmk_shell_escape: true
         texlive_version: ${{ env.TEXLIVE_VERSION }}
-        extra_system_packages: py3-pygments perl
+        extra_system_packages: py3-pip perl
+        pre_compile: pip install latexminted
         
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v6

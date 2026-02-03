@@ -35,7 +35,7 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 ### Estructura básica
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -49,6 +49,13 @@ Esta plantilla carga los siguientes paquetes para gráficas:
     \label{fig:mi-grafica}
 \end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_001.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_001.pdf)
+
 
 ---
 
@@ -83,14 +90,11 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/FIGURAS_GRAFICAS_001.webp)
+<img src="assets/previews/FIGURAS_GRAFICAS_001.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_001.pdf)
-
-</details>
 
 
 ### Gráfica de función matemática
@@ -118,19 +122,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/FIGURAS_GRAFICAS_002.webp)
+<img src="assets/previews/FIGURAS_GRAFICAS_002.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_002.pdf)
-
-</details>
 
 
 ### Gráfica con barras de error
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -158,6 +159,13 @@ Esta plantilla carga los siguientes paquetes para gráficas:
     \label{fig:errores}
 \end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_003.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_003.pdf)
+
 
 ---
 
@@ -189,14 +197,11 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/FIGURAS_GRAFICAS_003.webp)
+<img src="assets/previews/FIGURAS_GRAFICAS_003.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_003.pdf)
-
-</details>
 
 
 ### Gráfica de barras horizontales
@@ -231,9 +236,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_005.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_005.pdf)
+
+
 ### Gráfica de barras agrupadas
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -259,9 +271,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_006.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_006.pdf)
+
+
 ### Gráfica de barras apiladas
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -292,9 +311,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_007.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_007.pdf)
+
+
 ### Histograma
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -316,8 +342,15 @@ Esta plantilla carga los siguientes paquetes para gráficas:
     \end{tikzpicture}
     \caption{Distribución de edades}
     \label{fig:histograma}
-\end{figure>
+\end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_007.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_007.pdf)
+
 
 ### Gráfica de dispersión (scatter)
 
@@ -346,19 +379,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/FIGURAS_GRAFICAS_004.webp)
+<img src="assets/previews/FIGURAS_GRAFICAS_004.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_004.pdf)
-
-</details>
 
 
 ### Gráfica de área
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -386,6 +416,13 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_010.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_010.pdf)
+
+
 ### Gráfica polar
 
 ```latex <!-- preview -->
@@ -408,19 +445,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/FIGURAS_GRAFICAS_005.webp)
+<img src="assets/previews/FIGURAS_GRAFICAS_005.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_005.pdf)
-
-</details>
 
 
 ### Box plot
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -460,6 +494,13 @@ Esta plantilla carga los siguientes paquetes para gráficas:
     \label{fig:boxplot}
 \end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_012.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_012.pdf)
+
 
 ---
 
@@ -550,7 +591,7 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 ### Subfiguras con gráficas
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
@@ -591,9 +632,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_012.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_012.pdf)
+
+
 ### Groupplots (múltiples ejes)
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -624,9 +672,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_013.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_013.pdf)
+
+
 ### Dos ejes Y
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -661,8 +716,15 @@ Esta plantilla carga los siguientes paquetes para gráficas:
     
     \caption{Evolución de temperatura y presión}
     \label{fig:dos-ejes}
-\end{figure>
+\end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_015.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_015.pdf)
+
 
 ---
 
@@ -750,7 +812,7 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 ### Superficie 3D
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -775,9 +837,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_014.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_014.pdf)
+
+
 ### Malla 3D
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -800,9 +869,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_017.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_017.pdf)
+
+
 ### Contornos
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -826,9 +902,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_015.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_015.pdf)
+
+
 ### Scatter 3D
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -856,6 +939,13 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_019.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_019.pdf)
+
+
 ---
 
 ## Gráficas circulares
@@ -864,7 +954,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 
 ### Pie chart básico
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -884,9 +974,16 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_013.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_013.pdf)
+
+
 ### Pie chart con porcentajes
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -908,6 +1005,13 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_014.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_014.pdf)
+
+
 ### Opciones de pgf-pie
 
 | Opción | Descripción | Valores |
@@ -925,7 +1029,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 
 ### Donut chart
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -945,13 +1049,20 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_022.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_022.pdf)
+
+
 ---
 
 ## Opciones avanzadas
 
 ### Área entre curvas (fill between)
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -972,12 +1083,19 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
     \end{tikzpicture}
     \caption{Área entre curvas}
     \label{fig:fill-between}
-\end{figure>
+\end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_023.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_023.pdf)
+
 
 ### Anotaciones
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -1004,6 +1122,13 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
     \label{fig:anotaciones}
 \end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_024.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_024.pdf)
+
 
 ### Líneas de referencia
 
@@ -1101,7 +1226,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 
 ### Gráfica científica completa
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -1135,6 +1260,13 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
     \label{fig:filtro}
 \end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_025.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_025.pdf)
+
 
 ---
 

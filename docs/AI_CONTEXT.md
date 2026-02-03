@@ -454,7 +454,7 @@ $lualatex = 'lualatex -shell-escape %O %S';
 | Error | Solución |
 |-------|----------|
 | `You must invoke LaTeX with -shell-escape` | Añadir `-shell-escape` al comando |
-| `Pygments not found` | Instalar: `pip install Pygments` |
+| `Pygments not found` | Instalar: `pip install latexminted` |
 | `Cannot find ... lexer` | Verificar nombre del lenguaje |
 
 ### Errores de bibliografía

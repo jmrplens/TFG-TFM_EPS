@@ -750,14 +750,11 @@ Como se indica en (Goodfellow et al., 2016, p.~45), el gradiente
 descendente es fundamental para el entrenamiento.
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/BIBLIOGRAFIA_001.webp)
+<img src="assets/previews/BIBLIOGRAFIA_001.webp" alt="Preview" width="598">
 
 [📄 Ver PDF](assets/previews/BIBLIOGRAFIA_001.pdf)
-
-</details>
 
 
 ### Bibliografía estilo APA
@@ -789,14 +786,11 @@ you need. \textit{Advances in Neural Information Processing Systems},
 \textit{30}, 5998--6008.
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/BIBLIOGRAFIA_002.webp)
+<img src="assets/previews/BIBLIOGRAFIA_002.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/BIBLIOGRAFIA_002.pdf)
-
-</details>
 
 
 ### Bibliografía estilo IEEE (numérico)
@@ -823,14 +817,11 @@ all you need,'' in \textit{Proc. Adv. Neural Inf. Process. Syst.},
 vol. 30, 2017, pp. 5998--6008.
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/BIBLIOGRAFIA_003.webp)
+<img src="assets/previews/BIBLIOGRAFIA_003.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/BIBLIOGRAFIA_003.pdf)
-
-</details>
 
 
 ---

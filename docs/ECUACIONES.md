@@ -59,14 +59,11 @@ El valor de $\pi \approx 3.14159$.
 Para $x > 0$, tenemos $\sqrt{x} \geq 0$.
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_001.webp)
+<img src="assets/previews/ECUACIONES_001.webp" alt="Preview" width="305">
 
 [📄 Ver PDF](assets/previews/ECUACIONES_001.pdf)
-
-</details>
 
 
 ### Matemáticas en bloque (display)
@@ -81,14 +78,11 @@ La fórmula cuadrática es:
 $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_002.webp)
+<img src="assets/previews/ECUACIONES_002.webp" alt="Preview" width="200">
 
 [📄 Ver PDF](assets/previews/ECUACIONES_002.pdf)
-
-</details>
 
 
 ### Ecuación numerada
@@ -102,19 +96,16 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 Como se muestra en la Ecuación~\eqref{eq:einstein}...
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_003.webp)
+<img src="assets/previews/ECUACIONES_003.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/ECUACIONES_003.pdf)
-
-</details>
 
 
 ### Ecuación sin número
 
-```latex
+```latex <!-- preview -->
 \begin{equation*}
     a^2 + b^2 = c^2
 \end{equation*}
@@ -125,28 +116,49 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
 \]
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_004.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_004.pdf)
+
+
 ---
 
 ## Entornos de ecuaciones
 
 ### equation - Una ecuación
 
-```latex
+```latex <!-- preview:2 -->
 \begin{equation}
     \int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
     \label{eq:gaussiana}
 \end{equation}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_005.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_005.pdf)
+
+
 ### align - Múltiples ecuaciones alineadas
 
-```latex
+```latex <!-- preview:2 -->
 \begin{align}
     f(x) &= x^2 + 2x + 1 \label{eq:f}\\
     g(x) &= x^3 - x \label{eq:g}\\
     h(x) &= f(x) + g(x) \label{eq:h}
 \end{align}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_006.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_006.pdf)
+
 
 ### align* - Sin numeración
 
@@ -158,14 +170,11 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
 \end{align*}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_004.webp)
+<img src="assets/previews/ECUACIONES_004.webp" alt="Preview" width="400">
 
 [📄 Ver PDF](assets/previews/ECUACIONES_004.pdf)
-
-</details>
 
 
 ### gather - Ecuaciones centradas
@@ -178,28 +187,32 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
 \end{gather}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_005.webp)
+<img src="assets/previews/ECUACIONES_005.webp" alt="Preview" width="349">
 
 [📄 Ver PDF](assets/previews/ECUACIONES_005.pdf)
-
-</details>
 
 
 ### multline - Ecuación larga en varias líneas
 
-```latex
+```latex <!-- preview -->
 \begin{multline}
     p(x) = x^8 + x^7 + x^6 + x^5 + x^4 \\
     + x^3 + x^2 + x + 1
 \end{multline}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_006.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_006.pdf)
+
+
 ### split - División dentro de equation
 
-```latex
+```latex <!-- preview -->
 \begin{equation}
     \begin{split}
         (a + b)^3 &= (a + b)(a + b)^2 \\
@@ -208,6 +221,13 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
     \end{split}
 \end{equation}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_007.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_007.pdf)
+
 
 ### cases - Funciones por partes
 
@@ -221,14 +241,11 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
 \end{equation}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_006.webp)
+<img src="assets/previews/ECUACIONES_006.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/ECUACIONES_006.pdf)
-
-</details>
 
 
 ### subequations - Subnumeración
@@ -245,14 +262,11 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
 \end{subequations}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_007.webp)
+<img src="assets/previews/ECUACIONES_007.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/ECUACIONES_007.pdf)
-
-</details>
 
 
 ---
@@ -426,7 +440,7 @@ $\tbinom{n}{k}$  % Texto
 
 ### Ejemplos de fracciones
 
-```latex
+```latex <!-- preview -->
 \begin{equation}
     \frac{d}{dx}\left(\frac{f(x)}{g(x)}\right) = 
     \frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}
@@ -437,6 +451,13 @@ $\tbinom{n}{k}$  % Texto
     \sum_{n=0}^{\infty} \frac{1}{n!}
 \end{equation}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_013.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_013.pdf)
+
 
 ### Raíces
 
@@ -503,7 +524,7 @@ $\sum\limits_{i=1}^n$
 
 ### Matrices básicas
 
-```latex
+```latex <!-- preview -->
 % Sin delimitadores
 \begin{equation}
     \begin{matrix}
@@ -553,6 +574,13 @@ $\sum\limits_{i=1}^n$
 \end{equation}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_011.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_011.pdf)
+
+
 ### Matrices con puntos
 
 ```latex <!-- preview -->
@@ -566,19 +594,16 @@ $\sum\limits_{i=1}^n$
 \end{equation}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_008.webp)
+<img src="assets/previews/ECUACIONES_008.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/ECUACIONES_008.pdf)
-
-</details>
 
 
 ### Matriz identidad
 
-```latex
+```latex <!-- preview -->
 \begin{equation}
     I_n = \begin{pmatrix}
         1 & 0 & \cdots & 0 \\
@@ -589,16 +614,30 @@ $\sum\limits_{i=1}^n$
 \end{equation}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_009.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_009.pdf)
+
+
 ### Matriz pequeña en línea
 
-```latex
+```latex <!-- preview -->
 La matriz $\bigl(\begin{smallmatrix} a & b \\ c & d \end{smallmatrix}\bigr)$ 
 es invertible si $ad - bc \neq 0$.
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_017.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_017.pdf)
+
+
 ### Sistemas de ecuaciones
 
-```latex
+```latex <!-- preview -->
 \begin{equation}
     \begin{cases}
         x + y + z = 1 \\
@@ -619,9 +658,16 @@ es invertible si $ad - bc \neq 0$.
 \end{equation}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_010.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_010.pdf)
+
+
 ### Matriz aumentada
 
-```latex
+```latex <!-- preview -->
 \begin{equation}
     \left(\begin{array}{ccc|c}
         1 & 2 & 3 & 4 \\
@@ -631,31 +677,52 @@ es invertible si $ad - bc \neq 0$.
 \end{equation}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_011.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_011.pdf)
+
+
 ---
 
 ## Alineación de ecuaciones
 
 ### Alineación simple con align
 
-```latex
+```latex <!-- preview -->
 \begin{align}
     f(x) &= (x+1)^2 \\
          &= x^2 + 2x + 1
 \end{align}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_012.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_012.pdf)
+
+
 ### Múltiples puntos de alineación
 
-```latex
+```latex <!-- preview -->
 \begin{align}
     x &= a + b & y &= c + d \\
     x' &= a' + b' & y' &= c' + d'
 \end{align}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_015.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_015.pdf)
+
+
 ### Texto dentro de ecuaciones
 
-```latex
+```latex <!-- preview -->
 \begin{align}
     f(x) &= x^2 - 4 \\
          &= (x-2)(x+2) && \text{factorizando} \\
@@ -663,9 +730,16 @@ es invertible si $ad - bc \neq 0$.
 \end{align}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_016.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_016.pdf)
+
+
 ### Intertext
 
-```latex
+```latex <!-- preview -->
 \begin{align}
     x^2 + y^2 &= r^2
     \intertext{sustituyendo $y = x$:}
@@ -674,9 +748,16 @@ es invertible si $ad - bc \neq 0$.
 \end{align}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_017.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_017.pdf)
+
+
 ### Numerar solo algunas ecuaciones
 
-```latex
+```latex <!-- preview -->
 \begin{align}
     a &= b + c \notag \\
     d &= e + f \\
@@ -684,9 +765,16 @@ es invertible si $ad - bc \neq 0$.
 \end{align}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_024.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_024.pdf)
+
+
 ### Etiquetar con tag
 
-```latex
+```latex <!-- preview -->
 \begin{equation}
     E = mc^2 \tag{Einstein}
 \end{equation}
@@ -695,6 +783,13 @@ es invertible si $ad - bc \neq 0$.
     F = ma \tag{$\ast$}
 \end{equation}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_013.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_013.pdf)
+
 
 ---
 
@@ -717,14 +812,11 @@ es invertible si $ad - bc \neq 0$.
 \end{proof}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_009.webp)
+<img src="assets/previews/ECUACIONES_009.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/ECUACIONES_009.pdf)
-
-</details>
 
 
 ```latex <!-- preview -->
@@ -737,14 +829,11 @@ es invertible si $ad - bc \neq 0$.
 \end{definicion}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_010.webp)
+<img src="assets/previews/ECUACIONES_010.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/ECUACIONES_010.pdf)
-
-</details>
 
 
 ```latex <!-- preview -->
@@ -757,17 +846,14 @@ es invertible si $ad - bc \neq 0$.
 \end{lema}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_011.webp)
+<img src="assets/previews/ECUACIONES_011.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/ECUACIONES_011.pdf)
 
-</details>
 
-
-```latex
+```latex <!-- preview -->
 \begin{ejemplo}
     Calcular la derivada de $f(x) = x^3$:
     \begin{align*}
@@ -777,6 +863,13 @@ es invertible si $ad - bc \neq 0$.
     \end{align*}
 \end{ejemplo}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_029.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_029.pdf)
+
 
 ### Crear nuevos entornos
 
@@ -864,7 +957,7 @@ $a\negthinspace b$ % Igual que \!
 
 ### Texto en modo matemático
 
-```latex
+```latex <!-- preview -->
 % Texto normal
 $x = 1 \text{ si } y > 0$
 
@@ -879,6 +972,13 @@ $\text{velocidad} = \frac{\text{distancia}}{\text{tiempo}}$
 \end{align}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_030.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_030.pdf)
+
+
 ### Cancelar términos
 
 ```latex
@@ -891,7 +991,7 @@ $\cancelto{0}{\sin(0)}$
 
 ### Cajas en ecuaciones
 
-```latex
+```latex <!-- preview -->
 \begin{equation}
     \boxed{E = mc^2}
 \end{equation}
@@ -901,6 +1001,13 @@ $\cancelto{0}{\sin(0)}$
     \colorbox{yellow}{$E = mc^2$}
 \end{equation}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_022.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_022.pdf)
+
 
 ### Entorno para describir variables
 
@@ -918,7 +1025,7 @@ $\cancelto{0}{\sin(0)}$
 
 ### Ecuaciones con flechas de implicación
 
-```latex
+```latex <!-- preview -->
 \begin{align}
     x^2 &= 4 \\
     \Downarrow \\
@@ -926,13 +1033,20 @@ $\cancelto{0}{\sin(0)}$
 \end{align}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_023.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_023.pdf)
+
+
 ---
 
 ## Ejemplos completos
 
 ### Integral de Gauss
 
-```latex
+```latex <!-- preview:2 -->
 \begin{teorema}[Integral de Gauss]
     La integral de la función gaussiana sobre toda la recta real es:
     \begin{equation}
@@ -953,9 +1067,16 @@ $\cancelto{0}{\sin(0)}$
 \end{proof}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_033.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_033.pdf)
+
+
 ### Ecuaciones de Maxwell
 
-```latex
+```latex <!-- preview:2 -->
 Las ecuaciones de Maxwell en forma diferencial son:
 \begin{subequations}
     \begin{align}
@@ -972,6 +1093,13 @@ Las ecuaciones de Maxwell en forma diferencial son:
     \label{eq:maxwell}
 \end{subequations}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_034.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_034.pdf)
+
 
 ---
 

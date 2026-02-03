@@ -112,7 +112,7 @@ Define estilos para bloques de código fuente que imitan la apariencia de VS Cod
 
 | Paquete | Uso |
 |---------|-----|
-| **minted** | Resaltado de sintaxis con Pygments |
+| **minted** | Resaltado de sintaxis con latexminted/Pygments |
 | **tcolorbox** | Cajas con estilo (bordes redondeados, títulos) |
 | **fontawesome5** | Iconos para los títulos de los bloques |
 
@@ -237,7 +237,7 @@ Cambiar los estilos base para usar `vscode-dark-*` en lugar de `vscode-light-*`.
 
 ## 📋 Requisitos
 
-- **minted**: Requiere `-shell-escape` y Pygments instalado
+- **minted**: Requiere `-shell-escape` y latexminted instalado (`pip install latexminted`)
 - **fontawesome5**: Iconos incluidos en TeX Live
 - **tcolorbox**: Versión 4.0+ para biblioteca minted
 

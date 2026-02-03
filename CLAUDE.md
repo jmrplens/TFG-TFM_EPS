@@ -19,7 +19,7 @@ This file provides context for Claude when assisting users with this LaTeX templ
 ## Most Common User Questions
 
 ### "Mi documento no compila" (My document won't compile)
-→ Check: LuaLaTeX? `-shell-escape`? Pygments installed?
+→ Check: LuaLaTeX? `-shell-escape`? latexminted installed?
 
 ### "¿Cómo cambio la titulación?" (How do I change the degree?)
 → In `configuracion.tex`: `titulacion = informatica` (exact ID required)

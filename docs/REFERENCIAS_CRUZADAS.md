@@ -91,10 +91,10 @@ Ver Sección~\ref{sec:motivacion}...
 
 ### Figuras
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{diagrama.pdf}
+    \includegraphics[width=0.7\textwidth]{example-image-a}
     \caption{Diagrama del sistema propuesto}
     \label{fig:diagrama}
 \end{figure}
@@ -102,6 +102,13 @@ Ver Sección~\ref{sec:motivacion}...
 % Referencia
 La Figura~\ref{fig:diagrama} muestra...
 ```
+
+**Resultado:**
+
+<img src="assets/previews/REFERENCIAS_CRUZADAS_001.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_001.pdf)
+
 
 ### Tablas
 
@@ -215,16 +222,16 @@ Ver la sección ``\nameref{sec:metodologia}''  % "Metodología"
 
 ### Referencias a subfiguras
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{imagen_a.pdf}
+        \includegraphics[width=\textwidth]{example-image-a}
         \caption{Primera imagen}
         \label{fig:sub_a}
     \end{subfigure}
     \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{imagen_b.pdf}
+        \includegraphics[width=\textwidth]{example-image-b}
         \caption{Segunda imagen}
         \label{fig:sub_b}
     \end{subfigure}
@@ -236,6 +243,13 @@ Ver la sección ``\nameref{sec:metodologia}''  % "Metodología"
 La Figura~\ref{fig:comparativa} muestra la comparativa.
 En particular, la Figura~\ref{fig:sub_a} presenta...
 ```
+
+**Resultado:**
+
+<img src="assets/previews/REFERENCIAS_CRUZADAS_002.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_002.pdf)
+
 
 ---
 
@@ -688,14 +702,11 @@ presenta un comportamiento estable.
 \end{equation}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/REFERENCIAS_CRUZADAS_001.webp)
+<img src="assets/previews/REFERENCIAS_CRUZADAS_001.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_001.pdf)
-
-</details>
 
 
 ### Ejemplo de referencias múltiples
@@ -723,14 +734,11 @@ los resultados concuerdan con las ecuaciones 1 y 2.
 Ver la Figura 3.1 en la página 45.
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/REFERENCIAS_CRUZADAS_002.webp)
+<img src="assets/previews/REFERENCIAS_CRUZADAS_002.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_002.pdf)
-
-</details>
 
 
 ---

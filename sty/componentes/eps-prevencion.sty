@@ -83,18 +83,17 @@
   \end{tikzpicture}
 }
 
-% Caja para matriz de riesgos
-\newtcolorbox{riskmatrixbox}[1][Matriz de evaluación de riesgos]{
-  enhanced,
-  title={{\footnotesize\faThLarge}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
+% Matriz de riesgos (sin caja, centrada)
+% Uso: \begin{riskmatrixbox}[Matriz del proyecto X]
+%        \riskmatrix
+%        \riskpoint{3}{4}{R-01}
+%      \end{riskmatrixbox}
+\newenvironment{riskmatrixbox}[1][Matriz de evaluación de riesgos]{%
+  \begin{center}
+  {\small\bfseries\faThLarge\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % Punto en la matriz
@@ -105,34 +104,30 @@
 }
 
 % ============================================================================
-% EVALUACIÓN DE RIESGOS
+% EVALUACIÓN DE RIESGOS - Estilo profesional
 % ============================================================================
 
-% Tabla de evaluación de riesgos
-\newenvironment{riskassessment}[1][Evaluación de riesgos]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faExclamationTriangle}~#1},
-    colback=white,
-    colframe=eps-warning,
-    coltitle=white,
-    colbacktitle=eps-warning,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-    breakable,
-  ]
-    \footnotesize
-    \begin{longtable}{|p{0.8cm}|p{4cm}|c|c|c|p{4cm}|}
-      \hline
-      \rowcolor{eps-warning!10}
-      \textbf{ID} & \textbf{Riesgo identificado} & \textbf{P} & \textbf{S} & \textbf{Nivel} & \textbf{Medidas preventivas} \\
-      \hline
-      \endhead
-}{
-    \end{longtable}
-  \end{tcolorbox}
+% Tabla de evaluación de riesgos estilo booktabs (sin caja)
+% Uso: \begin{riskassessment}[Evaluación de riesgos - Obra X]
+%        \riskentry{R-01}{Caída a distinto nivel}{3}{4}{}{Uso de arnés, líneas de vida}
+%      \end{riskassessment}
+\newenvironment{riskassessment}[1][Evaluación de riesgos]{%
+  \begingroup
+  \small
+  \subsection*{#1}
+  \begin{longtable}{@{}p{1cm}p{4cm}cclp{4.5cm}@{}}
+    \toprule
+    \textbf{ID} & \textbf{Riesgo identificado} & \textbf{P} & \textbf{S} & \textbf{Nivel} & \textbf{Medidas preventivas} \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{6}{r}{\footnotesize\emph{Continúa...}} \\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+}{%
+  \end{longtable}
+  \endgroup
 }
 
 \newcommand{\riskentry}[6]{%
@@ -149,28 +144,35 @@
   \else
     \badge[risk-intolerable]{Intolerable}
   \fi\fi\fi\fi
-  & #6 \\ \hline
+  & #6 \\
+}
+
+% Separador de grupo de riesgos
+\newcommand{\riskgroup}[1]{%
+  \midrule
+  \multicolumn{6}{@{}l}{\bfseries\textcolor{eps-primary}{#1}} \\
+  \midrule
 }
 
 % ============================================================================
-% FICHA DE SEGURIDAD
+% FICHA DE SEGURIDAD - Estilo profesional sin caja
 % ============================================================================
 
-% Ficha de seguridad completa
-\newenvironment{safetysheet}[1]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faShieldAlt}~Ficha de seguridad: #1},
-    colback=white,
-    colframe=eps-primary,
-    coltitle=white,
-    colbacktitle=eps-primary,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-  ]
-}{
-  \end{tcolorbox}
+% Ficha de seguridad completa (sin caja, estilo ficha técnica)
+% Uso: \begin{safetysheet}{Nombre del producto/proceso}
+%        \safetysection{Identificación}{Datos del producto}
+%      \end{safetysheet}
+\newenvironment{safetysheet}[1]{%
+  \begingroup
+  \small
+  \subsection*{{\textcolor{eps-primary}{\faShieldVirus}~Ficha de seguridad: #1}}
+  \vspace{-0.3em}
+  \hrule height 0.5pt
+  \vspace{0.5em}
+}{%
+  \vspace{0.5em}
+  \hrule height 0.5pt
+  \endgroup
 }
 
 % Sección de la ficha
@@ -199,26 +201,23 @@
 \newcommand{\epiharness}{\textcolor{eps-primary}{\faLink}~Arnés anticaídas}
 
 % ============================================================================
-% CHECKLIST DE SEGURIDAD
+% CHECKLIST DE SEGURIDAD - Estilo profesional sin caja
 % ============================================================================
 
-% Checklist de verificación
-\newenvironment{safetychecklist}[1][Lista de verificación de seguridad]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faClipboardCheck}~#1},
-    colback=white,
-    colframe=eps-success,
-    coltitle=white,
-    colbacktitle=eps-success,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-  ]
-    \begin{itemize}[label=\unchecked, leftmargin=1.5em, itemsep=4pt]
-}{
-    \end{itemize}
-  \end{tcolorbox}
+% Checklist de verificación (sin caja, estilo lista con título)
+% Uso: \begin{safetychecklist}[Título]
+%        \checkitem{Elemento verificado}
+%        \uncheckitem{Pendiente}
+%      \end{safetychecklist}
+\newenvironment{safetychecklist}[1][Lista de verificación de seguridad]{%
+  \begingroup
+  \small
+  \noindent\textbf{{\textcolor{eps-success}{\faClipboardCheck}~#1}}\par
+  \vspace{0.3em}
+  \begin{itemize}[label=\unchecked, leftmargin=1.5em, itemsep=2pt, topsep=0pt]
+}{%
+  \end{itemize}
+  \endgroup
 }
 
 % Items con diferentes estados
@@ -277,24 +276,26 @@
 }
 
 % ============================================================================
-% PLAN DE EMERGENCIA
+% PLAN DE EMERGENCIA - Estilo profesional
 % ============================================================================
 
-% Procedimiento de emergencia
-\newenvironment{emergencyprocedure}[1][Procedimiento de emergencia]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faAmbulance}~#1},
-    colback=eps-danger!5,
-    colframe=eps-danger,
-    coltitle=white,
-    colbacktitle=eps-danger,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-  ]
-}{
-  \end{tcolorbox}
+% Procedimiento de emergencia (estilo alerta con barra lateral)
+% Uso: \begin{emergencyprocedure}[Título]
+%        Paso 1: ...
+%      \end{emergencyprocedure}
+\newenvironment{emergencyprocedure}[1][Procedimiento de emergencia]{%
+  \begingroup
+  \small
+  \par\vspace{0.5em}
+  \noindent\begin{minipage}[t]{3pt}\color{eps-danger}\rule{3pt}{\baselineskip}\end{minipage}%
+  \hspace{0.5em}%
+  \begin{minipage}[t]{\dimexpr\linewidth-3pt-0.5em\relax}
+    \textbf{{\textcolor{eps-danger}{\faAmbulance}~#1}}\par
+    \vspace{0.3em}
+}{%
+  \end{minipage}
+  \par\vspace{0.5em}
+  \endgroup
 }
 
 % Teléfonos de emergencia
@@ -303,24 +304,24 @@
 }
 
 % ============================================================================
-% ACCIDENTES E INCIDENTES
+% ACCIDENTES E INCIDENTES - Estilo formulario
 % ============================================================================
 
-% Registro de accidente
-\newenvironment{accidentreport}[1][Informe de accidente/incidente]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faFileAlt}~#1},
-    colback=white,
-    colframe=eps-danger,
-    coltitle=white,
-    colbacktitle=eps-danger,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-  ]
-}{
-  \end{tcolorbox}
+% Registro de accidente (estilo formulario sin caja)
+% Uso: \begin{accidentreport}[Título]
+%        \reportfield{Fecha}{01/01/2024}
+%      \end{accidentreport}
+\newenvironment{accidentreport}[1][Informe de accidente/incidente]{%
+  \begingroup
+  \small
+  \subsection*{{\textcolor{eps-danger}{\faFile}~#1}}
+  \vspace{-0.3em}
+  {\color{eps-danger}\hrule height 1pt}
+  \vspace{0.5em}
+}{%
+  \vspace{0.5em}
+  {\color{eps-danger}\hrule height 0.5pt}
+  \endgroup
 }
 
 % Campo del informe
@@ -338,23 +339,17 @@
 }
 
 % ============================================================================
-% ESTADÍSTICAS DE SEGURIDAD
+% ESTADÍSTICAS DE SEGURIDAD - Estilo minimalista
 % ============================================================================
 
-% Indicadores de seguridad
+% Indicadores de seguridad (sin caja, estilo KPI card)
+% Uso: \safetyindicator{valor}{nombre}{color}
 \newcommand{\safetyindicator}[3]{%
-  \begin{tcolorbox}[
-    enhanced,
-    colback=#3!5,
-    colframe=#3!50,
-    boxrule=0.5pt,
-    arc=4pt,
-    width=0.3\textwidth,
-    halign=center,
-  ]
-    {\LARGE\bfseries #1}\\[2pt]
+  \begin{minipage}[t]{0.22\textwidth}
+    \centering
+    {\LARGE\bfseries\textcolor{#3}{#1}}\\[2pt]
     {\footnotesize #2}
-  \end{tcolorbox}
+  \end{minipage}%
 }
 
 % Indicadores predefinidos
@@ -363,59 +358,65 @@
 \newcommand{\indicatorII}[1]{\safetyindicator{#1}{Índice de Incidencia}{eps-danger}}
 \newcommand{\indicatorDaysSafe}[1]{\safetyindicator{#1}{Días sin accidentes}{eps-success}}
 
+% Fila de indicadores (para mostrar varios juntos)
+\newcommand{\indicatorrow}[1]{%
+  \par\vspace{1em}
+  \begin{center}
+    #1
+  \end{center}
+  \par\vspace{0.5em}
+}
+
 % ============================================================================
-% FORMACIÓN EN SEGURIDAD
+% FORMACIÓN EN SEGURIDAD - Estilo profesional
 % ============================================================================
 
-% Registro de formación
-\newenvironment{trainingrecord}[1][Registro de formación]{
-  \begin{tcolorbox}[
-    enhanced,
-    title={{\footnotesize\faUserGraduate}~#1},
-    colback=white,
-    colframe=eps-info,
-    coltitle=white,
-    colbacktitle=eps-info,
-    fonttitle=\bfseries\small,
-    boxrule=0.5pt,
-    arc=4pt,
-    left=0pt, right=0pt, top=0pt, bottom=0pt,
-  ]
-    \footnotesize
-    \begin{tabular}{|p{4cm}|c|c|c|c|}
-      \hline
-      \rowcolor{eps-info!10}
-      \textbf{Curso/Formación} & \textbf{Duración} & \textbf{Fecha} & \textbf{Caducidad} & \textbf{Estado} \\
-      \hline
-}{
-    \end{tabular}
-  \end{tcolorbox}
+% Registro de formación estilo booktabs (sin caja)
+% Uso: \begin{trainingrecord}[Formación trabajador X]
+%        \trainingentry{PRL Básico (20h)}{20}{2024-01-15}{2029-01-15}{vigente}
+%      \end{trainingrecord}
+\newenvironment{trainingrecord}[1][Registro de formación]{%
+  \begingroup
+  \small
+  \subsection*{#1}
+  \begin{tabular}{@{}p{5cm}cccp{2.5cm}@{}}
+    \toprule
+    \textbf{Curso/Formación} & \textbf{Duración} & \textbf{Fecha} & \textbf{Caducidad} & \textbf{Estado} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \endgroup
 }
 
 \newcommand{\trainingentry}[5]{%
   #1 & #2 h & #3 & #4 & 
-  \ifstrequal{#5}{vigente}{\textcolor{eps-success}{\faCheck~Vigente}}{}%
-  \ifstrequal{#5}{caducado}{\textcolor{eps-danger}{\faTimes~Caducado}}{}%
-  \ifstrequal{#5}{proximo}{\textcolor{eps-warning}{\faClock~Próximo}}{}%
-  \\ \hline
+  \ifstrequal{#5}{vigente}{\textcolor{eps-success}{\faCheck}~Vigente}{}%
+  \ifstrequal{#5}{caducado}{\textcolor{eps-danger}{\faTimes}~Caducado}{}%
+  \ifstrequal{#5}{proximo}{\textcolor{eps-warning}{\faClock}~Próximo}{}%
+  \\
 }
+
+% Indicadores de estado
+\newcommand{\trainingok}{\textcolor{eps-success}{\faCheck}~Vigente}
+\newcommand{\trainingexpired}{\textcolor{eps-danger}{\faTimes}~Caducado}
+\newcommand{\trainingsoon}{\textcolor{eps-warning}{\faClock}~Próximo}
 
 % ============================================================================
 % MAPA DE RIESGOS
 % ============================================================================
 
-% Caja para mapa de riesgos
-\newtcolorbox{riskmapbox}[1][Mapa de riesgos]{
-  enhanced,
-  title={{\footnotesize\faMapMarkedAlt}~#1},
-  colback=white,
-  colframe=eps-gray!50,
-  coltitle=eps-dark,
-  colbacktitle=eps-light,
-  fonttitle=\bfseries\small,
-  boxrule=0.5pt,
-  arc=4pt,
-  halign=center,
+% Mapa de riesgos (sin caja, centrado)
+% Uso: \begin{riskmapbox}[Mapa de riesgos - Planta baja]
+%        \begin{tikzpicture}...
+%        \riskmarker{3}{4}{5}
+%      \end{riskmapbox}
+\newenvironment{riskmapbox}[1][Mapa de riesgos]{%
+  \begin{center}
+  {\small\bfseries\faMapMarked\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
 }
 
 % Marcador de riesgo en el mapa

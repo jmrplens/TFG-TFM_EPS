@@ -706,14 +706,11 @@ Estos ejemplos muestran cómo se visualizan los glosarios y acrónimos en el doc
 \end{description}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/GLOSARIOS_ACRONIMOS_001.webp)
+<img src="assets/previews/GLOSARIOS_ACRONIMOS_001.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/GLOSARIOS_ACRONIMOS_001.pdf)
-
-</details>
 
 
 ### Ejemplo de lista de acrónimos renderizada
@@ -737,14 +734,11 @@ Estos ejemplos muestran cómo se visualizan los glosarios y acrónimos en el doc
 \end{tabular}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/GLOSARIOS_ACRONIMOS_002.webp)
+<img src="assets/previews/GLOSARIOS_ACRONIMOS_002.webp" alt="Preview" width="317">
 
 [📄 Ver PDF](assets/previews/GLOSARIOS_ACRONIMOS_002.pdf)
-
-</details>
 
 
 ### Ejemplo de lista de símbolos renderizada
@@ -767,14 +761,11 @@ Estos ejemplos muestran cómo se visualizan los glosarios y acrónimos en el doc
 \end{tabular}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/GLOSARIOS_ACRONIMOS_003.webp)
+<img src="assets/previews/GLOSARIOS_ACRONIMOS_003.webp" alt="Preview" width="279">
 
 [📄 Ver PDF](assets/previews/GLOSARIOS_ACRONIMOS_003.pdf)
-
-</details>
 
 
 ### Uso de acrónimos en texto
@@ -798,14 +789,11 @@ han demostrado resultados excepcionales en tareas de
 procesamiento de imágenes usando CNN y GPU.
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/GLOSARIOS_ACRONIMOS_004.webp)
+<img src="assets/previews/GLOSARIOS_ACRONIMOS_004.webp" alt="Preview" width="592">
 
 [📄 Ver PDF](assets/previews/GLOSARIOS_ACRONIMOS_004.pdf)
-
-</details>
 
 
 ---

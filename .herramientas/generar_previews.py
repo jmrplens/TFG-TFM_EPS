@@ -53,6 +53,109 @@ LATEX_ARGS = ["-shell-escape", "-interaction=nonstopmode", "-halt-on-error"]
 
 # Patrones para detectar tipo de contenido
 PATRONES_TIPO = {
+    # Componentes especializados EPS (deben detectarse primero)
+    "component": [
+        # Componentes comunes
+        r"\\begin\{infobox",
+        r"\\begin\{successbox",
+        r"\\begin\{warningbox",
+        r"\\begin\{dangerbox",
+        r"\\begin\{tipbox",
+        r"\\begin\{notebox",
+        r"\\begin\{titlebox",
+        r"\\begin\{definitionbox",
+        r"\\begin\{examplebox",
+        r"\\begin\{importantbox",
+        r"\\begin\{checklist",
+        r"\\begin\{proscons",
+        r"\\begin\{steplist",
+        r"\\begin\{timeline",
+        r"\\begin\{quotebox",
+        r"\\begin\{comparison",
+        r"\\badge",
+        r"\\badgenew",
+        r"\\badgewip",
+        r"\\version\{",
+        r"\\progressbar",
+        r"\\rating\{",
+        r"\\levelbar\{",
+        r"\\personcard",
+        r"\\statcard",
+        r"\\timeitem",
+        r"\\checked",
+        r"\\unchecked",
+        r"\\pro\\b",
+        r"\\con\\b",
+        r"\\step\\b",
+        r"\\comprow",
+        # Componentes de software
+        r"\\begin\{apiendpoint",
+        r"\\begin\{terminal",
+        r"\\begin\{dbtable",
+        r"\\begin\{logbox",
+        r"\\begin\{configbox",
+        r"\\umlclass",
+        r"\\gitbranch",
+        r"\\gittag",
+        r"\\gitcommit",
+        r"\\metricbox",
+        r"\\httpget",
+        r"\\httppost",
+        r"\\prompt\\b",
+        r"\\promptroot",
+        r"\\logentry",
+        r"\\pkicon",
+        r"\\fkicon",
+        r"\\visibility",
+        # Componentes de telecom
+        r"\\begin\{constellation",
+        r"\\begin\{sparameters",
+        r"\\begin\{blockdiagram",
+        r"\\begin\{fsmdiagram",
+        r"\\begin\{protocolframe",
+        r"\\begin\{rfspecs",
+        r"\\begin\{circuitdiagram",
+        r"\\begin\{timingdiagram",
+        # Componentes de arquitectura
+        r"\\begin\{techsheet",
+        r"\\begin\{presupuesto",
+        r"\\begin\{normativa",
+        r"\\begin\{leyenda",
+        r"\\certificacion\{",
+        r"\\certiso\{",
+        r"\\certce\\b",
+        r"\\begin\{cuadrosuperficies",
+        r"\\begin\{organigrama",
+        r"\\etiquetaenergetica",
+        r"\\controlcalidad",
+        # Componentes de química
+        r"\\begin\{reactionbox",
+        r"\\begin\{proptable",
+        r"\\begin\{analyticalresults",
+        r"\\begin\{protocol\\b",
+        r"\\protocolstep",
+        # Componentes de geología
+        r"\\begin\{mineraltable",
+        r"\\begin\{stratcolumn",
+        r"\\begin\{stratigraphybox",
+        r"\\faultline",
+        r"\\anticline",
+        r"\\syncline",
+        # Componentes de prevención
+        r"\\riskmatrix",
+        r"\\begin\{riskassessment",
+        r"\\begin\{safetychecklist",
+        r"\\begin\{epilist",
+        r"\\begin\{emergencyprocedure",
+        r"\\signwarning",
+        r"\\signprohibition",
+        r"\\signmandatory",
+        r"\\signemergency",
+        r"\\signfire",
+        r"\\indicatorIF",
+        r"\\indicatorIG",
+        r"\\indicatorDaysSafe",
+    ],
     "equation": [
         r"\\begin\{equation",
         r"\\begin\{align",
@@ -88,6 +191,7 @@ PATRONES_TIPO = {
         r"\\begin\{pythoncode",
         r"\\begin\{jscode",
         r"\\begin\{cppcode",
+        r"\\begin\{codigo",
         r"\\mintinline",
     ],
     "list": [
@@ -257,9 +361,18 @@ def generar_preambulo(tipo: str) -> str:
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
+\usepackage{bm}         % Negrita en matemáticas
+\usepackage{cancel}     % Tachar términos
 
-% Colores
-\usepackage{xcolor}
+% Colores con nombres extendidos
+\usepackage[dvipsnames, svgnames, x11names]{xcolor}
+
+% Utilidades básicas
+\usepackage{calc}
+\usepackage{xparse}
+\usepackage{etoolbox}
+\usepackage{ifthen}
+\usepackage{xstring}
 
 % Hyperref (desactivado para standalone)
 \usepackage[draft]{hyperref}
@@ -297,28 +410,87 @@ def generar_preambulo(tipo: str) -> str:
 \usepackage{multirow}
 \usepackage{array}
 \usepackage{colortbl}
+\usepackage{makecell}
+\usepackage{threeparttable}
+\usepackage{hhline}
+\usepackage{arydshln}  % Líneas discontinuas
+
+% Unidades SI
+\usepackage{siunitx}
+\sisetup{
+    output-decimal-marker = {,},
+    group-separator = {.},
+    group-minimum-digits = 4,
+}
 
 % Columnas personalizadas
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\newcolumntype{Z}{>{\raggedright\arraybackslash}X}
 """,
         "figure": r"""
 % Gráficas
 \usepackage{tikz}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
-\usepgfplotslibrary{polar, groupplots, fillbetween, statistics}
+\usepgfplotslibrary{polar, groupplots, fillbetween, statistics, patchplots, dateplot}
+\usepackage{pgfplotstable}
 \usepackage{pgf-pie}
+\usepackage{pgfgantt}
 
-% Librerías TikZ
-\usetikzlibrary{arrows.meta, positioning, shapes, calc, patterns, fillbetween}
+% Librerías TikZ completas
+\usetikzlibrary{
+    arrows.meta,
+    positioning,
+    shapes,
+    shapes.geometric,
+    shapes.symbols,
+    shapes.misc,
+    shapes.multipart,
+    calc,
+    patterns,
+    patterns.meta,
+    fillbetween,
+    decorations,
+    decorations.pathreplacing,
+    decorations.pathmorphing,
+    decorations.markings,
+    decorations.text,
+    backgrounds,
+    shadows,
+    shadows.blur,
+    fit,
+    matrix,
+    chains,
+    scopes,
+    intersections,
+    through,
+    fadings,
+    angles,
+    quotes,
+    babel,
+    trees,
+    mindmap,
+    calendar,
+    er,
+    automata,
+    petri,
+    folding,
+    plotmarks,
+    spy,
+    external,
+    3d,
+    perspective,
+}
 
 % Imágenes y subfiguras
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{caption}
 \usepackage{float}
+\usepackage{rotating}
 \usepackage{mwe}  % Para example-image placeholders
 """,
         "listing": r"""
@@ -337,7 +509,7 @@ def generar_preambulo(tipo: str) -> str:
     framesep=2mm,
 }
 
-% Entornos personalizados de la plantilla (simplificados)
+% Entornos personalizados de la plantilla (completos)
 \newtcblisting{pythoncode}[1][]{
     listing engine=minted,
     minted language=python,
@@ -350,6 +522,18 @@ def generar_preambulo(tipo: str) -> str:
     #1
 }
 
+\newtcblisting{pythoncodeNN}[1][]{
+    listing engine=minted,
+    minted language=python,
+    minted style=default,
+    minted options={linenos=false},
+    colback=gray!5,
+    colframe=gray!75!black,
+    listing only,
+    enhanced,
+    #1
+}
+
 \newtcblisting{pythoncodeDark}[1][]{
     listing engine=minted,
     minted language=python,
@@ -358,6 +542,18 @@ def generar_preambulo(tipo: str) -> str:
     colframe=gray!50!black,
     listing only,
     left=5mm,
+    enhanced,
+    #1
+}
+
+\newtcblisting{pythoncodeDarkNN}[1][]{
+    listing engine=minted,
+    minted language=python,
+    minted style=monokai,
+    minted options={linenos=false},
+    colback=gray!90!black,
+    colframe=gray!50!black,
+    listing only,
     enhanced,
     #1
 }
@@ -394,6 +590,29 @@ def generar_preambulo(tipo: str) -> str:
     enhanced,
     #1
 }
+
+\newtcblisting{cppcodeNN}[1][]{
+    listing engine=minted,
+    minted language=cpp,
+    minted options={linenos=false},
+    colback=blue!5,
+    colframe=blue!75!black,
+    listing only,
+    enhanced,
+    #1
+}
+
+% Entorno genérico para cualquier lenguaje
+\newtcblisting{codigo}[2][]{
+    listing engine=minted,
+    minted language=#2,
+    colback=gray!5,
+    colframe=gray!75!black,
+    listing only,
+    left=5mm,
+    enhanced,
+    #1
+}
 """,
         "image": r"""
 % Imágenes
@@ -401,6 +620,16 @@ def generar_preambulo(tipo: str) -> str:
 \usepackage{subcaption}
 \usepackage{wrapfig}
 \usepackage{float}
+\usepackage{rotating}
+\usepackage{adjustbox}
+
+% TikZ para marcos y efectos
+\usepackage{tikz}
+\usetikzlibrary{shadows, shadows.blur, positioning, fit, backgrounds}
+
+% Cajas decorativas
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable}
 
 % Imagen placeholder
 \newcommand{\placeholderimage}[2][]{%
@@ -437,17 +666,51 @@ def generar_preambulo(tipo: str) -> str:
         "list": r"""
 % Listas
 \usepackage{enumitem}
+\usepackage{pifont}   % Para símbolos especiales
+\usepackage{fontawesome5}  % Para iconos
+
+% Definir items especiales
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
 """,
         "text": r"""
 % Texto
 \usepackage{soul}
 \usepackage{ulem}
+\usepackage{microtype}
+\usepackage{lettrine}  % Letras capitales
+\usepackage{fancybox}  % Cajas de texto
+\usepackage{framed}    % Marcos simples
+\usepackage{shadowtext}  % Texto con sombra
+\usepackage{contour}   % Texto con contorno
 """,
         "box": r"""
 % Cajas
 \usepackage{tcolorbox}
-\tcbuselibrary{skins, breakable}
+\tcbuselibrary{skins, breakable, theorems, listings, minted, hooks, fitting}
 \usepackage{mdframed}
+\usepackage{fancybox}
+\usepackage{adjustbox}
+
+% Cajas predefinidas comunes
+\newtcolorbox{infobox}[1][]{
+    colback=blue!5,
+    colframe=blue!75!black,
+    title=#1,
+    fonttitle=\bfseries,
+}
+\newtcolorbox{warningbox}[1][]{
+    colback=yellow!10,
+    colframe=orange!75!black,
+    title=#1,
+    fonttitle=\bfseries,
+}
+\newtcolorbox{dangerbox}[1][]{
+    colback=red!5,
+    colframe=red!75!black,
+    title=#1,
+    fonttitle=\bfseries,
+}
 """,
         "glossary": r"""
 % Glosarios (simplificado para preview)
@@ -456,6 +719,45 @@ def generar_preambulo(tipo: str) -> str:
 \newcommand{\acrshort}[1]{\textsc{#1}}
 \newcommand{\acrlong}[1]{\textit{#1}}
 \newcommand{\acrfull}[1]{\textit{#1}}
+""",
+        "component": r"""
+% =========================================================================
+% COMPONENTES ESPECIALIZADOS EPS UA - TODOS LOS MÓDULOS
+% =========================================================================
+
+% Dependencias comunes
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable, hooks}
+\usepackage{fontawesome5}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xparse}
+\usepackage{etoolbox}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage{xstring}
+\usepackage{siunitx}
+\usepackage{mhchem}
+\usepackage{listings}
+\usepackage{forest}
+\usepackage{eurosym}
+\usepackage{xfp}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{pgfgantt}
+\usepackage[normalem]{ulem}  % Para \sout en normativa derogada (compatible con LuaLaTeX)
+
+% TikZ libraries
+\usetikzlibrary{arrows.meta, positioning, shapes, calc, patterns, backgrounds}
+\usetikzlibrary{shapes.geometric, shapes.symbols, decorations.pathreplacing}
+\usetikzlibrary{matrix, fit, chains, scopes}
+
+% Cargar TODOS los componentes
+\usepackage[all]{eps-componentes}
 """,
     }
 
@@ -621,6 +923,12 @@ def extraer_snippets(archivo: Path) -> list[Snippet]:
 
             # Detectar tipo
             tipo = detectar_tipo(codigo)
+            
+            # minted 3.x requiere 2 pasadas para generar el código resaltado
+            # Si no se especificó explícitamente un número de pasadas y es tipo listing,
+            # usar 2 pasadas automáticamente
+            if pasadas == 1 and tipo == "listing":
+                pasadas = 2
 
             snippet = Snippet(
                 archivo_origen=archivo.name,
@@ -659,6 +967,15 @@ def compilar_snippet(snippet: Snippet, verbose: bool = False) -> bool:
 
         # Compilar
         cmd = [LATEX_ENGINE] + LATEX_ARGS + [tex_file.name]
+        
+        # Configurar entorno - añadir sty/ y sty/componentes/ al TEXINPUTS
+        env = os.environ.copy()
+        sty_path = str(PROYECTO_ROOT / "sty")
+        sty_componentes_path = str(PROYECTO_ROOT / "sty" / "componentes")
+        texinputs = env.get("TEXINPUTS", "")
+        # Añadir ambas rutas al TEXINPUTS
+        nuevos_paths = f"{sty_path}:{sty_componentes_path}"
+        env["TEXINPUTS"] = f"{nuevos_paths}:{texinputs}:" if texinputs else f"{nuevos_paths}:"
 
         try:
             # Compilar el número de pasadas requerido
@@ -668,15 +985,16 @@ def compilar_snippet(snippet: Snippet, verbose: bool = False) -> bool:
                     cwd=tmpdir,
                     capture_output=True,
                     text=True,
-                    timeout=60,
+                    timeout=120,  # Aumentar timeout para componentes complejos
+                    env=env,
                 )
 
                 if result.returncode != 0:
                     if verbose:
                         print(f"    Error de compilación (pasada {pasada + 1}):")
                         # Mostrar últimas líneas relevantes del log
-                        for line in result.stdout.split("\n")[-20:]:
-                            if line.strip() and ("!" in line or "Error" in line):
+                        for line in result.stdout.split("\n")[-30:]:
+                            if line.strip():
                                 print(f"      {line}")
                     return False
 
@@ -895,7 +1213,7 @@ def convertir_a_png(snippet: Snippet, densidad: int = 300) -> bool:
 def procesar_archivos(
     archivos: list[Path],
     forzar: bool = False,
-    generar_png: bool = False,
+    generar_png: bool = True,  # Por defecto True para generar WebP
     verbose: bool = True,
 ) -> dict:
     """Procesa una lista de archivos Markdown con compilación paralela."""
@@ -1145,10 +1463,9 @@ def main():
         help="Forzar regeneración de todos los snippets",
     )
     parser.add_argument(
-        "--png",
-        "-p",
+        "--no-png",
         action="store_true",
-        help="Generar también imágenes PNG",
+        help="No generar imágenes WebP (solo PDFs)",
     )
     parser.add_argument(
         "--listar",
@@ -1191,7 +1508,20 @@ def main():
 
     # Determinar archivos a procesar
     if args.archivo:
-        archivos = [Path(args.archivo)]
+        # Soportar varios formatos: COMPONENTES, COMPONENTES.md, docs/COMPONENTES.md, /ruta/completa.md
+        archivo_input = args.archivo
+        archivo_path = Path(archivo_input)
+        
+        # Si es ruta absoluta, usarla directamente
+        if archivo_path.is_absolute():
+            archivos = [archivo_path]
+        else:
+            # Si es ruta relativa, añadir extensión y prefijo si es necesario
+            if not archivo_input.endswith('.md'):
+                archivo_input = archivo_input + '.md'
+            if not archivo_input.startswith('docs/'):
+                archivo_input = 'docs/' + archivo_input
+            archivos = [PROYECTO_ROOT / archivo_input]
     else:
         archivos = sorted(DOCS_DIR.glob("*.md"))
 
@@ -1218,7 +1548,7 @@ def main():
     stats = procesar_archivos(
         archivos,
         forzar=args.forzar,
-        generar_png=args.png,
+        generar_png=not args.no_png,
         verbose=verbose,
     )
 

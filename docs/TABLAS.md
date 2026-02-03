@@ -52,12 +52,19 @@ La plantilla define estos tipos de columna adicionales:
 
 ### Sintaxis mínima
 
-```latex
+```latex <!-- preview -->
 \begin{tabular}{lcr}
     Izquierda & Centro & Derecha \\
     Texto 1   & Texto 2 & Texto 3 \\
 \end{tabular}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TABLAS_001.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_001.pdf)
+
 
 ### Especificadores de columna básicos
 
@@ -75,7 +82,7 @@ La plantilla define estos tipos de columna adicionales:
 
 ### Tabla básica con entorno table
 
-```latex
+```latex <!-- preview -->
 \begin{table}[htbp]
     \centering
     \begin{tabular}{lcc}
@@ -91,6 +98,13 @@ La plantilla define estos tipos de columna adicionales:
     \label{tab:participantes}
 \end{table}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TABLAS_002.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_002.pdf)
+
 
 ---
 
@@ -128,19 +142,16 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 \end{table}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/TABLAS_001.webp)
+<img src="assets/previews/TABLAS_001.webp" alt="Preview" width="325">
 
 [📄 Ver PDF](assets/previews/TABLAS_001.pdf)
-
-</details>
 
 
 ### Tabla con agrupación
 
-```latex
+```latex <!-- preview -->
 \begin{table}[htbp]
     \centering
     \caption{Comparación de métodos}
@@ -162,6 +173,13 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 \end{table}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TABLAS_002.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_002.pdf)
+
+
 ### Opciones de cmidrule
 
 ```latex
@@ -178,7 +196,7 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 
 ### Columnas con ancho fijo
 
-```latex
+```latex <!-- preview -->
 \begin{table}[htbp]
     \centering
     \begin{tabular}{p{3cm}p{4cm}p{5cm}}
@@ -197,9 +215,16 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 \end{table}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TABLAS_003.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_003.pdf)
+
+
 ### Tipos de columna personalizados de la plantilla
 
-```latex
+```latex <!-- preview -->
 \begin{table}[htbp]
     \centering
     \begin{tabular}{L{3cm}C{3cm}R{3cm}}
@@ -214,6 +239,13 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
     \caption{Columnas con ancho fijo}
 \end{table}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TABLAS_004.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_004.pdf)
+
 
 ### Definir tipos de columna propios
 
@@ -241,7 +273,7 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 
 `tabularx` permite crear tablas que ocupan exactamente un ancho específico, distribuyendo el espacio automáticamente.
 
-```latex
+```latex <!-- preview:2 -->
 \begin{table}[htbp]
     \centering
     \begin{tabularx}{\textwidth}{lXX}
@@ -258,8 +290,15 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
     \end{tabularx}
     \caption{Tabla con ancho de texto completo}
     \label{tab:tabularx}
-\end{table>
+\end{table}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TABLAS_007.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_007.pdf)
+
 
 ### Especificador X
 
@@ -272,7 +311,7 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 
 ### Ejemplo con diferentes alineaciones
 
-```latex
+```latex <!-- preview -->
 \begin{table}[htbp]
     \centering
     \begin{tabularx}{\textwidth}{l>{\centering\arraybackslash}X>{\raggedleft\arraybackslash}X}
@@ -283,10 +322,17 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
         B002 & Otro producto diferente & 29.50€ \\
         C003 & Servicio adicional & 9.99€ \\
         \bottomrule
-    \end{tabularx>
+    \end{tabularx}
     \caption{Catálogo de productos}
 \end{table}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TABLAS_008.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_008.pdf)
+
 
 ### Proporción entre columnas X
 
@@ -309,7 +355,7 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 
 Para tablas que ocupan múltiples páginas:
 
-```latex
+```latex <!-- preview:2 -->
 \begin{longtable}{lccc}
     % Cabecera en la primera página
     \caption{Datos experimentales completos} 
@@ -344,6 +390,13 @@ Para tablas que ocupan múltiples páginas:
 \end{longtable}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TABLAS_009.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_009.pdf)
+
+
 ### Estructura de longtable
 
 | Comando | Uso |
@@ -361,7 +414,7 @@ Para tablas que ocupan múltiples páginas:
 
 ### Filas alternadas
 
-```latex
+```latex <!-- preview -->
 \begin{table}[htbp]
     \centering
     \rowcolors{2}{gray!15}{white}  % Empieza en fila 2, alterna gris/blanco
@@ -381,9 +434,16 @@ Para tablas que ocupan múltiples páginas:
 \end{table}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TABLAS_003.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_003.pdf)
+
+
 ### Color de fila específica
 
-```latex
+```latex <!-- preview -->
 \begin{tabular}{lcc}
     \toprule
     Nombre & Valor & Estado \\
@@ -398,9 +458,16 @@ Para tablas que ocupan múltiples páginas:
 \end{tabular}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TABLAS_011.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_011.pdf)
+
+
 ### Color de columna
 
-```latex
+```latex <!-- preview -->
 \begin{tabular}{l>{\columncolor{blue!10}}c>{\columncolor{green!10}}c}
     \toprule
     Nombre & Columna Azul & Columna Verde \\
@@ -411,9 +478,16 @@ Para tablas que ocupan múltiples páginas:
 \end{tabular}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TABLAS_012.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_012.pdf)
+
+
 ### Color de celda específica
 
-```latex
+```latex <!-- preview -->
 \begin{tabular}{lcc}
     \toprule
     A & B & C \\
@@ -423,6 +497,13 @@ Para tablas que ocupan múltiples páginas:
     \bottomrule
 \end{tabular}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TABLAS_013.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_013.pdf)
+
 
 ### Cabecera con color
 
@@ -442,14 +523,11 @@ Para tablas que ocupan múltiples páginas:
 \end{table}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/TABLAS_002.webp)
+<img src="assets/previews/TABLAS_002.webp" alt="Preview" width="295">
 
 [📄 Ver PDF](assets/previews/TABLAS_002.pdf)
-
-</details>
 
 
 ---
@@ -458,7 +536,7 @@ Para tablas que ocupan múltiples páginas:
 
 ### Combinar columnas (multicolumn)
 
-```latex
+```latex <!-- preview -->
 \begin{table}[htbp]
     \centering
     \begin{tabular}{lccc}
@@ -474,8 +552,15 @@ Para tablas que ocupan múltiples páginas:
         \bottomrule
     \end{tabular}
     \caption{Métricas de evaluación}
-\end{table>
+\end{table}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TABLAS_005.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_005.pdf)
+
 
 ### Sintaxis de multicolumn
 
@@ -490,7 +575,7 @@ Para tablas que ocupan múltiples páginas:
 
 ### Combinar filas (multirow)
 
-```latex
+```latex <!-- preview -->
 \begin{table}[htbp]
     \centering
     \begin{tabular}{clcc}
@@ -508,8 +593,15 @@ Para tablas que ocupan múltiples páginas:
         \bottomrule
     \end{tabular}
     \caption{Datos agrupados}
-\end{table>
+\end{table}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TABLAS_006.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_006.pdf)
+
 
 ### Sintaxis de multirow
 
@@ -547,14 +639,11 @@ Para tablas que ocupan múltiples páginas:
 \end{table}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/TABLAS_003.webp)
+<img src="assets/previews/TABLAS_003.webp" alt="Preview" width="318">
 
 [📄 Ver PDF](assets/previews/TABLAS_003.pdf)
-
-</details>
 
 
 ---
@@ -563,7 +652,7 @@ Para tablas que ocupan múltiples páginas:
 
 ### Tabla con notas al pie
 
-```latex
+```latex <!-- preview:2 -->
 \begin{table}[htbp]
     \centering
     \begin{tabular}{lcc}
@@ -583,12 +672,19 @@ Para tablas que ocupan múltiples páginas:
     
     \caption{Comparación de rendimiento}
     \label{tab:rendimiento}
-\end{table>
+\end{table}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TABLAS_018.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_018.pdf)
+
 
 ### Tabla con unidades en cabecera
 
-```latex
+```latex <!-- preview -->
 \begin{table}[htbp]
     \centering
     \begin{tabular}{lccc}
@@ -602,10 +698,17 @@ Para tablas que ocupan múltiples páginas:
         Aluminio & 2700 & 70 & 2.50 \\
         Titanio & 4500 & 140 & 15.00 \\
         \bottomrule
-    \end{tabular>
+    \end{tabular}
     \caption{Propiedades de materiales}
-\end{table>
+\end{table}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TABLAS_019.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_019.pdf)
+
 
 ### Tabla rotada (sidewaystable)
 
@@ -620,7 +723,7 @@ Para tablas que ocupan múltiples páginas:
         Producto B & 80 & 85 & 90 & 95 & 100 & 105 & 110 & 115 & 120 & 125 \\
         Producto C & 200 & 210 & 220 & 230 & 240 & 250 & 260 & 270 & 280 & 290 \\
         \bottomrule
-    \end{tabular>
+    \end{tabular}
     \caption{Ventas mensuales (tabla rotada)}
     \label{tab:rotada}
 \end{sidewaystable}
@@ -628,7 +731,7 @@ Para tablas que ocupan múltiples páginas:
 
 ### Tabla con columna de totales
 
-```latex
+```latex <!-- preview -->
 \begin{table}[htbp]
     \centering
     \begin{tabular}{lrrr}
@@ -645,9 +748,16 @@ Para tablas que ocupan múltiples páginas:
 \end{table}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TABLAS_020.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_020.pdf)
+
+
 ### Mini-tablas dentro de texto
 
-```latex
+```latex <!-- preview -->
 El resumen de datos es:
 \begin{center}
     \small
@@ -662,6 +772,13 @@ El resumen de datos es:
 \end{center}
 donde observamos que...
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TABLAS_021.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_021.pdf)
+
 
 ---
 
@@ -679,7 +796,7 @@ donde observamos que...
     \begin{tabular}{...}
     ...
     \end{tabular}
-\end{table>
+\end{table}
 
 % 2. Usar tabularx
 \begin{tabularx}{\textwidth}{lXXX}
@@ -694,12 +811,12 @@ donde observamos que...
         ...
         \end{tabular}%
     }
-\end{table>
+\end{table}
 
 % 4. Rotar la tabla
 \begin{sidewaystable}
     ...
-\end{sidewaystable>
+\end{sidewaystable}
 ```
 
 ### Líneas verticales con booktabs
@@ -724,7 +841,7 @@ donde observamos que...
     \begin{tabular}{...}
     ...
     \end{tabular}
-\end{table>
+\end{table}
 ```
 
 ### Alineación decimal
@@ -747,13 +864,13 @@ donde observamos que...
         B & 123.45 \\
         C & 1.234 \\
         \bottomrule
-    \end{tabular>
-\end{table>
+    \end{tabular}
+\end{table}
 ```
 
 ### Texto largo en celda no se ajusta
 
-```latex
+```latex <!-- preview -->
 % Usar columna p, m, o b con ancho
 \begin{tabular}{lp{5cm}c}
     ...
@@ -762,8 +879,15 @@ donde observamos que...
 % O permitir saltos manuales
 \begin{tabular}{lc}
     Item & Texto largo que\\& continúa aquí \\
-\end{tabular>
+\end{tabular}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TABLAS_022.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_022.pdf)
+
 
 ---
 
@@ -771,7 +895,7 @@ donde observamos que...
 
 ### Tabla de especificaciones técnicas
 
-```latex
+```latex <!-- preview:2 -->
 \begin{table}[htbp]
     \centering
     \caption{Especificaciones técnicas del sistema}
@@ -796,9 +920,16 @@ donde observamos que...
 \end{table}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TABLAS_023.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_023.pdf)
+
+
 ### Tabla comparativa
 
-```latex
+```latex <!-- preview:2 -->
 \begin{table}[htbp]
     \centering
     \caption{Comparación de frameworks web}
@@ -817,6 +948,13 @@ donde observamos que...
     \end{tabularx}
 \end{table}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TABLAS_024.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/TABLAS_024.pdf)
+
 
 ---
 

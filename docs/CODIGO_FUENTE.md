@@ -31,11 +31,11 @@ Cada lenguaje tiene dos variantes:
 
 ### Requisitos
 
-El resaltado de sintaxis usa **Pygments**, que requiere Python. Al compilar con `-shell-escape`, minted ejecuta Pygments automáticamente.
+El resaltado de sintaxis usa **minted 3.x** con **latexminted**, que requiere Python. Al compilar con `-shell-escape`, minted ejecuta el resaltado automáticamente.
 
 ```bash
-# Instalar Pygments si no está instalado
-pip install Pygments
+# Instalar latexminted (incluye Pygments automáticamente)
+pip install latexminted
 ```
 
 ---
@@ -141,14 +141,11 @@ for i in range(10):
 \end{pythoncode}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/CODIGO_FUENTE_001.webp)
+<img src="assets/previews/CODIGO_FUENTE_001.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/CODIGO_FUENTE_001.pdf)
-
-</details>
 
 
 ### Con tema oscuro
@@ -166,14 +163,11 @@ def quicksort(arr):
 \end{pythoncodeDark}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/CODIGO_FUENTE_002.webp)
+<img src="assets/previews/CODIGO_FUENTE_002.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/CODIGO_FUENTE_002.pdf)
-
-</details>
 
 
 ### Sin números de línea
@@ -185,14 +179,11 @@ console.log(greeting);
 \end{jscodeNN}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/CODIGO_FUENTE_003.webp)
+<img src="assets/previews/CODIGO_FUENTE_003.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/CODIGO_FUENTE_003.pdf)
-
-</details>
 
 
 ---
@@ -203,7 +194,7 @@ Todos los entornos aceptan opciones opcionales entre corchetes `[...]`. Las opci
 
 ### Título personalizado
 
-```latex
+```latex <!-- preview -->
 \begin{pythoncode}[title={Mi algoritmo de ordenación}]
 def bubble_sort(arr):
     n = len(arr)
@@ -215,9 +206,16 @@ def bubble_sort(arr):
 \end{pythoncode}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_004.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_004.pdf)
+
+
 ### Caption y etiqueta (para índice de códigos)
 
-```latex
+```latex <!-- preview:2 -->
 \begin{pythoncode}[title={Algoritmo de búsqueda binaria}, label={cod:busqueda-binaria}]
 def busqueda_binaria(arr, x):
     izq, der = 0, len(arr) - 1
@@ -232,6 +230,13 @@ def busqueda_binaria(arr, x):
     return -1
 \end{pythoncode}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_005.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_005.pdf)
+
 
 Para referenciar: `Como se muestra en el Código~\ref{cod:busqueda-binaria}...`
 
@@ -356,7 +361,7 @@ def ejemplo():
 
 ### Usando mintinline
 
-```latex
+```latex <!-- preview:2 -->
 La función \mintinline{python}{print("Hola")} muestra texto en pantalla.
 
 En JavaScript usamos \mintinline{javascript}{const x = 10} para declarar constantes.
@@ -364,9 +369,16 @@ En JavaScript usamos \mintinline{javascript}{const x = 10} para declarar constan
 El comando SQL \mintinline{sql}{SELECT * FROM usuarios} obtiene todos los registros.
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_006.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_006.pdf)
+
+
 ### Opciones de mintinline
 
-```latex
+```latex <!-- preview:2 -->
 % Con estilo diferente
 \mintinline[style=colorful]{python}{lambda x: x**2}
 
@@ -377,9 +389,16 @@ El comando SQL \mintinline{sql}{SELECT * FROM usuarios} obtiene todos los regist
 \mintinline[fontsize=\large]{java}{public static void main}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_007.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_007.pdf)
+
+
 ### Crear comando personalizado para inline
 
-```latex
+```latex <!-- preview:2 -->
 % En el preámbulo
 \newcommand{\py}[1]{\mintinline{python}{#1}}
 \newcommand{\js}[1]{\mintinline{javascript}{#1}}
@@ -389,19 +408,21 @@ El comando SQL \mintinline{sql}{SELECT * FROM usuarios} obtiene todos los regist
 La función \py{range(10)} genera números del 0 al 9.
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_008.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_008.pdf)
+
+
 ---
 
 ## Resaltar líneas
 
 ### Resaltado básico
 
-```latex
-\begin{pythoncode}[
-    minted options={
-        highlightlines={2,4-6},
-        highlightcolor=yellow!40
-    }
-]
+```latex <!-- preview:2 -->
+\begin{pythoncode}[minted options={highlightlines={2,4-6}, highlightcolor=yellow!40}]
 def procesar_datos(datos):
     resultado = []  # Esta línea está resaltada
     for item in datos:
@@ -412,26 +433,35 @@ def procesar_datos(datos):
 \end{pythoncode}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_009.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_009.pdf)
+
+
 ### Resaltado con diferentes colores
 
-```latex
+```latex <!-- preview:2 -->
 % Definir colores primero
 \definecolor{resaltado1}{RGB}{255,255,150}
 \definecolor{resaltado2}{RGB}{150,255,150}
 
 % Usar en el código
-\begin{pythoncode}[
-    minted options={
-        highlightlines={3},
-        highlightcolor=resaltado1
-    }
-]
+\begin{pythoncode}[minted options={highlightlines={3}, highlightcolor=resaltado1}]
 def ejemplo():
     paso_1 = inicializar()
-    paso_importante = procesar()  # Resaltado
+    paso_importante = procesar()  % Resaltado
     return paso_importante
 \end{pythoncode}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_010.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_010.pdf)
+
 
 ---
 
@@ -510,7 +540,7 @@ def factorial(n):
 
 ### Error: "You must invoke LaTeX with the -shell-escape flag"
 
-**Causa**: minted necesita ejecutar Pygments externamente.
+**Causa**: minted necesita ejecutar latexminted externamente.
 
 **Solución**: Compila con la opción `-shell-escape`:
 ```bash
@@ -533,20 +563,20 @@ O en VS Code, asegúrate de que el archivo `.vscode/settings.json` tenga:
 ]
 ```
 
-### Error: "Pygments not found"
+### Error: "latexminted not found" o "Pygments not found"
 
-**Causa**: Python o Pygments no están instalados.
+**Causa**: Python o latexminted no están instalados.
 
 **Solución**:
 ```bash
 # Linux/Mac
-pip install Pygments
+pip install latexminted
 
 # Windows
-py -m pip install Pygments
+py -m pip install latexminted
 
 # Verificar instalación
-pygmentize -V
+latexminted --version
 ```
 
 ### Error: "Couldn't find lexer"
@@ -555,8 +585,10 @@ pygmentize -V
 
 **Solución**: Usa uno de los lenguajes soportados. Lista completa:
 ```bash
-pygmentize -L lexers
+python -c "from pygments.lexers import get_all_lexers; print([l[1][0] for l in get_all_lexers()])"
 ```
+
+O consulta la [documentación de Pygments](https://pygments.org/docs/lexers/).
 
 ### El código no se muestra correctamente
 
@@ -610,7 +642,7 @@ def saludar(nombre):
 
 ### Comparación de algoritmos
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
 \centering
 
@@ -646,13 +678,17 @@ def quick_sort(arr):
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_011.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_011.pdf)
+
+
 ### Código con explicaciones
 
-```latex
-\begin{pythoncode}[
-    title={API REST con Flask},
-    minted options={highlightlines={5-8}}
-]
+```latex <!-- preview:2 -->
+\begin{pythoncode}[title={API REST con Flask}, minted options={highlightlines={5-8}}]
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
@@ -677,12 +713,17 @@ Las líneas resaltadas (5-8) muestran el decorador de ruta y la función
 que maneja las peticiones GET al endpoint \mintinline{text}{/api/users}.
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_012.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_012.pdf)
+
+
 ### Pseudocódigo
 
-```latex
-\begin{codigo}[
-    title={Algoritmo de Dijkstra (pseudocódigo)}
-]{text}
+```latex <!-- preview:2 -->
+\begin{codigo}[title={Algoritmo de Dijkstra (pseudocódigo)}]{text}
 DIJKSTRA(G, origen):
     dist[origen] = 0
     PARA cada vértice v en G:
@@ -703,6 +744,13 @@ DIJKSTRA(G, origen):
     DEVOLVER dist[], previo[]
 \end{codigo}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_013.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_013.pdf)
+
 
 ---
 

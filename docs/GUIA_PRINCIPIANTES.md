@@ -136,13 +136,13 @@ Esto sí aparece en el PDF  % Esto también es comentario
 3. **Importante:** Selecciona "Install missing packages on-the-fly: Yes"
 4. Completa la instalación (puede tardar 15-30 minutos)
 
-#### Paso 2: Instalar Python y Pygments (para código fuente con colores)
+#### Paso 2: Instalar Python y latexminted (para código fuente con colores)
 
 1. Descarga [Python](https://www.python.org/downloads/)
 2. **Importante:** Marca ✅ "Add Python to PATH" durante la instalación
 3. Abre PowerShell o CMD y ejecuta:
    ```
-   pip install Pygments
+   pip install latexminted
    ```
 
 #### Paso 3: Instalar un editor (ver sección siguiente)
@@ -155,10 +155,10 @@ Esto sí aparece en el PDF  % Esto también es comentario
 2. Abre el archivo .pkg y sigue las instrucciones
 3. Reinicia el terminal
 
-#### Paso 2: Instalar Pygments
+#### Paso 2: Instalar latexminted
 
 ```bash
-pip3 install Pygments
+pip3 install latexminted
 ```
 
 ### Opción 4: Instalación local en Linux (Ubuntu/Debian)
@@ -171,8 +171,8 @@ sudo apt install texlive-full
 sudo apt install texlive-latex-extra texlive-fonts-extra \
                  texlive-luatex texlive-bibtex-extra biber
 
-# Pygments para código con colores
-pip3 install Pygments
+# latexminted para código con colores (minted 3.x)
+pip3 install latexminted
 ```
 
 ---
@@ -445,8 +445,8 @@ Según García \cite{garcia2024}, el resultado es...
 ### El código no tiene colores
 
 **Solución:**
-- Instala Pygments: `pip install Pygments`
-- Verifica con: `pygmentize -V`
+- Instala latexminted: `pip install latexminted`
+- Verifica con: `latexminted --version`
 
 ### Compilación muy lenta
 

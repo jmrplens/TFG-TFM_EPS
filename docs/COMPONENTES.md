@@ -1,3 +1,4 @@
+
 # Componentes Especializados para TFG/TFM
 
 Este sistema proporciona componentes visuales especializados para diferentes disciplinas académicas de la EPS UA.
@@ -23,7 +24,7 @@ El paquete se carga de forma modular para minimizar el tiempo de compilación:
 % Múltiples módulos
 \usepackage[software,telecom]{eps-componentes}
 
-% Todos los componentes
+% Todos los componentes (más lento)
 \usepackage[all]{eps-componentes}
 ```
 
@@ -31,185 +32,343 @@ El paquete se carga de forma modular para minimizar el tiempo de compilación:
 
 ## Componentes Comunes (`eps-comunes.sty`)
 
-Se cargan siempre automáticamente.
+Se cargan siempre automáticamente con cualquier opción.
 
 ### Cajas de información
 
-<!-- preview:start -->
-```latex
+#### `infobox` - Información general
+
+```latex <!-- preview infobox -->
 \begin{infobox}
-  Información general o nota importante.
+  Esta es una caja de información general para notas importantes.
 \end{infobox}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
-\begin{warningbox}
-  Advertencia que requiere atención.
-\end{warningbox}
-```
-<!-- preview:end -->
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\begin{dangerbox}
-  Peligro o error crítico.
-\end{dangerbox}
-```
-<!-- preview:end -->
+<img src="assets/previews/infobox.webp" alt="Preview" width="600">
 
-<!-- preview:start -->
-```latex
+[📄 Ver PDF](assets/previews/infobox.pdf)
+
+
+---
+
+#### `successbox` - Éxito/Correcto
+
+```latex <!-- preview successbox -->
 \begin{successbox}
-  Operación exitosa o buena práctica.
+  Operación completada correctamente. Buena práctica recomendada.
 \end{successbox}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
+**Resultado:**
+
+<img src="assets/previews/successbox.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/successbox.pdf)
+
+
+---
+
+#### `warningbox` - Advertencia
+
+```latex <!-- preview warningbox -->
+\begin{warningbox}
+  Advertencia: este proceso requiere atención especial.
+\end{warningbox}
+```
+
+**Resultado:**
+
+<img src="assets/previews/warningbox.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/warningbox.pdf)
+
+
+---
+
+#### `dangerbox` - Peligro/Error
+
+```latex <!-- preview dangerbox -->
+\begin{dangerbox}
+  ¡Peligro! Error crítico que debe evitarse.
+\end{dangerbox}
+```
+
+**Resultado:**
+
+<img src="assets/previews/dangerbox.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/dangerbox.pdf)
+
+
+---
+
+#### `tipbox` - Consejo
+
+```latex <!-- preview tipbox -->
 \begin{tipbox}
-  Consejo o sugerencia útil.
+  Consejo: usa atajos de teclado para mayor productividad.
 \end{tipbox}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
+**Resultado:**
+
+<img src="assets/previews/tipbox.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/tipbox.pdf)
+
+
+---
+
+#### `notebox` - Nota
+
+```latex <!-- preview notebox -->
 \begin{notebox}
-  Nota o comentario secundario.
+  Nota adicional o comentario secundario.
 \end{notebox}
 ```
-<!-- preview:end -->
+
+**Resultado:**
+
+<img src="assets/previews/notebox.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/notebox.pdf)
+
+
+---
 
 ### Cajas con título
 
-<!-- preview:start -->
-```latex
-\begin{titlebox}{Mi Título}
+#### `titlebox` - Caja con título personalizado
+
+```latex <!-- preview titlebox -->
+\begin{titlebox}{Título Personalizado}
   Contenido de la caja con título personalizado.
 \end{titlebox}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
+**Resultado:**
+
+<img src="assets/previews/titlebox.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/titlebox.pdf)
+
+
+---
+
+#### `definitionbox` - Definición
+
+```latex <!-- preview definitionbox -->
 \begin{definitionbox}{Algoritmo}
   Conjunto ordenado y finito de operaciones que permite hallar la solución de un problema.
 \end{definitionbox}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
+**Resultado:**
+
+<img src="assets/previews/definitionbox.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/definitionbox.pdf)
+
+
+---
+
+#### `examplebox` - Ejemplo
+
+```latex <!-- preview examplebox -->
 \begin{examplebox}[Ejemplo de uso]
-  Contenido del ejemplo práctico.
+  Aquí se muestra un caso práctico de aplicación.
 \end{examplebox}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
+**Resultado:**
+
+<img src="assets/previews/examplebox.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/examplebox.pdf)
+
+
+---
+
+#### `importantbox` - Importante
+
+```latex <!-- preview importantbox -->
 \begin{importantbox}
-  Este contenido es especialmente importante.
+  Este contenido es especialmente importante y no debe pasarse por alto.
 \end{importantbox}
 ```
-<!-- preview:end -->
+
+**Resultado:**
+
+<img src="assets/previews/importantbox.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/importantbox.pdf)
+
+
+---
 
 ### Listas especiales
 
-<!-- preview:start -->
-```latex
+#### `checklist` - Lista de verificación
+
+```latex <!-- preview checklist -->
 \begin{checklist}
   \item[\checked] Tarea completada
   \item[\partialchecked] Tarea parcialmente completada
   \item[\unchecked] Tarea pendiente
 \end{checklist}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
+**Resultado:**
+
+<img src="assets/previews/checklist.webp" alt="Preview" width="231">
+
+[📄 Ver PDF](assets/previews/checklist.pdf)
+
+
+---
+
+#### `proscons` - Pros y contras
+
+```latex <!-- preview proscons -->
 \begin{proscons}
-  \pro Ventaja del sistema
-  \pro Otra ventaja importante
-  \con Desventaja menor
-  \con Otra desventaja
+  \pro Fácil de implementar
+  \pro Bien documentado
+  \con Curva de aprendizaje inicial
+  \con Requiere configuración
 \end{proscons}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
+**Resultado:**
+
+<img src="assets/previews/proscons.webp" alt="Preview" width="211">
+
+[📄 Ver PDF](assets/previews/proscons.pdf)
+
+
+---
+
+#### `steplist` - Lista de pasos
+
+```latex <!-- preview steplist -->
 \begin{steplist}
-  \step Primer paso del proceso
-  \step Segundo paso
-  \step Tercer y último paso
+  \step Descargar el código fuente
+  \step Instalar dependencias
+  \step Configurar variables
+  \step Ejecutar el script
 \end{steplist}
 ```
-<!-- preview:end -->
+
+**Resultado:**
+
+<img src="assets/previews/steplist.webp" alt="Preview" width="208">
+
+[📄 Ver PDF](assets/previews/steplist.pdf)
+
+
+---
 
 ### Badges e indicadores
 
-<!-- preview:start -->
-```latex
+#### `\badge` - Etiquetas
+
+```latex <!-- preview badges -->
 \badge{Estable} \quad
 \badge[eps-success]{Completado} \quad
 \badge[eps-warning]{En revisión} \quad
 \badge[eps-danger]{Crítico}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
-\badgenew \quad \badgewip \quad \badgedeprecated \quad \badgebeta \quad \badgerequired \quad \badgeoptional
+**Resultado:**
+
+<img src="assets/previews/badges.webp" alt="Preview" width="340">
+
+[📄 Ver PDF](assets/previews/badges.pdf)
+
+
+---
+
+#### Badges predefinidos
+
+```latex <!-- preview badges_predefinidos -->
+\badgenew \quad \badgewip \quad \badgedeprecated \quad \badgebeta
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
+**Resultado:**
+
+<img src="assets/previews/badges_predefinidos.webp" alt="Preview" width="364">
+
+[📄 Ver PDF](assets/previews/badges_predefinidos.pdf)
+
+
+---
+
+#### `\version` - Versiones
+
+```latex <!-- preview version -->
 \version{1.0.0} \quad \version{2.1.0} \quad \version{3.0.0-beta}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
-Progreso: \progressbar{25} \quad \progressbar{50} \quad \progressbar{75} \quad \progressbar{100}
+**Resultado:**
+
+<img src="assets/previews/version.webp" alt="Preview" width="226">
+
+[📄 Ver PDF](assets/previews/version.pdf)
+
+
+---
+
+#### `\progressbar` - Barra de progreso
+
+```latex <!-- preview progressbar -->
+Progreso: \progressbar{25} \quad \progressbar{50} \quad \progressbar{75}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
+**Resultado:**
+
+<img src="assets/previews/progressbar.webp" alt="Preview" width="568">
+
+[📄 Ver PDF](assets/previews/progressbar.pdf)
+
+
+---
+
+#### `\rating` - Estrellas
+
+```latex <!-- preview rating -->
 Rating: \rating{3}{5} \quad \rating{4}{5} \quad \rating{5}{5}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
+**Resultado:**
+
+<img src="assets/previews/rating.webp" alt="Preview" width="337">
+
+[📄 Ver PDF](assets/previews/rating.pdf)
+
+
+---
+
+#### `\levelbar` - Nivel
+
+```latex <!-- preview levelbar -->
 Nivel: \levelbar{2}{5} \quad \levelbar{4}{5} \quad \levelbar{5}{5}
 ```
-<!-- preview:end -->
 
-### Tarjetas de información
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\personcard{Juan García}{Desarrollador Senior}{Especialista en arquitectura de software con 10 años de experiencia.}
-```
-<!-- preview:end -->
+<img src="assets/previews/levelbar.webp" alt="Preview" width="318">
 
-<!-- preview:start -->
-```latex
-\statcard{1,234}{Usuarios}{\faUsers}{eps-primary}
-\statcard{98.5\%}{Uptime}{\faChartLine}{eps-success}
-```
-<!-- preview:end -->
+[📄 Ver PDF](assets/previews/levelbar.pdf)
+
+
+---
 
 ### Timeline
 
-<!-- preview:start -->
-```latex
+#### `timeline` - Línea temporal
+
+```latex <!-- preview timeline -->
 \begin{timeline}
   \timeitem{Ene 2024}{Inicio del proyecto}
   \timeitem{Mar 2024}{Diseño de arquitectura}
@@ -217,29 +376,81 @@ Nivel: \levelbar{2}{5} \quad \levelbar{4}{5} \quad \levelbar{5}{5}
   \timeitem{Dic 2024}{Entrega final}
 \end{timeline}
 ```
-<!-- preview:end -->
 
-### Comparativas
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\begin{comparison}{Opción A}{Opción B}
-  \comprow{Rendimiento}{Alto}{Medio}
-  \comprow{Facilidad de uso}{Media}{Alta}
-  \comprow{Coste}{Bajo}{Medio}
-\end{comparison}
-```
-<!-- preview:end -->
+<img src="assets/previews/timeline.webp" alt="Preview" width="270">
 
-### Citas destacadas
+[📄 Ver PDF](assets/previews/timeline.pdf)
 
-<!-- preview:start -->
-```latex
+
+---
+
+### Otros componentes comunes
+
+#### `quotebox` - Cita destacada
+
+```latex <!-- preview quotebox -->
 \begin{quotebox}[Albert Einstein]
   La imaginación es más importante que el conocimiento.
 \end{quotebox}
 ```
-<!-- preview:end -->
+
+**Resultado:**
+
+<img src="assets/previews/quotebox.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/quotebox.pdf)
+
+
+---
+
+#### `comparison` - Tabla comparativa
+
+```latex <!-- preview comparison -->
+\begin{comparison}{Opción A}{Opción B}
+  \comprow{Velocidad}{Rápido}{Moderado}
+  \comprow{Memoria}{Alta}{Baja}
+  \comprow{Costo}{Bajo}{\$\$\$}
+\end{comparison}
+```
+
+**Resultado:**
+
+<img src="assets/previews/comparison.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/comparison.pdf)
+
+
+---
+
+#### `\personcard` - Tarjeta de persona
+
+```latex <!-- preview personcard -->
+\personcard{Dr. García}{Director}{Experto en IA con 15 años de experiencia}
+```
+
+**Resultado:**
+
+<img src="assets/previews/personcard.webp" alt="Preview" width="284">
+
+[📄 Ver PDF](assets/previews/personcard.pdf)
+
+
+---
+
+#### `\statcard` - Tarjeta de estadística
+
+```latex <!-- preview statcard -->
+\statcard{1.5M}{Usuarios}{\faUsers}{eps-primary}
+```
+
+**Resultado:**
+
+<img src="assets/previews/statcard.webp" alt="Preview" width="200">
+
+[📄 Ver PDF](assets/previews/statcard.pdf)
+
 
 ---
 
@@ -249,145 +460,213 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 
 ### API REST Endpoints
 
-<!-- preview:start -->
-```latex
-\begin{apiendpoint}{GET}{/api/users}
-  Obtiene la lista de usuarios.
-  
-  \apiresponse{200}{
-    "users": [{"id": 1, "name": "Juan"}],
-    "total": 150
-  }
-  
-  \apiresponse{401}{
-    "error": "No autorizado"
-  }
+#### `apiendpoint` - Endpoint GET
+
+```latex <!-- preview apiendpoint_get -->
+\begin{apiendpoint}{GET}{/api/users/:id}
+  \apidescription{Obtiene un usuario por su ID único del sistema.}
+  \apiresponse{200}{\{"id": 123, "name": "Juan García"\}}
 \end{apiendpoint}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
+**Resultado:**
+
+<img src="assets/previews/apiendpoint_get.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/apiendpoint_get.pdf)
+
+
+---
+
+#### `apiendpoint` - Endpoint POST
+
+```latex <!-- preview apiendpoint_post -->
 \begin{apiendpoint}{POST}{/api/users}
-  Crea un nuevo usuario.
-  
-  \apibody{application/json}{
-    "name": "María",
-    "email": "maria@email.com"
-  }
-  
-  \apiresponse{201}{
-    "id": 3,
-    "message": "Usuario creado"
-  }
+  \apidescription{Crea un nuevo usuario en el sistema.}
+  \apiresponse{201}{\{"id": 124, "message": "Usuario creado"\}}
 \end{apiendpoint}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
-Métodos HTTP: \httpget \quad \httppost \quad \httpput \quad \httppatch \quad \httpdelete
+**Resultado:**
+
+<img src="assets/previews/apiendpoint_post.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/apiendpoint_post.pdf)
+
+
+---
+
+#### Métodos HTTP
+
+```latex <!-- preview http_methods -->
+\httpget \quad \httppost \quad \httpput \quad \httppatch \quad \httpdelete
 ```
-<!-- preview:end -->
 
-### Terminal/Consola
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\begin{terminal}[Mi servidor]
-  \prompt npm install
-  \prompt npm run build
-  \promptroot systemctl restart nginx
+<img src="assets/previews/http_methods.webp" alt="Preview" width="355">
+
+[📄 Ver PDF](assets/previews/http_methods.pdf)
+
+
+---
+
+### Terminal / CLI
+
+#### `terminal` - Bloque de terminal
+
+```latex <!-- preview terminal -->
+\begin{terminal}[Instalación]
+\prompt npm install express\\
+\prompt npm run build\\
+\promptroot systemctl restart nginx
 \end{terminal}
 ```
-<!-- preview:end -->
 
-### Diagramas UML
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\begin{umlclass}{Usuario}
+<img src="assets/previews/terminal.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/terminal.pdf)
+
+
+---
+
+### Base de datos
+
+#### `dbtable` - Tabla de base de datos
+
+```latex <!-- preview dbtable -->
+\dbtable{usuarios}{
+  \pkicon~id & INT & PK, AUTO\_INCREMENT \\
+  nombre & VARCHAR(100) & NOT NULL \\
+  email & VARCHAR(255) & UNIQUE \\
+  \fkicon~rol\_id & INT & FK $\rightarrow$ roles.id \\
+}
+```
+
+**Resultado:**
+
+<img src="assets/previews/dbtable.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/dbtable.pdf)
+
+
+---
+
+### UML
+
+#### `umlclass` - Clase UML
+
+```latex <!-- preview umlclass -->
+\umlclass{Usuario}{%
   \visibility{-} id: int \\
-  \visibility{-} nombre: string \\
+  \visibility{-} nombre: string%
+}{%
   \visibility{+} getNombre(): string \\
-  \visibility{+} setNombre(n: string): void
-\end{umlclass}
+  \visibility{+} setEmail(e: string): void%
+}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
-\begin{umlinterface}{IAutenticable}
-  \visibility{+} login(user: string, pass: string): boolean \\
-  \visibility{+} logout(): void \\
-  \visibility{+} isAuthenticated(): boolean
-\end{umlinterface}
-```
-<!-- preview:end -->
+**Resultado:**
 
-### Tablas de requisitos
+<img src="assets/previews/umlclass.webp" alt="Preview" width="218">
 
-<!-- preview:start -->
-```latex
-\begin{requirements}
-  \reqrow{RF-001}{El sistema debe permitir registro}{Alta}{\statusdone}
-  \reqrow{RF-002}{Los usuarios pueden modificar perfil}{Media}{\statusprogress}
-  \reqrow{RF-003}{Implementar cache}{Baja}{\statustodo}
-\end{requirements}
-```
-<!-- preview:end -->
+[📄 Ver PDF](assets/previews/umlclass.pdf)
 
-### Esquemas de base de datos
 
-<!-- preview:start -->
-```latex
-\begin{dbtable}{usuarios}
-  \pkicon & id & INT & NOT NULL \\
-  & nombre & VARCHAR(100) & NOT NULL \\
-  \fkicon & rol\_id & INT & FK $\rightarrow$ roles.id \\
-\end{dbtable}
-```
-<!-- preview:end -->
+---
 
 ### Git y control de versiones
 
-<!-- preview:start -->
-```latex
-\gitcommit{abc1234}{Añadir función de login}
-\gitcommit{def5678}{Corregir error de validación}
-```
-<!-- preview:end -->
+#### Branches y Tags
 
-<!-- preview:start -->
-```latex
+```latex <!-- preview git_branches -->
 \gitbranch{main} \quad \gitbranch{develop} \quad \gitbranch{feature/login}
-```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
+\vspace{0.5em}
+
 \gittag{v1.0.0} \quad \gittag{v2.0.0} \quad \gittag{v2.1.0-beta}
 ```
-<!-- preview:end -->
 
-### Logs y métricas
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\begin{logbox}[Logs del servidor]
-  \logentry{INFO}{2024-01-15 10:30:00}{Servidor iniciado}
-  \logentry{WARN}{2024-01-15 10:35:22}{Intento de acceso sin autenticación}
-  \logentry{ERROR}{2024-01-15 11:02:45}{Timeout en consulta}
+<img src="assets/previews/git_branches.webp" alt="Preview" width="278">
+
+[📄 Ver PDF](assets/previews/git_branches.pdf)
+
+
+---
+
+#### `gitcommit` - Commit de Git
+
+```latex <!-- preview gitcommit -->
+\gitcommit{a1b2c3d}{feat: implementar autenticación JWT}{María López}{2024-06-15}
+```
+
+**Resultado:**
+
+<img src="assets/previews/gitcommit.webp" alt="Preview" width="316">
+
+[📄 Ver PDF](assets/previews/gitcommit.pdf)
+
+
+---
+
+### Logs y configuración
+
+#### `logbox` - Caja de logs
+
+```latex <!-- preview logbox -->
+\begin{logbox}[Application Logs]
+\logentry{INFO}{2024-06-15 10:30:45}{Servidor iniciado en puerto 3000}
+\logentry{WARN}{2024-06-15 10:31:02}{Cache miss para usuario 123}
+\logentry{ERROR}{2024-06-15 10:32:15}{Timeout en servicio externo}
 \end{logbox}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
-\metricbox{Tiempo de respuesta}{45}{ms}{eps-success}
-\metricbox{Uso de CPU}{78}{\%}{eps-warning}
+**Resultado:**
+
+<img src="assets/previews/logbox.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/logbox.pdf)
+
+
+---
+
+#### `configbox` - Variables de configuración
+
+```latex <!-- preview configbox -->
+\begin{configbox}
+DATABASE\_URL="postgresql://localhost/mydb"\\
+SECRET\_KEY="super-secret-key-123"\\
+DEBUG=true
+\end{configbox}
 ```
-<!-- preview:end -->
+
+**Resultado:**
+
+<img src="assets/previews/configbox.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/configbox.pdf)
+
+
+---
+
+### Métricas
+
+#### `metricbox` - Tarjeta de métrica
+
+```latex <!-- preview metricbox -->
+\metricbox{Tiempo de respuesta}{45ms}{-12\%}{\faArrowDown}
+```
+
+**Resultado:**
+
+<img src="assets/previews/metricbox.webp" alt="Preview" width="200">
+
+[📄 Ver PDF](assets/previews/metricbox.pdf)
+
 
 ---
 
@@ -395,98 +674,162 @@ Métodos HTTP: \httpget \quad \httppost \quad \httpput \quad \httppatch \quad \h
 
 Cargar con: `\usepackage[telecom]{eps-componentes}`
 
-### Carta de Smith
+### Constelaciones de modulación
 
-<!-- preview:start -->
-```latex
-\begin{smithchartbox}[Adaptación de impedancias]
-  \begin{tikzpicture}[scale=0.8]
-    \begin{smithchartenv}
-      \smithpoint{0.5}{0.3}{$Z_L$}
-      \smithpoint{0}{0}{$Z_0$}
-    \end{smithchartenv}
-  \end{tikzpicture}
-\end{smithchartbox}
+#### `constellation` - Diagrama de constelación
+
+```latex <!-- preview constellation -->
+\begin{constellation}[title={Constelación QPSK}]
+  \constpoint{1}{1}{00}
+  \constpoint{-1}{1}{01}
+  \constpoint{-1}{-1}{11}
+  \constpoint{1}{-1}{10}
+\end{constellation}
 ```
-<!-- preview:end -->
 
-### Diagrama de constelación
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\begin{tikzpicture}
-  \begin{constellation}
-    \qpsk  % Dibuja los 4 puntos de QPSK
-  \end{constellation}
-\end{tikzpicture}
-```
-<!-- preview:end -->
+<img src="assets/previews/constellation.webp" alt="Preview" width="293">
 
-### Máquinas de estados finitos
+[📄 Ver PDF](assets/previews/constellation.pdf)
 
-<!-- preview:start -->
-```latex
-\begin{tikzpicture}[node distance=2.5cm]
-  \node[fsmstate, initial] (s0) {$S_0$};
-  \node[fsmstate, right of=s0] (s1) {$S_1$};
-  \node[fsmstate, accepting, right of=s1] (s2) {$S_2$};
-  
-  \path[fsmtransition]
-    (s0) edge[bend left] node[above] {a/0} (s1)
-    (s1) edge[bend left] node[below] {b/1} (s0)
-    (s1) edge node[above] {a/1} (s2);
-\end{tikzpicture}
-```
-<!-- preview:end -->
 
-### Tramas de protocolo
-
-<!-- preview:start -->
-```latex
-\begin{protocolframe}[Trama Ethernet]
-  \framefield{6}{Destino}
-  \framefield{6}{Origen}
-  \framefield{2}{Tipo}
-  \framefield{46-1500}{Datos}
-  \framefield{4}{FCS}
-\end{protocolframe}
-```
-<!-- preview:end -->
+---
 
 ### Parámetros S
 
-<!-- preview:start -->
-```latex
-\begin{sparameters}
-  \sparam{S_{11}}{-15.2}{dB}{Pérdidas de retorno}
-  \sparam{S_{21}}{-0.3}{dB}{Pérdidas de inserción}
-  \sparam{S_{12}}{-45.2}{dB}{Aislamiento inverso}
+#### `sparameters` - Tabla de parámetros S
+
+Tabla estilo booktabs con indicadores de conformidad.
+
+```latex <!-- preview sparameters -->
+\begin{sparameters}[Amplificador LNA - 2.4 GHz]
+  \sparam{2.40 GHz}{-18.5}{22.3}{-35.2}{-15.8}
+  \sparam{2.44 GHz}{-17.2}{21.8}{-33.5}{-14.9}
+  \sparam{2.48 GHz}{-16.8}{21.2}{-32.1}{-14.2}
 \end{sparameters}
-```
-<!-- preview:end -->
 
-### Diagramas de temporización
-
-<!-- preview:start -->
-```latex
-\begin{tikzpicture}
-  \draw (0,2) node[left] {CLK};
-  \timingclock{0}{2}{8}
-  
-  \draw (0,1) node[left] {DATA};
-  \timinglow{0}{1}{1}
-  \timinghigh{1}{1}{2}
-  \timinglow{3}{1}{1}
-  \timinghigh{4}{1}{3}
-  \timinglow{7}{1}{1}
-  
-  \draw (0,0) node[left] {EN};
-  \timinglow{0}{0}{2}
-  \timinghigh{2}{0}{5}
-  \timinglow{7}{0}{1}
-\end{tikzpicture}
+\textbf{Especificaciones:} S$_{11}$ < -15 dB \sparamok \quad S$_{21}$ > 20 dB \sparamok
 ```
-<!-- preview:end -->
+
+**Resultado:**
+
+<img src="assets/previews/sparameters.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/sparameters.pdf)
+
+
+---
+
+### Diagramas de bloques
+
+#### `blockdiagram` - Diagrama de bloques de sistema
+
+```latex <!-- preview blockdiagram -->
+\begin{blockdiagram}
+  \sysblock{ant}{0,0}{Antena}
+  \sysblock{lna}{3,0}{LNA}
+  \sysblock{mix}{6,0}{Mixer}
+  \sysblock{fil}{9,0}{Filtro}
+  \sysarrow{ant}{lna}
+  \sysarrow{lna}{mix}
+  \sysarrow{mix}{fil}
+\end{blockdiagram}
+```
+
+**Resultado:**
+
+<img src="assets/previews/blockdiagram.webp" alt="Preview" width="447">
+
+[📄 Ver PDF](assets/previews/blockdiagram.pdf)
+
+
+---
+
+### Máquinas de estados
+
+#### `fsmdiagram` - Diagrama FSM
+
+```latex <!-- preview fsmdiagram -->
+\begin{fsmdiagram}
+  \fsmstate{s0}{0,0}{IDLE}{initial}
+  \fsmstate{s1}{3,0}{TX}{}
+  \fsmstate{s2}{3,-2}{RX}{}
+  \fsmtrans{s0}{s1}{start}
+  \fsmtrans{s1}{s2}{ack}
+  \fsmtrans{s2}{s0}{done}
+\end{fsmdiagram}
+```
+
+**Resultado:**
+
+<img src="assets/previews/fsmdiagram.webp" alt="Preview" width="200">
+
+[📄 Ver PDF](assets/previews/fsmdiagram.pdf)
+
+
+---
+
+### Tramas de protocolo
+
+#### `protocolframe` - Trama de protocolo estilo bytefield
+
+Diagrama de trama con regla de bits, soporte para múltiples filas y campos de longitud variable.
+
+```latex <!-- preview protocolframe -->
+\begin{protocolframe}[32]{Trama TCP/IP}
+  \framefield{4}{Ver}
+  \framefield{4}{IHL}
+  \framefield{8}{ToS}
+  \framefield{16}{Longitud total}
+  \framebreak
+  \framefield{16}{Identificación}
+  \framefield{3}{Flags}
+  \framefield{13}{Fragment Offset}
+  \framebreak
+  \framefield{8}{TTL}
+  \framefieldhighlight{8}{Protocolo}
+  \framefield{16}{Checksum cabecera}
+  \framebreak
+  \framefield{32}{Dirección IP origen}
+  \framebreak
+  \framefield{32}{Dirección IP destino}
+  \framebreak
+  \framefieldvar{Opciones + Padding}
+\end{protocolframe}
+```
+
+**Resultado:**
+
+<img src="assets/previews/protocolframe.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/protocolframe.pdf)
+
+
+---
+
+### Especificaciones RF
+
+#### `rfspecs` - Tabla de especificaciones RF
+
+Tabla de especificaciones estilo datasheet con soporte para rangos y valores min/typ/max.
+
+```latex <!-- preview rfspecs -->
+\begin{rfspecs}[Transceptor WiFi 802.11ac]
+  \rfspec{Frecuencia central}{5.8}{GHz}{Canal 36}
+  \rfspecrange{Rango de frecuencia}{5.15}{5.85}{GHz}{}
+  \rfspecfull{Potencia de salida}{18}{20}{22}{dBm}{HT80}
+  \rfspec{Sensibilidad RX}{-90}{dBm}{MCS0}
+  \rfspec{Figura de ruido}{4.5}{dB}{Típico}
+\end{rfspecs}
+```
+
+**Resultado:**
+
+<img src="assets/previews/rfspecs.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/rfspecs.pdf)
+
 
 ---
 
@@ -494,102 +837,156 @@ Cargar con: `\usepackage[telecom]{eps-componentes}`
 
 Cargar con: `\usepackage[arquitectura]{eps-componentes}`
 
-### Diagramas de Gantt
+### Fichas técnicas
 
-<!-- preview:start -->
-```latex
-\begin{ganttbox}[Planificación de obra]
-  \begin{ganttchart}[gantt eps style]{1}{12}
-    \gantttitle{2024}{12} \\
-    \gantttitlelist{1,...,12}{1} \\
-    \ganttbar{Cimentación}{1}{3} \\
-    \ganttbar[bar/.append style={fill=eps-danger}]{Estructura}{3}{6} \\
-    \ganttbar{Cerramientos}{5}{9} \\
-    \ganttlink{elem0}{elem1}
-    \ganttlink{elem1}{elem2}
-  \end{ganttchart}
-\end{ganttbox}
-```
-<!-- preview:end -->
+#### `techsheet` - Ficha técnica de material
 
-### Fichas técnicas de materiales
+Tabla de propiedades estilo booktabs con soporte para secciones.
 
-<!-- preview:start -->
-```latex
+```latex <!-- preview techsheet -->
 \begin{techsheet}{Hormigón HA-25}
   \techprop{Resistencia característica}{25 MPa}
-  \techprop{Consistencia}{Blanda (6-9 cm)}
   \techprop{Tamaño máximo árido}{20 mm}
-  \techprop{Ambiente de exposición}{IIa}
+  \techprop{Consistencia}{Blanda (6-9 cm)}
+  \techsection{Propiedades físicas}
+  \techprop{Densidad}{2400 kg/m³}
+  \techprop{Módulo de elasticidad}{27000 MPa}
 \end{techsheet}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
-\materialcard{Acero B500S}{
-  \techprop{Límite elástico}{500 MPa}
-  \techprop{Resistencia tracción}{550 MPa}
-}
-```
-<!-- preview:end -->
+**Resultado:**
+
+<img src="assets/previews/techsheet.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/techsheet.pdf)
+
+
+---
 
 ### Presupuestos
 
-<!-- preview:start -->
-```latex
-\begin{presupuesto}
-  \partida{1}{Movimiento de tierras}{}{15000.00}
-  \partida{1.1}{Excavación en zanjas}{120 m³}{3600.00}
-  \partida{1.2}{Transporte a vertedero}{80 m³}{1200.00}
-  \partida{2}{Cimentación}{}{45000.00}
-  \totalpresupuesto{60000.00}
+#### `presupuesto` - Tabla de presupuesto profesional
+
+Tabla de presupuesto estilo booktabs con soporte para capítulos, partidas, subtotales e IVA.
+
+```latex <!-- preview presupuesto -->
+\begin{presupuesto}[Presupuesto de ejecución material]
+  \capitulo{1}{Movimiento de tierras}
+  \partida{01.01}{Excavación en zanja}{m³}{150}{25.00}
+  \partida{01.02}{Transporte a vertedero}{m³}{150}{8.50}
+  \subtotal{5025.00}
+  \capitulo{2}{Cimentación}
+  \partida{02.01}{Hormigón HA-25}{m³}{80}{95.00}
+  \partida{02.02}{Acero B500S}{kg}{1200}{1.25}
+  \subtotal{9100.00}
+  \totalconiva{14125.00}{17091.25}
 \end{presupuesto}
 ```
-<!-- preview:end -->
+
+**Resultado:**
+
+<img src="assets/previews/presupuesto.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/presupuesto.pdf)
+
+
+---
 
 ### Normativa
 
-<!-- preview:start -->
-```latex
+#### `normativa` - Referencia normativa (lista de descripción)
+
+Lista de normativa con indicadores de vigencia.
+
+```latex <!-- preview normativa -->
 \begin{normativa}
-  \norma{CTE DB-SE}{Seguridad estructural}
-  \norma{EHE-08}{Instrucción de hormigón estructural}
-  \norma{UNE-EN 1992-1-1}{Eurocódigo 2: Estructuras de hormigón}
+  \normavigente{CTE DB-SE}{Seguridad estructural}{2019}
+  \normavigente{CTE DB-SI}{Seguridad en caso de incendio}{2019}
+  \norma{EHE-08}{Instrucción de hormigón estructural}{2008}
+  \normaderogada{NBE-AE/88}{Acciones en la edificación}{1988}
 \end{normativa}
 ```
-<!-- preview:end -->
 
-### Control de calidad
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\begin{controlcalidad}
-  \controlitem{Hormigón HA-25}{Resistencia compresión}{28,5 MPa}{$\geq$ 25 MPa}{eps-success}
-  \controlitem{Acero B500S}{Límite elástico}{512 MPa}{$\geq$ 500 MPa}{eps-success}
-  \controlitem{Compactación}{Densidad relativa}{94\%}{$\geq$ 95\%}{eps-danger}
-\end{controlcalidad}
+<img src="assets/previews/normativa.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/normativa.pdf)
+
+
+---
+
+### Leyendas
+
+#### `leyenda` - Leyenda de planos
+
+```latex <!-- preview leyenda -->
+\begin{leyenda}
+  \simbolo{\simboloagua}{Agua fría} &
+  \simbolo{\simbologas}{Gas natural} \\
+  \simbolo{\simboloelec}{Electricidad} &
+  \simbolo{\simbolotele}{Telecomunicaciones} \\
+\end{leyenda}
 ```
-<!-- preview:end -->
 
-### Etiquetas energéticas
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\etiquetaenergetica{A} \quad
-\etiquetaenergetica{B} \quad
-\etiquetaenergetica{C} \quad
-\etiquetaenergetica{D}
-```
-<!-- preview:end -->
+<img src="assets/previews/leyenda.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/leyenda.pdf)
+
+
+---
 
 ### Certificaciones
 
-<!-- preview:start -->
-```latex
-\certiso{9001} \quad \certiso{14001} \quad \certiso{45001} \quad \certce \quad \certune{12345}
+#### `certificacion` - Sello de certificación
+
+```latex <!-- preview certificaciones -->
+\certificacion{LEED Gold}{Sostenibilidad}
+\quad
+\certificacion{BREEAM}{Muy bueno}
+\quad
+\certiso{14001}
 ```
-<!-- preview:end -->
+
+**Resultado:**
+
+<img src="assets/previews/certificaciones.webp" alt="Preview" width="547">
+
+[📄 Ver PDF](assets/previews/certificaciones.pdf)
+
+
+---
+
+### Superficies
+
+#### `cuadrosuperficies` - Cuadro de superficies
+
+Tabla estilo booktabs con soporte para plantas y subtotales.
+
+```latex <!-- preview superficies -->
+\begin{cuadrosuperficies}
+  \superficieplanta{Planta baja}
+  \superficie{Salón-comedor}{35.50}{40.20}
+  \superficie{Cocina}{12.80}{14.50}
+  \superficie{Dormitorio principal}{18.20}{20.80}
+  \superficiesubtotal{66.50}{75.50}
+  \superficieplanta{Planta primera}
+  \superficie{Dormitorio 1}{14.50}{16.80}
+  \superficie{Dormitorio 2}{12.30}{14.20}
+  \superficie{Baño}{6.80}{7.90}
+  \superficiesubtotal{33.60}{38.90}
+  \superficietotal{TOTAL VIVIENDA}{100.10}{114.40}
+\end{cuadrosuperficies}
+```
+
+**Resultado:**
+
+<img src="assets/previews/superficies.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/superficies.pdf)
+
 
 ---
 
@@ -599,93 +996,103 @@ Cargar con: `\usepackage[quimica]{eps-componentes}`
 
 ### Reacciones químicas
 
-<!-- preview:start -->
-```latex
-\begin{reactionbox}[Combustión del metano]
-  \ch{CH4 + 2 O2 -> CO2 + 2 H2O}
+#### `reactionbox` - Caja de reacción
+
+```latex <!-- preview reactionbox -->
+\begin{reactionbox}{Síntesis del agua}
+  2H$_2$ + O$_2$ $\rightarrow$ 2H$_2$O
   
-  \reactionconditions{T = 800°C, catalizador Pt}
+  Condiciones: 25°C, 1 atm
 \end{reactionbox}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
-\begin{mechanismbox}[Sustitución nucleofílica SN2]
-  El mecanismo SN2 ocurre en un solo paso concertado.
-  
-  \ch{HO^- + CH3Br -> CH3OH + Br^-}
-\end{mechanismbox}
+**Resultado:**
+
+<img src="assets/previews/reactionbox.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/reactionbox.pdf)
+
+
+---
+
+### Propiedades
+
+#### `proptable` - Tabla de propiedades físico-químicas
+
+Tabla estilo booktabs con soporte para secciones y propiedades con incertidumbre.
+
+```latex <!-- preview proptable -->
+\begin{proptable}[Propiedades del agua (H$_2$O)]
+  \property{Masa molar}{18.015}{g/mol}{---}
+  \propertyunc{Densidad}{0.998}{0.001}{g/cm³}{a 25°C}
+  \propsection{Puntos de transición}
+  \property{Punto de fusión}{0.00}{°C}{a 1 atm}
+  \property{Punto de ebullición}{100.00}{°C}{a 1 atm}
+  \propertyrange{Densidad máxima}{3.98}{4.00}{°C}{anomalía del agua}
+\end{proptable}
 ```
-<!-- preview:end -->
 
-### Ficha de compuesto
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\begin{compoundsheet}{Ácido sulfúrico}
-  \compprop{Fórmula}{\ch{H2SO4}}
-  \compprop{Masa molar}{98.079 g/mol}
-  \compprop{Densidad}{1.84 g/cm³}
-  \compprop{Punto de fusión}{10°C}
-\end{compoundsheet}
-```
-<!-- preview:end -->
+<img src="assets/previews/proptable.webp" alt="Preview" width="600">
 
-<!-- preview:start -->
-```latex
-\compoundcard{Etanol}{\ch{C2H5OH}}{46.07 g/mol}
-\compoundcard{Glucosa}{\ch{C6H12O6}}{180.16 g/mol}
-```
-<!-- preview:end -->
+[📄 Ver PDF](assets/previews/proptable.pdf)
 
-### Protocolos de laboratorio
 
-<!-- preview:start -->
-```latex
-\begin{protocol}[Titulación ácido-base]
-  \protocolstep{Preparar bureta con \ch{NaOH} 0.1 M}
-  \protocolstep{Añadir 25 mL de muestra al erlenmeyer}
-  \protocolstep{Agregar 3 gotas de fenolftaleína}
-  \protocolwarning{Evitar salpicaduras de ácido}
-  \protocolstep{Valorar hasta viraje de color}
-\end{protocol}
-```
-<!-- preview:end -->
+---
 
 ### Resultados analíticos
 
-<!-- preview:start -->
-```latex
-\begin{analyticalresults}
-  \analyte{Plomo (Pb)}{0.015}{mg/L}{< 0.010}{eps-danger}
-  \analyte{Cobre (Cu)}{0.8}{mg/L}{< 2.0}{eps-success}
-  \analyte{Zinc (Zn)}{2.3}{mg/L}{< 3.0}{eps-warning}
+#### `analyticalresults` - Resultados analíticos
+
+Tabla de resultados con indicadores de conformidad y soporte para grupos.
+
+```latex <!-- preview analyticalmethod -->
+\begin{analyticalresults}[Análisis de aguas - Muestra M-001]
+  \analytegroup{Parámetros físico-químicos}
+  \analyte{pH}{7.2}{0.1}{---}{OK}
+  \analyte{Conductividad}{450}{10}{μS/cm}{OK}
+  \analytegroup{Aniones}
+  \analyte{Cloruros}{125.5}{3.2}{mg/L}{OK}
+  \analyte{Nitratos}{52.8}{1.5}{mg/L}{HIGH}
+  \analytelod{Fluoruros}{0.1}{mg/L}
 \end{analyticalresults}
 ```
-<!-- preview:end -->
 
-### Equipamiento
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\begin{equipmentlist}
-  \item Espectrofotómetro UV-Vis
-  \item pH-metro digital
-  \item Balanza analítica (0.0001 g)
-\end{equipmentlist}
+<img src="assets/previews/analyticalmethod.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/analyticalmethod.pdf)
+
+
+---
+
+### Protocolos de laboratorio
+
+#### `protocol` - Protocolo de laboratorio
+
+Protocolo paso a paso con soporte para tiempos, advertencias y notas.
+
+```latex <!-- preview labprotocol -->
+\begin{protocol}[Síntesis de aspirina]
+  \protocolmaterials{Ácido salicílico, anhídrido acético, ácido fosfórico}
+  \protocolstep{Pesar 2.0 g de ácido salicílico en un erlenmeyer de 125 mL}
+  \protocolsteptime{Añadir 5 mL de anhídrido acético y 5 gotas de H$_3$PO$_4$}{2 min}
+  \protocolwarning{Realizar en campana de extracción. El anhídrido acético es irritante}
+  \protocolsteptime{Calentar en baño maría a 85°C}{15 min}
+  \protocolstep{Enfriar y añadir 20 mL de agua destilada fría}
+  \protocolnote{El producto cristaliza al enfriar}
+  \protocolstep{Filtrar a vacío y lavar con agua fría}
+\end{protocol}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
-\begin{reagentlist}
-  \reagent{\ch{NaOH}}{0.1 M}{500 mL}
-  \reagent{\ch{HCl}}{0.1 M}{250 mL}
-  \reagent{Fenolftaleína}{1\%}{100 mL}
-\end{reagentlist}
-```
-<!-- preview:end -->
+**Resultado:**
+
+<img src="assets/previews/labprotocol.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/labprotocol.pdf)
+
 
 ---
 
@@ -693,84 +1100,73 @@ Cargar con: `\usepackage[quimica]{eps-componentes}`
 
 Cargar con: `\usepackage[geologia]{eps-componentes}`
 
-### Columna estratigráfica
-
-<!-- preview:start -->
-```latex
-\begin{stratigraphybox}[Sección A-A']
-  \begin{tikzpicture}
-    \begin{stratcolumn}
-      \stratlayer{0}{1.5}{lito arenisca}{Arenisca calcárea}
-      \stratlayer{1.5}{3}{lito arcilla}{Arcillas margosas}
-      \stratlayer{3}{5}{lito caliza}{Caliza masiva}
-    \end{stratcolumn}
-  \end{tikzpicture}
-\end{stratigraphybox}
-```
-<!-- preview:end -->
-
 ### Tabla de minerales
 
-<!-- preview:start -->
-```latex
-\begin{mineraltable}
-  \mineralrow{Cuarzo}{\ch{SiO2}}{7}{2.65}
-  \mineralrow{Calcita}{\ch{CaCO3}}{3}{2.71}
-  \mineralrow{Feldespato}{\ch{KAlSi3O8}}{6}{2.56}
+#### `mineraltable` - Tabla de minerales
+
+Tabla estilo booktabs con soporte para grupos de minerales.
+
+```latex <!-- preview mineraltable -->
+\begin{mineraltable}[Minerales de la muestra S-15]
+  \mineralgroup{Silicatos}
+  \mineralrow{Cuarzo}{7}{2.65}{Incoloro}{Vítreo}{SiO2}
+  \mineralrow{Feldespato}{6}{2.56}{Blanco-rosado}{Vítreo}{KAlSi3O8}
+  \mineralgroup{Carbonatos}
+  \mineralrow{Calcita}{3}{2.71}{Blanco}{Vítreo}{CaCO3}
+  \mineralgroup{Sulfuros}
+  \mineralrow{Pirita}{6}{5.02}{Amarillo latón}{Metálico}{FeS2}
 \end{mineraltable}
 ```
-<!-- preview:end -->
 
-<!-- preview:start -->
-```latex
-\mineralcard{Pirita}{\ch{FeS2}}{6}{5.02}
-\mineralcard{Galena}{\ch{PbS}}{2.5}{7.58}
+**Resultado:**
+
+<img src="assets/previews/mineraltable.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/mineraltable.pdf)
+
+
+---
+
+### Columna estratigráfica
+
+#### `stratcolumn` - Columna estratigráfica
+
+```latex <!-- preview stratigraphy -->
+\begin{stratigraphybox}
+\begin{stratcolumn}
+  \stratlayer{2}{lito arenisca}{Aluvial}{Cuaternario}
+  \stratlayer{4}{lito caliza}{Calcarenitas}{Mioceno}
+  \stratlayer{3}{lito arcilla}{Arcillas}{Cretácico}
+\end{stratcolumn}
+\end{stratigraphybox}
 ```
-<!-- preview:end -->
 
-### Datos geotécnicos
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\begin{geotechdata}
-  \geotechtest{Límite líquido}{LL}{45}{\%}
-  \geotechtest{Índice de plasticidad}{IP}{22}{\%}
-  \sptvalue{15}
-  \cohesion{25}{kPa}
-\end{geotechdata}
+<img src="assets/previews/stratigraphy.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/stratigraphy.pdf)
+
+
+---
+
+### Símbolos geológicos
+
+#### Símbolos geológicos disponibles
+
+```latex <!-- preview geosymbols -->
+\textbf{Símbolos geológicos:}\\[0.5em]
+\faultline\ Falla \quad
+\anticline\ Anticlinal \quad
+\syncline\ Sinclinal
 ```
-<!-- preview:end -->
 
-### Clasificación de suelos
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-El suelo se clasifica como \uscsclass{CL} según USCS.
-La calidad del macizo es \rmrclass{III}{Regular}.
-```
-<!-- preview:end -->
+<img src="assets/previews/geosymbols.webp" alt="Preview" width="297">
 
-### Eras geológicas
+[📄 Ver PDF](assets/previews/geosymbols.pdf)
 
-<!-- preview:start -->
-```latex
-\geoera{Cuaternario} \quad
-\geoera{Neógeno} \quad
-\geoera{Cretácico} \quad
-\geoera{Jurásico}
-```
-<!-- preview:end -->
-
-### Riesgos geológicos
-
-<!-- preview:start -->
-```latex
-\georisk[4]{Deslizamientos activos en ladera norte}
-\georisk[2]{Riesgo moderado de subsidencia}
-
-\risklandslide \quad \riskflood \quad \riskseismic
-```
-<!-- preview:end -->
 
 ---
 
@@ -780,117 +1176,155 @@ Cargar con: `\usepackage[prevencion]{eps-componentes}`
 
 ### Matriz de riesgos
 
-<!-- preview:start -->
-```latex
-\begin{riskmatrixbox}
-  \riskmatrix
-\end{riskmatrixbox}
+#### `riskmatrix` - Matriz visual de riesgos
+
+```latex <!-- preview riskmatrix -->
+\riskmatrix
 ```
-<!-- preview:end -->
+
+**Resultado:**
+
+<img src="assets/previews/riskmatrix.webp" alt="Preview" width="310">
+
+[📄 Ver PDF](assets/previews/riskmatrix.pdf)
+
+
+---
 
 ### Evaluación de riesgos
 
-<!-- preview:start -->
-```latex
-\begin{riskassessment}
-  \riskentry{R-001}{Caída a distinto nivel}{3}{4}{}{Instalación de barandillas}
-  \riskentry{R-002}{Contacto eléctrico}{2}{5}{}{Revisión de instalaciones}
+#### `riskassessment` - Tabla de evaluación de riesgos
+
+Tabla estilo booktabs con cálculo automático de nivel de riesgo y soporte para grupos.
+
+```latex <!-- preview riskassessment -->
+\begin{riskassessment}[Evaluación de riesgos - Fase de estructura]
+  \riskgroup{Trabajos en altura}
+  \riskentry{R-01}{Caída a distinto nivel}{4}{4}{}{Arnés + línea de vida, redes}
+  \riskentry{R-02}{Caída de objetos}{3}{3}{}{Marquesinas, zonas delimitadas}
+  \riskgroup{Riesgos eléctricos}
+  \riskentry{R-03}{Contacto eléctrico directo}{2}{5}{}{Verificar ausencia tensión}
+  \riskentry{R-04}{Contacto eléctrico indirecto}{2}{4}{}{Toma de tierra, diferenciales}
 \end{riskassessment}
 ```
-<!-- preview:end -->
+
+**Resultado:**
+
+<img src="assets/previews/riskassessment.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/riskassessment.pdf)
+
+
+---
 
 ### Checklist de seguridad
 
-<!-- preview:start -->
-```latex
-\begin{safetychecklist}
-  \checkitem{EPIs disponibles}
-  \checkitem{Zona señalizada}
-  \uncheckitem{Revisión de andamios}
-  \naitem{Trabajos en altura}
+#### `safetychecklist` - Lista de verificación de seguridad
+
+```latex <!-- preview safetychecklist -->
+\begin{safetychecklist}[Inspección diaria]
+  \checkitem{Casco de seguridad}
+  \checkitem{Arnés anticaídas}
+  \uncheckitem{Guantes de protección}
+  \naitem{Gafas de seguridad}
 \end{safetychecklist}
 ```
-<!-- preview:end -->
 
-### Señalización
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\signwarning{Riesgo de caída}
+<img src="assets/previews/safetychecklist.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/safetychecklist.pdf)
+
+
+---
+
+### Señales de seguridad
+
+#### Señales de advertencia y prohibición
+
+```latex <!-- preview safety_signs -->
+\signwarning{Riesgo eléctrico}
+\quad
 \signprohibition{Prohibido fumar}
+\quad
 \signmandatory{Uso obligatorio de casco}
-\signemergency{Salida de emergencia}
-\signfire{Extintor}
 ```
-<!-- preview:end -->
 
-### Equipos de protección individual
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\begin{epilist}
-  \item \epihardhat
-  \item \epigloves
-  \item \epigoggles
-  \item \epiboots
-  \item \epimask
-  \item \epiearprotection
-\end{epilist}
-```
-<!-- preview:end -->
+<img src="assets/previews/safety_signs.webp" alt="Preview" width="563">
+
+[📄 Ver PDF](assets/previews/safety_signs.pdf)
+
+
+---
 
 ### Indicadores de seguridad
 
-<!-- preview:start -->
-```latex
-\indicatorIF{15.2}      % Índice de Frecuencia
-\indicatorIG{0.45}      % Índice de Gravedad
-\indicatorDaysSafe{127} % Días sin accidentes
+#### Indicadores de frecuencia y gravedad
+
+```latex <!-- preview safety_indicators -->
+\indicatorIF{15.5}
+\quad
+\indicatorIG{0.85}
+\quad
+\indicatorDaysSafe{125}
 ```
-<!-- preview:end -->
 
-### Procedimiento de emergencia
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\begin{emergencyprocedure}[En caso de accidente]
-  \begin{steplist}
-    \step Proteger: Asegurar la zona
-    \step Avisar: Llamar al 112
-    \step Socorrer: Aplicar primeros auxilios
-  \end{steplist}
-  
+<img src="assets/previews/safety_indicators.webp" alt="Preview" width="200">
+
+[📄 Ver PDF](assets/previews/safety_indicators.pdf)
+
+
+---
+
+### Lista de EPIs
+
+#### `epilist` - Lista de equipos de protección individual
+
+```latex <!-- preview epilist -->
+\begin{epilist}
+  \item \epihardhat
+  \item \epigloves
+  \item \epiboots
+  \item \epiharness
+\end{epilist}
+```
+
+**Resultado:**
+
+<img src="assets/previews/epilist.webp" alt="Preview" width="300">
+
+[📄 Ver PDF](assets/previews/epilist.pdf)
+
+
+---
+
+### Procedimientos de emergencia
+
+#### `emergencyprocedure` - Procedimiento de emergencia
+
+```latex <!-- preview emergencyprocedure -->
+\begin{emergencyprocedure}[Evacuación por incendio]
+  \begin{enumerate}
+    \item Activar alarma de incendio
+    \item Evacuar por escaleras de emergencia
+    \item Dirigirse al punto de reunión
+    \item Esperar instrucciones del coordinador
+  \end{enumerate}
   \emergencyphone{Emergencias}{112}
-  \emergencyphone{Mutua}{900 123 456}
 \end{emergencyprocedure}
 ```
-<!-- preview:end -->
 
-### Registro de formación
+**Resultado:**
 
-<!-- preview:start -->
-```latex
-\begin{trainingrecord}
-  \trainingentry{PRL Básico (60h)}{60}{01/2024}{01/2029}{vigente}
-  \trainingentry{Trabajos en altura}{8}{03/2024}{03/2025}{vigente}
-  \trainingentry{Riesgo eléctrico}{20}{01/2022}{01/2024}{caducado}
-\end{trainingrecord}
-```
-<!-- preview:end -->
+<img src="assets/previews/emergencyprocedure.webp" alt="Preview" width="600">
 
-### Informe de accidente
+[📄 Ver PDF](assets/previews/emergencyprocedure.pdf)
 
-<!-- preview:start -->
-```latex
-\begin{accidentreport}[Informe de accidente]
-  \reportfield{Fecha}{15 de enero de 2024}
-  \reportfield{Lugar}{Zona de carga, nave 3}
-  \reportfield{Trabajador}{Juan García}
-  \reportfield{Tipo de lesión}{Contusión en pie}
-  \reportfield{Gravedad}{\accidenttype{leve}}
-\end{accidentreport}
-```
-<!-- preview:end -->
 
 ---
 
@@ -898,20 +1332,27 @@ Cargar con: `\usepackage[prevencion]{eps-componentes}`
 
 Todos los componentes usan una paleta unificada:
 
-| Color | Código | Uso |
-|-------|--------|-----|
-| `eps-primary` | #2563EB | Azul principal |
-| `eps-secondary` | #7C3AED | Violeta |
-| `eps-success` | #059669 | Verde éxito |
-| `eps-warning` | #D97706 | Naranja advertencia |
-| `eps-danger` | #DC2626 | Rojo peligro |
-| `eps-info` | #0284C7 | Azul información |
-| `eps-dark` | #1F2937 | Texto oscuro |
-| `eps-gray` | #6B7280 | Gris medio |
-| `eps-light` | #F3F4F6 | Fondos claros |
+| Color | Código | Uso | Muestra |
+|-------|--------|-----|---------|
+| `eps-primary` | `#2563EB` | Azul principal | 🔵 |
+| `eps-secondary` | `#7C3AED` | Violeta | 🟣 |
+| `eps-success` | `#059669` | Verde éxito | 🟢 |
+| `eps-warning` | `#D97706` | Naranja advertencia | 🟠 |
+| `eps-danger` | `#DC2626` | Rojo peligro | 🔴 |
+| `eps-info` | `#0284C7` | Azul información | 🔵 |
+| `eps-dark` | `#1F2937` | Texto oscuro | ⚫ |
+| `eps-gray` | `#6B7280` | Gris medio | ⚪ |
+| `eps-light` | `#F3F4F6` | Fondos claros | ⬜ |
 
 ---
 
-## Ejemplos completos
+## Regenerar previews
 
-Ver el capítulo de componentes en el documento principal (`contenido/capitulos/componentes.tex`) para ejemplos detallados de todos los componentes renderizados.
+Para regenerar las imágenes de preview de los componentes:
+
+```bash
+cd /ruta/al/proyecto
+python3 .herramientas/actualizar_previews.py --archivo COMPONENTES
+```
+
+**Requisitos:** `lualatex`, Python 3.8+
