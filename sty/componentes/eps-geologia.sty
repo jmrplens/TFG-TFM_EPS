@@ -11,7 +11,9 @@
 \RequirePackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usepgfplotslibrary{polar}
-\RequirePackage{siunitx}
+\IfFileExists{siunitx.sty}{\RequirePackage{siunitx}}{%
+  \PackageWarning{eps-geologia}{siunitx no disponible}%
+}
 
 % ============================================================================
 % COLUMNA ESTRATIGRÁFICA

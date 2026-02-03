@@ -12,7 +12,9 @@
 \pgfplotsset{compat=1.18}
 \usepgfplotslibrary{polar,smithchart}
 \RequirePackage{circuitikz}
-\RequirePackage{siunitx}
+\IfFileExists{siunitx.sty}{\RequirePackage{siunitx}}{%
+  \PackageWarning{eps-telecom}{siunitx no disponible, algunas funciones pueden fallar}%
+}
 
 % ============================================================================
 % CARTA DE SMITH

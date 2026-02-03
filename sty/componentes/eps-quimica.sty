@@ -13,11 +13,15 @@
 \chemsetup{
   formula=chemformula,
 }
-\RequirePackage{siunitx}
-\sisetup{
-  locale=ES,
-  separate-uncertainty=true,
-  per-mode=symbol,
+\IfFileExists{siunitx.sty}{%
+  \RequirePackage{siunitx}
+  \sisetup{
+    locale=ES,
+    separate-uncertainty=true,
+    per-mode=symbol,
+  }
+}{%
+  \PackageWarning{eps-quimica}{siunitx no disponible}%
 }
 \RequirePackage{pgfplots}
 \pgfplotsset{compat=1.18}

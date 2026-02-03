@@ -340,7 +340,15 @@
 % Modificadores de acceso
 \newcommand{\public}{+~}
 \newcommand{\private}{--~}
-\newcommand{\protected}{\#~}
+\newcommand{\protectedvis}{\#~}
+
+% Comando genérico de visibilidad
+% Uso: \visibility{+} \visibility{-} \visibility{#}
+\newcommand{\visibility}[1]{%
+  \ifstrequal{#1}{+}{\public}{}%
+  \ifstrequal{#1}{-}{\private}{}%
+  \ifstrequal{#1}{\#}{\protectedvis}{}%
+}
 
 % ============================================================================
 % DIAGRAMAS DE SECUENCIA

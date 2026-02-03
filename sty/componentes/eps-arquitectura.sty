@@ -10,11 +10,15 @@
 
 \RequirePackage{pgfgantt}
 \RequirePackage{eurosym}
-\RequirePackage{siunitx}
-\sisetup{
-  locale=ES,
-  group-separator={.},
-  output-decimal-marker={,},
+\IfFileExists{siunitx.sty}{%
+  \RequirePackage{siunitx}
+  \sisetup{
+    locale=ES,
+    group-separator={.},
+    output-decimal-marker={,},
+  }
+}{%
+  \PackageWarning{eps-arquitectura}{siunitx no disponible}%
 }
 
 % ============================================================================
