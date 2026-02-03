@@ -1,0 +1,927 @@
+%% =============================================================================
+%% CAPÍTULO: COMPONENTES ESPECIALIZADOS
+%% =============================================================================
+\chapter{Componentes Especializados}
+\label{cap:componentes}
+
+Este capítulo demuestra el sistema de componentes especializados disponibles en la
+plantilla. Los componentes se cargan de forma modular para optimizar el tiempo de 
+compilación.
+
+Para usar los componentes, añade en el preámbulo del documento:
+
+\begin{verbatim}
+\usepackage[all]{eps-componentes}  % Todos los componentes
+% o bien, solo los que necesites:
+\usepackage[software,telecom]{eps-componentes}
+\end{verbatim}
+
+%% =============================================================================
+\section{Componentes Comunes}
+\label{sec:comp-comunes}
+
+Los componentes comunes se cargan automáticamente y están disponibles para todas
+las disciplinas.
+
+%% -----------------------------------------------------------------------------
+\subsection{Cajas de Información}
+\label{subsec:cajas-info}
+
+Cajas para destacar diferentes tipos de información:
+
+\begin{infobox}
+  Esta es una caja de información general. Úsala para notas importantes
+  o datos relevantes que el lector debe conocer.
+\end{infobox}
+
+\begin{successbox}
+  Esta es una caja de éxito. Indica que algo se ha completado correctamente
+  o muestra una buena práctica.
+\end{successbox}
+
+\begin{warningbox}
+  Esta es una caja de advertencia. Alerta sobre algo que requiere atención
+  pero no es crítico.
+\end{warningbox}
+
+\begin{dangerbox}
+  Esta es una caja de peligro. Indica un error crítico o algo que debe
+  evitarse a toda costa.
+\end{dangerbox}
+
+\begin{tipbox}
+  Esta es una caja de consejo. Ofrece sugerencias útiles o trucos
+  para mejorar el trabajo.
+\end{tipbox}
+
+\begin{notebox}
+  Esta es una caja de nota. Para información adicional o comentarios
+  secundarios.
+\end{notebox}
+
+%% -----------------------------------------------------------------------------
+\subsection{Cajas con Título}
+\label{subsec:cajas-titulo}
+
+Cajas que incluyen un título personalizado:
+
+\begin{titlebox}{Título Personalizado}
+  Esta caja permite definir un título personalizado para el contenido.
+  Es útil para destacar secciones específicas.
+\end{titlebox}
+
+\begin{definitionbox}{Algoritmo}
+  Conjunto ordenado y finito de operaciones que permite hallar la
+  solución de un problema.
+\end{definitionbox}
+
+\begin{examplebox}[Ejemplo de uso]
+  Aquí se muestra cómo aplicar el concepto explicado anteriormente
+  en un caso práctico.
+\end{examplebox}
+
+\begin{importantbox}
+  Este contenido es especialmente importante y no debe pasarse por alto
+  durante la lectura del documento.
+\end{importantbox}
+
+%% -----------------------------------------------------------------------------
+\subsection{Listas Especiales}
+\label{subsec:listas}
+
+Diferentes tipos de listas para organizar información:
+
+\paragraph{Checklist:}
+\begin{checklist}
+  \item[\checked] Revisar documentación
+  \item[\checked] Implementar funcionalidad básica
+  \item[\partialchecked] Realizar pruebas unitarias
+  \item[\unchecked] Desplegar en producción
+\end{checklist}
+
+\paragraph{Pros y Contras:}
+\begin{proscons}
+  \pro Fácil de implementar
+  \pro Bien documentado
+  \pro Comunidad activa
+  \con Curva de aprendizaje inicial
+  \con Requiere configuración adicional
+\end{proscons}
+
+\paragraph{Lista de Pasos:}
+\begin{steplist}
+  \step Descargar el código fuente del repositorio
+  \step Instalar las dependencias necesarias
+  \step Configurar las variables de entorno
+  \step Ejecutar el script de inicialización
+  \step Verificar que todo funciona correctamente
+\end{steplist}
+
+%% -----------------------------------------------------------------------------
+\subsection{Badges e Indicadores}
+\label{subsec:badges}
+
+Etiquetas y badges para marcar estados:
+
+\paragraph{Badges personalizados:}
+\badge{Estable} \quad
+\badge[eps-success]{Completado} \quad
+\badge[eps-warning]{En revisión} \quad
+\badge[eps-danger]{Crítico} \quad
+\badge[eps-secondary]{Beta}
+
+\paragraph{Badges predefinidos:}
+\badgenew \quad \badgewip \quad \badgedeprecated \quad 
+\badgebeta \quad \badgerequired \quad \badgeoptional
+
+\paragraph{Versiones:}
+\version{1.0.0} \quad \version{2.1.0} \quad \version{3.0.0-beta}
+
+\paragraph{Barra de progreso:}
+\progressbar{25} \quad \progressbar{50} \quad \progressbar{75} \quad \progressbar{100}
+
+\paragraph{Rating con estrellas:}
+\rating{3}{5} \quad \rating{4}{5} \quad \rating{5}{5}
+
+\paragraph{Indicador de nivel:}
+\levelbar{2}{5} \quad \levelbar{4}{5} \quad \levelbar{5}{5}
+
+%% -----------------------------------------------------------------------------
+\subsection{Tarjetas de Información}
+\label{subsec:tarjetas}
+
+\noindent
+\personcard{Juan García}{Desarrollador Senior}{%
+  Especialista en arquitectura de software con 10 años de experiencia.%
+}
+\hfill
+\personcard{María López}{Project Manager}{%
+  Coordinación de equipos y gestión ágil de proyectos.%
+}
+
+\vspace{1em}
+
+\noindent
+\statcard{1,234}{\faUsers~Usuarios}{eps-primary}
+\hfill
+\statcard{98.5\%}{\faChartLine~Uptime}{eps-success}
+\hfill
+\statcard{45ms}{\faClock~Latencia}{eps-info}
+\hfill
+\statcard{12}{\faBug~Issues}{eps-warning}
+
+%% -----------------------------------------------------------------------------
+\subsection{Timeline}
+\label{subsec:timeline}
+
+\begin{timeline}
+  \timeitem{Ene 2024}{Inicio del proyecto y definición de requisitos}
+  \timeitem{Mar 2024}{Diseño de la arquitectura del sistema}
+  \timeitem{Jun 2024}{Implementación del módulo principal}
+  \timeitem{Sep 2024}{Pruebas de integración y corrección de errores}
+  \timeitem{Dic 2024}{Despliegue en producción y documentación final}
+\end{timeline}
+
+%% -----------------------------------------------------------------------------
+\subsection{Comparativas}
+\label{subsec:comparativas}
+
+\begin{comparison}{Opción A}{Opción B}
+  \comprow{Rendimiento}{Alto}{Medio}
+  \comprow{Facilidad de uso}{Media}{Alta}
+  \comprow{Coste}{Bajo}{Medio}
+  \comprow{Soporte}{Comunidad}{Comercial}
+\end{comparison}
+
+%% -----------------------------------------------------------------------------
+\subsection{Citas Destacadas}
+\label{subsec:citas}
+
+\begin{quotebox}[Albert Einstein]
+  La imaginación es más importante que el conocimiento. El conocimiento
+  es limitado, mientras que la imaginación abraza el mundo entero.
+\end{quotebox}
+
+
+%% =============================================================================
+\section{Componentes de Software}
+\label{sec:comp-software}
+
+Componentes específicos para informática e ingeniería de software.
+Cargar con: \texttt{\textbackslash usepackage[software]\{eps-componentes\}}
+
+%% -----------------------------------------------------------------------------
+\subsection{API REST Endpoints}
+\label{subsec:api}
+
+\begin{apiendpoint}{GET}{/api/users}
+  Obtiene la lista de todos los usuarios registrados en el sistema.
+  Requiere autenticación mediante token JWT.
+  
+  \apibody{application/json}{
+    "page": 1,
+    "limit": 10,
+    "filter": "active"
+  }
+  
+  \apiresponse{200}{
+    "users": [
+      {"id": 1, "name": "Juan"},
+      {"id": 2, "name": "María"}
+    ],
+    "total": 150
+  }
+  
+  \apiresponse{401}{
+    "error": "Token no válido"
+  }
+\end{apiendpoint}
+
+\vspace{1em}
+
+\begin{apiendpoint}{POST}{/api/users}
+  Crea un nuevo usuario en el sistema.
+  
+  \apiresponse{201}{
+    "id": 3,
+    "message": "Usuario creado"
+  }
+\end{apiendpoint}
+
+\paragraph{Métodos HTTP disponibles:}
+\httpget \quad \httppost \quad \httpput \quad \httppatch \quad \httpdelete
+
+%% -----------------------------------------------------------------------------
+\subsection{Terminal y Consola}
+\label{subsec:terminal}
+
+\begin{terminal}[Instalación de dependencias]
+  \prompt npm install
+  \prompt npm run build
+  \prompt npm test
+  \promptroot systemctl restart nginx
+  \promptroot journalctl -u nginx -f
+\end{terminal}
+
+%% -----------------------------------------------------------------------------
+\subsection{Clases UML}
+\label{subsec:uml}
+
+\begin{umlclass}{Usuario}
+  \visibility{-} id: int \\
+  \visibility{-} nombre: string \\
+  \visibility{-} email: string \\
+  \visibility{#} password: string \\
+  \visibility{+} getNombre(): string \\
+  \visibility{+} setNombre(n: string): void \\
+  \visibility{+} validar(): boolean
+\end{umlclass}
+
+\begin{umlinterface}{IAutenticable}
+  \visibility{+} login(user: string, pass: string): boolean \\
+  \visibility{+} logout(): void \\
+  \visibility{+} isAuthenticated(): boolean
+\end{umlinterface}
+
+%% -----------------------------------------------------------------------------
+\subsection{Tabla de Requisitos}
+\label{subsec:requisitos}
+
+\begin{requirements}
+  \reqrow{RF-001}{El sistema debe permitir el registro de usuarios}{Alta}{\statusdone}
+  \reqrow{RF-002}{Los usuarios pueden modificar su perfil}{Alta}{\statusdone}
+  \reqrow{RF-003}{Implementar sistema de notificaciones}{Media}{\statusprogress}
+  \reqrow{RF-004}{Exportar datos a formato PDF}{Baja}{\statustodo}
+  \reqrow{RF-005}{Integración con API externa}{Media}{\statustodo}
+\end{requirements}
+
+%% -----------------------------------------------------------------------------
+\subsection{Esquema de Base de Datos}
+\label{subsec:database}
+
+\begin{dbtable}{usuarios}
+  \pkicon & id & INT & AUTO\_INCREMENT \\
+  & nombre & VARCHAR(100) & NOT NULL \\
+  & email & VARCHAR(255) & UNIQUE NOT NULL \\
+  & created\_at & TIMESTAMP & DEFAULT NOW() \\
+  \fkicon & rol\_id & INT & FK $\rightarrow$ roles.id \\
+\end{dbtable}
+
+\begin{dbtable}{roles}
+  \pkicon & id & INT & AUTO\_INCREMENT \\
+  & nombre & VARCHAR(50) & NOT NULL \\
+  & permisos & JSON & NULL \\
+\end{dbtable}
+
+%% -----------------------------------------------------------------------------
+\subsection{Git y Control de Versiones}
+\label{subsec:git}
+
+Historial de commits del proyecto:
+
+\gitcommit{a1b2c3d}{feat: Añadir sistema de autenticación}
+
+\gitcommit{e4f5g6h}{fix: Corregir error en validación de email}
+
+\gitcommit{i7j8k9l}{docs: Actualizar README con instrucciones}
+
+\vspace{0.5em}
+\noindent
+\textbf{Ramas:} \gitbranch{main} \quad \gitbranch{develop} \quad \gitbranch{feature/login}
+
+\vspace{0.5em}
+\noindent
+\textbf{Tags:} \gittag{v1.0.0} \quad \gittag{v1.1.0} \quad \gittag{v2.0.0-beta}
+
+%% -----------------------------------------------------------------------------
+\subsection{Logs y Métricas}
+\label{subsec:logs}
+
+\begin{logbox}[Logs del servidor]
+  \logentry{INFO}{2024-01-15 10:30:00}{Servidor iniciado en puerto 3000}
+  \logentry{DEBUG}{2024-01-15 10:30:01}{Conexión a base de datos establecida}
+  \logentry{WARN}{2024-01-15 10:35:22}{Intento de acceso sin autenticación}
+  \logentry{ERROR}{2024-01-15 11:02:45}{Timeout en consulta a API externa}
+\end{logbox}
+
+\vspace{1em}
+\noindent
+\metricbox{Tiempo de respuesta}{45}{ms}{eps-success}
+\hfill
+\metricbox{Uso de CPU}{78}{\%}{eps-warning}
+\hfill
+\metricbox{Memoria}{2.4}{GB}{eps-info}
+
+
+%% =============================================================================
+\section{Componentes de Telecomunicaciones}
+\label{sec:comp-telecom}
+
+Componentes para telecomunicaciones, electrónica y sistemas de comunicación.
+Cargar con: \texttt{\textbackslash usepackage[telecom]\{eps-componentes\}}
+
+%% -----------------------------------------------------------------------------
+\subsection{Carta de Smith}
+\label{subsec:smith}
+
+La carta de Smith es una herramienta gráfica para resolver problemas de 
+adaptación de impedancias en líneas de transmisión.
+
+\begin{smithchartbox}[Ejemplo de adaptación de impedancias]
+  \begin{tikzpicture}[scale=0.8]
+    \begin{smithchartenv}
+      \smithpoint{0.5}{0.3}{$Z_L$}
+      \smithpoint{0}{0}{$Z_0$}
+    \end{smithchartenv}
+  \end{tikzpicture}
+\end{smithchartbox}
+
+%% -----------------------------------------------------------------------------
+\subsection{Diagrama de Constelación}
+\label{subsec:constelacion}
+
+Representación de esquemas de modulación digital:
+
+\begin{center}
+\begin{tikzpicture}
+  \begin{constellation}
+    \qpsk
+  \end{constellation}
+\end{tikzpicture}
+\end{center}
+
+%% -----------------------------------------------------------------------------
+\subsection{Máquina de Estados Finitos}
+\label{subsec:fsm}
+
+\begin{center}
+\begin{tikzpicture}[node distance=2.5cm]
+  \node[fsmstate, initial] (s0) {$S_0$};
+  \node[fsmstate, right of=s0] (s1) {$S_1$};
+  \node[fsmstate, accepting, right of=s1] (s2) {$S_2$};
+  
+  \path[fsmtransition]
+    (s0) edge[bend left] node[above] {a/0} (s1)
+    (s1) edge[bend left] node[below] {b/1} (s0)
+    (s1) edge node[above] {a/1} (s2)
+    (s2) edge[loop right] node[right] {a,b/0} (s2);
+\end{tikzpicture}
+\end{center}
+
+%% -----------------------------------------------------------------------------
+\subsection{Tramas de Protocolo}
+\label{subsec:tramas}
+
+\begin{protocolframe}[Trama Ethernet IEEE 802.3]
+  \framefield{7}{Preámbulo}
+  \framefield{1}{SFD}
+  \framefield{6}{MAC Dest}
+  \framefield{6}{MAC Orig}
+  \framefield{2}{Tipo}
+  \framefield{46-1500}{Datos}
+  \framefield{4}{FCS}
+\end{protocolframe}
+
+\vspace{1em}
+
+\begin{protocolframe}[Segmento TCP]
+  \framefield{2}{Puerto Orig}
+  \framefield{2}{Puerto Dest}
+  \framefield{4}{Número Seq}
+  \framefield{4}{Número ACK}
+  \framefield{2}{Flags}
+  \framefield{2}{Ventana}
+  \framefield{2}{Checksum}
+  \framefield{var}{Datos}
+\end{protocolframe}
+
+%% -----------------------------------------------------------------------------
+\subsection{Parámetros S}
+\label{subsec:sparams}
+
+\begin{sparameters}
+  \sparam{S_{11}}{-18.5}{dB}{Pérdidas de retorno entrada}
+  \sparam{S_{21}}{-0.25}{dB}{Pérdidas de inserción}
+  \sparam{S_{12}}{-45.2}{dB}{Aislamiento inverso}
+  \sparam{S_{22}}{-22.1}{dB}{Pérdidas de retorno salida}
+\end{sparameters}
+
+%% -----------------------------------------------------------------------------
+\subsection{Diagramas de Temporización}
+\label{subsec:timing}
+
+\begin{center}
+\begin{tikzpicture}
+  % Señal de reloj
+  \draw (0,2) node[left] {CLK};
+  \timingclock{0}{2}{8}
+  
+  % Señal de datos
+  \draw (0,1) node[left] {DATA};
+  \timinglow{0}{1}{1}
+  \timinghigh{1}{1}{2}
+  \timinglow{3}{1}{1}
+  \timinghigh{4}{1}{3}
+  \timinglow{7}{1}{1}
+  
+  % Señal de enable
+  \draw (0,0) node[left] {EN};
+  \timinglow{0}{0}{2}
+  \timinghigh{2}{0}{5}
+  \timinglow{7}{0}{1}
+\end{tikzpicture}
+\end{center}
+
+
+%% =============================================================================
+\section{Componentes de Arquitectura}
+\label{sec:comp-arquitectura}
+
+Componentes para arquitectura, ingeniería civil y construcción.
+Cargar con: \texttt{\textbackslash usepackage[arquitectura]\{eps-componentes\}}
+
+%% -----------------------------------------------------------------------------
+\subsection{Diagrama de Gantt}
+\label{subsec:gantt}
+
+\begin{ganttbox}[Planificación de obra - Fase 1]
+  \begin{ganttchart}[gantt eps style]{1}{12}
+    \gantttitle{Año 2024}{12} \\
+    \gantttitlelist{E,F,M,A,M,J,J,A,S,O,N,D}{1} \\
+    \ganttbar{Demolición}{1}{2} \\
+    \ganttbar{Cimentación}{2}{4} \\
+    \ganttbar[bar/.append style={fill=eps-danger}]{Estructura}{4}{8} \\
+    \ganttbar{Cerramientos}{7}{10} \\
+    \ganttbar{Instalaciones}{9}{12} \\
+    \ganttlink{elem0}{elem1}
+    \ganttlink{elem1}{elem2}
+    \ganttlink{elem2}{elem3}
+    \ganttlink{elem3}{elem4}
+  \end{ganttchart}
+\end{ganttbox}
+
+%% -----------------------------------------------------------------------------
+\subsection{Fichas Técnicas de Materiales}
+\label{subsec:fichas-tecnicas}
+
+\begin{techsheet}{Hormigón HA-25/B/20/IIa}
+  \techprop{Resistencia característica}{25 MPa}
+  \techprop{Consistencia}{Blanda (6-9 cm)}
+  \techprop{Tamaño máximo árido}{20 mm}
+  \techprop{Ambiente de exposición}{IIa - Humedad alta}
+  \techprop{Relación agua/cemento máx.}{0.60}
+  \techprop{Contenido mínimo cemento}{275 kg/m³}
+  \techprop{Recubrimiento nominal}{30 mm}
+\end{techsheet}
+
+\vspace{1em}
+
+\noindent
+\materialcard{Acero B500S}{%
+  \techprop{Límite elástico}{500 MPa}
+  \techprop{Resistencia tracción}{550 MPa}
+}
+\hfill
+\materialcard{Ladrillo cerámico}{%
+  \techprop{Resistencia}{10 N/mm²}
+  \techprop{Absorción}{< 15\%}
+}
+
+%% -----------------------------------------------------------------------------
+\subsection{Presupuestos}
+\label{subsec:presupuesto}
+
+\begin{presupuesto}
+  \partida{1}{MOVIMIENTO DE TIERRAS}{}{18.500,00}
+  \partida{1.1}{Excavación en zanjas}{120,00 m³}{4.800,00}
+  \partida{1.2}{Transporte a vertedero}{180,00 m³}{2.700,00}
+  \partida{1.3}{Compactación de tierras}{250,00 m²}{1.000,00}
+  \hline
+  \partida{2}{CIMENTACIÓN}{}{45.200,00}
+  \partida{2.1}{Hormigón de limpieza}{15,00 m³}{1.200,00}
+  \partida{2.2}{Zapatas de hormigón armado}{42,00 m³}{12.600,00}
+  \hline
+  \partida{3}{ESTRUCTURA}{}{85.300,00}
+  \partida{3.1}{Pilares de hormigón}{28,00 m³}{11.200,00}
+  \partida{3.2}{Forjado unidireccional}{320,00 m²}{38.400,00}
+  \totalpresupuesto{149.000,00}
+\end{presupuesto}
+
+%% -----------------------------------------------------------------------------
+\subsection{Normativa Aplicable}
+\label{subsec:normativa}
+
+\begin{normativa}
+  \norma{CTE DB-SE}{Seguridad Estructural - Bases de cálculo}
+  \norma{CTE DB-SE-AE}{Acciones en la edificación}
+  \norma{CTE DB-SE-C}{Cimientos}
+  \norma{EHE-08}{Instrucción de Hormigón Estructural}
+  \norma{UNE-EN 1992-1-1}{Eurocódigo 2: Proyecto de estructuras de hormigón}
+  \norma{NCSE-02}{Norma de Construcción Sismorresistente}
+\end{normativa}
+
+%% -----------------------------------------------------------------------------
+\subsection{Control de Calidad}
+\label{subsec:control-calidad}
+
+\begin{controlcalidad}
+  \controlitem{Hormigón HA-25}{Resistencia compresión}{28,5 MPa}{$\geq$ 25 MPa}{eps-success}
+  \controlitem{Acero B500S}{Límite elástico}{512 MPa}{$\geq$ 500 MPa}{eps-success}
+  \controlitem{Soldadura}{Inspección visual}{Defecto leve}{Sin defectos}{eps-warning}
+  \controlitem{Compactación}{Densidad relativa}{94\%}{$\geq$ 95\%}{eps-danger}
+\end{controlcalidad}
+
+%% -----------------------------------------------------------------------------
+\subsection{Etiquetas Energéticas}
+\label{subsec:energia}
+
+\noindent
+\etiquetaenergetica{A} \quad
+\etiquetaenergetica{B} \quad
+\etiquetaenergetica{C} \quad
+\etiquetaenergetica{D} \quad
+\etiquetaenergetica{E} \quad
+\etiquetaenergetica{F} \quad
+\etiquetaenergetica{G}
+
+%% -----------------------------------------------------------------------------
+\subsection{Certificaciones}
+\label{subsec:certificaciones}
+
+\certiso{9001} \quad \certiso{14001} \quad \certiso{45001}
+
+\vspace{0.5em}
+\certce \quad \certune{12345}
+
+
+%% =============================================================================
+\section{Componentes de Química}
+\label{sec:comp-quimica}
+
+Componentes para química, ciencia de materiales e ingeniería química.
+Cargar con: \texttt{\textbackslash usepackage[quimica]\{eps-componentes\}}
+
+%% -----------------------------------------------------------------------------
+\subsection{Reacciones Químicas}
+\label{subsec:reacciones}
+
+\begin{reactionbox}[Combustión completa del metano]
+  \ch{CH4 + 2 O2 -> CO2 + 2 H2O}
+  
+  \reactionconditions{T = 800°C, presencia de catalizador Pt}
+\end{reactionbox}
+
+\vspace{1em}
+
+\begin{mechanismbox}[Sustitución nucleofílica SN2]
+  El mecanismo SN2 ocurre en un solo paso concertado donde el nucleófilo
+  ataca por el lado opuesto al grupo saliente.
+  
+  \ch{HO^- + CH3Br -> CH3OH + Br^-}
+\end{mechanismbox}
+
+%% -----------------------------------------------------------------------------
+\subsection{Fichas de Compuestos}
+\label{subsec:compuestos}
+
+\begin{compoundsheet}{Ácido Sulfúrico}
+  \compprop{Fórmula molecular}{\ch{H2SO4}}
+  \compprop{Masa molar}{98,079 g/mol}
+  \compprop{Densidad}{1,84 g/cm³}
+  \compprop{Punto de fusión}{10 °C}
+  \compprop{Punto de ebullición}{337 °C}
+  \compprop{Solubilidad en agua}{Miscible}
+  \compprop{pKa}{-3 (ácido fuerte)}
+\end{compoundsheet}
+
+\vspace{1em}
+
+\noindent
+\compoundcard{Etanol}{\ch{C2H5OH}}{46,07 g/mol}
+\hfill
+\compoundcard{Glucosa}{\ch{C6H12O6}}{180,16 g/mol}
+
+%% -----------------------------------------------------------------------------
+\subsection{Protocolos de Laboratorio}
+\label{subsec:protocolos}
+
+\begin{protocol}[Titulación ácido-base]
+  \protocolstep{Lavar y enjuagar la bureta con la solución valorante (\ch{NaOH} 0,1 M)}
+  \protocolstep{Llenar la bureta y enrasar a cero}
+  \protocolstep{Pipetear 25 mL de la muestra ácida en un erlenmeyer}
+  \protocolstep{Añadir 3-4 gotas de indicador fenolftaleína}
+  \protocolstep{Valorar hasta viraje de incoloro a rosa persistente}
+  \protocolwarning{Usar gafas de seguridad y bata en todo momento}
+  \protocolstep{Anotar el volumen gastado y repetir 3 veces}
+\end{protocol}
+
+%% -----------------------------------------------------------------------------
+\subsection{Resultados Analíticos}
+\label{subsec:analiticos}
+
+\begin{analyticalresults}
+  \analyte{Plomo (Pb)}{0,015}{mg/L}{< 0,010}{eps-danger}
+  \analyte{Cadmio (Cd)}{0,002}{mg/L}{< 0,005}{eps-success}
+  \analyte{Mercurio (Hg)}{0,0005}{mg/L}{< 0,001}{eps-success}
+  \analyte{Arsénico (As)}{0,008}{mg/L}{< 0,010}{eps-success}
+  \analyte{Cobre (Cu)}{0,85}{mg/L}{< 2,0}{eps-success}
+  \analyte{Zinc (Zn)}{2,3}{mg/L}{< 3,0}{eps-warning}
+\end{analyticalresults}
+
+%% -----------------------------------------------------------------------------
+\subsection{Equipamiento de Laboratorio}
+\label{subsec:equipamiento}
+
+\begin{equipmentlist}
+  \item Espectrofotómetro UV-Vis (Shimadzu UV-1800)
+  \item pH-metro digital (Mettler Toledo)
+  \item Balanza analítica (precisión 0,0001 g)
+  \item Agitador magnético con calefacción
+  \item Campana de extracción de gases
+\end{equipmentlist}
+
+\vspace{1em}
+
+\begin{reagentlist}
+  \reagent{\ch{NaOH}}{0,1 M}{500 mL}
+  \reagent{\ch{HCl}}{0,1 M}{250 mL}
+  \reagent{Fenolftaleína}{1\% en etanol}{100 mL}
+  \reagent{Agua destilada}{--}{2 L}
+\end{reagentlist}
+
+
+%% =============================================================================
+\section{Componentes de Geología}
+\label{sec:comp-geologia}
+
+Componentes para geología, geotecnia e ingeniería geológica.
+Cargar con: \texttt{\textbackslash usepackage[geologia]\{eps-componentes\}}
+
+%% -----------------------------------------------------------------------------
+\subsection{Columna Estratigráfica}
+\label{subsec:estratigrafia}
+
+\begin{stratigraphybox}[Sección estratigráfica A-A']
+  \begin{tikzpicture}
+    \begin{stratcolumn}
+      \stratlayer{0}{1.2}{lito arenisca}{Arenisca calcárea (Mioceno)}
+      \stratlayer{1.2}{2.5}{lito arcilla}{Margas grises (Mioceno)}
+      \stratlayer{2.5}{4}{lito caliza}{Caliza masiva (Cretácico)}
+      \stratlayer{4}{5.5}{lito dolomia}{Dolomías tableadas (Jurásico)}
+    \end{stratcolumn}
+  \end{tikzpicture}
+\end{stratigraphybox}
+
+%% -----------------------------------------------------------------------------
+\subsection{Tabla de Minerales}
+\label{subsec:minerales}
+
+\begin{mineraltable}
+  \mineralrow{Cuarzo}{\ch{SiO2}}{7}{2,65}
+  \mineralrow{Calcita}{\ch{CaCO3}}{3}{2,71}
+  \mineralrow{Feldespato potásico}{\ch{KAlSi3O8}}{6}{2,56}
+  \mineralrow{Moscovita}{\ch{KAl2(AlSi3O10)(OH)2}}{2,5}{2,82}
+  \mineralrow{Olivino}{\ch{(Mg,Fe)2SiO4}}{6,5}{3,32}
+\end{mineraltable}
+
+\vspace{1em}
+
+\noindent
+\mineralcard{Pirita}{\ch{FeS2}}{6}{5,02}
+\hfill
+\mineralcard{Galena}{\ch{PbS}}{2,5}{7,58}
+
+%% -----------------------------------------------------------------------------
+\subsection{Datos Geotécnicos}
+\label{subsec:geotecnia}
+
+\begin{geotechdata}
+  \geotechtest{Límite líquido}{LL}{45,2}{\%}
+  \geotechtest{Límite plástico}{LP}{23,1}{\%}
+  \geotechtest{Índice de plasticidad}{IP}{22,1}{\%}
+  \geotechtest{Densidad seca}{$\rho_d$}{1,72}{g/cm³}
+  \geotechtest{Humedad natural}{$w$}{18,5}{\%}
+\end{geotechdata}
+
+\vspace{0.5em}
+
+\noindent
+Ensayo SPT: \sptvalue{18} \quad
+Cohesión: \cohesion{25}{kPa} \quad
+Ángulo de rozamiento: \frictionangle{32}
+
+%% -----------------------------------------------------------------------------
+\subsection{Clasificación de Suelos}
+\label{subsec:clasificacion-suelos}
+
+Según el Sistema Unificado de Clasificación de Suelos (USCS):
+
+\noindent
+\uscsclass{CL} -- Arcilla de baja plasticidad
+
+\noindent
+\uscsclass{SM} -- Arena limosa
+
+\noindent
+\uscsclass{GP} -- Grava mal graduada
+
+\vspace{1em}
+Clasificación RMR del macizo rocoso: \rmrclass{III}{Regular}
+
+%% -----------------------------------------------------------------------------
+\subsection{Eras Geológicas}
+\label{subsec:eras}
+
+\geoera{Cuaternario} \quad
+\geoera{Neógeno} \quad
+\geoera{Paleógeno} \quad
+\geoera{Cretácico} \quad
+\geoera{Jurásico}
+
+%% -----------------------------------------------------------------------------
+\subsection{Riesgos Geológicos}
+\label{subsec:riesgos-geo}
+
+\georisk[4]{Deslizamientos activos en ladera norte}
+
+\georisk[2]{Riesgo moderado de subsidencia}
+
+\vspace{0.5em}
+
+\noindent
+\risklandslide \quad \riskflood \quad \riskseismic
+
+
+%% =============================================================================
+\section{Componentes de Prevención}
+\label{sec:comp-prevencion}
+
+Componentes para prevención de riesgos laborales y seguridad.
+Cargar con: \texttt{\textbackslash usepackage[prevencion]\{eps-componentes\}}
+
+%% -----------------------------------------------------------------------------
+\subsection{Matriz de Riesgos}
+\label{subsec:matriz-riesgos}
+
+\begin{riskmatrixbox}[Matriz de evaluación 5×5]
+  \riskmatrix
+\end{riskmatrixbox}
+
+%% -----------------------------------------------------------------------------
+\subsection{Evaluación de Riesgos}
+\label{subsec:evaluacion-riesgos}
+
+\begin{riskassessment}
+  \riskentry{R-001}{Caída a distinto nivel (andamios)}{4}{4}{}{Instalación de barandillas, redes de seguridad}
+  \riskentry{R-002}{Contacto eléctrico directo}{2}{5}{}{Revisión periódica de instalaciones}
+  \riskentry{R-003}{Golpes por objetos móviles}{3}{3}{}{Señalización de zonas de paso}
+  \riskentry{R-004}{Sobreesfuerzos}{4}{2}{}{Formación en manipulación manual de cargas}
+  \riskentry{R-005}{Exposición a ruido}{3}{2}{}{Uso obligatorio de protección auditiva}
+\end{riskassessment}
+
+%% -----------------------------------------------------------------------------
+\subsection{Checklist de Seguridad}
+\label{subsec:checklist-seguridad}
+
+\begin{safetychecklist}[Verificación diaria de obra]
+  \checkitem{EPIs disponibles y en buen estado}
+  \checkitem{Zona de trabajo correctamente señalizada}
+  \checkitem{Extintores accesibles y revisados}
+  \uncheckitem{Revisión de andamios completada}
+  \uncheckitem{Botiquín de primeros auxilios revisado}
+  \naitem{Trabajos en espacios confinados}
+\end{safetychecklist}
+
+%% -----------------------------------------------------------------------------
+\subsection{Señalización de Seguridad}
+\label{subsec:senalizacion}
+
+\paragraph{Señales de advertencia:}
+\signwarning{Riesgo de caída a distinto nivel}
+\signwarning{Riesgo eléctrico}
+
+\paragraph{Señales de prohibición:}
+\signprohibition{Prohibido fumar}
+\signprohibition{Prohibido el paso}
+
+\paragraph{Señales de obligación:}
+\signmandatory{Uso obligatorio de casco}
+\signmandatory{Uso obligatorio de guantes}
+
+\paragraph{Señales de emergencia:}
+\signemergency{Salida de emergencia}
+\signfire{Extintor}
+
+%% -----------------------------------------------------------------------------
+\subsection{Equipos de Protección Individual}
+\label{subsec:epis}
+
+\begin{epilist}
+  \item \epihardhat
+  \item \epigloves
+  \item \epigoggles
+  \item \epiboots
+  \item \epimask
+  \item \epiearprotection
+  \item \epivest
+  \item \epiharness
+\end{epilist}
+
+%% -----------------------------------------------------------------------------
+\subsection{Indicadores de Seguridad}
+\label{subsec:indicadores-seguridad}
+
+\noindent
+\indicatorIF{12,5}
+\hfill
+\indicatorIG{0,35}
+\hfill
+\indicatorII{8,2}
+\hfill
+\indicatorDaysSafe{247}
+
+%% -----------------------------------------------------------------------------
+\subsection{Procedimiento de Emergencia}
+\label{subsec:emergencia}
+
+\begin{emergencyprocedure}[En caso de accidente grave]
+  \begin{steplist}
+    \step Proteger: Asegurar la zona y evitar nuevos accidentes
+    \step Avisar: Llamar al 112 y comunicar a los servicios de emergencia
+    \step Socorrer: Aplicar primeros auxilios si se tiene formación
+    \step No mover al accidentado salvo peligro inminente
+    \step Esperar a los servicios de emergencia
+  \end{steplist}
+  
+  \vspace{0.5em}
+  \emergencyphone{Emergencias}{112}\\
+  \emergencyphone{Mutua de accidentes}{900 123 456}\\
+  \emergencyphone{Responsable de seguridad}{ext. 2345}
+\end{emergencyprocedure}
+
+%% -----------------------------------------------------------------------------
+\subsection{Registro de Formación}
+\label{subsec:formacion}
+
+\begin{trainingrecord}
+  \trainingentry{PRL Básico (60h)}{60}{01/2024}{01/2029}{vigente}
+  \trainingentry{Trabajos en altura}{8}{03/2024}{03/2025}{vigente}
+  \trainingentry{Primeros auxilios}{16}{06/2023}{06/2025}{proximo}
+  \trainingentry{Riesgo eléctrico}{20}{01/2022}{01/2024}{caducado}
+\end{trainingrecord}
+
+%% -----------------------------------------------------------------------------
+\subsection{Informe de Accidente}
+\label{subsec:accidente}
+
+\begin{accidentreport}[Informe de accidente laboral]
+  \reportfield{Fecha}{15 de enero de 2024}
+  \reportfield{Hora}{10:30}
+  \reportfield{Lugar}{Zona de carga, nave 3}
+  \reportfield{Trabajador}{Juan García Pérez}
+  \reportfield{Tipo de lesión}{Contusión en pie derecho}
+  \reportfield{Gravedad}{\accidenttype{leve}}
+  \reportfield{Descripción}{Caída de caja desde estantería sobre el pie}
+  \reportfield{Causa principal}{Almacenamiento inadecuado de materiales}
+  \reportfield{Medidas correctoras}{Revisión del sistema de almacenamiento}
+\end{accidentreport}
