@@ -1,0 +1,390 @@
+%% eps-geologia.sty
+%% Componentes para geología e ingeniería geológica
+%% Parte de eps-componentes.sty
+
+\ProvidesFile{eps-geologia.sty}[2026/02/03 v2.1.0 Componentes geología EPS UA]
+
+% ============================================================================
+% DEPENDENCIAS
+% ============================================================================
+
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{polar}
+\RequirePackage{siunitx}
+
+% ============================================================================
+% COLUMNA ESTRATIGRÁFICA
+% ============================================================================
+
+% Patrones de litología (simplificados)
+\tikzset{
+  lito arenisca/.style={pattern=north east lines, pattern color=eps-warning!70},
+  lito caliza/.style={pattern=bricks, pattern color=eps-gray},
+  lito arcilla/.style={pattern=horizontal lines, pattern color=eps-success!50},
+  lito marga/.style={pattern=crosshatch, pattern color=eps-info!50},
+  lito conglomerado/.style={pattern=crosshatch dots, pattern color=eps-warning!50},
+  lito basalto/.style={fill=eps-dark!70},
+  lito granito/.style={pattern=dots, pattern color=eps-danger!50},
+}
+
+% Caja para columna estratigráfica
+\newtcolorbox{stratigraphybox}[1][Columna estratigráfica]{
+  enhanced,
+  title={{\footnotesize\faLayerGroup}~#1},
+  colback=white,
+  colframe=eps-gray!50,
+  coltitle=eps-dark,
+  colbacktitle=eps-light,
+  fonttitle=\bfseries\small,
+  boxrule=0.5pt,
+  arc=4pt,
+}
+
+% Capa estratigráfica
+% Uso: \stratlayer{espesor cm}{estilo litología}{nombre}{edad}
+\newcommand{\stratlayer}[4]{%
+  \draw[thick, #2] (0,\value{stratlayerpos}) rectangle (2,\value{stratlayerpos}+#1);
+  \node[right, font=\footnotesize] at (2.2,\value{stratlayerpos}+#1/2) {#3};
+  \node[left, font=\tiny, eps-gray] at (0,\value{stratlayerpos}+#1/2) {#4};
+  \addtocounter{stratlayerpos}{#1}
+}
+
+\newcounter{stratlayerpos}
+
+% Entorno para columna
+\newenvironment{stratcolumn}{
+  \setcounter{stratlayerpos}{0}
+  \begin{tikzpicture}[x=1cm, y=0.5cm]
+    % Escala
+    \draw[eps-gray, thin] (-0.5,0) -- (-0.5,10);
+    \foreach \y in {0,2,...,10} {
+      \draw[eps-gray] (-0.6,\y) -- (-0.4,\y);
+      \node[left, font=\tiny] at (-0.6,\y) {\y m};
+    }
+}{
+  \end{tikzpicture}
+}
+
+% ============================================================================
+% SECCIÓN GEOLÓGICA
+% ============================================================================
+
+% Caja para sección geológica
+\newtcolorbox{geologicsectionbox}[1][Sección geológica]{
+  enhanced,
+  title={{\footnotesize\faMountain}~#1},
+  colback=white,
+  colframe=eps-gray!50,
+  coltitle=eps-dark,
+  colbacktitle=eps-light,
+  fonttitle=\bfseries\small,
+  boxrule=0.5pt,
+  arc=4pt,
+  halign=center,
+}
+
+% Símbolos geológicos
+\newcommand{\faultline}{%
+  \tikz[baseline=-0.3em]{
+    \draw[thick, eps-danger] (0,0) -- (0.3,0.2);
+    \draw[thick, eps-danger] (0.3,0.2) -- (0.6,0);
+  }
+}
+
+\newcommand{\anticline}{%
+  \tikz[baseline=-0.3em]{
+    \draw[thick, eps-primary] (0,0) arc (180:0:0.3);
+    \draw[thick, eps-primary, ->] (0.3,0.3) -- (0.3,0.5);
+  }
+}
+
+\newcommand{\syncline}{%
+  \tikz[baseline=-0.3em]{
+    \draw[thick, eps-primary] (0,0.3) arc (180:360:0.3);
+    \draw[thick, eps-primary, ->] (0.3,0) -- (0.3,-0.2);
+  }
+}
+
+% ============================================================================
+% TABLA DE MINERALES
+% ============================================================================
+
+% Tabla de propiedades de minerales
+\newenvironment{mineraltable}[1][Identificación de minerales]{
+  \begin{tcolorbox}[
+    enhanced,
+    title={{\footnotesize\faGem}~#1},
+    colback=white,
+    colframe=eps-secondary,
+    coltitle=white,
+    colbacktitle=eps-secondary,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=4pt,
+    left=0pt, right=0pt, top=0pt, bottom=0pt,
+  ]
+    \footnotesize
+    \begin{tabular}{|p{2cm}|c|c|p{2cm}|p{2cm}|p{3cm}|}
+      \hline
+      \rowcolor{eps-secondary!10}
+      \textbf{Mineral} & \textbf{Dureza} & \textbf{Densidad} & \textbf{Color} & \textbf{Brillo} & \textbf{Composición} \\
+      \hline
+}{
+    \end{tabular}
+  \end{tcolorbox}
+}
+
+\newcommand{\mineralrow}[6]{%
+  #1 & #2 & \num{#3} & #4 & #5 & \ch{#6} \\ \hline
+}
+
+% Ficha de mineral
+\newcommand{\mineralcard}[5]{%
+  \begin{tcolorbox}[
+    enhanced,
+    colback=white,
+    colframe=eps-gray!30,
+    boxrule=0.5pt,
+    arc=4pt,
+    width=0.48\textwidth,
+  ]
+    \textcolor{eps-secondary}{\faGem}~{\bfseries #1}\\[4pt]
+    {\footnotesize
+      \begin{tabular}{@{}ll@{}}
+        \textbf{Fórmula:} & \ch{#2} \\
+        \textbf{Sistema:} & #3 \\
+        \textbf{Dureza:} & #4 \\
+        \textbf{Uso:} & #5 \\
+      \end{tabular}
+    }
+  \end{tcolorbox}
+}
+
+% ============================================================================
+% ROSA DE VIENTOS / DATOS DIRECCIONALES
+% ============================================================================
+
+% Estilo para rosa de vientos
+\pgfplotsset{
+  windrose style/.style={
+    width=8cm,
+    height=8cm,
+    xmin=0, xmax=360,
+    xtick={0,45,...,315},
+    xticklabels={N, NE, E, SE, S, SO, O, NO},
+    ymin=0,
+    ytick style={draw=none},
+    x tick label style={font=\footnotesize},
+  },
+}
+
+% Caja para rosa de orientaciones
+\newtcolorbox{rosebox}[1][Rosa de orientaciones]{
+  enhanced,
+  title={{\footnotesize\faCompass}~#1},
+  colback=white,
+  colframe=eps-gray!50,
+  coltitle=eps-dark,
+  colbacktitle=eps-light,
+  fonttitle=\bfseries\small,
+  boxrule=0.5pt,
+  arc=4pt,
+  halign=center,
+}
+
+% ============================================================================
+% DATOS ESTRUCTURALES
+% ============================================================================
+
+% Tabla de datos estructurales
+\newenvironment{structuraldata}[1][Datos estructurales]{
+  \begin{tcolorbox}[
+    enhanced,
+    title={{\footnotesize\faRuler}~#1},
+    colback=white,
+    colframe=eps-primary,
+    coltitle=white,
+    colbacktitle=eps-primary,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=4pt,
+    left=0pt, right=0pt, top=0pt, bottom=0pt,
+  ]
+    \footnotesize
+    \begin{tabular}{|c|c|c|c|p{4cm}|}
+      \hline
+      \rowcolor{eps-primary!10}
+      \textbf{Estación} & \textbf{Dirección} & \textbf{Buzamiento} & \textbf{Tipo} & \textbf{Observaciones} \\
+      \hline
+}{
+    \end{tabular}
+  \end{tcolorbox}
+}
+
+\newcommand{\structurepoint}[5]{%
+  #1 & N#2°E & #3° & #4 & #5 \\ \hline
+}
+
+% Símbolo de buzamiento
+\newcommand{\dipstrike}[2]{%
+  \tikz[baseline=-0.3em]{
+    \draw[thick, eps-primary] (0,0) -- (0.5,0);
+    \draw[thick, eps-primary] (0.25,0) -- (0.25,-0.2);
+    \node[right, font=\tiny] at (0.5,0) {#1/#2};
+  }
+}
+
+% ============================================================================
+% ENSAYOS GEOTÉCNICOS
+% ============================================================================
+
+% Tabla de ensayos
+\newenvironment{geotechdata}[1][Ensayos geotécnicos]{
+  \begin{tcolorbox}[
+    enhanced,
+    title={{\footnotesize\faHammer}~#1},
+    colback=white,
+    colframe=eps-warning,
+    coltitle=white,
+    colbacktitle=eps-warning,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=4pt,
+    left=0pt, right=0pt, top=0pt, bottom=0pt,
+  ]
+    \footnotesize
+    \begin{tabular}{|p{3cm}|c|r|l|p{4cm}|}
+      \hline
+      \rowcolor{eps-warning!10}
+      \textbf{Ensayo} & \textbf{Norma} & \textbf{Valor} & \textbf{Unidad} & \textbf{Clasificación} \\
+      \hline
+}{
+    \end{tabular}
+  \end{tcolorbox}
+}
+
+\newcommand{\geotechtest}[5]{%
+  #1 & #2 & \num{#3} & #4 & #5 \\ \hline
+}
+
+% Parámetros geotécnicos comunes
+\newcommand{\sptvalue}[1]{N$_{SPT}$ = #1}
+\newcommand{\cohesion}[1]{c = \SI{#1}{\kilo\pascal}}
+\newcommand{\friction}[1]{$\phi$ = #1°}
+
+% ============================================================================
+% PERFIL DE SONDEO
+% ============================================================================
+
+% Caja para perfil de sondeo
+\newtcolorbox{boreholebox}[1][Perfil de sondeo]{
+  enhanced,
+  title={{\footnotesize\faArrowDown}~#1},
+  colback=white,
+  colframe=eps-accent,
+  coltitle=white,
+  colbacktitle=eps-accent,
+  fonttitle=\bfseries\small,
+  boxrule=0.5pt,
+  arc=4pt,
+}
+
+% Nivel freático
+\newcommand{\watertable}[1]{%
+  \textcolor{eps-info}{\faTint}~Nivel freático: \SI{#1}{\meter}
+}
+
+% ============================================================================
+% CLASIFICACIÓN DE SUELOS
+% ============================================================================
+
+% Clasificación USCS
+\newcommand{\uscsclass}[2]{%
+  \begin{tikzpicture}[baseline=-0.3em]
+    \node[draw=eps-primary, fill=eps-primary!10, rounded corners=2pt,
+          inner sep=4pt, font=\bfseries] {#1};
+  \end{tikzpicture}
+  ~#2
+}
+
+% Clasificación de roca RMR
+\newcommand{\rmrclass}[2]{%
+  \begin{tikzpicture}[baseline=-0.3em]
+    \ifnum#1>80
+      \def\rmrcolor{eps-success}
+    \else\ifnum#1>60
+      \def\rmrcolor{eps-info}
+    \else\ifnum#1>40
+      \def\rmrcolor{eps-warning}
+    \else
+      \def\rmrcolor{eps-danger}
+    \fi\fi\fi
+    \node[draw=\rmrcolor, fill=\rmrcolor!20, rounded corners=2pt,
+          inner sep=4pt, font=\small] {RMR = #1 \quad Clase #2};
+  \end{tikzpicture}
+}
+
+% ============================================================================
+% MAPA DE ISOPACAS/ISOLÍNEAS
+% ============================================================================
+
+% Caja para mapa de isolíneas
+\newtcolorbox{isolinebox}[1][Mapa de isolíneas]{
+  enhanced,
+  title={{\footnotesize\faMap}~#1},
+  colback=white,
+  colframe=eps-gray!50,
+  coltitle=eps-dark,
+  colbacktitle=eps-light,
+  fonttitle=\bfseries\small,
+  boxrule=0.5pt,
+  arc=4pt,
+  halign=center,
+}
+
+% ============================================================================
+% ESCALA DE TIEMPO GEOLÓGICO
+% ============================================================================
+
+% Época geológica con color
+\newcommand{\geoera}[2]{%
+  \ifstrequal{#1}{Cuaternario}{\def\@eracolor{eps-warning!30}}{}
+  \ifstrequal{#1}{Neógeno}{\def\@eracolor{eps-warning!50}}{}
+  \ifstrequal{#1}{Paleógeno}{\def\@eracolor{eps-warning!70}}{}
+  \ifstrequal{#1}{Cretácico}{\def\@eracolor{eps-success!50}}{}
+  \ifstrequal{#1}{Jurásico}{\def\@eracolor{eps-info!50}}{}
+  \ifstrequal{#1}{Triásico}{\def\@eracolor{eps-secondary!50}}{}
+  \ifstrequal{#1}{Pérmico}{\def\@eracolor{eps-danger!30}}{}
+  \begin{tikzpicture}[baseline=-0.3em]
+    \node[fill=\@eracolor, rounded corners=2pt, inner sep=3pt, font=\footnotesize] {#1};
+  \end{tikzpicture}
+  ~#2
+}
+
+% ============================================================================
+% RIESGOS GEOLÓGICOS
+% ============================================================================
+
+% Caja de riesgo geológico
+\newcommand{\georisk}[3]{%
+  \begin{tcolorbox}[
+    enhanced,
+    colback=#3!5,
+    colframe=#3,
+    boxrule=0.5pt,
+    arc=4pt,
+    left=8pt,
+  ]
+    \textcolor{#3}{\faExclamationTriangle}~\textbf{#1}\\[2pt]
+    {\footnotesize #2}
+  \end{tcolorbox}
+}
+
+% Riesgos predefinidos
+\newcommand{\risklandslide}[1]{\georisk{Riesgo de deslizamiento}{#1}{eps-danger}}
+\newcommand{\riskflood}[1]{\georisk{Riesgo de inundación}{#1}{eps-info}}
+\newcommand{\riskseismic}[1]{\georisk{Riesgo sísmico}{#1}{eps-warning}}
+\newcommand{\risksubsidence}[1]{\georisk{Riesgo de subsidencia}{#1}{eps-secondary}}
+
+\endinput

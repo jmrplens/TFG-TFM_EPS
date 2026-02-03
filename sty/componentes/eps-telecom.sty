@@ -1,0 +1,547 @@
+%% eps-telecom.sty
+%% Componentes para telecomunicaciones, electrónica, robótica
+%% Parte de eps-componentes.sty
+
+\ProvidesFile{eps-telecom.sty}[2026/02/03 v2.1.0 Componentes telecom EPS UA]
+
+% ============================================================================
+% DEPENDENCIAS
+% ============================================================================
+
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{polar,smithchart}
+\RequirePackage{circuitikz}
+\RequirePackage{siunitx}
+
+% ============================================================================
+% CARTA DE SMITH
+% ============================================================================
+
+% Estilo base para carta de Smith
+\pgfplotsset{
+  eps smith style/.style={
+    width=10cm,
+    height=10cm,
+  },
+}
+
+% Entorno para carta de Smith
+% Uso: \begin{smithchart}[opciones]
+%        \addplot... 
+%      \end{smithchart}
+\newenvironment{smithchartenv}[1][]{
+  \begin{tikzpicture}
+    \begin{smithchart}[
+      eps smith style,
+      #1
+    ]
+}{
+    \end{smithchart}
+  \end{tikzpicture}
+}
+
+% Carta de Smith con caja
+% Uso: \begin{smithchartbox}[título]
+%        \smithpoint{0.5}{0.3}{Punto 1}
+%      \end{smithchartbox}
+\newtcolorbox{smithchartbox}[1][Carta de Smith]{
+  enhanced,
+  title={{\footnotesize\faCircle}~#1},
+  colback=white,
+  colframe=eps-gray!50,
+  coltitle=eps-dark,
+  colbacktitle=eps-light,
+  fonttitle=\bfseries\small,
+  boxrule=0.5pt,
+  arc=4pt,
+  halign=center,
+}
+
+% Punto en carta de Smith con etiqueta
+\newcommand{\smithpoint}[3]{%
+  \addplot[only marks, mark=*, mark size=3pt, eps-primary] 
+    coordinates {(#1,#2)} node[above right, font=\footnotesize] {#3};
+}
+
+% Arco de impedancia constante
+\newcommand{\smitharc}[2]{%
+  \addplot[thick, eps-secondary, domain=#1:#2, samples=100] ...;
+}
+
+% ============================================================================
+% DIAGRAMA DE CONSTELACIÓN
+% ============================================================================
+
+% Estilo para diagrama de constelación
+\pgfplotsset{
+  constellation style/.style={
+    width=8cm,
+    height=8cm,
+    axis lines=middle,
+    xlabel={I},
+    ylabel={Q},
+    xmin=-2, xmax=2,
+    ymin=-2, ymax=2,
+    grid=both,
+    grid style={eps-gray!30},
+    axis line style={eps-gray},
+    tick style={eps-gray},
+  },
+}
+
+% Entorno para constelación
+% Uso: \begin{constellation}[título]
+%        \constpoint{1}{1}
+%        \constpoint{1}{-1}
+%      \end{constellation}
+\newenvironment{constellation}[1][Diagrama de constelación]{
+  \begin{center}
+    \textbf{#1}\\[4pt]
+    \begin{tikzpicture}
+      \begin{axis}[constellation style]
+}{
+      \end{axis}
+    \end{tikzpicture}
+  \end{center}
+}
+
+% Punto de constelación
+\newcommand{\constpoint}[2]{%
+  \addplot[only marks, mark=*, mark size=4pt, eps-primary] 
+    coordinates {(#1,#2)};
+}
+
+% Punto con etiqueta de bits
+\newcommand{\constpointlabel}[3]{%
+  \addplot[only marks, mark=*, mark size=4pt, eps-primary] 
+    coordinates {(#1,#2)} node[above right, font=\tiny\ttfamily] {#3};
+}
+
+% Constelaciones predefinidas
+\newcommand{\qpsk}{%
+  \constpointlabel{0.707}{0.707}{00}
+  \constpointlabel{-0.707}{0.707}{01}
+  \constpointlabel{-0.707}{-0.707}{11}
+  \constpointlabel{0.707}{-0.707}{10}
+}
+
+% ============================================================================
+% DIAGRAMA DE BODE
+% ============================================================================
+
+% Estilos para Bode
+\pgfplotsset{
+  bode magnitude style/.style={
+    width=12cm,
+    height=5cm,
+    xmode=log,
+    xlabel={Frecuencia (Hz)},
+    ylabel={Magnitud (dB)},
+    grid=both,
+    grid style={eps-gray!30},
+    axis line style={eps-gray},
+  },
+  bode phase style/.style={
+    width=12cm,
+    height=4cm,
+    xmode=log,
+    xlabel={Frecuencia (Hz)},
+    ylabel={Fase (°)},
+    grid=both,
+    grid style={eps-gray!30},
+    axis line style={eps-gray},
+  },
+}
+
+% Entorno para diagrama de Bode
+% Uso: \begin{bodeplot}
+%        \bodemagnitude{datos}
+%        \bodephase{datos}
+%      \end{bodeplot}
+\newenvironment{bodeplot}{
+  \begin{center}
+    \begin{tikzpicture}
+}{
+    \end{tikzpicture}
+  \end{center}
+}
+
+% ============================================================================
+% DIAGRAMA DE BLOQUES
+% ============================================================================
+
+% Estilos TikZ para diagramas de bloques
+\tikzset{
+  % Bloques
+  sysblock/.style={
+    rectangle, draw=eps-primary, fill=eps-primary!10,
+    minimum width=2cm, minimum height=1cm,
+    font=\small, align=center, rounded corners=2pt,
+  },
+  sumblock/.style={
+    circle, draw=eps-primary, fill=white,
+    minimum size=0.6cm, font=\footnotesize,
+  },
+  gainblock/.style={
+    isosceles triangle, isosceles triangle apex angle=60,
+    draw=eps-primary, fill=eps-primary!10,
+    minimum width=1cm, minimum height=0.8cm,
+    font=\small, shape border rotate=90,
+  },
+  integratorblock/.style={
+    rectangle, draw=eps-secondary, fill=eps-secondary!10,
+    minimum width=1.5cm, minimum height=1cm,
+    font=\small, align=center,
+  },
+  delayblock/.style={
+    rectangle, draw=eps-warning, fill=eps-warning!10,
+    minimum width=1cm, minimum height=0.8cm,
+    font=\small, align=center,
+  },
+  % Conexiones
+  sysarrow/.style={
+    ->, >=stealth, thick, eps-dark,
+  },
+  syslabel/.style={
+    font=\footnotesize, eps-gray,
+  },
+  % Puntos de suma
+  plusmark/.style={font=\tiny},
+  minusmark/.style={font=\tiny},
+}
+
+% Símbolos para suma
+\newcommand{\plusmark}{\scriptsize$+$}
+\newcommand{\minusmark}{\scriptsize$-$}
+
+% ============================================================================
+% CRONOGRAMA DE SEÑALES (TIMING DIAGRAM)
+% ============================================================================
+
+% Estilos para timing diagrams
+\tikzset{
+  timing style/.style={
+    x=0.5cm, y=0.6cm,
+  },
+  timing signal/.style={
+    thick, eps-primary,
+  },
+  timing label/.style={
+    font=\footnotesize\ttfamily, anchor=east,
+  },
+  timing grid/.style={
+    very thin, eps-gray!30,
+  },
+  timing clock/.style={
+    thick, eps-secondary,
+  },
+}
+
+% Comandos para señales
+\newcommand{\timinglow}[2]{%
+  \draw[timing signal] (#1,0) -- (#2,0);
+}
+\newcommand{\timinghigh}[2]{%
+  \draw[timing signal] (#1,1) -- (#2,1);
+}
+\newcommand{\timingrise}[1]{%
+  \draw[timing signal] (#1,0) -- (#1,1);
+}
+\newcommand{\timingfall}[1]{%
+  \draw[timing signal] (#1,1) -- (#1,0);
+}
+\newcommand{\timingclock}[3]{% inicio, fin, periodo
+  \foreach \i in {#1,#3,...,#2} {
+    \draw[timing clock] (\i,0) -- (\i,1) -- (\i+#3/2,1) -- (\i+#3/2,0);
+  }
+}
+
+% Caja para timing diagram
+\newtcolorbox{timingbox}[1][Cronograma de señales]{
+  enhanced,
+  title={{\footnotesize\faWaveSquare}~#1},
+  colback=white,
+  colframe=eps-gray!50,
+  coltitle=eps-dark,
+  colbacktitle=eps-light,
+  fonttitle=\bfseries\small,
+  boxrule=0.5pt,
+  arc=4pt,
+}
+
+% ============================================================================
+% PARÁMETROS S
+% ============================================================================
+
+% Tabla de parámetros S
+% Uso: \begin{sparameters}{Frecuencia}
+%        \sparam{1 GHz}{-15.2}{-0.8}{-25.3}{-0.5}
+%      \end{sparameters}
+\newenvironment{sparameters}[1][]{
+  \begin{tcolorbox}[
+    enhanced,
+    title={{\footnotesize\faTable}~Parámetros S #1},
+    colback=white,
+    colframe=eps-accent,
+    coltitle=white,
+    colbacktitle=eps-accent,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=4pt,
+    left=0pt, right=0pt, top=0pt, bottom=0pt,
+  ]
+    \footnotesize
+    \begin{tabular}{|c|c|c|c|c|}
+      \hline
+      \rowcolor{eps-accent!10}
+      \textbf{Freq} & \textbf{S11 (dB)} & \textbf{S21 (dB)} & \textbf{S12 (dB)} & \textbf{S22 (dB)} \\
+      \hline
+}{
+    \end{tabular}
+  \end{tcolorbox}
+}
+
+\newcommand{\sparam}[5]{%
+  #1 & #2 & #3 & #4 & #5 \\ \hline
+}
+
+% ============================================================================
+% DIAGRAMA DE ESTADOS (FSM)
+% ============================================================================
+
+% Estilos TikZ para máquinas de estados
+\tikzset{
+  fsmstate/.style={
+    circle, draw=eps-primary, fill=eps-primary!10,
+    minimum size=1.2cm, font=\small\bfseries,
+  },
+  fsminitial/.style={
+    fsmstate, fill=eps-success!20, draw=eps-success,
+  },
+  fsmfinal/.style={
+    fsmstate, double, double distance=2pt,
+  },
+  fsmtransition/.style={
+    ->, >=stealth, thick, eps-dark,
+    shorten >=2pt, shorten <=2pt,
+  },
+  fsmlabel/.style={
+    font=\footnotesize, fill=white, inner sep=1pt,
+  },
+  fsmloop/.style={
+    looseness=5, in=60, out=120,
+  },
+}
+
+% Comando para transición con etiqueta
+% Uso: \fsmtrans{estado1}{estado2}{etiqueta}
+\newcommand{\fsmtrans}[3]{%
+  \draw[fsmtransition] (#1) -- node[fsmlabel, above] {#3} (#2);
+}
+
+% ============================================================================
+% ANTENAS Y PATRONES DE RADIACIÓN
+% ============================================================================
+
+% Estilo para diagrama polar de radiación
+\pgfplotsset{
+  radiation pattern style/.style={
+    width=8cm,
+    height=8cm,
+    axis lines=none,
+    samples=100,
+  },
+}
+
+% Caja para patrón de radiación
+\newtcolorbox{radiationbox}[1][Patrón de radiación]{
+  enhanced,
+  title={{\footnotesize\faBroadcastTower}~#1},
+  colback=white,
+  colframe=eps-gray!50,
+  coltitle=eps-dark,
+  colbacktitle=eps-light,
+  fonttitle=\bfseries\small,
+  boxrule=0.5pt,
+  arc=4pt,
+  halign=center,
+}
+
+% ============================================================================
+% ESPECTRO DE FRECUENCIAS
+% ============================================================================
+
+% Estilo para espectro
+\pgfplotsset{
+  spectrum style/.style={
+    width=12cm,
+    height=5cm,
+    xlabel={Frecuencia},
+    ylabel={Amplitud (dB)},
+    grid=both,
+    grid style={eps-gray!30},
+    axis line style={eps-gray},
+  },
+}
+
+% Caja para espectro
+\newtcolorbox{spectrumbox}[1][Espectro de frecuencias]{
+  enhanced,
+  title={{\footnotesize\faChartArea}~#1},
+  colback=white,
+  colframe=eps-gray!50,
+  coltitle=eps-dark,
+  colbacktitle=eps-light,
+  fonttitle=\bfseries\small,
+  boxrule=0.5pt,
+  arc=4pt,
+}
+
+% ============================================================================
+% DIAGRAMA DE OJO
+% ============================================================================
+
+% Estilo para diagrama de ojo
+\pgfplotsset{
+  eye diagram style/.style={
+    width=10cm,
+    height=6cm,
+    xlabel={Tiempo},
+    ylabel={Amplitud},
+    xmin=0, xmax=2,
+    ymin=-1.5, ymax=1.5,
+    axis lines=middle,
+    axis line style={eps-gray},
+    ticks=none,
+  },
+}
+
+% Caja para diagrama de ojo
+\newtcolorbox{eyediagrambox}[1][Diagrama de ojo]{
+  enhanced,
+  title={{\footnotesize\faEye}~#1},
+  colback=white,
+  colframe=eps-gray!50,
+  coltitle=eps-dark,
+  colbacktitle=eps-light,
+  fonttitle=\bfseries\small,
+  boxrule=0.5pt,
+  arc=4pt,
+  halign=center,
+}
+
+% ============================================================================
+% TABLAS DE ESPECIFICACIONES RF
+% ============================================================================
+
+% Especificación de componente RF
+% Uso: \rfspec{Parámetro}{Valor}{Unidad}{Condición}
+\newcommand{\rfspec}[4]{%
+  #1 & #2 & #3 & #4 \\ \hline
+}
+
+% Tabla de especificaciones RF
+\newenvironment{rfspecs}[1][Especificaciones]{
+  \begin{tcolorbox}[
+    enhanced,
+    title={{\footnotesize\faMicrochip}~#1},
+    colback=white,
+    colframe=eps-primary,
+    coltitle=white,
+    colbacktitle=eps-primary,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=4pt,
+    left=0pt, right=0pt, top=0pt, bottom=0pt,
+  ]
+    \footnotesize
+    \begin{tabular}{|p{4cm}|c|c|p{4cm}|}
+      \hline
+      \rowcolor{eps-primary!10}
+      \textbf{Parámetro} & \textbf{Valor} & \textbf{Unidad} & \textbf{Condiciones} \\
+      \hline
+}{
+    \end{tabular}
+  \end{tcolorbox}
+}
+
+% ============================================================================
+% CIRCUITOS CON CIRCUITIKZ
+% ============================================================================
+
+% Estilos personalizados para circuitikz
+\ctikzset{
+  resistors/scale=0.8,
+  capacitors/scale=0.8,
+  inductors/scale=0.8,
+}
+
+% Caja para circuito
+\newtcolorbox{circuitbox}[1][Esquema del circuito]{
+  enhanced,
+  title={{\footnotesize\faPlug}~#1},
+  colback=white,
+  colframe=eps-gray!50,
+  coltitle=eps-dark,
+  colbacktitle=eps-light,
+  fonttitle=\bfseries\small,
+  boxrule=0.5pt,
+  arc=4pt,
+  halign=center,
+}
+
+% ============================================================================
+% PROTOCOLO DE COMUNICACIÓN
+% ============================================================================
+
+% Trama de protocolo
+% Uso: \begin{protocolframe}
+%        \framefield{8}{Preámbulo}
+%        \framefield{16}{Dirección}
+%        \framefield{8}{Control}
+%      \end{protocolframe}
+\newcounter{framepos}
+\newlength{\fieldwidth}
+
+\newenvironment{protocolframe}[1][Formato de trama]{
+  \begin{tcolorbox}[
+    enhanced,
+    title={{\footnotesize\faNetworkWired}~#1},
+    colback=white,
+    colframe=eps-accent,
+    coltitle=white,
+    colbacktitle=eps-accent,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=4pt,
+  ]
+    \setcounter{framepos}{0}
+    \centering
+    \begin{tikzpicture}[x=0.15cm]
+}{
+    \end{tikzpicture}
+  \end{tcolorbox}
+}
+
+\newcommand{\framefield}[2]{%
+  \pgfmathsetmacro{\startpos}{\value{framepos}}
+  \pgfmathsetmacro{\endpos}{\startpos + #1}
+  \draw[thick, eps-primary, fill=eps-primary!10] 
+    (\startpos, 0) rectangle (\endpos, 1);
+  \node[font=\tiny, align=center] at ({(\startpos+\endpos)/2}, 0.5) {#2};
+  \node[font=\tiny, eps-gray] at ({(\startpos+\endpos)/2}, -0.3) {#1 bits};
+  \addtocounter{framepos}{#1}
+}
+
+\newcommand{\framefieldhighlight}[2]{%
+  \pgfmathsetmacro{\startpos}{\value{framepos}}
+  \pgfmathsetmacro{\endpos}{\startpos + #1}
+  \draw[thick, eps-warning, fill=eps-warning!20] 
+    (\startpos, 0) rectangle (\endpos, 1);
+  \node[font=\tiny, align=center] at ({(\startpos+\endpos)/2}, 0.5) {#2};
+  \node[font=\tiny, eps-gray] at ({(\startpos+\endpos)/2}, -0.3) {#1 bits};
+  \addtocounter{framepos}{#1}
+}
+
+\endinput

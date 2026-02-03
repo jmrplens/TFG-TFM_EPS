@@ -1,0 +1,349 @@
+%% eps-comunes.sty
+%% Componentes comunes para todas las disciplinas
+%% Parte de eps-componentes.sty
+
+\ProvidesFile{eps-comunes.sty}[2026/02/03 v2.1.0 Componentes comunes EPS UA]
+
+% ============================================================================
+% CAJAS DE INFORMACIÓN
+% ============================================================================
+
+% Caja de información general
+% Uso: \infobox{Texto de información}
+\newtcolorbox{infobox}[1][]{
+  eps-minimal,
+  borderline west={3pt}{0pt}{eps-info},
+  colback=eps-info!5,
+  before upper={\textcolor{eps-info}{\faInfoCircle}\hspace{8pt}},
+  #1
+}
+
+% Caja de éxito/correcto
+% Uso: \successbox{Texto de éxito}
+\newtcolorbox{successbox}[1][]{
+  eps-minimal,
+  borderline west={3pt}{0pt}{eps-success},
+  colback=eps-success!5,
+  before upper={\textcolor{eps-success}{\faCheckCircle}\hspace{8pt}},
+  #1
+}
+
+% Caja de advertencia
+% Uso: \warningbox{Texto de advertencia}
+\newtcolorbox{warningbox}[1][]{
+  eps-minimal,
+  borderline west={3pt}{0pt}{eps-warning},
+  colback=eps-warning!5,
+  before upper={\textcolor{eps-warning}{\faExclamationTriangle}\hspace{8pt}},
+  #1
+}
+
+% Caja de peligro/error
+% Uso: \dangerbox{Texto de peligro}
+\newtcolorbox{dangerbox}[1][]{
+  eps-minimal,
+  borderline west={3pt}{0pt}{eps-danger},
+  colback=eps-danger!5,
+  before upper={\textcolor{eps-danger}{\faTimesCircle}\hspace{8pt}},
+  #1
+}
+
+% Caja de consejo/tip
+% Uso: \tipbox{Texto de consejo}
+\newtcolorbox{tipbox}[1][]{
+  eps-minimal,
+  borderline west={3pt}{0pt}{eps-secondary},
+  colback=eps-secondary!5,
+  before upper={\textcolor{eps-secondary}{\faLightbulb}\hspace{8pt}},
+  #1
+}
+
+% Caja de nota
+% Uso: \notebox{Texto de nota}
+\newtcolorbox{notebox}[1][]{
+  eps-minimal,
+  borderline west={3pt}{0pt}{eps-gray},
+  colback=eps-light,
+  before upper={\textcolor{eps-gray}{\faStickyNote}\hspace{8pt}},
+  #1
+}
+
+% ============================================================================
+% CAJAS CON TÍTULO
+% ============================================================================
+
+% Caja con título personalizado
+% Uso: \begin{titlebox}{Título}...\end{titlebox}
+\newtcolorbox{titlebox}[2][]{
+  eps-base,
+  colback=eps-light,
+  colframe=eps-primary,
+  coltitle=eps-white,
+  colbacktitle=eps-primary,
+  title={#2},
+  #1
+}
+
+% Caja de definición
+% Uso: \begin{definitionbox}{Término}...\end{definitionbox}
+\newtcolorbox{definitionbox}[2][]{
+  eps-base,
+  colback=eps-info!5,
+  colframe=eps-info,
+  coltitle=eps-white,
+  colbacktitle=eps-info,
+  title={\faBook~#2},
+  #1
+}
+
+% Caja de ejemplo
+% Uso: \begin{examplebox}[título opcional]...\end{examplebox}
+\newtcolorbox{examplebox}[1][Ejemplo]{
+  eps-base,
+  colback=eps-success!5,
+  colframe=eps-success,
+  coltitle=eps-white,
+  colbacktitle=eps-success,
+  title={\faFlask~#1},
+}
+
+% Caja de importante
+% Uso: \begin{importantbox}...\end{importantbox}
+\newtcolorbox{importantbox}[1][Importante]{
+  eps-base,
+  colback=eps-warning!5,
+  colframe=eps-warning,
+  coltitle=eps-white,
+  colbacktitle=eps-warning,
+  title={\faExclamationCircle~#1},
+}
+
+% ============================================================================
+% LISTAS ESPECIALES
+% ============================================================================
+
+% Checklist con casillas
+% Uso: \begin{checklist}
+%        \item[\checked] Tarea completada
+%        \item[\unchecked] Tarea pendiente
+%      \end{checklist}
+\newcommand{\checked}{\textcolor{eps-success}{\faCheckSquare}}
+\newcommand{\unchecked}{\textcolor{eps-gray}{\faSquare}}
+\newcommand{\partialchecked}{\textcolor{eps-warning}{\faMinusSquare}}
+
+\newenvironment{checklist}{%
+  \begin{itemize}[label=\unchecked, leftmargin=1.5em]
+}{%
+  \end{itemize}
+}
+
+% Lista de pros y contras
+% Uso: \begin{proscons}
+%        \pro Ventaja 1
+%        \con Desventaja 1
+%      \end{proscons}
+\newcommand{\pro}{\item[\textcolor{eps-success}{\faPlus}]}
+\newcommand{\con}{\item[\textcolor{eps-danger}{\faMinus}]}
+
+\newenvironment{proscons}{%
+  \begin{itemize}[leftmargin=1.5em]
+}{%
+  \end{itemize}
+}
+
+% Lista de pasos numerados (procedimiento)
+% Uso: \begin{steplist}
+%        \step Primer paso
+%        \step Segundo paso
+%      \end{steplist}
+\newcounter{stepcount}
+\newcommand{\step}{\stepcounter{stepcount}\item[\textcolor{eps-primary}{\bfseries\thestepcount.}]}
+
+\newenvironment{steplist}{%
+  \setcounter{stepcount}{0}%
+  \begin{itemize}[leftmargin=2em]
+}{%
+  \end{itemize}
+}
+
+% ============================================================================
+% ETIQUETAS Y BADGES
+% ============================================================================
+
+% Badge genérico
+% Uso: \badge{texto} o \badge[color]{texto}
+\newcommand{\badge}[2][eps-primary]{%
+  \tikz[baseline=(text.base)]{%
+    \node[fill=#1, text=white, rounded corners=2pt, 
+          inner xsep=4pt, inner ysep=1pt, font=\footnotesize\bfseries] 
+          (text) {#2};
+  }%
+}
+
+% Badges predefinidos
+\newcommand{\badgenew}{\badge[eps-success]{NUEVO}}
+\newcommand{\badgewip}{\badge[eps-warning]{EN PROGRESO}}
+\newcommand{\badgedeprecated}{\badge[eps-danger]{OBSOLETO}}
+\newcommand{\badgebeta}{\badge[eps-secondary]{BETA}}
+\newcommand{\badgerequired}{\badge[eps-danger]{REQUERIDO}}
+\newcommand{\badgeoptional}{\badge[eps-gray]{OPCIONAL}}
+
+% Estado de versión
+% Uso: \version{1.2.3}
+\newcommand{\version}[1]{%
+  \badge[eps-info]{v#1}%
+}
+
+% ============================================================================
+% COMPARATIVAS Y DIFERENCIAS
+% ============================================================================
+
+% Caja de comparación lado a lado
+% Uso: \begin{comparison}{Opción A}{Opción B}
+%        \comprow{Criterio 1}{Valor A}{Valor B}
+%      \end{comparison}
+\newenvironment{comparison}[2]{%
+  \def\@compheadA{#1}%
+  \def\@compheadB{#2}%
+  \begin{tcolorbox}[
+    eps-base,
+    colback=white,
+    colframe=eps-gray!50,
+  ]
+  \begin{tabular}{@{}p{0.3\linewidth}|p{0.3\linewidth}|p{0.3\linewidth}@{}}
+    \textbf{Criterio} & \textbf{\@compheadA} & \textbf{\@compheadB} \\
+    \hline
+}{%
+  \end{tabular}
+  \end{tcolorbox}
+}
+
+\newcommand{\comprow}[3]{#1 & #2 & #3 \\}
+
+% ============================================================================
+% CITAS Y REFERENCIAS DESTACADAS
+% ============================================================================
+
+% Cita destacada
+% Uso: \begin{quotebox}[autor]...\end{quotebox}
+\newtcolorbox{quotebox}[1][]{
+  eps-base,
+  colback=eps-light,
+  colframe=eps-light,
+  borderline west={3pt}{0pt}{eps-gray},
+  before upper={\large\textcolor{eps-gray}{\faQuoteLeft}\hspace{6pt}},
+  after upper={\hfill\textcolor{eps-gray}{\faQuoteRight}},
+  after lower={\hfill\textit{--- #1}},
+}
+
+% ============================================================================
+% INDICADORES Y MÉTRICAS
+% ============================================================================
+
+% Indicador de progreso
+% Uso: \progressbar{75} (porcentaje)
+\newcommand{\progressbar}[1]{%
+  \begin{tikzpicture}[baseline=-0.3em]
+    \fill[eps-light] (0,0) rectangle (3,0.3);
+    \fill[eps-primary] (0,0) rectangle ({3*#1/100},0.3);
+    \draw[eps-gray, thin] (0,0) rectangle (3,0.3);
+    \node[right, font=\footnotesize] at (3.1,0.15) {#1\%};
+  \end{tikzpicture}%
+}
+
+% Indicador de rating (estrellas)
+% Uso: \rating{4}{5} (4 de 5 estrellas)
+\newcommand{\rating}[2]{%
+  \foreach \i in {1,...,#2}{%
+    \ifnum\i>#1
+      \textcolor{eps-gray!30}{\faStar}%
+    \else
+      \textcolor{eps-warning}{\faStar}%
+    \fi
+  }%
+}
+
+% Indicador de nivel
+% Uso: \levelbar{3}{5} (nivel 3 de 5)
+\newcommand{\levelbar}[2]{%
+  \begin{tikzpicture}[baseline=-0.3em]
+    \foreach \i in {1,...,#2}{%
+      \pgfmathsetmacro{\xpos}{(\i-1)*0.4}
+      \ifnum\i>#1
+        \fill[eps-gray!30] (\xpos,0) rectangle (\xpos+0.3,0.4);
+      \else
+        \fill[eps-primary] (\xpos,0) rectangle (\xpos+0.3,0.4);
+      \fi
+    }
+  \end{tikzpicture}%
+}
+
+% ============================================================================
+% TARJETAS DE INFORMACIÓN
+% ============================================================================
+
+% Tarjeta de persona/perfil
+% Uso: \personcard{Nombre}{Rol}{Descripción}
+\newcommand{\personcard}[3]{%
+  \begin{tcolorbox}[
+    eps-base,
+    colback=white,
+    colframe=eps-gray!30,
+    width=0.45\textwidth,
+  ]
+    \begin{center}
+      {\Large\faUserCircle}\\[4pt]
+      {\bfseries #1}\\
+      {\small\textcolor{eps-gray}{#2}}\\[4pt]
+      {\footnotesize #3}
+    \end{center}
+  \end{tcolorbox}
+}
+
+% Tarjeta de estadística
+% Uso: \statcard{Valor}{Etiqueta}{icono}{color}
+\newcommand{\statcard}[4]{%
+  \begin{tcolorbox}[
+    eps-base,
+    colback=#4!5,
+    colframe=#4!30,
+    width=0.22\textwidth,
+    halign=center,
+  ]
+    \textcolor{#4}{\Large #3}\\[2pt]
+    {\LARGE\bfseries #1}\\
+    {\footnotesize\textcolor{eps-gray}{#2}}
+  \end{tcolorbox}
+}
+
+% ============================================================================
+% TIMELINE/CRONOLOGÍA
+% ============================================================================
+
+% Timeline simple
+% Uso: \begin{timeline}
+%        \timeitem{2024}{Evento 1}
+%        \timeitem{2025}{Evento 2}
+%      \end{timeline}
+\newcounter{timelinecount}
+\newlength{\timelineindent}
+\setlength{\timelineindent}{3em}
+
+\newenvironment{timeline}{%
+  \setcounter{timelinecount}{0}%
+  \begin{list}{}{%
+    \setlength{\leftmargin}{\timelineindent}%
+    \setlength{\itemsep}{0pt}%
+    \setlength{\parsep}{4pt}%
+  }
+}{%
+  \end{list}
+}
+
+\newcommand{\timeitem}[2]{%
+  \stepcounter{timelinecount}%
+  \item[\textcolor{eps-primary}{\faDotCircle}]%
+  \makebox[3em][r]{\textbf{#1}}\hspace{1em}#2%
+}
+
+\endinput

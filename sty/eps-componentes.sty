@@ -1,0 +1,158 @@
+%% eps-componentes.sty
+%% Componentes especializados para TFG/TFM - EPS Universidad de Alicante
+%% 
+%% Este paquete proporciona componentes visuales especializados para
+%% diferentes disciplinas académicas.
+%%
+%% Uso:
+%%   \usepackage{eps-componentes}                    % Carga solo comunes
+%%   \usepackage[software]{eps-componentes}         % Comunes + Software
+%%   \usepackage[telecom]{eps-componentes}          % Comunes + Telecom
+%%   \usepackage[arquitectura]{eps-componentes}     % Comunes + Arquitectura
+%%   \usepackage[quimica]{eps-componentes}          % Comunes + Química
+%%   \usepackage[all]{eps-componentes}              % Todos los componentes
+%%
+%% Autor: Plantilla TFG/TFM EPS UA
+%% Versión: 2.1.0
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{eps-componentes}[2026/02/03 v2.1.0 Componentes especializados EPS UA]
+
+% ============================================================================
+% OPCIONES DEL PAQUETE
+% ============================================================================
+
+\newif\if@eps@comunes     \@eps@comunestrue   % Siempre se cargan
+\newif\if@eps@software    \@eps@softwarefalse
+\newif\if@eps@telecom     \@eps@telecomfalse
+\newif\if@eps@arquitectura\@eps@arquitecturafalse
+\newif\if@eps@quimica     \@eps@quimicafalse
+\newif\if@eps@geologia    \@eps@geologiafalse
+\newif\if@eps@prevencion  \@eps@prevencionfalse
+
+\DeclareOption{software}{\@eps@softwaretrue}
+\DeclareOption{telecom}{\@eps@telecomtrue}
+\DeclareOption{arquitectura}{\@eps@arquitecturatrue}
+\DeclareOption{quimica}{\@eps@quimicatrue}
+\DeclareOption{geologia}{\@eps@geologiatrue}
+\DeclareOption{prevencion}{\@eps@prevenciontrue}
+\DeclareOption{all}{%
+  \@eps@softwaretrue
+  \@eps@telecomtrue
+  \@eps@arquitecturatrue
+  \@eps@quimicatrue
+  \@eps@geologiatrue
+  \@eps@prevenciontrue
+}
+
+\ProcessOptions\relax
+
+% ============================================================================
+% DEPENDENCIAS COMUNES
+% ============================================================================
+
+\RequirePackage{xcolor}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,breakable,listings,theorems}
+\RequirePackage{fontawesome5}
+\RequirePackage{etoolbox}
+\RequirePackage{calc}
+
+% ============================================================================
+% PALETA DE COLORES COMÚN
+% ============================================================================
+% Diseñada para ser coherente y accesible
+
+% Colores base
+\definecolor{eps-primary}{HTML}{2563EB}      % Azul principal
+\definecolor{eps-secondary}{HTML}{7C3AED}    % Violeta
+\definecolor{eps-accent}{HTML}{0891B2}       % Cian
+
+% Colores semánticos
+\definecolor{eps-success}{HTML}{059669}      % Verde éxito
+\definecolor{eps-warning}{HTML}{D97706}      % Naranja advertencia
+\definecolor{eps-danger}{HTML}{DC2626}       % Rojo peligro
+\definecolor{eps-info}{HTML}{0284C7}         % Azul información
+
+% Colores neutros
+\definecolor{eps-dark}{HTML}{1F2937}         % Gris oscuro
+\definecolor{eps-gray}{HTML}{6B7280}         % Gris medio
+\definecolor{eps-light}{HTML}{F3F4F6}        % Gris claro
+\definecolor{eps-white}{HTML}{FFFFFF}        % Blanco
+
+% Colores para código/terminal
+\definecolor{eps-code-bg}{HTML}{1E293B}      % Fondo oscuro código
+\definecolor{eps-code-fg}{HTML}{E2E8F0}      % Texto claro código
+\definecolor{eps-terminal-green}{HTML}{4ADE80} % Verde terminal
+
+% Colores HTTP para APIs
+\definecolor{eps-http-get}{HTML}{22C55E}     % GET - Verde
+\definecolor{eps-http-post}{HTML}{3B82F6}    % POST - Azul
+\definecolor{eps-http-put}{HTML}{F59E0B}     % PUT - Amarillo
+\definecolor{eps-http-patch}{HTML}{8B5CF6}   % PATCH - Violeta
+\definecolor{eps-http-delete}{HTML}{EF4444}  % DELETE - Rojo
+
+% ============================================================================
+% ESTILOS BASE PARA TCOLORBOX
+% ============================================================================
+
+\tcbset{
+  eps-base/.style={
+    enhanced,
+    breakable,
+    boxrule=0.5pt,
+    arc=2pt,
+    left=8pt,
+    right=8pt,
+    top=6pt,
+    bottom=6pt,
+    fonttitle=\bfseries,
+  },
+  eps-minimal/.style={
+    eps-base,
+    boxrule=0pt,
+    frame hidden,
+    borderline west={3pt}{0pt}{eps-primary},
+  },
+}
+
+% ============================================================================
+% CARGAR MÓDULOS
+% ============================================================================
+
+% Componentes comunes (siempre se cargan)
+\if@eps@comunes
+  \input{sty/componentes/eps-comunes.sty}
+\fi
+
+% Componentes de software/IT
+\if@eps@software
+  \input{sty/componentes/eps-software.sty}
+\fi
+
+% Componentes de telecomunicaciones
+\if@eps@telecom
+  \input{sty/componentes/eps-telecom.sty}
+\fi
+
+% Componentes de arquitectura/construcción
+\if@eps@arquitectura
+  \input{sty/componentes/eps-arquitectura.sty}
+\fi
+
+% Componentes de química/materiales
+\if@eps@quimica
+  \input{sty/componentes/eps-quimica.sty}
+\fi
+
+% Componentes de geología
+\if@eps@geologia
+  \input{sty/componentes/eps-geologia.sty}
+\fi
+
+% Componentes de prevención de riesgos
+\if@eps@prevencion
+  \input{sty/componentes/eps-prevencion.sty}
+\fi
+
+\endinput

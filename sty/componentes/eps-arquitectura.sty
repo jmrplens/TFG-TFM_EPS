@@ -1,0 +1,477 @@
+%% eps-arquitectura.sty
+%% Componentes para arquitectura, edificación, ingeniería civil
+%% Parte de eps-componentes.sty
+
+\ProvidesFile{eps-arquitectura.sty}[2026/02/03 v2.1.0 Componentes arquitectura EPS UA]
+
+% ============================================================================
+% DEPENDENCIAS
+% ============================================================================
+
+\RequirePackage{pgfgantt}
+\RequirePackage{eurosym}
+\RequirePackage{siunitx}
+\sisetup{
+  locale=ES,
+  group-separator={.},
+  output-decimal-marker={,},
+}
+
+% ============================================================================
+% DIAGRAMA DE GANTT
+% ============================================================================
+
+% Estilo personalizado para Gantt
+\ganttset{
+  eps gantt/.style={
+    time slot format=isodate,
+    time slot unit=day,
+    vgrid={*6{draw=eps-gray!20}, *1{draw=eps-gray!50}},
+    hgrid=true,
+    x unit=0.08cm,
+    y unit title=0.6cm,
+    y unit chart=0.5cm,
+    title height=1,
+    bar height=0.6,
+    bar top shift=0.2,
+    group top shift=0.2,
+    group height=0.6,
+    milestone height=0.6,
+    title/.style={fill=eps-primary!10, draw=none},
+    title label font=\footnotesize\bfseries,
+    bar label font=\footnotesize,
+    group label font=\footnotesize\bfseries,
+    milestone label font=\footnotesize\itshape,
+    bar/.style={fill=eps-primary!70, draw=eps-primary},
+    bar incomplete/.style={fill=eps-gray!30},
+    group/.style={fill=eps-dark, draw=eps-dark},
+    group left peak/.style={},
+    group right peak/.style={},
+    milestone/.style={fill=eps-warning, draw=eps-warning, shape=diamond},
+    link/.style={->, eps-gray, thick},
+  },
+}
+
+% Entorno para Gantt
+% Uso: \begin{ganttchart}[opciones]{fecha inicio}{fecha fin}
+%        \gantttitlecalendar{year, month=name} \\
+%        \ganttbar{Tarea 1}{2024-01-01}{2024-01-15} \\
+%      \end{ganttchart}
+\newenvironment{ganttbox}[1][Cronograma del proyecto]{
+  \begin{tcolorbox}[
+    enhanced,
+    title={{\footnotesize\faCalendarAlt}~#1},
+    colback=white,
+    colframe=eps-gray!50,
+    coltitle=eps-dark,
+    colbacktitle=eps-light,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=4pt,
+    breakable,
+  ]
+}{
+  \end{tcolorbox}
+}
+
+% Colores para diferentes tipos de tareas
+\newcommand{\ganttcritical}[3]{\ganttbar[bar/.style={fill=eps-danger!70, draw=eps-danger}]{#1}{#2}{#3}}
+\newcommand{\ganttwarning}[3]{\ganttbar[bar/.style={fill=eps-warning!70, draw=eps-warning}]{#1}{#2}{#3}}
+\newcommand{\ganttcomplete}[3]{\ganttbar[bar/.style={fill=eps-success!70, draw=eps-success}]{#1}{#2}{#3}}
+
+% ============================================================================
+% FICHA TÉCNICA DE MATERIAL
+% ============================================================================
+
+% Ficha técnica completa
+% Uso: \begin{techsheet}{Nombre del material}
+%        \techprop{Densidad}{2400}{kg/m³}
+%        \techprop{Resistencia}{25}{MPa}
+%      \end{techsheet}
+\newenvironment{techsheet}[1]{
+  \begin{tcolorbox}[
+    enhanced,
+    title={{\footnotesize\faCubes}~Ficha técnica: #1},
+    colback=white,
+    colframe=eps-primary,
+    coltitle=white,
+    colbacktitle=eps-primary,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=4pt,
+    left=0pt, right=0pt, top=0pt, bottom=0pt,
+  ]
+    \footnotesize
+    \begin{tabular}{|p{5cm}|c|c|}
+      \hline
+      \rowcolor{eps-primary!10}
+      \textbf{Propiedad} & \textbf{Valor} & \textbf{Unidad} \\
+      \hline
+}{
+    \end{tabular}
+  \end{tcolorbox}
+}
+
+\newcommand{\techprop}[3]{%
+  #1 & #2 & #3 \\ \hline
+}
+
+% Ficha compacta
+\newcommand{\materialcard}[4]{%
+  \begin{tcolorbox}[
+    enhanced,
+    colback=white,
+    colframe=eps-gray!30,
+    boxrule=0.5pt,
+    arc=4pt,
+    width=0.48\textwidth,
+  ]
+    {\bfseries\textcolor{eps-primary}{#1}}\\[4pt]
+    {\footnotesize #2}\\[4pt]
+    \begin{tabular}{@{}ll@{}}
+      #3
+    \end{tabular}\\[4pt]
+    {\footnotesize\textcolor{eps-gray}{#4}}
+  \end{tcolorbox}
+}
+
+% ============================================================================
+% PRESUPUESTOS Y MEDICIONES
+% ============================================================================
+
+% Partida presupuestaria
+% Uso: \begin{presupuesto}
+%        \partida{01.01}{Excavación}{m³}{150.00}{12.50}
+%      \end{presupuesto}
+\newcounter{partidanum}
+\newenvironment{presupuesto}[1][Presupuesto]{
+  \setcounter{partidanum}{0}
+  \begin{tcolorbox}[
+    enhanced,
+    title={{\footnotesize\faFileInvoiceDollar}~#1},
+    colback=white,
+    colframe=eps-primary,
+    coltitle=white,
+    colbacktitle=eps-primary,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=4pt,
+    left=0pt, right=0pt, top=0pt, bottom=0pt,
+  ]
+    \footnotesize
+    \begin{longtable}{|p{1.2cm}|p{5cm}|c|r|r|r|}
+      \hline
+      \rowcolor{eps-primary!10}
+      \textbf{Código} & \textbf{Descripción} & \textbf{Ud.} & 
+      \textbf{Medición} & \textbf{P.U. (\euro)} & \textbf{Importe (\euro)} \\
+      \hline
+      \endhead
+}{
+      \hline
+    \end{longtable}
+  \end{tcolorbox}
+}
+
+\newcommand{\partida}[5]{%
+  #1 & #2 & #3 & \num{#4} & \num{#5} & \num[round-mode=places,round-precision=2]{\fpeval{#4*#5}} \\ \hline
+}
+
+\newcommand{\capitulopresupuesto}[2]{%
+  \multicolumn{6}{|l|}{\cellcolor{eps-gray!20}\bfseries #1 - #2} \\ \hline
+}
+
+\newcommand{\totalpresupuesto}[1]{%
+  \multicolumn{5}{|r|}{\bfseries Total:} & \bfseries\num{#1}~\euro \\ \hline
+}
+
+% ============================================================================
+% CUADRO DE PRECIOS
+% ============================================================================
+
+% Cuadro de precios descompuestos
+\newenvironment{cuadroprecios}[1][Cuadro de precios descompuestos]{
+  \begin{tcolorbox}[
+    enhanced,
+    title={{\footnotesize\faList}~#1},
+    colback=white,
+    colframe=eps-accent,
+    coltitle=white,
+    colbacktitle=eps-accent,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=4pt,
+    breakable,
+  ]
+}{
+  \end{tcolorbox}
+}
+
+% Unidad de obra
+% Uso: \unidadobra{Código}{Descripción}{Unidad}{Rendimiento}{Precio}
+\newcommand{\unidadobra}[5]{%
+  \noindent
+  \begin{tabular}{@{}p{1.5cm}p{7cm}crrr@{}}
+    \texttt{#1} & #2 & #3 & #4 & #5~\euro & \num[round-mode=places,round-precision=2]{\fpeval{#4*#5}}~\euro \\
+  \end{tabular}\\
+}
+
+% ============================================================================
+% TABLA DE NORMATIVA
+% ============================================================================
+
+% Tabla de normativa aplicable
+\newenvironment{normativa}[1][Normativa aplicable]{
+  \begin{tcolorbox}[
+    enhanced,
+    title={{\footnotesize\faBalanceScale}~#1},
+    colback=white,
+    colframe=eps-secondary,
+    coltitle=white,
+    colbacktitle=eps-secondary,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=4pt,
+    left=0pt, right=0pt, top=0pt, bottom=0pt,
+  ]
+    \footnotesize
+    \begin{tabular}{|p{3cm}|p{8cm}|c|}
+      \hline
+      \rowcolor{eps-secondary!10}
+      \textbf{Código} & \textbf{Título} & \textbf{Año} \\
+      \hline
+}{
+    \end{tabular}
+  \end{tcolorbox}
+}
+
+\newcommand{\norma}[3]{%
+  \textbf{#1} & #2 & #3 \\ \hline
+}
+
+% ============================================================================
+% LEYENDA DE PLANOS
+% ============================================================================
+
+% Leyenda de símbolos
+\newenvironment{leyenda}[1][Leyenda]{
+  \begin{tcolorbox}[
+    enhanced,
+    title={{\footnotesize\faMapMarkerAlt}~#1},
+    colback=white,
+    colframe=eps-gray!50,
+    coltitle=eps-dark,
+    colbacktitle=eps-light,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=4pt,
+  ]
+    \begin{tabular}{@{}cl@{\qquad}cl@{}}
+}{
+    \end{tabular}
+  \end{tcolorbox}
+}
+
+% Símbolo de leyenda
+\newcommand{\simbolo}[2]{%
+  #1 & #2
+}
+
+% Símbolos predefinidos para construcción
+\newcommand{\simboloagua}{\textcolor{eps-info}{\faWater}}
+\newcommand{\simbologas}{\textcolor{eps-warning}{\faFire}}
+\newcommand{\simboloelec}{\textcolor{eps-danger}{\faBolt}}
+\newcommand{\simbolotele}{\textcolor{eps-success}{\faPhone}}
+\newcommand{\simboloclima}{\textcolor{eps-accent}{\faSnowflake}}
+\newcommand{\simbolosanea}{\textcolor{eps-secondary}{\faToilet}}
+
+% ============================================================================
+% DETALLE CONSTRUCTIVO
+% ============================================================================
+
+% Caja para detalle constructivo
+\newtcolorbox{detalleconstructivo}[1][Detalle constructivo]{
+  enhanced,
+  title={{\footnotesize\faRulerCombined}~#1},
+  colback=white,
+  colframe=eps-gray!50,
+  coltitle=eps-dark,
+  colbacktitle=eps-light,
+  fonttitle=\bfseries\small,
+  boxrule=0.5pt,
+  arc=4pt,
+  halign=center,
+}
+
+% Cota
+\newcommand{\cota}[1]{%
+  \begin{tikzpicture}[baseline=-0.3em]
+    \draw[<->, eps-dark, thick] (0,0) -- (1,0);
+    \node[above, font=\footnotesize] at (0.5,0) {#1};
+  \end{tikzpicture}
+}
+
+% Escala
+\newcommand{\escala}[1]{%
+  \textbf{Escala:} 1:#1
+}
+
+% ============================================================================
+% CERTIFICACIONES Y CALIDAD
+% ============================================================================
+
+% Sello de certificación
+\newcommand{\certificacion}[2]{%
+  \begin{tikzpicture}[baseline=-0.3em]
+    \node[draw=eps-success, fill=eps-success!10, rounded corners=4pt,
+          inner sep=4pt, font=\footnotesize] {
+      \textcolor{eps-success}{\faCheckCircle}~\textbf{#1}~|~#2
+    };
+  \end{tikzpicture}
+}
+
+% Lista de certificaciones
+\newcommand{\certiso}[1]{\certificacion{ISO #1}{Certificado}}
+\newcommand{\certce}{\certificacion{CE}{Marcado CE}}
+\newcommand{\certune}[1]{\certificacion{UNE #1}{Norma española}}
+
+% ============================================================================
+% SOSTENIBILIDAD Y EFICIENCIA
+% ============================================================================
+
+% Etiqueta energética
+\newcommand{\etiquetaenergetica}[1]{%
+  \begin{tikzpicture}[baseline=-0.3em]
+    \ifstrequal{#1}{A}{\def\@eecolor{green!70!black}}{}
+    \ifstrequal{#1}{B}{\def\@eecolor{green!50!black}}{}
+    \ifstrequal{#1}{C}{\def\@eecolor{yellow!70!black}}{}
+    \ifstrequal{#1}{D}{\def\@eecolor{orange}}{}
+    \ifstrequal{#1}{E}{\def\@eecolor{orange!70!red}}{}
+    \ifstrequal{#1}{F}{\def\@eecolor{red!70!orange}}{}
+    \ifstrequal{#1}{G}{\def\@eecolor{red}}{}
+    \node[fill=\@eecolor, text=white, font=\bfseries\footnotesize,
+          minimum width=1.5cm, minimum height=0.6cm, inner sep=2pt] {#1};
+    \draw[fill=\@eecolor] (0.75,0) -- (1.1,0.15) -- (1.1,-0.15) -- cycle;
+  \end{tikzpicture}
+}
+
+% Indicadores de sostenibilidad
+\newcommand{\sostenibilidad}[2]{%
+  \noindent
+  \begin{minipage}[t]{0.3\textwidth}
+    #1
+  \end{minipage}%
+  \begin{minipage}[t]{0.65\textwidth}
+    \progressbar{#2}
+  \end{minipage}
+  \vspace{4pt}
+}
+
+% ============================================================================
+% ORGANIGRAMA DE OBRA
+% ============================================================================
+
+% Estilos para organigrama
+\tikzset{
+  orgnode/.style={
+    rectangle, rounded corners=4pt,
+    draw=eps-primary, fill=eps-primary!10,
+    minimum width=2.5cm, minimum height=0.8cm,
+    font=\footnotesize, align=center,
+  },
+  orgmanager/.style={
+    orgnode, fill=eps-primary!30, font=\footnotesize\bfseries,
+  },
+  orgline/.style={
+    thick, eps-gray,
+  },
+}
+
+% Caja para organigrama
+\newtcolorbox{organigramabox}[1][Organigrama de obra]{
+  enhanced,
+  title={{\footnotesize\faSitemap}~#1},
+  colback=white,
+  colframe=eps-gray!50,
+  coltitle=eps-dark,
+  colbacktitle=eps-light,
+  fonttitle=\bfseries\small,
+  boxrule=0.5pt,
+  arc=4pt,
+  halign=center,
+}
+
+% ============================================================================
+% CONTROL DE CALIDAD
+% ============================================================================
+
+% Registro de control
+\newenvironment{controlcalidad}[1][Control de calidad]{
+  \begin{tcolorbox}[
+    enhanced,
+    title={{\footnotesize\faClipboardCheck}~#1},
+    colback=white,
+    colframe=eps-success,
+    coltitle=white,
+    colbacktitle=eps-success,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=4pt,
+    left=0pt, right=0pt, top=0pt, bottom=0pt,
+  ]
+    \footnotesize
+    \begin{tabular}{|p{5cm}|c|c|c|}
+      \hline
+      \rowcolor{eps-success!10}
+      \textbf{Ensayo/Control} & \textbf{Resultado} & \textbf{Límite} & \textbf{Conformidad} \\
+      \hline
+}{
+    \end{tabular}
+  \end{tcolorbox}
+}
+
+\newcommand{\controlitem}[4]{%
+  #1 & #2 & #3 & 
+  \ifstrequal{#4}{OK}{\textcolor{eps-success}{\faCheck~Conforme}}{}%
+  \ifstrequal{#4}{NO}{\textcolor{eps-danger}{\faTimes~No conforme}}{}%
+  \ifstrequal{#4}{PEND}{\textcolor{eps-warning}{\faClock~Pendiente}}{}%
+  \\ \hline
+}
+
+% ============================================================================
+% SUPERFICIES Y CUADROS
+% ============================================================================
+
+% Cuadro de superficies
+\newenvironment{cuadrosuperficies}[1][Cuadro de superficies]{
+  \begin{tcolorbox}[
+    enhanced,
+    title={{\footnotesize\faVectorSquare}~#1},
+    colback=white,
+    colframe=eps-accent,
+    coltitle=white,
+    colbacktitle=eps-accent,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=4pt,
+    left=0pt, right=0pt, top=0pt, bottom=0pt,
+  ]
+    \footnotesize
+    \begin{tabular}{|p{4cm}|r|r|}
+      \hline
+      \rowcolor{eps-accent!10}
+      \textbf{Estancia/Zona} & \textbf{Sup. útil (m²)} & \textbf{Sup. construida (m²)} \\
+      \hline
+}{
+    \end{tabular}
+  \end{tcolorbox}
+}
+
+\newcommand{\superficie}[3]{%
+  #1 & \num{#2} & \num{#3} \\ \hline
+}
+
+\newcommand{\totalsuperficie}[2]{%
+  \textbf{TOTAL} & \textbf{\num{#1}} & \textbf{\num{#2}} \\ \hline
+}
+
+\endinput
