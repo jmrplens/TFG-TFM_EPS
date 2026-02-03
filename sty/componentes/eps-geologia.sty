@@ -30,16 +30,14 @@
   lito granito/.style={pattern=dots, pattern color=eps-danger!50},
 }
 
-% Columna estratigráfica (sin caja, centrada)
+% Columna estratigráfica (estilo Card, centrada)
 % Uso: \begin{stratigraphybox}[Título de la columna]
 %        \begin{stratcolumn}...
 %      \end{stratigraphybox}
 \newenvironment{stratigraphybox}[1][Columna estratigráfica]{%
-  \begin{center}
-  {\small\bfseries\faLayerGroup\hspace{0.5em}#1}
-  \par\vspace{4pt}
+  \begin{tcolorbox}[eps-card, title={\faLayerGroup~#1}, halign=center]
 }{%
-  \end{center}
+  \end{tcolorbox}
 }
 
 % Capa estratigráfica
@@ -71,16 +69,14 @@
 % SECCIÓN GEOLÓGICA
 % ============================================================================
 
-% Sección geológica (sin caja, centrada)
+% Sección geológica (estilo Card, centrada)
 % Uso: \begin{geologicsectionbox}[Sección A-A']
 %        \begin{tikzpicture}...
 %      \end{geologicsectionbox}
 \newenvironment{geologicsectionbox}[1][Sección geológica]{%
-  \begin{center}
-  {\small\bfseries\faMountain\hspace{0.5em}#1}
-  \par\vspace{4pt}
+  \begin{tcolorbox}[eps-card, title={\faMountain~#1}, halign=center]
 }{%
-  \end{center}
+  \end{tcolorbox}
 }
 
 % Símbolos geológicos

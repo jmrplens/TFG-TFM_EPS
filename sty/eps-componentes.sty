@@ -57,6 +57,7 @@
 \tcbuselibrary{skins,breakable,listings,theorems}
 \RequirePackage{fontawesome5}
 \RequirePackage{etoolbox}
+\RequirePackage{xstring}
 \RequirePackage{calc}
 \RequirePackage{enumitem}  % Para listas personalizadas
 
@@ -100,22 +101,65 @@
 % ============================================================================
 
 \tcbset{
-  eps-base/.style={
+  % --- Estilo de alerta moderno (Sombra + Borde izq) ---
+  eps-alert/.style={
     enhanced,
     breakable,
-    boxrule=0.5pt,
-    arc=2pt,
+    boxrule=0pt,
+    frame hidden,
+    borderline west={3pt}{0pt}{#1},
+    colback=#1!5,
+    sharp corners,
     left=8pt,
     right=8pt,
     top=6pt,
     bottom=6pt,
-    fonttitle=\bfseries,
+    drop fuzzy shadow=eps-gray!20,
   },
-  eps-minimal/.style={
-    eps-base,
-    boxrule=0pt,
-    frame hidden,
-    borderline west={3pt}{0pt}{eps-primary},
+  % --- Estilo "Card" para componentes visuales (Gráficas, Tablas) ---
+  eps-card/.style={
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=eps-gray!30,
+    boxrule=0.5pt,
+    arc=3pt,
+    drop shadow=eps-gray!10,
+    left=12pt,
+    right=12pt,
+    top=10pt,
+    bottom=10pt,
+    toptitle=4pt,
+    bottomtitle=4pt,
+    fonttitle=\bfseries\sffamily\color{eps-dark},
+    coltitle=eps-dark,
+    colbacktitle=eps-light,
+    title style={draw=none, fill=eps-light}, 
+  },
+  % --- Estilo "Float Title" para Teoremas/Definiciones ---
+  eps-float-title/.style={
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=#1,
+    coltitle=white,
+    fonttitle=\bfseries\sffamily,
+    attach boxed title to top left={yshift*=-\tcboxedtitleheight/2, xshift=5mm},
+    boxed title style={
+      colback=#1,
+      colframe=#1,
+      sharp corners,
+      rounded corners=north,
+      arc=3pt,
+      boxrule=0pt,
+      drop shadow=eps-gray!20,
+    },
+    boxrule=0.5pt,
+    left=8pt,
+    right=8pt,
+    top=12pt,
+    bottom=6pt,
+    drop fuzzy shadow=eps-gray!20,
   },
 }
 

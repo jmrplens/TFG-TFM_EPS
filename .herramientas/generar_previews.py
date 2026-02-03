@@ -107,8 +107,11 @@ PATRONES_TIPO = {
         r"\\pkicon",
         r"\\fkicon",
         r"\\visibility",
+        r"\\begin\{dirtreebox",
+        r"\\benchmark",
         # Componentes de telecom
         r"\\begin\{constellation",
+        r"\\begin\{smithchartbox",
         r"\\begin\{sparameters",
         r"\\begin\{blockdiagram",
         r"\\begin\{fsmdiagram",
@@ -691,26 +694,6 @@ def generar_preambulo(tipo: str) -> str:
 \usepackage{mdframed}
 \usepackage{fancybox}
 \usepackage{adjustbox}
-
-% Cajas predefinidas comunes
-\newtcolorbox{infobox}[1][]{
-    colback=blue!5,
-    colframe=blue!75!black,
-    title=#1,
-    fonttitle=\bfseries,
-}
-\newtcolorbox{warningbox}[1][]{
-    colback=yellow!10,
-    colframe=orange!75!black,
-    title=#1,
-    fonttitle=\bfseries,
-}
-\newtcolorbox{dangerbox}[1][]{
-    colback=red!5,
-    colframe=red!75!black,
-    title=#1,
-    fonttitle=\bfseries,
-}
 """,
         "glossary": r"""
 % Glosarios (simplificado para preview)

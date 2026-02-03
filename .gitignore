@@ -287,6 +287,7 @@ output/
 # ============================================================================
 # Manifiesto de previews (regenerable)
 docs/assets/previews/manifest.json
+__pycache__/
 
 # Archivos temporales de compilación
 .herramientas/tmp/

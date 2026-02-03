@@ -43,16 +43,18 @@
   \end{tikzpicture}
 }
 
-% Carta de Smith con título (sin caja, centrada)
+% Carta de Smith con título (estilo Card)
 % Uso: \begin{smithchartbox}[título]
 %        \smithpoint{0.5}{0.3}{Punto 1}
 %      \end{smithchartbox}
 \newenvironment{smithchartbox}[1][Carta de Smith]{%
-  \begin{center}
-  {\small\bfseries\faCircle\hspace{0.5em}#1}
-  \par\vspace{4pt}
+  \begin{tcolorbox}[eps-card, title={\faBroadcastTower~#1}, halign=center]
+    \begin{tikzpicture}
+      \begin{smithchart}[eps smith style]
 }{%
-  \end{center}
+      \end{smithchart}
+    \end{tikzpicture}
+  \end{tcolorbox}
 }
 
 % Punto en carta de Smith con etiqueta
@@ -63,7 +65,7 @@
 
 % Arco de impedancia constante
 \newcommand{\smitharc}[2]{%
-  \addplot[thick, eps-secondary, domain=#1:#2, samples=100] ...;
+  \addplot[thick, eps-secondary, domain=#1:#2, samples=100] ({#1/360},{#2}); % Dummy implementation fix
 }
 
 % ============================================================================
@@ -87,20 +89,19 @@
   },
 }
 
-% Entorno para constelación
+% Entorno para constelación (estilo Card)
 % Uso: \begin{constellation}[título]
 %        \constpoint{1}{1}
 %        \constpoint{1}{-1}
 %      \end{constellation}
 \newenvironment{constellation}[1][Diagrama de constelación]{
-  \begin{center}
-    \textbf{#1}\\[4pt]
+  \begin{tcolorbox}[eps-card, title={\faStar~#1}, halign=center]
     \begin{tikzpicture}
       \begin{axis}[constellation style]
 }{
       \end{axis}
     \end{tikzpicture}
-  \end{center}
+  \end{tcolorbox}
 }
 
 % Punto de constelación
@@ -585,8 +586,8 @@
   \pgfmathsetmacro{\rownum}{-\value{framerow}}%
   \pgfmathsetmacro{\endbit}{\startbit + #1}%
   % Dibujar campo
-  \fill[eps-primary!15] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
-  \draw[eps-primary, thick] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \fill[eps-primary!10, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \draw[eps-primary, thick, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
   \node[align=center] at ({(\startbit+\endbit)/2}, \rownum-0.5) {#2};
   % Tamaño en bits abajo
   \node[below, font=\tiny, eps-gray] at ({(\startbit+\endbit)/2}, \rownum-1) {#1};
@@ -604,8 +605,8 @@
   \pgfmathsetmacro{\startbit}{Mod(\value{framepos}, \framebitsperrow)}%
   \pgfmathsetmacro{\rownum}{-\value{framerow}}%
   \pgfmathsetmacro{\endbit}{\startbit + #1}%
-  \fill[eps-warning!25] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
-  \draw[eps-warning, thick] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \fill[eps-warning!15, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \draw[eps-warning, thick, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
   \node[align=center, font=\footnotesize\bfseries] at ({(\startbit+\endbit)/2}, \rownum-0.5) {#2};
   \node[below, font=\tiny, eps-gray] at ({(\startbit+\endbit)/2}, \rownum-1) {#1};
   \addtocounter{framepos}{#1}%
@@ -622,9 +623,9 @@
   \pgfmathsetmacro{\startbit}{Mod(\value{framepos}, \framebitsperrow)}%
   \pgfmathsetmacro{\rownum}{-\value{framerow}}%
   \pgfmathsetmacro{\endbit}{\startbit + #1}%
-  \fill[eps-gray!15, pattern=north east lines, pattern color=eps-gray!30] 
+  \fill[eps-gray!10, pattern=north east lines, pattern color=eps-gray!30, rounded corners=2pt] 
     (\startbit, \rownum) rectangle (\endbit, \rownum-1);
-  \draw[eps-gray, thick, dashed] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \draw[eps-gray, thick, dashed, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
   \node[align=center] at ({(\startbit+\endbit)/2}, \rownum-0.5) {#2};
   \node[below, font=\tiny, eps-gray] at ({(\startbit+\endbit)/2}, \rownum-1) {variable};
   \addtocounter{framepos}{#1}%

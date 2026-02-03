@@ -40,18 +40,15 @@
 % REACCIONES QUÍMICAS - Estilo limpio sin caja
 % ============================================================================
 
-% Reacción química destacada (sin caja, estilo ecuación centrada)
+% Reacción química destacada (estilo Card, centrado)
 % Uso: \begin{reactionbox}[título]
 %        \ch{2 H2 + O2 -> 2 H2O}
 %      \end{reactionbox}
 \newenvironment{reactionbox}[1][Reacción química]{%
-  \par\vspace{0.5em}
-  \noindent{\small\textcolor{eps-primary}{\faAtom}~\textbf{#1}}\par
-  \vspace{0.3em}
-  \begin{center}\Large
+  \begin{tcolorbox}[eps-card, title={\faAtom~#1}, halign=center]
+  \Large
 }{%
-  \end{center}
-  \vspace{0.3em}
+  \end{tcolorbox}
 }
 
 % Reacción con condiciones
@@ -67,31 +64,25 @@
   \end{center}
 }
 
-% Mecanismo de reacción (sin caja, estilo diagrama centrado)
+% Mecanismo de reacción (estilo Card)
 \newenvironment{mechanismbox}[1][Mecanismo de reacción]{%
-  \par\vspace{0.5em}
-  \noindent{\small\textcolor{eps-secondary}{\faProjectDiagram}~\textbf{#1}}\par
-  \vspace{0.3em}
-  \begin{center}
+  \begin{tcolorbox}[eps-card, title={\faProjectDiagram~#1}, halign=center]
 }{%
-  \end{center}
-  \vspace{0.3em}
+  \end{tcolorbox}
 }
 
 % ============================================================================
 % FICHA DE COMPUESTO - Estilo profesional sin caja
 % ============================================================================
 
-% Ficha completa de compuesto químico (sin caja, estilo ficha técnica)
+% Ficha completa de compuesto químico (estilo Card)
 % Uso: \begin{compoundsheet}{Nombre del compuesto}{Fórmula}
 %        \compprop{Masa molar}{18.015}{g/mol}
 %        \compprop{Densidad}{1.00}{g/cm³}
 %      \end{compoundsheet}
 \newenvironment{compoundsheet}[2]{%
-  \begingroup
+  \begin{tcolorbox}[eps-card, title={\faVial~#1~(\ch{#2})}]
   \small
-  \subsection*{{\textcolor{eps-primary}{\faVial}~#1~(\ch{#2})}}
-  \vspace{-0.5em}
   \begin{minipage}[t]{0.35\textwidth}
     \centering
     \vspace{8pt}
@@ -106,7 +97,7 @@
       \bottomrule
     \end{tabular}
   \end{minipage}
-  \endgroup
+  \end{tcolorbox}
 }
 
 \newcommand{\compprop}[3]{%
@@ -128,15 +119,14 @@
 % PROPIEDADES FÍSICO-QUÍMICAS - Estilo profesional
 % ============================================================================
 
-% Tabla de propiedades estilo booktabs (sin caja)
+% Tabla de propiedades estilo booktabs (estilo Card)
 % Uso: \begin{proptable}[Propiedades del compuesto X]
 %        \property{Punto de fusión}{273.15}{K}{a 1 atm}
 %        \propertyunc{Densidad}{1.00}{0.01}{g/cm³}{a 20°C}
 %      \end{proptable}
 \newenvironment{proptable}[1][Propiedades físico-químicas]{%
-  \begingroup
+  \begin{tcolorbox}[eps-card, title={#1}]
   \small
-  \subsection*{#1}
   \begin{tabular}{@{}p{4.5cm}rlp{4cm}@{}}
     \toprule
     \textbf{Propiedad} & \textbf{Valor} & \textbf{Unidad} & \textbf{Condiciones} \\
@@ -144,7 +134,7 @@
 }{%
     \bottomrule
   \end{tabular}
-  \endgroup
+  \end{tcolorbox}
 }
 
 \newcommand{\property}[4]{%

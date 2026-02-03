@@ -13,6 +13,11 @@ Uso:
 import argparse
 import re
 from pathlib import Path
+try:
+    from PIL import Image
+    HAS_PIL = True
+except ImportError:
+    HAS_PIL = False
 
 # Configuración
 PROYECTO_ROOT = Path(__file__).parent.parent.resolve()
@@ -45,6 +50,33 @@ def obtener_snippets_disponibles() -> dict:
     return disponibles
 
 
+def get_image_display_width(rel_path: str) -> int:
+    """Calcula el ancho de visualización (max 600px)."""
+    if not rel_path or not HAS_PIL:
+        return 600
+        
+    try:
+        # ASSETS_REL es "assets/previews", pero DOCS_DIR ya incluye "docs"
+        # path en disco: DOCS_DIR / (rel_path relative to docs)
+        # rel_path viene como "assets/previews/file.png"
+        
+        # Ojo: rel_path es relativo a DOCS_DIR
+        full_path = DOCS_DIR / rel_path
+        
+        if not full_path.exists():
+            return 600
+            
+        with Image.open(full_path) as img:
+            w = img.width
+            # Si es muy ancho (A4), limitar a 600
+            # Si es pequeño (componente), usar su ancho real para no estirar
+            # Nota: Si la imagen es Retina/HiDPI, esto podría quedar grande,
+            # pero es mejor que forzar todo a 600.
+            return min(w, 600)
+    except Exception:
+        return 600
+
+
 def generar_enlace_preview(nombre: str, disponibles: dict, formato: str) -> str:
     """Genera el HTML/Markdown para mostrar el preview.
     
@@ -57,17 +89,20 @@ def generar_enlace_preview(nombre: str, disponibles: dict, formato: str) -> str:
         return ""
 
     info = disponibles[nombre]
-    # Ancho proporcional a A4 (15cm de ancho de texto ≈ 600px)
-    ancho_max = 600
-
+    
     if formato == "link":
         return f'\n**Resultado:**\n\n[📄 Ver PDF]({info["pdf"]})\n'
 
-    elif formato == "imagen" and info["img"]:
-        return f'\n**Resultado:**\n\n<img src="{info["img"]}" alt="Preview" width="{ancho_max}">\n\n[📄 Ver PDF]({info["pdf"]})\n'
+    # Calcular ancho dinámico
+    ancho = 600
+    if info["img"]:
+        ancho = get_image_display_width(info["img"])
+
+    if formato == "imagen" and info["img"]:
+        return f'\n**Resultado:**\n\n<img src="{info["img"]}" alt="Preview" width="{ancho}">\n\n[📄 Ver PDF]({info["pdf"]})\n'
 
     elif formato == "ambos" and info["img"]:
-        return f'\n**Resultado:**\n\n<img src="{info["img"]}" alt="Preview" width="{ancho_max}">\n\n[📄 Ver PDF]({info["pdf"]})\n'
+        return f'\n**Resultado:**\n\n<img src="{info["img"]}" alt="Preview" width="{ancho}">\n\n[📄 Ver PDF]({info["pdf"]})\n'
 
     elif formato == "ambos":
         # Solo PDF si no hay imagen

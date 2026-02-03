@@ -379,7 +379,7 @@ Nivel: \levelbar{2}{5} \quad \levelbar{4}{5} \quad \levelbar{5}{5}
 
 **Resultado:**
 
-<img src="assets/previews/timeline.webp" alt="Preview" width="270">
+<img src="assets/previews/timeline.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/timeline.pdf)
 
@@ -532,6 +532,32 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 
 ---
 
+#### `dirtreebox` - Árbol de directorios
+
+```latex <!-- preview dirtreebox -->
+\begin{dirtreebox}[Estructura del Proyecto]
+  \dirtreeitem[1]{src/}
+  \dirtreeitem[2]{assets/}
+  \dirtreeitem[3]{logo.png}
+  \dirtreeitem[2]{components/}
+  \dirtreeitem[3]{Header.js}
+  \dirtreeitem[3]{Footer.js}
+  \dirtreeitem[2]{App.js}
+  \dirtreeitem[2]{index.js}
+  \dirtreeitem[1]{package.json}
+  \dirtreeitem[1]{README.md}
+\end{dirtreebox}
+```
+
+**Resultado:**
+
+<img src="assets/previews/dirtreebox.webp" alt="Preview" width="300">
+
+[📄 Ver PDF](assets/previews/dirtreebox.pdf)
+
+
+---
+
 ### Base de datos
 
 #### `dbtable` - Tabla de base de datos
@@ -570,7 +596,7 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 
 **Resultado:**
 
-<img src="assets/previews/umlclass.webp" alt="Preview" width="218">
+<img src="assets/previews/umlclass.webp" alt="Preview" width="600">
 
 [📄 Ver PDF](assets/previews/umlclass.pdf)
 
@@ -670,16 +696,57 @@ DEBUG=true
 
 ---
 
+#### `benchmark` - Comparativa de rendimiento
+
+```latex <!-- preview benchmark -->
+\begin{tcolorbox}[enhanced, title=Benchmark Resultados]
+  \benchmark{React DOM}{15ms}{20}
+  \benchmark{Vue Virtual DOM}{12ms}{15}
+  \benchmark{Vanilla JS}{8ms}{10}
+  \benchmark{Angular Ivy}{18ms}{25}
+\end{tcolorbox}
+```
+
+**Resultado:**
+
+<img src="assets/previews/benchmark.webp" alt="Preview" width="600">
+
+[📄 Ver PDF](assets/previews/benchmark.pdf)
+
+
+---
+
 ## Componentes de Telecomunicaciones (`eps-telecom.sty`)
 
 Cargar con: `\usepackage[telecom]{eps-componentes}`
+
+### Carta de Smith
+
+#### `smithchartbox` - Carta de Smith
+
+```latex <!-- preview smithchart -->
+\begin{smithchartbox}[Adaptación de Impedancias]
+  \addplot [mark=none, eps-primary, thick] coordinates {(0.5,0.2) (0.2,0) (0.5,-0.2) (1,0)};
+  \smithpoint{0.5}{0.2}{$Z_L$}
+  \smithpoint{0.2}{0}{$Z_{in}$}
+\end{smithchartbox}
+```
+
+**Resultado:**
+
+<img src="assets/previews/smithchart.webp" alt="Preview" width="400">
+
+[📄 Ver PDF](assets/previews/smithchart.pdf)
+
+
+---
 
 ### Constelaciones de modulación
 
 #### `constellation` - Diagrama de constelación
 
 ```latex <!-- preview constellation -->
-\begin{constellation}[title={Constelación QPSK}]
+\begin{constellation}[Constelación QPSK]
   \constpoint{1}{1}{00}
   \constpoint{-1}{1}{01}
   \constpoint{-1}{-1}{11}
@@ -999,8 +1066,8 @@ Cargar con: `\usepackage[quimica]{eps-componentes}`
 #### `reactionbox` - Caja de reacción
 
 ```latex <!-- preview reactionbox -->
-\begin{reactionbox}{Síntesis del agua}
-  2H$_2$ + O$_2$ $\rightarrow$ 2H$_2$O
+\begin{reactionbox}[Síntesis del agua]
+  \ch{2 H2 + O2 -> 2 H2O}
   
   Condiciones: 25°C, 1 atm
 \end{reactionbox}

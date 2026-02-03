@@ -61,18 +61,16 @@
   },
 }
 
-% Cronograma del proyecto (sin caja, centrado)
+% Cronograma del proyecto (estilo Card)
 % Uso: \begin{ganttbox}[Cronograma fase I]
 %        \begin{ganttchart}[...]{2024-01-01}{2024-06-30}
 %          ...
 %        \end{ganttchart}
 %      \end{ganttbox}
 \newenvironment{ganttbox}[1][Cronograma del proyecto]{%
-  \par\vspace{0.5em}
-  {\small\bfseries\faCalendar\hspace{0.5em}#1}
-  \par\vspace{4pt}
+  \begin{tcolorbox}[eps-card, title={\faCalendar~#1}, halign=center]
 }{%
-  \par\vspace{0.5em}
+  \end{tcolorbox}
 }
 
 % Colores para diferentes tipos de tareas
@@ -84,16 +82,15 @@
 % FICHA TÉCNICA DE MATERIAL - Estilo profesional
 % ============================================================================
 
-% Ficha técnica estilo booktabs (sin caja)
+% Ficha técnica estilo booktabs (estilo Card)
 % Uso: \begin{techsheet}{Hormigón HA-25}
 %        \techprop{Resistencia característica}{25 MPa}
 %        \techsection{Propiedades mecánicas}
 %        \techprop{Módulo de elasticidad}{27000 MPa}
 %      \end{techsheet}
 \newenvironment{techsheet}[1]{%
-  \begingroup
+  \begin{tcolorbox}[eps-card, title={Ficha técnica: #1}]
   \small
-  \subsection*{Ficha técnica: #1}
   \begin{tabular}{@{}p{5.5cm}p{5.5cm}@{}}
     \toprule
     \textbf{Propiedad} & \textbf{Valor} \\
@@ -101,7 +98,7 @@
 }{%
     \bottomrule
   \end{tabular}
-  \endgroup
+  \end{tcolorbox}
 }
 
 \newcommand{\techprop}[2]{%
@@ -153,7 +150,14 @@
   \small
   \setcounter{partidanum}{0}
   \subsection*{#1}
-  \begin{longtable}{@{}p{1.5cm}p{6cm}crrr@{}}
+  % Columnas con ancho fijo para asegurar alineación correcta y evitar desborde
+  % p{1.5cm}: Código
+  % p{desc}: Descripción (calculada)
+  % p{1.2cm}: Unidad (centrada)
+  % p{2.0cm}: Medición (derecha)
+  % p{2.2cm}: Precio (derecha)
+  % p{2.5cm}: Importe (derecha)
+  \begin{longtable}{@{} p{1.5cm} p{\dimexpr\linewidth-12cm\relax} >{\centering\arraybackslash}p{1.2cm} >{\raggedleft\arraybackslash}p{2.0cm} >{\raggedleft\arraybackslash}p{2.2cm} >{\raggedleft\arraybackslash}p{2.5cm} @{}}
     \toprule
     \textbf{Código} & \textbf{Descripción} & \textbf{Ud.} & 
     \textbf{Medición} & \textbf{P.U.} & \textbf{Importe} \\

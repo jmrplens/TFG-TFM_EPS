@@ -83,17 +83,15 @@
   \end{tikzpicture}
 }
 
-% Matriz de riesgos (sin caja, centrada)
+% Matriz de riesgos (estilo Card, centrada)
 % Uso: \begin{riskmatrixbox}[Matriz del proyecto X]
 %        \riskmatrix
 %        \riskpoint{3}{4}{R-01}
 %      \end{riskmatrixbox}
 \newenvironment{riskmatrixbox}[1][Matriz de evaluación de riesgos]{%
-  \begin{center}
-  {\small\bfseries\faThLarge\hspace{0.5em}#1}
-  \par\vspace{4pt}
+  \begin{tcolorbox}[eps-card, title={\faThLarge~#1}, halign=center]
 }{%
-  \end{center}
+  \end{tcolorbox}
 }
 
 % Punto en la matriz

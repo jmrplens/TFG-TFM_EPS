@@ -151,7 +151,7 @@ Ejemplos:
         # Nota: generar_previews.py no soporta --verbose ni --dry-run
         
         # Siempre generar PNG/WebP para poder mostrar imágenes
-        args_generar.append("--png")
+        # args_generar.append("--png")
         
         if args.dry_run:
             # En dry-run, solo listar lo que se generaría
