@@ -1,0 +1,101 @@
+name: 🎓 Nueva titulación
+description: Solicita añadir soporte para una nueva titulación de la EPS
+title: "[Titulación]: "
+labels: ["titulación", "enhancement"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ¡Gracias por ayudar a ampliar el soporte de titulaciones! 🎓
+        Por favor, proporciona la información necesaria para añadir tu titulación.
+
+  - type: input
+    id: name
+    attributes:
+      label: Nombre completo de la titulación
+      description: El nombre oficial tal como aparece en la EPS
+      placeholder: "Grado en Ingeniería de Ejemplo"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Tipo de titulación
+      options:
+        - Grado
+        - Máster Universitario
+    validations:
+      required: true
+
+  - type: input
+    id: color
+    attributes:
+      label: Color corporativo
+      description: El color que identifica a la titulación (código hexadecimal o nombre)
+      placeholder: "#1a5276 o Azul oscuro"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logos
+    attributes:
+      label: Logos de la titulación
+      description: |
+        ¿Tienes acceso a los logos oficiales de la titulación?
+        Idealmente necesitamos:
+        - Logo en fondo de color (para portada a color)
+        - Logo en fondo blanco (para portada B/N)
+        
+        Puedes adjuntar archivos o proporcionar enlaces.
+        Formatos preferidos: PDF, SVG, PNG de alta resolución
+      placeholder: "Adjunto los logos... / Los logos se pueden encontrar en..."
+    validations:
+      required: true
+
+  - type: input
+    id: department
+    attributes:
+      label: Departamento principal
+      description: El departamento más relacionado con esta titulación (opcional)
+      placeholder: "Departamento de Tecnología Informática y Computación"
+    validations:
+      required: false
+
+  - type: input
+    id: website
+    attributes:
+      label: Web de la titulación
+      description: Enlace a la página oficial de la titulación en la EPS
+      placeholder: "https://eps.ua.es/es/..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: style-guide
+    attributes:
+      label: Guía de estilo
+      description: |
+        ¿Existe alguna guía de estilo específica para esta titulación?
+        Si es diferente a la guía general de la EPS, indícalo aquí.
+      placeholder: "La titulación tiene requisitos específicos como..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: ¿Puedes proporcionar más información?
+      options:
+        - label: Puedo proporcionar los archivos de logo en formato vectorial (PDF/SVG)
+        - label: Puedo verificar que el diseño final es correcto según las normas de la titulación
+        - label: Conozco a alguien que pueda validar el diseño (profesor, coordinador, etc.)
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Información adicional
+      description: Cualquier otro detalle relevante
+      placeholder: "El logo tiene variantes para... / Hay que tener en cuenta..."

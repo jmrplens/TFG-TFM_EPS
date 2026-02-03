@@ -1,0 +1,455 @@
+%% =============================================================================
+%% EPS-CODIGO.STY - Estilos de código estilo VS Code
+%% Plantilla TFG/TFM - Escuela Politécnica Superior - Universidad de Alicante
+%% =============================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{sty/eps-codigo}[2024/01/01 Estilos de código VS Code]
+
+%% Cargar paquetes necesarios
+\RequirePackage{tcolorbox}
+\tcbuselibrary{minted,skins,breakable}
+\RequirePackage{minted}
+\RequirePackage{fontawesome5}
+
+%% Configurar nombres en español para minted/listings
+\renewcommand{\listoflistingscaption}{Índice de Códigos}
+\renewcommand{\listingscaption}{Código}
+
+%% Definir comando para índice de códigos  
+\newcommand{\indiceCodigos}{\listoflistings}
+
+%% =============================================================================
+%% COLORES - VS CODE
+%% =============================================================================
+% VS Code Light
+\definecolor{vscode-bg}{HTML}{FFFFFF}
+\definecolor{vscode-border}{HTML}{E5E5E5}
+\definecolor{vscode-titlebar}{HTML}{F3F3F3}
+\definecolor{vscode-titletext}{HTML}{616161}
+\definecolor{vscode-linenos}{HTML}{237893}
+% VS Code Dark
+\definecolor{vscode-dark-bg}{HTML}{1E1E1E}
+\definecolor{vscode-dark-border}{HTML}{3C3C3C}
+\definecolor{vscode-dark-titlebar}{HTML}{252526}
+\definecolor{vscode-dark-text}{HTML}{CCCCCC}
+\definecolor{vscode-dark-linenos}{HTML}{858585}
+
+%% =============================================================================
+%% CONFIGURACIÓN GLOBAL DE MINTED
+%% =============================================================================
+\setminted{
+  fontsize=\small,
+  breaklines=true,
+  breakanywhere=true,
+  tabsize=2,
+  frame=none,
+  autogobble=true,
+}
+
+%% =============================================================================
+%% ESTILO BASE VS CODE LIGHT
+%% =============================================================================
+\tcbset{
+  vscode-light-base/.style={
+    enhanced,
+    breakable,
+    colback=vscode-bg,
+    colframe=vscode-border,
+    coltitle=vscode-titletext,
+    colbacktitle=vscode-titlebar,
+    arc=4pt,
+    boxrule=1pt,
+    left=2pt,
+    right=5pt,
+    top=2pt,
+    bottom=2pt,
+    listing only,
+    listing engine=minted,
+    fonttitle=\small\ttfamily\bfseries,
+    toptitle=3pt,
+    bottomtitle=3pt,
+  },
+  vscode-light-linenos/.style={
+    vscode-light-base,
+    minted options={linenos,numbersep=6pt,fontsize=\small,xleftmargin=1.5em},
+  },
+  vscode-light-nolinenos/.style={
+    vscode-light-base,
+    minted options={fontsize=\small,linenos=false},
+  },
+}
+
+%% =============================================================================
+%% ESTILO BASE VS CODE DARK
+%% =============================================================================
+\tcbset{
+  vscode-dark-base/.style={
+    enhanced,
+    breakable,
+    colback=vscode-dark-bg,
+    colframe=vscode-dark-border,
+    coltitle=vscode-dark-text,
+    colbacktitle=vscode-dark-titlebar,
+    arc=4pt,
+    boxrule=1pt,
+    left=2pt,
+    right=5pt,
+    top=2pt,
+    bottom=2pt,
+    listing only,
+    listing engine=minted,
+    fonttitle=\small\ttfamily\bfseries,
+    toptitle=3pt,
+    bottomtitle=3pt,
+  },
+  vscode-dark-linenos/.style={
+    vscode-dark-base,
+    minted options={linenos,numbersep=8pt,fontsize=\small,xleftmargin=1.5em,style=monokai},
+  },
+  vscode-dark-nolinenos/.style={
+    vscode-dark-base,
+    minted options={fontsize=\small,style=monokai,linenos=false},
+  },
+}
+
+%% =============================================================================
+%% ENTORNOS VS CODE LIGHT
+%% =============================================================================
+
+% Python
+\newtcblisting{pythoncode}[1][]{vscode-light-linenos,minted language=python,title={\faIcon{python}~~Python},#1}
+\newtcblisting{pythoncodeNN}[1][]{vscode-light-nolinenos,minted language=python,title={\faIcon{python}~~Python},#1}
+
+% JavaScript
+\newtcblisting{jscode}[1][]{vscode-light-linenos,minted language=javascript,title={\faIcon{js-square}~~JavaScript},#1}
+\newtcblisting{jscodeNN}[1][]{vscode-light-nolinenos,minted language=javascript,title={\faIcon{js-square}~~JavaScript},#1}
+
+% TypeScript
+\newtcblisting{tscode}[1][]{vscode-light-linenos,minted language=typescript,title={\faIcon{js-square}~~TypeScript},#1}
+\newtcblisting{tscodeNN}[1][]{vscode-light-nolinenos,minted language=typescript,title={\faIcon{js-square}~~TypeScript},#1}
+
+% SQL
+\newtcblisting{sqlcode}[1][]{vscode-light-linenos,minted language=sql,title={\faIcon{database}~~SQL},#1}
+\newtcblisting{sqlcodeNN}[1][]{vscode-light-nolinenos,minted language=sql,title={\faIcon{database}~~SQL},#1}
+
+% C
+\newtcblisting{ccode}[1][]{vscode-light-linenos,minted language=c,title={\faIcon{copyright}~~C},#1}
+\newtcblisting{ccodeNN}[1][]{vscode-light-nolinenos,minted language=c,title={\faIcon{copyright}~~C},#1}
+
+% C++
+\newtcblisting{cppcode}[1][]{vscode-light-linenos,minted language=cpp,title={\faIcon{copyright}~~C++},#1}
+\newtcblisting{cppcodeNN}[1][]{vscode-light-nolinenos,minted language=cpp,title={\faIcon{copyright}~~C++},#1}
+
+% C#
+\newtcblisting{csharpcode}[1][]{vscode-light-linenos,minted language=csharp,title={\faIcon{microsoft}~~C\#},#1}
+\newtcblisting{csharpcodeNN}[1][]{vscode-light-nolinenos,minted language=csharp,title={\faIcon{microsoft}~~C\#},#1}
+
+% Java
+\newtcblisting{javacode}[1][]{vscode-light-linenos,minted language=java,title={\faIcon{java}~~Java},#1}
+\newtcblisting{javacodeNN}[1][]{vscode-light-nolinenos,minted language=java,title={\faIcon{java}~~Java},#1}
+
+% Kotlin
+\newtcblisting{kotlincode}[1][]{vscode-light-linenos,minted language=kotlin,title={\faIcon{android}~~Kotlin},#1}
+\newtcblisting{kotlincodeNN}[1][]{vscode-light-nolinenos,minted language=kotlin,title={\faIcon{android}~~Kotlin},#1}
+
+% Swift
+\newtcblisting{swiftcode}[1][]{vscode-light-linenos,minted language=swift,title={\faIcon{apple}~~Swift},#1}
+\newtcblisting{swiftcodeNN}[1][]{vscode-light-nolinenos,minted language=swift,title={\faIcon{apple}~~Swift},#1}
+
+% Go
+\newtcblisting{gocode}[1][]{vscode-light-linenos,minted language=go,title={\faIcon{google}~~Go},#1}
+\newtcblisting{gocodeNN}[1][]{vscode-light-nolinenos,minted language=go,title={\faIcon{google}~~Go},#1}
+
+% Rust
+\newtcblisting{rustcode}[1][]{vscode-light-linenos,minted language=rust,title={\faIcon{rust}~~Rust},#1}
+\newtcblisting{rustcodeNN}[1][]{vscode-light-nolinenos,minted language=rust,title={\faIcon{rust}~~Rust},#1}
+
+% PHP
+\newtcblisting{phpcode}[1][]{vscode-light-linenos,minted language=php,title={\faIcon{php}~~PHP},#1}
+\newtcblisting{phpcodeNN}[1][]{vscode-light-nolinenos,minted language=php,title={\faIcon{php}~~PHP},#1}
+
+% Ruby
+\newtcblisting{rubycode}[1][]{vscode-light-linenos,minted language=ruby,title={\faIcon{gem}~~Ruby},#1}
+\newtcblisting{rubycodeNN}[1][]{vscode-light-nolinenos,minted language=ruby,title={\faIcon{gem}~~Ruby},#1}
+
+% R
+\newtcblisting{rcode}[1][]{vscode-light-linenos,minted language=r,title={\faIcon{r-project}~~R},#1}
+\newtcblisting{rcodeNN}[1][]{vscode-light-nolinenos,minted language=r,title={\faIcon{r-project}~~R},#1}
+
+% HTML
+\newtcblisting{htmlcode}[1][]{vscode-light-linenos,minted language=html,title={\faIcon{html5}~~HTML},#1}
+\newtcblisting{htmlcodeNN}[1][]{vscode-light-nolinenos,minted language=html,title={\faIcon{html5}~~HTML},#1}
+
+% CSS
+\newtcblisting{csscode}[1][]{vscode-light-linenos,minted language=css,title={\faIcon{css3-alt}~~CSS},#1}
+\newtcblisting{csscodeNN}[1][]{vscode-light-nolinenos,minted language=css,title={\faIcon{css3-alt}~~CSS},#1}
+
+% SASS/SCSS
+\newtcblisting{sasscode}[1][]{vscode-light-linenos,minted language=sass,title={\faIcon{sass}~~SASS},#1}
+\newtcblisting{sasscodeNN}[1][]{vscode-light-nolinenos,minted language=sass,title={\faIcon{sass}~~SASS},#1}
+
+% JSON
+\newtcblisting{jsoncode}[1][]{vscode-light-linenos,minted language=json,title={\faIcon{code}~~JSON},#1}
+\newtcblisting{jsoncodeNN}[1][]{vscode-light-nolinenos,minted language=json,title={\faIcon{code}~~JSON},#1}
+
+% XML
+\newtcblisting{xmlcode}[1][]{vscode-light-linenos,minted language=xml,title={\faIcon{code}~~XML},#1}
+\newtcblisting{xmlcodeNN}[1][]{vscode-light-nolinenos,minted language=xml,title={\faIcon{code}~~XML},#1}
+
+% YAML
+\newtcblisting{yamlcode}[1][]{vscode-light-linenos,minted language=yaml,title={\faIcon{file-code}~~YAML},#1}
+\newtcblisting{yamlcodeNN}[1][]{vscode-light-nolinenos,minted language=yaml,title={\faIcon{file-code}~~YAML},#1}
+
+% Markdown
+\newtcblisting{mdcode}[1][]{vscode-light-linenos,minted language=markdown,title={\faIcon{markdown}~~Markdown},#1}
+\newtcblisting{mdcodeNN}[1][]{vscode-light-nolinenos,minted language=markdown,title={\faIcon{markdown}~~Markdown},#1}
+
+% LaTeX
+\newtcblisting{latexcode}[1][]{vscode-light-linenos,minted language=latex,title={\faIcon{file-alt}~~\LaTeX},#1}
+\newtcblisting{latexcodeNN}[1][]{vscode-light-nolinenos,minted language=latex,title={\faIcon{file-alt}~~\LaTeX},#1}
+
+% Bash/Shell
+\newtcblisting{bashcode}[1][]{vscode-light-linenos,minted language=bash,title={\faIcon{terminal}~~Bash},#1}
+\newtcblisting{bashcodeNN}[1][]{vscode-light-nolinenos,minted language=bash,title={\faIcon{terminal}~~Bash},#1}
+
+% PowerShell
+\newtcblisting{pscode}[1][]{vscode-light-linenos,minted language=powershell,title={\faIcon{terminal}~~PowerShell},#1}
+\newtcblisting{pscodeNN}[1][]{vscode-light-nolinenos,minted language=powershell,title={\faIcon{terminal}~~PowerShell},#1}
+
+% Docker
+\newtcblisting{dockercode}[1][]{vscode-light-linenos,minted language=dockerfile,title={\faIcon{docker}~~Dockerfile},#1}
+\newtcblisting{dockercodeNN}[1][]{vscode-light-nolinenos,minted language=dockerfile,title={\faIcon{docker}~~Dockerfile},#1}
+
+% Matlab
+\newtcblisting{matlabcode}[1][]{vscode-light-linenos,minted language=matlab,title={\faIcon{chart-line}~~MATLAB},#1}
+\newtcblisting{matlabcodeNN}[1][]{vscode-light-nolinenos,minted language=matlab,title={\faIcon{chart-line}~~MATLAB},#1}
+
+% Scala
+\newtcblisting{scalacode}[1][]{vscode-light-linenos,minted language=scala,title={\faIcon{fire}~~Scala},#1}
+\newtcblisting{scalacodeNN}[1][]{vscode-light-nolinenos,minted language=scala,title={\faIcon{fire}~~Scala},#1}
+
+% Lua
+\newtcblisting{luacode}[1][]{vscode-light-linenos,minted language=lua,title={\faIcon{moon}~~Lua},#1}
+\newtcblisting{luacodeNN}[1][]{vscode-light-nolinenos,minted language=lua,title={\faIcon{moon}~~Lua},#1}
+
+% Perl
+\newtcblisting{perlcode}[1][]{vscode-light-linenos,minted language=perl,title={\faIcon{code}~~Perl},#1}
+\newtcblisting{perlcodeNN}[1][]{vscode-light-nolinenos,minted language=perl,title={\faIcon{code}~~Perl},#1}
+
+% Haskell
+\newtcblisting{haskellcode}[1][]{vscode-light-linenos,minted language=haskell,title={\faIcon{code}~~Haskell},#1}
+\newtcblisting{haskellcodeNN}[1][]{vscode-light-nolinenos,minted language=haskell,title={\faIcon{code}~~Haskell},#1}
+
+% Makefile
+\newtcblisting{makecode}[1][]{vscode-light-linenos,minted language=makefile,title={\faIcon{cogs}~~Makefile},#1}
+\newtcblisting{makecodeNN}[1][]{vscode-light-nolinenos,minted language=makefile,title={\faIcon{cogs}~~Makefile},#1}
+
+% INI/Config
+\newtcblisting{inicode}[1][]{vscode-light-linenos,minted language=ini,title={\faIcon{sliders-h}~~Config},#1}
+\newtcblisting{inicodeNN}[1][]{vscode-light-nolinenos,minted language=ini,title={\faIcon{sliders-h}~~Config},#1}
+
+% TOML
+\newtcblisting{tomlcode}[1][]{vscode-light-linenos,minted language=toml,title={\faIcon{file-code}~~TOML},#1}
+\newtcblisting{tomlcodeNN}[1][]{vscode-light-nolinenos,minted language=toml,title={\faIcon{file-code}~~TOML},#1}
+
+% Diff
+\newtcblisting{diffcode}[1][]{vscode-light-linenos,minted language=diff,title={\faIcon{code-branch}~~Diff},#1}
+\newtcblisting{diffcodeNN}[1][]{vscode-light-nolinenos,minted language=diff,title={\faIcon{code-branch}~~Diff},#1}
+
+% Git
+\newtcblisting{gitcode}[1][]{vscode-light-linenos,minted language=bash,title={\faIcon{git-alt}~~Git},#1}
+\newtcblisting{gitcodeNN}[1][]{vscode-light-nolinenos,minted language=bash,title={\faIcon{git-alt}~~Git},#1}
+
+%% =============================================================================
+%% ENTORNOS VS CODE DARK
+%% =============================================================================
+
+% Python Dark
+\newtcblisting{pythoncodeDark}[1][]{vscode-dark-linenos,minted language=python,title={\faIcon{python}~~Python},#1}
+\newtcblisting{pythoncodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=python,title={\faIcon{python}~~Python},#1}
+
+% JavaScript Dark
+\newtcblisting{jscodeDark}[1][]{vscode-dark-linenos,minted language=javascript,title={\faIcon{js-square}~~JavaScript},#1}
+\newtcblisting{jscodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=javascript,title={\faIcon{js-square}~~JavaScript},#1}
+
+% TypeScript Dark
+\newtcblisting{tscodeDark}[1][]{vscode-dark-linenos,minted language=typescript,title={\faIcon{js-square}~~TypeScript},#1}
+\newtcblisting{tscodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=typescript,title={\faIcon{js-square}~~TypeScript},#1}
+
+% SQL Dark
+\newtcblisting{sqlcodeDark}[1][]{vscode-dark-linenos,minted language=sql,title={\faIcon{database}~~SQL},#1}
+\newtcblisting{sqlcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=sql,title={\faIcon{database}~~SQL},#1}
+
+% C Dark
+\newtcblisting{ccodeDark}[1][]{vscode-dark-linenos,minted language=c,title={\faIcon{copyright}~~C},#1}
+\newtcblisting{ccodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=c,title={\faIcon{copyright}~~C},#1}
+
+% C++ Dark
+\newtcblisting{cppcodeDark}[1][]{vscode-dark-linenos,minted language=cpp,title={\faIcon{copyright}~~C++},#1}
+\newtcblisting{cppcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=cpp,title={\faIcon{copyright}~~C++},#1}
+
+% C# Dark
+\newtcblisting{csharpcodeDark}[1][]{vscode-dark-linenos,minted language=csharp,title={\faIcon{microsoft}~~C\#},#1}
+\newtcblisting{csharpcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=csharp,title={\faIcon{microsoft}~~C\#},#1}
+
+% Java Dark
+\newtcblisting{javacodeDark}[1][]{vscode-dark-linenos,minted language=java,title={\faIcon{java}~~Java},#1}
+\newtcblisting{javacodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=java,title={\faIcon{java}~~Java},#1}
+
+% Kotlin Dark
+\newtcblisting{kotlincodeDark}[1][]{vscode-dark-linenos,minted language=kotlin,title={\faIcon{android}~~Kotlin},#1}
+\newtcblisting{kotlincodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=kotlin,title={\faIcon{android}~~Kotlin},#1}
+
+% Swift Dark
+\newtcblisting{swiftcodeDark}[1][]{vscode-dark-linenos,minted language=swift,title={\faIcon{apple}~~Swift},#1}
+\newtcblisting{swiftcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=swift,title={\faIcon{apple}~~Swift},#1}
+
+% Go Dark
+\newtcblisting{gocodeDark}[1][]{vscode-dark-linenos,minted language=go,title={\faIcon{google}~~Go},#1}
+\newtcblisting{gocodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=go,title={\faIcon{google}~~Go},#1}
+
+% Rust Dark
+\newtcblisting{rustcodeDark}[1][]{vscode-dark-linenos,minted language=rust,title={\faIcon{rust}~~Rust},#1}
+\newtcblisting{rustcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=rust,title={\faIcon{rust}~~Rust},#1}
+
+% PHP Dark
+\newtcblisting{phpcodeDark}[1][]{vscode-dark-linenos,minted language=php,title={\faIcon{php}~~PHP},#1}
+\newtcblisting{phpcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=php,title={\faIcon{php}~~PHP},#1}
+
+% Ruby Dark
+\newtcblisting{rubycodeDark}[1][]{vscode-dark-linenos,minted language=ruby,title={\faIcon{gem}~~Ruby},#1}
+\newtcblisting{rubycodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=ruby,title={\faIcon{gem}~~Ruby},#1}
+
+% R Dark
+\newtcblisting{rcodeDark}[1][]{vscode-dark-linenos,minted language=r,title={\faIcon{r-project}~~R},#1}
+\newtcblisting{rcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=r,title={\faIcon{r-project}~~R},#1}
+
+% HTML Dark
+\newtcblisting{htmlcodeDark}[1][]{vscode-dark-linenos,minted language=html,title={\faIcon{html5}~~HTML},#1}
+\newtcblisting{htmlcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=html,title={\faIcon{html5}~~HTML},#1}
+
+% CSS Dark
+\newtcblisting{csscodeDark}[1][]{vscode-dark-linenos,minted language=css,title={\faIcon{css3-alt}~~CSS},#1}
+\newtcblisting{csscodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=css,title={\faIcon{css3-alt}~~CSS},#1}
+
+% JSON Dark
+\newtcblisting{jsoncodeDark}[1][]{vscode-dark-linenos,minted language=json,title={\faIcon{code}~~JSON},#1}
+\newtcblisting{jsoncodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=json,title={\faIcon{code}~~JSON},#1}
+
+% Bash Dark
+\newtcblisting{bashcodeDark}[1][]{vscode-dark-linenos,minted language=bash,title={\faIcon{terminal}~~Bash},#1}
+\newtcblisting{bashcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=bash,title={\faIcon{terminal}~~Bash},#1}
+
+% Docker Dark
+\newtcblisting{dockercodeDark}[1][]{vscode-dark-linenos,minted language=dockerfile,title={\faIcon{docker}~~Dockerfile},#1}
+\newtcblisting{dockercodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=dockerfile,title={\faIcon{docker}~~Dockerfile},#1}
+
+% YAML Dark
+\newtcblisting{yamlcodeDark}[1][]{vscode-dark-linenos,minted language=yaml,title={\faIcon{file-code}~~YAML},#1}
+\newtcblisting{yamlcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=yaml,title={\faIcon{file-code}~~YAML},#1}
+
+% MATLAB Dark
+\newtcblisting{matlabcodeDark}[1][]{vscode-dark-linenos,minted language=matlab,title={\faIcon{chart-line}~~MATLAB},#1}
+\newtcblisting{matlabcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=matlab,title={\faIcon{chart-line}~~MATLAB},#1}
+
+%% =============================================================================
+%% LENGUAJES ADICIONALES (LIGHT)
+%% =============================================================================
+
+% Nginx
+\newtcblisting{nginxcode}[1][]{vscode-light-linenos,minted language=nginx,title={\faIcon{server}~~Nginx},#1}
+\newtcblisting{nginxcodeNN}[1][]{vscode-light-nolinenos,minted language=nginx,title={\faIcon{server}~~Nginx},#1}
+
+% Apache
+\newtcblisting{apachecode}[1][]{vscode-light-linenos,minted language=apacheconf,title={\faIcon{server}~~Apache},#1}
+\newtcblisting{apachecodeNN}[1][]{vscode-light-nolinenos,minted language=apacheconf,title={\faIcon{server}~~Apache},#1}
+
+% Texto plano (para MikroTik y otros)
+\newtcblisting{textcode}[1][]{vscode-light-linenos,minted language=text,title={\faIcon{file-alt}~~Text},#1}
+\newtcblisting{textcodeNN}[1][]{vscode-light-nolinenos,minted language=text,title={\faIcon{file-alt}~~Text},#1}
+
+% MikroTik (usando sintaxis similar a bash)
+\newtcblisting{mikrotikcode}[1][]{vscode-light-linenos,minted language=bash,title={\faIcon{network-wired}~~MikroTik},#1}
+\newtcblisting{mikrotikcodeNN}[1][]{vscode-light-nolinenos,minted language=bash,title={\faIcon{network-wired}~~MikroTik},#1}
+
+% Assembler/ASM
+\newtcblisting{asmcode}[1][]{vscode-light-linenos,minted language=nasm,title={\faIcon{microchip}~~Assembly},#1}
+\newtcblisting{asmcodeNN}[1][]{vscode-light-nolinenos,minted language=nasm,title={\faIcon{microchip}~~Assembly},#1}
+
+% Prolog
+\newtcblisting{prologcode}[1][]{vscode-light-linenos,minted language=prolog,title={\faIcon{brain}~~Prolog},#1}
+\newtcblisting{prologcodeNN}[1][]{vscode-light-nolinenos,minted language=prolog,title={\faIcon{brain}~~Prolog},#1}
+
+% Fortran
+\newtcblisting{fortrancode}[1][]{vscode-light-linenos,minted language=fortran,title={\faIcon{calculator}~~Fortran},#1}
+\newtcblisting{fortrancodeNN}[1][]{vscode-light-nolinenos,minted language=fortran,title={\faIcon{calculator}~~Fortran},#1}
+
+% VHDL
+\newtcblisting{vhdlcode}[1][]{vscode-light-linenos,minted language=vhdl,title={\faIcon{microchip}~~VHDL},#1}
+\newtcblisting{vhdlcodeNN}[1][]{vscode-light-nolinenos,minted language=vhdl,title={\faIcon{microchip}~~VHDL},#1}
+
+% Verilog
+\newtcblisting{verilogcode}[1][]{vscode-light-linenos,minted language=verilog,title={\faIcon{microchip}~~Verilog},#1}
+\newtcblisting{verilogcodeNN}[1][]{vscode-light-nolinenos,minted language=verilog,title={\faIcon{microchip}~~Verilog},#1}
+
+% TeX
+\newtcblisting{texcode}[1][]{vscode-light-linenos,minted language=tex,title={\faIcon{file-alt}~~TeX},#1}
+\newtcblisting{texcodeNN}[1][]{vscode-light-nolinenos,minted language=tex,title={\faIcon{file-alt}~~TeX},#1}
+
+%% =============================================================================
+%% LENGUAJES ADICIONALES (DARK)
+%% =============================================================================
+
+% Nginx Dark
+\newtcblisting{nginxcodeDark}[1][]{vscode-dark-linenos,minted language=nginx,title={\faIcon{server}~~Nginx},#1}
+\newtcblisting{nginxcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=nginx,title={\faIcon{server}~~Nginx},#1}
+
+% Apache Dark
+\newtcblisting{apachecodeDark}[1][]{vscode-dark-linenos,minted language=apacheconf,title={\faIcon{server}~~Apache},#1}
+\newtcblisting{apachecodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=apacheconf,title={\faIcon{server}~~Apache},#1}
+
+% Text Dark
+\newtcblisting{textcodeDark}[1][]{vscode-dark-linenos,minted language=text,title={\faIcon{file-alt}~~Text},#1}
+\newtcblisting{textcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=text,title={\faIcon{file-alt}~~Text},#1}
+
+% MikroTik Dark
+\newtcblisting{mikrotikcodeDark}[1][]{vscode-dark-linenos,minted language=bash,title={\faIcon{network-wired}~~MikroTik},#1}
+\newtcblisting{mikrotikcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=bash,title={\faIcon{network-wired}~~MikroTik},#1}
+
+% Assembler Dark
+\newtcblisting{asmcodeDark}[1][]{vscode-dark-linenos,minted language=nasm,title={\faIcon{microchip}~~Assembly},#1}
+\newtcblisting{asmcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=nasm,title={\faIcon{microchip}~~Assembly},#1}
+
+% Prolog Dark
+\newtcblisting{prologcodeDark}[1][]{vscode-dark-linenos,minted language=prolog,title={\faIcon{brain}~~Prolog},#1}
+\newtcblisting{prologcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=prolog,title={\faIcon{brain}~~Prolog},#1}
+
+% Fortran Dark
+\newtcblisting{fortrancodeDark}[1][]{vscode-dark-linenos,minted language=fortran,title={\faIcon{calculator}~~Fortran},#1}
+\newtcblisting{fortrancodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=fortran,title={\faIcon{calculator}~~Fortran},#1}
+
+% VHDL Dark
+\newtcblisting{vhdlcodeDark}[1][]{vscode-dark-linenos,minted language=vhdl,title={\faIcon{microchip}~~VHDL},#1}
+\newtcblisting{vhdlcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=vhdl,title={\faIcon{microchip}~~VHDL},#1}
+
+% Verilog Dark
+\newtcblisting{verilogcodeDark}[1][]{vscode-dark-linenos,minted language=verilog,title={\faIcon{microchip}~~Verilog},#1}
+\newtcblisting{verilogcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=verilog,title={\faIcon{microchip}~~Verilog},#1}
+
+% TeX Dark
+\newtcblisting{texcodeDark}[1][]{vscode-dark-linenos,minted language=tex,title={\faIcon{file-alt}~~TeX},#1}
+\newtcblisting{texcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=tex,title={\faIcon{file-alt}~~TeX},#1}
+
+%% =============================================================================
+%% ENTORNOS GENÉRICOS PARA CUALQUIER LENGUAJE
+%% =============================================================================
+
+% Genérico Light
+\newtcblisting{codigo}[2][]{vscode-light-linenos,minted language=#2,title={\faIcon{code}~~#2},#1}
+\newtcblisting{codigoNN}[2][]{vscode-light-nolinenos,minted language=#2,title={\faIcon{code}~~#2},#1}
+
+% Genérico Dark
+\newtcblisting{codigoDark}[2][]{vscode-dark-linenos,minted language=#2,title={\faIcon{code}~~#2},#1}
+\newtcblisting{codigoDarkNN}[2][]{vscode-dark-nolinenos,minted language=#2,title={\faIcon{code}~~#2},#1}
+
+\endinput

@@ -1,0 +1,97 @@
+% !TeX program = lualatex
+% !TeX encoding = UTF-8
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Plantilla TFG/TFM - Escuela Politécnica Superior
+% Universidad de Alicante
+%
+% Versión 2.0 - Febrero 2026
+%
+% Este es el archivo principal del documento.
+% La configuración del trabajo se realiza en 'configuracion.tex'
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Ruta donde buscar la clase y los paquetes
+\makeatletter
+\providecommand\input@path{}
+\edef\input@path{{cls/}{sty/}\input@path}
+\makeatother
+
+% Cargar la clase eps-tfg
+\documentclass{eps-tfg}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CONFIGURACIÓN DEL DOCUMENTO
+% Toda la información personal y del trabajo se define aquí
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{configuracion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BIBLIOGRAFÍA
+% Archivo con las referencias bibliográficas
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\addbibresource{referencias.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ACRÓNIMOS Y GLOSARIO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeglossaries
+\input{contenido/anexos/acronimos}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% INICIO DEL DOCUMENTO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%% =======================================================================
+%% FRONTMATTER - Páginas preliminares
+%% =======================================================================
+\frontmatter
+
+% Portadas (puedes usar: ambas, solo-color, solo-bn)
+\generarportada[ambas]
+
+% Páginas preliminares (agradecimientos, resumen, etc.)
+\input{contenido/frontmatter/preliminares}
+
+% Índices
+\tableofcontents           % Índice general
+\listoffigures             % Índice de figuras
+\listoftables              % Índice de tablas
+% \indiceCodigos           % Índice de códigos (descomentar si se usa)
+
+%% =======================================================================
+%% MAINMATTER - Contenido principal
+%% =======================================================================
+\mainmatter
+
+% Capítulos del trabajo
+\input{contenido/capitulos/introduccion}
+\input{contenido/capitulos/marco-teorico}
+\input{contenido/capitulos/objetivos}
+\input{contenido/capitulos/metodologia}
+\input{contenido/capitulos/desarrollo}
+\input{contenido/capitulos/resultados}
+\input{contenido/capitulos/conclusiones}
+
+%% =======================================================================
+%% BACKMATTER - Material final
+%% =======================================================================
+
+% Bibliografía
+\printbibliography[heading=bibintoc,title={Bibliografía}]
+
+% Lista de acrónimos
+\printglossary[
+  style=modsuper,
+  type=\acronymtype,
+  title={Lista de Acrónimos y Abreviaturas}
+]
+\glsaddallunused
+
+% Anexos
+\appendix
+\input{contenido/anexos/anexo-a}
+\input{contenido/anexos/anexo-b}
+\input{contenido/anexos/anexo_codigo}
+
+\end{document}

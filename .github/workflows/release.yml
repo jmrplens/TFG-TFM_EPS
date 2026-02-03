@@ -1,0 +1,101 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g., v1.0.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+env:
+  TEXLIVE_VERSION: "2024"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+      
+    - name: Compile LaTeX document
+      uses: xu-cheng/latex-action@v4
+      with:
+        root_file: main.tex
+        latexmk_use_lualatex: true
+        latexmk_shell_escape: true
+        texlive_version: ${{ env.TEXLIVE_VERSION }}
+        extra_system_packages: py3-pygments perl
+        
+    - name: Rename PDF
+      run: mv main.pdf TFG-TFM_EPS_UA.pdf
+      
+    - name: Get version
+      id: version
+      run: |
+        if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+        else
+          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        fi
+        
+    - name: Generate release notes
+      id: notes
+      run: |
+        cat << 'EOF' > release_notes.md
+        ## 📦 Plantilla TFG/TFM - EPS Universidad de Alicante
+        
+        Esta release incluye la plantilla LaTeX actualizada y el documento de ejemplo compilado.
+        
+        ### 📥 Archivos incluidos
+        
+        - **TFG-TFM_EPS_UA.pdf** - Documento de ejemplo compilado
+        - **Source code** - Código fuente de la plantilla
+        
+        ### 🚀 Cómo usar
+        
+        1. Descarga el código fuente (zip o tar.gz)
+        2. Extrae los archivos
+        3. Abre el proyecto en tu editor LaTeX favorito
+        4. Compila con **LuaLaTeX** usando el flag `-shell-escape`
+        
+        ### 📋 Requisitos
+        
+        - TeX Live 2024 o superior
+        - LuaLaTeX (obligatorio)
+        - Pygments para resaltado de código
+        
+        ### 📖 Documentación
+        
+        Consulta la carpeta `docs/` para guías detalladas sobre:
+        - Ecuaciones matemáticas
+        - Tablas y figuras
+        - Código fuente
+        - Bibliografía
+        - Glosarios y acrónimos
+        
+        ---
+        *Escuela Politécnica Superior - Universidad de Alicante*
+        EOF
+        
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ steps.version.outputs.VERSION }}
+        name: Release ${{ steps.version.outputs.VERSION }}
+        body_path: release_notes.md
+        draft: false
+        prerelease: false
+        files: |
+          TFG-TFM_EPS_UA.pdf
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

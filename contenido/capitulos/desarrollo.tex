@@ -1,0 +1,359 @@
+%% =============================================================================
+%% CAPÍTULO: DESARROLLO - DEMOSTRACIÓN DE ESTILOS DE CÓDIGO
+%% =============================================================================
+\chapter{Desarrollo: Estilos de Código}
+\label{cap:desarrollo}
+
+Este capítulo demuestra los estilos de cajas de código disponibles en esta plantilla,
+basados en el diseño de Visual Studio Code.
+
+%% =============================================================================
+\section{Estilo VS Code Light}
+\label{sec:vscode-light}
+
+El estilo VS Code Light imita la apariencia del editor Visual Studio Code en su tema claro.
+
+\subsection{Python}
+
+\begin{pythoncode}
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+for i in range(10):
+    print(f"F({i}) = {fibonacci(i)}")
+\end{pythoncode}
+
+\subsection{Sin numeración de líneas}
+
+Usando el sufijo \texttt{NN} (No Numbers) se elimina la numeración:
+
+\begin{pythoncodeNN}
+mensaje = "Hola, mundo"
+print(mensaje)
+\end{pythoncodeNN}
+
+\subsection{JavaScript}
+
+\begin{jscode}
+function validateEmail(email) {
+    const regex = /^[a-z]+@[a-z]+\.[a-z]+$/;
+    return regex.test(email);
+}
+
+async function fetchData(url) {
+    const response = await fetch(url);
+    return response.json();
+}
+\end{jscode}
+
+\subsection{Java}
+
+\begin{javacode}
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hola desde Java!");
+    }
+}
+\end{javacode}
+
+%% =============================================================================
+\section{Estilo VS Code Dark}
+\label{sec:vscode-dark}
+
+El tema oscuro de VS Code, ideal para documentación técnica o presentaciones.
+
+\subsection{Python Dark}
+
+\begin{pythoncodeDark}
+import numpy as np
+
+def matrix_multiply(A, B):
+    return np.dot(A, B)
+
+A = np.array([[1, 2], [3, 4]])
+B = np.array([[5, 6], [7, 8]])
+result = matrix_multiply(A, B)
+\end{pythoncodeDark}
+
+\subsection{JavaScript Dark}
+
+\begin{jscodeDark}
+const express = require('express');
+const app = express();
+
+app.get('/api/users', async (req, res) => {
+    const users = await User.find();
+    res.json(users);
+});
+
+app.listen(3000);
+\end{jscodeDark}
+
+%% =============================================================================
+\section{Lenguajes Web}
+\label{sec:web}
+
+\subsection{HTML}
+
+\begin{htmlcode}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Aplicación</title>
+</head>
+<body>
+    <h1>Bienvenido</h1>
+</body>
+</html>
+\end{htmlcode}
+
+\subsection{CSS}
+
+\begin{csscode}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+\end{csscode}
+
+%% =============================================================================
+\section{Lenguajes de Datos}
+\label{sec:datos}
+
+\subsection{SQL}
+
+\begin{sqlcode}
+SELECT 
+    usuarios.nombre,
+    COUNT(pedidos.id) as total_pedidos
+FROM usuarios
+LEFT JOIN pedidos ON usuarios.id = pedidos.usuario_id
+GROUP BY usuarios.id
+ORDER BY total_pedidos DESC
+LIMIT 10;
+\end{sqlcode}
+
+%% =============================================================================
+\section{Lenguajes de Sistemas}
+\label{sec:sistemas}
+
+\subsection{C++}
+
+\begin{cppcode}
+\#include <iostream>
+\#include <vector>
+
+int main() {
+    std::vector<int> nums = {5, 2, 8, 1, 9};
+    for (const auto& n : nums) {
+        std::cout << n << " ";
+    }
+    return 0;
+}
+\end{cppcode}
+
+\subsection{Rust}
+
+\begin{rustcode}
+fn main() {
+    let mensaje = "Hola desde Rust";
+    println!("{}", mensaje);
+    
+    let numeros = vec![1, 2, 3, 4, 5];
+    for n in numeros {
+        println!("{}", n);
+    }
+}
+\end{rustcode}
+
+\subsection{Go}
+
+\begin{gocode}
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hola desde Go")
+    
+    nums := []int{1, 2, 3, 4, 5}
+    for _, n := range nums {
+        fmt.Println(n)
+    }
+}
+\end{gocode}
+
+%% =============================================================================
+\section{Otros Lenguajes}
+\label{sec:otros}
+
+\subsection{PHP}
+
+\begin{phpcode}
+<?php
+class Usuario {
+    private $nombre;
+    
+    public function __construct($nombre) {
+        $this->nombre = $nombre;
+    }
+    
+    public function saludar() {
+        return "Hola, " . $this->nombre . "!";
+    }
+}
+
+$usuario = new Usuario("Juan");
+echo $usuario->saludar();
+?>
+\end{phpcode}
+
+\subsection{Ruby}
+
+\begin{rubycode}
+class Persona
+  attr_accessor :nombre, :edad
+  
+  def initialize(nombre, edad)
+    @nombre = nombre
+    @edad = edad
+  end
+  
+  def saludar
+    puts "Hola, soy " + @nombre
+  end
+end
+
+persona = Persona.new("Maria", 25)
+persona.saludar
+\end{rubycode}
+
+%% =============================================================================
+\section{DevOps y Configuración}
+\label{sec:devops}
+
+\subsection{Docker}
+
+\begin{dockercode}
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
+\end{dockercode}
+
+%% =============================================================================
+\section{Entorno Genérico}
+\label{sec:generico}
+
+El entorno \texttt{codigo\{lenguaje\}} permite usar cualquier lenguaje soportado 
+por Pygments:
+
+\begin{codigo}{swift}
+import Foundation
+
+struct Persona {
+    let nombre: String
+    let edad: Int
+    
+    func saludar() -> String {
+        return "Hola, soy " + nombre
+    }
+}
+
+let persona = Persona(nombre: "Carlos", edad: 30)
+print(persona.saludar())
+\end{codigo}
+
+\subsection{Versión Dark del Genérico}
+
+\begin{codigoDark}{kotlin}
+data class Usuario(val nombre: String, val email: String)
+
+fun main() {
+    val usuarios = listOf(
+        Usuario("Ana", "ana@mail.com"),
+        Usuario("Luis", "luis@mail.com")
+    )
+    
+    usuarios.forEach { println(it) }
+}
+\end{codigoDark}
+
+%% =============================================================================
+\section{Resumen de Entornos Disponibles}
+\label{sec:resumen-entornos}
+
+\begin{table}[H]
+\centering
+\caption{Entornos de código con icono disponibles}
+\label{tab:entornos-codigo}
+\begin{tabular}{llll}
+\toprule
+\textbf{Entorno} & \textbf{Lenguaje} & \textbf{Icono} & \textbf{Dark} \\
+\midrule
+\texttt{pythoncode} & Python & \faIcon{python} & \texttt{pythoncodeDark} \\
+\texttt{jscode} & JavaScript & \faIcon{js-square} & \texttt{jscodeDark} \\
+\texttt{javacode} & Java & \faIcon{java} & \texttt{javacodeDark} \\
+\texttt{cppcode} & C++ & \faIcon{copyright} & \texttt{cppcodeDark} \\
+\texttt{rustcode} & Rust & \faIcon{rust} & \texttt{rustcodeDark} \\
+\texttt{gocode} & Go & \faIcon{google} & \texttt{gocodeDark} \\
+\texttt{phpcode} & PHP & \faIcon{php} & \texttt{phpcodeDark} \\
+\texttt{rubycode} & Ruby & \faIcon{gem} & \texttt{rubycodeDark} \\
+\texttt{htmlcode} & HTML & \faIcon{html5} & \texttt{htmlcodeDark} \\
+\texttt{csscode} & CSS & \faIcon{css3-alt} & \texttt{csscodeDark} \\
+\texttt{sqlcode} & SQL & \faIcon{database} & \texttt{sqlcodeDark} \\
+\texttt{bashcode} & Bash & \faIcon{terminal} & \texttt{bashcodeDark} \\
+\texttt{dockercode} & Dockerfile & \faIcon{docker} & \texttt{dockercodeDark} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Sufijos disponibles para cada entorno}
+\label{tab:sufijos}
+\begin{tabular}{lll}
+\toprule
+\textbf{Sufijo} & \textbf{Descripción} & \textbf{Ejemplo} \\
+\midrule
+(ninguno) & Light con números & \texttt{pythoncode} \\
+\texttt{NN} & Light sin números & \texttt{pythoncodeNN} \\
+\texttt{Dark} & Dark con números & \texttt{pythoncodeDark} \\
+\texttt{DarkNN} & Dark sin números & \texttt{pythoncodeDarkNN} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Entornos genéricos para cualquier lenguaje}
+\label{tab:generico}
+\begin{tabular}{ll}
+\toprule
+\textbf{Entorno} & \textbf{Descripción} \\
+\midrule
+\texttt{codigo\{lang\}} & Light con números \\
+\texttt{codigoNN\{lang\}} & Light sin números \\
+\texttt{codigoDark\{lang\}} & Dark con números \\
+\texttt{codigoDarkNN\{lang\}} & Dark sin números \\
+\bottomrule
+\end{tabular}
+\end{table}

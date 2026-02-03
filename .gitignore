@@ -1,20 +1,295 @@
+# ============================================================================
+# ARCHIVOS AUXILIARES DE LATEX (Core)
+# ============================================================================
 *.aux
+*.lof
+*.log
+*.lot
+*.fls
 *.out
-*.gz
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+*.xdv
+texput.log
+
+# ============================================================================
+# DOCUMENTOS INTERMEDIOS
+# ============================================================================
+*.dvi
+*-converted-to.*
+
+# ============================================================================
+# BIBLIOGRAFÍA (bibtex/biblatex/biber)
+# ============================================================================
+*.bbl
+*.bbl-SAVE-ERROR
+*.bcf
+*.bcf-SAVE-ERROR
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+# ============================================================================
+# HERRAMIENTAS DE BUILD
+# ============================================================================
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+
+# Latexrun
+latex.out/
+
+# ============================================================================
+# PAQUETES AUXILIARES
+# ============================================================================
+# algorithms
+*.alg
+*.loa
+
+# amsthm
+*.thm
+
+# beamer
+*.nav
+*.pre
+*.snm
+*.vrb
+
+# changes
+*.soc
+
+# cprotect
+*.cpt
+
+# endnotes
+*.ent
+
+# fixme
+*.lox
+
+# Glosarios y acrónimos (glossaries/acronym)
 *.acn
 *.acr
-*.alg
-*.auxlock
-*.bbl
-*.blg
+*.glg
 *.glo
 *.gls
-*.glg
+*.glsdefs
 *.ist
-*.lof
+
+# gnuplot
+*.gnuplot
+*.table
+
+# gnuplottex
+*-gnuplottex-*
+
+# gregoriotex
+*.gaux
+*.glog
+*.gtex
+
+# hyperref
+*.brf
+
+# Índices (makeidx)
+*.idx
+*.ilg
+*.ind
+
+# listings (código)
 *.lol
-*.lot
-*.toc
-*.DS_Store
+*.listing
+
+# luatexja-ruby
+*.ltjruby
+
+# minitoc
+*.maf
+*.mlf
+*.mlt
+*.mtc[0-9]*
+*.slf[0-9]*
+*.slt[0-9]*
+*.stc[0-9]*
+
+# minted
+_minted*/
+_minted-*/
+*.pyg
+
+# morewrites
+*.mw
+
+# newpax
+*.newpax
+
+# nomencl
+*.nlg
+*.nlo
+*.nls
+
+# pax
+*.pax
+
+# pdfpcnotes
+*.pdfpc
+
+# sagetex
+*.sagetex.sage
+*.sagetex.py
+*.sagetex.scmd
+
+# scrwfile
+*.wrt
+
+# svg
+svg-inkscape/
+
+# sympy
+*.sout
+*.sympy
+sympy-plots-for-*.tex/
+
+# pdfcomment
+*.upa
+*.upb
+
+# pythontex
+*.pytxcode
+pythontex-files-*/
+
+# tcolorbox
+*.listing
+
+# thmtools
+*.loe
+
+# TikZ & PGF
+*.dpth
 *.md5
-*.log
+*.auxlock
+*.figlist
+*.makefile
+
+# titletoc
+*.ptc
+
+# todonotes
+*.tdo
+
+# easy-hierarchical-todo-list
+*.lod
+
+# xcolor
+*.xcp
+
+# xmpincl
+*.xmpi
+
+# xindy
+*.xdy
+
+# xypic precompiled matrices and samples
+*.xyc
+*.xyd
+
+# ============================================================================
+# ARCHIVOS GENERADOS
+# ============================================================================
+# Directorio de compilación
+build/
+out/
+
+# PDFs generados (descomenta si no quieres versionarlos)
+main.pdf
+# *.pdf
+
+# Pero sí versionamos el ejemplo compilado para referencia
+!ejemplo_compilado.pdf
+
+# ============================================================================
+# ARCHIVOS TEMPORALES Y RESPALDO
+# ============================================================================
+*.bak
+*.backup
+*~
+\#*\#
+.\#*
+*.tmp
+*.temp
+*.orig
+
+# LaTeXiT
+*.xxx
+
+# ============================================================================
+# SISTEMA OPERATIVO
+# ============================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+desktop.ini
+
+# Linux
+*~
+
+# ============================================================================
+# EDITORES E IDEs
+# ============================================================================
+# Vim
+*.swp
+*.swo
+*~
+Session.vim
+Sessionx.vim
+.netrwhist
+
+# VS Code (mantener .vscode para configuración compartida)
+# .vscode/
+
+# JetBrains
+.idea/
+
+# Sublime Text
+*.sublime-*
+*.code-workspace
+
+# Kile
+*.backup
+
+# ============================================================================
+# OVERLEAF Y PLATAFORMAS ONLINE
+# ============================================================================
+output/
+
+# ============================================================================
+# ARCHIVOS DE DATOS ESPECÍFICOS DEL PROYECTO
+# ============================================================================
+# Datos personales (no versionar)
+# contenido/frontmatter/datos-personales.tex
+
+# ============================================================================
+# HERRAMIENTAS DE DESARROLLO (.herramientas/)
+# ============================================================================
+# Manifiesto de previews (regenerable)
+docs/assets/previews/manifest.json
+
+# Archivos temporales de compilación
+.herramientas/tmp/
+.herramientas/*.log

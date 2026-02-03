@@ -1,0 +1,124 @@
+name: Build LaTeX Document
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  TEXLIVE_VERSION: "2024"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+      
+    - name: Cache TeX Live
+      uses: actions/cache@v5
+      with:
+        path: |
+          /tmp/texlive
+          ~/.texlive*
+        key: texlive-${{ env.TEXLIVE_VERSION }}-${{ runner.os }}-${{ hashFiles('.latexmkrc') }}
+        restore-keys: |
+          texlive-${{ env.TEXLIVE_VERSION }}-${{ runner.os }}-
+      
+    - name: Compile LaTeX document
+      uses: xu-cheng/latex-action@v4
+      with:
+        root_file: main.tex
+        latexmk_use_lualatex: true
+        latexmk_shell_escape: true
+        texlive_version: ${{ env.TEXLIVE_VERSION }}
+        extra_system_packages: py3-pygments perl
+        
+    - name: Upload PDF artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: TFG-TFM_EPS_UA
+        path: main.pdf
+        retention-days: 90
+
+  comment-pr:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    needs: build
+    
+    steps:
+    - name: Get workflow run URL
+      id: run-url
+      run: |
+        echo "RUN_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
+        
+    - name: Comment on PR
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const runUrl = '${{ steps.run-url.outputs.RUN_URL }}';
+          
+          const body = `## 📄 Compilación del documento
+          
+          ✅ El documento **main.pdf** se ha compilado correctamente.
+          
+          ### 📥 Descargar PDF
+          
+          👉 **[Ver workflow y descargar artefactos](${runUrl})**
+          
+          En la sección "Artifacts" encontrarás el archivo **TFG-TFM_EPS_UA** con el PDF compilado.
+          
+          > **Nota:** Los artefactos estarán disponibles durante 90 días.
+          
+          ---
+          *Generado automáticamente por GitHub Actions* 🤖
+          `;
+          
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+          
+          const botComment = comments.find(comment => 
+            comment.user.type === 'Bot' && 
+            comment.body.includes('📄 Compilación del documento')
+          );
+          
+          if (botComment) {
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: botComment.id,
+              body: body,
+            });
+          } else {
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body,
+            });
+          }
+
+  check-links:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+      
+    - name: Check README links
+      uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'yes'
+        config-file: '.github/mlc_config.json'
+      continue-on-error: true

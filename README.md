@@ -1,682 +1,664 @@
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?hosted_button_id=BLP3R6VGYJB4Q)
-[![Donate](https://img.shields.io/badge/Donate-Ko--fi-brightgreen?color=ff5f5f)](https://ko-fi.com/jmrplens) 
+# 📚 Plantilla TFG/TFM - Escuela Politécnica Superior
 
-# Plantilla TFG/TFM
-**Para ver la información del póster haz clic <a href="https://github.com/jmrplens/TFG-TFM_EPS/wiki/P%C3%B3ster">aquí</a>.**
+**Universidad de Alicante**
 
-**Ejemplo real de TFG y póster:  <a href="https://jmrplens.github.io/assets/pdf/paper-resources/TFG-latex.zip">Descargar proyecto LaTeX</a>**
+[![LaTeX](https://img.shields.io/badge/LaTeX-LuaLaTeX-008080?logo=latex)](https://www.latex-project.org/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Version](https://img.shields.io/badge/Versión-2.0-blue.svg)](https://github.com/jmrplens/TFG-TFM_EPS/releases)
+
+Plantilla LaTeX moderna y profesional para la elaboración de **Trabajos de Fin de Grado (TFG)** y **Trabajos de Fin de Máster (TFM)** de la Escuela Politécnica Superior de la Universidad de Alicante.
 
 ---
 
-Esta plantilla se ha creado después de observar la idea concebida por Pedro Pernías y otros colaboradores en su plantilla: <a href="https://github.com/lcg51/tfg">tfg</a>. Se ha mantenido algún contenido de los capítulos de esa plantilla, y la clase de documento _scrbook_ pero el resto de la plantilla está realizada de cero. El diseño se ha ajustado a lo indicado en la <a href="https://eps.ua.es/es/ingenieria-sonido-imagen-telecomunicacion/documentos/tfg/libro-de-estilo.pdf">Guía de estilo</a> de la EPS. Siempre se debe comprobar que no hayan cambiado los criterios, ya que esta plantilla se actualiza eventualmente y no cada vez que se establezca una modificación por parte de la EPS. Si algún parámetro cambia es sencillo actualizar ese cambio en la plantilla, se ha realizado de tal modo que todos los parámetros sean fácilmente editables.
+## ✨ Características
 
-Esta plantilla puede ser divulgada, modificada y compartida libremente. Este proyecto se ha realizado para los alumnos de la Escuela Politécnica Superior de la Universidad de Alicante, esperando facilitar un poco la introducción al trabajo con LaTeX. Se ruega enviar sugerencias de todo tipo, el contenido de la plantilla intenta mostrar un poco de todo lo que se puede hacer con LaTeX, pero si es complejo el uso y así lo indicasen los usuarios se modificará para hacerla más manejable.
+- 🎨 **Portadas oficiales** a color y en blanco/negro con diseño profesional
+- 🎓 **21 titulaciones** preconfiguradas (8 grados + 13 másteres)
+- ⚙️ **Configuración simple** mediante un único archivo
+- 📝 **Bibliografía APA 7** con BibLaTeX + Biber
+- 💻 **Resaltado de código** para 25+ lenguajes con Minted
+- 📊 **Gráficas y diagramas** con TikZ/PGFPlots
+- 📖 **Glosarios y acrónimos** integrados
+- 🚀 **Optimización TikZ** con caché de figuras
+- 🔧 **Compatible con Overleaf** y editores locales
 
-## Índice
-<!-- MarkdownTOC depth=5 bracket="round" style="ordered" -->
+---
 
-1. [Introducción](#introducci%C3%B3n)
-1. [Características](#caracter%C3%ADsticas)
-	1. [Directrices de estilo](#directrices-de-estilo)
-	1. [Multitud de diseños predefinidos](#multitud-de-dise%C3%B1os-predefinidos)
-	1. [Fuente de texto](#fuente-de-texto)
-	1. [Lenguajes de programación](#lenguajes-de-programaci%C3%B3n)
-	1. [Optimización](#optimizaci%C3%B3n)
-	1. [Contenido de ejemplo](#contenido-de-ejemplo)
-	1. [Overleaf](#overleaf)
-1. [Uso](#uso)
-	1. [Estructura de archivos](#estructura-de-archivos)
-	1. [Introduce la información del trabajo](#introduce-la-informaci%C3%B3n-del-trabajo)
-	1. [Selecciona tu titulación](#selecciona-tu-titulaci%C3%B3n)
-	1. [Contenido](#contenido)
-		1. [Precontenido](#precontenido)
-		1. [Capítulos](#cap%C3%ADtulos)
-		1. [Postcontenido](#postcontenido)
-	1. [Archivos 'include'](#archivos-include)
-	1. [Lista de acrónimos y abreviaturas](#lista-de-acr%C3%B3nimos-y-abreviaturas)
-	1. [Bibliografía](#bibliograf%C3%ADa)
-		1. [Citar bibliografía](#citar-bibliograf%C3%ADa)
-	1. [Comentarios](#comentarios)
-1. [Control de errores](#control-de-errores)
-	1. [Longitud del título](#longitud-del-t%C3%ADtulo)
-1. [Aspectos avanzados](#aspectos-avanzados)
-	1. [Formato del documento](#formato-del-documento)
-	1. [Idioma del documento](#idioma-del-documento)
-	1. [Añadir/Editar formato de titulaciones](#a%C3%B1adireditar-formato-de-titulaciones)
-	1. [Fuentes de la portada](#fuentes-de-la-portada)
-1. [Contacto \(sugerencias, errores, etc\)](#contacto-sugerencias-errores-etc)
+## 🆕 ¿Primera vez con LaTeX?
 
-<!-- /MarkdownTOC -->
+Si nunca has usado LaTeX, no te preocupes. Hemos preparado una guía completa para principiantes:
 
-## Introducción
-Para conocer mejor el entorno LaTeX he elegido algunas fuentes de información relevantes:
+**📖 [Guía de LaTeX para Principiantes](docs/GUIA_PRINCIPIANTES.md)**
 
-* <a href="https://tecdigital.tec.ac.cr/revistamatematica/Libros/LATEX/LaTeX_2014.pdf">Libro/Manual - Tecnológico de Costa Rica (español)</a>
-* <a href="http://www.texdoc.net/"> TeXdoc - Web con documentación de paquetes y comandos LaTeX (inglés)</a>
-* <a href="https://www.youtube.com/user/ShareLaTeX"> Canal de YouTube de ShareLaTeX con videotutoriales (inglés)</a>
-* <a href="https://es.wikipedia.org/wiki/Ayuda:Uso_de_TeX">Artículo de la Wikipedia con muchos ejemplos (español)</a>
-* <a href="https://upload.wikimedia.org/wikipedia/commons/2/2d/LaTeX.pdf">Manual LaTeX realizado por Wikimedia (inglés)</a>
+Incluye:
+- Qué es LaTeX y por qué usarlo
+- Instalación paso a paso (Windows, macOS, Linux)
+- Elegir un editor
+- Tu primera compilación
+- Errores comunes y soluciones
+- Recursos de aprendizaje
 
-Recomiendo utilizar programas LaTeX que permitan trabajar con estructura de archivos para poder editar el conjunto de capítulos en la misma ventana. Este tipo de función lo tienen programas como <a href="https://www.texstudio.org/">TexStudio</a> o <a href="http://www.xm1math.net/texmaker/">Texmaker</a>, ambos multiplataforma.
+---
 
-* Para Mac OS es necesario instalar en primer lugar <a href="http://www.tug.org/mactex/">MacTex</a>.
-* En Windows o Linux recomiendo instalar en primer lugar <a href="https://miktex.org/">MiKTeX</a>.
+## � Documentación Especializada
 
-Detalle de trabajar con la estructura de archivos en <a href="https://www.texstudio.org/">TexStudio</a> (en <a href="http://www.xm1math.net/texmaker/">Texmaker</a> es igual) :
+Guías detalladas para cada aspecto de tu documento:
 
-<img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/texstudio.png" width="30%"></img>
+| Guía | Descripción |
+|------|-------------|
+| 📝 [Código Fuente](docs/CODIGO_FUENTE.md) | Insertar y resaltar código con minted (40+ lenguajes) |
+| 📊 [Figuras y Gráficas](docs/FIGURAS_GRAFICAS.md) | Crear gráficos con pgfplots y TikZ |
+| 🖼️ [Imágenes y Subfiguras](docs/IMAGENES_SUBFIGURAS.md) | Incluir imágenes, subfiguras y posicionamiento |
+| 📋 [Tablas](docs/TABLAS.md) | Tablas profesionales con booktabs |
+| ✍️ [Texto y Listas](docs/TEXTO_LISTAS.md) | Formato de texto, listas y descripciones |
+| 🔢 [Ecuaciones](docs/ECUACIONES.md) | Fórmulas matemáticas con amsmath |
+| 📖 [Bibliografía](docs/BIBLIOGRAFIA.md) | Gestión de referencias con BibLaTeX |
+| 📓 [Glosarios y Acrónimos](docs/GLOSARIOS_ACRONIMOS.md) | Términos, siglas y símbolos |
+| 🔗 [Referencias Cruzadas](docs/REFERENCIAS_CRUZADAS.md) | Etiquetas, referencias y hyperref |
 
-Existen herramientas de pago que facilitan más aún el trabajo con proyectos latex formados por varios archivos y generan más rapido los documentos como <a href="https://www.texpad.com/">Texpad</a> para Mac OS (utilizado para crear esta plantilla) o <a href="http://www.winedt.com/">WinEdt</a> para Windows.
+---
 
-## Características
+## 🤖 Ayuda con IA
 
-### Directrices de estilo
-La plantilla respeta las directrices de estilo que determina la Escuela Politécnica Superior de La Universidad de Alicante para los TFG y TFM. Se pueden revisar estas directrices en: <a href="https://eps.ua.es/es/ingenieria-sonido-imagen-telecomunicacion/documentos/tfg/libro-de-estilo.pdf">Guía de estilo</a>
+¿Usas ChatGPT, Claude, Copilot u otro asistente de IA? Este proyecto incluye archivos de contexto para que las IAs te ayuden mejor:
 
-Lo márgenes se establecen en el archivo `configuracióninicial.tex`, que no es necesario editar salvo que las directrices de estilo se hayan modificado y esta plantilla no se haya actualizado.
-Las líneas de código que definen los márgenes son:
-```latex
-% MÁRGENES DE LAS PÁGINAS
-\usepackage[
-  inner	=	3.0cm, % Margen interior
-  outer	=	2.5cm, % Margen exterior
-  top	=	2.5cm, % Margen superior
-  bottom=	2.5cm, % Margen inferior
-  includeheadfoot, % Incluye cabecera y pie de página en los márgenes
-]{geometry}
-```
-El interlineado indicado en la guía de estilo no se ha aplicado porque no creo que sea cómoda la lectura con el interlineado indicado en la guía. De todos modos he dejado el comando para modificarlo fácilmente:
-```latex
-% Valor de interlineado
-\renewcommand{\baselinestretch}{1.0} % 1 línea de interlineado
-```
+| Archivo | Propósito |
+|---------|----------|
+| [AGENTS.md](AGENTS.md) | Guía general para cualquier IA |
+| [CLAUDE.md](CLAUDE.md) | Instrucciones específicas para Claude |
+| [docs/AI_CONTEXT.md](docs/AI_CONTEXT.md) | Referencia técnica detallada |
 
-Se ha dejado una función para mostrar una regla vertical y horizontal, para poder revisar los márgenes. Se encuentra comentada pero si se desea utilizar para revisar en algún momento los márgenes, se puede eliminar el comentario:
-```latex
-% Muestra una regla para comprobar el formato de las páginas
-%\usepackage[type=upperleft,showframe,marklength=8mm]{fgruler}
-```
-Se mostraría esto (haz clic sobre la imagen para verla más grande):
+**Tip:** Copia el contenido de `AGENTS.md` en tu chat con la IA para obtener respuestas más precisas sobre esta plantilla.
 
-<img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/REG1.png" width="30%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/REG2.png" width="30%"></img>
+---
 
-Estilo de página par e impar o página izquierda y página derecha.
+## 🚀 Inicio Rápido
 
-### Multitud de diseños predefinidos
-La plantilla incluye los colores y logotipos que cada titulación determina para los TFG y TFM. Tan solo con cambiar un número, automáticamente se modifica la información para la titulación seleccionada.
-La lista de titulaciónes prediseñadas a día de hoy (Enero 2018) son:
+### Requisitos
 
-| ID  | Titulación |
-| ------------- | ------------- |
-| `1`  | Grado en Imagen y Sonido en Telecomunicación  |
-| `2` | Grado en Ingeniería Civil  |
-| `3`  | Grado en Ingeniería Química  |
-| `4` | Grado en Ingeniería Informática  |
-| `5`  | Grado en Ingerniería Multimedia  |
-| `6` | Grado en Arquitectura Técnica  |
-| `7`  | Grado en Arquitectura  |
-| `8` | Grado en Ingeniería Robótica  |
-| `A`  | Máster Universitario en Telecomunicación  |
-| `B` | Máster Universitario en Ingeniería de Caminos, Canales y Puentes  |
-| `C`  | Máster Universitario en Gestión de la Edificación  |
-| `D` | Máster Universitario en Desarrollo de Aplicaciones y Servicios Web  |
-| `E`  | Máster Universitario en Ingeniería de los Materiales, Agua y Terreno  |
-| `F` | Máster Universitario en Ingeniería Informática  |
-| `G`  | Máster Universitario en Automática y Robótica  |
-| `H` | Máster Universitario en Prevención de Riesgos Laborales  |
-| `I`  | Máster Universitario en Gestión Sostenible y Tecnologías del Agua  |
-| `J` | Máster Universitario en Desarrollo de Software para Dispositivos Móviles  |
-| `K`  | Máster Universitario en Ingeniería Química  |
-| `L`  | Máster Universitario en Ciberseguridad  |
-| `M`  | Máster Universitario en Ingeniería Geológica  |
+- **TeX Live 2024** o superior (recomendado: TeX Live 2025)
+- **LuaLaTeX** como motor de compilación
+- **Biber** para bibliografía
+- **Python + Pygments** para resaltado de código (minted)
 
-El lugar donde indicar la `ID` de la titulación es en el archivo principal `TFG-TFM_EPS_UA.tex`, en la siguiente línea:
+```bash
+# Ubuntu/Debian
+sudo apt install texlive-full python3-pygments
 
-```latex
-\def\IDtitulo{X} % INTRODUCE LA ID DE TU TITULACIÓN
-```
-Donde `X` es la ID de la titulación correspondiente.
+# macOS con Homebrew
+brew install --cask mactex
+pip3 install Pygments
 
-
-Los cambios en la plantilla al cambiar la `ID` suceden en la portada y en la subportada, estableciendo los logotipos correspondientes, color del texto, nombre de la titulación, tipo de trabajo (máster o grado).
-
-Por ejemplo, para la titulación con el `ID=1` se genera automáticamente esta portada y subportada
-
-<p align="center">
-<img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/P1.png" width="30%"></img><img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/PN1.png" width="30%"></img>
-</p>
-
-A continuación se muestran el resto de portadas que se pueden generar automáticamente:
-
-<p align="center">
-<img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/P2.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/P3.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/P4.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/P5.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/P6.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/P7.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/P8.jpg" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/PA.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/PB.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/PC.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/PD.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/PE.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/PF.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/PG.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/PH.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/PI.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/PJ.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/PK.png" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/PL.jpg" width="20%"></img> <img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/master/.github/images/PM.png" width="20%"></img>
-</p>
-
-### Fuente de texto
-
-La fuente general para el documento es la estándar de LaTeX, pero tal como indica la guía de estilo, la fuente para la portada es 'Helvetica' y 'Helvetica LT STD Cond'.
-
-### Lenguajes de programación
-Se ha diseñado una 'caja' donde mostrar código de diferentes lenguajes de programación de forma sencilla y muy clara a la hora de leerlo.
-
-Para utilizarlo en el documento, por ejemplo para lenguaje C++:
-
-```latex
-\begin{lstlisting}[style=C-color, caption={ejemplo código C en color},label=C_code-color]
-	#include <stdio.h>
-	// Comentario
-	int main(int argc, char* argv[]) {
-  	puts("Hola mundo!");
-	}
-\end{lstlisting}
-```
-Se puede mostrar el código en color o en blanco y negro, todos los estilos se encuentran definidos en el archivo `estiloscodigoprogramacion.tex`, donde se pueden añadir más lenguajes o modificar el estilo de los ya existentes.
-El formato de la caja se define en el archivo `configuracioninicial.tex` en el apartado de código, si se desea se puede cambiar el formato del título de la caja o de la caja misma, o eliminar ambas.
-
-El resultado obtenido dentro del documento para, por ejemplo, lenguaje Python en color y en blanco y negro es el siguiente:
-
-<img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/ECod.png" width="40%"></img>
-
-### Optimización
-
-Si utilizas figuras generadas con TikZ o PGF y quieres reducir el tiempo de compilado activa la optimización poniendo un `1` en la línea `\def\OptimizaTikZ{1}` que se encuentra al principio del archivo principal `TFG-TFM_EPS.tex`. Esto almacenará tus figuras en `archivos/figuras-procesadas` como imágenes vectoriales en PDF y mientras no sean editadas se cargarán desde ahi y no se ejecutará su código, además puedes darles otros usos (powerpoint, word, etc).
-
-### Contenido de ejemplo
-Se ha incluido contenido de ejemplo para mostrar, a aquellos que aún no conocen LaTeX, el potencial que tiene este sistema y enseñar sutílmente cómo manejarlo.
-
-Para ello se han utilizado los archivos de capítulos y en cada uno de ellos se han introducido distintos temas de ejemplo (figuras, códigos, tablas, etc)
-
-Estos capítulos son meramente de ejemplo y pueden ser eliminados sin miedo a que deje de funcionar alguna cosa o editados con el contenido del trabajo.
-
-### Overleaf
-
-Para el correcto funcionamiento de la plantilla en Overleaf es necesario realizar algunos cambios:
-
-En el archivo `include\configuracioninicial.tex` se debe eliminar la línea 132:
-```latex
-\tikzexternalize[prefix=archivos/figuras-procesadas/] % Ruta
-```
-Y en el archivo principal `TFG-TFM_EPS_UA.tex` colocar estas líneas depues de la carga del archivo `include\configuracioninicial.tex` (línea 16) tal que:
-```latex
-...
-\input{include/configuracioninicial}
-
-% Obligatorio colocar en el main en la version para Overleaf, no eliminar
-\if\OptimizaTikZ 1
-\tikzexternalize[prefix=archivos/figuras-procesadas/] % Ruta
-\fi 
-...
+# Windows con Chocolatey
+choco install miktex
+pip install Pygments
 ```
 
-Cuando el proyecto en GitHub sufre alguna actualización importante se sube una nueva versión a Overleaf, en el siguiente enlace encontrarás la plantilla en Overleaf con la modificación anterior aplicada y con las actualizaciones hasta diciembre de 2019: <a href="https://www.overleaf.com/latex/templates/plantilla-latex-v2019-tfg-y-tfm-para-la-eps-de-la-universidad-de-alicante/zrvfhcndfptf">Plantilla Overleaf</a> 
+### Compilación
 
-Recuerda que debes seleccionar en el menú de Overleaf el compilador _XeLateX_ y el archivo principal `TFG-TFM_EPS_UA.tex` tal que:
+```bash
+# Opción 1: Usando Make (recomendado)
+make              # Compilación completa
+make quick        # Compilación rápida (sin bibliografía)
+make clean        # Limpiar archivos auxiliares
+make view         # Abrir PDF generado
 
-<img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/overleafconfig.png" width="30%"></img>
+# Opción 2: Usando latexmk (compilación continua)
+latexmk main.tex        # Compilar una vez
+latexmk -pvc main.tex   # Compilar automáticamente al guardar
 
-
-## Uso
-La plantilla necesita el motor XeLaTeX (el más recomendable actualmente), por lo que si el programa que utilizas compila la plantilla con el motor pdfLaTeX (el más habitual pero menos potente) debes cambiarlo por XeLaTeX en las opciones del programa. En el archivo principal se han añadido dos lineas de comandos que fuerza al programa TeXstudio a utilizar el motor XeLateX sin tener que configurar nada, de todos modos si no funcionan será necesario buscar en la ayuda del programa como elegir como motor XeLaTeX. 
-
-
-El uso de la plantilla es muy sencillo si se conoce qué hace cada uno de los archivos. A continuación se describen cada uno de ellos.
-
-### Estructura de archivos
-La plantilla esta estructurada del siguiente modo:
-* `anexos` -> Contiene los archivos de los anexos.
-* `bibliografia` -> Contiene un archivo BibTeX con la bibliografía.
-* `capitulos` -> Contiene los archivos de cada capítulo.
-* `archivos` -> Contiene los archivos utilizados en el contenido de ejemplo.
-	* `archivos/figuras-procesadas` -> Aquí se almacenan las figuras generadas con TikZ y PGF para no regenerarlas cada vez que se compila el proyecto (no elimines la carpeta sino se generará un error). Ademas puedes aprovechar las figuras generadas para utilizarlas en tu powerpoint o cualquier otro software que vayas a utilizar para presentar tu TFG o TFM.
-* `include` -> Contiene todo lo necesario para que la plantilla funcione.
-* `TFG-TFM_EPS_UA.tex` -> Archivo principal de la plantilla.
-
-El archivo principal es el lugar donde se introduce la información del trabajo, se indica la titulación para la que se realiza el trabajo y se incluyen los diferentes capítulos. En este archivo no se desarrolla el contenido, este se desarrolla en archivos separados tales como los capítulos o anexos.
-
-La carpeta 'include' tiene todo el código que hace funcionar la plantilla y por ello no debe ser modificada o alterada a no ser que sepas lo que estás haciendo.
-
-### Introduce la información del trabajo
-En el archivo principal `TFG-TFM_EPS_UA.tex` se encuentra remarcada la zona donde debes editar la información de tu trabajo y aparece del siguiente modo:
-
-```latex
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% INFORMACIÓN DEL TFG
-% Comentar lo que NO se desee añadir y sustituir con la información correcta.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Título y subtítulo
-\newcommand{\titulo}{Título del Trabajo Fin de Grado/Master}
-\newcommand{\subtitulo}{Subtítulo del proyecto}
-% Datos del autor
-\newcommand{\miNombre}{Nombre Apellido1 Apellido2 (alumno)}
-\newcommand{\miEmail}{nombre@alu.ua.es}
-% Datos del tutor/es
-\newcommand{\miTutor}{Nombre Apellido1 Apellido2 (tutor1)}
-\newcommand{\miTutorB}{Nombre Apellido1 Apellido2 (tutor2)}
-\newcommand{\departamentoTutor}{Departamento del tutor}
-\newcommand{\departamentoTutorB}{Departamento del cotutor}
-% Datos de la facultada y universidad
-\newcommand{\miFacultad}{Escuela Politécnica Superior}
-\newcommand{\miFacultadCorto}{EPS UA}
-\newcommand{\miUniversidad}{\protect{Universidad de Alicante}}
-\newcommand{\miUbicacion}{Alicante}
-``` 
-
-* Si en tu caso no tienes dos tutores, puedes eliminar o comentar (con % delante) tanto la línea de código del nombre del tutor 2 como del departamento del cotutor.
-
-El contenido a modificar es el que se encuentra entre `{}`, siempre el último tramo de cada línea, por ejemplo, en la línea:
-`\newcommand{\miNombre}{Nombre Apellido1 Apellido2 (alumno)}` sólo se debe modificar el contenido dentro de los corchetes del último bloque qué es: `{Nombre Apellido1 Apellido2 (alumno)}`, y quedaría tal que: `\newcommand{\miNombre}{Jose Manuel Requena Plens}`
-
-Así con el resto de la información
-### Selecciona tu titulación
-En el mismo archivo, justo a continuación de la información del trabajo se debe indicar la titulación. En el código se muestra así:
-```latex
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% INDICA TU TITULACION
-% ID	GRADO -------------------------------------------------
-% 1		Ingeniería en Imagen y Sonido en Telecomunicación
-% 2		Ingeniería Civil
-% 3		Ingeniería Química
-% 4		Ingeniería Informática
-% 5		Ingeniería Multimedia
-% 6		Arquitectura Técnica
-% 7		Arquitectura
-% 8		Robótica
-% %		%%%%%%%%%%%%
-% ID	MÁSTER ------------------------------------------------
-% A		Telecomunicación
-% B		Caminos, Canales y Puertos
-% C		Gestión en la Edificación
-% D		Desarrollo Web
-% E		Materiales, Agua, Terreno
-% F		Informática
-% G 	Automática y Robótica
-% H		Prevención de riesgos laborales
-% I		Gestión Sostenible Agua
-% J		Desarrollo Aplicaciones Móviles
-% K		Ingeniería Química
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%%%
-																		%
-\def\IDtitulo{K} % INTRODUCE LA ID DE TU TITULACIÓN						%
-																		%
-%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-``` 
-
-Para indicar tu titulación tan solo debes editar el carácter contenido entre `{}` del último bloque. Por ejemplo, si tu trabajo es de Ingeniería en Imagen y Sonido en Telecomunicación, deberías editar la línea de código para indicar la ID de tu titulación, que en este caso es 1, del siguiente modo:
-`\def\IDtitulo{1} % INTRODUCE LA ID DE TU TITULACIÓN`
-
-Y listo, con este indicador ya estará tu trabajo prediseñado según las directrices de estilo de tu grado o máster.
-
-### Contenido
-El contenido del trabajo se debe desarrollar en archivos separados, es una buena práctica. En el archivo principal de la plantilla (`TFG-TFM_EPS_UA.tex`) se encuentran las líneas que incluyen en el documento las portadas preconfiguradas, los diferentes capítulos, bibliografía y anexos.
-
-#### Precontenido
- Las primeras páginas del documento deben estar dedicadas a las portadas, preámbulo, índice, listado de figuras, tablas, etc. En el archivo principal se definen estas partes justo después de seleccionar la titulación:
-
-```latex
-%%%%%%%%%%%%%%%%%%%%%%%% 
-% INICIO DEL DOCUMENTO
-% A partir de aquí debes empezar a realizar tu TFG/TFM
-%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{document}
-
-% Números romanos hasta el mainmatter.
-\frontmatter
-
-% PORTADA
-\input{include/portada/portada_color} % Portada Color
-\input{include/portada/portada_bn} % Portada B/N
-
-%%%%% PREAMBULO
-% Incluye el .tex que contiene el preámbulo, agradecimientos y dedicatorias.
-\input{capitulos/preliminaresconagradecimientos} 
-
-% Incluye después del archivo anterior el indice y lista de figuras, tablas y códigos.
-\tableofcontents
-\listoffigures
-\listoftables
-\lstlistoflistings
-
-% Inicia la numeración habitual.
-\mainmatter
- ```
-
-Como se puede observar, las líneas que comienzan con 'input' son aquellas que cargan archivos separados. En primer lugar se establece numeración de páginas romana, después se incluye la portada principal y la subportada, a continuación el archivo de preliminares (contiene el preámbulo, agradecimientos, dedicatorias,... a modificar por al autor del trabajo). 
-Después de los preliminares se ejecutan los comandos que incluyen en el documento el índice (`\tableofcontents`), la lista de figuras (`\listoffigures`), la lista de tablas (`\listoftables`) y la lista de códigos (`\lstlistoflistings`), si no vas a hacer uso de alguno de ellos puedes eliminar o comentar (con %) la línea que no quieras incluir en el documento. Por último inicia la numeración de páginas normal (1,2,3,...).
-
-#### Capítulos
-Si creas un nuevo archivo de capítulo que deseas añadir al documento debes agregarlo en el archivo principal justo en el apartado indicado de capítulos. Estos se mostrarán en el mismo orden en el que estén escritos, por ejemplo, en la plantilla actualmente están declarados los siguientes capítulos:
-
-```latex
-%%%%
-% CONTENIDO. CAPÍTULOS DEL TRABAJO - Añade o elimina según tus necesidades
-%%%%
-\input{capitulos/Introduccion}
-\input{capitulos/marcoteorico}	% Plantilla: Se muestran listas
-\input{capitulos/objetivos}	% Plantilla: Se muestran tablas
-\input{capitulos/metodologia}	% Plantilla: Se muestran figuras
-\input{capitulos/desarrollo}	% Plantilla: Se muestran listados
-\input{capitulos/resultados}	% Plantilla: Se muestran gráficas
-\input{capitulos/conclusiones}	% Plantilla: Se muestran matemáticas
+# Opción 3: Compilación manual
+lualatex -shell-escape main.tex
+biber main
+lualatex -shell-escape main.tex
+lualatex -shell-escape main.tex
 ```
 
-Y en el documento generado se mostrarán en ese orden.
+---
 
-Un capítulo es tan solo un archivo .tex donde sus dos primeras líneas deben contener:
+## 📁 Estructura del Proyecto
 
-```latex
-\chapter{Título del capítulo}
-\label{etiquetacapitulo}
+```
+TFG-TFM_EPS/
+├── main.tex                    # Documento principal
+├── configuracion.tex           # Configuración del usuario
+├── referencias.bib             # Bibliografía
+├── Makefile                    # Comandos de compilación
+├── .latexmkrc                  # Configuración de latexmk
+│
+├── cls/
+│   └── eps-tfg.cls             # Clase principal
+│
+├── sty/
+│   ├── eps-portadas.sty        # Paquete de portadas
+│   ├── eps-codigo.sty          # Estilos de código
+│   └── ...                     # Otros paquetes de estilo
+│
+├── contenido/
+│   ├── frontmatter/
+│   │   └── preliminares.tex    # Agradecimientos, resumen...
+│   ├── capitulos/
+│   │   ├── introduccion.tex
+│   │   ├── marco-teorico.tex
+│   │   ├── objetivos.tex
+│   │   ├── metodologia.tex
+│   │   ├── desarrollo.tex
+│   │   ├── resultados.tex
+│   │   └── conclusiones.tex
+│   └── anexos/
+│       ├── acronimos.tex
+│       └── anexo-X.tex         # Tus anexos
+│
+├── recursos/
+│   ├── logos/                  # Logos institucionales (PDF)
+│   ├── fuentes/                # Fuentes tipográficas
+│   ├── figuras/                # Tus figuras e imágenes
+│   └── ejemplos/               # Ejemplos de código fuente
+│
+├── docs/                       # Documentación detallada
+│   ├── GUIA_PRINCIPIANTES.md
+│   ├── CODIGO_FUENTE.md
+│   ├── ECUACIONES.md
+│   └── ...                     # Más guías especializadas
+│
+├── AGENTS.md                   # Contexto para asistentes IA
+├── CLAUDE.md                   # Instrucciones para Claude
+├── CHANGELOG.md                # Historial de cambios
+└── CONTRIBUTING.md             # Guía de contribución
 ```
 
-El comando `\chapter{}` genera el título del capítulo y lo incluye en el índice y el comando `\label{}` añade una etiqueta al capítulo por si quieres hacer referencia a él en algún punto del documento escribiendo `\ref{etiqueta}` (incluye el número de lo referenciado) o `\pageref{etiqueta}` (incluye el número de página de lo referenciado).
+---
 
-Después de estas dos líneas puedes desarrollar tu contenido, añadiendo texto, secciones (`\section{nombreseccion}`), etc.
+## ⚙️ Configuración
 
-#### Postcontenido
-Después del contenido principal del trabajo se debe incluir la bibliografía, y si es necesario un listado de acrónimos utilizados y anexos. En la plantilla están definidos del siguiente modo:
-
-```latex
-%%%%
-% CONTENIDO. BIBLIOGRAFÍA.
-%%%%
-\nocite{*} %incluye TODOS los documentos de la base de datos bibliográfica sean o no citados en el texto
-\bibliography{bibliografia/bibliografia} % Archivo que contiene la bibliografía
-\bibliographystyle{apacite}
-
-%%%%
-% CONTENIDO. LISTA DE ACRÓNIMOS. Comenta las líneas si no lo deseas incluir.
-%%%%
-% Incluye el listado de acrónimos utilizados en el trabajo. 
-\printglossary[style=modsuper,type=\acronymtype,title={Lista de Acrónimos y Abreviaturas}]
-% Añade el resto de acrónimos si así se desea. Si no elimina el comando siguiente
-\glsaddallunused 
-
-%%%%
-% CONTENIDO. Anexos - Añade o elimina según tus necesidades
-%%%%
-\appendix % Inicio de los apéndices
-\input{anexos/anexo_I}
-\input{anexos/anexo_2}
-\input{anexos/anexo_3}
-
-\end{document}
-```
-
-Hay tres partes diferenciadas:
-* Acrónimos: Si se quiere mostrar un listado de acrónimos se debe mantener esas líneas, además de editar el archivo `anexos/acronimos.tex` con los acrónimos utilizados en tu trabajo. Este archivo se carga justo antes del precontenido.
-* Bibliografía: Esta parte debe aparecer siempre en el trabajo y para poder generarla de la forma más sencilla se pueden utilizar herramientas como <a href="http://www.jabref.org/">JabRef</a> o <a href="https://bibdesk.sourceforge.io/">BibDesk</a>. El archivo generado (.bib) se debe cargar con la línea de código mostrada en el bloque de arriba `\bibliography{bibliografia/bibliografia}`, donde `bibliografia/bibliografia` es la ruta del archivo.
-* Apéndices: Aquí se pueden incluir anexos del mismo modo que se hace con los capítulos, pero que al estar debajo de la línea `\appendix` se añaden al documento como anexos. Si tu trabajo no tiene anexos puedes eliminar esta parte.
-
-### Archivos 'include'
-Los archivos de la carpeta 'include' son los que configuran la plantilla y por ello no deben ser modificados a no ser que sepas lo que haces.
-
-El archivo `configuracioninicial.tex` define el formato del documento, e incluye todos los paquetes y comandos que pueden ser utilizados en la plantilla. Se han añadido muchísimos paquetes para diferentes cuestiones que serán útiles para realizar el documento. En este archivo se encuentran comentados los paquetes y lo que hacen cada uno de ellos, y si se desea incluir algún paquete a la plantilla es en este archivo donde se recomienda incluirlo.
-
-El archivo `configuraciontitulacion.tex` es el archivo que diseña automaticamente las portadas segun la titulación seleccionada. En él se encuentran definidos los colores de cada titulación, los logotipos comunes y despues la información para cada titulación.
-
-En el archivo `estiloscodigoprogramacion.tex` se definen los estilos para mostrar código de distintos lenguajes de programación. Si al mostrar código en tu trabajo, el código no se colorea correctamente o prefieres mostrarlo en otros colores, aquí es donde debes modificar esos detalles. El formato del cuadro donde se muestra el código dentro del documento está definido en el archivo `configuracioninicial.tex`.
-
-La carpeta `portada` contiene los archivos que configuran tanto la portada como la subportada, no es necesario editar nada en ellos a no ser que cambien las directrices de estilo de la EPS.
-
-Las carpetas `logos-universidad` y `logos-titulaciones` contienen todos los logotipos necesarios para cada una de la titulaciones prediseñadas.
-
-La carpeta `fuentes` contiene las fuentes utilizadas para el texto de la portada tal como establece la guía de estilo de la EPS.
-
-### Lista de acrónimos y abreviaturas
-La plantilla tiene configurado un sistema para realizar una base de datos de acrónimos o abreviaturas para ser utilizadas en el documento.
-El archivo donde se almacenan los acrónimos y el comando para mostrarlos o no, se encuentran en el bloque de [postcontenido](#postcontenido).
-
-Tanto la introducción de acrónimos como el uso en el documento es sencillo. En el archivo de `acronimos.tex` se encuentran definidos algunos de ellos y la información para definirlos y usarlos:
+Toda la configuración se realiza en el archivo `configuracion.tex`:
 
 ```latex
-% La forma de definir un acrónimo es la siguiente:
-% \newacronyn{id}{siglas}{descripción}
-% Donde:
-% 	'id' es como vas a llamarlo desde el documento.
-%	'siglas' son las siglas del acrónimo.
-%	'descripción' es el texto que representan las siglas.
-%
-% Para usarlo en el documento tienes 4 formas:
-% \gls{id} - Añade el acrónimo en su forma larga y con las siglas (tal que: descripcion (siglas)) si es la primera vez que se utiliza, el resto de veces solo añade las siglas. (No utilices este comando en títulos de capítulos o secciones).
-% \glsentryshort{id} - Añade solo las siglas de la id
-% \glsentrylong{id} - Añade solo la descripción de la id
-% \glsentryfull{id} - Añade tanto la descripción como las siglas
-```
-
-### Bibliografía
-Para la bibliografía es recomendable utilizar herramientas como <a href="http://www.jabref.org/">JabRef</a> para Windows, Mac OS y Linux.
-
-Cualquier aplicación para bibliografía para LaTeX que utilices puede generar un archivo en formato `.bib` (BibTeX), que contiene toda la información de cada referencia que agregues.
-Este archivo es el que se carga en el bloque de [postcontenido](#postcontenido) y automáticamente agrega un capítulo de bibliografía a tu documento con la información incluida en tu archivo `.bib` (BibTeX).
-
-Si mantienes comentada la línea:
-
-`%\nocite{*}`
-
-Sólo se mostrará en el capítulo de bibliografía aquellos textos referenciados en tu documento, si eliminas el comentario (el carácter %), se incluirán todas las referencias que hayan en el archivo `.bib` (BibTeX).
-
-Para realizar una referencia de un texto en tu documento debes escribir lo siguiente:
-
-`\cite{XXXXX}`
-
-Donde 'XXXX' es la ID que se refiere al texto (lo puedes buscas dentro del archivo .bib).
-
-#### Citar bibliografía
-Hay disponibles varios métodos para citar (todos ajustados al sistema APA en su última versión), gracias a los paquetes incluidos en la plantilla `apacite` y `natbib`.
-
-Los comandos y un ejemplo de lo que generara en el documento son los siguientes (donde `idbib` es la id del texto a citar que está dentro de tu archivo .bib):
-
-| Comando | Resultado | 
-| ------------- | ------------- |
-| `\citet{idbib}`  | Shaw y Garlan (1996)  |
-| `\citep{idbib}`  | (Shaw y Garlan, 1996)  |
-| `\citep[ver][cap. 2]{idbib}`  | (ver Shaw y Garlan, 1996, cap. 2)  |
-| `\citep[ver][]{idbib}`  | (ver Shaw y Garlan, 1996)  |
-| `\citep[cap. 2]{idbib}`  | (Shaw y Garlan, 1996, cap. 2)  |
-| `\citep{idbib,idbib2}`  | (Shaw y Garlan, 1996; Akyildiz y cols., 1995)  |
-| `\citet*{idbib2}`  | Akyildiz, Pompili, y Melodia (2005)  |
-| `\citep*{idbib2}`  | (Akyildiz, Pompili, y Melodia, 2005)  |
-
-Cuando hay una 't' delante del comando, la cita se mostrará como texto y el año entre paréntesis. Si hay una 'p' todo estará entre paréntesis. Si el documento a citar tiene mas de dos autores se mostrará 'Autor1 y cols', pero si se pone un asterisco delante del comando se mostrarán todos los autores.
-
-### Comentarios
-En todo proceso de realizar un documento hay momentos en los que se necesita dejar algún comentario para que más adelante se añada algun contenido o se corrija algo. Teniendo en cuenta esto se ha añadido un paquete que ayuda a dejar comentarios en el texto, tiene varios comandos para utilizar aunque los principales son:
-```latex
-\todo{tu comentario}
-\todo[inline]{tu comentario}
-\missingfigure{tu comentario}
-```
-Obteniendo estos resultados (estos ejemplos se encuentran en la plantilla):
-
-<img src="https://github.com/jmrplens/TFG-TFM_EPS/blob/c1b44997df1d5a0d9eae29e6cd59d280198746c1/.github/images/tareas.png" width="40%"></img>
-
-## Control de errores
-Se han tenido en cuenta varias situaciones que podrían ser problemáticas para el diseño del documento, como:
-
-### Longitud del título
-Hay gran variedad de títulos, desde unos pocos carácteres hasta incluso más de 200. Esto se ha tenido en cuenta y se ha primado el mantener consolidado el diseño frente al tamaño de fuente definido en la guía de estilo. 
-
-El tamaño de fuente del título en la portada por defecto es 55, tal como establece la guía de estilo, pero en el caso de que el título exceda cierto número de carácteres, automáticamente se reduce el tamaño y el interlineado del título para que no sobrepase el espacio disponible. Este control del título se realiza a través de estas líneas:
-```latex
-% Según la longitud del título se determina un tamaño e interlineado para él
-\StrLen{\titulo}[\longitudtitulo] % Cuenta los caracteres del título
-% Comprueba la longitud del título y según sea este determina unos valores nuevos
-\ifthenelse{\longitudtitulo > 180}{
-\def\FuenteTamano{35pt}		% Si es mayor a 180 caracteres tamaño de fuente 35pt
-\def\interlinportada{3.5}} 	% Establece nuevo interlineado
-{\ifthenelse{\longitudtitulo > 140}{
-\def\FuenteTamano{40pt}		% Si es mayor a 140 caracteres tamaño de fuente 40pt
-\def\interlinportada{4.0}} 	% Establece nuevo interlineado
-{\ifthenelse{\longitudtitulo > 120}{
-\def\FuenteTamano{50pt}		% Si es mayor a 120 caracteres tamaño de fuente 50pt
-\def\interlinportada{4.5}} 	% Establece nuevo interlineado
-{} % Si no, no modifica el tamaño
-} }
-```
-
-## Aspectos avanzados
-
-### Formato del documento
-El formato del documento está definido en el archivo `configuracioninicial.tex`. Tanto el tipo de documento, como el formato y contenido de cabecera y pie de página y los márgenes se definen en las siguientes líneas:
-
-```latex
-%%%%%%%%%%%%%%%%%%%%%%%%
-% FORMATO DEL DOCUMENTO
-%%%%%%%%%%%%%%%%%%%%%%%%
-% scrbook es la clase de documento
-% Si se desea que no haya página en blanco entre capítulos añadir "openany" en los parámetros de la clase. Sino siempre los capítulos empezarán en página impar.
-\documentclass[a4paper,11pt,titlepage]{scrbook}
-\KOMAoption{toc}{bib,chapterentryfill} % Opciones del índice
-\usepackage{scrhack} % Previene algunos errores
-% Paquete de formato para scrbook. Con marcas, linea-separador superior e inferior
-\usepackage[automark,headsepline,footsepline]{scrlayer-scrpage}
-\clearpairofpagestyles		% Borra los estilos por defecto
-%%
-% Formato y contenido de la información de cabecera y pie de página
-%%
-% Información de capítulo en cabecera e interno
-\ihead{{\color{gray30}\scshape\small\headmark}}	
-% Número de página en cabecera y externo
-\ohead{\normalfont\pagemark} 
-% Número de página en pie de página y externo. Sólo en páginas sin cabecera
-\ofoot[\normalfont\pagemark]{}
-%% 		
-% Edición del contenido de las distintas partes de la cabecera
-%%
-\renewcommand{\chaptermark}[1]{\markboth{#1}{}} % Capítulo (Solo texto)
-\renewcommand{\sectionmark}[1]{\markright{\thesection. #1}} % Sección (Número y texto)
-\setkomafont{pagenumber}{} % Número de página (Sin nada añadido)
-```
-
-Las funciones de este primer bloque están definidas en el manual de la clase de documento, que es parte de un paquete llamado KOMA-Script y su manual se puede leer aquí: <a href="http://osl.ugr.es/CTAN/macros/latex/contrib/koma-script/doc/scrguien.pdf">Manual KOMA-Script</a>. Si modificas algo del formato definido en este bloque, confirma con tu tutor de TFG/TFM si el nuevo formato es correcto para el documento. 
-
-```latex
-% Añade al índice y numera hasta la profundidad 4.
-% 1:section,2:subsection,3:subsubsection,4:paragraph
-\setcounter{tocdepth}{4}
-\setcounter{secnumdepth}{4}
-% Muestra una regla para comprobar el formato de las páginas
-%\usepackage[type=upperleft,showframe,marklength=8mm]{fgruler}
-% MÁRGENES DE LAS PÁGINAS
-\usepackage[
-  inner	=	3.0cm, % Margen interior
-  outer	=	2.5cm, % Margen exterior
-  top	=	2.5cm, % Margen superior
-  bottom=	2.5cm, % Margen inferior
-  includeheadfoot, % Incluye cabecera y pie de página en los márgenes
-]{geometry}
-% Valor de interlineado
-\renewcommand{\baselinestretch}{1.0} % 1 línea de interlineado
-% Para poder generar páginas horizontales
-\usepackage{lscape}
-% Ancho de la zona para comentarios en el margen. (modificado para todonotes)
-\setlength{\marginparwidth}{1.9cm}
-```
-
-En este segundo bloque se define hasta qué profundidad se genera el índice, el valor de los márgenes, también el interlineado y otros detalles. Si lo deseas puedes modificar la profundidad del índice pero los márgenes solo se deben modificar si las directrices de estilo de la EPS han cambiado.
-
-### Idioma del documento
-
-También en el archivo `configuracioninicial.tex` el documento está configurado para texto en español, por razones obvias, pero si se va a realizar en otro idioma o en varios idiomas se puede modificar (siguiendo este manual: <a href="http://osl.ugr.es/CTAN/macros/latex/contrib/polyglossia/polyglossia.pdf">Polyglossia</a>) en las líneas siguientes:
-
-```latex
-%%%%%%%%%%%%%%%%%%%%%%%%
-% DOCUMENTO EN ESPAÑOL
-%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{polyglossia}
-\setmainlanguage{spanish}
-\addto\captionsspanish{%
-	\renewcommand{\listtablename}{Índice de tablas} 
-	\renewcommand{\tablename}{Tabla}
-	\renewcommand{\lstlistingname}{Código}
-	\renewcommand{\lstlistlistingname}{Índice de \lstlistingname s}
-	\renewcommand{\glossaryname}{Glosario}
-	\renewcommand{\acronymname}{Acrónimos}
+\EPSsetup{
+  % Información del trabajo
+  titulo = {Mi Título del Trabajo},
+  subtitulo = {Subtítulo opcional},
+  
+  % Autor
+  autor = {Nombre Apellido1 Apellido2},
+  genero = m,  % m = masculino, f = femenino, n = neutro
+  email = nombre@alu.ua.es,
+  
+  % Tutor/es
+  tutor = {Dr. Nombre Apellido},
+  tutor-genero = m,  % m = masculino, f = femenino, n = neutro
+  tutor-departamento = {Departamento de Ejemplo},
+  % cotutor = {Dra. Nombre Apellido},  % Opcional
+  % cotutor-genero = f,
+  
+  % Titulación (ver lista completa abajo)
+  titulacion = informatica,
+  
+  % Opciones
+  optimizar-tikz = true,
+  borrador = true,  % Muestra notas TODO
 }
 ```
 
-Las líneas que siguen a `\addto...` renombran algunos términos estándar para traducirlos al español. Si tu trabajo está en otro idioma cámbialos por el idioma del trabajo.
+### Titulaciones Disponibles
 
-### Añadir/Editar formato de titulaciones
+#### Grados
 
-Si el color o logotipo de tu titulación ha cambiado, o tu titulación no se encuentra actualmente en la plantilla, en primer lugar ponte en contacto conmigo para que actualice la plantilla, y si no puedes esperar a la actualización puedes añadirlo tú del siguiente modo en el archivo `configuraciontitulacion.tex`
+| ID | Titulación |
+|----|------------|
+| `teleco` | Ingeniería en Sonido e Imagen en Telecomunicación |
+| `civil` | Ingeniería Civil |
+| `quimica` | Ingeniería Química |
+| `informatica` | Ingeniería Informática |
+| `multimedia` | Ingeniería Multimedia |
+| `arquitectura-tecnica` | Arquitectura Técnica |
+| `arquitectura` | Arquitectura |
+| `robotica` | Ingeniería Robótica |
 
-El formato de una titulación se define después de comprobar el valor de la ID introducida en el archivo principal, por lo que si deseas actualizar tu titulación debes buscar donde el condicional comprueba tu ID. Esto lo realiza en esta línea:
+#### Másteres
 
-`\if\IDtitulo X`
+| ID | Titulación |
+|----|------------|
+| `master-teleco` | Ingeniería de Telecomunicación |
+| `master-caminos` | Caminos, Canales y Puertos |
+| `master-edificacion` | Gestión de la Edificación |
+| `master-web` | Desarrollo de Aplicaciones y Servicios Web |
+| `master-materiales` | Materiales, Agua y Terreno |
+| `master-informatica` | Ingeniería Informática |
+| `master-robotica` | Automática y Robótica |
+| `master-prevencion` | Prevención de Riesgos Laborales |
+| `master-agua` | Gestión Sostenible y Tecnologías del Agua |
+| `master-moviles` | Software para Dispositivos Móviles |
+| `master-quimica` | Ingeniería Química |
+| `master-ciberseguridad` | Ciberseguridad |
+| `master-geologica` | Ingeniería Geológica |
 
-Donde 'X' es la ID de la titulación. 
+---
 
-El condicional completo se compone de lo siguiente:
+## 🎨 Portadas
+
+La plantilla genera automáticamente portadas a color y en blanco/negro según la titulación seleccionada.
+
+### Galería de Portadas
+
+Cada titulación tiene su propio diseño con colores y logotipos oficiales:
+
+#### Grados
+
+<p align="center">
+<img src=".github/images/portadas/portada_arquitectura_color.webp" width="12%" title="Grado en Arquitectura"></img>
+<img src=".github/images/portadas/portada_arquitectura-tecnica_color.webp" width="12%" title="Grado en Arquitectura Técnica"></img>
+<img src=".github/images/portadas/portada_civil_color.webp" width="12%" title="Grado en Ingeniería Civil"></img>
+<img src=".github/images/portadas/portada_informatica_color.webp" width="12%" title="Grado en Ingeniería Informática"></img>
+<img src=".github/images/portadas/portada_multimedia_color.webp" width="12%" title="Grado en Ingeniería Multimedia"></img>
+<img src=".github/images/portadas/portada_quimica_color.webp" width="12%" title="Grado en Ingeniería Química"></img>
+<img src=".github/images/portadas/portada_robotica_color.webp" width="12%" title="Grado en Ingeniería Robótica"></img>
+<img src=".github/images/portadas/portada_teleco_color.webp" width="12%" title="Grado en Ingeniería en Sonido e Imagen en Telecomunicación"></img>
+</p>
+
+#### Másteres
+
+<p align="center">
+<img src=".github/images/portadas/portada_master-agua_color.webp" width="12%" title="Máster Universitario en Gestión Sostenible y Tecnologías del Agua"></img>
+<img src=".github/images/portadas/portada_master-caminos_color.webp" width="12%" title="Máster Universitario en Ingeniería de Caminos, Canales y Puertos"></img>
+<img src=".github/images/portadas/portada_master-ciberseguridad_color.webp" width="12%" title="Máster Universitario en Ciberseguridad"></img>
+<img src=".github/images/portadas/portada_master-edificacion_color.webp" width="12%" title="Máster Universitario en Gestión de la Edificación"></img>
+<img src=".github/images/portadas/portada_master-geologica_color.webp" width="12%" title="Máster Universitario en Ingeniería Geológica"></img>
+<img src=".github/images/portadas/portada_master-informatica_color.webp" width="12%" title="Máster Universitario en Ingeniería Informática"></img>
+<img src=".github/images/portadas/portada_master-materiales_color.webp" width="12%" title="Máster Universitario en Ingeniería de los Materiales, del Agua y del Terreno"></img>
+<img src=".github/images/portadas/portada_master-moviles_color.webp" width="12%" title="Máster Universitario en Desarrollo de Software para Dispositivos Móviles"></img>
+<img src=".github/images/portadas/portada_master-prevencion_color.webp" width="12%" title="Máster Universitario en Prevención de Riesgos Laborales"></img>
+<img src=".github/images/portadas/portada_master-quimica_color.webp" width="12%" title="Máster Universitario en Ingeniería Química"></img>
+<img src=".github/images/portadas/portada_master-robotica_color.webp" width="12%" title="Máster Universitario en Automática y Robótica"></img>
+<img src=".github/images/portadas/portada_master-teleco_color.webp" width="12%" title="Máster Universitario en Ingeniería de Telecomunicación"></img>
+<img src=".github/images/portadas/portada_master-web_color.webp" width="12%" title="Máster Universitario en Desarrollo de Aplicaciones y Servicios Web"></img>
+</p>
+
+### Ejemplo: Portada a color y B/N
+
+<p align="center">
+<img src=".github/images/portadas/portada_teleco_color.webp" width="30%"></img>
+<img src=".github/images/portadas/portada_teleco_bn.webp" width="30%"></img>
+</p>
+### Comandos de Portada
+
 ```latex
-\if\IDtitulo 1 % Teleco
-		% Logos
-		\newcommand{\logoFacultadPortada}{include/logos-universidad/LogoEPSBlanco} % Logo EPS en portada
-		\newcommand{\logoGradoPortada}{include/logos-titulaciones/LogoTelecoBlanco} % Logo titulación en portada
-		\newcommand{\logoGrado}{include/logos-titulaciones/LogoTelecoNegro} % Logo titulación en subportada
-		% Texto
-		\newcommand{\miGrado}{Grado en Ingeniería en Sonido e Imagen en Telecomunicación} % Nombre de la titulación
-		\newcommand{\tipotrabajo}{Trabajo Fin de Grado} % Tipo de trabajo (grado o máster)
-		% Color
-		\newcommand{\colorgrado}{teleco} % Color de la portada. Definido al inicio del archivo
-		\newcommand{\colortexto}{blanco} % Color del texto de la portada (blanco o negro)
+% Ambas portadas (por defecto)
+\generarportada[ambas]
+
+% Solo portada a color
+\generarportada[solo-color]
+
+% Solo portada en blanco y negro
+\generarportada[solo-bn]
+
+% Portadas individuales
+\portadacolor
+\portadabn
 ```
 
-Si tu titulación ya está en la plantilla edita las líneas que hayan sido modificadas para tu titulación.
+---
 
-Si tu titulación no está en la plantilla y deseas añadirla, debes añadirla al final del condicional, justo encima de la línea:
+## 💻 Código Fuente
 
-`\fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi`
+La plantilla incluye estilos de código basados en **Visual Studio Code** con temas Light y Dark, números de línea opcionales e iconos de lenguajes.
 
-Encima de esta linea deberás agregar el condicional con la ID que llevará la titulación que vayas a añadir tal que:
+### Temas Disponibles
+
+| Tema | Descripción | Sufijo |
+|------|-------------|--------|
+| **VS Code Light** | Fondo blanco, ideal para impresión | (ninguno) |
+| **VS Code Dark** | Fondo oscuro, ideal para presentaciones | `Dark` |
+
+### Variantes de Numeración
+
+| Variante | Descripción | Sufijo |
+|----------|-------------|--------|
+| Con números | Muestra números de línea | (ninguno) |
+| Sin números | Oculta números de línea | `NN` |
+
+### Lenguajes con Entornos Predefinidos
+
+| Lenguaje | Entorno Light | Entorno Dark | Icono |
+|----------|---------------|--------------|-------|
+| Python | `pythoncode` | `pythoncodeDark` | 🐍 |
+| JavaScript | `jscode` | `jscodeDark` | 📜 |
+| TypeScript | `tscode` | `tscodeDark` | 📜 |
+| Java | `javacode` | `javacodeDark` | ☕ |
+| C | `ccode` | `ccodeDark` | © |
+| C++ | `cppcode` | `cppcodeDark` | © |
+| C# | `csharpcode` | `csharpcodeDark` | 🪟 |
+| Go | `gocode` | `gocodeDark` | 🔵 |
+| Rust | `rustcode` | `rustcodeDark` | 🦀 |
+| PHP | `phpcode` | `phpcodeDark` | 🐘 |
+| Ruby | `rubycode` | `rubycodeDark` | 💎 |
+| R | `rcode` | `rcodeDark` | 📊 |
+| Swift | `swiftcode` | `swiftcodeDark` | 🍎 |
+| Kotlin | `kotlincode` | `kotlincodeDark` | 🤖 |
+| HTML | `htmlcode` | `htmlcodeDark` | 🌐 |
+| CSS | `csscode` | `csscodeDark` | 🎨 |
+| SQL | `sqlcode` | `sqlcodeDark` | 🗃️ |
+| JSON | `jsoncode` | `jsoncodeDark` | 📋 |
+| YAML | `yamlcode` | `yamlcodeDark` | 📄 |
+| Bash | `bashcode` | `bashcodeDark` | 💻 |
+| Docker | `dockercode` | `dockercodeDark` | 🐳 |
+| LaTeX | `latexcode` | — | 📝 |
+| Git | `gitcode` | — | 🔀 |
+
+### Ejemplos de Uso
 
 ```latex
-\else \if\IDtitulo X % ID de tu titulación añadida
-% Logos
-		\newcommand{\logoFacultadPortada}{include/logos-universidad/LogoEPS____} % Logo EPS en portada (blanco o negro)
-		\newcommand{\logoGradoPortada}{include/logos-titulaciones/Logo_____} % Logo titulación en portada (blanco o negro)
-		\newcommand{\logoGrado}{include/logos-titulaciones/Logo____Negro} % Logo titulación en subportada (solo negro)
-		% Texto
-		\newcommand{\miGrado}{_____________} % Nombre de la titulación
-		\newcommand{\tipotrabajo}{Trabajo Fin de ______} % Tipo de trabajo (grado o máster)
-		% Color
-		\newcommand{\colorgrado}{_______} % Color de la portada. Definido al inicio del archivo
-		\newcommand{\colortexto}{_______} % Color del texto de la portada (blanco o negro)
+% ===== TEMA LIGHT (fondo blanco) =====
+
+% Python con números de línea
+\begin{pythoncode}
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+\end{pythoncode}
+
+% Python SIN números de línea
+\begin{pythoncodeNN}
+print("Hola mundo")
+\end{pythoncodeNN}
+
+% JavaScript con título personalizado
+\begin{jscode}[title={Validación de email}]
+function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+\end{jscode}
+
+% ===== TEMA DARK (fondo oscuro) =====
+
+% Python Dark con números
+\begin{pythoncodeDark}
+import numpy as np
+resultado = np.array([1, 2, 3])
+\end{pythoncodeDark}
+
+% Python Dark SIN números
+\begin{pythoncodeDarkNN}
+print("Sin números de línea")
+\end{pythoncodeDarkNN}
+
+% ===== ENTORNO GENÉRICO (cualquier lenguaje) =====
+
+% Light con números
+\begin{codigo}{swift}
+let mensaje = "Hola desde Swift"
+print(mensaje)
+\end{codigo}
+
+% Light sin números
+\begin{codigoNN}{kotlin}
+fun main() = println("Hola")
+\end{codigoNN}
+
+% Dark con números
+\begin{codigoDark}{scala}
+object Main extends App {
+  println("Hola Scala")
+}
+\end{codigoDark}
+
+% Dark sin números
+\begin{codigoDarkNN}{haskell}
+main = putStrLn "Hola Haskell"
+\end{codigoDarkNN}
 ```
 
-Según el color de fuente de la portada (blanco o negro) deberás incluir en el mismo color el logotipo de la EPS (ya incluido en la plantilla tanto en negro como en blanco) y el logotipo de tu titulación. Para la subportada el logotipo de tu titulación debe ser negro obligatoriamente. Introduce el texto de tu grado y titulación correspondiente. Y por último define tu color de grado al inicio del archivo (en RGB) y añade el nombre del color definido, e indica si la fuente de texto de la portada es negro o blanco.
+### Resumen de Sufijos
 
-### Fuentes de la portada
+```
+entorno          → Light + números de línea
+entornoNN        → Light + sin números
+entornoDark      → Dark + números de línea  
+entornoDarkNN    → Dark + sin números
+```
 
-Las fuentes de la portada están establecidas en las directrices de estilo de la EPS, pero si cambian estas directrices puedes modificar las fuentes en el archivo `portada_color.tex` en las líneas:
+---
+
+## 📚 Bibliografía
+
+La plantilla usa **BibLaTeX con Biber** y estilo **APA 7**.
+
+### Archivo `referencias.bib`
+
+```bibtex
+@book{autor2024,
+  author    = {García, María},
+  title     = {Título del Libro},
+  publisher = {Editorial},
+  year      = {2024},
+  isbn      = {978-0000000000}
+}
+
+@article{ejemplo2024,
+  author  = {López, Juan},
+  title   = {Título del Artículo},
+  journal = {Revista Científica},
+  year    = {2024},
+  volume  = {10},
+  pages   = {1--15},
+  doi     = {10.1234/ejemplo}
+}
+```
+
+### Citar en el texto
 
 ```latex
-% Establece las fuentes de texto de la portada
-% Helvetica LS Std Cond. Uso: {\FuenteTitulo tutexto}
-\newfontfamily\FuenteTitulo{HelveticaLTStd-Cond}[Path=./include/fuentes/]  
-% Helvetica. Uso: {\FuentePortada tutexto}
-\newfontfamily\FuentePortada{Helvetica}[Path=./include/fuentes/] 
+Según \textcite{autor2024}, el tema es importante...
+Esto ha sido estudiado previamente \parencite{ejemplo2024}.
 ```
 
-Si tienes que cambiar la fuente debes modificar el tipo de fuente para el título de la portada (actualmente HelveticaLTStd-Cond) por el nuevo, y lo mismo para la otra fuente para el resto del texto de la portada (actualmente Helvetica). Estas fuentes deben estar en la carpeta `include/fuentes` para poder ser cargadas por la plantilla.
+---
 
-El tamaño de la fuente se puede modificar en las siguientes líneas del mismo archivo:
+## 📝 Acrónimos
+
+Define acrónimos en `contenido/anexos/acronimos.tex`:
+
 ```latex
-% Tamaño por defecto de la fuente de texto para:
-\def\FuenteTamano{55pt}	  % Tamaño para el título del trabajo
-\def\interlinportada{5.0} % Interlineado por defecto para el título
-\def\TamTrabajo{20pt} 	  % Tamaño para el tipo de trabajo (grado o máster)
-\def\TamTrabajoIn{20pt}   % Tamaño para el salto de línea después de tipo de trabajo
-\def\TamOtros{12pt} 	  % Tamaño para datos personales y fecha
-\def\TamOtrosIn{1pt} 	  % Tamaño para los saltos de línea en la info personal
+\newacronym{api}{API}{Application Programming Interface}
+\newacronym{ml}{ML}{Machine Learning}
 ```
 
-## Contacto (sugerencias, errores, etc)
-Si no deseas publicar en GitHub una sugerencia o algún error encontrado puedes ponerte en contacto conmigo a través de:
+Usa en el texto:
 
-* Web: <a href="https://jmrplens.github.io/">jmrplens.github.io</a>
+```latex
+La \gls{api} permite...          % Primera vez: Application Programming Interface (API)
+Usando \gls{api}...              % Después: API
+La \acrlong{ml} es...            % Machine Learning
+```
 
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?hosted_button_id=BLP3R6VGYJB4Q)
-[![Donate](https://img.shields.io/badge/Donate-Ko--fi-brightgreen?color=ff5f5f)](https://ko-fi.com/jmrplens) 
+---
+
+## 🔧 Personalización
+
+### Añadir Nueva Titulación
+
+Para añadir una titulación que no esté incluida, contacta con el mantenedor o edita `cls/eps-tfg.cls`:
+
+```latex
+% En la sección de definición de titulaciones
+\__eps_define_titulacion:nnnnnnn {mi-titulacion}
+  {Nombre Completo de Mi Titulación}
+  {tfg} % o tfm
+  {mi-color} % definir color previamente
+  {blanco} % o negro, según el fondo
+  {Blanco} % variante del logo para portada
+  {Negro}  % variante del logo normal
+```
+
+### Cambiar Colores
+
+Los colores de las titulaciones se definen en la clase. Para personalizar:
+
+```latex
+% En configuracion.tex, después de \EPSsetup
+\definecolor{mi-color}{RGB}{100,150,200}
+```
+
+---
+
+## 🌐 Uso en Overleaf
+
+1. Sube todos los archivos del proyecto a Overleaf
+2. Configura el compilador como **LuaLaTeX**
+3. Activa **shell-escape** en la configuración del proyecto
+4. Compila `main.tex`
+
+> ⚠️ **Nota:** Algunas funcionalidades como minted requieren shell-escape habilitado.
+
+---
+
+## 📋 Cambios respecto a v1.x
+
+### Novedades en v2.0
+
+- ✅ Motor actualizado a **LuaLaTeX**
+- ✅ Bibliografía migrada a **BibLaTeX + Biber**
+- ✅ Sistema de configuración **key-value** moderno
+- ✅ Código con **Minted** (25+ lenguajes)
+- ✅ Logos convertidos a **PDF**
+- ✅ Estructura de carpetas reorganizada
+- ✅ Eliminado conflicto babel/polyglossia
+- ✅ Clase modular con paquetes separados
+- ✅ Soporte mejorado para personalización
+
+### Migración desde v1.x
+
+Si tienes un documento con la versión anterior:
+
+1. Copia tu contenido a los nuevos archivos en `contenido/`
+2. Adapta la configuración al nuevo formato `\EPSsetup{}`
+3. Convierte tu bibliografía al formato BibLaTeX si usabas `apacite`
+4. Actualiza los entornos de código a los nuevos (ej: `lstlisting` → `pythoncode`)
+
+---
+
+## 🔧 Solución de Problemas
+
+### Error: "File 'minted.sty' not found"
+
+Instalar el paquete de Python Pygments:
+```bash
+pip3 install Pygments
+```
+
+### Error: "You must invoke LaTeX with -shell-escape"
+
+Asegúrate de usar la opción `-shell-escape`:
+```bash
+lualatex -shell-escape main.tex
+# O simplemente usa:
+make
+```
+
+### Error: "Font not found"
+
+La plantilla usa fuentes del sistema con fallbacks. Si aparecen warnings sobre fuentes:
+1. El documento compilará con fuentes alternativas (DejaVu Sans)
+2. Para mejores resultados, instala las fuentes del sistema
+
+### La bibliografía no aparece
+
+Ejecuta Biber entre compilaciones:
+```bash
+lualatex -shell-escape main.tex
+biber main
+lualatex -shell-escape main.tex
+```
+
+### El código fuente no tiene colores
+
+Verifica que Pygments esté instalado:
+```bash
+pygmentize -V
+# Si no está: pip3 install Pygments
+```
+
+### Compilación muy lenta
+
+Activa la caché de figuras TikZ en `configuracion.tex`:
+```latex
+\EPSsetup{
+  optimizar-tikz = true,
+}
+```
+
+---
+
+## 🤝 Contribuir
+
+¡Las contribuciones son bienvenidas! Por favor:
+
+1. Haz fork del repositorio
+2. Crea una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
+3. Commit tus cambios (`git commit -am 'Añade nueva funcionalidad'`)
+4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
+5. Abre un Pull Request
+
+Consulta la [Guía de Contribución](CONTRIBUTING.md) para más detalles.
+
+---
+
+## 🛠️ Herramientas y Recursos
+
+### Editores recomendados
+
+| Editor | Plataforma | Descripción |
+|--------|------------|-------------|
+| [VS Code](https://code.visualstudio.com/) + [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) | Win/Mac/Linux | Editor moderno con excelente soporte LaTeX |
+| [TeXstudio](https://www.texstudio.org/) | Win/Mac/Linux | Editor dedicado a LaTeX, muy completo |
+| [Texmaker](https://www.xm1math.net/texmaker/) | Win/Mac/Linux | Similar a TeXstudio, más sencillo |
+| [Overleaf](https://www.overleaf.com/) | Web | Editor online, sin instalación |
+
+### Herramientas útiles
+
+| Herramienta | Para qué sirve |
+|-------------|----------------|
+| [Detexify](https://detexify.kirelabs.org/) | Dibuja un símbolo → obtén el comando LaTeX |
+| [Tables Generator](https://www.tablesgenerator.com/) | Crea tablas visualmente |
+| [Mathpix](https://mathpix.com/) | Convierte imágenes de ecuaciones a LaTeX |
+| [doi2bib](https://www.doi2bib.org/) | Genera BibTeX desde DOI |
+| [Zotero](https://www.zotero.org/) + [Better BibTeX](https://retorque.re/zotero-better-bibtex/) | Gestión bibliográfica |
+
+### Documentación y tutoriales
+
+| Recurso | Descripción |
+|---------|-------------|
+| [Overleaf Learn](https://www.overleaf.com/learn) | Tutoriales completos (EN/ES) |
+| [LaTeX Wikibook](https://en.wikibooks.org/wiki/LaTeX) | Referencia exhaustiva |
+| [TeX StackExchange](https://tex.stackexchange.com/) | Preguntas y respuestas |
+| [CTAN](https://ctan.org/) | Repositorio de paquetes LaTeX |
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la licencia [GNU General Public License v3.0](LICENSE).
+
+Puedes:
+- ✅ Usar la plantilla para tu TFG/TFM
+- ✅ Modificar y adaptar a tus necesidades
+- ✅ Compartir con otros estudiantes
+
+Debes:
+- 📝 Mantener la atribución al autor original
+- 🔄 Compartir modificaciones bajo la misma licencia
+
+---
+
+## ⭐ Agradecimientos
+
+- A la Escuela Politécnica Superior de la Universidad de Alicante
+- A todos los estudiantes que han usado y mejorado esta plantilla
+- A la comunidad LaTeX por las herramientas utilizadas
+
+---
+
+<p align="center">
+  <i>¡Buena suerte con tu TFG/TFM! 🎓</i>
+</p>

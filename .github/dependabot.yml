@@ -1,0 +1,35 @@
+# Dependabot - Actualización automática de dependencias
+# https://docs.github.com/es/code-security/dependabot/dependabot-version-updates
+
+version: 2
+
+updates:
+  # Actualizar GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Madrid"
+    # Prefijo para los commits
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    # Etiquetas para los PRs
+    labels:
+      - "dependencies"
+      - "github-actions"
+    # Revisores automáticos (opcional)
+    # reviewers:
+    #   - "jmrplens"
+    # Límite de PRs abiertos simultáneamente
+    open-pull-requests-limit: 5
+    # Agrupar actualizaciones menores y parches
+    groups:
+      actions:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"

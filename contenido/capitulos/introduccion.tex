@@ -1,0 +1,178 @@
+\chapter{Introducción (Ejemplos de contenido y estilos)}
+\label{ch:introduccion}
+
+Este capítulo presenta una guía completa de las capacidades de \LaTeX{} y de esta plantilla para la elaboración de Trabajos Fin de Grado y Trabajos Fin de Máster en la Escuela Politécnica Superior de la Universidad de Alicante.
+
+\section{Sobre esta plantilla}
+
+Esta plantilla ha sido diseñada siguiendo las directrices de estilo de la \gls{eps} de la Universidad de Alicante. Proporciona una estructura clara y profesional para la redacción de trabajos académicos.
+
+Las principales características de esta plantilla son:
+
+\begin{itemize}
+  \item Configuración sencilla mediante clave-valor con \verb|\EPSsetup{...}|
+  \item 21 portadas diferentes según la titulación
+  \item Soporte para múltiples idiomas (español, inglés, valenciano)
+  \item Resaltado de código con colores (minted + Pygments)
+  \item Bibliografía con estilo \gls{apa}
+  \item Compilación con LuaLaTeX
+\end{itemize}
+
+\section{Estructura de un TFG/TFM}
+
+Según las normas de la \gls{eps}, un \gls{tfg} o \gls{tfm} debe contener las siguientes partes:
+
+\begin{description}
+  \item[Preámbulo:] Motivación y descripción breve de los objetivos del trabajo.
+  \item[Agradecimientos:] Reconocimientos a entidades y personas colaboradoras.
+  \item[Dedicatoria:] Opcional, con alineación a la derecha.
+  \item[Índices:] Contenidos, figuras, tablas y códigos.
+  \item[Introducción:] Importancia de la temática, vigencia y planteamiento del problema.
+  \item[Marco teórico:] Fundamentos conceptuales y estado del arte.
+  \item[Objetivos:] Objetivo general y específicos.
+  \item[Metodología:] Tipo de investigación, técnicas y procedimientos.
+  \item[Resultados:] Resultados obtenidos y análisis.
+  \item[Conclusiones:] Resumen de objetivos conseguidos.
+  \item[Bibliografía:] Referencias utilizadas (estilo APA recomendado).
+  \item[Anexos:] Material complementario.
+\end{description}
+
+\section{Secciones y subsecciones}
+
+En \LaTeX{} existen diferentes niveles de organización del contenido:
+
+\begin{latexcode}[title={Niveles de secciones}]
+\chapter{Capítulo}           % Nivel 0
+\section{Sección}            % Nivel 1  
+\subsection{Subsección}      % Nivel 2
+\subsubsection{Subsubsección}% Nivel 3
+\paragraph{Párrafo}          % Nivel 4
+\end{latexcode}
+
+\subsection{Ejemplo de subsección}
+
+Este es el contenido de una subsección. Las subsecciones permiten organizar mejor el contenido dentro de cada sección.
+
+\subsubsection{Ejemplo de subsubsección}
+
+Las subsubsecciones son útiles para temas muy específicos dentro de una subsección.
+
+\paragraph{Ejemplo de párrafo} Los párrafos con título son útiles para pequeñas divisiones que no necesitan aparecer en el índice.
+
+\section{Citas bibliográficas}
+
+Para citar la bibliografía según el sistema APA se utilizan los siguientes comandos. El archivo de bibliografía se encuentra en \texttt{referencias.bib}.
+
+\begin{latexcode}[title={Comandos de citas biblatex/APA}]
+% Cita textual: Autor (año)
+\textcite{latex2024}
+
+% Cita entre paréntesis: (Autor, año)
+\parencite{latex2024}
+
+% Cita con página específica
+\parencite[Cap.~2]{latex2024}
+
+% Múltiples citas
+\parencite{latex2024,overleaf2024}
+\end{latexcode}
+
+Ejemplos de citas:
+\begin{itemize}
+  \item Cita textual: Según \textcite{latex2024}, \LaTeX{} es el estándar para documentos científicos.
+  \item Cita entre paréntesis: \LaTeX{} es ampliamente utilizado \parencite{latex2024}.
+  \item Múltiples fuentes: Existen varios recursos disponibles \parencite{latex2024,overleaf2024}.
+\end{itemize}
+
+\section{Notas al pie de página}
+
+Las notas al pie se crean con el comando \verb|\footnote{texto}|.
+
+La plantilla utiliza LuaLaTeX\footnote{LuaLaTeX es un motor de composición tipográfica que combina \LaTeX{} con el lenguaje de programación Lua, permitiendo mayor flexibilidad en el procesamiento de documentos.} como motor de compilación por sus capacidades avanzadas de manejo de fuentes\footnote{Permite usar cualquier fuente OpenType o TrueType instalada en el sistema sin necesidad de configuración adicional.}.
+
+\section{Estilos de texto}
+
+\LaTeX{} ofrece múltiples estilos de texto:
+
+\begin{itemize}
+  \item \textit{Texto en cursiva} -- \verb|\textit{texto}|
+  \item \textbf{Texto en negrita} -- \verb|\textbf{texto}|
+  \item \texttt{Texto monoespacio} -- \verb|\texttt{texto}|
+  \item \textsc{Texto en versalitas} -- \verb|\textsc{texto}|
+  \item \underline{Texto subrayado} -- \verb|\underline{texto}|
+  \item \textbf{\textit{Negrita y cursiva}} -- combinación de comandos
+  \item {\small Texto pequeño} -- \verb|{\small texto}|
+  \item {\large Texto grande} -- \verb|{\large texto}|
+\end{itemize}
+
+\section{Acrónimos y glosario}
+
+Los acrónimos se gestionan automáticamente con el paquete \texttt{glossaries}. La primera vez que aparece un acrónimo se muestra su forma completa, y en las siguientes apariciones solo la abreviatura.
+
+\begin{latexcode}[title={Uso de acrónimos}]
+% Primera aparición: muestra "Institute of Electrical 
+% and Electronics Engineers (IEEE)"
+El \gls{ieee} es una institución importante.
+
+% Siguientes apariciones: muestra solo "IEEE"
+El \gls{ieee} establece estándares.
+
+% Para forzar forma larga: \glslong{ieee}
+% Para forzar forma corta: \glsshort{ieee}
+\end{latexcode}
+
+Ejemplo: El \gls{ieee} es una institución importante en ingeniería. El \gls{ieee} establece estándares para la industria. Además del \gls{ieee}, existen otras organizaciones como la \gls{iso}.
+
+Los acrónimos se definen en el archivo \texttt{contenido/anexos/acronimos.tex}.
+
+\section{Tareas pendientes y notas}
+
+Durante la redacción es útil marcar partes que requieren revisión usando el paquete \texttt{todonotes}:
+
+\begin{latexcode}[title={Comandos de notas}]
+% Nota al margen
+\todo{Texto de la nota}
+
+% Nota en línea
+\todo[inline]{Nota dentro del texto}
+
+% Figura pendiente
+\missingfigure{Descripción de la figura}
+\end{latexcode}
+
+\todo{Esta es una nota al margen para recordar algo}
+
+Las notas también pueden incluirse dentro del texto:
+
+\todo[inline]{Esta es una nota en línea que indica trabajo pendiente para esta sección. Muy útil durante la fase de redacción.}
+
+Para indicar figuras que faltan por añadir:
+
+\missingfigure{Aquí irá un diagrama explicativo del flujo de trabajo}
+
+\section{Comandos personalizados de la plantilla}
+
+Esta plantilla proporciona comandos para acceder a la información configurada:
+
+\begin{itemize}
+  \item \verb|\EPStitulo| -- Título: ``\EPStitulo''
+  \item \verb|\EPSautor| -- Autor: \EPSautor
+  \item \verb|\EPStutor| -- Tutor: \EPStutor
+  \item \verb|\EPSfecha| -- Fecha: \EPSfecha
+  \item \verb|\EPStipoTrabajo| -- Tipo: \EPStipoTrabajo
+  \item \verb|\EPStitulacion| -- Titulación: \EPStitulacion
+\end{itemize}
+
+Este documento es un \EPStipoTrabajo{} presentado en \EPSfecha.
+
+\section{Hipervínculos y URLs}
+
+Para incluir enlaces web se utiliza el comando \verb|\url{dirección}|:
+
+\begin{itemize}
+  \item Página de la EPS: \url{https://eps.ua.es}
+  \item Overleaf (editor online): \url{https://www.overleaf.com}
+  \item CTAN (repositorio de paquetes): \url{https://ctan.org}
+\end{itemize}
+
+Para enlaces con texto personalizado: \href{https://eps.ua.es}{Escuela Politécnica Superior}.
