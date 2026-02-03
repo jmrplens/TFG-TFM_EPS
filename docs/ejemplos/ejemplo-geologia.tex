@@ -1,0 +1,397 @@
+% =============================================================================
+% Ejemplo autocontenido de componentes de Geología
+% Compilar con: lualatex -shell-escape ejemplo-geologia.tex
+% =============================================================================
+\documentclass[12pt,a4paper]{article}
+
+% Configuración básica
+\usepackage[spanish]{babel}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes,patterns,calc,decorations.pathmorphing}
+
+% Definición de colores de la paleta
+\definecolor{eps-primary}{HTML}{2563EB}
+\definecolor{eps-secondary}{HTML}{7C3AED}
+\definecolor{eps-success}{HTML}{059669}
+\definecolor{eps-warning}{HTML}{D97706}
+\definecolor{eps-danger}{HTML}{DC2626}
+\definecolor{eps-info}{HTML}{0284C7}
+\definecolor{eps-dark}{HTML}{1F2937}
+\definecolor{eps-gray}{HTML}{6B7280}
+\definecolor{eps-light}{HTML}{F3F4F6}
+
+% Colores geológicos
+\definecolor{igneous-color}{HTML}{DC2626}
+\definecolor{sedimentary-color}{HTML}{D97706}
+\definecolor{metamorphic-color}{HTML}{7C3AED}
+\definecolor{soil-color}{HTML}{92400E}
+\definecolor{water-color}{HTML}{0284C7}
+
+% --- COMPONENTES DE GEOLOGÍA ---
+
+% Ficha de roca
+\newtcolorbox{rockcard}[2][]{%
+  colback=white,
+  colframe=#2,
+  title={\textbf{Ficha de roca}},
+  fonttitle=\small\sffamily,
+  boxrule=0.5pt,
+  #1
+}
+
+% Badge de tipo de roca
+\newcommand{\rockbadge}[2]{%
+  \tikz[baseline=(text.base)]{%
+    \node[fill=#2!15,draw=#2,rounded corners=2pt,inner sep=3pt,font=\sffamily\footnotesize\bfseries,text=#2] (text) {#1};
+  }%
+}
+
+\newcommand{\igneousbadge}{\rockbadge{Ígnea}{igneous-color}}
+\newcommand{\sedimentarybadge}{\rockbadge{Sedimentaria}{sedimentary-color}}
+\newcommand{\metamorphicbadge}{\rockbadge{Metamórfica}{metamorphic-color}}
+
+% Propiedades geotécnicas
+\newenvironment{geoprops}[1][Propiedades geotécnicas]{%
+  \begin{tcolorbox}[
+    colback=eps-light,
+    colframe=eps-dark,
+    title={\textbf{#1}},
+    fonttitle=\small\sffamily,
+    boxrule=0.5pt
+  ]
+  \small
+  \begin{tabular}{@{}ll@{}}
+}{%
+  \end{tabular}
+  \end{tcolorbox}
+}
+
+% Columna estratigráfica
+\newenvironment{stratigraphiccolumn}[1][Columna estratigráfica]{%
+  \begin{tcolorbox}[
+    colback=white,
+    colframe=soil-color,
+    title={\textbf{#1}},
+    fonttitle=\small\sffamily,
+    boxrule=0.5pt
+  ]
+  \centering
+}{%
+  \end{tcolorbox}
+}
+
+% Capa estratigráfica
+\newcommand{\stratlayer}[4]{% {color}{espesor}{nombre}{edad}
+  \tikz{%
+    \fill[#1!30,draw=#1!50!black] (0,0) rectangle (4,#2*0.5);
+    \node[right,font=\small\sffamily] at (4.2,#2*0.25) {\textbf{#3}};
+    \node[left,font=\tiny\sffamily,text=eps-gray] at (0,#2*0.25) {#4};
+  }%
+}
+
+% Clasificación de suelos (USCS)
+\newcommand{\soilclass}[2]{%
+  \tikz[baseline=(text.base)]{%
+    \node[fill=soil-color!20,draw=soil-color,rounded corners=2pt,inner sep=3pt,font=\sffamily\small\bfseries] (text) {#1};
+  }%
+  \hspace{0.5em}#2%
+}
+
+% Caja de ensayo geotécnico
+\newtcolorbox{geotestbox}[2][]{%
+  colback=white,
+  colframe=eps-primary,
+  title={\textbf{#2}},
+  fonttitle=\small\sffamily,
+  boxrule=0.5pt,
+  #1
+}
+
+% Nivel freático
+\newcommand{\watertable}[1]{%
+  \begin{center}
+  \begin{tikzpicture}
+    \fill[soil-color!30] (0,0) rectangle (5,2);
+    \fill[water-color!30] (0,0) rectangle (5,#1);
+    \draw[water-color,thick,decorate,decoration={snake,amplitude=1pt,segment length=10pt}] (0,#1) -- (5,#1);
+    \node[right,font=\small\sffamily] at (5.2,#1) {NF: \SI{#1}{\meter}};
+    \draw[<->,thick] (5.5,0) -- (5.5,2) node[midway,right,font=\small] {\SI{2}{\meter}};
+  \end{tikzpicture}
+  \end{center}
+}
+
+% Tabla de sondeo
+\newenvironment{boreholedata}[1][Datos de sondeo]{%
+  \begin{tcolorbox}[
+    colback=white,
+    colframe=eps-gray,
+    title={\textbf{#1}},
+    fonttitle=\small\sffamily,
+    boxrule=0.5pt
+  ]
+  \small\centering
+  \begin{tabular}{@{}ccccc@{}}
+    \toprule
+    \textbf{Prof.} & \textbf{Litología} & \textbf{NSPT} & \textbf{RQD} & \textbf{Muestra} \\
+    (m) & & & (\%) & \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \end{tcolorbox}
+}
+
+% Indicador SPT
+\newcommand{\sptvalue}[1]{%
+  \tikz[baseline=-0.5ex]{%
+    \ifnum#1<10
+      \node[fill=eps-danger!20,rounded corners=1pt,inner sep=2pt,font=\small\sffamily] {#1};
+    \else\ifnum#1<30
+      \node[fill=eps-warning!20,rounded corners=1pt,inner sep=2pt,font=\small\sffamily] {#1};
+    \else
+      \node[fill=eps-success!20,rounded corners=1pt,inner sep=2pt,font=\small\sffamily] {#1};
+    \fi\fi
+  }%
+}
+
+% Indicador RQD
+\newcommand{\rqdvalue}[1]{%
+  \tikz[baseline=-0.5ex]{%
+    \ifnum#1<25
+      \node[fill=eps-danger!20,rounded corners=1pt,inner sep=2pt,font=\small\sffamily] {#1};
+    \else\ifnum#1<50
+      \node[fill=eps-warning!20,rounded corners=1pt,inner sep=2pt,font=\small\sffamily] {#1};
+    \else\ifnum#1<75
+      \node[fill=eps-info!20,rounded corners=1pt,inner sep=2pt,font=\small\sffamily] {#1};
+    \else
+      \node[fill=eps-success!20,rounded corners=1pt,inner sep=2pt,font=\small\sffamily] {#1};
+    \fi\fi\fi
+  }%
+}
+
+% Escala de Mohs
+\newcommand{\mohsscale}{%
+  \begin{tikzpicture}[scale=0.7]
+    \foreach \i/\name in {1/Talco,2/Yeso,3/Calcita,4/Fluorita,5/Apatito,6/Ortoclasa,7/Cuarzo,8/Topacio,9/Corindón,10/Diamante} {
+      \pgfmathsetmacro{\col}{(\i-1)*10}
+      \fill[eps-primary!\col!white] (\i-1,0) rectangle (\i,0.5);
+      \node[below,font=\tiny\sffamily,rotate=45,anchor=east] at (\i-0.5,-0.1) {\name};
+      \node[above,font=\tiny\sffamily\bfseries] at (\i-0.5,0.5) {\i};
+    }
+    \draw (0,0) rectangle (10,0.5);
+  \end{tikzpicture}%
+}
+
+% Caja de riesgo geológico
+\newtcolorbox{hazardbox}[1][]{%
+  colback=eps-danger!5,
+  colframe=eps-danger,
+  title={\textbf{⚠ Riesgo geológico}},
+  fonttitle=\small\sffamily,
+  boxrule=0.5pt,
+  #1
+}
+
+% Indicador sísmico
+\newcommand{\seismiczone}[1]{%
+  \tikz[baseline=(text.base)]{%
+    \ifnum#1=1
+      \node[fill=eps-success!20,draw=eps-success,rounded corners=2pt,inner sep=3pt,font=\sffamily\small\bfseries] (text) {Zona I - Baja};
+    \else\ifnum#1=2
+      \node[fill=eps-warning!20,draw=eps-warning,rounded corners=2pt,inner sep=3pt,font=\sffamily\small\bfseries] (text) {Zona II - Media};
+    \else
+      \node[fill=eps-danger!20,draw=eps-danger,rounded corners=2pt,inner sep=3pt,font=\sffamily\small\bfseries] (text) {Zona III - Alta};
+    \fi\fi
+  }%
+}
+
+% Escala de intensidad sísmica
+\newcommand{\seismicintensity}[1]{%
+  \tikz[baseline=-0.5ex]{%
+    \pgfmathsetmacro{\intensity}{min(#1,10)}
+    \foreach \i in {1,...,10} {
+      \ifnum\i>#1
+        \fill[eps-gray!20] (\i*0.25,0) rectangle ++(0.2,0.3);
+      \else
+        \pgfmathsetmacro{\col}{(\i)*10}
+        \fill[eps-danger!\col!eps-warning] (\i*0.25,0) rectangle ++(0.2,0.3);
+      \fi
+    }
+  }%
+}
+
+\begin{document}
+
+\title{\bfseries Componentes de Geología\\[0.3em]\large Ejemplos de uso}
+\author{eps-geologia.sty}
+\date{\today}
+\maketitle
+
+\section{Tipos de rocas}
+
+\begin{center}
+\igneousbadge \quad \sedimentarybadge \quad \metamorphicbadge
+\end{center}
+
+\section{Ficha de roca}
+
+\begin{rockcard}{igneous-color}
+  \textbf{Granito}
+  
+  Roca ígnea plutónica de textura fanerítica.
+  
+  \begin{tabular}{@{}ll@{}}
+    Composición: & Cuarzo, feldespato, mica \\
+    Color: & Gris, rosa, blanco \\
+    Dureza Mohs: & 6-7 \\
+    Densidad: & \SI{2.65}{\gram\per\cubic\centi\meter} \\
+    Porosidad: & 0.5-1.5\% \\
+  \end{tabular}
+\end{rockcard}
+
+\begin{rockcard}{sedimentary-color}
+  \textbf{Caliza}
+  
+  Roca sedimentaria carbonatada.
+  
+  \begin{tabular}{@{}ll@{}}
+    Composición: & Calcita (\ch{CaCO3}) \\
+    Origen: & Biogénico/Químico \\
+    Dureza Mohs: & 3 \\
+    Densidad: & \SI{2.71}{\gram\per\cubic\centi\meter} \\
+    Reacción HCl: & Efervescencia \\
+  \end{tabular}
+\end{rockcard}
+
+\section{Propiedades geotécnicas}
+
+\begin{geoprops}[Propiedades del suelo]
+  Humedad natural: & 18.5\% \\
+  Límite líquido: & 42\% \\
+  Límite plástico: & 21\% \\
+  Índice de plasticidad: & 21\% \\
+  Peso específico: & \SI{27.2}{\kilo\newton\per\cubic\meter} \\
+  Cohesión: & \SI{25}{\kilo\pascal} \\
+  Ángulo de fricción: & 28° \\
+\end{geoprops}
+
+\section{Clasificación de suelos USCS}
+
+\soilclass{GW}{Grava bien graduada}
+
+\soilclass{SP}{Arena mal graduada}
+
+\soilclass{CL}{Arcilla de baja plasticidad}
+
+\soilclass{MH}{Limo de alta plasticidad}
+
+\section{Ensayo geotécnico}
+
+\begin{geotestbox}{Ensayo de penetración estándar (SPT)}
+  \begin{tabular}{@{}ll@{}}
+    Profundidad: & \SI{3.0}{\meter} \\
+    N$_{15}$: & 8 golpes \\
+    N$_{30}$: & 12 golpes \\
+    N$_{45}$: & 10 golpes \\
+    \midrule
+    N$_{SPT}$: & 22 golpes \\
+    Clasificación: & Suelo medianamente denso \\
+  \end{tabular}
+\end{geotestbox}
+
+\section{Indicadores SPT y RQD}
+
+\begin{tabular}{@{}lcc@{}}
+  \toprule
+  Descripción & SPT & RQD \\
+  \midrule
+  Muy blando/Muy malo & \sptvalue{5} & \rqdvalue{15} \\
+  Blando/Malo & \sptvalue{15} & \rqdvalue{35} \\
+  Medio/Regular & \sptvalue{25} & \rqdvalue{55} \\
+  Denso/Bueno & \sptvalue{40} & \rqdvalue{80} \\
+  Muy denso/Excelente & \sptvalue{60} & \rqdvalue{95} \\
+  \bottomrule
+\end{tabular}
+
+\section{Datos de sondeo}
+
+\begin{boreholedata}[Sondeo S-1]
+  0.0-1.5 & Relleno antrópico & --- & --- & --- \\
+  1.5-3.0 & Arcilla limosa & \sptvalue{8} & --- & MI-1 \\
+  3.0-5.0 & Arena fina & \sptvalue{22} & --- & SPT-1 \\
+  5.0-8.0 & Grava arenosa & \sptvalue{35} & --- & SPT-2 \\
+  8.0-10.0 & Caliza fracturada & R & \rqdvalue{45} & TI-1 \\
+  10.0-15.0 & Caliza masiva & R & \rqdvalue{85} & TI-2 \\
+\end{boreholedata}
+
+\section{Nivel freático}
+
+\watertable{0.8}
+
+\section{Escala de Mohs}
+
+\begin{center}
+\mohsscale
+\end{center}
+
+\section{Riesgo geológico}
+
+\begin{hazardbox}
+  \textbf{Riesgo de deslizamiento}
+  
+  Zona con pendiente superior a 30° sobre materiales arcillosos.
+  
+  \begin{tabular}{@{}ll@{}}
+    Factor de seguridad: & 1.15 (< 1.5 mínimo) \\
+    Nivel de riesgo: & Alto \\
+    Medidas: & Drenaje y contención \\
+  \end{tabular}
+\end{hazardbox}
+
+\section{Zonificación sísmica}
+
+Peligrosidad sísmica según NCSE-02:
+
+\begin{center}
+\seismiczone{1} \quad \seismiczone{2} \quad \seismiczone{3}
+\end{center}
+
+\section{Intensidad sísmica}
+
+\begin{tabular}{@{}lc@{}}
+  \toprule
+  Magnitud & Intensidad \\
+  \midrule
+  Menor (3.0) & \seismicintensity{2} \\
+  Ligero (4.5) & \seismicintensity{4} \\
+  Moderado (5.5) & \seismicintensity{6} \\
+  Fuerte (6.5) & \seismicintensity{8} \\
+  Mayor (7.5) & \seismicintensity{10} \\
+  \bottomrule
+\end{tabular}
+
+\section{Columna estratigráfica simplificada}
+
+\begin{stratigraphiccolumn}
+  \stratlayer{eps-warning}{1}{Cuaternario - Aluvial}{Holoceno}
+  
+  \vspace{0.2cm}
+  
+  \stratlayer{sedimentary-color}{1.5}{Margas y calizas}{Mioceno}
+  
+  \vspace{0.2cm}
+  
+  \stratlayer{eps-info}{2}{Calizas masivas}{Cretácico}
+  
+  \vspace{0.2cm}
+  
+  \stratlayer{metamorphic-color}{1}{Esquistos}{Paleozoico}
+\end{stratigraphiccolumn}
+
+\end{document}

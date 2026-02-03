@@ -30,6 +30,7 @@
 \newif\if@eps@geologia    \@eps@geologiafalse
 \newif\if@eps@prevencion  \@eps@prevencionfalse
 
+\DeclareOption{comunes}{}  % Opción explícita (por defecto ya se cargan)
 \DeclareOption{software}{\@eps@softwaretrue}
 \DeclareOption{telecom}{\@eps@telecomtrue}
 \DeclareOption{arquitectura}{\@eps@arquitecturatrue}
@@ -57,6 +58,7 @@
 \RequirePackage{fontawesome5}
 \RequirePackage{etoolbox}
 \RequirePackage{calc}
+\RequirePackage{enumitem}  % Para listas personalizadas
 
 % ============================================================================
 % PALETA DE COLORES COMÚN
@@ -120,39 +122,42 @@
 % CARGAR MÓDULOS
 % ============================================================================
 
+% Los módulos están en el subdirectorio 'componentes' relativo al paquete
+% Se usa input con ruta relativa que funciona si sty/componentes/ está en input@path
+
 % Componentes comunes (siempre se cargan)
 \if@eps@comunes
-  \input{sty/componentes/eps-comunes.sty}
+  \input{componentes/eps-comunes.sty}
 \fi
 
 % Componentes de software/IT
 \if@eps@software
-  \input{sty/componentes/eps-software.sty}
+  \input{componentes/eps-software.sty}
 \fi
 
 % Componentes de telecomunicaciones
 \if@eps@telecom
-  \input{sty/componentes/eps-telecom.sty}
+  \input{componentes/eps-telecom.sty}
 \fi
 
 % Componentes de arquitectura/construcción
 \if@eps@arquitectura
-  \input{sty/componentes/eps-arquitectura.sty}
+  \input{componentes/eps-arquitectura.sty}
 \fi
 
 % Componentes de química/materiales
 \if@eps@quimica
-  \input{sty/componentes/eps-quimica.sty}
+  \input{componentes/eps-quimica.sty}
 \fi
 
 % Componentes de geología
 \if@eps@geologia
-  \input{sty/componentes/eps-geologia.sty}
+  \input{componentes/eps-geologia.sty}
 \fi
 
 % Componentes de prevención de riesgos
 \if@eps@prevencion
-  \input{sty/componentes/eps-prevencion.sty}
+  \input{componentes/eps-prevencion.sty}
 \fi
 
 \endinput

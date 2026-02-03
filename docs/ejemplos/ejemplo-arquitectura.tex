@@ -1,0 +1,349 @@
+% =============================================================================
+% Ejemplo autocontenido de componentes de Arquitectura/Construcción
+% Compilar con: lualatex -shell-escape ejemplo-arquitectura.tex
+% =============================================================================
+\documentclass[12pt,a4paper]{article}
+
+% Configuración básica
+\usepackage[spanish]{babel}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes,patterns,calc}
+
+% Definición de colores de la paleta
+\definecolor{eps-primary}{HTML}{2563EB}
+\definecolor{eps-secondary}{HTML}{7C3AED}
+\definecolor{eps-success}{HTML}{059669}
+\definecolor{eps-warning}{HTML}{D97706}
+\definecolor{eps-danger}{HTML}{DC2626}
+\definecolor{eps-info}{HTML}{0284C7}
+\definecolor{eps-dark}{HTML}{1F2937}
+\definecolor{eps-gray}{HTML}{6B7280}
+\definecolor{eps-light}{HTML}{F3F4F6}
+
+% Colores específicos de arquitectura
+\definecolor{concrete-color}{HTML}{6B7280}
+\definecolor{steel-color}{HTML}{3B82F6}
+\definecolor{wood-color}{HTML}{92400E}
+\definecolor{brick-color}{HTML}{DC2626}
+\definecolor{glass-color}{HTML}{06B6D4}
+
+% --- COMPONENTES DE ARQUITECTURA ---
+
+% Ficha de material
+\newtcolorbox{materialcard}[2][]{%
+  colback=white,
+  colframe=#2,
+  title={\textbf{Ficha de material}},
+  fonttitle=\small\sffamily,
+  boxrule=0.5pt,
+  left=4pt,
+  right=4pt,
+  #1
+}
+
+% Indicador de material
+\newcommand{\materialbadge}[2]{%
+  \tikz[baseline=(text.base)]{%
+    \node[fill=#2!15,draw=#2,rounded corners=2pt,inner sep=3pt,font=\sffamily\footnotesize\bfseries,text=#2] (text) {#1};
+  }%
+}
+
+\newcommand{\concretebadge}{\materialbadge{Hormigón}{concrete-color}}
+\newcommand{\steelbadge}{\materialbadge{Acero}{steel-color}}
+\newcommand{\woodbadge}{\materialbadge{Madera}{wood-color}}
+\newcommand{\brickbadge}{\materialbadge{Ladrillo}{brick-color}}
+\newcommand{\glassbadge}{\materialbadge{Vidrio}{glass-color}}
+
+% Propiedades de material
+\newenvironment{materialprops}[1][Propiedades]{%
+  \begin{tcolorbox}[
+    colback=eps-light,
+    colframe=eps-dark,
+    title={\textbf{#1}},
+    fonttitle=\small\sffamily,
+    boxrule=0.5pt
+  ]
+  \small
+  \begin{tabular}{@{}ll@{}}
+}{%
+  \end{tabular}
+  \end{tcolorbox}
+}
+
+% Caja de normativa
+\newtcolorbox{normativabox}[1][]{%
+  colback=eps-info!5,
+  colframe=eps-info,
+  title={\textbf{Referencia normativa}},
+  fonttitle=\small\sffamily,
+  boxrule=0.5pt,
+  #1
+}
+
+% Caja de cálculo estructural
+\newtcolorbox{structuralbox}[1][]{%
+  colback=steel-color!5,
+  colframe=steel-color,
+  title={\textbf{Cálculo estructural}},
+  fonttitle=\small\sffamily,
+  boxrule=0.5pt,
+  #1
+}
+
+% Detalle constructivo
+\newtcolorbox{constructiondetail}[2][]{%
+  colback=white,
+  colframe=eps-dark,
+  title={\textbf{#2}},
+  fonttitle=\small\sffamily,
+  boxrule=0.5pt,
+  #1
+}
+
+% Tabla de capas
+\newenvironment{layertable}[1][Composición de cerramiento]{%
+  \begin{tcolorbox}[
+    colback=white,
+    colframe=eps-gray,
+    title={\textbf{#1}},
+    fonttitle=\small\sffamily,
+    boxrule=0.5pt
+  ]
+  \small\centering
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    \textbf{Capa} & \textbf{Espesor} & \textbf{$\lambda$} & \textbf{R} \\
+    & (mm) & (W/m·K) & (m²·K/W) \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \end{tcolorbox}
+}
+
+% Indicador de transmitancia
+\newcommand{\transmitanciaU}[2]{%
+  \begin{tcolorbox}[
+    colback=white,
+    colframe=eps-success,
+    width=4cm,
+    boxrule=0.5pt,
+    left=2pt,right=2pt,top=2pt,bottom=2pt
+  ]
+    \centering\small\sffamily
+    \textbf{U = #1}\\
+    Límite: #2
+  \end{tcolorbox}%
+}
+
+% Verificación CTE
+\newcommand{\cteok}{\textcolor{eps-success}{\textbf{✓ Cumple CTE}}}
+\newcommand{\ctefail}{\textcolor{eps-danger}{\textbf{✗ No cumple}}}
+\newcommand{\ctewarn}{\textcolor{eps-warning}{\textbf{⚠ Revisar}}}
+
+% Caja de certificación energética
+\newcommand{\energyrating}[1]{%
+  \tikz[baseline=(char.base)]{%
+    \ifnum\pdfstrcmp{#1}{A}=0
+      \node[fill=green!80!black,text=white,font=\bfseries\sffamily,minimum width=1.5em,minimum height=1.5em,rounded corners=2pt] (char) {A};
+    \else\ifnum\pdfstrcmp{#1}{B}=0
+      \node[fill=green!60!yellow,text=white,font=\bfseries\sffamily,minimum width=1.5em,minimum height=1.5em,rounded corners=2pt] (char) {B};
+    \else\ifnum\pdfstrcmp{#1}{C}=0
+      \node[fill=yellow!80!green,text=black,font=\bfseries\sffamily,minimum width=1.5em,minimum height=1.5em,rounded corners=2pt] (char) {C};
+    \else\ifnum\pdfstrcmp{#1}{D}=0
+      \node[fill=yellow,text=black,font=\bfseries\sffamily,minimum width=1.5em,minimum height=1.5em,rounded corners=2pt] (char) {D};
+    \else\ifnum\pdfstrcmp{#1}{E}=0
+      \node[fill=orange,text=white,font=\bfseries\sffamily,minimum width=1.5em,minimum height=1.5em,rounded corners=2pt] (char) {E};
+    \else\ifnum\pdfstrcmp{#1}{F}=0
+      \node[fill=orange!80!red,text=white,font=\bfseries\sffamily,minimum width=1.5em,minimum height=1.5em,rounded corners=2pt] (char) {F};
+    \else
+      \node[fill=red,text=white,font=\bfseries\sffamily,minimum width=1.5em,minimum height=1.5em,rounded corners=2pt] (char) {G};
+    \fi\fi\fi\fi\fi\fi
+  }%
+}
+
+% Medición de obra
+\newenvironment{measurementtable}[1][Medición]{%
+  \begin{tcolorbox}[
+    colback=white,
+    colframe=eps-primary,
+    title={\textbf{#1}},
+    fonttitle=\small\sffamily,
+    boxrule=0.5pt
+  ]
+  \small\centering
+  \begin{tabular}{@{}p{5cm}ccc@{}}
+    \toprule
+    \textbf{Partida} & \textbf{Ud.} & \textbf{Cantidad} & \textbf{Precio} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \end{tcolorbox}
+}
+
+% Sección constructiva simplificada
+\newcommand{\wallsection}[1]{%
+  \begin{center}
+  \begin{tikzpicture}[scale=0.8]
+    % Fondo
+    \fill[eps-light] (0,0) rectangle (4,5);
+    
+    % Capas ejemplo
+    \fill[brick-color!30] (0,0) rectangle (0.5,5);
+    \fill[yellow!30] (0.5,0) rectangle (1.5,5);
+    \fill[concrete-color!30] (1.5,0) rectangle (2.5,5);
+    \fill[yellow!30] (2.5,0) rectangle (3.5,5);
+    \fill[white] (3.5,0) rectangle (4,5);
+    
+    % Líneas de separación
+    \draw[eps-dark] (0,0) rectangle (4,5);
+    \draw[eps-dark] (0.5,0) -- (0.5,5);
+    \draw[eps-dark] (1.5,0) -- (1.5,5);
+    \draw[eps-dark] (2.5,0) -- (2.5,5);
+    \draw[eps-dark] (3.5,0) -- (3.5,5);
+    
+    % Etiquetas
+    \node[font=\tiny\sffamily,rotate=90] at (0.25,2.5) {Ladrillo};
+    \node[font=\tiny\sffamily,rotate=90] at (1,2.5) {Aislamiento};
+    \node[font=\tiny\sffamily,rotate=90] at (2,2.5) {Hormigón};
+    \node[font=\tiny\sffamily,rotate=90] at (3,2.5) {Aislamiento};
+    \node[font=\tiny\sffamily,rotate=90] at (3.75,2.5) {Yeso};
+    
+    % Título
+    \node[below,font=\small\sffamily\bfseries] at (2,-0.3) {#1};
+  \end{tikzpicture}
+  \end{center}
+}
+
+\begin{document}
+
+\title{\bfseries Componentes de Arquitectura\\[0.3em]\large Ejemplos de uso}
+\author{eps-arquitectura.sty}
+\date{\today}
+\maketitle
+
+\section{Badges de materiales}
+
+Materiales estructurales principales:
+
+\begin{center}
+\concretebadge \quad \steelbadge \quad \woodbadge \quad \brickbadge \quad \glassbadge
+\end{center}
+
+\section{Ficha de material}
+
+\begin{materialcard}{concrete-color}
+  \textbf{Hormigón armado HA-25/B/20/IIa}
+  
+  \begin{tabular}{@{}ll@{}}
+    Resistencia característica: & \SI{25}{\mega\pascal} \\
+    Consistencia: & Blanda (B) \\
+    Tamaño máximo árido: & \SI{20}{\milli\meter} \\
+    Ambiente: & IIa (humedad alta) \\
+    Recubrimiento mínimo: & \SI{35}{\milli\meter} \\
+  \end{tabular}
+\end{materialcard}
+
+\section{Propiedades de material}
+
+\begin{materialprops}[Acero B500SD]
+  Límite elástico: & \SI{500}{\mega\pascal} \\
+  Resistencia a tracción: & \SI{575}{\mega\pascal} \\
+  Alargamiento rotura: & $\geq$ 16\% \\
+  Módulo de elasticidad: & \SI{200}{\giga\pascal} \\
+\end{materialprops}
+
+\section{Referencia normativa}
+
+\begin{normativabox}
+  \textbf{CTE DB-HE} -- Documento Básico de Ahorro de Energía
+  
+  Sección HE1: Limitación de la demanda energética
+  
+  Zona climática: D3 (Madrid)
+  
+  \textbf{Valores límite de transmitancia térmica:}
+  \begin{itemize}
+    \item Muros: U $\leq$ \SI{0.41}{\watt\per\square\meter\per\kelvin}
+    \item Cubiertas: U $\leq$ \SI{0.35}{\watt\per\square\meter\per\kelvin}
+    \item Huecos: U $\leq$ \SI{2.30}{\watt\per\square\meter\per\kelvin}
+  \end{itemize}
+\end{normativabox}
+
+\section{Cálculo estructural}
+
+\begin{structuralbox}
+  \textbf{Dimensionado de viga de hormigón armado}
+  
+  \begin{tabular}{@{}ll@{}}
+    Momento flector: & $M_d = \SI{150}{\kilo\newton\meter}$ \\
+    Canto útil: & $d = \SI{450}{\milli\meter}$ \\
+    Ancho: & $b = \SI{300}{\milli\meter}$ \\
+    \midrule
+    Momento reducido: & $\mu = \dfrac{M_d}{b \cdot d^2 \cdot f_{cd}} = 0.185$ \\
+    Cuantía mecánica: & $\omega = 0.212$ \\
+    Armadura necesaria: & $A_s = \SI{8.52}{\centi\meter\squared}$ \\
+    \midrule
+    \textbf{Armado:} & 4$\phi$16 + 2$\phi$12 \\
+  \end{tabular}
+\end{structuralbox}
+
+\section{Detalle constructivo}
+
+\begin{constructiondetail}{Encuentro fachada-forjado}
+  \begin{itemize}
+    \item Hoja exterior de ladrillo cara vista
+    \item Aislamiento térmico continuo
+    \item Rotura de puente térmico en frente de forjado
+    \item Sellado perimetral con banda compresible
+  \end{itemize}
+\end{constructiondetail}
+
+\section{Composición de cerramiento}
+
+\begin{layertable}[Fachada ventilada]
+  Aplacado piedra & 30 & 2.30 & 0.013 \\
+  Cámara ventilada & 40 & --- & 0.090 \\
+  Aislamiento MW & 80 & 0.035 & 2.286 \\
+  Bloque hormigón & 200 & 0.95 & 0.211 \\
+  Enlucido yeso & 15 & 0.57 & 0.026 \\
+  \midrule
+  \multicolumn{3}{r}{\textbf{Total R:}} & \textbf{2.626} \\
+\end{layertable}
+
+\section{Transmitancia térmica}
+
+\begin{center}
+\transmitanciaU{\SI{0.38}{\watt\per\square\meter\per\kelvin}}{\SI{0.41}{\watt\per\square\meter\per\kelvin}}
+\hspace{2cm}
+\cteok
+\end{center}
+
+Otros estados de verificación:
+
+\cteok \quad \ctefail \quad \ctewarn
+
+\section{Certificación energética}
+
+Calificaciones energéticas: \energyrating{A} \energyrating{B} \energyrating{C} \energyrating{D} \energyrating{E} \energyrating{F} \energyrating{G}
+
+\section{Medición de obra}
+
+\begin{measurementtable}[Capítulo 04: Estructura]
+  Hormigón HA-25 en pilares & m³ & 12.50 & 125.00 € \\
+  Acero B500SD en pilares & kg & 1875 & 1.20 € \\
+  Encofrado metálico pilares & m² & 62.50 & 18.00 € \\
+\end{measurementtable}
+
+\section{Sección constructiva}
+
+\wallsection{Fachada con aislamiento por el exterior}
+
+\end{document}

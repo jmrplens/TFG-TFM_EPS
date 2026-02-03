@@ -1,73 +1,156 @@
-% Ejemplo de componentes de software
-% Compilar con: lualatex -shell-escape ejemplo-software.tex
-\documentclass{article}
+% ============================================================================
+% EJEMPLO: Componentes de Software (eps-software)
+% ============================================================================
+% Este archivo muestra los componentes disponibles en eps-software.sty
+% Compilar con: lualatex ejemplo-software.tex
+% ============================================================================
+
+\documentclass[11pt,a4paper]{article}
+
+% Idioma y fuentes
 \usepackage[spanish]{babel}
 \usepackage{fontspec}
 
-% Ruta a los paquetes
+% Configurar rutas para encontrar los paquetes
 \makeatletter
-\providecommand\input@path{}
-\edef\input@path{{../../cls/}{../../sty/}\input@path}
+\def\input@path{{../../sty/}{../../sty/componentes/}}
 \makeatother
 
 % Cargar componentes de software
 \usepackage[software]{eps-componentes}
 
+% Geometría de página
+\usepackage[margin=2.5cm]{geometry}
+
+% Para tablas largas
+\usepackage{longtable}
+
+% Título del documento
+\title{\bfseries Componentes de Software\\[0.5em]\large eps-software.sty}
+\author{Plantilla TFG/TFM EPS UA}
+\date{\today}
+
 \begin{document}
 
-\section*{Componentes de Software}
+\maketitle
+\tableofcontents
+\newpage
 
-\subsection*{API REST}
+% ============================================================================
+\section{API REST}
+% ============================================================================
 
-\begin{apiendpoint}{GET}{/api/users}
-  Obtiene la lista de usuarios.
+\subsection{Métodos HTTP}
+
+Métodos disponibles: \httpmethod{GET} \quad \httpmethod{POST} \quad \httpmethod{PUT} \quad \httpmethod{PATCH} \quad \httpmethod{DELETE}
+
+\subsection{Endpoint Completo}
+
+\begin{apiendpoint}{GET}{/api/users/:id}
+  \apidescription{Obtiene la información de un usuario por su ID.}
   
-  \apiresponse{200}{
-    "users": [{"id": 1, "name": "Juan"}]
+  \apiparams{
+    id & string & Identificador del usuario & Sí \\
   }
+  
+  \apiresponse{200}{json}{\{"id": "123", "name": "Juan"\}}
 \end{apiendpoint}
 
-\vspace{1em}
+\begin{apiendpoint}{POST}{/api/users}
+  \apidescription{Crea un nuevo usuario en el sistema.}
+  
+  \apiresponse{201}{json}{\{"id": "124", "created": true\}}
+\end{apiendpoint}
 
-Métodos: \httpget \quad \httppost \quad \httpput \quad \httpdelete
+% ============================================================================
+\section{Terminal y Comandos}
+% ============================================================================
 
-\subsection*{Terminal}
+\subsection{Terminal Básica}
 
-\begin{terminal}[Servidor]
-  \prompt npm install
-  \prompt npm run build
-  \promptroot systemctl restart nginx
+\begin{terminal}
+  \prompt npm install\\
+  \prompt npm run build\\
+  \termcomment{Compilación exitosa}
 \end{terminal}
 
-\subsection*{Clase UML}
+\subsection{Terminal con Título}
+
+\begin{terminal}[Servidor de Producción]
+  \promptroot systemctl start nginx\\
+  \promptroot systemctl enable nginx\\
+  \termcomment{nginx.service enabled}
+\end{terminal}
+
+% ============================================================================
+\section{Diagramas UML}
+% ============================================================================
+
+\subsection{Clase UML}
 
 \begin{umlclass}{Usuario}{%
-  \visibility{-} id: int \\
-  \visibility{-} nombre: string%
+  \visibility{-}id: int \\
+  \visibility{-}nombre: string \\
+  \visibility{-}email: string%
 }{%
-  \visibility{+} getNombre(): string%
+  \visibility{+}getNombre(): string \\
+  \visibility{+}setNombre(n: string): void \\
+  \visibility{#}validarEmail(): bool%
 }
 
-\subsection*{Requisitos}
+\subsection{Interface UML}
 
-\begin{requirements}
-  \reqrow{RF-001}{Login de usuarios}{Alta}{\statusdone}
-  \reqrow{RF-002}{Exportar PDF}{Media}{\statusprogress}
-  \reqrow{RF-003}{Cache}{Baja}{\statustodo}
-\end{requirements}
+\begin{umlinterface}{IRepository}{%
+  \visibility{+}find(id: int): Entity \\
+  \visibility{+}save(e: Entity): void \\
+  \visibility{+}delete(id: int): bool%
+}
+\end{umlinterface}
 
-\subsection*{Base de datos}
+% ============================================================================
+\section{Comandos Git}
+% ============================================================================
 
-\begin{dbtable}{usuarios}
-  \pkicon & id & INT & NOT NULL \\
-  & nombre & VARCHAR(100) & NOT NULL \\
-  \fkicon & rol\_id & INT & FK \\
-\end{dbtable}
+Branch: \gitbranch{main} \quad \gitbranch{develop}
 
-\subsection*{Git}
+Tag: \gittag{v1.0.0} \quad \gittag{v2.0.0}
 
-\gitbranch{main} \quad \gitbranch{develop}
+Commit:
 
-\gittag{v1.0.0} \quad \gittag{v2.0.0}
+\gitcommit{abc1234}{feat: nueva funcionalidad}{Juan García}{2024-01-15}
+
+\gitcommit{def5678}{fix: corrección de bug}{María López}{2024-01-16}
+
+% ============================================================================
+\section{Base de Datos}
+% ============================================================================
+
+\dbtable{usuarios}{
+  \pkicon~id & INT & AUTO\_INCREMENT \\
+  nombre & VARCHAR(100) & NOT NULL \\
+  email & VARCHAR(255) & UNIQUE \\
+  \fkicon~rol\_id & INT & FOREIGN KEY \\
+}
+
+% ============================================================================
+\section{Logs}
+% ============================================================================
+
+\begin{logbox}
+  \logentry{INFO}{2024-01-15 10:30:45}{Servidor iniciado en puerto 3000}
+  \logentry{WARN}{2024-01-15 10:31:00}{Memoria al 80\%}
+  \logentry{ERROR}{2024-01-15 10:31:15}{Conexión a BD fallida}
+  \logentry{DEBUG}{2024-01-15 10:31:20}{Reintentando conexión...}
+\end{logbox}
+
+% ============================================================================
+\section{Configuración}
+% ============================================================================
+
+\begin{configbox}
+  \envvar{DATABASE\_URL}{postgresql://localhost/db}\\
+  \envvar{API\_KEY}{sk-xxxxxxxxxxxxx}\\
+  \envvar{DEBUG}{true}
+\end{configbox}
 
 \end{document}
