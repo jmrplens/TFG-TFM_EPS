@@ -209,11 +209,9 @@ build/
 out/
 
 # PDFs generados (descomenta si no quieres versionarlos)
-main.pdf
 # *.pdf
 
-# Pero sí versionamos el ejemplo compilado para referencia
-!ejemplo_compilado.pdf
+# main.pdf se versiona como ejemplo del documento compilado
 
 # ============================================================================
 # ARCHIVOS TEMPORALES Y RESPALDO
