@@ -42,7 +42,7 @@ jobs:
         extra_system_packages: py3-pygments perl
         
     - name: Upload PDF artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: TFG-TFM_EPS_UA
         path: main.pdf
@@ -60,7 +60,7 @@ jobs:
         echo "RUN_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
         
     - name: Comment on PR
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
