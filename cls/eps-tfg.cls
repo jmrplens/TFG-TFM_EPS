@@ -1,4 +1,4 @@
-%% eps-tfg.cls
+%% eps-tfg
 %% Clase LaTeX para TFG/TFM de la Escuela Politécnica Superior
 %% Universidad de Alicante
 %%

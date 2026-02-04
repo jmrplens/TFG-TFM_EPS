@@ -6,21 +6,33 @@ Este anexo documenta el uso de los entornos de código disponibles en la plantil
 
 \section{Temas Disponibles}
 
-La plantilla ofrece dos temas principales:
+La plantilla ofrece tres temas principales:
 
 \begin{table}[H]
 \centering
 \caption{Temas de código disponibles}
 \label{tab:temas-codigo}
-\begin{tabular}{lll}
+\begin{tabular}{llp{5cm}}
 \toprule
-\textbf{Tema} & \textbf{Descripción} & \textbf{Uso recomendado} \\
+\textbf{Tema} & \textbf{Entorno} & \textbf{Uso recomendado} \\
 \midrule
-VS Code Light & Fondo blanco, texto oscuro & Impresión, documentos formales \\
-VS Code Dark & Fondo oscuro, texto claro & Presentaciones, lectura en pantalla \\
+VS Code Light & \texttt{pythoncode}, etc. & Impresión, documentos formales \\
+VS Code Dark & \texttt{pythoncodeDark}, etc. & Presentaciones, lectura en pantalla \\
+Simple & \texttt{codigosimple} & Estilo minimalista con borde negro \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\subsection{Ejemplo del tema Simple}
+
+El tema Simple proporciona un estilo minimalista con borde negro, sin colores de fondo:
+
+\begin{codigosimple}{python}[title={Ejemplo de código simple}]
+def factorial(n):
+    if n <= 1:
+        return 1
+    return n * factorial(n - 1)
+\end{codigosimple}
 
 \section{Nomenclatura de Entornos}
 

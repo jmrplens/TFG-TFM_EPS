@@ -3,10 +3,10 @@
 
 PYTHON := python3
 HERRAMIENTAS := .herramientas
-GENERAR := $(HERRAMIENTAS)/generar_previews.py
-INSERTAR := $(HERRAMIENTAS)/insertar_previews.py
+ACTUALIZAR_PREVIEWS := $(HERRAMIENTAS)/actualizar_previews.py
+GENERAR_PORTADAS := $(HERRAMIENTAS)/generar_portadas.py
 
-.PHONY: help previews previews-png previews-forzar listar insertar limpiar
+.PHONY: help previews previews-forzar listar limpiar portadas todo
 
 help:
 	@echo "Herramientas de desarrollo - Plantilla TFG/TFM EPS UA"
@@ -14,34 +14,27 @@ help:
 	@echo "Uso: make -f .herramientas/Makefile [target]"
 	@echo ""
 	@echo "Targets disponibles:"
-	@echo "  previews        - Generar previews PDF (solo cambios)"
-	@echo "  previews-png    - Generar previews PDF + PNG"
+	@echo "  previews        - Generar e insertar previews (solo cambios)"
 	@echo "  previews-forzar - Regenerar todos los previews"
-	@echo "  listar          - Listar snippets en la documentación"
-	@echo "  insertar        - Insertar enlaces de preview en docs"
+	@echo "  listar          - Listar snippets marcados en documentación"
 	@echo "  limpiar         - Eliminar previews huérfanos"
-	@echo "  todo            - Generar previews + insertar enlaces"
+	@echo "  portadas        - Generar portadas para README"
+	@echo "  todo            - Generar previews + portadas"
 
 previews:
-	@$(PYTHON) $(GENERAR)
-
-previews-png:
-	@$(PYTHON) $(GENERAR) --png
+	@$(PYTHON) $(ACTUALIZAR_PREVIEWS)
 
 previews-forzar:
-	@$(PYTHON) $(GENERAR) --forzar --png
+	@$(PYTHON) $(ACTUALIZAR_PREVIEWS) --forzar
 
 listar:
-	@$(PYTHON) $(GENERAR) --listar
-
-insertar:
-	@$(PYTHON) $(INSERTAR)
-
-insertar-dry:
-	@$(PYTHON) $(INSERTAR) --dry-run
+	@$(PYTHON) $(ACTUALIZAR_PREVIEWS) --listar
 
 limpiar:
-	@$(PYTHON) $(GENERAR) --limpiar
+	@$(PYTHON) $(ACTUALIZAR_PREVIEWS) --limpiar
 
-todo: previews-png insertar
-	@echo "✅ Previews generados y enlaces insertados"
+portadas:
+	@$(PYTHON) $(GENERAR_PORTADAS)
+
+todo: previews portadas
+	@echo "✅ Previews y portadas generados"

@@ -39,8 +39,9 @@ El siguiente código genera una tabla que ocupa toda la página en horizontal:
 \begin{sidewaystable}
   \centering
   \caption{Comparativa completa de características por módulo del sistema desarrollado}
-  \label{tab:comparativa-modulos}
-  \begin{tabular}{lcccccccccccc}
+  \label{tab:comparativa-modulos_render}
+  \small % Fuente más pequeña para que quepa
+  \begin{tabular}{@{}lccccccccc@{}}
     \toprule
     \textbf{Módulo} & 
     \textbf{Líneas} & 
@@ -49,31 +50,24 @@ El siguiente código genera una tabla que ocupa toda la página en horizontal:
     \textbf{Tests} & 
     \textbf{Cobertura} & 
     \textbf{Complejidad} & 
-    \textbf{Dependencias} &
     \textbf{Memoria} &
-    \textbf{CPU} &
     \textbf{Latencia} &
     \textbf{Estado} \\
     \midrule
-    Autenticación    & 2.450  & 12 & 45  & 89  & 94\% & Media & 5  & 128 MB & 2\%  & 45 ms  & \checkmark \\
-    Base de datos    & 3.200  & 18 & 67  & 120 & 91\% & Alta  & 8  & 256 MB & 5\%  & 12 ms  & \checkmark \\
-    API REST         & 4.100  & 25 & 98  & 156 & 88\% & Media & 12 & 192 MB & 8\%  & 23 ms  & \checkmark \\
-    Interfaz web     & 5.600  & 45 & 134 & 89  & 72\% & Baja  & 18 & 384 MB & 12\% & 180 ms & En desarrollo \\
-    Notificaciones   & 1.800  & 8  & 32  & 67  & 96\% & Baja  & 4  & 64 MB  & 1\%  & 8 ms   & \checkmark \\
-    Caché            & 980    & 5  & 18  & 45  & 98\% & Baja  & 2  & 512 MB & 3\%  & 2 ms   & \checkmark \\
-    Logs y métricas  & 1.200  & 6  & 24  & 38  & 85\% & Baja  & 3  & 96 MB  & 2\%  & 5 ms   & \checkmark \\
-    Procesamiento    & 2.800  & 14 & 56  & 78  & 82\% & Alta  & 7  & 768 MB & 25\% & 350 ms & \checkmark \\
-    Exportación      & 1.500  & 9  & 28  & 52  & 90\% & Media & 6  & 128 MB & 4\%  & 120 ms & \checkmark \\
-    Configuración    & 650    & 4  & 15  & 34  & 100\%& Baja  & 1  & 32 MB  & 0\%  & 1 ms   & \checkmark \\
+    Autenticación    & 2.450  & 12 & 45  & 89  & 94\% & Media & 128 MB & 45 ms  & \checkmark \\
+    Base de datos    & 3.200  & 18 & 67  & 120 & 91\% & Alta  & 256 MB & 12 ms  & \checkmark \\
+    API REST         & 4.100  & 25 & 98  & 156 & 88\% & Media & 192 MB & 23 ms  & \checkmark \\
+    Interfaz web     & 5.600  & 45 & 134 & 89  & 72\% & Baja  & 384 MB & 180 ms & En desarrollo \\
+    Notificaciones   & 1.800  & 8  & 32  & 67  & 96\% & Baja  & 64 MB  & 8 ms   & \checkmark \\
+    Caché            & 980    & 5  & 18  & 45  & 98\% & Baja  & 512 MB & 2 ms   & \checkmark \\
+    Logs y métricas  & 1.200  & 6  & 24  & 38  & 85\% & Baja  & 96 MB  & 5 ms   & \checkmark \\
+    Procesamiento    & 2.800  & 14 & 56  & 78  & 82\% & Alta  & 768 MB & 350 ms & \checkmark \\
+    Exportación      & 1.500  & 9  & 28  & 52  & 90\% & Media & 128 MB & 120 ms & \checkmark \\
+    Configuración    & 650    & 4  & 15  & 34  & 100\%& Baja  & 32 MB  & 1 ms   & \checkmark \\
     \midrule
-    \textbf{Total}   & \textbf{24.280} & \textbf{146} & \textbf{517} & \textbf{768} & \textbf{87\%} & -- & \textbf{66} & -- & -- & -- & -- \\
+    \textbf{Total}   & \textbf{24.280} & \textbf{146} & \textbf{517} & \textbf{768} & \textbf{87\%} & -- & -- & -- & -- \\
     \bottomrule
   \end{tabular}
-  
-  \smallskip
-  \footnotesize
-  \textbf{Notas:} Líneas = líneas de código fuente; Cobertura = porcentaje de código cubierto por tests;
-  Complejidad = complejidad ciclomática promedio; Latencia = tiempo de respuesta medio.
 \end{sidewaystable}
 
 \subsection{Cuándo usar tablas rotadas}
@@ -118,33 +112,34 @@ Esta página está en orientación horizontal para mostrar un diagrama amplio.
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}[
-    node distance=1.5cm and 2cm,
-    block/.style={rectangle, draw, fill=blue!10, text width=2.5cm, text centered, 
-                  rounded corners, minimum height=1cm},
-    decision/.style={diamond, draw, fill=yellow!20, text width=2cm, 
-                     text centered, aspect=2},
+    scale=0.85, transform shape,
+    node distance=1cm and 1.5cm,
+    block/.style={rectangle, draw, fill=blue!10, text width=2cm, text centered, 
+                  rounded corners, minimum height=0.8cm, font=\small},
+    decision/.style={diamond, draw, fill=yellow!20, text width=1.5cm, 
+                     text centered, aspect=2, font=\small},
     arrow/.style={thick,->,>=stealth}
   ]
     % Nodos
     \node[block] (inicio) {Inicio};
     \node[block, right=of inicio] (auth) {Autenticación};
     \node[decision, right=of auth] (valido) {¿Válido?};
-    \node[block, right=of valido] (menu) {Menú principal};
-    \node[block, above right=1cm and 2cm of menu] (modulo1) {Módulo A};
-    \node[block, right=of menu] (modulo2) {Módulo B};
-    \node[block, below right=1cm and 2cm of menu] (modulo3) {Módulo C};
-    \node[block, right=3cm of modulo2] (proceso) {Procesamiento};
-    \node[block, right=of proceso] (resultado) {Resultados};
+    \node[block, right=of valido] (menu) {Menú};
+    \node[block, above right=0.8cm and 1.5cm of menu] (modulo1) {Módulo A};
+    \node[block, right=1.5cm of menu] (modulo2) {Módulo B};
+    \node[block, below right=0.8cm and 1.5cm of menu] (modulo3) {Módulo C};
+    \node[block, right=2cm of modulo2] (proceso) {Proceso};
+    \node[block, right=of proceso] (resultado) {Resultado};
     \node[decision, right=of resultado] (guardar) {¿Guardar?};
-    \node[block, right=of guardar] (bd) {Base de datos};
-    \node[block, below=of valido] (error) {Error};
-    \node[block, below=of guardar] (fin) {Fin};
+    \node[block, right=of guardar] (bd) {BD};
+    \node[block, below=0.8cm of valido] (error) {Error};
+    \node[block, below=0.8cm of guardar] (fin) {Fin};
     
     % Flechas
     \draw[arrow] (inicio) -- (auth);
     \draw[arrow] (auth) -- (valido);
-    \draw[arrow] (valido) -- node[above] {Sí} (menu);
-    \draw[arrow] (valido) -- node[right] {No} (error);
+    \draw[arrow] (valido) -- node[above, font=\scriptsize] {Sí} (menu);
+    \draw[arrow] (valido) -- node[right, font=\scriptsize] {No} (error);
     \draw[arrow] (error) -| (auth);
     \draw[arrow] (menu) -- (modulo1);
     \draw[arrow] (menu) -- (modulo2);
@@ -154,8 +149,8 @@ Esta página está en orientación horizontal para mostrar un diagrama amplio.
     \draw[arrow] (modulo3) -| (proceso);
     \draw[arrow] (proceso) -- (resultado);
     \draw[arrow] (resultado) -- (guardar);
-    \draw[arrow] (guardar) -- node[above] {Sí} (bd);
-    \draw[arrow] (guardar) -- node[right] {No} (fin);
+    \draw[arrow] (guardar) -- node[above, font=\scriptsize] {Sí} (bd);
+    \draw[arrow] (guardar) -- node[right, font=\scriptsize] {No} (fin);
     \draw[arrow] (bd) |- (fin);
   \end{tikzpicture}
   \caption{Diagrama de flujo completo del sistema en página horizontal}

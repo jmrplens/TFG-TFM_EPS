@@ -51,60 +51,97 @@ El sistema está compuesto por los siguientes componentes principales:
 
 \subsection{Endpoints principales}
 
-\begin{table}[H]
-  \centering
-  \caption{Endpoints de la API}
-  \label{tab:endpoints}
-  \begin{tabular}{@{}llp{5cm}@{}}
-    \toprule
-    \textbf{Método} & \textbf{Endpoint} & \textbf{Descripción} \\
-    \midrule
-    POST & /api/auth/login & Autenticación de usuarios \\
-    POST & /api/auth/logout & Cierre de sesión \\
-    GET & /api/users & Lista de usuarios \\
-    GET & /api/users/\{id\} & Detalle de usuario \\
-    POST & /api/users & Crear usuario \\
-    PUT & /api/users/\{id\} & Actualizar usuario \\
-    DELETE & /api/users/\{id\} & Eliminar usuario \\
-    GET & /api/reports & Lista de informes \\
-    POST & /api/reports/generate & Generar informe \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+La API REST del sistema sigue los principios RESTful. Se utiliza el componente 
+\texttt{apiendpoint} para documentar cada endpoint de forma estructurada.
 
-\subsection{Ejemplo de petición}
+\subsubsection{Obtener lista de usuarios}
 
-Ejemplo de petición para crear un usuario:
-
-\begin{jsoncode}[title={POST /api/users}]
-{
-  "nombre": "Juan García",
-  "email": "juan.garcia@ejemplo.com",
-  "rol": "usuario",
-  "activo": true,
-  "preferencias": {
-    "idioma": "es",
-    "notificaciones": true,
-    "tema": "claro"
+\begin{apiendpoint}{GET}{/api/users}
+  Obtiene la lista completa de usuarios del sistema con paginación.
+  
+  \textbf{Parámetros de query:}
+  \begin{itemize}[noitemsep]
+    \item \texttt{page} (integer): Número de página (opcional, default: 1)
+    \item \texttt{limit} (integer): Elementos por página (opcional, default: 20)
+    \item \texttt{activo} (boolean): Filtrar por estado activo (opcional)
+  \end{itemize}
+  
+  \apiresponse{200}{
+    "users": [...],
+    "total": 150,
+    "page": 1
   }
-}
-\end{jsoncode}
+\end{apiendpoint}
 
-\subsection{Ejemplo de respuesta}
+\subsubsection{Obtener usuario por ID}
 
-Respuesta exitosa:
+\begin{apiendpoint}{GET}{/api/users/:id}
+  Obtiene los detalles de un usuario específico por su identificador.
+  
+  \apiresponse{200}{
+    "id": 123,
+    "nombre": "Juan García",
+    "email": "juan@ejemplo.com",
+    "rol": "usuario"
+  }
+  
+  \apiresponse{404}{
+    "error": "Usuario no encontrado"
+  }
+\end{apiendpoint}
 
-\begin{jsoncode}[title={Respuesta 201 Created}]
-{
-  "id": 123,
-  "nombre": "Juan García",
-  "email": "juan.garcia@ejemplo.com",
-  "rol": "usuario",
-  "activo": true,
-  "createdAt": "2026-02-02T10:30:00Z",
-  "updatedAt": "2026-02-02T10:30:00Z"
-}
-\end{jsoncode}
+\subsubsection{Crear nuevo usuario}
+
+\begin{apiendpoint}{POST}{/api/users}
+  Crea un nuevo usuario en el sistema.
+  
+  \apibody{application/json}{
+    "nombre": "Juan García",
+    "email": "juan@ejemplo.com",
+    "rol": "usuario"
+  }
+  
+  \apiresponse{201}{
+    "id": 123,
+    "nombre": "Juan García",
+    "createdAt": "2026-02-02T10:30:00Z"
+  }
+  
+  \apiresponse{400}{
+    "error": "Email inválido"
+  }
+\end{apiendpoint}
+
+\subsubsection{Actualizar usuario}
+
+\begin{apiendpoint}{PUT}{/api/users/:id}
+  Actualiza los datos de un usuario existente.
+  
+  \apibody{application/json}{
+    "nombre": "Juan García Actualizado",
+    "activo": true
+  }
+  
+  \apiresponse{200}{
+    "id": 123,
+    "nombre": "Juan García Actualizado",
+    "updatedAt": "2026-02-02T12:00:00Z"
+  }
+\end{apiendpoint}
+
+\subsubsection{Eliminar usuario}
+
+\begin{apiendpoint}{DELETE}{/api/users/:id}
+  Elimina un usuario del sistema (soft delete).
+  
+  \apiresponse{204}{
+    (sin contenido)
+  }
+  
+  \apiresponse{404}{
+    "error": "Usuario no encontrado"
+  }
+\end{apiendpoint}
 
 \section{Modelo de datos}
 

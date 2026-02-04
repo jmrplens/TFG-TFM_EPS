@@ -534,12 +534,12 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 #### `dbtable` - Tabla de base de datos
 
 ```latex <!-- preview dbtable -->
-\dbtable{usuarios}{
+\begin{dbtable}{usuarios}
   \pkicon~id & INT & PK, AUTO\_INCREMENT \\
   nombre & VARCHAR(100) & NOT NULL \\
   email & VARCHAR(255) & UNIQUE \\
   \fkicon~rol\_id & INT & FK $\rightarrow$ roles.id \\
-}
+\end{dbtable}
 ```
 
 **Resultado:**
