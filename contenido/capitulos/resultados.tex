@@ -496,3 +496,89 @@ matlab2tikz('figura.tex');
   \caption{Distribución de tiempos de respuesta}
   \label{fig:histograma}
 \end{figure}
+
+\subsection{Gráfica de radar (polígono)}
+
+Las gráficas de radar son útiles para comparar múltiples variables simultáneamente:
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{polaraxis}[
+      width=8cm,
+      xtick={0,60,120,180,240,300},
+      xticklabels={Usabilidad,Rendimiento,Seguridad,Escalabilidad,Mantenibilidad,Portabilidad},
+      ymin=0, ymax=100,
+      ytick={20,40,60,80,100},
+      ylabel near ticks,
+      legend pos=outer north east,
+    ]
+    % Sistema A
+    \addplot[blue, thick, fill=blue!20, opacity=0.7] coordinates {
+      (0,85) (60,72) (120,90) (180,68) (240,78) (300,82) (360,85)
+    };
+    \addlegendentry{Sistema A}
+    
+    % Sistema B
+    \addplot[red, thick, fill=red!20, opacity=0.5] coordinates {
+      (0,75) (60,88) (120,70) (180,85) (240,72) (300,68) (360,75)
+    };
+    \addlegendentry{Sistema B}
+    \end{polaraxis}
+  \end{tikzpicture}
+  \caption{Comparativa de sistemas mediante gráfica de radar}
+  \label{fig:radar}
+\end{figure}
+
+\subsection{Diagrama de Gantt simplificado}
+
+Para mostrar cronogramas de proyecto:
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      width=0.9\textwidth,
+      height=5cm,
+      xbar,
+      xlabel={Semanas},
+      ytick={1,2,3,4,5,6},
+      yticklabels={Despliegue,Testing,Frontend,Backend,Diseño,Análisis},
+      xmin=0, xmax=16,
+      bar width=0.6cm,
+      nodes near coords,
+      nodes near coords align={horizontal},
+      enlarge y limits=0.15,
+    ]
+    % Duración de cada tarea (inicio implícito desde 0 para simplificar)
+    \addplot[fill=blue!60] coordinates {(2,6) (3,5) (6,4) (6,3) (3,2) (2,1)};
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Diagrama de Gantt simplificado del proyecto}
+  \label{fig:gantt-simple}
+\end{figure}
+
+\section{Tabla de resumen de resultados}
+
+Para finalizar, es común presentar un resumen numérico de los resultados:
+
+\begin{table}[H]
+  \centering
+  \caption{Resumen de métricas de evaluación}
+  \label{tab:resumen-metricas}
+  \begin{tabular}{@{}lccccc@{}}
+    \toprule
+    \textbf{Métrica} & \textbf{Baseline} & \textbf{Propuesta} & \textbf{Mejora} & \textbf{p-valor} & \textbf{Sig.} \\
+    \midrule
+    Precisión & 78.5\% & 89.2\% & +10.7\% & 0.001 & *** \\
+    Recall & 72.3\% & 86.8\% & +14.5\% & 0.003 & ** \\
+    F1-Score & 75.2\% & 87.9\% & +12.7\% & 0.002 & ** \\
+    Tiempo (ms) & 145 & 98 & -32.4\% & 0.015 & * \\
+    Memoria (MB) & 512 & 384 & -25.0\% & 0.042 & * \\
+    \bottomrule
+  \end{tabular}
+  
+  \medskip
+  \footnotesize
+  Significancia: *** p < 0.001, ** p < 0.01, * p < 0.05
+\end{table}

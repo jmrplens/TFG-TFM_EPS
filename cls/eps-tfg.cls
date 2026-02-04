@@ -695,6 +695,8 @@
 \RequirePackage{tabularx}
 \RequirePackage{colortbl}       % Para \rowcolors y colores en tablas
 \RequirePackage{ragged2e}
+\RequirePackage{threeparttable} % Para tablas con notas al pie
+\RequirePackage{diagbox}        % Para celdas diagonales en encabezados
 
 % Tipos de columna personalizados
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}

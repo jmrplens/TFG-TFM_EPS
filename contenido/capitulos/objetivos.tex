@@ -202,3 +202,76 @@ Para forzar que una tabla aparezca en un lugar específico, se puede usar:
   ...
 \end{table}
 \end{latexcode}
+
+\section{Tablas con notas al pie}
+
+Para añadir notas al pie dentro de una tabla, se usa el paquete \texttt{threeparttable}:
+
+\begin{table}[H]
+  \centering
+  \caption{Comparativa de tecnologías web con notas}
+  \label{tab:tecnologias-notas}
+  \begin{threeparttable}
+    \begin{tabular}{@{}lccc@{}}
+      \toprule
+      \textbf{Framework} & \textbf{Rendimiento}\tnote{a} & \textbf{Popularidad}\tnote{b} & \textbf{Curva} \\
+      \midrule
+      React     & 92 & 1st  & Media \\
+      Vue.js    & 89 & 3rd  & Baja \\
+      Angular   & 85 & 2nd  & Alta \\
+      Svelte    & 96 & 5th  & Baja \\
+      \bottomrule
+    \end{tabular}
+    \begin{tablenotes}
+      \footnotesize
+      \item[a] Puntuación en benchmarks de Lighthouse (0-100).
+      \item[b] Posición según encuesta Stack Overflow 2024.
+    \end{tablenotes}
+  \end{threeparttable}
+\end{table}
+
+\section{Tabla con celdas de colores personalizados}
+
+Se pueden colorear celdas individuales usando \texttt{\textbackslash cellcolor}:
+
+\begin{table}[H]
+  \centering
+  \caption{Matriz de evaluación de riesgos}
+  \label{tab:matriz-riesgos}
+  \begin{tabular}{c|ccccc}
+    \toprule
+    \diagbox{Impacto}{Probabilidad} & Muy bajo & Bajo & Medio & Alto & Muy alto \\
+    \midrule
+    Muy alto & \cellcolor{yellow!50}M & \cellcolor{orange!50}A & \cellcolor{red!50}MA & \cellcolor{red!70}MA & \cellcolor{red!90}MA \\
+    Alto     & \cellcolor{green!50}B & \cellcolor{yellow!50}M & \cellcolor{orange!50}A & \cellcolor{red!50}MA & \cellcolor{red!70}MA \\
+    Medio    & \cellcolor{green!50}B & \cellcolor{green!30}B & \cellcolor{yellow!50}M & \cellcolor{orange!50}A & \cellcolor{red!50}MA \\
+    Bajo     & \cellcolor{green!70}MB & \cellcolor{green!50}B & \cellcolor{green!30}B & \cellcolor{yellow!50}M & \cellcolor{orange!50}A \\
+    Muy bajo & \cellcolor{green!70}MB & \cellcolor{green!70}MB & \cellcolor{green!50}B & \cellcolor{green!30}B & \cellcolor{yellow!50}M \\
+    \bottomrule
+  \end{tabular}
+  
+  \medskip
+  \footnotesize
+  MB = Muy Bajo, B = Bajo, M = Medio, A = Alto, MA = Muy Alto
+\end{table}
+
+\section{Tabla de ancho completo}
+
+Para que una tabla ocupe todo el ancho disponible, se usa \texttt{tabularx}:
+
+\begin{table}[H]
+  \centering
+  \caption{Cronograma del proyecto usando todo el ancho}
+  \label{tab:cronograma}
+  \begin{tabularx}{\textwidth}{@{}lXcccc@{}}
+    \toprule
+    \textbf{Fase} & \textbf{Descripción de actividades} & \textbf{M1} & \textbf{M2} & \textbf{M3} & \textbf{M4} \\
+    \midrule
+    Análisis & Recopilación de requisitos, entrevistas con stakeholders y estudio de viabilidad & $\bullet$ & & & \\
+    Diseño & Arquitectura del sistema, diseño de base de datos y prototipado de interfaz & $\bullet$ & $\bullet$ & & \\
+    Desarrollo & Implementación del backend, frontend y pruebas unitarias & & $\bullet$ & $\bullet$ & \\
+    Testing & Pruebas de integración, UAT y corrección de errores & & & $\bullet$ & $\bullet$ \\
+    Despliegue & Configuración de servidores, migración y formación de usuarios & & & & $\bullet$ \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
