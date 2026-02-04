@@ -197,6 +197,44 @@ Los márgenes están optimizados para aprovechar el espacio disponible.
   \end{tabular}
 \end{table}
 
+% Segunda página landscape (para probar páginas consecutivas)
+\newpage
+
+\subsection{Segunda página horizontal consecutiva}
+
+Esta es una segunda página en orientación horizontal para verificar que varias páginas 
+landscape consecutivas funcionan correctamente. Los encabezados y pies de página 
+deben mantenerse consistentes en ambas páginas.
+
+\begin{table}[H]
+  \centering
+  \caption{Tabla adicional de ejemplo en segunda página landscape}
+  \label{tab:segunda-landscape}
+  \begin{tabular}{lp{10cm}cc}
+    \toprule
+    \textbf{ID} & \textbf{Descripción del requisito} & \textbf{Prioridad} & \textbf{Estado} \\
+    \midrule
+    RF01 & El sistema debe permitir la autenticación de usuarios mediante credenciales & Alta & Implementado \\
+    RF02 & El sistema debe registrar todas las acciones del usuario en un log & Media & Implementado \\
+    RF03 & El sistema debe generar informes en formato PDF & Alta & En progreso \\
+    RF04 & El sistema debe soportar múltiples idiomas & Baja & Pendiente \\
+    RF05 & El sistema debe integrarse con servicios externos vía API REST & Alta & Implementado \\
+    RF06 & El sistema debe validar todos los datos de entrada & Alta & Implementado \\
+    RF07 & El sistema debe proporcionar copias de seguridad automáticas & Media & En progreso \\
+    RF08 & El sistema debe soportar diferentes roles de usuario & Alta & Implementado \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\vspace{1cm}
+
+\begin{itemize}
+  \item Esta demostración confirma que múltiples páginas landscape funcionan correctamente.
+  \item Los números de página se incrementan normalmente.
+  \item Los encabezados muestran la sección actual.
+  \item Los pies de página mantienen su formato.
+\end{itemize}
+
 % Restaurar orientación portrait
 \EndLandscapePage
 

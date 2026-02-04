@@ -545,8 +545,9 @@
     headsep=1cm,
     footskip=1.5cm
   }%
-  % Actualizar anchos de header/footer al nuevo textwidth
-  \KOMAoptions{headwidth=\textwidth:0pt,footwidth=\textwidth:0pt}%
+  % Actualizar anchos de header/footer al nuevo textwidth con offset 0
+  \setheadwidth[0pt]{\textwidth}%
+  \setfootwidth[0pt]{\textwidth}%
 }
 
 % Comando para restaurar orientación portrait
@@ -557,8 +558,9 @@
   \pageheight=297mm
   % Restaurar márgenes
   \restoregeometry
-  % Restaurar anchos de header/footer
-  \KOMAoptions{headwidth=\textwidth:0pt,footwidth=\textwidth:0pt}%
+  % Restaurar anchos de header/footer con offset 0
+  \setheadwidth[0pt]{\textwidth}%
+  \setfootwidth[0pt]{\textwidth}%
 }
 
 %% ============================================================================
