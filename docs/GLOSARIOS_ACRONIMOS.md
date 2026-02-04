@@ -708,10 +708,9 @@ Estos ejemplos muestran cómo se visualizan los glosarios y acrónimos en el doc
 
 **Resultado:**
 
-<img src="assets/previews/GLOSARIOS_ACRONIMOS_001.webp" alt="Preview" width="600">
+<img src="assets/previews/GLOSARIOS_ACRONIMOS_001.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/GLOSARIOS_ACRONIMOS_001.pdf)
-
 
 ### Ejemplo de lista de acrónimos renderizada
 
@@ -736,10 +735,9 @@ Estos ejemplos muestran cómo se visualizan los glosarios y acrónimos en el doc
 
 **Resultado:**
 
-<img src="assets/previews/GLOSARIOS_ACRONIMOS_002.webp" alt="Preview" width="317">
+<img src="assets/previews/GLOSARIOS_ACRONIMOS_002.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/GLOSARIOS_ACRONIMOS_002.pdf)
-
 
 ### Ejemplo de lista de símbolos renderizada
 
@@ -763,10 +761,9 @@ Estos ejemplos muestran cómo se visualizan los glosarios y acrónimos en el doc
 
 **Resultado:**
 
-<img src="assets/previews/GLOSARIOS_ACRONIMOS_003.webp" alt="Preview" width="279">
+<img src="assets/previews/GLOSARIOS_ACRONIMOS_003.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/GLOSARIOS_ACRONIMOS_003.pdf)
-
 
 ### Uso de acrónimos en texto
 
@@ -791,10 +788,9 @@ procesamiento de imágenes usando CNN y GPU.
 
 **Resultado:**
 
-<img src="assets/previews/GLOSARIOS_ACRONIMOS_004.webp" alt="Preview" width="592">
+<img src="assets/previews/GLOSARIOS_ACRONIMOS_004.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/GLOSARIOS_ACRONIMOS_004.pdf)
-
 
 ---
 

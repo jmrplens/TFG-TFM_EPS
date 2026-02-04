@@ -22,12 +22,15 @@
 % Patrones de litología (simplificados)
 \tikzset{
   lito arenisca/.style={pattern=north east lines, pattern color=eps-warning!70},
-  lito caliza/.style={pattern=bricks, pattern color=eps-gray},
+  lito caliza/.style={pattern=grid, pattern color=eps-gray},
+  lito dolomia/.style={pattern=crosshatch, pattern color=eps-gray},
   lito arcilla/.style={pattern=horizontal lines, pattern color=eps-success!50},
   lito marga/.style={pattern=crosshatch, pattern color=eps-info!50},
   lito conglomerado/.style={pattern=crosshatch dots, pattern color=eps-warning!50},
   lito basalto/.style={fill=eps-dark!70},
   lito granito/.style={pattern=dots, pattern color=eps-danger!50},
+  lito pizarra/.style={pattern=north west lines, pattern color=eps-primary!60},
+  lito gneis/.style={pattern=fivepointed stars, pattern color=eps-secondary!60},
 }
 
 % Columna estratigráfica (estilo Card, centrada)
@@ -79,7 +82,7 @@
   \end{tcolorbox}
 }
 
-% Símbolos geológicos
+% Símbolos geológicos (iconos inline)
 \newcommand{\faultline}{%
   \tikz[baseline=-0.3em]{
     \draw[thick, eps-danger] (0,0) -- (0.3,0.2);
@@ -98,6 +101,29 @@
   \tikz[baseline=-0.3em]{
     \draw[thick, eps-primary] (0,0.3) arc (180:360:0.3);
     \draw[thick, eps-primary, ->] (0.3,0) -- (0.3,-0.2);
+  }
+}
+
+\newcommand{\strikeanddip}{%
+  \tikz[baseline=-0.3em, rotate=45]{
+    \draw[thick, eps-dark] (0,-0.2) -- (0,0.2);
+    \draw[thick, eps-dark] (0,0) -- (0.15,0);
+  }
+}
+
+\newcommand{\verticalbeds}{%
+  \tikz[baseline=-0.3em]{
+    \draw[thick, eps-dark] (0,-0.3) -- (0,0.3);
+    \draw[thick, eps-dark] (-0.2,0) -- (0.2,0);
+    \fill[eps-dark] (0,0) circle (0.05);
+  }
+}
+
+\newcommand{\horizontalbeds}{%
+  \tikz[baseline=-0.3em]{
+    \draw[thick, eps-dark] (0,0) circle (0.15);
+    \draw[thick, eps-dark] (-0.25,0) -- (0.25,0);
+    \draw[thick, eps-dark] (0,-0.25) -- (0,0.25);
   }
 }
 

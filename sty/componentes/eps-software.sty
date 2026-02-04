@@ -8,38 +8,30 @@
 % DEPENDENCIAS
 % ============================================================================
 
-\RequirePackage{listings}
+% \RequirePackage{listings}
 \RequirePackage{forest}  % Para árboles de directorios
 \RequirePackage{tabularx} % Para tablas auto-ajustables
+\RequirePackage{varwidth} % Para cajas de ancho variable (UML)
+\RequirePackage{environ}  % Para capturar cuerpo de entorno (dbtable)
 
 % ============================================================================
 % ENDPOINTS REST API
 % ============================================================================
 
-% Estilo base para endpoint
-\tcbset{
-  api-endpoint/.style={
-    enhanced,
-    boxrule=0pt,
-    frame hidden,
-    colback=eps-code-bg,
-    arc=4pt,
-    left=0pt,
-    right=0pt,
-    top=0pt,
-    bottom=0pt,
-    before skip=8pt,
-    after skip=8pt,
-  },
-}
+% Estilos de colores para métodos HTTP
+\colorlet{eps-http-get}{eps-info}
+\colorlet{eps-http-post}{eps-success}
+\colorlet{eps-http-put}{eps-warning}
+\colorlet{eps-http-patch}{eps-warning!80!black}
+\colorlet{eps-http-delete}{eps-danger}
 
-% Comando para método HTTP con color
+% Comando para método HTTP con estilo badge moderno
 \newcommand{\httpmethod}[1]{%
-  \ifstrequal{#1}{GET}{\colorbox{eps-http-get}{\textcolor{white}{\bfseries\footnotesize~GET~}}}{}%
-  \ifstrequal{#1}{POST}{\colorbox{eps-http-post}{\textcolor{white}{\bfseries\footnotesize~POST~}}}{}%
-  \ifstrequal{#1}{PUT}{\colorbox{eps-http-put}{\textcolor{white}{\bfseries\footnotesize~PUT~}}}{}%
-  \ifstrequal{#1}{PATCH}{\colorbox{eps-http-patch}{\textcolor{white}{\bfseries\footnotesize~PATCH~}}}{}%
-  \ifstrequal{#1}{DELETE}{\colorbox{eps-http-delete}{\textcolor{white}{\bfseries\footnotesize~DELETE~}}}{}%
+  \ifstrequal{#1}{GET}{\tcbox[on line, boxsep=0pt, left=3pt, right=3pt, top=1pt, bottom=1pt, colback=eps-http-get!10, colframe=eps-http-get, boxrule=0.5pt, arc=2pt, fontupper=\bfseries\sffamily\tiny, colupper=eps-http-get]{GET}}{}%
+  \ifstrequal{#1}{POST}{\tcbox[on line, boxsep=0pt, left=3pt, right=3pt, top=1pt, bottom=1pt, colback=eps-http-post!10, colframe=eps-http-post, boxrule=0.5pt, arc=2pt, fontupper=\bfseries\sffamily\tiny, colupper=eps-http-post]{POST}}{}%
+  \ifstrequal{#1}{PUT}{\tcbox[on line, boxsep=0pt, left=3pt, right=3pt, top=1pt, bottom=1pt, colback=eps-http-put!10, colframe=eps-http-put, boxrule=0.5pt, arc=2pt, fontupper=\bfseries\sffamily\tiny, colupper=eps-http-put]{PUT}}{}%
+  \ifstrequal{#1}{PATCH}{\tcbox[on line, boxsep=0pt, left=3pt, right=3pt, top=1pt, bottom=1pt, colback=eps-http-patch!10, colframe=eps-http-patch, boxrule=0.5pt, arc=2pt, fontupper=\bfseries\sffamily\tiny, colupper=eps-http-patch]{PATCH}}{}%
+  \ifstrequal{#1}{DELETE}{\tcbox[on line, boxsep=0pt, left=3pt, right=3pt, top=1pt, bottom=1pt, colback=eps-http-delete!10, colframe=eps-http-delete, boxrule=0.5pt, arc=2pt, fontupper=\bfseries\sffamily\tiny, colupper=eps-http-delete]{DELETE}}{}%
 }
 
 % Comandos de conveniencia para métodos HTTP
@@ -49,30 +41,37 @@
 \newcommand{\httppatch}{\httpmethod{PATCH}}
 \newcommand{\httpdelete}{\httpmethod{DELETE}}
 
-% Endpoint completo (estilo moderno con tcolorbox)
+% Endpoint completo (Diseño web API moderno)
 % Uso: \begin{apiendpoint}{GET}{/api/users/:id}
 %        \apidescription{Obtiene un usuario por ID}
 %        ...
 %      \end{apiendpoint}
 \newenvironment{apiendpoint}[2]{%
   \par\vspace{0.5em}
-  % Cabecera del endpoint (Método + URL)
+  % Definir color base según método
+  \ifstrequal{#1}{GET}{\colorlet{api-color}{eps-http-get}}{}%
+  \ifstrequal{#1}{POST}{\colorlet{api-color}{eps-http-post}}{}%
+  \ifstrequal{#1}{PUT}{\colorlet{api-color}{eps-http-put}}{}%
+  \ifstrequal{#1}{PATCH}{\colorlet{api-color}{eps-http-patch}}{}%
+  \ifstrequal{#1}{DELETE}{\colorlet{api-color}{eps-http-delete}}{}%
+  % Caja principal
   \begin{tcolorbox}[
-    colback=eps-code-bg, 
-    colframe=eps-dark,
-    boxrule=0.5pt,
-    arc=4pt,
-    outer arc=4pt,
-    left=6pt, right=6pt, top=6pt, bottom=6pt,
     enhanced,
+    colback=white,
+    colframe=eps-gray!20,
+    boxrule=0.5pt,
+    borderline west={3pt}{0pt}{api-color},
+    arc=3pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
     drop shadow=eps-gray!10,
-    fontupper=\ttfamily\small\color{eps-code-fg}
   ]
-    \httpmethod{#1}\hspace{8pt}\textcolor{eps-code-fg}{#2}
-    \par\vspace{4pt}
+    \makebox[0pt][l]{\httpmethod{#1}}\hspace{4em}% Espacio para el badge
+    {\ttfamily\bfseries\color{eps-dark} #2}
+    \par\vspace{6pt}
+    \hrule height 0.1pt depth 0pt width \textwidth \relax
+    \par\vspace{6pt}
     \begingroup
     \small
-    \tcbset{colback=white, frame hidden, boxrule=0pt}
 }{%
     \endgroup
   \end{tcolorbox}
@@ -303,8 +302,8 @@
 % Uso: \umlclass{NombreClase}{atributos}{métodos}
 \newcommand{\umlclass}[3]{
   \begin{tcolorbox}[
-    width=\linewidth,
     enhanced,
+    capture=hbox,
     colback=white,
     colframe=eps-primary,
     coltitle=white,
@@ -315,12 +314,13 @@
     arc=3pt,
     drop shadow=eps-gray!20,
     left=6pt, right=6pt, top=4pt, bottom=4pt,
-    before skip=8pt, after skip=8pt
+    before skip=8pt, after skip=8pt,
+    varwidth upper
   ]
     \footnotesize\ttfamily
     \ifblank{#2}{}{%
-      #2
-      \tcblower
+      #2\par\vspace{2pt}
+      {\color{eps-primary}\hrule height 0.5pt}\vspace{2pt}
     }
     #3
   \end{tcolorbox}
@@ -329,8 +329,8 @@
 % Interface UML
 \newcommand{\umlinterface}[2]{
   \begin{tcolorbox}[
-    width=\linewidth,
     enhanced,
+    capture=hbox,
     colback=white,
     colframe=eps-secondary,
     coltitle=white,
@@ -341,7 +341,8 @@
     arc=3pt,
     drop shadow=eps-gray!20,
     left=6pt, right=6pt, top=4pt, bottom=4pt,
-    before skip=8pt, after skip=8pt
+    before skip=8pt, after skip=8pt,
+    varwidth upper
   ]
     \footnotesize\ttfamily
     #2
@@ -551,7 +552,7 @@
 %        id & INT & PK, AUTO\_INCREMENT \\
 %        name & VARCHAR(100) & NOT NULL \\
 %      }
-\newcommand{\dbtable}[2]{%
+\NewEnviron{dbtable}[1]{%
   \begin{tcolorbox}[
     enhanced,
     colback=white,
@@ -568,11 +569,11 @@
   ]
   \small
   % Usamos tabularx para ancho total y columnas adaptables
-  \begin{tabularx}{\linewidth}{@{} l l X @{}}
+  \begin{tabularx}{\linewidth}{@{} c l l X @{}}
     \toprule
-    \textbf{Campo} & \textbf{Tipo} & \textbf{Restricciones} \\
+    & \textbf{Campo} & \textbf{Tipo} & \textbf{Restricciones} \\
     \midrule
-    #2
+    \BODY
     \bottomrule
   \end{tabularx}
   \end{tcolorbox}

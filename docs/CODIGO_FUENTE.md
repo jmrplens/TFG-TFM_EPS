@@ -20,10 +20,11 @@ Esta guía explica cómo incluir código fuente en tu documento usando los entor
 
 ## Introducción
 
-Esta plantilla incluye el paquete `eps-codigo.sty` que proporciona entornos predefinidos para más de **40 lenguajes de programación** con dos temas visuales:
+Esta plantilla incluye el paquete `eps-codigo.sty` que proporciona entornos predefinidos para más de **40 lenguajes de programación** con tres temas visuales:
 
 - **VS Code Light** (fondo claro) - Por defecto
 - **VS Code Dark** (fondo oscuro) - Añadiendo `Dark` al nombre del entorno
+- **Simple** (borde negro, sin colores de fondo) - Usando el entorno `codigosimple`
 
 Cada lenguaje tiene dos variantes:
 - **Con números de línea** - Por defecto
@@ -120,6 +121,8 @@ pip install latexminted
 | Light sin líneas | `\begin{codigoNN}{lenguaje}...\end{codigoNN}` |
 | Dark con líneas | `\begin{codigoDark}{lenguaje}...\end{codigoDark}` |
 | Dark sin líneas | `\begin{codigoDarkNN}{lenguaje}...\end{codigoDarkNN}` |
+| Simple con líneas | `\begin{codigosimple}{lenguaje}{Título}...\end{codigosimple}` |
+| Simple sin líneas | `\begin{codigosimpleNN}{lenguaje}{Título}...\end{codigosimpleNN}` |
 
 ---
 
@@ -143,10 +146,9 @@ for i in range(10):
 
 **Resultado:**
 
-<img src="assets/previews/CODIGO_FUENTE_001.webp" alt="Preview" width="600">
+<img src="assets/previews/CODIGO_FUENTE_001.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/CODIGO_FUENTE_001.pdf)
-
 
 ### Con tema oscuro
 
@@ -165,10 +167,9 @@ def quicksort(arr):
 
 **Resultado:**
 
-<img src="assets/previews/CODIGO_FUENTE_002.webp" alt="Preview" width="600">
+<img src="assets/previews/CODIGO_FUENTE_002.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/CODIGO_FUENTE_002.pdf)
-
 
 ### Sin números de línea
 
@@ -181,10 +182,29 @@ console.log(greeting);
 
 **Resultado:**
 
-<img src="assets/previews/CODIGO_FUENTE_003.webp" alt="Preview" width="600">
+<img src="assets/previews/CODIGO_FUENTE_003.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/CODIGO_FUENTE_003.pdf)
 
+### Estilo Simple (Borde Negro)
+
+Ideal para versiones impresas o cuando se prefiere un estilo minimalista. A diferencia de los otros entornos, este **requiere** que indiques el lenguaje y el título como argumentos obligatorios.
+
+```latex <!-- preview -->
+\begin{codigosimple}{python}{Script de Análisis}
+def calcular_media(datos):
+    """Calcula la media aritmética."""
+    if not datos:
+        return 0
+    return sum(datos) / len(datos)
+\end{codigosimple}
+```
+
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_004.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_004.pdf)
 
 ---
 
@@ -208,10 +228,9 @@ def bubble_sort(arr):
 
 **Resultado:**
 
-<img src="assets/previews/CODIGO_FUENTE_004.webp" alt="Preview" width="600">
+<img src="assets/previews/CODIGO_FUENTE_005.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/CODIGO_FUENTE_004.pdf)
-
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_005.pdf)
 
 ### Caption y etiqueta (para índice de códigos)
 
@@ -233,10 +252,9 @@ def busqueda_binaria(arr, x):
 
 **Resultado:**
 
-<img src="assets/previews/CODIGO_FUENTE_005.webp" alt="Preview" width="600">
+<img src="assets/previews/CODIGO_FUENTE_006.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/CODIGO_FUENTE_005.pdf)
-
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_006.pdf)
 
 Para referenciar: `Como se muestra en el Código~\ref{cod:busqueda-binaria}...`
 
@@ -371,10 +389,9 @@ El comando SQL \mintinline{sql}{SELECT * FROM usuarios} obtiene todos los regist
 
 **Resultado:**
 
-<img src="assets/previews/CODIGO_FUENTE_006.webp" alt="Preview" width="600">
+<img src="assets/previews/CODIGO_FUENTE_007.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/CODIGO_FUENTE_006.pdf)
-
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_007.pdf)
 
 ### Opciones de mintinline
 
@@ -391,10 +408,9 @@ El comando SQL \mintinline{sql}{SELECT * FROM usuarios} obtiene todos los regist
 
 **Resultado:**
 
-<img src="assets/previews/CODIGO_FUENTE_007.webp" alt="Preview" width="600">
+<img src="assets/previews/CODIGO_FUENTE_008.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/CODIGO_FUENTE_007.pdf)
-
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_008.pdf)
 
 ### Crear comando personalizado para inline
 
@@ -410,10 +426,9 @@ La función \py{range(10)} genera números del 0 al 9.
 
 **Resultado:**
 
-<img src="assets/previews/CODIGO_FUENTE_008.webp" alt="Preview" width="600">
+<img src="assets/previews/CODIGO_FUENTE_009.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/CODIGO_FUENTE_008.pdf)
-
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_009.pdf)
 
 ---
 
@@ -435,10 +450,9 @@ def procesar_datos(datos):
 
 **Resultado:**
 
-<img src="assets/previews/CODIGO_FUENTE_009.webp" alt="Preview" width="600">
+<img src="assets/previews/CODIGO_FUENTE_010.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/CODIGO_FUENTE_009.pdf)
-
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_010.pdf)
 
 ### Resaltado con diferentes colores
 
@@ -458,10 +472,9 @@ def ejemplo():
 
 **Resultado:**
 
-<img src="assets/previews/CODIGO_FUENTE_010.webp" alt="Preview" width="600">
+<img src="assets/previews/CODIGO_FUENTE_011.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/CODIGO_FUENTE_010.pdf)
-
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_011.pdf)
 
 ---
 
@@ -680,10 +693,9 @@ def quick_sort(arr):
 
 **Resultado:**
 
-<img src="assets/previews/CODIGO_FUENTE_011.webp" alt="Preview" width="600">
+<img src="assets/previews/CODIGO_FUENTE_012.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/CODIGO_FUENTE_011.pdf)
-
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_012.pdf)
 
 ### Código con explicaciones
 
@@ -715,10 +727,9 @@ que maneja las peticiones GET al endpoint \mintinline{text}{/api/users}.
 
 **Resultado:**
 
-<img src="assets/previews/CODIGO_FUENTE_012.webp" alt="Preview" width="600">
+<img src="assets/previews/CODIGO_FUENTE_013.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/CODIGO_FUENTE_012.pdf)
-
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_013.pdf)
 
 ### Pseudocódigo
 
@@ -747,10 +758,9 @@ DIJKSTRA(G, origen):
 
 **Resultado:**
 
-<img src="assets/previews/CODIGO_FUENTE_013.webp" alt="Preview" width="600">
+<img src="assets/previews/CODIGO_FUENTE_014.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/CODIGO_FUENTE_013.pdf)
-
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_014.pdf)
 
 ---
 

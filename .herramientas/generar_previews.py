@@ -56,6 +56,7 @@ PATRONES_TIPO = {
     # Componentes especializados EPS (deben detectarse primero)
     "component": [
         # Componentes comunes
+        r"\\begin\{condiciones",
         r"\\begin\{infobox",
         r"\\begin\{successbox",
         r"\\begin\{warningbox",
@@ -144,9 +145,15 @@ PATRONES_TIPO = {
         r"\\faultline",
         r"\\anticline",
         r"\\syncline",
+        r"\\strikeanddip",
+        r"\\verticalbeds",
+        r"\\horizontalbeds",
+        r"lito\s+\w+",  # Patrones lito *
         # Componentes de prevención
         r"\\riskmatrix",
+        r"\\begin\{riskmatrixplot",
         r"\\begin\{riskassessment",
+        r"\\riskpoint",
         r"\\begin\{safetychecklist",
         r"\\begin\{epilist",
         r"\\begin\{emergencyprocedure",
@@ -159,13 +166,26 @@ PATRONES_TIPO = {
         r"\\indicatorIG",
         r"\\indicatorDaysSafe",
     ],
+    "bibliography_ieee": [
+        r"% bibstyle: ieee",
+    ],
+    "bibliography": [
+        r"\\parencite",
+        r"\\textcite",
+        r"\\cite",
+        r"\\citet",
+        r"\\citep",
+        r"\\printbibliography",
+        r"\\addbibresource",
+        r"\\nocite",
+    ],
     "equation": [
         r"\\begin\{equation",
         r"\\begin\{align",
         r"\\begin\{gather",
         r"\\begin\{multline",
         r"\\begin\{cases",
-        r"\\\[",
+        r"(?<!\\)\\\[",
         r"\\frac\{",
         r"\\sum",
         r"\\int",
@@ -228,14 +248,7 @@ PATRONES_TIPO = {
         r"\\begin\{wrapfigure",
         r"example-image",
     ],
-    "bibliography": [
-        r"\\parencite",
-        r"\\textcite",
-        r"\\cite\{",
-        r"\\citet\{",
-        r"\\citep\{",
-        r"\\printbibliography",
-    ],
+    # bibliography check moved to top priority
     "crossref": [
         r"\\ref\{",
         r"\\pageref",
@@ -351,9 +364,9 @@ class Manifest:
 def generar_preambulo(tipo: str) -> str:
     """Genera el preámbulo LaTeX apropiado según el tipo de contenido."""
 
-    # Preámbulo base común - usar varwidth más pequeño para evitar "dimension too large"
+    # Preámbulo base común - usar varwidth A4 (21cm) para mantener proporción
     base = r"""
-\documentclass[preview, border=10pt, varwidth=15cm]{standalone}
+\documentclass[preview, border=10pt, varwidth=21cm]{standalone}
 
 % Codificación y fuentes
 \usepackage{fontspec}
@@ -366,6 +379,7 @@ def generar_preambulo(tipo: str) -> str:
 \usepackage{mathtools}
 \usepackage{bm}         % Negrita en matemáticas
 \usepackage{cancel}     % Tachar términos
+\usepackage{nicefrac}   % Fracciones inclinadas
 
 % Colores con nombres extendidos
 \usepackage[dvipsnames, svgnames, x11names]{xcolor}
@@ -400,10 +414,22 @@ def generar_preambulo(tipo: str) -> str:
 \newtheorem{ejemplo}{Ejemplo}
 \newtheorem{remark}{Observación}
 \newtheorem{observacion}{Observación}
-\newtheorem{condiciones}{Condiciones}
 
 % Para casos/condiciones
 \usepackage{cases}
+\usepackage{tabularx}
+\usepackage{array}
+
+% Entorno condiciones (copiado de eps-tfg.cls para preview)
+\let\condiciones\undefined
+\let\endcondiciones\undefined
+\newenvironment{condiciones}[1][donde:]
+  {%
+   #1\tabularx{\textwidth-\widthof{#1}}[t]{
+     >{$}l<{$} @{\quad} >{\raggedright\arraybackslash}X
+   }%
+  }
+  {\endtabularx\\[\belowdisplayskip]}
 """,
         "table": r"""
 % Tablas
@@ -492,6 +518,7 @@ def generar_preambulo(tipo: str) -> str:
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{caption}
+\captionsetup{justification=centering}
 \usepackage{float}
 \usepackage{rotating}
 \usepackage{mwe}  % Para example-image placeholders
@@ -501,6 +528,7 @@ def generar_preambulo(tipo: str) -> str:
 \usepackage{minted}
 \usepackage{tcolorbox}
 \tcbuselibrary{minted, skins, breakable, listings}
+\usepackage{fontawesome5}
 
 % Configuración minted
 \setminted{
@@ -512,110 +540,142 @@ def generar_preambulo(tipo: str) -> str:
     framesep=2mm,
 }
 
-% Entornos personalizados de la plantilla (completos)
-\newtcblisting{pythoncode}[1][]{
-    listing engine=minted,
-    minted language=python,
-    minted style=default,
-    colback=gray!5,
-    colframe=gray!75!black,
-    listing only,
-    left=5mm,
+% Colores
+\definecolor{vscode-bg}{HTML}{FFFFFF}
+\definecolor{vscode-border}{HTML}{E5E5E5}
+\definecolor{vscode-titlebar}{HTML}{F3F3F3}
+\definecolor{vscode-titletext}{HTML}{616161}
+\definecolor{vscode-linenos}{HTML}{237893}
+
+\definecolor{vscode-dark-bg}{HTML}{1E1E1E}
+\definecolor{vscode-dark-border}{HTML}{3C3C3C}
+\definecolor{vscode-dark-titlebar}{HTML}{252526}
+\definecolor{vscode-dark-text}{HTML}{CCCCCC}
+\definecolor{vscode-dark-linenos}{HTML}{CCCCCC}
+
+\definecolor{macos-red}{HTML}{FF5F56}
+\definecolor{macos-yellow}{HTML}{FFBD2E}
+\definecolor{macos-green}{HTML}{27C93F}
+
+% Estilos Base (Moderno)
+\tcbset{
+  vscode-light-base/.style={
     enhanced,
-    #1
+    breakable,
+    colback=vscode-bg,
+    colframe=vscode-border,
+    coltitle=vscode-titletext,
+    colbacktitle=vscode-titlebar,
+    arc=6pt,
+    boxrule=0.5pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    listing only,
+    listing engine=minted,
+    fonttitle=\small\ttfamily\bfseries,
+    toptitle=4pt,
+    bottomtitle=4pt,
+    halign title=center,
+    drop shadow=black!05,
+    overlay={
+        \draw[fill=macos-red,draw=none] ([xshift=10pt]frame.north west) ++(0,-9pt) circle (2.5pt);
+        \draw[fill=macos-yellow,draw=none] ([xshift=20pt]frame.north west) ++(0,-9pt) circle (2.5pt);
+        \draw[fill=macos-green,draw=none] ([xshift=30pt]frame.north west) ++(0,-9pt) circle (2.5pt);
+    }
+  },
+  vscode-light-linenos/.style={
+    vscode-light-base,
+    before upper={\setminted{linenos,numbersep=6pt,fontsize=\small,xleftmargin=1.5em}\renewcommand{\theFancyVerbLine}{\ttfamily\textcolor{vscode-linenos}{\scriptsize\arabic{FancyVerbLine}}}},
+  },
+  vscode-light-nolinenos/.style={
+    vscode-light-base,
+    before upper={\setminted{fontsize=\small,linenos=false,xleftmargin=0pt}},
+  },
+  vscode-dark-base/.style={
+    enhanced,
+    breakable,
+    colback=vscode-dark-bg,
+    colframe=vscode-dark-border,
+    coltitle=vscode-dark-text,
+    colbacktitle=vscode-dark-titlebar,
+    arc=6pt,
+    boxrule=0.5pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    listing only,
+    listing engine=minted,
+    fonttitle=\small\ttfamily\bfseries,
+    toptitle=4pt,
+    bottomtitle=4pt,
+    drop shadow=black!25,
+    halign title=center,
+    overlay={
+        \draw[fill=macos-red,draw=none] ([xshift=10pt]frame.north west) ++(0,-9pt) circle (2.5pt);
+        \draw[fill=macos-yellow,draw=none] ([xshift=20pt]frame.north west) ++(0,-9pt) circle (2.5pt);
+        \draw[fill=macos-green,draw=none] ([xshift=30pt]frame.north west) ++(0,-9pt) circle (2.5pt);
+    }
+  },
+  vscode-dark-linenos/.style={
+    vscode-dark-base,
+    before upper={\setminted{linenos,numbersep=6pt,fontsize=\small,xleftmargin=1.5em,style=monokai}\renewcommand{\theFancyVerbLine}{\ttfamily\textcolor{vscode-dark-linenos}{\scriptsize\arabic{FancyVerbLine}}}},
+  },
+  vscode-dark-nolinenos/.style={
+    vscode-dark-base,
+    before upper={\setminted{fontsize=\small,style=monokai,linenos=false,xleftmargin=0pt}},
+  },
+  simple-base/.style={
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=black,
+    coltitle=black,
+    colbacktitle=white!95!black,
+    arc=0pt,
+    boxrule=0.5pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    listing only,
+    listing engine=minted,
+    fonttitle=\small\ttfamily\bfseries,
+    toptitle=4pt,
+    bottomtitle=4pt,
+    halign title=left,
+  },
+  simple-linenos/.style={
+    simple-base,
+    before upper={\setminted{linenos,numbersep=6pt,fontsize=\small,xleftmargin=1.5em}\renewcommand{\theFancyVerbLine}{\ttfamily\textcolor{black}{\scriptsize\arabic{FancyVerbLine}}}},
+  },
+  simple-nolinenos/.style={
+    simple-base,
+    before upper={\setminted{linenos=false,fontsize=\small,xleftmargin=0pt}},
+  },
 }
 
-\newtcblisting{pythoncodeNN}[1][]{
-    listing engine=minted,
-    minted language=python,
-    minted style=default,
-    minted options={linenos=false},
-    colback=gray!5,
-    colframe=gray!75!black,
-    listing only,
-    enhanced,
-    #1
-}
+% Entornos Personalizados Estilo Simple
+\newtcblisting{codigosimple}[3][]{simple-linenos,minted language=#2,title={#3},#1}
+\newtcblisting{codigosimpleNN}[3][]{simple-nolinenos,minted language=#2,title={#3},#1}
 
-\newtcblisting{pythoncodeDark}[1][]{
-    listing engine=minted,
-    minted language=python,
-    minted style=monokai,
-    colback=gray!90!black,
-    colframe=gray!50!black,
-    listing only,
-    left=5mm,
-    enhanced,
-    #1
-}
+% Entornos personalizados
+\newtcblisting{pythoncode}[1][]{vscode-light-linenos, minted language=python, title={\faIcon{python}~~Python}, #1}
+\newtcblisting{pythoncodeNN}[1][]{vscode-light-nolinenos, minted language=python, title={\faIcon{python}~~Python}, #1}
 
-\newtcblisting{pythoncodeDarkNN}[1][]{
-    listing engine=minted,
-    minted language=python,
-    minted style=monokai,
-    minted options={linenos=false},
-    colback=gray!90!black,
-    colframe=gray!50!black,
-    listing only,
-    enhanced,
-    #1
-}
+\newtcblisting{pythoncodeDark}[1][]{vscode-dark-linenos, minted language=python, title={\faIcon{python}~~Python}, #1}
+\newtcblisting{pythoncodeDarkNN}[1][]{vscode-dark-nolinenos, minted language=python, title={\faIcon{python}~~Python}, #1}
 
-\newtcblisting{jscode}[1][]{
-    listing engine=minted,
-    minted language=javascript,
-    colback=yellow!5,
-    colframe=yellow!75!black,
-    listing only,
-    left=5mm,
-    enhanced,
-    #1
-}
+\newtcblisting{jscode}[1][]{vscode-light-linenos, minted language=javascript, title={\faIcon{js-square}~~JavaScript}, #1}
+\newtcblisting{jscodeNN}[1][]{vscode-light-nolinenos, minted language=javascript, title={\faIcon{js-square}~~JavaScript}, #1}
 
-\newtcblisting{jscodeNN}[1][]{
-    listing engine=minted,
-    minted language=javascript,
-    minted options={linenos=false},
-    colback=yellow!5,
-    colframe=yellow!75!black,
-    listing only,
-    enhanced,
-    #1
-}
+\newtcblisting{cppcode}[1][]{vscode-light-linenos, minted language=cpp, title={\faIcon{copyright}~~C++}, #1}
+\newtcblisting{cppcodeNN}[1][]{vscode-light-nolinenos, minted language=cpp, title={\faIcon{copyright}~~C++}, #1}
 
-\newtcblisting{cppcode}[1][]{
-    listing engine=minted,
-    minted language=cpp,
-    colback=blue!5,
-    colframe=blue!75!black,
-    listing only,
-    left=5mm,
-    enhanced,
-    #1
-}
-
-\newtcblisting{cppcodeNN}[1][]{
-    listing engine=minted,
-    minted language=cpp,
-    minted options={linenos=false},
-    colback=blue!5,
-    colframe=blue!75!black,
-    listing only,
-    enhanced,
-    #1
-}
-
-% Entorno genérico para cualquier lenguaje
-\newtcblisting{codigo}[2][]{
-    listing engine=minted,
-    minted language=#2,
-    colback=gray!5,
-    colframe=gray!75!black,
-    listing only,
-    left=5mm,
-    enhanced,
-    #1
-}
+% Entorno genérico simple
+\newtcblisting{codigo}[2][]{vscode-light-linenos, minted language=#2, title={\faIcon{code}~~#2}, #1}
 """,
         "image": r"""
 % Imágenes
@@ -646,14 +706,17 @@ def generar_preambulo(tipo: str) -> str:
 \usepackage{mwe}
 """,
         "bibliography": r"""
-% Para simular bibliografía sin biber
-\newcommand{\parencite}[2][]{\textup{(#2, 2024)}}
-\newcommand{\textcite}[2][]{#2 (2024)}
-\newcommand{\cite}[2][]{[#2]}
-\newcommand{\citet}[2][]{#2 (2024)}
-\newcommand{\citep}[2][]{(#2, 2024)}
-\newcommand{\citeauthor}[1]{#1}
-\newcommand{\citeyear}[1]{2024}
+% Bibliografía real con BibLaTeX (APA)
+\usepackage[backend=biber, style=apa, sorting=nyt, natbib=true, hyperref=false]{biblatex}
+\IfFileExists{referencias.bib}{\addbibresource{referencias.bib}}{}
+% Para evitar errores si falta el .bib en compilación parcial
+\defbibheading{bibliography}[\refname]{} 
+""",
+        "bibliography_ieee": r"""
+% Bibliografía real con BibLaTeX (IEEE)
+\usepackage[backend=biber, style=ieee, sorting=none, natbib=true, hyperref=false]{biblatex}
+\IfFileExists{referencias.bib}{\addbibresource{referencias.bib}}{}
+\defbibheading{bibliography}[\refname]{}
 """,
         "crossref": r"""
 % Referencias cruzadas simuladas
@@ -741,6 +804,17 @@ def generar_preambulo(tipo: str) -> str:
 
 % Cargar TODOS los componentes
 \usepackage[all]{eps-componentes}
+
+% Entorno condiciones (copiado de eps-tfg.cls para preview)
+\let\condiciones\undefined
+\let\endcondiciones\undefined
+\newenvironment{condiciones}[1][donde:]
+  {%
+   #1\tabularx{\textwidth-\widthof{#1}}[t]{
+     >{$}l<{$} @{\quad} >{\raggedright\arraybackslash}X
+   }%
+  }
+  {\endtabularx\\[\belowdisplayskip]}
 """,
     }
 
@@ -753,7 +827,7 @@ def generar_preambulo_combinado(tipos: list[str]) -> str:
     """Genera un preámbulo combinando múltiples tipos de contenido."""
     # Evitar duplicados de paquetes usando el preámbulo base + extensiones únicas
     base = r"""
-\documentclass[preview, border=10pt, varwidth=15cm]{standalone}
+\documentclass[preview, border=10pt, varwidth=21cm]{standalone}
 
 % Codificación y fuentes
 \usepackage{fontspec}
@@ -764,6 +838,16 @@ def generar_preambulo_combinado(tipos: list[str]) -> str:
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{mathtools}
+\usepackage{bm}
+\usepackage{mathrsfs}
+\usepackage{nicefrac}   % Fracciones inclinadas
+
+% Texto y formato
+\usepackage{ragged2e}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{soul}
+\usepackage{xcolor}
 
 % Colores
 \usepackage{xcolor}
@@ -777,6 +861,10 @@ def generar_preambulo_combinado(tipos: list[str]) -> str:
     preambulo_extra = ""
     
     for tipo in tipos:
+        # Si se detecta estilo IEEE, ignorar el estilo APA por defecto
+        if tipo == "bibliography" and "bibliography_ieee" in tipos:
+            continue
+            
         ext = generar_preambulo(tipo).split("\\usepackage[draft]{hyperref}")[-1]
         if ext and ext not in extensiones_usadas:
             extensiones_usadas.add(ext)
@@ -818,6 +906,7 @@ def generar_documento(snippet: Snippet) -> str:
     if "\\begin{multline" in codigo:
         codigo = f"\\noindent\n{codigo}"
 
+    # Envolver en minipage para forzar el ancho A4
     documento = f"""% Generado automáticamente - NO EDITAR
 % Origen: {snippet.archivo_origen}:{snippet.linea_inicio}
 % Tipo: {snippet.tipo}
@@ -826,7 +915,9 @@ def generar_documento(snippet: Snippet) -> str:
 {preambulo}
 
 \\begin{{document}}
+\\begin{{minipage}}{{21cm}}
 {codigo}
+\\end{{minipage}}
 \\end{{document}}
 """
     return documento
@@ -960,22 +1051,44 @@ def compilar_snippet(snippet: Snippet, verbose: bool = False) -> bool:
         nuevos_paths = f"{sty_path}:{sty_componentes_path}"
         env["TEXINPUTS"] = f"{nuevos_paths}:{texinputs}:" if texinputs else f"{nuevos_paths}:"
 
+        # Detectar si se requiere Biber (bibliografía)
+        tipos = detectar_tipos_necesarios(snippet.codigo)
+        usar_biber = "bibliography" in tipos or "bibliography_ieee" in tipos
+
+        # Copiar referencias.bib si es necesario
+        if usar_biber:
+            bib_file = PROYECTO_ROOT / "referencias.bib"
+            if bib_file.exists():
+                shutil.copy(bib_file, tmpdir / "referencias.bib")
+
         try:
-            # Compilar el número de pasadas requerido
-            for pasada in range(snippet.pasadas):
+            # Flujo de compilación
+            pasos = []
+            if usar_biber:
+                # Flujo completo con biber
+                pasos = [
+                    (cmd, "lualatex 1"),
+                    (["biber", "snippet"], "biber"),
+                    (cmd, "lualatex 2"),
+                    (cmd, "lualatex 3")
+                ]
+            else:
+                # Flujo estándar
+                pasos = [(cmd, f"lualatex {i+1}") for i in range(snippet.pasadas)]
+
+            for comando, desc in pasos:
                 result = subprocess.run(
-                    cmd,
+                    comando,
                     cwd=tmpdir,
                     capture_output=True,
                     text=True,
-                    timeout=120,  # Aumentar timeout para componentes complejos
+                    timeout=120,
                     env=env,
                 )
 
                 if result.returncode != 0:
                     if verbose:
-                        print(f"    Error de compilación (pasada {pasada + 1}):")
-                        # Mostrar últimas líneas relevantes del log
+                        print(f"    Error de compilación ({desc}):")
                         for line in result.stdout.split("\n")[-30:]:
                             if line.strip():
                                 print(f"      {line}")

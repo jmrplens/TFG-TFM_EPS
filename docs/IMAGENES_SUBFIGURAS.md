@@ -171,10 +171,9 @@ El entorno `figure` permite:
 
 **Resultado:**
 
-<img src="assets/previews/IMAGENES_SUBFIGURAS_001.webp" alt="Preview" width="600">
+<img src="assets/previews/IMAGENES_SUBFIGURAS_001.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_001.pdf)
-
 
 ### Referenciar figuras
 
@@ -201,10 +200,9 @@ La \autoref{fig:mi-figura} ilustra el proceso.
 
 **Resultado:**
 
-<img src="assets/previews/IMAGENES_SUBFIGURAS_002.webp" alt="Preview" width="600">
+<img src="assets/previews/IMAGENES_SUBFIGURAS_002.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_002.pdf)
-
 
 ### Personalizar caption
 
@@ -272,10 +270,9 @@ La \autoref{fig:mi-figura} ilustra el proceso.
 
 **Resultado:**
 
-<img src="assets/previews/IMAGENES_SUBFIGURAS_002.webp" alt="Preview" width="600">
+<img src="assets/previews/IMAGENES_SUBFIGURAS_003.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_002.pdf)
-
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_003.pdf)
 
 ### Tres subfiguras
 
@@ -309,10 +306,9 @@ La \autoref{fig:mi-figura} ilustra el proceso.
 
 **Resultado:**
 
-<img src="assets/previews/IMAGENES_SUBFIGURAS_003.webp" alt="Preview" width="600">
+<img src="assets/previews/IMAGENES_SUBFIGURAS_004.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_003.pdf)
-
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_004.pdf)
 
 ### Cuadrícula 2x2
 
@@ -351,10 +347,9 @@ La \autoref{fig:mi-figura} ilustra el proceso.
 
 **Resultado:**
 
-<img src="assets/previews/IMAGENES_SUBFIGURAS_005.webp" alt="Preview" width="600">
+<img src="assets/previews/IMAGENES_SUBFIGURAS_005.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_005.pdf)
-
 
 ### Subfiguras con diferentes tamaños
 
@@ -394,10 +389,9 @@ La \autoref{fig:mi-figura} ilustra el proceso.
 
 **Resultado:**
 
-<img src="assets/previews/IMAGENES_SUBFIGURAS_006.webp" alt="Preview" width="600">
+<img src="assets/previews/IMAGENES_SUBFIGURAS_006.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_006.pdf)
-
 
 ### Personalizar numeración de subfiguras
 
@@ -461,10 +455,9 @@ Ver Figuras~\ref{fig:antes} y \ref{fig:despues}.
 
 **Resultado:**
 
-<img src="assets/previews/IMAGENES_SUBFIGURAS_007.webp" alt="Preview" width="600">
+<img src="assets/previews/IMAGENES_SUBFIGURAS_007.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_007.pdf)
-
 
 ### Controlar flotantes
 
@@ -557,10 +550,9 @@ una vez que pase la imagen.
 
 **Resultado:**
 
-<img src="assets/previews/IMAGENES_SUBFIGURAS_007.webp" alt="Preview" width="600">
+<img src="assets/previews/IMAGENES_SUBFIGURAS_008.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_007.pdf)
-
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_008.pdf)
 
 ### Opciones de wrapfigure
 
@@ -634,10 +626,9 @@ una vez que pase la imagen.
 
 **Resultado:**
 
-<img src="assets/previews/IMAGENES_SUBFIGURAS_008.webp" alt="Preview" width="600">
+<img src="assets/previews/IMAGENES_SUBFIGURAS_009.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_008.pdf)
-
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_009.pdf)
 
 ### Personalizar el borde
 
@@ -663,10 +654,9 @@ una vez que pase la imagen.
 
 **Resultado:**
 
-<img src="assets/previews/IMAGENES_SUBFIGURAS_009.webp" alt="Preview" width="600">
+<img src="assets/previews/IMAGENES_SUBFIGURAS_010.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_009.pdf)
-
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_010.pdf)
 
 ### Sombra con TikZ
 
@@ -690,10 +680,9 @@ una vez que pase la imagen.
 
 **Resultado:**
 
-<img src="assets/previews/IMAGENES_SUBFIGURAS_010.webp" alt="Preview" width="600">
+<img src="assets/previews/IMAGENES_SUBFIGURAS_011.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_010.pdf)
-
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_011.pdf)
 
 ### Marco decorativo con tcolorbox
 
@@ -718,10 +707,9 @@ una vez que pase la imagen.
 
 **Resultado:**
 
-<img src="assets/previews/IMAGENES_SUBFIGURAS_011.webp" alt="Preview" width="600">
+<img src="assets/previews/IMAGENES_SUBFIGURAS_012.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_011.pdf)
-
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_012.pdf)
 
 ---
 

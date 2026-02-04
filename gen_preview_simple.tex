@@ -1,0 +1,23 @@
+\documentclass[varwidth=17cm, border={10pt 10pt 10pt 10pt}]{standalone}
+\usepackage{fontspec}
+\usepackage{sty/eps-codigo}
+
+\begin{document}
+\begin{codigosimple}{python}{Ejemplo de Caja Simple}
+def calcular_fibonacci(n):
+    """Calcula la sucesión de Fibonacci"""
+    if n <= 0:
+        return []
+    elif n == 1:
+        return [0]
+    
+    fib = [0, 1]
+    while len(fib) < n:
+        fib.append(fib[-1] + fib[-2])
+    return fib
+
+# Ejemplo de uso
+resultado = calcular_fibonacci(10)
+print(f"Fibonacci: {resultado}")
+\end{codigosimple}
+\end{document}

@@ -46,10 +46,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/infobox.webp" alt="Preview" width="600">
+<img src="assets/previews/infobox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/infobox.pdf)
-
 
 ---
 
@@ -63,10 +62,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/successbox.webp" alt="Preview" width="600">
+<img src="assets/previews/successbox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/successbox.pdf)
-
 
 ---
 
@@ -80,10 +78,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/warningbox.webp" alt="Preview" width="600">
+<img src="assets/previews/warningbox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/warningbox.pdf)
-
 
 ---
 
@@ -97,10 +94,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/dangerbox.webp" alt="Preview" width="600">
+<img src="assets/previews/dangerbox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/dangerbox.pdf)
-
 
 ---
 
@@ -114,10 +110,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/tipbox.webp" alt="Preview" width="600">
+<img src="assets/previews/tipbox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/tipbox.pdf)
-
 
 ---
 
@@ -131,10 +126,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/notebox.webp" alt="Preview" width="600">
+<img src="assets/previews/notebox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/notebox.pdf)
-
 
 ---
 
@@ -150,10 +144,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/titlebox.webp" alt="Preview" width="600">
+<img src="assets/previews/titlebox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/titlebox.pdf)
-
 
 ---
 
@@ -167,10 +160,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/definitionbox.webp" alt="Preview" width="600">
+<img src="assets/previews/definitionbox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/definitionbox.pdf)
-
 
 ---
 
@@ -184,10 +176,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/examplebox.webp" alt="Preview" width="600">
+<img src="assets/previews/examplebox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/examplebox.pdf)
-
 
 ---
 
@@ -201,10 +192,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/importantbox.webp" alt="Preview" width="600">
+<img src="assets/previews/importantbox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/importantbox.pdf)
-
 
 ---
 
@@ -222,10 +212,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/checklist.webp" alt="Preview" width="231">
+<img src="assets/previews/checklist.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/checklist.pdf)
-
 
 ---
 
@@ -242,10 +231,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/proscons.webp" alt="Preview" width="211">
+<img src="assets/previews/proscons.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/proscons.pdf)
-
 
 ---
 
@@ -262,10 +250,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/steplist.webp" alt="Preview" width="208">
+<img src="assets/previews/steplist.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/steplist.pdf)
-
 
 ---
 
@@ -282,10 +269,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/badges.webp" alt="Preview" width="340">
+<img src="assets/previews/badges.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/badges.pdf)
-
 
 ---
 
@@ -297,10 +283,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/badges_predefinidos.webp" alt="Preview" width="364">
+<img src="assets/previews/badges_predefinidos.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/badges_predefinidos.pdf)
-
 
 ---
 
@@ -312,10 +297,9 @@ Se cargan siempre automáticamente con cualquier opción.
 
 **Resultado:**
 
-<img src="assets/previews/version.webp" alt="Preview" width="226">
+<img src="assets/previews/version.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/version.pdf)
-
 
 ---
 
@@ -327,10 +311,9 @@ Progreso: \progressbar{25} \quad \progressbar{50} \quad \progressbar{75}
 
 **Resultado:**
 
-<img src="assets/previews/progressbar.webp" alt="Preview" width="568">
+<img src="assets/previews/progressbar.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/progressbar.pdf)
-
 
 ---
 
@@ -342,10 +325,9 @@ Rating: \rating{3}{5} \quad \rating{4}{5} \quad \rating{5}{5}
 
 **Resultado:**
 
-<img src="assets/previews/rating.webp" alt="Preview" width="337">
+<img src="assets/previews/rating.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/rating.pdf)
-
 
 ---
 
@@ -357,10 +339,9 @@ Nivel: \levelbar{2}{5} \quad \levelbar{4}{5} \quad \levelbar{5}{5}
 
 **Resultado:**
 
-<img src="assets/previews/levelbar.webp" alt="Preview" width="318">
+<img src="assets/previews/levelbar.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/levelbar.pdf)
-
 
 ---
 
@@ -379,10 +360,9 @@ Nivel: \levelbar{2}{5} \quad \levelbar{4}{5} \quad \levelbar{5}{5}
 
 **Resultado:**
 
-<img src="assets/previews/timeline.webp" alt="Preview" width="600">
+<img src="assets/previews/timeline.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/timeline.pdf)
-
 
 ---
 
@@ -398,10 +378,9 @@ Nivel: \levelbar{2}{5} \quad \levelbar{4}{5} \quad \levelbar{5}{5}
 
 **Resultado:**
 
-<img src="assets/previews/quotebox.webp" alt="Preview" width="600">
+<img src="assets/previews/quotebox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/quotebox.pdf)
-
 
 ---
 
@@ -417,10 +396,9 @@ Nivel: \levelbar{2}{5} \quad \levelbar{4}{5} \quad \levelbar{5}{5}
 
 **Resultado:**
 
-<img src="assets/previews/comparison.webp" alt="Preview" width="600">
+<img src="assets/previews/comparison.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/comparison.pdf)
-
 
 ---
 
@@ -432,10 +410,9 @@ Nivel: \levelbar{2}{5} \quad \levelbar{4}{5} \quad \levelbar{5}{5}
 
 **Resultado:**
 
-<img src="assets/previews/personcard.webp" alt="Preview" width="284">
+<img src="assets/previews/personcard.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/personcard.pdf)
-
 
 ---
 
@@ -447,10 +424,9 @@ Nivel: \levelbar{2}{5} \quad \levelbar{4}{5} \quad \levelbar{5}{5}
 
 **Resultado:**
 
-<img src="assets/previews/statcard.webp" alt="Preview" width="200">
+<img src="assets/previews/statcard.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/statcard.pdf)
-
 
 ---
 
@@ -471,10 +447,9 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 
 **Resultado:**
 
-<img src="assets/previews/apiendpoint_get.webp" alt="Preview" width="600">
+<img src="assets/previews/apiendpoint_get.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/apiendpoint_get.pdf)
-
 
 ---
 
@@ -489,10 +464,9 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 
 **Resultado:**
 
-<img src="assets/previews/apiendpoint_post.webp" alt="Preview" width="600">
+<img src="assets/previews/apiendpoint_post.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/apiendpoint_post.pdf)
-
 
 ---
 
@@ -504,10 +478,9 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 
 **Resultado:**
 
-<img src="assets/previews/http_methods.webp" alt="Preview" width="355">
+<img src="assets/previews/http_methods.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/http_methods.pdf)
-
 
 ---
 
@@ -525,10 +498,9 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 
 **Resultado:**
 
-<img src="assets/previews/terminal.webp" alt="Preview" width="600">
+<img src="assets/previews/terminal.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/terminal.pdf)
-
 
 ---
 
@@ -551,10 +523,9 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 
 **Resultado:**
 
-<img src="assets/previews/dirtreebox.webp" alt="Preview" width="300">
+<img src="assets/previews/dirtreebox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/dirtreebox.pdf)
-
 
 ---
 
@@ -573,10 +544,9 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 
 **Resultado:**
 
-<img src="assets/previews/dbtable.webp" alt="Preview" width="600">
+<img src="assets/previews/dbtable.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/dbtable.pdf)
-
 
 ---
 
@@ -596,10 +566,9 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 
 **Resultado:**
 
-<img src="assets/previews/umlclass.webp" alt="Preview" width="600">
+<img src="assets/previews/umlclass.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/umlclass.pdf)
-
 
 ---
 
@@ -617,10 +586,9 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 
 **Resultado:**
 
-<img src="assets/previews/git_branches.webp" alt="Preview" width="278">
+<img src="assets/previews/git_branches.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/git_branches.pdf)
-
 
 ---
 
@@ -632,10 +600,9 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 
 **Resultado:**
 
-<img src="assets/previews/gitcommit.webp" alt="Preview" width="316">
+<img src="assets/previews/gitcommit.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/gitcommit.pdf)
-
 
 ---
 
@@ -653,10 +620,9 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 
 **Resultado:**
 
-<img src="assets/previews/logbox.webp" alt="Preview" width="600">
+<img src="assets/previews/logbox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/logbox.pdf)
-
 
 ---
 
@@ -672,10 +638,9 @@ DEBUG=true
 
 **Resultado:**
 
-<img src="assets/previews/configbox.webp" alt="Preview" width="600">
+<img src="assets/previews/configbox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/configbox.pdf)
-
 
 ---
 
@@ -689,10 +654,9 @@ DEBUG=true
 
 **Resultado:**
 
-<img src="assets/previews/metricbox.webp" alt="Preview" width="200">
+<img src="assets/previews/metricbox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/metricbox.pdf)
-
 
 ---
 
@@ -709,10 +673,9 @@ DEBUG=true
 
 **Resultado:**
 
-<img src="assets/previews/benchmark.webp" alt="Preview" width="600">
+<img src="assets/previews/benchmark.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/benchmark.pdf)
-
 
 ---
 
@@ -734,10 +697,9 @@ Cargar con: `\usepackage[telecom]{eps-componentes}`
 
 **Resultado:**
 
-<img src="assets/previews/smithchart.webp" alt="Preview" width="400">
+<img src="assets/previews/smithchart.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/smithchart.pdf)
-
 
 ---
 
@@ -746,20 +708,19 @@ Cargar con: `\usepackage[telecom]{eps-componentes}`
 #### `constellation` - Diagrama de constelación
 
 ```latex <!-- preview constellation -->
-\begin{constellation}[Constelación QPSK]
+\begin{constellationbox}[Constelación QPSK]
   \constpoint{1}{1}{00}
   \constpoint{-1}{1}{01}
   \constpoint{-1}{-1}{11}
   \constpoint{1}{-1}{10}
-\end{constellation}
+\end{constellationbox}
 ```
 
 **Resultado:**
 
-<img src="assets/previews/constellation.webp" alt="Preview" width="293">
+<img src="assets/previews/constellation.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/constellation.pdf)
-
 
 ---
 
@@ -781,10 +742,9 @@ Tabla estilo booktabs con indicadores de conformidad.
 
 **Resultado:**
 
-<img src="assets/previews/sparameters.webp" alt="Preview" width="600">
+<img src="assets/previews/sparameters.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/sparameters.pdf)
-
 
 ---
 
@@ -806,10 +766,9 @@ Tabla estilo booktabs con indicadores de conformidad.
 
 **Resultado:**
 
-<img src="assets/previews/blockdiagram.webp" alt="Preview" width="447">
+<img src="assets/previews/blockdiagram.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/blockdiagram.pdf)
-
 
 ---
 
@@ -830,10 +789,9 @@ Tabla estilo booktabs con indicadores de conformidad.
 
 **Resultado:**
 
-<img src="assets/previews/fsmdiagram.webp" alt="Preview" width="200">
+<img src="assets/previews/fsmdiagram.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/fsmdiagram.pdf)
-
 
 ---
 
@@ -868,10 +826,9 @@ Diagrama de trama con regla de bits, soporte para múltiples filas y campos de l
 
 **Resultado:**
 
-<img src="assets/previews/protocolframe.webp" alt="Preview" width="600">
+<img src="assets/previews/protocolframe.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/protocolframe.pdf)
-
 
 ---
 
@@ -893,10 +850,9 @@ Tabla de especificaciones estilo datasheet con soporte para rangos y valores min
 
 **Resultado:**
 
-<img src="assets/previews/rfspecs.webp" alt="Preview" width="600">
+<img src="assets/previews/rfspecs.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/rfspecs.pdf)
-
 
 ---
 
@@ -923,10 +879,9 @@ Tabla de propiedades estilo booktabs con soporte para secciones.
 
 **Resultado:**
 
-<img src="assets/previews/techsheet.webp" alt="Preview" width="600">
+<img src="assets/previews/techsheet.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/techsheet.pdf)
-
 
 ---
 
@@ -952,10 +907,9 @@ Tabla de presupuesto estilo booktabs con soporte para capítulos, partidas, subt
 
 **Resultado:**
 
-<img src="assets/previews/presupuesto.webp" alt="Preview" width="600">
+<img src="assets/previews/presupuesto.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/presupuesto.pdf)
-
 
 ---
 
@@ -976,10 +930,9 @@ Lista de normativa con indicadores de vigencia.
 
 **Resultado:**
 
-<img src="assets/previews/normativa.webp" alt="Preview" width="600">
+<img src="assets/previews/normativa.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/normativa.pdf)
-
 
 ---
 
@@ -998,10 +951,9 @@ Lista de normativa con indicadores de vigencia.
 
 **Resultado:**
 
-<img src="assets/previews/leyenda.webp" alt="Preview" width="600">
+<img src="assets/previews/leyenda.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/leyenda.pdf)
-
 
 ---
 
@@ -1019,10 +971,9 @@ Lista de normativa con indicadores de vigencia.
 
 **Resultado:**
 
-<img src="assets/previews/certificaciones.webp" alt="Preview" width="547">
+<img src="assets/previews/certificaciones.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/certificaciones.pdf)
-
 
 ---
 
@@ -1050,10 +1001,9 @@ Tabla estilo booktabs con soporte para plantas y subtotales.
 
 **Resultado:**
 
-<img src="assets/previews/superficies.webp" alt="Preview" width="600">
+<img src="assets/previews/superficies.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/superficies.pdf)
-
 
 ---
 
@@ -1075,10 +1025,9 @@ Cargar con: `\usepackage[quimica]{eps-componentes}`
 
 **Resultado:**
 
-<img src="assets/previews/reactionbox.webp" alt="Preview" width="600">
+<img src="assets/previews/reactionbox.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/reactionbox.pdf)
-
 
 ---
 
@@ -1101,10 +1050,9 @@ Tabla estilo booktabs con soporte para secciones y propiedades con incertidumbre
 
 **Resultado:**
 
-<img src="assets/previews/proptable.webp" alt="Preview" width="600">
+<img src="assets/previews/proptable.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/proptable.pdf)
-
 
 ---
 
@@ -1128,10 +1076,9 @@ Tabla de resultados con indicadores de conformidad y soporte para grupos.
 
 **Resultado:**
 
-<img src="assets/previews/analyticalmethod.webp" alt="Preview" width="600">
+<img src="assets/previews/analyticalmethod.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/analyticalmethod.pdf)
-
 
 ---
 
@@ -1156,10 +1103,9 @@ Protocolo paso a paso con soporte para tiempos, advertencias y notas.
 
 **Resultado:**
 
-<img src="assets/previews/labprotocol.webp" alt="Preview" width="600">
+<img src="assets/previews/labprotocol.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/labprotocol.pdf)
-
 
 ---
 
@@ -1187,10 +1133,9 @@ Tabla estilo booktabs con soporte para grupos de minerales.
 
 **Resultado:**
 
-<img src="assets/previews/mineraltable.webp" alt="Preview" width="600">
+<img src="assets/previews/mineraltable.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/mineraltable.pdf)
-
 
 ---
 
@@ -1198,22 +1143,47 @@ Tabla estilo booktabs con soporte para grupos de minerales.
 
 #### `stratcolumn` - Columna estratigráfica
 
+Puede usarse independientemente o dentro de una `stratigraphybox`.
+
 ```latex <!-- preview stratigraphy -->
 \begin{stratigraphybox}
-\begin{stratcolumn}
+\begin{stratcolumn}[2cm]
   \stratlayer{2}{lito arenisca}{Aluvial}{Cuaternario}
   \stratlayer{4}{lito caliza}{Calcarenitas}{Mioceno}
   \stratlayer{3}{lito arcilla}{Arcillas}{Cretácico}
+  \stratlayer{1}{lito basalto}{Intrusión}{Triásico}
 \end{stratcolumn}
 \end{stratigraphybox}
 ```
 
 **Resultado:**
 
-<img src="assets/previews/stratigraphy.webp" alt="Preview" width="600">
+<img src="assets/previews/stratigraphy.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/stratigraphy.pdf)
 
+---
+
+### Patrones Litológicos
+
+Lista de patrones de relleno disponibles:
+
+```latex <!-- preview patterns_geo -->
+\begin{tikzpicture}
+  \matrix[matrix of nodes, row sep=1mm, column sep=1mm, nodes={minimum width=2cm, minimum height=1cm, anchor=center}] {
+    \node[lito arenisca, label=center:\small Arenisca] {}; & \node[lito caliza, label=center:\small Caliza] {}; & \node[lito dolomia, label=center:\small Dolomía] {}; \\
+    \node[lito arcilla, label=center:\small Arcilla] {}; & \node[lito marga, label=center:\small Marga] {}; & \node[lito conglomerado, label=center:\small Conglom.] {}; \\
+    \node[lito basalto, label=center:\small\textcolor{white}{Basalto}] {}; & \node[lito granito, label=center:\small Granito] {}; & \node[lito pizarra, label=center:\small Pizarra] {}; \\
+    \node[lito gneis, label=center:\small Gneis] {}; & & \\
+  };
+\end{tikzpicture}
+```
+
+**Resultado:**
+
+<img src="assets/previews/patterns_geo.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/patterns_geo.pdf)
 
 ---
 
@@ -1222,18 +1192,21 @@ Tabla estilo booktabs con soporte para grupos de minerales.
 #### Símbolos geológicos disponibles
 
 ```latex <!-- preview geosymbols -->
-\textbf{Símbolos geológicos:}\\[0.5em]
-\faultline\ Falla \quad
-\anticline\ Anticlinal \quad
-\syncline\ Sinclinal
+\begin{center}
+\begin{tabular}{c c c c}
+  \faultline & \anticline & \syncline & \strikeanddip \\
+  Falla & Anticlinal & Sinclinal & Rumbo/Buzamiento \\[1em]
+  \verticalbeds & \horizontalbeds & & \\
+  Estratos Vert. & Estratos Horiz. & & \\
+\end{tabular}
+\end{center}
 ```
 
 **Resultado:**
 
-<img src="assets/previews/geosymbols.webp" alt="Preview" width="297">
+<img src="assets/previews/geosymbols.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/geosymbols.pdf)
-
 
 ---
 
@@ -1245,16 +1218,23 @@ Cargar con: `\usepackage[prevencion]{eps-componentes}`
 
 #### `riskmatrix` - Matriz visual de riesgos
 
+Se puede usar `riskmatrixplot` para añadir puntos específicos sobre la matriz.
+
 ```latex <!-- preview riskmatrix -->
-\riskmatrix
+\begin{riskmatrixbox}
+  \begin{riskmatrixplot}
+    \riskpoint{1}{1}{R-1}
+    \riskpoint{3}{2}{R-2}
+    \riskpoint{4}{5}{R-3}
+  \end{riskmatrixplot}
+\end{riskmatrixbox}
 ```
 
 **Resultado:**
 
-<img src="assets/previews/riskmatrix.webp" alt="Preview" width="310">
+<img src="assets/previews/riskmatrix.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/riskmatrix.pdf)
-
 
 ---
 
@@ -1277,10 +1257,9 @@ Tabla estilo booktabs con cálculo automático de nivel de riesgo y soporte para
 
 **Resultado:**
 
-<img src="assets/previews/riskassessment.webp" alt="Preview" width="600">
+<img src="assets/previews/riskassessment.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/riskassessment.pdf)
-
 
 ---
 
@@ -1299,10 +1278,9 @@ Tabla estilo booktabs con cálculo automático de nivel de riesgo y soporte para
 
 **Resultado:**
 
-<img src="assets/previews/safetychecklist.webp" alt="Preview" width="600">
+<img src="assets/previews/safetychecklist.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/safetychecklist.pdf)
-
 
 ---
 
@@ -1320,10 +1298,9 @@ Tabla estilo booktabs con cálculo automático de nivel de riesgo y soporte para
 
 **Resultado:**
 
-<img src="assets/previews/safety_signs.webp" alt="Preview" width="563">
+<img src="assets/previews/safety_signs.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/safety_signs.pdf)
-
 
 ---
 
@@ -1341,10 +1318,9 @@ Tabla estilo booktabs con cálculo automático de nivel de riesgo y soporte para
 
 **Resultado:**
 
-<img src="assets/previews/safety_indicators.webp" alt="Preview" width="200">
+<img src="assets/previews/safety_indicators.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/safety_indicators.pdf)
-
 
 ---
 
@@ -1363,10 +1339,9 @@ Tabla estilo booktabs con cálculo automático de nivel de riesgo y soporte para
 
 **Resultado:**
 
-<img src="assets/previews/epilist.webp" alt="Preview" width="300">
+<img src="assets/previews/epilist.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/epilist.pdf)
-
 
 ---
 
@@ -1388,10 +1363,9 @@ Tabla estilo booktabs con cálculo automático de nivel de riesgo y soporte para
 
 **Resultado:**
 
-<img src="assets/previews/emergencyprocedure.webp" alt="Preview" width="600">
+<img src="assets/previews/emergencyprocedure.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/emergencyprocedure.pdf)
-
 
 ---
 

@@ -61,10 +61,9 @@ La plantilla define estos tipos de columna adicionales:
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_001.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_001.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_001.pdf)
-
 
 ### Especificadores de columna básicos
 
@@ -101,10 +100,9 @@ La plantilla define estos tipos de columna adicionales:
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_002.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_002.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_002.pdf)
-
 
 ---
 
@@ -144,10 +142,9 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_001.webp" alt="Preview" width="325">
+<img src="assets/previews/TABLAS_003.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TABLAS_001.pdf)
-
+[📄 Ver PDF](assets/previews/TABLAS_003.pdf)
 
 ### Tabla con agrupación
 
@@ -175,10 +172,9 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_002.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_004.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TABLAS_002.pdf)
-
+[📄 Ver PDF](assets/previews/TABLAS_004.pdf)
 
 ### Opciones de cmidrule
 
@@ -217,10 +213,9 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_003.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_005.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TABLAS_003.pdf)
-
+[📄 Ver PDF](assets/previews/TABLAS_005.pdf)
 
 ### Tipos de columna personalizados de la plantilla
 
@@ -242,10 +237,9 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_004.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_006.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TABLAS_004.pdf)
-
+[📄 Ver PDF](assets/previews/TABLAS_006.pdf)
 
 ### Definir tipos de columna propios
 
@@ -295,10 +289,9 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_007.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_007.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_007.pdf)
-
 
 ### Especificador X
 
@@ -329,10 +322,9 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_008.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_008.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_008.pdf)
-
 
 ### Proporción entre columnas X
 
@@ -392,10 +384,9 @@ Para tablas que ocupan múltiples páginas:
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_009.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_009.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_009.pdf)
-
 
 ### Estructura de longtable
 
@@ -436,10 +427,9 @@ Para tablas que ocupan múltiples páginas:
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_003.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_010.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TABLAS_003.pdf)
-
+[📄 Ver PDF](assets/previews/TABLAS_010.pdf)
 
 ### Color de fila específica
 
@@ -460,10 +450,9 @@ Para tablas que ocupan múltiples páginas:
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_011.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_011.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_011.pdf)
-
 
 ### Color de columna
 
@@ -480,10 +469,9 @@ Para tablas que ocupan múltiples páginas:
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_012.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_012.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_012.pdf)
-
 
 ### Color de celda específica
 
@@ -500,10 +488,9 @@ Para tablas que ocupan múltiples páginas:
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_013.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_013.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_013.pdf)
-
 
 ### Cabecera con color
 
@@ -525,10 +512,9 @@ Para tablas que ocupan múltiples páginas:
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_002.webp" alt="Preview" width="295">
+<img src="assets/previews/TABLAS_014.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TABLAS_002.pdf)
-
+[📄 Ver PDF](assets/previews/TABLAS_014.pdf)
 
 ---
 
@@ -557,10 +543,9 @@ Para tablas que ocupan múltiples páginas:
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_005.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_015.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TABLAS_005.pdf)
-
+[📄 Ver PDF](assets/previews/TABLAS_015.pdf)
 
 ### Sintaxis de multicolumn
 
@@ -598,10 +583,9 @@ Para tablas que ocupan múltiples páginas:
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_006.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_016.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TABLAS_006.pdf)
-
+[📄 Ver PDF](assets/previews/TABLAS_016.pdf)
 
 ### Sintaxis de multirow
 
@@ -641,10 +625,9 @@ Para tablas que ocupan múltiples páginas:
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_003.webp" alt="Preview" width="318">
+<img src="assets/previews/TABLAS_017.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TABLAS_003.pdf)
-
+[📄 Ver PDF](assets/previews/TABLAS_017.pdf)
 
 ---
 
@@ -677,10 +660,9 @@ Para tablas que ocupan múltiples páginas:
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_018.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_018.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_018.pdf)
-
 
 ### Tabla con unidades en cabecera
 
@@ -705,10 +687,9 @@ Para tablas que ocupan múltiples páginas:
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_019.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_019.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_019.pdf)
-
 
 ### Tabla rotada (sidewaystable)
 
@@ -750,10 +731,9 @@ Para tablas que ocupan múltiples páginas:
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_020.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_020.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_020.pdf)
-
 
 ### Mini-tablas dentro de texto
 
@@ -775,10 +755,9 @@ donde observamos que...
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_021.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_021.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_021.pdf)
-
 
 ---
 
@@ -884,10 +863,9 @@ donde observamos que...
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_022.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_022.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_022.pdf)
-
 
 ---
 
@@ -922,10 +900,9 @@ donde observamos que...
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_023.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_023.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_023.pdf)
-
 
 ### Tabla comparativa
 
@@ -951,10 +928,9 @@ donde observamos que...
 
 **Resultado:**
 
-<img src="assets/previews/TABLAS_024.webp" alt="Preview" width="600">
+<img src="assets/previews/TABLAS_024.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TABLAS_024.pdf)
-
 
 ---
 

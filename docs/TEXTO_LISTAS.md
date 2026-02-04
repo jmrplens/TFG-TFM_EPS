@@ -160,10 +160,9 @@ Esta guía explica todas las opciones de formato de texto, listas, y estructurac
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_001.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_001.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TEXTO_LISTAS_001.pdf)
-
 
 ### Colores personalizados
 
@@ -197,10 +196,9 @@ Esta guía explica todas las opciones de formato de texto, listas, y estructurac
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_002.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_002.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TEXTO_LISTAS_002.pdf)
-
 
 ---
 
@@ -234,10 +232,9 @@ el texto se justifica en ambos lados.
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_003.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_003.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TEXTO_LISTAS_003.pdf)
-
 
 ### Comandos de conmutación
 
@@ -273,10 +270,9 @@ el texto se justifica en ambos lados.
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_004.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_004.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TEXTO_LISTAS_004.pdf)
-
 
 ---
 
@@ -338,10 +334,9 @@ Línea 2 (con 1cm de separación)
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_005.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_005.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TEXTO_LISTAS_005.pdf)
-
 
 ### Control de párrafos
 
@@ -375,10 +370,9 @@ Línea 2 (con 1cm de separación)
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_001.webp" alt="Preview" width="200">
+<img src="assets/previews/TEXTO_LISTAS_006.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_001.pdf)
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_006.pdf)
 
 ### Lista numerada (enumerate)
 
@@ -392,10 +386,9 @@ Línea 2 (con 1cm de separación)
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_002.webp" alt="Preview" width="200">
+<img src="assets/previews/TEXTO_LISTAS_007.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_002.pdf)
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_007.pdf)
 
 ### Listas anidadas
 
@@ -416,10 +409,9 @@ Línea 2 (con 1cm de separación)
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_003.webp" alt="Preview" width="206">
+<img src="assets/previews/TEXTO_LISTAS_008.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_003.pdf)
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_008.pdf)
 
 ### Personalizar símbolos de itemize
 
@@ -442,10 +434,9 @@ Línea 2 (con 1cm de separación)
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_009.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_009.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TEXTO_LISTAS_009.pdf)
-
 
 ### Personalizar enumerate
 
@@ -474,15 +465,14 @@ Línea 2 (con 1cm de separación)
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_004.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_010.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_004.pdf)
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_010.pdf)
 
 ### Opciones avanzadas con enumitem
 
 ```latex <!-- preview -->
-\usepackage{enumitem}
+% \usepackage{enumitem}
 
 % Sin espacio entre items
 \begin{itemize}[noitemsep]
@@ -521,10 +511,9 @@ Texto intermedio...
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_011.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_011.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TEXTO_LISTAS_011.pdf)
-
 
 ### Lista en línea
 
@@ -562,10 +551,9 @@ Las opciones son \begin{itemize*}[label={}]
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_004.webp" alt="Preview" width="340">
+<img src="assets/previews/TEXTO_LISTAS_012.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_004.pdf)
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_012.pdf)
 
 ### Descripción con formato
 
@@ -578,10 +566,9 @@ Las opciones son \begin{itemize*}[label={}]
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_013.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_013.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TEXTO_LISTAS_013.pdf)
-
 
 ### Estilo personalizado
 
@@ -601,10 +588,9 @@ Las opciones son \begin{itemize*}[label={}]
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_014.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_014.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TEXTO_LISTAS_014.pdf)
-
 
 ### Glosario manual
 
@@ -624,10 +610,9 @@ Las opciones son \begin{itemize*}[label={}]
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_015.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_015.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TEXTO_LISTAS_015.pdf)
-
 
 ---
 
@@ -644,10 +629,9 @@ Como dijo Einstein:
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_005.webp" alt="Preview" width="420">
+<img src="assets/previews/TEXTO_LISTAS_016.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_005.pdf)
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_016.pdf)
 
 ### Cita larga (quotation)
 
@@ -664,10 +648,9 @@ Según el autor:
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_017.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_017.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TEXTO_LISTAS_017.pdf)
-
 
 ### Verso (poem)
 
@@ -682,10 +665,9 @@ Según el autor:
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_006.webp" alt="Preview" width="298">
+<img src="assets/previews/TEXTO_LISTAS_018.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_006.pdf)
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_018.pdf)
 
 ### Bloque literal (verbatim)
 
@@ -711,10 +693,9 @@ Los caracteres especiales % $ & _ también.
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_019.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_019.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TEXTO_LISTAS_019.pdf)
-
 
 ---
 
@@ -758,10 +739,9 @@ Los caracteres especiales % $ & _ también.
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_020.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_020.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TEXTO_LISTAS_020.pdf)
-
 
 ### Cajas lado a lado
 
@@ -783,10 +763,9 @@ Los caracteres especiales % $ & _ también.
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_021.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_021.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/TEXTO_LISTAS_021.pdf)
-
 
 ### Tcolorbox (cajas decorativas)
 
@@ -818,10 +797,9 @@ Los caracteres especiales % $ & _ también.
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_010.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_022.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_010.pdf)
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_022.pdf)
 
 ### Mdframed (marcos)
 
@@ -840,10 +818,9 @@ Los caracteres especiales % $ & _ también.
 
 **Resultado:**
 
-<img src="assets/previews/TEXTO_LISTAS_011.webp" alt="Preview" width="600">
+<img src="assets/previews/TEXTO_LISTAS_023.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_011.pdf)
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_023.pdf)
 
 ---
 

@@ -728,101 +728,63 @@ Estos ejemplos muestran cómo se visualizan las citas y la bibliografía en el d
 ### Citas en el texto (estilo autor-año)
 
 ```latex <!-- preview -->
-% Simulación visual de citas en texto
-
 \noindent\textbf{Cita entre paréntesis:}\\[0.5em]
-El aprendizaje profundo (Goodfellow et al., 2016) ha revolucionado 
-el campo de la inteligencia artificial.
+La ingeniería de software \parencite{pressman2020} es fundamental para el desarrollo de sistemas robustos.
 
 \vspace{1em}
 \noindent\textbf{Cita como parte de la oración:}\\[0.5em]
-Según Goodfellow et al. (2016), las redes neuronales profundas
-son ``representaciones composicionales de funciones''.
+Según \textcite{martin2019}, la arquitectura limpia permite mantener el código mantenible a largo plazo.
 
 \vspace{1em}
 \noindent\textbf{Múltiples citas:}\\[0.5em]
-Diversos autores han estudiado este fenómeno 
-(García, 2024; López, 2023; Martínez et al., 2022).
+Diversos autores han establecido los patrones de diseño clásicos \parencite{gamma1994,knuth1997}.
 
 \vspace{1em}
 \noindent\textbf{Cita con página:}\\[0.5em]
-Como se indica en (Goodfellow et al., 2016, p.~45), el gradiente 
-descendente es fundamental para el entrenamiento.
+Como se indica en \parencite[p.~45]{pressman2020}, el proceso de desarrollo debe adaptarse al equipo.
 ```
 
 **Resultado:**
 
-<img src="assets/previews/BIBLIOGRAFIA_001.webp" alt="Preview" width="598">
+<img src="assets/previews/BIBLIOGRAFIA_001.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/BIBLIOGRAFIA_001.pdf)
-
 
 ### Bibliografía estilo APA
 
 ```latex <!-- preview -->
-% Simulación visual de bibliografía estilo APA
-\section*{Referencias}
-
-\hangindent=1.5em
-\noindent García, M. (2024). \textit{Aprendizaje automático: fundamentos 
-y aplicaciones}. Editorial Universitaria.
-
+\textbf{\Large Referencias}
 \vspace{0.5em}
-\hangindent=1.5em
-\noindent Goodfellow, I., Bengio, Y., \& Courville, A. (2016). 
-\textit{Deep Learning}. MIT Press.
 
-\vspace{0.5em}
-\hangindent=1.5em
-\noindent López, A., Martínez, B., \& Sánchez, C. (2023). Optimización 
-de redes neuronales convolucionales. \textit{Revista de Inteligencia 
-Artificial}, \textit{15}(2), 45--67.
+% Forzamos inclusión de referencias para el ejemplo
+\nocite{pressman2020,martin2019,gamma1994,knuth1997}
 
-\vspace{0.5em}
-\hangindent=1.5em
-\noindent Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., 
-Gomez, A. N., Kaiser, L., \& Polosukhin, I. (2017). Attention is all 
-you need. \textit{Advances in Neural Information Processing Systems}, 
-\textit{30}, 5998--6008.
+\printbibliography[heading=none]
 ```
 
 **Resultado:**
 
-<img src="assets/previews/BIBLIOGRAFIA_002.webp" alt="Preview" width="600">
+<img src="assets/previews/BIBLIOGRAFIA_002.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/BIBLIOGRAFIA_002.pdf)
-
 
 ### Bibliografía estilo IEEE (numérico)
 
 ```latex <!-- preview -->
-% Simulación visual de bibliografía estilo IEEE
-\section*{Referencias}
-
-\noindent [1]\hspace{0.5em} M. García, \textit{Aprendizaje automático: 
-fundamentos y aplicaciones}. Editorial Universitaria, 2024.
-
+% bibstyle: ieee
+\textbf{\Large Referencias}
 \vspace{0.5em}
-\noindent [2]\hspace{0.5em} I. Goodfellow, Y. Bengio, and A. Courville, 
-\textit{Deep Learning}. MIT Press, 2016.
 
-\vspace{0.5em}
-\noindent [3]\hspace{0.5em} A. López, B. Martínez, and C. Sánchez, 
-``Optimización de redes neuronales convolucionales,'' 
-\textit{Rev. Intel. Artif.}, vol. 15, no. 2, pp. 45--67, 2023.
+\nocite{pressman2020,martin2019,gamma1994,knuth1997}
 
-\vspace{0.5em}
-\noindent [4]\hspace{0.5em} A. Vaswani \textit{et al.}, ``Attention is 
-all you need,'' in \textit{Proc. Adv. Neural Inf. Process. Syst.}, 
-vol. 30, 2017, pp. 5998--6008.
+\printbibliography[heading=none]
 ```
 
 **Resultado:**
 
-<img src="assets/previews/BIBLIOGRAFIA_003.webp" alt="Preview" width="600">
+<img src="assets/previews/BIBLIOGRAFIA_003.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/BIBLIOGRAFIA_003.pdf)
-
 
 ---
 

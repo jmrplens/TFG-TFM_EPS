@@ -162,13 +162,13 @@ Etiquetas y badges para marcar estados:
 \vspace{1em}
 
 \noindent
-\statcard{1,234}{\faUsers~Usuarios}{eps-primary}
+\statcard{1,234}{Usuarios}{\faUsers}{eps-primary}
 \hfill
-\statcard{98.5\%}{\faChartLine~Uptime}{eps-success}
+\statcard{98.5\%}{Uptime}{\faChartLine}{eps-success}
 \hfill
-\statcard{45ms}{\faClock~Latencia}{eps-info}
+\statcard{45ms}{Latencia}{\faClock}{eps-info}
 \hfill
-\statcard{12}{\faBug~Issues}{eps-warning}
+\statcard{12}{Issues}{\faBug}{eps-warning}
 
 %% -----------------------------------------------------------------------------
 \subsection{Timeline}
@@ -264,35 +264,53 @@ Cargar con: \texttt{\textbackslash usepackage[software]\{eps-componentes\}}
 \end{terminal}
 
 %% -----------------------------------------------------------------------------
+\subsection{Árbol de Directorios}
+\label{subsec:dirtree}
+
+\begin{dirtreebox}[Estructura del Proyecto]
+  \dirtreeitem[1]{src/}
+  \dirtreeitem[2]{assets/}
+  \dirtreeitem[3]{logo.png}
+  \dirtreeitem[2]{components/}
+  \dirtreeitem[3]{Header.js}
+  \dirtreeitem[3]{Footer.js}
+  \dirtreeitem[2]{App.js}
+  \dirtreeitem[2]{index.js}
+  \dirtreeitem[1]{package.json}
+  \dirtreeitem[1]{README.md}
+\end{dirtreebox}
+
+%% -----------------------------------------------------------------------------
 \subsection{Clases UML}
 \label{subsec:uml}
 
-\begin{umlclass}{Usuario}
+\umlclass{Usuario}{
   \visibility{-} id: int \\
   \visibility{-} nombre: string \\
   \visibility{-} email: string \\
-  \visibility{#} password: string \\
+  \visibility{#} password: string
+}{
   \visibility{+} getNombre(): string \\
   \visibility{+} setNombre(n: string): void \\
   \visibility{+} validar(): boolean
-\end{umlclass}
+}
 
-\begin{umlinterface}{IAutenticable}
+\umlinterface{IAutenticable}{
   \visibility{+} login(user: string, pass: string): boolean \\
   \visibility{+} logout(): void \\
   \visibility{+} isAuthenticated(): boolean
-\end{umlinterface}
+}
 
 %% -----------------------------------------------------------------------------
 \subsection{Tabla de Requisitos}
 \label{subsec:requisitos}
 
 \begin{requirements}
-  \reqrow{RF-001}{El sistema debe permitir el registro de usuarios}{Alta}{\statusdone}
-  \reqrow{RF-002}{Los usuarios pueden modificar su perfil}{Alta}{\statusdone}
-  \reqrow{RF-003}{Implementar sistema de notificaciones}{Media}{\statusprogress}
-  \reqrow{RF-004}{Exportar datos a formato PDF}{Baja}{\statustodo}
-  \reqrow{RF-005}{Integración con API externa}{Media}{\statustodo}
+  \requirement{RF-001}{Alta}{Completado}{El sistema debe permitir el registro de usuarios}
+  \requirement{RF-002}{Alta}{Completado}{Los usuarios pueden modificar su perfil}
+  \requirement{RF-003}{Media}{En progreso}{Implementar sistema de notificaciones}
+  \requirement{RF-004}{Baja}{Pendiente}{Exportar datos a formato PDF}
+  \requirement{RF-005}{Media}{Pendiente}{Integración con API externa}
 \end{requirements}
 
 %% -----------------------------------------------------------------------------
@@ -367,10 +385,11 @@ Cargar con: \texttt{\textbackslash usepackage[telecom]\{eps-componentes\}}
 La carta de Smith es una herramienta gráfica para resolver problemas de 
 adaptación de impedancias en líneas de transmisión.
 
-\begin{infobox}
-  La carta de Smith requiere la librería \texttt{pgfplots.smithchart}.
-  Para un ejemplo funcional, ver la documentación de telecom.
-\end{infobox}
+\begin{smithchartbox}[Adaptación de Impedancias]
+  \addplot [mark=none, eps-primary, thick] coordinates {(0.5,0.2) (0.2,0) (0.5,-0.2) (1,0)};
+  \smithpoint{0.5}{0.2}{$Z_L$}
+  \smithpoint{0.2}{0}{$Z_{in}$}
+\end{smithchartbox}
 
 %% -----------------------------------------------------------------------------
 \subsection{Diagrama de Constelación}
@@ -378,66 +397,142 @@ adaptación de impedancias en líneas de transmisión.
 
 Representación de esquemas de modulación digital:
 
-\begin{infobox}
-  Los diagramas de constelación se usan para representar modulaciones como QPSK, 16-QAM, etc.
-  Ver documentación de telecom para ejemplos con el entorno \texttt{constellation}.
-\end{infobox}
+\begin{constellationbox}[Constelación QPSK]
+  \constpoint{1}{1}{00}
+  \constpoint{-1}{1}{01}
+  \constpoint{-1}{-1}{11}
+  \constpoint{1}{-1}{10}
+\end{constellationbox}
 
 %% -----------------------------------------------------------------------------
 \subsection{Máquina de Estados Finitos}
 \label{subsec:fsm}
 
-\begin{center}
-\begin{tikzpicture}[node distance=2.5cm]
-  \node[fsmstate, initial] (s0) {$S_0$};
-  \node[fsmstate, right of=s0] (s1) {$S_1$};
-  \node[fsmstate, accepting, right of=s1] (s2) {$S_2$};
-  
-  \path[fsmtransition]
-    (s0) edge[bend left] node[above] {a/0} (s1)
-    (s1) edge[bend left] node[below] {b/1} (s0)
-    (s1) edge node[above] {a/1} (s2)
-    (s2) edge[loop right] node[right] {a,b/0} (s2);
-\end{tikzpicture}
-\end{center}
+\begin{fsmdiagram}
+  \fsmstate{s0}{0,0}{IDLE}{initial}
+  \fsmstate{s1}{3,0}{TX}{}
+  \fsmstate{s2}{3,-2}{RX}{}
+  \fsmtrans{s0}{s1}{start}
+  \fsmtrans{s1}{s2}{ack}
+  \fsmtrans{s2}{s0}{done}
+\end{fsmdiagram}
 
 %% -----------------------------------------------------------------------------
 \subsection{Tramas de Protocolo}
 \label{subsec:tramas}
 
-\begin{protocolframe}[Trama Ethernet IEEE 802.3]
+Los campos con tamaño menor a 3 unidades muestran automáticamente su etiqueta fuera del campo 
+para evitar recortes de texto. Este umbral es configurable con \verb|\def\framenarrowthreshold{valor}|.
+
+\minisec{Trama Ethernet IEEE 802.3}
+\begin{protocolframe}[32]
   \framefield{7}{Preámbulo}
   \framefield{1}{SFD}
   \framefield{6}{MAC Dest}
   \framefield{6}{MAC Orig}
   \framefield{2}{Tipo}
-  \framefield{46-1500}{Datos}
+  \framebreak
+  \framefieldvar[32]{Datos (46-1500 bytes)}
   \framefield{4}{FCS}
 \end{protocolframe}
 
 \vspace{1em}
 
-\begin{protocolframe}[Segmento TCP]
-  \framefield{2}{Puerto Orig}
-  \framefield{2}{Puerto Dest}
-  \framefield{4}{Número Seq}
-  \framefield{4}{Número ACK}
-  \framefield{2}{Flags}
-  \framefield{2}{Ventana}
-  \framefield{2}{Checksum}
-  \framefield{var}{Datos}
+\minisec{Segmento TCP (cabecera simplificada)}
+\begin{protocolframe}[16]
+  \framefield{8}{Puerto Orig}
+  \framefield{8}{Puerto Dest}
+  \framefield{16}{Número Seq}
+  \framefield{16}{Número ACK}
+  \framefield{4}{Offset}
+  \framefield{6}{Flags}
+  \framefield{6}{Ventana}
+  \framefield{8}{Checksum}
+  \framefield{8}{Urg Ptr}
+  \framebreak
+  \framefieldvar[16]{Datos}
+\end{protocolframe}
+
+\vspace{1em}
+
+\minisec{Nuevas funcionalidades de protocolframe}
+
+Las siguientes funcionalidades amplían las capacidades del entorno \texttt{protocolframe}.
+
+\minisec{Campo multi-fila}
+Para datos que ocupan varias filas se usa \texttt{\textbackslash framefieldmulti\{filas\}\{bits\}\{etiqueta\}}:
+
+\begin{protocolframe}[16]
+  \framefield{4}{Version}
+  \framefield{4}{IHL}
+  \framefield{8}{TOS}
+  \framefieldmulti{2}{16}{Payload (datos de usuario)}
+  \framefield{16}{Checksum}
+\end{protocolframe}
+
+\vspace{1em}
+
+\minisec{Campos con continuación}
+Para campos que se dividen entre filas, se usan \texttt{\textbackslash framefieldstart} y \texttt{\textbackslash framefieldend}:
+
+\begin{protocolframe}[8]
+  \framefield{4}{Ctrl}
+  \framefieldstart{4}{Dirección}
+  \framefieldend{2}{}
+  \framefield{6}{Opciones}
+  \framefield{8}{CRC}
+\end{protocolframe}
+
+\vspace{1em}
+
+\minisec{Etiqueta externa forzada}
+Con \texttt{\textbackslash framefieldext\{bits\}\{etiqueta\}} la etiqueta siempre aparece fuera, útil para campos estrechos:
+
+\begin{protocolframe}[16]
+  \framefield{6}{Control}
+  \framefieldext{2}{ID}
+  \framefield{8}{Datos}
+\end{protocolframe}
+
+\vspace{1em}
+
+\minisec{Campos reservados y agrupación}
+Se dispone de campos reservados (\texttt{\textbackslash framefieldreserved}) y llaves de agrupación (\texttt{\textbackslash framewordgroup}):
+
+\begin{protocolframe}[16]
+  \framefield{4}{Ver}
+  \framefield{4}{Tipo}
+  \framefieldreserved{8}
+  \framefield{8}{Longitud}
+  \framefieldhighlight{8}{ID Sesión}
+  \framefieldreserved[---]{16}
+  \framewordgroup{0}{2}{Cabecera}
 \end{protocolframe}
 
 %% -----------------------------------------------------------------------------
 \subsection{Parámetros S}
 \label{subsec:sparams}
 
-\begin{sparameters}
-  \sparam{S_{11}}{-18.5}{dB}{Pérdidas de retorno entrada}
-  \sparam{S_{21}}{-0.25}{dB}{Pérdidas de inserción}
-  \sparam{S_{12}}{-45.2}{dB}{Aislamiento inverso}
-  \sparam{S_{22}}{-22.1}{dB}{Pérdidas de retorno salida}
-\end{sparameters}
+\begin{rfspecs}[Parámetros S]
+  \rfspec{$S_{11}$}{-18.5}{dB}{Pérdidas de retorno entrada}
+  \rfspec{$S_{21}$}{-0.25}{dB}{Pérdidas de inserción}
+  \rfspec{$S_{12}$}{-45.2}{dB}{Aislamiento inverso}
+  \rfspec{$S_{22}$}{-22.1}{dB}{Pérdidas de retorno salida}
+\end{rfspecs}
+
+%% -----------------------------------------------------------------------------
+\subsection{Diagramas de Bloques}
+\label{subsec:bloques}
+
+\begin{blockdiagram}
+  \sysblock{ant}{0,0}{Antena}
+  \sysblock{lna}{3,0}{LNA}
+  \sysblock{mix}{6,0}{Mixer}
+  \sysblock{fil}{9,0}{Filtro}
+  \sysarrow{ant}{lna}
+  \sysarrow{lna}{mix}
+  \sysarrow{mix}{fil}
+\end{blockdiagram}
 
 %% -----------------------------------------------------------------------------
 \subsection{Diagramas de Temporización}
@@ -478,9 +573,20 @@ Cargar con: \texttt{\textbackslash usepackage[arquitectura]\{eps-componentes\}}
 \label{subsec:gantt}
 
 \begin{ganttbox}[Planificación de obra - Fase 1]
-  \begin{ganttchart}[gantt eps style]{1}{12}
+  \begin{ganttchart}[eps gantt, time slot format=simple, x unit=1.0cm]{1}{12}
     \gantttitle{Año 2024}{12} \\
-    \gantttitlelist{E,F,M,A,M,J,J,A,S,O,N,D}{1} \\
+    \gantttitle{E}{1}
+    \gantttitle{F}{1}
+    \gantttitle{M}{1}
+    \gantttitle{A}{1}
+    \gantttitle{M}{1}
+    \gantttitle{J}{1}
+    \gantttitle{J}{1}
+    \gantttitle{A}{1}
+    \gantttitle{S}{1}
+    \gantttitle{O}{1}
+    \gantttitle{N}{1}
+    \gantttitle{D}{1} \\
     \ganttbar{Demolición}{1}{2} \\
     \ganttbar{Cimentación}{2}{4} \\
     \ganttbar[bar/.append style={fill=eps-danger}]{Estructura}{4}{8} \\
@@ -525,14 +631,14 @@ Cargar con: \texttt{\textbackslash usepackage[arquitectura]\{eps-componentes\}}
 \label{subsec:presupuesto}
 
 \begin{presupuesto}
-  \capitulopresupuesto{1}{MOVIMIENTO DE TIERRAS}
+  \capitulo{1}{MOVIMIENTO DE TIERRAS}
   \partida{1.1}{Excavación en zanjas}{m³}{120}{40}
   \partida{1.2}{Transporte a vertedero}{m³}{180}{15}
   \partida{1.3}{Compactación de tierras}{m²}{250}{4}
-  \capitulopresupuesto{2}{CIMENTACIÓN}
+  \capitulo{2}{CIMENTACIÓN}
   \partida{2.1}{Hormigón de limpieza}{m³}{15}{80}
   \partida{2.2}{Zapatas de hormigón armado}{m³}{42}{300}
-  \capitulopresupuesto{3}{ESTRUCTURA}
+  \capitulo{3}{ESTRUCTURA}
   \partida{3.1}{Pilares de hormigón}{m³}{28}{400}
   \partida{3.2}{Forjado unidireccional}{m²}{320}{120}
   \totalpresupuesto{74660}
@@ -543,12 +649,12 @@ Cargar con: \texttt{\textbackslash usepackage[arquitectura]\{eps-componentes\}}
 \label{subsec:normativa}
 
 \begin{normativa}
-  \norma{CTE DB-SE}{Seguridad Estructural - Bases de cálculo}
-  \norma{CTE DB-SE-AE}{Acciones en la edificación}
-  \norma{CTE DB-SE-C}{Cimientos}
-  \norma{EHE-08}{Instrucción de Hormigón Estructural}
-  \norma{UNE-EN 1992-1-1}{Eurocódigo 2: Proyecto de estructuras de hormigón}
-  \norma{NCSE-02}{Norma de Construcción Sismorresistente}
+  \norma{CTE DB-SE}{Seguridad Estructural - Bases de cálculo}{2019}
+  \norma{CTE DB-SE-AE}{Acciones en la edificación}{2019}
+  \norma{CTE DB-SE-C}{Cimientos}{2019}
+  \norma{EHE-08}{Instrucción de Hormigón Estructural}{2008}
+  \norma{UNE-EN 1992-1-1}{Eurocódigo 2: Proyecto de estructuras de hormigón}{2013}
+  \norma{NCSE-02}{Norma de Construcción Sismorresistente}{2002}
 \end{normativa}
 
 %% -----------------------------------------------------------------------------
@@ -556,10 +662,10 @@ Cargar con: \texttt{\textbackslash usepackage[arquitectura]\{eps-componentes\}}
 \label{subsec:control-calidad}
 
 \begin{controlcalidad}
-  \controlitem{Hormigón HA-25}{Resistencia compresión}{28,5 MPa}{$\geq$ 25 MPa}{eps-success}
-  \controlitem{Acero B500S}{Límite elástico}{512 MPa}{$\geq$ 500 MPa}{eps-success}
-  \controlitem{Soldadura}{Inspección visual}{Defecto leve}{Sin defectos}{eps-warning}
-  \controlitem{Compactación}{Densidad relativa}{94\%}{$\geq$ 95\%}{eps-danger}
+  \controlitem{\textbf{Hormigón HA-25}: Resistencia compresión}{28,5 MPa}{$\geq$ 25 MPa}{OK}
+  \controlitem{\textbf{Acero B500S}: Límite elástico}{512 MPa}{$\geq$ 500 MPa}{OK}
+  \controlitem{\textbf{Soldadura}: Inspección visual}{Defecto leve}{Sin defectos}{PEND}
+  \controlitem{\textbf{Compactación}: Densidad relativa}{94\%}{$\geq$ 95\%}{NO}
 \end{controlcalidad}
 
 %% -----------------------------------------------------------------------------
@@ -599,7 +705,7 @@ Cargar con: \texttt{\textbackslash usepackage[quimica]\{eps-componentes\}}
 \begin{reactionbox}[Combustión completa del metano]
   \ch{CH4 + 2 O2 -> CO2 + 2 H2O}
   
-  \reactionconditions{T = 800°C, presencia de catalizador Pt}
+  \reactionconditions{800\,\textdegree C}{1\,atm}{Pt}
 \end{reactionbox}
 
 \vspace{1em}
@@ -615,22 +721,21 @@ Cargar con: \texttt{\textbackslash usepackage[quimica]\{eps-componentes\}}
 \subsection{Fichas de Compuestos}
 \label{subsec:compuestos}
 
-\begin{compoundsheet}{Ácido Sulfúrico}
-  \compprop{Fórmula molecular}{\ch{H2SO4}}
-  \compprop{Masa molar}{98,079 g/mol}
-  \compprop{Densidad}{1,84 g/cm³}
-  \compprop{Punto de fusión}{10 °C}
-  \compprop{Punto de ebullición}{337 °C}
-  \compprop{Solubilidad en agua}{Miscible}
-  \compprop{pKa}{-3 (ácido fuerte)}
+\begin{compoundsheet}{Ácido Sulfúrico}{H2SO4}
+  \compprop{Masa molar}{98,079}{g/mol}
+  \compprop{Densidad}{1,84}{g/cm³}
+  \compprop{Punto de fusión}{10}{°C}
+  \compprop{Punto de ebullición}{337}{°C}
+  \compprop{Solubilidad en agua}{Miscible}{}
+  \compprop{pKa}{-3 (ácido fuerte)}{}
 \end{compoundsheet}
 
 \vspace{1em}
 
 \noindent
-\compoundcard{Etanol}{\ch{C2H5OH}}{46,07 g/mol}
+\compoundcard{C2H5OH}{Etanol}{46,07 g/mol}{Líquido volátil}
 \hfill
-\compoundcard{Glucosa}{\ch{C6H12O6}}{180,16 g/mol}
+\compoundcard{C6H12O6}{Glucosa}{180,16 g/mol}{Sólido cristalino}
 
 %% -----------------------------------------------------------------------------
 \subsection{Protocolos de Laboratorio}
@@ -651,12 +756,12 @@ Cargar con: \texttt{\textbackslash usepackage[quimica]\{eps-componentes\}}
 \label{subsec:analiticos}
 
 \begin{analyticalresults}
-  \analyte{Plomo (Pb)}{0,015}{mg/L}{< 0,010}{eps-danger}
-  \analyte{Cadmio (Cd)}{0,002}{mg/L}{< 0,005}{eps-success}
-  \analyte{Mercurio (Hg)}{0,0005}{mg/L}{< 0,001}{eps-success}
-  \analyte{Arsénico (As)}{0,008}{mg/L}{< 0,010}{eps-success}
-  \analyte{Cobre (Cu)}{0,85}{mg/L}{< 2,0}{eps-success}
-  \analyte{Zinc (Zn)}{2,3}{mg/L}{< 3,0}{eps-warning}
+  \analyte{Plomo (Pb)}{0,015}{0,001}{mg/L}{eps-danger}
+  \analyte{Cadmio (Cd)}{0,002}{0,0005}{mg/L}{eps-success}
+  \analyte{Mercurio (Hg)}{0,0005}{0,0001}{mg/L}{eps-success}
+  \analyte{Arsénico (As)}{0,008}{0,002}{mg/L}{eps-success}
+  \analyte{Cobre (Cu)}{0,85}{0,05}{mg/L}{eps-success}
+  \analyte{Zinc (Zn)}{2,3}{0,1}{mg/L}{eps-warning}
 \end{analyticalresults}
 
 %% -----------------------------------------------------------------------------
@@ -674,10 +779,10 @@ Cargar con: \texttt{\textbackslash usepackage[quimica]\{eps-componentes\}}
 \vspace{1em}
 
 \begin{reagentlist}
-  \reagent{\ch{NaOH}}{0,1 M}{500 mL}
-  \reagent{\ch{HCl}}{0,1 M}{250 mL}
-  \reagent{Fenolftaleína}{1\% en etanol}{100 mL}
-  \reagent{Agua destilada}{--}{2 L}
+  \reagent{NaOH}{0,1 M}{500 mL}{Panreac}
+  \reagent{HCl}{0,1 M}{250 mL}{Sigma-Aldrich}
+  \reagent{"Fenolftaleína"}{1\% en etanol}{100 mL}{Scharlau}
+  \reagent{"Agua destilada"}{--}{2 L}{Laboratorio}
 \end{reagentlist}
 
 
@@ -693,14 +798,12 @@ Cargar con: \texttt{\textbackslash usepackage[geologia]\{eps-componentes\}}
 \label{subsec:estratigrafia}
 
 \begin{stratigraphybox}[Sección estratigráfica A-A']
-  \begin{tikzpicture}
     \begin{stratcolumn}
-      \stratlayer{0}{1.2}{lito arenisca}{Arenisca calcárea (Mioceno)}
-      \stratlayer{1.2}{2.5}{lito arcilla}{Margas grises (Mioceno)}
-      \stratlayer{2.5}{4}{lito caliza}{Caliza masiva (Cretácico)}
-      \stratlayer{4}{5.5}{lito dolomia}{Dolomías tableadas (Jurásico)}
+      \stratlayer{1}{lito arenisca}{Arenisca calcárea}{(Mioceno)}
+      \stratlayer{1}{lito arcilla}{Margas grises}{(Mioceno)}
+      \stratlayer{2}{lito caliza}{Caliza masiva}{(Cretácico)}
+      \stratlayer{2}{lito dolomia}{Dolomías tableadas}{(Jurásico)}
     \end{stratcolumn}
-  \end{tikzpicture}
 \end{stratigraphybox}
 
 %% -----------------------------------------------------------------------------
@@ -708,38 +811,38 @@ Cargar con: \texttt{\textbackslash usepackage[geologia]\{eps-componentes\}}
 \label{subsec:minerales}
 
 \begin{mineraltable}
-  \mineralrow{Cuarzo}{\ch{SiO2}}{7}{2,65}
-  \mineralrow{Calcita}{\ch{CaCO3}}{3}{2,71}
-  \mineralrow{Feldespato potásico}{\ch{KAlSi3O8}}{6}{2,56}
-  \mineralrow{Moscovita}{\ch{KAl2(AlSi3O10)(OH)2}}{2,5}{2,82}
-  \mineralrow{Olivino}{\ch{(Mg,Fe)2SiO4}}{6,5}{3,32}
+  \mineralrow{Cuarzo}{7}{2,65}{--}{--}{SiO2}
+  \mineralrow{Calcita}{3}{2,71}{--}{--}{CaCO3}
+  \mineralrow{Feldespato potásico}{6}{2,56}{--}{--}{KAlSi3O8}
+  \mineralrow{Moscovita}{2,5}{2,82}{--}{--}{KAl2(AlSi3O10)(OH)2}
+  \mineralrow{Olivino}{6,5}{3,32}{--}{--}{(Mg,Fe)2SiO4}
 \end{mineraltable}
 
 \vspace{1em}
 
 \noindent
-\mineralcard{Pirita}{\ch{FeS2}}{6}{5,02}
+\mineralcard{Pirita}{FeS2}{Cúbico}{6-6.5}{Ácido sulfúrico}
 \hfill
-\mineralcard{Galena}{\ch{PbS}}{2,5}{7,58}
+\mineralcard{Galena}{PbS}{Cúbico}{2.5}{Mena de plomo}
 
 %% -----------------------------------------------------------------------------
 \subsection{Datos Geotécnicos}
 \label{subsec:geotecnia}
 
 \begin{geotechdata}
-  \geotechtest{Límite líquido}{LL}{45,2}{\%}
-  \geotechtest{Límite plástico}{LP}{23,1}{\%}
-  \geotechtest{Índice de plasticidad}{IP}{22,1}{\%}
-  \geotechtest{Densidad seca}{$\rho_d$}{1,72}{g/cm³}
-  \geotechtest{Humedad natural}{$w$}{18,5}{\%}
+  \geotechtest{Límite líquido}{LL}{45,2}{\%}{--}
+  \geotechtest{Límite plástico}{LP}{23,1}{\%}{--}
+  \geotechtest{Índice de plasticidad}{IP}{22,1}{\%}{--}
+  \geotechtest{Densidad seca}{$\rho_d$}{1,72}{g/cm³}{--}
+  \geotechtest{Humedad natural}{$w$}{18,5}{\%}{--}
 \end{geotechdata}
 
 \vspace{0.5em}
 
 \noindent
 Ensayo SPT: \sptvalue{18} \quad
-Cohesión: \cohesion{25}{kPa} \quad
-Ángulo de rozamiento: \frictionangle{32}
+Cohesión: \cohesion{25} \quad
+Ángulo de rozamiento: \friction{32}
 
 %% -----------------------------------------------------------------------------
 \subsection{Clasificación de Suelos}
@@ -757,7 +860,7 @@ Según el Sistema Unificado de Clasificación de Suelos (USCS):
 \uscsclass{GP} -- Grava mal graduada
 
 \vspace{1em}
-Clasificación RMR del macizo rocoso: \rmrclass{III}{Regular}
+Clasificación RMR del macizo rocoso: \rmrclass{50}{III}
 
 %% -----------------------------------------------------------------------------
 \subsection{Eras Geológicas}
@@ -773,14 +876,27 @@ Clasificación RMR del macizo rocoso: \rmrclass{III}{Regular}
 \subsection{Riesgos Geológicos}
 \label{subsec:riesgos-geo}
 
-\georisk[4]{Deslizamientos activos en ladera norte}
+\georisk{Riesgo Nivel 4}{Deslizamientos activos en ladera norte}{eps-danger}
 
-\georisk[2]{Riesgo moderado de subsidencia}
+\georisk{Riesgo Nivel 2}{Riesgo moderado de subsidencia}{eps-warning}
 
 \vspace{0.5em}
 
 \noindent
 \risklandslide \quad \riskflood \quad \riskseismic
+
+%% -----------------------------------------------------------------------------
+\subsection{Símbolos Geológicos}
+\label{subsec:simbolos-geo}
+
+\begin{center}
+\begin{tabular}{c c c c}
+  \faultline & \anticline & \syncline & \strikeanddip \\
+  Falla & Anticlinal & Sinclinal & Rumbo/Buzamiento \\[1em]
+  \verticalbeds & \horizontalbeds & & \\
+  Estratos Vert. & Estratos Horiz. & & \\
+\end{tabular}
+\end{center}
 
 
 %% =============================================================================

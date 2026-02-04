@@ -80,10 +80,8 @@ def get_image_display_width(rel_path: str) -> int:
 def generar_enlace_preview(nombre: str, disponibles: dict, formato: str) -> str:
     """Genera el HTML/Markdown para mostrar el preview.
     
-    Las imágenes se muestran directamente (sin details) con un tamaño
-    proporcional al que ocuparían en una página A4:
-    - El ancho de texto en A4 es aproximadamente 15cm
-    - Usamos 600px como referencia para el ancho máximo
+    Las imágenes se muestran manteniendo su relación de aspecto original.
+    Al generarse todas en un lienzo A4, la escala relativa es correcta.
     """
     if nombre not in disponibles:
         return ""
@@ -93,16 +91,11 @@ def generar_enlace_preview(nombre: str, disponibles: dict, formato: str) -> str:
     if formato == "link":
         return f'\n**Resultado:**\n\n[📄 Ver PDF]({info["pdf"]})\n'
 
-    # Calcular ancho dinámico
-    ancho = 600
-    if info["img"]:
-        ancho = get_image_display_width(info["img"])
-
     if formato == "imagen" and info["img"]:
-        return f'\n**Resultado:**\n\n<img src="{info["img"]}" alt="Preview" width="{ancho}">\n\n[📄 Ver PDF]({info["pdf"]})\n'
+        return f'\n**Resultado:**\n\n<img src="{info["img"]}" alt="Preview">\n\n[📄 Ver PDF]({info["pdf"]})\n'
 
     elif formato == "ambos" and info["img"]:
-        return f'\n**Resultado:**\n\n<img src="{info["img"]}" alt="Preview" width="{ancho}">\n\n[📄 Ver PDF]({info["pdf"]})\n'
+        return f'\n**Resultado:**\n\n<img src="{info["img"]}" alt="Preview">\n\n[📄 Ver PDF]({info["pdf"]})\n'
 
     elif formato == "ambos":
         # Solo PDF si no hay imagen
@@ -160,18 +153,46 @@ def procesar_archivo(archivo: Path, disponibles: dict, formato: str, dry_run: bo
 
             # Solo insertar preview para bloques marcados
             if match_marcado:
-                # Verificar si ya existe un preview después
-                siguiente_no_vacia = i + 1
-                while siguiente_no_vacia < len(lineas) and not lineas[siguiente_no_vacia].strip():
-                    siguiente_no_vacia += 1
+                # 1. Detectar y saltar preview existente (si hay)
+                next_idx = i + 1
+                has_existing_preview = False
+                temp_skipped_lines = 0
+                
+                # Avanzar saltando líneas vacías iniciales
+                while next_idx < len(lineas) and not lineas[next_idx].strip():
+                    next_idx += 1
+                
+                # Si encontramos el inicio de un preview
+                if next_idx < len(lineas) and patron_preview_existente.match(lineas[next_idx]):
+                    has_existing_preview = True
+                    # Consumir líneas que formen parte del preview
+                    while next_idx < len(lineas):
+                        line = lineas[next_idx].strip()
+                        # Criterio para identificar líneas de preview:
+                        # - Vacía
+                        # - **Resultado:**
+                        # - <img ...>
+                        # - [📄 ...]
+                        # - <details>, </details>, <summary>
+                        # - ![Preview]
+                        if (not line or 
+                            line.startswith("**Resultado:**") or 
+                            line.startswith("<img") or 
+                            line.startswith("[📄") or
+                            line.startswith("<details") or
+                            line.startswith("</details") or
+                            line.startswith("<summary") or
+                            line.startswith("![Preview")
+                           ):
+                            next_idx += 1
+                        else:
+                            break
+                    
+                    # Actualizar cursor principal para saltar estas líneas
+                    i = next_idx - 1
 
-                ya_tiene_preview = (
-                    siguiente_no_vacia < len(lineas)
-                    and patron_preview_existente.match(lineas[siguiente_no_vacia])
-                )
-
-                # Insertar enlace si hay preview disponible y no existe ya
-                if nombre_snippet in disponibles and not ya_tiene_preview:
+                # 2. Insertar/Reemplazar con el nuevo preview
+                if nombre_snippet in disponibles:
                     enlace = generar_enlace_preview(nombre_snippet, disponibles, formato)
                     if enlace:
                         nuevas_lineas.append(enlace)

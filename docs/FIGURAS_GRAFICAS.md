@@ -52,10 +52,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_001.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_001.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_001.pdf)
-
 
 ---
 
@@ -92,10 +91,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_001.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_002.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_001.pdf)
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_002.pdf)
 
 ### Gráfica de función matemática
 
@@ -124,10 +122,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_002.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_003.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_002.pdf)
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_003.pdf)
 
 ### Gráfica con barras de error
 
@@ -162,10 +159,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_003.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_004.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_003.pdf)
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_004.pdf)
 
 ---
 
@@ -199,10 +195,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_003.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_005.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_003.pdf)
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_005.pdf)
 
 ### Gráfica de barras horizontales
 
@@ -238,7 +233,7 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_005.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_005.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_005.pdf)
 
@@ -273,10 +268,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_006.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_006.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_006.pdf)
-
 
 ### Gráfica de barras apiladas
 
@@ -313,10 +307,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_007.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_007.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_007.pdf)
-
 
 ### Histograma
 
@@ -347,10 +340,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_007.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_008.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_007.pdf)
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_008.pdf)
 
 ### Gráfica de dispersión (scatter)
 
@@ -381,10 +373,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_004.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_009.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_004.pdf)
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_009.pdf)
 
 ### Gráfica de área
 
@@ -418,10 +409,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_010.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_010.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_010.pdf)
-
 
 ### Gráfica polar
 
@@ -447,10 +437,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_005.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_011.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_005.pdf)
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_011.pdf)
 
 ### Box plot
 
@@ -497,10 +486,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_012.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_012.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_012.pdf)
-
 
 ---
 
@@ -634,10 +622,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_012.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_013.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_012.pdf)
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_013.pdf)
 
 ### Groupplots (múltiples ejes)
 
@@ -674,10 +661,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_013.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_014.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_013.pdf)
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_014.pdf)
 
 ### Dos ejes Y
 
@@ -721,10 +707,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_015.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_015.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_015.pdf)
-
 
 ---
 
@@ -839,10 +824,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_014.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_016.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_014.pdf)
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_016.pdf)
 
 ### Malla 3D
 
@@ -871,10 +855,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_017.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_017.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_017.pdf)
-
 
 ### Contornos
 
@@ -904,10 +887,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_015.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_018.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_015.pdf)
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_018.pdf)
 
 ### Scatter 3D
 
@@ -941,10 +923,9 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_019.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_019.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_019.pdf)
-
 
 ---
 
@@ -976,10 +957,9 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_013.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_020.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_013.pdf)
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_020.pdf)
 
 ### Pie chart con porcentajes
 
@@ -1007,10 +987,9 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_014.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_021.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_014.pdf)
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_021.pdf)
 
 ### Opciones de pgf-pie
 
@@ -1051,10 +1030,9 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_022.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_022.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_022.pdf)
-
 
 ---
 
@@ -1088,10 +1066,9 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_023.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_023.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_023.pdf)
-
 
 ### Anotaciones
 
@@ -1125,10 +1102,9 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_024.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_024.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_024.pdf)
-
 
 ### Líneas de referencia
 
@@ -1263,10 +1239,9 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 
 **Resultado:**
 
-<img src="assets/previews/FIGURAS_GRAFICAS_025.webp" alt="Preview" width="600">
+<img src="assets/previews/FIGURAS_GRAFICAS_025.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_025.pdf)
-
 
 ---
 

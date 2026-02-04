@@ -105,10 +105,9 @@ La Figura~\ref{fig:diagrama} muestra...
 
 **Resultado:**
 
-<img src="assets/previews/REFERENCIAS_CRUZADAS_001.webp" alt="Preview" width="600">
+<img src="assets/previews/REFERENCIAS_CRUZADAS_001.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_001.pdf)
-
 
 ### Tablas
 
@@ -246,10 +245,9 @@ En particular, la Figura~\ref{fig:sub_a} presenta...
 
 **Resultado:**
 
-<img src="assets/previews/REFERENCIAS_CRUZADAS_002.webp" alt="Preview" width="600">
+<img src="assets/previews/REFERENCIAS_CRUZADAS_002.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_002.pdf)
-
 
 ---
 
@@ -704,10 +702,9 @@ presenta un comportamiento estable.
 
 **Resultado:**
 
-<img src="assets/previews/REFERENCIAS_CRUZADAS_001.webp" alt="Preview" width="600">
+<img src="assets/previews/REFERENCIAS_CRUZADAS_003.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_001.pdf)
-
+[📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_003.pdf)
 
 ### Ejemplo de referencias múltiples
 
@@ -736,10 +733,9 @@ Ver la Figura 3.1 en la página 45.
 
 **Resultado:**
 
-<img src="assets/previews/REFERENCIAS_CRUZADAS_002.webp" alt="Preview" width="600">
+<img src="assets/previews/REFERENCIAS_CRUZADAS_004.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_002.pdf)
-
+[📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_004.pdf)
 
 ---
 
