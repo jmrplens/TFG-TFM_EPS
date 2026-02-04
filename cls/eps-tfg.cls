@@ -521,6 +521,47 @@
 \RequirePackage{pdflscape}
 
 %% ============================================================================
+%% SOPORTE PARA PÁGINAS LANDSCAPE CON HEADERS CORRECTOS
+%% ============================================================================
+% Comando para iniciar sección landscape con headers correctos
+% Usa las primitivas de LuaTeX para cambiar las dimensiones de la página
+% y geometry con layoutwidth/layoutheight para calcular textwidth correcto
+\NewDocumentCommand{\BeginLandscapePage}{O{2cm}}{%
+  \clearpage
+  % Cambiar dimensiones de la página PDF (LuaTeX primitives)
+  \pagewidth=297mm  % A4 landscape width
+  \pageheight=210mm % A4 landscape height
+  % Aplicar nuevos márgenes Y layout para landscape
+  % layoutwidth/layoutheight fuerzan a geometry a recalcular textwidth
+  \newgeometry{%
+    layoutwidth=297mm,
+    layoutheight=210mm,
+    left=#1,
+    right=#1,
+    top=#1,
+    bottom=#1,
+    includeheadfoot,
+    headheight=14pt,
+    headsep=1cm,
+    footskip=1.5cm
+  }%
+  % Actualizar anchos de header/footer al nuevo textwidth
+  \KOMAoptions{headwidth=\textwidth:0pt,footwidth=\textwidth:0pt}%
+}
+
+% Comando para restaurar orientación portrait
+\NewDocumentCommand{\EndLandscapePage}{}{%
+  \clearpage
+  % Restaurar dimensiones de la página PDF (A4 portrait)
+  \pagewidth=210mm
+  \pageheight=297mm
+  % Restaurar márgenes
+  \restoregeometry
+  % Restaurar anchos de header/footer
+  \KOMAoptions{headwidth=\textwidth:0pt,footwidth=\textwidth:0pt}%
+}
+
+%% ============================================================================
 %% IDIOMA (POLYGLOSSIA PARA LUALATEX)
 %% ============================================================================
 \RequirePackage{polyglossia}

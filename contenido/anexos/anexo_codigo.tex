@@ -27,7 +27,7 @@ Simple & \texttt{codigosimple} & Estilo minimalista con borde negro \\
 
 El tema Simple proporciona un estilo minimalista con borde negro, sin colores de fondo:
 
-\begin{codigosimple}{python}[title={Ejemplo de código simple}]
+\begin{codigosimple}{python}{Ejemplo de código simple}
 def factorial(n):
     if n <= 1:
         return 1
@@ -225,8 +225,8 @@ quicksort (x:xs) = quicksort menores ++ [x] ++ quicksort mayores
 El código C/C++ se escribe de forma natural, incluyendo las directivas de preprocesador:
 
 \begin{cppcode}[title={Ejemplo C++ con includes}]
-\#include <iostream>
-\#include <vector>
+#include <iostream>
+#include <vector>
 
 int main() {
     std::vector<int> v = {1, 2, 3};
@@ -242,7 +242,7 @@ int main() {
 Todos los entornos aceptan un parámetro opcional \texttt{title}:
 
 \begin{bashcode}[title={Script de instalación}]
-\#!/bin/bash
+#!/bin/bash
 echo "Instalando dependencias..."
 apt-get update && apt-get install -y python3
 \end{bashcode}

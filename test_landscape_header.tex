@@ -1,0 +1,53 @@
+% Test específico para verificar header/footer en landscape
+\documentclass[11pt,a4paper,twoside]{scrbook}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lipsum}
+\usepackage{geometry}
+\usepackage[automark,headsepline,footsepline]{scrlayer-scrpage}
+\usepackage{showframe} % Para ver los márgenes y áreas
+
+\geometry{
+  top=3cm,
+  bottom=3cm,
+  left=3cm,
+  right=3cm
+}
+
+% Configurar encabezado y pie
+\pagestyle{scrheadings}
+\ihead{HEADER IZQUIERDA}
+\ohead{\pagemark}
+\cfoot{FOOTER CENTRO}
+
+\begin{document}
+
+\chapter{Capítulo de prueba}
+\lipsum[1-2]
+
+% Guardar configuración portrait
+\clearpage
+\storeareas\portraitlayout
+
+% Cambiar a landscape
+\KOMAoptions{paper=landscape,pagesize}
+\newgeometry{margin=2cm,includeheadfoot}
+\KOMAoptions{headwidth=text,footwidth=text}
+
+\section{Página en Landscape}
+\lipsum[3]
+
+El header y footer deberían extenderse hasta el borde del texto.
+
+\lipsum[4]
+
+% Restaurar portrait
+\clearpage
+\KOMAoptions{paper=portrait,pagesize,headwidth=text,footwidth=text}
+\restoregeometry
+\portraitlayout
+
+\section{De nuevo en Portrait}
+\lipsum[5-6]
+
+\end{document}

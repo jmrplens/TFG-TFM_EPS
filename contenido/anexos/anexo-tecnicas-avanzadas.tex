@@ -84,40 +84,58 @@ Las tablas rotadas son útiles cuando:
 \section{Páginas en Horizontal (Landscape)}
 \label{sec:paginas-landscape}
 
-Para insertar una o varias páginas en orientación horizontal dentro de un documento
-vertical, se usa el entorno \texttt{landscape} del paquete \texttt{pdflscape}. 
-A diferencia de \texttt{lscape}, este paquete también rota la página en el visor PDF.
+Para insertar páginas en orientación horizontal dentro de un documento vertical,
+KOMA-Script ofrece una solución nativa que gestiona correctamente la orientación
+y el tamaño de página en el PDF. Al usar \texttt{geometry} para los márgenes,
+se combina con \verb|\newgeometry| para optimizar el espacio disponible.
 
-\subsection{Ejemplo de página landscape}
+\subsection{Método recomendado: Comandos de la plantilla}
 
-\begin{latexcode}[title={Código para página horizontal}]
-\begin{landscape}
-  \section{Diagrama de arquitectura}
-  
-  % Contenido que requiere más ancho
-  \begin{figure}[H]
-    \centering
-    % Diagrama TikZ o imagen amplia
-    \caption{Arquitectura del sistema}
-  \end{figure}
-\end{landscape}
+La plantilla proporciona comandos simplificados para crear páginas landscape
+con headers y footers correctamente dimensionados:
+
+\begin{latexcode}[title={Código para página horizontal (método simplificado)}]
+% Iniciar página landscape con margen de 2cm (valor por defecto)
+\BeginLandscapePage[2cm]
+
+% Contenido en landscape (puede ocupar varias páginas)
+\section{Diagrama de arquitectura}
+\begin{figure}[H]
+  \centering
+  % Diagrama TikZ o imagen amplia
+  \caption{Arquitectura del sistema}
+\end{figure}
+
+% Restaurar orientación portrait
+\EndLandscapePage
 \end{latexcode}
 
-% Página landscape real
-\begin{landscape}
+\textbf{Ventajas de este método:}
+\begin{itemize}
+  \item Sintaxis simple con solo dos comandos
+  \item El visor PDF muestra la página rotada correctamente (dimensiones reales de página)
+  \item Los márgenes se optimizan para aprovechar el espacio landscape
+  \item Los encabezados y pies de página funcionan con normalidad
+  \item Se puede usar para múltiples páginas consecutivas
+\end{itemize}
+
+% Página landscape usando el comando personalizado de la plantilla
+\BeginLandscapePage[2cm]  % Margen de 2cm (opcional, es el valor por defecto)
+
 \subsection{Diagrama de flujo del sistema (página horizontal)}
 
 Esta página está en orientación horizontal para mostrar un diagrama amplio.
+Los márgenes están optimizados para aprovechar el espacio disponible.
 
 \begin{figure}[H]
   \centering
   \begin{tikzpicture}[
-    scale=0.85, transform shape,
-    node distance=1cm and 1.5cm,
-    block/.style={rectangle, draw, fill=blue!10, text width=2cm, text centered, 
-                  rounded corners, minimum height=0.8cm, font=\small},
-    decision/.style={diamond, draw, fill=yellow!20, text width=1.5cm, 
-                     text centered, aspect=2, font=\small},
+    scale=0.75, transform shape,
+    node distance=0.9cm and 1.3cm,
+    block/.style={rectangle, draw, fill=blue!10, text width=1.8cm, text centered, 
+                  rounded corners, minimum height=0.7cm, font=\footnotesize},
+    decision/.style={diamond, draw, fill=yellow!20, text width=1.3cm, 
+                     text centered, aspect=2, font=\footnotesize},
     arrow/.style={thick,->,>=stealth}
   ]
     % Nodos
@@ -125,15 +143,15 @@ Esta página está en orientación horizontal para mostrar un diagrama amplio.
     \node[block, right=of inicio] (auth) {Autenticación};
     \node[decision, right=of auth] (valido) {¿Válido?};
     \node[block, right=of valido] (menu) {Menú};
-    \node[block, above right=0.8cm and 1.5cm of menu] (modulo1) {Módulo A};
-    \node[block, right=1.5cm of menu] (modulo2) {Módulo B};
-    \node[block, below right=0.8cm and 1.5cm of menu] (modulo3) {Módulo C};
-    \node[block, right=2cm of modulo2] (proceso) {Proceso};
+    \node[block, above right=0.6cm and 1.2cm of menu] (modulo1) {Módulo A};
+    \node[block, right=1.2cm of menu] (modulo2) {Módulo B};
+    \node[block, below right=0.6cm and 1.2cm of menu] (modulo3) {Módulo C};
+    \node[block, right=1.5cm of modulo2] (proceso) {Proceso};
     \node[block, right=of proceso] (resultado) {Resultado};
     \node[decision, right=of resultado] (guardar) {¿Guardar?};
     \node[block, right=of guardar] (bd) {BD};
-    \node[block, below=0.8cm of valido] (error) {Error};
-    \node[block, below=0.8cm of guardar] (fin) {Fin};
+    \node[block, below=0.6cm of valido] (error) {Error};
+    \node[block, below=0.6cm of guardar] (fin) {Fin};
     
     % Flechas
     \draw[arrow] (inicio) -- (auth);
@@ -157,10 +175,11 @@ Esta página está en orientación horizontal para mostrar un diagrama amplio.
   \label{fig:diagrama-landscape}
 \end{figure}
 
-\vspace{1cm}
+\vspace{0.3cm}
 
 \begin{table}[H]
   \centering
+  \small
   \caption{Matriz de trazabilidad requisitos-módulos (aprovechando el ancho de página landscape)}
   \label{tab:trazabilidad-landscape}
   \begin{tabular}{l|ccccccccccccc}
@@ -177,7 +196,9 @@ Esta página está en orientación horizontal para mostrar un diagrama amplio.
     \bottomrule
   \end{tabular}
 \end{table}
-\end{landscape}
+
+% Restaurar orientación portrait
+\EndLandscapePage
 
 \subsection{Cuándo usar páginas landscape}
 
@@ -413,18 +434,18 @@ Las minipáginas permiten crear bloques de contenido lado a lado:
 
 \begin{table}[H]
   \centering
-  \caption{Paquetes \LaTeX{} para técnicas avanzadas}
+  \caption{Paquetes y comandos \LaTeX{} para técnicas avanzadas}
   \label{tab:paquetes-avanzados}
   \begin{tabular}{llp{6cm}}
     \toprule
-    \textbf{Paquete} & \textbf{Uso} & \textbf{Comando principal} \\
+    \textbf{Paquete/Clase} & \textbf{Uso} & \textbf{Comando principal} \\
     \midrule
     \texttt{rotating} & Tablas rotadas & \verb|\begin{sidewaystable}| \\
-    \texttt{pdflscape} & Páginas landscape & \verb|\begin{landscape}| \\
+    KOMA-Script & Páginas landscape & \verb|\KOMAoptions{paper=landscape}| \\
     \texttt{pdfpages} & Incluir PDFs & \verb|\includepdf[options]{file}| \\
     \texttt{multicol} & Múltiples columnas & \verb|\begin{multicols}{n}| \\
     \texttt{geometry} & Márgenes personalizados & \verb|\newgeometry{...}| \\
-    \texttt{fancyhdr} & Encabezados/pies & \verb|\pagestyle{fancy}| \\
+    \texttt{scrlayer-scrpage} & Encabezados/pies & Configuración KOMA \\
     \texttt{draftwatermark} & Marcas de agua & \verb|\SetWatermarkText{...}| \\
     \bottomrule
   \end{tabular}
