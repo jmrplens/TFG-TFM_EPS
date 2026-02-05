@@ -54,43 +54,45 @@
       \fill[\EPScolorGrado] ([xshift=-1pt,yshift=-1pt]current page.south west) rectangle ([xshift=1pt,yshift=1pt]current page.north east);
       
       % 2. Franja negra inferior
-      \fill[black] ([xshift=-1pt,yshift=-1pt]current page.south west) rectangle ([xshift=1pt,yshift=7cm]current page.south east);
+      \fill[black] ([xshift=-1pt,yshift=-1pt]current page.south west) rectangle ([xshift=1pt,yshift=6.86cm]current page.south east);
       
       % 3. Logo de la facultad (Arriba Derecha)
       \node[anchor=north east, inner sep=0pt] 
-        at ([xshift=-2cm, yshift=-1.4cm]current page.north east)
+        at ([xshift=-1.5cm, yshift=-1.4cm]current page.north east)
         {\includegraphics[width=5.3cm]{\EPSlogoFacultadPortada}};
       
       % 4. Logo de la universidad (Abajo Derecha - En franja negra)
       \node[anchor=south east, inner sep=0pt] 
-        at ([xshift=-2cm, yshift=2.1cm]current page.south east)
+        at ([xshift=-1.5cm, yshift=1.6cm]current page.south east)
         {\includegraphics[width=6.2cm]{\EPSlogoUniversidadPortada}};
 
       % 5. Título (Caja auto-ajustable con tcolorbox)
-      % Posicionado arbitrariamente para evitar superposición con logos y metadatos
       \node[anchor=north west, inner sep=0pt] 
-        at ([xshift=2cm, yshift=-2.0cm]current page.north west) {%
-        \tcboxfit[%
-          enhanced,
-          frame empty,
-          interior empty,
-          width=18cm,
-          height=10cm,
-          halign=flush left,
-          valign=bottom, 
-          nobeforeafter,
-          coltext=\EPScolorTexto,
-          fontupper=\FuenteTitulo\bfseries,
-          fit basedim=55pt,
-          fit skip=1.3,
-        ]{\EPStitulo}%
+         at ([xshift=2cm, yshift=0cm]current page.north west) {%
+         \begin{minipage}[t][18cm][b]{18cm} % Altura total hasta donde queremos que acabe el titulo
+          \null\vfill
+          \tcboxfit[%
+            enhanced,
+            frame empty,
+            interior empty,
+            width=18cm,
+            height=9cm, % Altura maxima del titulo
+            halign=flush left,
+            valign=bottom, 
+            nobeforeafter,
+            coltext=\EPScolorTexto,
+            fontupper=\FuenteTitulo\bfseries,
+            fit basedim=55pt,
+            fit skip=1.3,
+          ]{\EPStitulo}
+         \end{minipage}
       };
 
       % 6. Información Grado (Logo + Texto)
       % Posicionado debajo del título.
-      % Alineado a la izquierda (offset 3cm del borde izquierdo - desplazado 1cm respecto al título).
+      % Restaurado: Posición original relativa a la franja negra o fija
       \node[anchor=north west, inner sep=0pt] 
-        at ([xshift=3cm, yshift=-12.25cm]current page.north west) {%
+        at ([xshift=3cm, yshift=-13.5cm]current page.north west) {%
         \begin{tabular}{lL{12cm}}
           \raisebox{-.35\height}{\includegraphics[width=2cm]{\EPSlogoGradoPortada}} & 
           \begin{spacing}{1.5}
