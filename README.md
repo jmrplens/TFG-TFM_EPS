@@ -282,6 +282,13 @@ Cada titulación tiene su propio diseño con colores y logotipos oficiales:
 <img src=".github/images/portadas/portada_master-teleco_color.webp" width="12%" title="Máster Universitario en Ingeniería de Telecomunicación"></img>
 <img src=".github/images/portadas/portada_master-web_color.webp" width="12%" title="Máster Universitario en Desarrollo de Aplicaciones y Servicios Web"></img>
 </p>
+
+### Ejemplo: Portada a color y B/N
+
+<p align="center">
+<img src=".github/images/portadas/portada_teleco_color.webp" width="30%"></img>
+<img src=".github/images/portadas/portada_teleco_bn.webp" width="30%"></img>
+</p>
 ### Comandos de Portada
 
 ```latex
