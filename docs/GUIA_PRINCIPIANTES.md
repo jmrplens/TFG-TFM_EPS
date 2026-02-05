@@ -8,14 +8,56 @@ Si vienes de Word, Google Docs o similar, LaTeX puede parecer intimidante al pri
 
 ## 📖 Índice
 
-1. [¿Qué es LaTeX y por qué usarlo?](#qué-es-latex-y-por-qué-usarlo)
-2. [Conceptos básicos](#conceptos-básicos)
-3. [Instalación paso a paso](#instalación-paso-a-paso)
-4. [Eligiendo un editor](#eligiendo-un-editor)
-5. [Tu primera compilación](#tu-primera-compilación)
-6. [Escribiendo contenido](#escribiendo-contenido)
-7. [Recursos de aprendizaje](#recursos-de-aprendizaje)
-8. [Errores comunes y soluciones](#errores-comunes-y-soluciones)
+- [📖 Índice](#-índice)
+- [🤔 ¿Qué es LaTeX y por qué usarlo?](#-qué-es-latex-y-por-qué-usarlo)
+  - [¿Qué es?](#qué-es)
+  - [¿Por qué usarlo para el TFG/TFM?](#por-qué-usarlo-para-el-tfgtfm)
+  - [¿Cuál es el inconveniente?](#cuál-es-el-inconveniente)
+- [📝 Conceptos básicos](#-conceptos-básicos)
+  - [Archivos y extensiones](#archivos-y-extensiones)
+  - [Estructura de un documento LaTeX](#estructura-de-un-documento-latex)
+  - [Comandos básicos](#comandos-básicos)
+  - [Entornos](#entornos)
+  - [Comentarios](#comentarios)
+- [💻 Instalación paso a paso](#-instalación-paso-a-paso)
+  - [Opción 1: Overleaf (sin instalar nada) ⭐ Recomendado para empezar](#opción-1-overleaf-sin-instalar-nada-recomendado-para-empezar)
+  - [Opción 2: Instalación local en Windows](#opción-2-instalación-local-en-windows)
+  - [Opción 3: Instalación local en macOS](#opción-3-instalación-local-en-macos)
+  - [Opción 4: Instalación local en Linux (Ubuntu/Debian)](#opción-4-instalación-local-en-linux-ubuntudebian)
+- [✍️ Eligiendo un editor](#-eligiendo-un-editor)
+  - [VS Code + LaTeX Workshop ⭐ Recomendado](#vs-code-latex-workshop-recomendado)
+  - [TeXstudio - Alternativa popular](#texstudio---alternativa-popular)
+  - [Texmaker - Similar a TeXstudio](#texmaker---similar-a-texstudio)
+  - [Comparativa rápida](#comparativa-rápida)
+- [🚀 Tu primera compilación](#-tu-primera-compilación)
+  - [Con VS Code](#con-vs-code)
+  - [Con TeXstudio/Texmaker](#con-texstudiotexmaker)
+  - [Desde terminal](#desde-terminal)
+  - [¿Por qué hay que compilar varias veces?](#por-qué-hay-que-compilar-varias-veces)
+- [✏️ Escribiendo contenido](#-escribiendo-contenido)
+  - [Lo que debes editar](#lo-que-debes-editar)
+  - [Ejemplo: Escribir un capítulo](#ejemplo-escribir-un-capítulo)
+  - [Añadir figuras](#añadir-figuras)
+  - [Añadir tablas](#añadir-tablas)
+  - [Añadir código fuente](#añadir-código-fuente)
+  - [Citar bibliografía](#citar-bibliografía)
+- [📚 Recursos de aprendizaje](#-recursos-de-aprendizaje)
+  - [Tutoriales recomendados](#tutoriales-recomendados)
+  - [Vídeos](#vídeos)
+  - [Cheatsheets (hojas de referencia rápida)](#cheatsheets-hojas-de-referencia-rápida)
+  - [Herramientas útiles](#herramientas-útiles)
+- [🤖 Uso de IA para ayuda](#-uso-de-ia-para-ayuda)
+  - [Proporcionar contexto](#proporcionar-contexto)
+  - [Qué puedes pedirles](#qué-puedes-pedirles)
+- [❗ Errores comunes y soluciones](#-errores-comunes-y-soluciones)
+  - ["File not found" / "Archivo no encontrado"](#file-not-found-archivo-no-encontrado)
+  - ["Undefined control sequence"](#undefined-control-sequence)
+  - ["Missing $ inserted" / "Falta $"](#missing-inserted-falta-)
+  - [La bibliografía no aparece](#la-bibliografía-no-aparece)
+  - [El código no tiene colores](#el-código-no-tiene-colores)
+  - [Compilación muy lenta](#compilación-muy-lenta)
+  - ["You must invoke LaTeX with -shell-escape"](#you-must-invoke-latex-with--shell-escape)
+- [💡 Consejos finales](#-consejos-finales)
 
 ---
 
@@ -400,11 +442,32 @@ Según García \cite{garcia2024}, el resultado es...
 
 | Herramienta | Para qué sirve |
 |-------------|----------------|
+| [Overleaf Learn](https://www.overleaf.com/learn) | Documentación excelente (aunque uses editor local) |
 | [Detexify](https://detexify.kirelabs.org/) | Dibuja un símbolo y te dice el comando |
 | [Tables Generator](https://www.tablesgenerator.com/) | Crea tablas visualmente |
 | [Mathpix](https://mathpix.com/) | Convierte imágenes de ecuaciones a LaTeX |
 | [BibTeX Online](https://www.bibtex.com/c/doi-to-bibtex-converter/) | Genera BibTeX desde DOI |
 | [Zotero](https://www.zotero.org/) | Gestor de bibliografía (exporta a BibTeX) |
+
+---
+
+## 🤖 Uso de IA para ayuda
+
+Si utilizas herramientas como ChatGPT, Claude o GitHub Copilot para redactar o solucionar problemas con tu TFG, te recomendamos lo siguiente:
+
+### Proporcionar contexto
+Las IAs funcionan mejor si saben cómo está configurado tu proyecto. 
+1. Abre el archivo **`AGENTS.md`** (en la raíz del proyecto).
+2. Copia todo su contenido.
+3. Pégalo al inicio de tu conversación con la IA.
+
+Esto le enseñará a la IA qué paquetes usamos, cómo se hacen las portadas y las reglas específicas de la Universidad de Alicante.
+
+### Qué puedes pedirles
+- **Generar tablas:** "Hazme una tabla LaTeX con 3 columnas (Concepto, Descripción, Valor) para..."
+- **Corregir errores:** Pega el error de la consola y la IA te dirá qué falla.
+- **Escribir fórmulas:** "Escribe la fórmula de la Entropía de Shannon en LaTeX".
+- **Resumir textos:** "Resumen este texto para ponerlo en el Abstract".
 
 ---
 

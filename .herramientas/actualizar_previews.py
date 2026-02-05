@@ -1,7 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+actualizar_previews.py
+--------------------------------------------------------------------------------
 Herramienta unificada para generar e insertar previews de documentación LaTeX.
+
+Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+Autor:    José Manuel Requena Plens
+Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
+Licencia: GNU GPL v3.0
+Versión:  2.1.0
+--------------------------------------------------------------------------------
 
 Este script:
 1. Busca snippets LaTeX MARCADOS con <!-- preview --> en docs/*.md

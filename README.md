@@ -42,7 +42,12 @@ Incluye:
 
 ## � Documentación Especializada
 
-Guías detalladas para cada aspecto de tu documento:
+Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG/TFM. Puedes acceder al índice completo o ir directamente a las guías específicas:
+
+👉 **[ÍNDICE DE DOCUMENTACIÓN](docs/README.md)** (Empieza aquí si tienes dudas)
+
+<details>
+<summary><b>Ver lista de guías disponibles</b></summary>
 
 | Guía | Descripción |
 |------|-------------|
@@ -55,6 +60,9 @@ Guías detalladas para cada aspecto de tu documento:
 | 📖 [Bibliografía](docs/BIBLIOGRAFIA.md) | Gestión de referencias con BibLaTeX |
 | 📓 [Glosarios y Acrónimos](docs/GLOSARIOS_ACRONIMOS.md) | Términos, siglas y símbolos |
 | 🔗 [Referencias Cruzadas](docs/REFERENCIAS_CRUZADAS.md) | Etiquetas, referencias y hyperref |
+| 🤖 [Contexto IA](docs/AI_CONTEXT.md) | Información para asistentes de IA |
+
+</details>
 
 ---
 

@@ -1,7 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+generar_portadas.py
+--------------------------------------------------------------------------------
 Generador automático de imágenes de portadas para el README.
+
+Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+Autor:    José Manuel Requena Plens
+Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
+Licencia: GNU GPL v3.0
+Versión:  2.1.0
+--------------------------------------------------------------------------------
 
 Este script:
 1. Lee las titulaciones disponibles del archivo .cls
@@ -39,7 +48,7 @@ OUTPUT_DIR = PROYECTO_ROOT / ".github" / "images" / "portadas"
 TITULACION_REFERENCIA = "teleco"
 
 # Configuración de imágenes
-DPI = 150  # Más bajo para thumbnails
+DPI = 300  # Más bajo para thumbnails
 WEBP_QUALITY = 90
 
 

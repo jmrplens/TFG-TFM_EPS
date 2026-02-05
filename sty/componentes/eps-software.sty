@@ -2,7 +2,7 @@
 %% Componentes para desarrollo de software, APIs, IT
 %% Parte de eps-componentes.sty
 
-\ProvidesFile{eps-software.sty}[2026/02/03 v2.1.0 Componentes software EPS UA]
+\ProvidesFile{eps-software.sty}[2026/02/05 v2.1.0 Componentes software EPS UA]
 
 % ============================================================================
 % DEPENDENCIAS
@@ -18,12 +18,8 @@
 % ENDPOINTS REST API
 % ============================================================================
 
-% Estilos de colores para métodos HTTP
-\colorlet{eps-http-get}{eps-info}
-\colorlet{eps-http-post}{eps-success}
-\colorlet{eps-http-put}{eps-warning}
-\colorlet{eps-http-patch}{eps-warning!80!black}
-\colorlet{eps-http-delete}{eps-danger}
+% Los colores base eps-http-* se definen en eps-componentes.sty
+% Aquí solo definimos la lógica de visualización.
 
 % Comando para método HTTP con estilo badge moderno
 \newcommand{\httpmethod}[1]{%
@@ -320,7 +316,7 @@
     \footnotesize\ttfamily
     \ifblank{#2}{}{%
       #2\par\vspace{2pt}
-      {\color{eps-primary}\hrule height 0.5pt}\vspace{2pt}
+      \noindent\textcolor{eps-primary}{\rule{\linewidth}{0.5pt}}\par\vspace{2pt}
     }
     #3
   \end{tcolorbox}

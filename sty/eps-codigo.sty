@@ -1,9 +1,20 @@
-%% =============================================================================
-%% EPS-CODIGO.STY - Estilos de código estilo VS Code
-%% Plantilla TFG/TFM - Escuela Politécnica Superior - Universidad de Alicante
-%% =============================================================================
+%% eps-codigo.sty
+%% Estilos de código estilo VS Code (basado en minted)
+%%
+%% Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+%% Autor:    José Manuel Requena Plens
+%% Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
+%% Licencia: GNU GPL v3.0
+%% Versión:  2.1.0 (2026/02/05)
+%%
+%% -----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{sty/eps-codigo}[2024/01/01 Estilos de código VS Code]
+\ProvidesPackage{eps-codigo}[2026/02/05 v2.1.0 Estilos de código TFG/TFM EPS UA]
+
+%% NOTA IMPORTANTE:
+%% Este paquete depende de 'minted', que a su vez requiere Python y Pygments instalado.
+%% Es OBLIGATORIO compilar con la opción -shell-escape habilitada.
+%% Ejemplo: lualatex -shell-escape main.tex
 
 %% Cargar paquetes necesarios
 \RequirePackage{tcolorbox}

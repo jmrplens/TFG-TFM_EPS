@@ -1,15 +1,35 @@
-%% eps-tfg
-%% Clase LaTeX para TFG/TFM de la Escuela Politécnica Superior
-%% Universidad de Alicante
+%% eps-tfg.cls
+%% Clase principal para TFG/TFM de la Escuela Politécnica Superior (UA)
 %%
-%% Versión 2.0 - Febrero 2026
-%% Modernización completa con expl3, biblatex, LuaLaTeX
+%% Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+%% Autor:    José Manuel Requena Plens
+%% Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
+%% Licencia: GNU GPL v3.0
+%% Versión:  2.1.0 (2026/02/05)
 %%
-%% Autor original: José Manuel Requena Plens
-%% Modernización: GitHub Copilot
-%%
+%% -----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2022/06/01]
-\ProvidesClass{eps-tfg}[2026/02/02 v2.0 Clase TFG/TFM EPS Universidad de Alicante]
+\ProvidesClass{eps-tfg}[2026/02/05 v2.1.0 Clase TFG/TFM EPS Universidad de Alicante]
+
+%% ============================================================================
+%% ARQUITECTURA DE LA CLASE
+%% ============================================================================
+%% Esta clase se basa en 'scrbook' (KOMA-Script) y utiliza 'expl3' para la 
+%% gestión de variables y lógica interna.
+%%
+%% Estructura principal:
+%% 1. Carga de expl3 y xparse para definiciones modernas.
+%% 2. Definición de variables globales (prefijo g__eps_).
+%% 3. Base de datos de titulaciones (Property List):
+%%    Almacena colores, logos y textos específicos de cada grado/máster.
+%% 4. Interfaz de usuario (\EPSsetup):
+%%    Permite configurar el documento mediante pares clave-valor.
+%% 5. Configuración de KOMA-Script y paquetes base (geometría, fuentes, idioma).
+%% 6. Definición de comandos de portada y metadatos.
+%%
+%% Las variables internas siguen la convención de nombres de LaTeX3:
+%% \g__eps_nombre_tipo (g=global, eps=módulo, tipo=tl/bool/prop/...)
+%% ============================================================================
 
 %% ============================================================================
 %% CONFIGURACIÓN EXPL3
@@ -546,8 +566,7 @@
     footskip=1.5cm
   }%
   % Actualizar anchos de header/footer al nuevo textwidth con offset 0
-  \setheadwidth[0pt]{\textwidth}%
-  \setfootwidth[0pt]{\textwidth}%
+  \KOMAoptions{paper=landscape, headwidth=\textwidth:0pt, footwidth=\textwidth:0pt}%
 }
 
 % Comando para restaurar orientación portrait
@@ -559,8 +578,7 @@
   % Restaurar márgenes
   \restoregeometry
   % Restaurar anchos de header/footer con offset 0
-  \setheadwidth[0pt]{\textwidth}%
-  \setfootwidth[0pt]{\textwidth}%
+  \KOMAoptions{paper=portrait, headwidth=\textwidth:0pt, footwidth=\textwidth:0pt}%
 }
 
 %% ============================================================================

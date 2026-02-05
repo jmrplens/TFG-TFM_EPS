@@ -1,8 +1,11 @@
 %% eps-componentes.sty
 %% Componentes especializados para TFG/TFM - EPS Universidad de Alicante
-%% 
-%% Este paquete proporciona componentes visuales especializados para
-%% diferentes disciplinas académicas.
+%%
+%% Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+%% Autor:    José Manuel Requena Plens
+%% Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
+%% Licencia: GNU GPL v3.0
+%% Versión:  2.1.0 (2026/02/05)
 %%
 %% Uso:
 %%   \usepackage{eps-componentes}                    % Carga solo comunes
@@ -12,11 +15,9 @@
 %%   \usepackage[quimica]{eps-componentes}          % Comunes + Química
 %%   \usepackage[all]{eps-componentes}              % Todos los componentes
 %%
-%% Autor: Plantilla TFG/TFM EPS UA
-%% Versión: 2.1.0
-
+%% -----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{eps-componentes}[2026/02/03 v2.1.0 Componentes especializados EPS UA]
+\ProvidesPackage{eps-componentes}[2026/02/05 v2.1.0 Componentes especializados EPS UA]
 
 % ============================================================================
 % OPCIONES DEL PAQUETE
@@ -89,12 +90,12 @@
 \definecolor{eps-terminal-green}{HTML}{4ADE80} % Verde terminal
 \definecolor{eps-terminal-text}{HTML}{E5E5E5}  % Texto terminal (mejor contraste)
 
-% Colores HTTP para APIs
-\definecolor{eps-http-get}{HTML}{22C55E}     % GET - Verde
-\definecolor{eps-http-post}{HTML}{3B82F6}    % POST - Azul
-\definecolor{eps-http-put}{HTML}{F59E0B}     % PUT - Amarillo
-\definecolor{eps-http-patch}{HTML}{8B5CF6}   % PATCH - Violeta
-\definecolor{eps-http-delete}{HTML}{EF4444}  % DELETE - Rojo
+% Colores HTTP para APIs (Estilo Swagger)
+\definecolor{eps-http-get}{HTML}{61AFFE}     % GET - Azul
+\definecolor{eps-http-post}{HTML}{49CC90}    % POST - Verde
+\definecolor{eps-http-put}{HTML}{FCA130}     % PUT - Naranja
+\definecolor{eps-http-patch}{HTML}{50E3C2}   % PATCH - Turquesa
+\definecolor{eps-http-delete}{HTML}{F93E3E}  % DELETE - Rojo
 
 % ============================================================================
 % ESTILOS BASE PARA TCOLORBOX
@@ -166,31 +167,36 @@
 % ============================================================================
 % CARGAR MÓDULOS
 % ============================================================================
-
-% Los módulos están en el subdirectorio 'componentes' relativo al paquete
-% Se usa input con ruta relativa que funciona si sty/componentes/ está en input@path
+% Se cargan condicionalmente según las opciones del paquete.
+% Cada submódulo contiene definiciones de entornos (cajas, diagramas, etc.)
+% específicos para esa área de conocimiento.
 
 % Componentes comunes (siempre se cargan)
+% Incluye: Cajas de aviso (warning, info...), terminal, y estilos base.
 \if@eps@comunes
   \input{componentes/eps-comunes.sty}
 \fi
 
 % Componentes de software/IT
+% Incluye: Definiciones de API, JSON, diagramas de clases simples.
 \if@eps@software
   \input{componentes/eps-software.sty}
 \fi
 
 % Componentes de telecomunicaciones
+% Incluye: Tramas de bits, señales, diagramas de red.
 \if@eps@telecom
   \input{componentes/eps-telecom.sty}
 \fi
 
 % Componentes de arquitectura/construcción
+% Incluye: Fichas de materiales, detalles constructivos.
 \if@eps@arquitectura
   \input{componentes/eps-arquitectura.sty}
 \fi
 
 % Componentes de química/materiales
+% Incluye: Fichas de seguridad, reacciones, material de laboratorio.
 \if@eps@quimica
   \input{componentes/eps-quimica.sty}
 \fi

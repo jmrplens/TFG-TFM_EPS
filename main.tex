@@ -1,19 +1,20 @@
 % !TeX program = lualatex
 % !TeX encoding = UTF-8
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Plantilla TFG/TFM - Escuela Politécnica Superior
-% Universidad de Alicante
-%
-% Versión 2.0 - Febrero 2026
+%% =============================================================================
+%% main.tex
+%% Archivo principal del documento (Root)
+%%
+%% Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+%% Autor:    José Manuel Requena Plens
+%% Versión:  2.1.0 (2026/02/05)
+%% =============================================================================
 %
 % Este es el archivo principal del documento.
-% La configuración del trabajo se realiza en 'configuracion.tex'
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% La configuración del trabajo se realiza en 'configuracion.tex'.
 
-% Ruta donde buscar la clase y los paquetes
+% Definir rutas de búsqueda para clase y paquetes (compatibilidad editores)
 \makeatletter
-\providecommand\input@path{}
-\edef\input@path{{cls/}{sty/}\input@path}
+\def\input@path{{cls/}{sty/}{sty/componentes/}{recursos/}}
 \makeatother
 
 % Cargar la clase eps-tfg
