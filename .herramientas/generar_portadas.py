@@ -154,13 +154,8 @@ def generar_documento_portada_simple(titulacion: Titulacion, bn: bool = False) -
 % !TeX encoding = UTF-8
 % Generado automáticamente por generar_portadas.py
 
-% Ruta donde buscar la clase y los paquetes (igual que main.tex)
-\\makeatletter
-\\providecommand\\input@path{{}}
-\\edef\\input@path{{{{cls/}}{{sty/}}\\input@path}}
-\\makeatother
-
-\\documentclass{{eps-tfg}}
+\\documentclass{{cls/eps-tfg}}
+\\usepackage{{sty/eps-portadas}}
 
 \\EPSsetup{{
     titulo = {{Título del Trabajo de Fin de {'Máster' if titulacion.tipo == 'tfm' else 'Grado'}}},
@@ -174,7 +169,6 @@ def generar_documento_portada_simple(titulacion: Titulacion, bn: bool = False) -
 }}
 
 \\begin{{document}}
-\\frontmatter
 {comando_portada}
 \\end{{document}}
 """
