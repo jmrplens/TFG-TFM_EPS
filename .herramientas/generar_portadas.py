@@ -164,7 +164,7 @@ def generar_documento_portada_simple(titulacion: Titulacion, bn: bool = False) -
     genero = m,
     tutor = {{Dr. Nombre del Tutor}},
     tutor-departamento = {{Departamento Ejemplo}},
-    titulacion = {titulacion.id},
+    titulacion = {{{titulacion.id}}},
     fecha = {{Febrero 2026}},
 }}
 
@@ -260,6 +260,10 @@ def _compilar_portada_worker(args: tuple) -> tuple:
         # Limpiar archivos temporales
         for ext in [".tex", ".pdf", ".png", ".log", ".aux", ".out", ".bcf", ".run.xml"]:
             tmp = PROYECTO_ROOT / f"_temp_portada{suffix}{ext}"
+            # Mantener los archivos de teleco_color para depuracion se ve diferente
+            if "teleco_color" in str(tmp):
+                continue
+
             if tmp.exists():
                 try:
                     tmp.unlink()
