@@ -88,6 +88,7 @@ El usuario interactúa mediante:
 | `eps-fuentes.sty` | Configuración de tipografía |
 | `eps-colores.sty` | Paleta de colores por titulación |
 | `eps-codigo.sty` | Entornos de código con minted |
+| `eps-componentes.sty` | Componentes visuales y especializados (Modular) |
 | `eps-estilos.sty` | Estilos generales del documento |
 
 ---
@@ -273,6 +274,43 @@ En Python usamos \mintinline{python}{print("Hola")} para imprimir.
     ...
 \end{lema}
 ```
+
+---
+
+## 🧩 Componentes Especializados (Nuevo en v2.1)
+
+El paquete `eps-componentes` introduce un sistema modular para cargar solo los entornos necesarios.
+
+### Activación
+En `main.tex`:
+```latex
+% Opciones: software, telecom, arquitectura, quimica, geologia, prevencion, all
+\usepackage[software,telecom]{eps-componentes}
+```
+
+### Módulos Disponibles
+
+#### Comunes (Siempre activos)
+- **Cajas de aviso:** `infobox`, `warningbox`, `dangerbox`, `successbox`, `tipbox`, `notebox`.
+- **Contenedores:** `titlebox`, `definitionbox`, `examplebox`.
+
+#### `[software]`
+- **Entornos:** `terminal` (simula consola), `apiendpoint` (documentación REST), `dirtreebox` (árbol de archivos).
+- **Código:** `jsoncode`, `sqlcode`, `yamlcode`, `bashcode`.
+- **Diagramas:** `umlclass`, `umlseq` (basados en TikZ/pgf-umlcd).
+
+#### `[telecom]`
+- **Redes:** `protocolframe` (tramas de bits), `rackcabinet` (armarios).
+- **Circuitos:** `circuit` (wrapper de circuitikz).
+- **RF:** Carta de Smith (`smithchart`).
+
+#### `[arquitectura]`
+- **Planificación:** `ganttchart` (diagramas de Gantt).
+- **Planos:** `compass` (norte), `scalebar`.
+
+#### `[quimica]`
+- **Fórmulas:** `chemscheme`, `reaction` (chemfig/chemmacros).
+- **Seguridad:** `riskmatrix` (matriz de riesgos).
 
 ---
 

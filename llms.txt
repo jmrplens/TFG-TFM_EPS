@@ -1,0 +1,42 @@
+# Contexto para LLMs (Large Language Models)
+
+Esta plantilla LaTeX para TFG/TFM de la Universidad de Alicante contiene una extensa documentación técnica.
+Para entender mejor la estructura y reglas, consulta los siguientes archivos:
+
+- **Estructura y Reglas Técnicas:** `docs/AI_CONTEXT.md` (La fuente más completa)
+- **Prompt Maestro:** `AGENTS.md` (Resumen ejecutivo para iniciar chats)
+- **Reglas Copilot:** `.github/copilot-instructions.md`
+- **Componentes:** `docs/COMPONENTES.md` (Lista de entornos disponibles)
+
+## Resumen Rápido
+
+- **Motor:** LuaLaTeX (Obligatorio).
+- **Bibliografía:** BibLaTeX con Biber (estilo APA 7).
+- **Código:** Minted 3.x (requiere Python y Pygments).
+
+## Mapa de Edición (¿Dónde escribo qué?)
+
+1. **Configuración Global** (`configuracion.tex`):
+   - Define aquí: Título, Autor, Tutor, Grado, Idioma, fecha.
+   - NO definas aquí comandos de estructura.
+
+2. **Estructura del Documento** (`main.tex`):
+   - **EDITAR PARA:**
+     - Añadir o quitar capítulos (`\input{contenido/capitulos/...}`).
+     - Añadir o quitar anexos (`\input{contenido/anexos/...}`).
+     - Seleccionar módulos de componentes (`\usepackage[software]{eps-componentes}`).
+   - **NO EDITAR PARA:** 
+     - Escribir contenido de texto (hazlo en los archivos de capítulos).
+
+3. **Contenido** (`contenido/`):
+   - Escribe aquí el texto de tu TFG/TFM.
+   - Crea un archivo `.tex` por capítulo.
+
+## Componentes Disponibles
+Para activar en `main.tex`:
+- `[software]`: UML, JSON, API, Terminal.
+- `[telecom]`: Circuitos, Tramas de bits, Carta Smith.
+- `[arquitectura]`: Diagramas de Gantt, símbolos Euro.
+- `[quimica]`: Fórmulas químicas, esquemas de reacción.
+- `[geologia]`: Sin dependencias extra por ahora.
+- `[prevencion]`: Sin dependencias extra por ahora.
