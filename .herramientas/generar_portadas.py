@@ -50,6 +50,8 @@ TITULACION_REFERENCIA = "teleco"
 # Configuración de imágenes
 DPI = 300  # Más bajo para thumbnails
 WEBP_QUALITY = 90
+HTML_CENTER_START = '<p align="center">'
+HTML_CENTER_END = '</p>\n'
 
 
 # =============================================================================
@@ -253,7 +255,7 @@ def _compilar_portada_worker(args: tuple) -> tuple:
         
         return (titulacion.id, bn, True, info)
         
-    except Exception as e:
+    except Exception:
         return (titulacion.id, bn, False, None)
         
     finally:
@@ -267,17 +269,17 @@ def _compilar_portada_worker(args: tuple) -> tuple:
             if tmp.exists():
                 try:
                     tmp.unlink()
-                except:
+                except OSError:
                     pass
 
 
-def compilar_portada(titulacion: Titulacion, bn: bool, output_path: Path, verbose: bool = False) -> bool:
+def compilar_portada(titulacion: Titulacion, bn: bool, output_path: Path) -> bool:
     """Compila una portada y la convierte a WebP (versión secuencial)."""
     result = _compilar_portada_worker((titulacion.__dict__, bn, str(output_path)))
     return result[2]  # success
 
 
-def generar_todas_portadas(titulaciones: list[Titulacion], verbose: bool = False) -> dict:
+def generar_todas_portadas(titulaciones: list[Titulacion]) -> dict:
     """Genera todas las portadas y devuelve el mapeo de archivos."""
     
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -318,7 +320,6 @@ def generar_todas_portadas(titulaciones: list[Titulacion], verbose: bool = False
         
         # Procesar resultados a medida que completan
         for futuro in as_completed(futuros):
-            tarea = futuros[futuro]
             try:
                 tid, bn, success, info = futuro.result()
                 completadas += 1
@@ -371,25 +372,25 @@ def generar_tabla_portadas(resultados: dict) -> str:
     
     # Grados
     md.append("#### Grados\n")
-    md.append('<p align="center">')
+    md.append(HTML_CENTER_START)
     for info in resultados["grados"]:
         md.append(f'<img src="{info["archivo"]}" width="12%" title="{info["nombre"]}"></img>')
-    md.append('</p>\n')
+    md.append(HTML_CENTER_END)
     
     # Másteres
     md.append("#### Másteres\n")
-    md.append('<p align="center">')
+    md.append(HTML_CENTER_START)
     for info in resultados["masteres"]:
         md.append(f'<img src="{info["archivo"]}" width="12%" title="{info["nombre"]}"></img>')
-    md.append('</p>\n')
+    md.append(HTML_CENTER_END)
     
     # Ejemplo color vs B/N
     if resultados["referencia_color"] and resultados["referencia_bn"]:
         md.append("### Ejemplo: Portada a color y B/N\n")
-        md.append('<p align="center">')
+        md.append(HTML_CENTER_START)
         md.append(f'<img src="{resultados["referencia_color"]}" width="30%"></img>')
         md.append(f'<img src="{resultados["referencia_bn"]}" width="30%"></img>')
-        md.append('</p>\n')
+        md.append(HTML_CENTER_END)
     
     return "\n".join(md)
 
@@ -414,14 +415,13 @@ def actualizar_readme(resultados: dict):
         # Si no existe, buscar después de "## 🎨 Portadas"
         patron_portadas = re.compile(r'(## 🎨 Portadas\n+.*?\n)(### )', re.DOTALL)
         if patron_portadas.search(readme):
-            nueva_seccion_completa = nueva_seccion + "### "
-            readme_nuevo = patron_portadas.sub(r'\1' + nueva_seccion, readme)
+            readme_nuevo = patron_portadas.sub(r'\1' + nueva_seccion + "### ", readme)
         else:
             print("⚠️  No se encontró la sección de portadas en el README")
             return
     
     README_FILE.write_text(readme_nuevo, encoding="utf-8")
-    print(f"✅ README actualizado")
+    print("✅ README actualizado")
 
 
 # =============================================================================
@@ -480,12 +480,12 @@ def main():
     
     # Generar portadas
     print("🔨 Generando portadas...")
-    resultados = generar_todas_portadas(titulaciones, verbose=args.verbose)
+    resultados = generar_todas_portadas(titulaciones)
     print()
     
     # Resumen
     total_ok = len(resultados["grados"]) + len(resultados["masteres"])
-    print(f"📊 Resumen:")
+    print("📊 Resumen:")
     print(f"   ✅ Generadas: {total_ok}")
     print(f"   ❌ Errores: {len(titulaciones) - total_ok}")
     print()

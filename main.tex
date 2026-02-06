@@ -1,5 +1,9 @@
 % !TeX program = lualatex
 % !TeX encoding = UTF-8
+
+
+
+
 %% =============================================================================
 %% main.tex
 %% Archivo principal del documento (Root)
@@ -16,6 +20,13 @@
 \makeatletter
 \def\input@path{{cls/}{sty/}{sty/componentes/}{recursos/}}
 \makeatother
+
+% =============================================================================
+% ACTIVACIÓN DE ESTÁNDARES MODERNOS (PDF/UA-2 & Tagging)
+% =============================================================================
+% Carga la configuración de metadatos y accesibilidad desde la carpeta cls.
+% Esto debe ir ANTES de \documentclass.
+\input{eps-metadata}
 
 % Cargar la clase eps-tfg
 \documentclass{eps-tfg}

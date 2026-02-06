@@ -1,10 +1,15 @@
 %% eps-portadas.sty
-%% Paquete de portadas para TFG/TFM EPS Universidad de Alicante
+%% Paquete de generación de portadas para TFG/TFM EPS (UA)
 %%
-%% Versión 3.0 - Refactorizado con posicionamiento absoluto por conjuntos
+%% Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+%% Autor:    José Manuel Requena Plens
+%% Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
+%% Licencia: GNU GPL v3.0
+%% Versión:  2.1.0 (2026/02/05)
 %%
+%% -----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{eps-portadas}[2026/02/05 v3.0 Portadas TFG/TFM EPS UA]
+\ProvidesPackage{eps-portadas}[2026/02/05 v2.1.0 Portadas TFG/TFM EPS Universidad de Alicante]
 
 \RequirePackage{xparse}
 \RequirePackage{tikz}
@@ -108,8 +113,8 @@
 \newcommand{\eps@portadaOffsetFecha}{1cm}
 
 % 2 y 3. Autor y Tutor: Distribuidos en medio
-% Espacio disponible entre tipo y fecha: 6.25 - 0.75 = 5.5cm aprox.
-% Asignamos posiciones fijas razonables (sobreescritas en \portadacolor según cotutor):
+% Estos valores son los predeterminados para el caso de 1 solo tutor.
+% NOTA: Estas variables se redefinen dentro de \portadacolor si hay cotutor.
 \newcommand{\eps@portadaOffsetAutor}{4.4cm}
 \newcommand{\eps@portadaOffsetTutor}{2.8cm}
 
@@ -126,8 +131,8 @@
 \newcommand{\eps@leadingInfo}{1.2}
 \newcommand{\eps@portadaGapGrado}{0.55cm}
 
-% --- ESTILOS DE FUENTE REUTILIZABLES (Solo fuente, sin color) ---
-% Modificado para aplicar interlineado directamente en \fontsize
+% --- ESTILOS DE FUENTE REUTILIZABLES ---
+% Definición de estilo con tamaño e interlineado explícito
 \newcommand{\eps@FuenteInfo}{%
   \FuentePortada\fontsize{\eps@sizeInfo}{\dimexpr\eps@leadingInfo\dimexpr\eps@sizeInfo\relax\relax}\selectfont
 }
@@ -195,10 +200,14 @@
 }
 
 %% ============================================================================
-%% PORTADA A COLOR DEFINITIVA
+%% PORTADA A COLOR
 %% ============================================================================
 \NewDocumentCommand{\portadacolor}{}{%
-  % Ajustar posiciones vertical según si hay cotutor (2 personas vs 1)
+  % ---------------------------------------------------------------------------
+  % AJUSTE DINÁMICO DE DISEÑO (1 vs 2 Tutores)
+  % ---------------------------------------------------------------------------
+  % Si hay cotutor, subimos el bloque de Autor y Tutor para ganar espacio vertical
+  % y dar cabida a la línea extra del segundo tutor sin colisionar con la fecha.
   \EPSsiCotutor{%
     \renewcommand{\eps@portadaOffsetAutor}{4.9cm}%
     \renewcommand{\eps@portadaOffsetTutor}{3.4cm}%
@@ -216,8 +225,7 @@
   \ifdefined\tikzexternaldisable\tikzexternaldisable\fi
   \thispagestyle{empty}
 
-  % 1. COLOR DE FONDO (Directo a página, sin tikz si es posible)
-  % Usamos \pagecolor para el fondo
+  % 1. COLOR DE FONDO
   \pagecolor{\EPScolorGrado}
 
   \begin{tikzpicture}[remember picture, overlay]
@@ -254,8 +262,7 @@
        };
 
     % A.2 Info Grado (Logo + Texto)
-    % Refactorizado a dos nodos TikZ independientes para asegurar alineación vertical
-    % centrada perfecta entre el logo y el bloque de texto (evita problemas de leading).
+    % Se usan dos nodos independientes para alinear verticalmente logo y texto.
     
     % 1. Nodo del Logo
     \node[anchor=south west, inner sep=0] (InfoGradoLogo)
@@ -314,5 +321,105 @@
   \nopagecolor % Restaurar fondo blanco para siguiente página
   \restoregeometry
 }
+
+%% ============================================================================
+%% PORTADA EN BLANCO Y NEGRO
+%% ============================================================================
+\NewDocumentCommand{\portadabn}{}{%
+  \begin{titlepage}
+    % Configurar márgenes simétricos para esta página (2.5cm)
+    \newgeometry{ignoreall,top=2cm,bottom=2cm,left=2.5cm,right=2.5cm}%
+    \thispagestyle{empty}%
+    
+    % Título y subtítulo
+    \noindent\begin{minipage}{\textwidth}
+      \centering
+      \begin{spacing}{1.5}
+        {\huge\bfseries\EPStitulo}
+      \end{spacing}
+      \noindent\rule[-1ex]{\textwidth}{3pt}\\[3.5ex]
+      {\large\bfseries\EPSsubtitulo\\[4cm]}
+    \end{minipage}
+
+    % Relleno hasta zona central
+    \vspace{2.5cm}
+
+    % Autor y Tutores
+    \noindent\begin{minipage}{\textwidth}
+      \centering
+      \textbf{\EPSetiquetaAutor}\\
+      {\EPSautor}\\[2.5ex]
+      \textbf{\EPSetiquetaTutor}\\
+      {\normalsize\EPStutor\\
+        \ifx\EPStutorDpto\empty\else\small\textit{\EPStutorDpto}\\\fi
+        \EPSsiCotutor{%
+          \normalsize\EPScotutor\\
+          \ifx\EPScotutorDpto\empty\else\small\textit{\EPScotutorDpto}\\\fi
+        }{}%
+      }
+    \end{minipage}
+
+    % Relleno hasta zona inferior
+    \vspace*{\fill}
+
+    % Logos y fecha
+    \noindent\begin{minipage}{\textwidth}
+      \centering
+      \begin{center}
+        \includegraphics[width=3cm]{\EPSlogoGrado}\\
+        {\raggedleft\EPStitulacion}
+      \end{center}
+      \vspace*{2em}
+      \centering
+      \noindent
+      \begin{minipage}[l]{6cm}
+        \includegraphics[width=5cm]{\EPSlogoFacultad}
+      \end{minipage}
+      \begin{minipage}[r]{6cm}
+        \includegraphics[width=5cm]{\EPSlogoUniversidad}
+      \end{minipage}
+      \\[1cm]
+      \MakeUppercase{\EPSubicacion}, \EPSfecha
+    \end{minipage}
+  \end{titlepage}
+  %
+  % Restaurar geometría
+  \restoregeometry
+}
+
+%% ============================================================================
+%% COMANDO UNIFICADO PARA GENERAR PORTADAS
+%% ============================================================================
+\newif\ifeps@portadacolor
+\newif\ifeps@portadabn
+
+\pgfkeys{
+  /eps/portada/.cd,
+  color/.is if=eps@portadacolor,
+  color/.default=true,
+  bn/.is if=eps@portadabn,
+  bn/.default=true,
+  blanco-negro/.is if=eps@portadabn,
+  ambas/.style={color=true,bn=true},
+  solo-color/.style={color=true,bn=false},
+  solo-bn/.style={color=false,bn=true},
+}
+
+\NewDocumentCommand{\generarportada}{O{ambas}}{%
+  \eps@portadacolorfalse
+  \eps@portadabnfalse
+  \pgfkeys{/eps/portada/.cd,#1}%
+  \ifeps@portadacolor
+    \portadacolor
+  \fi
+  \ifeps@portadabn
+    \portadabn
+  \fi
+}
+
+%% ============================================================================
+%% ALIAS PARA COMPATIBILIDAD
+%% ============================================================================
+\let\portada\generarportada
 
 \endinput
