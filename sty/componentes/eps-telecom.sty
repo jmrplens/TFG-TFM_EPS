@@ -23,6 +23,15 @@
   \PackageWarning{eps-telecom}{siunitx no disponible, algunas funciones pueden fallar}%
 }
 
+% Configuración para evitar warnings de nullfont en LuaLaTeX
+% Esto fuerza que los números en pgfplots usen modo math
+\pgfkeys{/pgf/number format/assume math mode=true}
+
+% Suprimir warnings de "Missing character in nullfont" en LuaLaTeX
+% Estos warnings ocurren internamente en pgfplots/pgfgantt durante cálculos
+% y son inofensivos (no afectan el output del PDF)
+\tracinglostchars=0
+
 % ============================================================================
 % CARTA DE SMITH
 % ============================================================================
@@ -32,15 +41,17 @@
   eps smith style/.style={
     width=10cm,
     height=10cm,
+    every node near coord/.append style={font=\footnotesize},
   },
 }
 
 % Entorno para carta de Smith (sin caja)
 % Uso: \begin{smithplot}[opciones]
-%        \addplot... 
+%        \addplot...
 %      \end{smithplot}
-\newenvironment{smithplot}[1][]{
-  \begin{tikzpicture}
+\newenvironment{smithplot}[1][]{%
+  \normalfont\selectfont
+  \begin{tikzpicture}[font=\footnotesize]
     \begin{smithchart}[
       eps smith style,
       #1
@@ -64,7 +75,7 @@
 
 % Punto en carta de Smith con etiqueta
 \newcommand{\smithpoint}[3]{%
-  \addplot[only marks, mark=*, mark size=3pt, eps-primary] 
+  \addplot[only marks, mark=*, mark size=3pt, eps-primary]
     coordinates {(#1,#2)} node[above right, font=\footnotesize] {#3};
 }
 
@@ -78,6 +89,7 @@
 % ============================================================================
 
 % Estilo para diagrama de constelación
+% Nota: Se usa assume math mode para evitar problemas con nullfont en LuaLaTeX
 \pgfplotsset{
   constellation style/.style={
     width=8cm,
@@ -91,6 +103,7 @@
     grid style={eps-gray!30},
     axis line style={eps-gray},
     tick style={eps-gray},
+    tick label style={/pgf/number format/assume math mode=true},
   },
 }
 
@@ -98,8 +111,9 @@
 % Uso: \begin{constellationplot}[opciones]
 %        \constpoint{1}{1}
 %      \end{constellationplot}
-\newenvironment{constellationplot}[1][]{
-  \begin{tikzpicture}
+\newenvironment{constellationplot}[1][]{%
+  \normalfont\selectfont
+  \begin{tikzpicture}[font=\footnotesize]
     \begin{axis}[constellation style, #1]
 }{
     \end{axis}
@@ -120,13 +134,13 @@
 
 % Punto de constelación
 \newcommand{\constpoint}[2]{%
-  \addplot[only marks, mark=*, mark size=4pt, eps-primary] 
+  \addplot[only marks, mark=*, mark size=4pt, eps-primary]
     coordinates {(#1,#2)};
 }
 
 % Punto con etiqueta de bits
 \newcommand{\constpointlabel}[3]{%
-  \addplot[only marks, mark=*, mark size=4pt, eps-primary] 
+  \addplot[only marks, mark=*, mark size=4pt, eps-primary]
     coordinates {(#1,#2)} node[above right, font=\tiny\ttfamily] {#3};
 }
 
@@ -780,7 +794,7 @@
   \pgfmathsetmacro{\startbit}{Mod(\value{framepos}, \framebitsperrow)}%
   \pgfmathsetmacro{\rownum}{-\value{framerow}*\framerowspacing}%
   \pgfmathsetmacro{\endbit}{\startbit + #1}%
-  \fill[eps-gray!10, pattern=north east lines, pattern color=eps-gray!30, rounded corners=2pt] 
+  \fill[eps-gray!10, pattern=north east lines, pattern color=eps-gray!30, rounded corners=2pt]
     (\startbit, \rownum) rectangle (\endbit, \rownum-1);
   \draw[eps-gray, thick, dashed, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
   \node[align=center] at ({(\startbit+\endbit)/2}, \rownum-0.4) {#2};
@@ -852,7 +866,7 @@
   \pgfmathsetmacro{\endbit}{\startbit + #1}%
   % Campo sin borde derecho (continúa)
   \fill[eps-secondary!15, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
-  \draw[eps-secondary, thick] 
+  \draw[eps-secondary, thick]
     ([xshift=2pt]\startbit, \rownum) -- (\startbit, \rownum) -- (\startbit, \rownum-1) -- ([xshift=2pt]\startbit, \rownum-1);
   \draw[eps-secondary, thick] (\endbit, \rownum) -- (\endbit, \rownum-1);
   % Etiqueta con indicador de continuación
@@ -873,7 +887,7 @@
   % Campo sin borde izquierdo (viene de arriba)
   \fill[eps-secondary!15, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
   \draw[eps-secondary, thick] (\startbit, \rownum) -- (\startbit, \rownum-1);
-  \draw[eps-secondary, thick] 
+  \draw[eps-secondary, thick]
     ([xshift=-2pt]\endbit, \rownum) -- (\endbit, \rownum) -- (\endbit, \rownum-1) -- ([xshift=-2pt]\endbit, \rownum-1);
   % Indicador de continuación
   \node[left, font=\tiny, eps-secondary] at (\startbit+0.3, \rownum-0.5) {$\leftarrow$\kern-0.5em$\sim$};

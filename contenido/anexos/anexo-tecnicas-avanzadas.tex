@@ -6,7 +6,19 @@
 
 Este anexo presenta técnicas avanzadas de \LaTeX{} que pueden ser útiles en la
 elaboración de un \gls{tfg} o \gls{tfm}: tablas rotadas, páginas en horizontal,
-inclusión de documentos PDF externos, y otras funcionalidades.
+inclusión de documentos PDF externos, y otras funcionalidades. Estas técnicas
+aprovechan diversas \glspl{macro} y \glspl{entorno} especializados.
+
+\begin{infobox}{Contenido de este anexo}
+  \begin{itemize}[noitemsep]
+    \item Tablas rotadas con \texttt{sidewaystable}
+    \item Páginas en orientación horizontal (landscape)
+    \item Inclusión de documentos PDF externos
+    \item Figuras de ancho completo
+    \item Notas al margen, marcas de agua y texto en columnas
+    \item Minipáginas y cajas para contenido lado a lado
+  \end{itemize}
+\end{infobox}
 
 %% =============================================================================
 \section{Tablas Rotadas (Sideways Tables)}
@@ -17,6 +29,7 @@ se puede rotar \qty{90}{\degree} para aprovechar el alto de la página como anch
 Para ello se usa el entorno \texttt{sidewaystable} del paquete \texttt{rotating}.
 
 \subsection{Ejemplo de tabla rotada}
+\label{subsec:ejemplo-tabla-rotada}
 
 El siguiente código genera una tabla que ocupa toda la página en horizontal:
 
@@ -71,6 +84,7 @@ El siguiente código genera una tabla que ocupa toda la página en horizontal:
 \end{sidewaystable}
 
 \subsection{Cuándo usar tablas rotadas}
+\label{subsec:cuando-tablas-rotadas}
 
 Las tablas rotadas son útiles cuando:
 \begin{itemize}
@@ -79,6 +93,13 @@ Las tablas rotadas son útiles cuando:
   \item Se necesita mostrar datos comparativos extensos
   \item Una tabla horizontal no cabría sin reducir excesivamente el tamaño de fuente
 \end{itemize}
+
+\begin{tipbox}{Alternativa: tabularray}
+  Para tablas complejas con celdas combinadas, considera usar el paquete
+  \texttt{tabularray} (ya incluido en la plantilla) en lugar de
+  \texttt{multirow}/\texttt{multicolumn}, ya que evita conflictos con
+  \texttt{colortbl} en LuaLaTeX.
+\end{tipbox}
 
 %% =============================================================================
 \section{Páginas en Horizontal (Landscape)}
@@ -90,6 +111,7 @@ y el tamaño de página en el PDF. Al usar \texttt{geometry} para los márgenes,
 se combina con \verb|\newgeometry| para optimizar el espacio disponible.
 
 \subsection{Método recomendado: Comandos de la plantilla}
+\label{subsec:comandos-landscape}
 
 La plantilla proporciona comandos simplificados para crear páginas landscape
 con headers y footers correctamente dimensionados:
@@ -123,6 +145,7 @@ con headers y footers correctamente dimensionados:
 \BeginLandscapePage[2cm]  % Margen de 2cm (opcional, es el valor por defecto)
 
 \subsection{Diagrama de flujo del sistema (página horizontal)}
+\label{subsec:diagrama-landscape}
 
 Esta página está en orientación horizontal para mostrar un diagrama amplio.
 Los márgenes están optimizados para aprovechar el espacio disponible.
@@ -201,6 +224,7 @@ Los márgenes están optimizados para aprovechar el espacio disponible.
 \newpage
 
 \subsection{Segunda página horizontal consecutiva}
+\label{subsec:segunda-landscape}
 
 Esta es una segunda página en orientación horizontal para verificar que varias páginas
 landscape consecutivas funcionan correctamente. Los encabezados y pies de página
@@ -235,6 +259,7 @@ muestran la sección actual y los pies de página mantienen su formato.
 \EndLandscapePage
 
 \subsection{Cuándo usar páginas landscape}
+\label{subsec:cuando-usar-landscape}
 
 Las páginas en horizontal son apropiadas para:
 \begin{itemize}
@@ -259,7 +284,14 @@ en el documento \LaTeX. Esto es útil para adjuntar:
   \item Hojas de datos (datasheets)
 \end{itemize}
 
+\begin{warningbox}{Tamaño del documento}
+  Incluir PDFs externos aumenta significativamente el tamaño del documento
+  final. Considera comprimir los PDFs antes de incluirlos o enlazarlos
+  como anexos digitales separados si el tamaño es crítico.
+\end{warningbox}
+
 \subsection{Sintaxis básica}
+\label{subsec:sintaxis-includepdf}
 
 \begin{latexcode}[title={Inclusión de PDF externo}]
 % Incluir todas las páginas
@@ -277,6 +309,7 @@ en el documento \LaTeX. Esto es útil para adjuntar:
 \end{latexcode}
 
 \subsection{Opciones más utilizadas}
+\label{subsec:opciones-includepdf}
 
 \begin{table}[H]
   \centering
@@ -299,6 +332,7 @@ en el documento \LaTeX. Esto es útil para adjuntar:
 \end{table}
 
 \subsection{Ejemplo: Documento PDF incluido}
+\label{subsec:ejemplo-pdf-incluido}
 
 A continuación se incluye un documento PDF de ejemplo que ha sido generado
 independientemente. Se incluyen sus dos páginas con un marco y una escala
@@ -313,6 +347,7 @@ ligeramente reducida:
 ]{recursos/pdf_externos/documento_ejemplo.pdf}
 
 \subsection{Múltiples páginas en una hoja}
+\label{subsec:nup-pdf}
 
 Para ahorrar espacio, se pueden incluir varias páginas del PDF en una sola
 hoja del documento:
@@ -335,6 +370,7 @@ incluso invadiendo los márgenes. Para ello se combina el entorno
 \texttt{figure*} con ajustes de geometría.
 
 \subsection{Figura que invade márgenes}
+\label{subsec:figura-invade-margenes}
 
 \begin{latexcode}[title={Figura de ancho completo}]
 \begin{figure}[H]
@@ -354,6 +390,7 @@ Las notas al margen son útiles para añadir comentarios breves sin
 interrumpir el flujo del texto principal.
 
 \subsection{Uso básico}
+\label{subsec:uso-marginpar}
 
 \begin{latexcode}[title={Notas al margen}]
 Texto principal del párrafo.\marginpar{Nota breve al margen}
@@ -395,6 +432,7 @@ Para secciones específicas que requieran formato en múltiples columnas
 \end{latexcode}
 
 \subsection{Ejemplo de texto en columnas}
+\label{subsec:ejemplo-multicols}
 
 \begin{multicols}{2}
 \small
@@ -438,6 +476,7 @@ Las minipáginas permiten crear bloques de contenido lado a lado:
 \end{latexcode}
 
 \subsection{Ejemplo de minipáginas}
+\label{subsec:ejemplo-minipaginas}
 
 \noindent
 \begin{minipage}[t]{0.48\textwidth}

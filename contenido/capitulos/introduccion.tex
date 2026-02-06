@@ -1,9 +1,15 @@
 \chapter{Introducción (Ejemplos de contenido y estilos)}
 \label{ch:introduccion}
 
-Este capítulo presenta una guía completa de las capacidades de \LaTeX{} y de esta plantilla para la elaboración de Trabajos Fin de Grado y Trabajos Fin de Máster en la Escuela Politécnica Superior de la Universidad de Alicante.
+Este capítulo presenta una guía completa de las capacidades de \LaTeX{} y de esta
+plantilla para la elaboración de Trabajos Fin de Grado y Trabajos Fin de Máster
+en la Escuela Politécnica Superior de la Universidad de Alicante. Incluye ejemplos
+de todos los elementos básicos de formato y estructura que necesitarás para
+redactar tu trabajo académico.
 
+%% =============================================================================
 \section{Sobre esta plantilla}
+\label{sec:sobre-plantilla}
 
 Esta plantilla ha sido diseñada siguiendo las directrices de estilo de la \gls{eps} de la Universidad de Alicante. Proporciona una estructura clara y profesional para la redacción de trabajos académicos.
 
@@ -18,9 +24,12 @@ Las principales características de esta plantilla son:
   \item Compilación con LuaLaTeX
 \end{itemize}
 
+%% =============================================================================
 \section{Estructura de un TFG/TFM}
+\label{sec:estructura-tfg}
 
-Según las normas de la \gls{eps}, un \gls{tfg} o \gls{tfm} debe contener las siguientes partes:
+Según las normas de la \gls{eps}, un \gls{tfg} o \gls{tfm} debe contener
+las siguientes partes obligatorias y opcionales:
 
 \begin{description}
   \item[Preámbulo:] Motivación y descripción breve de los objetivos del trabajo.
@@ -37,17 +46,21 @@ Según las normas de la \gls{eps}, un \gls{tfg} o \gls{tfm} debe contener las si
   \item[Anexos:] Material complementario.
 \end{description}
 
+%% =============================================================================
 \section{Secciones y subsecciones}
+\label{sec:secciones}
 
-En \LaTeX{} existen diferentes niveles de organización del contenido:
+En \LaTeX{} existen diferentes niveles de organización del contenido.
+Cada nivel tiene una numeración automática y aparece en el índice según
+su jerarquía.
 
-\begin{latexcode}[title={Niveles de secciones}]
+\begin{verbatim}
 \chapter{Capítulo}           % Nivel 0
-\section{Sección}            % Nivel 1  
+\section{Sección}            % Nivel 1
 \subsection{Subsección}      % Nivel 2
 \subsubsection{Subsubsección}% Nivel 3
 \paragraph{Párrafo}          % Nivel 4
-\end{latexcode}
+\end{verbatim}
 
 \subsection{Ejemplo de subsección}
 
@@ -59,77 +72,303 @@ Las subsubsecciones son útiles para temas muy específicos dentro de una subsec
 
 \paragraph{Ejemplo de párrafo} Los párrafos con título son útiles para pequeñas divisiones que no necesitan aparecer en el índice.
 
-\section{Citas bibliográficas}
+%% =============================================================================
+\section{Citas y bibliografía}
+\label{sec:citas}
 
-Para citar la bibliografía según el sistema APA se utilizan los siguientes comandos. El archivo de bibliografía se encuentra en \texttt{referencias.bib}.
+La plantilla utiliza \textbf{BibLaTeX} con el backend \textbf{Biber} y estilo
+\textbf{APA 7} para la gestión de referencias bibliográficas. Las referencias
+se almacenan en el archivo \texttt{referencias.bib}.
 
-\begin{latexcode}[title={Comandos de citas biblatex/APA}]
+\subsection{Comandos de citación}
+\label{subsec:comandos-citacion}
+
+BibLaTeX ofrece varios comandos para citar según el contexto:
+
+\begin{verbatim}
 % Cita textual: Autor (año)
-\textcite{latex2024}
+\textcite{clave}
 
 % Cita entre paréntesis: (Autor, año)
-\parencite{latex2024}
+\parencite{clave}
+
+% Solo autor: Autor
+\citeauthor{clave}
+
+% Solo año: (año)
+\citeyear{clave}
 
 % Cita con página específica
-\parencite[Cap.~2]{latex2024}
+\parencite[p.~25]{clave}
 
 % Múltiples citas
-\parencite{latex2024,overleaf2024}
-\end{latexcode}
+\parencite{clave1,clave2,clave3}
 
-Ejemplos de citas:
+% Cita completa en nota al pie
+\footcite{clave}
+\end{verbatim}
+
+Ejemplos de uso:
 \begin{itemize}
   \item Cita textual: Según \textcite{latex2024}, \LaTeX{} es el estándar para documentos científicos.
   \item Cita entre paréntesis: \LaTeX{} es ampliamente utilizado \parencite{latex2024}.
   \item Múltiples fuentes: Existen varios recursos disponibles \parencite{latex2024,overleaf2024}.
 \end{itemize}
 
-\section{Notas al pie de página}
+\subsection{Tipos de entradas bibliográficas}
+\label{subsec:tipos-entradas-bib}
 
-Las notas al pie se crean con el comando \verb|\footnote{texto}|.
+El archivo \texttt{.bib} admite diferentes tipos de fuentes. A continuación
+se muestran los más comunes con su estructura:
+
+\subsubsection{Libro (@book)}
+
+\begin{verbatim}
+@book{knuth1984texbook,
+  author    = {Knuth, Donald E.},
+  title     = {The TeXbook},
+  publisher = {Addison-Wesley},
+  year      = {1984},
+  address   = {Reading, MA},
+  isbn      = {0-201-13447-0}
+}
+\end{verbatim}
+
+\subsubsection{Artículo de revista (@article)}
+
+\begin{verbatim}
+@article{shannon1948mathematical,
+  author  = {Shannon, Claude E.},
+  title   = {A Mathematical Theory of Communication},
+  journal = {Bell System Technical Journal},
+  year    = {1948},
+  volume  = {27},
+  number  = {3},
+  pages   = {379--423},
+  doi     = {10.1002/j.1538-7305.1948.tb01338.x}
+}
+\end{verbatim}
+
+\subsubsection{Conferencia (@inproceedings)}
+
+\begin{verbatim}
+@inproceedings{krizhevsky2012imagenet,
+  author    = {Krizhevsky, Alex and Sutskever, Ilya
+               and Hinton, Geoffrey E.},
+  title     = {ImageNet Classification with Deep
+               Convolutional Neural Networks},
+  booktitle = {Advances in Neural Information
+               Processing Systems},
+  year      = {2012},
+  pages     = {1097--1105},
+  publisher = {Curran Associates}
+}
+\end{verbatim}
+
+\subsubsection{Recurso en línea (@online)}
+
+\begin{verbatim}
+@online{overleaf2024,
+  author  = {{Overleaf}},
+  title   = {Documentation},
+  url     = {https://www.overleaf.com/learn},
+  urldate = {2024-01-15},
+  year    = {2024}
+}
+\end{verbatim}
+
+\subsubsection{Tesis (@thesis)}
+
+\begin{verbatim}
+@thesis{garcia2023sistema,
+  author      = {García López, María},
+  title       = {Sistema de gestión inteligente},
+  type        = {Trabajo Fin de Grado},
+  institution = {Universidad de Alicante},
+  year        = {2023}
+}
+\end{verbatim}
+
+\subsubsection{Manual o documentación técnica (@manual)}
+
+\begin{verbatim}
+@manual{latex2024,
+  author       = {{LaTeX Project}},
+  title        = {LaTeX2e: An unofficial reference manual},
+  year         = {2024},
+  organization = {LaTeX Project},
+  url          = {https://latexref.xyz/}
+}
+\end{verbatim}
+
+\subsection{Campos comunes en BibLaTeX}
+\label{subsec:campos-biblatex}
+
+\begin{table}[H]
+  \centering
+  \caption{Campos más utilizados en entradas bibliográficas}
+  \label{tab:campos-bib}
+  \begin{tabular}{lp{8cm}}
+    \toprule
+    \textbf{Campo} & \textbf{Descripción} \\
+    \midrule
+    \texttt{author}    & Autor(es), separados por \texttt{and} \\
+    \texttt{title}     & Título de la obra \\
+    \texttt{year}      & Año de publicación \\
+    \texttt{publisher} & Editorial \\
+    \texttt{journal}   & Nombre de la revista (para @article) \\
+    \texttt{booktitle} & Título del libro/actas (para @inproceedings) \\
+    \texttt{volume}    & Volumen de la revista \\
+    \texttt{number}    & Número de la revista \\
+    \texttt{pages}     & Páginas (usar \texttt{--} para rango) \\
+    \texttt{doi}       & Digital Object Identifier \\
+    \texttt{url}       & Enlace web \\
+    \texttt{urldate}   & Fecha de acceso (formato YYYY-MM-DD) \\
+    \texttt{isbn}      & ISBN del libro \\
+    \texttt{issn}      & ISSN de la revista \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{tipbox}{Buenas prácticas bibliográficas}
+  \begin{itemize}[noitemsep]
+    \item Usa claves descriptivas: \texttt{apellidoAñoPalabra} (ej: \texttt{knuth1984texbook})
+    \item Incluye siempre el DOI cuando esté disponible
+    \item Para recursos web, añade siempre \texttt{urldate}
+    \item Usa llaves \texttt{\{\}} para preservar mayúsculas en títulos: \texttt{\{DNA\}}
+    \item Para instituciones como autor, usa dobles llaves: \texttt{\{\{OMS\}\}}
+  \end{itemize}
+\end{tipbox}
+
+\subsection{Compilación con Biber}
+\label{subsec:compilacion-biber}
+
+Para procesar la bibliografía correctamente, se requiere ejecutar Biber
+entre compilaciones de \LaTeX{}:
+
+\begin{verbatim}
+lualatex main.tex    % Primera pasada
+biber main           % Procesa bibliografía
+lualatex main.tex    % Segunda pasada (resuelve citas)
+lualatex main.tex    % Tercera pasada (actualiza índices)
+\end{verbatim}
+
+\begin{infobox}{Usando latexmk}
+  El comando \texttt{latexmk -lualatex -shell-escape main.tex} ejecuta
+  automáticamente todas las pasadas necesarias, incluyendo Biber.
+\end{infobox}
+
+%% =============================================================================
+\section{Notas al pie de página}
+\label{sec:notas-pie}
+
+Las notas al pie permiten añadir información adicional sin interrumpir
+el flujo del texto principal. Son útiles para aclaraciones, definiciones
+o referencias complementarias.
+
+\begin{verbatim}
+Texto principal\footnote{Contenido de la nota al pie.}
+\end{verbatim}
 
 La plantilla utiliza LuaLaTeX\footnote{LuaLaTeX es un motor de composición tipográfica que combina \LaTeX{} con el lenguaje de programación Lua, permitiendo mayor flexibilidad en el procesamiento de documentos.} como motor de compilación por sus capacidades avanzadas de manejo de fuentes\footnote{Permite usar cualquier fuente OpenType o TrueType instalada en el sistema sin necesidad de configuración adicional.}.
 
+%% =============================================================================
 \section{Estilos de texto}
+\label{sec:estilos-texto}
 
-\LaTeX{} ofrece múltiples estilos de texto:
+\LaTeX{} ofrece múltiples estilos de texto para dar énfasis o formato
+especial a determinadas palabras o frases.
+
+\begin{verbatim}
+\textit{Texto en cursiva}
+\textbf{Texto en negrita}
+\texttt{Texto monoespacio}
+\textsc{Texto en versalitas}
+\underline{Texto subrayado}
+\textbf{\textit{Combinación de estilos}}
+{\small Texto pequeño}
+{\large Texto grande}
+\end{verbatim}
+
+Resultado de cada estilo:
 
 \begin{itemize}
-  \item \textit{Texto en cursiva} -- \verb|\textit{texto}|
-  \item \textbf{Texto en negrita} -- \verb|\textbf{texto}|
-  \item \texttt{Texto monoespacio} -- \verb|\texttt{texto}|
-  \item \textsc{Texto en versalitas} -- \verb|\textsc{texto}|
-  \item \underline{Texto subrayado} -- \verb|\underline{texto}|
-  \item \textbf{\textit{Negrita y cursiva}} -- combinación de comandos
-  \item {\small Texto pequeño} -- \verb|{\small texto}|
-  \item {\large Texto grande} -- \verb|{\large texto}|
+  \item \textit{Texto en cursiva} --- \verb|\textit{texto}|
+  \item \textbf{Texto en negrita} --- \verb|\textbf{texto}|
+  \item \texttt{Texto monoespacio} --- \verb|\texttt{texto}|
+  \item \textsc{Texto en versalitas} --- \verb|\textsc{texto}|
+  \item \underline{Texto subrayado} --- \verb|\underline{texto}|
+  \item \textbf{\textit{Negrita y cursiva}} --- combinación de comandos
+  \item {\small Texto pequeño} --- \verb|{\small texto}|
+  \item {\large Texto grande} --- \verb|{\large texto}|
 \end{itemize}
 
+%% =============================================================================
 \section{Acrónimos y glosario}
+\label{sec:acronimos}
 
-Los acrónimos se gestionan automáticamente con el paquete \texttt{glossaries}. La primera vez que aparece un acrónimo se muestra su forma completa, y en las siguientes apariciones solo la abreviatura.
+La plantilla gestiona automáticamente acrónimos y términos del glosario con el
+paquete \texttt{glossaries}. Ambos se definen en \texttt{contenido/anexos/acronimos.tex}.
 
-\begin{latexcode}[title={Uso de acrónimos}]
-% Primera aparición: muestra "Institute of Electrical 
+\subsection{Uso de acrónimos}
+\label{subsec:uso-acronimos}
+
+La primera vez que aparece un acrónimo se muestra su forma completa, y en
+las siguientes apariciones solo la abreviatura:
+
+\begin{verbatim}
+% Primera aparición: "Institute of Electrical
 % and Electronics Engineers (IEEE)"
 El \gls{ieee} es una institución importante.
 
 % Siguientes apariciones: muestra solo "IEEE"
 El \gls{ieee} establece estándares.
 
-% Para forzar forma larga: \glslong{ieee}
-% Para forzar forma corta: \glsshort{ieee}
-\end{latexcode}
+% Forzar forma larga o corta
+\acrlong{ieee}   % Institute of Electrical...
+\acrshort{ieee}  % IEEE
+\end{verbatim}
 
-Ejemplo: El \gls{ieee} es una institución importante en ingeniería. El \gls{ieee} establece estándares para la industria. Además del \gls{ieee}, existen otras organizaciones como la \gls{iso}.
+Ejemplo: El \gls{ieee} es una institución importante. El \gls{ieee} establece estándares. Otras organizaciones incluyen la \gls{iso} y el \gls{w3c}.
 
-Los acrónimos se definen en el archivo \texttt{contenido/anexos/acronimos.tex}.
+\subsection{Uso del glosario de términos}
+\label{subsec:uso-glosario}
 
+Los términos del glosario funcionan igual que los acrónimos pero para
+conceptos que requieren definición:
+
+\begin{verbatim}
+% Usar un término (singular)
+Un \gls{algoritmo} es la base de la programación.
+
+% Usar un término (plural)
+Los \glspl{framework} facilitan el desarrollo.
+
+% Forzar primera letra mayúscula
+\Gls{backend} y \gls{frontend} trabajan juntos.
+\end{verbatim}
+
+Ejemplo: Un \gls{algoritmo} bien diseñado mejora el rendimiento. Los \glspl{microservicio} permiten \gls{escalabilidad}. El \gls{backend} procesa las peticiones del \gls{frontend}.
+
+\begin{tipbox}{Definir nuevos términos}
+  \begin{verbatim}
+\newglossaryentry{etiqueta}{
+  name={término visible},
+  plural={términos visibles},
+  description={Definición del término}
+}
+  \end{verbatim}
+\end{tipbox}
+
+%% =============================================================================
 \section{Tareas pendientes y notas}
+\label{sec:todonotes}
 
-Durante la redacción es útil marcar partes que requieren revisión usando el paquete \texttt{todonotes}:
+Durante la redacción es útil marcar partes que requieren revisión.
+El paquete \texttt{todonotes} permite añadir notas visuales que son fáciles
+de localizar y eliminar antes de la entrega final.
 
-\begin{latexcode}[title={Comandos de notas}]
+\begin{verbatim}
 % Nota al margen
 \todo{Texto de la nota}
 
@@ -138,7 +377,7 @@ Durante la redacción es útil marcar partes que requieren revisión usando el p
 
 % Figura pendiente
 \missingfigure{Descripción de la figura}
-\end{latexcode}
+\end{verbatim}
 
 \todo{Esta es una nota al margen para recordar algo}
 
@@ -150,34 +389,207 @@ Para indicar figuras que faltan por añadir:
 
 \missingfigure{Aquí irá un diagrama explicativo del flujo de trabajo}
 
+%% =============================================================================
 \section{Comandos personalizados de la plantilla}
+\label{sec:comandos-eps}
 
-Esta plantilla proporciona comandos para acceder a la información configurada:
+Esta plantilla proporciona comandos para acceder a la información configurada
+en \texttt{configuracion.tex}. Son útiles para incluir datos del trabajo
+dinámicamente en el documento.
+
+\begin{verbatim}
+\EPStitulo      % Título del trabajo
+\EPSautor       % Nombre del autor
+\EPStutor       % Nombre del tutor
+\EPSfecha       % Fecha de presentación
+\EPStipoTrabajo % TFG o TFM
+\EPStitulacion  % Nombre de la titulación
+\end{verbatim}
+
+Resultado de cada comando:
 
 \begin{itemize}
-  \item \verb|\EPStitulo| -- Título: ``\EPStitulo''
-  \item \verb|\EPSautor| -- Autor: \EPSautor
-  \item \verb|\EPStutor| -- Tutor: \EPStutor
-  \item \verb|\EPSfecha| -- Fecha: \EPSfecha
-  \item \verb|\EPStipoTrabajo| -- Tipo: \EPStipoTrabajo
-  \item \verb|\EPStitulacion| -- Titulación: \EPStitulacion
+  \item \verb|\EPStitulo| --- ``\EPStitulo''
+  \item \verb|\EPSautor| --- \EPSautor
+  \item \verb|\EPStutor| --- \EPStutor
+  \item \verb|\EPSfecha| --- \EPSfecha
+  \item \verb|\EPStipoTrabajo| --- \EPStipoTrabajo
+  \item \verb|\EPStitulacion| --- \EPStitulacion
 \end{itemize}
 
-Este documento es un \EPStipoTrabajo{} presentado en \EPSfecha.
+Ejemplo de uso en el texto: Este documento es un \EPStipoTrabajo{} presentado en \EPSfecha.
 
+%% =============================================================================
 \section{Hipervínculos y URLs}
+\label{sec:hipervinculos}
 
-Para incluir enlaces web se utiliza el comando \verb|\url{dirección}|:
+Para incluir enlaces web se utilizan comandos del paquete \texttt{hyperref},
+que ya viene configurado en esta plantilla.
+
+\begin{verbatim}
+% URL con formato automático (monoespacio)
+\url{https://eps.ua.es}
+
+% Enlace con texto personalizado
+\href{https://eps.ua.es}{Escuela Politécnica Superior}
+
+% Referencia a email
+\href{mailto:autor@ejemplo.com}{autor@ejemplo.com}
+\end{verbatim}
+
+Ejemplos:
 
 \begin{itemize}
-  \item Página de la EPS: \url{https://eps.ua.es}
+  \item URL simple: \url{https://eps.ua.es}
   \item Overleaf (editor online): \url{https://www.overleaf.com}
   \item CTAN (repositorio de paquetes): \url{https://ctan.org}
+  \item Enlace con texto: \href{https://eps.ua.es}{Escuela Politécnica Superior}
 \end{itemize}
 
-Para enlaces con texto personalizado: \href{https://eps.ua.es}{Escuela Politécnica Superior}.
+%% =============================================================================
+\section{Listas}
+\label{sec:listas}
 
+\LaTeX{} ofrece tres tipos principales de listas para organizar información.
+Cada tipo tiene un propósito específico y un formato visual diferente.
+
+\subsection{Lista sin numerar (itemize)}
+
+Para elementos sin orden específico.
+
+\begin{verbatim}
+\begin{itemize}
+  \item Primer elemento
+  \item Segundo elemento
+  \item Tercer elemento
+\end{itemize}
+\end{verbatim}
+
+\begin{itemize}
+  \item Primer elemento de la lista
+  \item Segundo elemento de la lista
+  \item Tercer elemento de la lista
+\end{itemize}
+
+\subsection{Lista numerada (enumerate)}
+
+Para elementos con orden secuencial.
+
+\begin{verbatim}
+\begin{enumerate}
+  \item Paso uno
+  \item Paso dos
+  \item Paso tres
+\end{enumerate}
+\end{verbatim}
+
+\begin{enumerate}
+  \item Preparar el entorno de desarrollo
+  \item Implementar la funcionalidad principal
+  \item Realizar pruebas y validación
+\end{enumerate}
+
+\subsection{Lista de descripción (description)}
+
+Para términos con sus definiciones.
+
+\begin{verbatim}
+\begin{description}
+  \item[Término 1] Definición del primer término.
+  \item[Término 2] Definición del segundo término.
+\end{description}
+\end{verbatim}
+
+\begin{description}
+  \item[LuaLaTeX] Motor de compilación que combina \LaTeX{} con Lua.
+  \item[BibLaTeX] Sistema moderno de gestión de bibliografía.
+  \item[TikZ] Paquete para crear gráficos vectoriales programáticamente.
+\end{description}
+
+\subsection{Listas anidadas}
+
+Las listas pueden anidarse hasta tres niveles de profundidad.
+
+\begin{verbatim}
+\begin{itemize}
+  \item Elemento principal
+  \begin{itemize}
+    \item Subelemento
+    \begin{itemize}
+      \item Sub-subelemento
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+\end{verbatim}
+
+\begin{itemize}
+  \item Requisitos funcionales
+  \begin{itemize}
+    \item Gestión de usuarios
+    \begin{itemize}
+      \item Registro
+      \item Autenticación
+      \item Recuperación de contraseña
+    \end{itemize}
+    \item Gestión de contenido
+  \end{itemize}
+  \item Requisitos no funcionales
+  \begin{itemize}
+    \item Rendimiento
+    \item Seguridad
+  \end{itemize}
+\end{itemize}
+
+%% =============================================================================
+\section{Referencias cruzadas}
+\label{sec:referencias-cruzadas}
+
+Las referencias cruzadas permiten enlazar elementos del documento
+(capítulos, secciones, figuras, tablas, ecuaciones) de forma que
+los números se actualicen automáticamente si cambia la estructura.
+
+\begin{verbatim}
+% Crear etiqueta (después de \chapter, \section, \caption, etc.)
+\label{tipo:nombre}
+
+% Referenciar la etiqueta
+En la Sección~\ref{sec:listas} se explican las listas.
+En la Figura~\ref{fig:ejemplo} se muestra...
+En la Tabla~\ref{tab:datos} aparecen...
+En la página~\pageref{sec:listas} comienza...
+\end{verbatim}
+
+\minisec{Prefijos recomendados para etiquetas}
+
+Para mantener el código organizado, usa prefijos consistentes:
+
+\begin{description}
+  \item[ch:] Capítulos --- \verb|\label{ch:introduccion}|
+  \item[sec:] Secciones --- \verb|\label{sec:metodologia}|
+  \item[fig:] Figuras --- \verb|\label{fig:diagrama}|
+  \item[tab:] Tablas --- \verb|\label{tab:resultados}|
+  \item[eq:] Ecuaciones --- \verb|\label{eq:formula}|
+  \item[lst:] Códigos --- \verb|\label{lst:algoritmo}|
+  \item[apx:] Anexos --- \verb|\label{apx:manual}|
+\end{description}
+
+\minisec{Ejemplos de uso}
+
+\begin{itemize}
+  \item Referencia a sección: Ver la Sección~\ref{sec:listas} para información sobre listas.
+  \item Referencia a página: Las citas se explican en la página~\pageref{sec:citas}.
+  \item Referencia a capítulo: El Capítulo~\ref{ch:introduccion} contiene ejemplos básicos.
+\end{itemize}
+
+\begin{tipbox}
+  Usa siempre \verb|~| (espacio insecable) entre el tipo de elemento y
+  \verb|\ref{}| para evitar que el número quede separado del texto en
+  un salto de línea: \verb|Figura~\ref{fig:ejemplo}|.
+\end{tipbox}
+
+%% =============================================================================
 \section{Consejos para la redacción}
+\label{sec:consejos}
 
 A continuación se presentan algunas recomendaciones para la redacción del \gls{tfg} o \gls{tfm}:
 

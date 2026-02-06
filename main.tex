@@ -93,7 +93,6 @@
 \input{contenido/capitulos/objetivos}
 \input{contenido/capitulos/metodologia}
 \input{contenido/capitulos/desarrollo}
-\input{contenido/capitulos/componentes}
 \input{contenido/capitulos/resultados}
 \input{contenido/capitulos/conclusiones}
 
@@ -110,13 +109,17 @@
   type=\acronymtype,
   title={Lista de Acrónimos y Abreviaturas}
 ]
+
+% Glosario de términos
+\printglossary[
+  style=listgroup,
+  type=main,
+  title={Glosario de Términos}
+]
 \glsaddallunused
 
 % Anexos (ajusta según tus necesidades)
 \appendix
-\input{contenido/anexos/anexo-a}
-\input{contenido/anexos/anexo-b}
-\input{contenido/anexos/anexo_codigo}
 \input{contenido/anexos/anexo-tecnicas-avanzadas}
 
 \end{document}

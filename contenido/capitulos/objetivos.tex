@@ -1,29 +1,58 @@
 \chapter{Objetivos (Ejemplos de tablas)}
 \label{ch:objetivos}
 
-Este capítulo presenta los objetivos del trabajo y demuestra las diferentes formas de crear tablas en \LaTeX.
+Este capítulo presenta los objetivos del trabajo y demuestra las diferentes formas de crear tablas en \LaTeX{}. Las tablas son \glspl{flotante} fundamentales para presentar datos de forma estructurada, típicamente obtenidos de \glspl{query} a bases de datos.
 
 \section{Objetivo general}
+\label{sec:objetivo-general}
 
-El objetivo general de este trabajo es...
+El objetivo general de este trabajo es desarrollar un sistema con alta \gls{escalabilidad}...
 
 \section{Objetivos específicos}
+\label{sec:objetivos-especificos}
 
 \begin{enumerate}
-  \item \textbf{OE1:} Analizar el estado actual de...
-  \item \textbf{OE2:} Diseñar una arquitectura que permita...
-  \item \textbf{OE3:} Implementar los componentes necesarios para...
-  \item \textbf{OE4:} Evaluar el rendimiento del sistema mediante...
+  \item \textbf{OE1:} Analizar el estado actual usando \glspl{algoritmo} de búsqueda...
+  \item \textbf{OE2:} Diseñar una arquitectura basada en \glspl{microservicio} que permita...
+  \item \textbf{OE3:} Implementar el \gls{backend} y \gls{frontend} necesarios para...
+  \item \textbf{OE4:} Evaluar el rendimiento del sistema mediante pruebas de \gls{latencia}...
   \item \textbf{OE5:} Documentar el proceso de desarrollo y los resultados obtenidos.
 \end{enumerate}
 
 \section{Tablas en LaTeX}
+\label{sec:tablas-latex}
 
-Las tablas son elementos fundamentales en cualquier documento técnico. A continuación se muestran diferentes ejemplos.
+Las tablas son elementos flotantes en \LaTeX{}, al igual que las figuras. A continuación se muestran diferentes ejemplos y técnicas para crearlas.
+
+\subsection{Estructura básica de una tabla}
+\label{subsec:estructura-tabla}
+
+La estructura básica de una tabla en \LaTeX{} es:
+
+\begin{verbatim}
+\begin{table}[posición]
+  \centering
+  \caption{Título de la tabla}
+  \label{tab:etiqueta}
+  \begin{tabular}{especificación-columnas}
+    ... contenido ...
+  \end{tabular}
+\end{table}
+\end{verbatim}
+
+Donde la especificación de columnas puede ser:
+\begin{itemize}
+  \item \texttt{l} --- Alineación izquierda
+  \item \texttt{c} --- Alineación centrada
+  \item \texttt{r} --- Alineación derecha
+  \item \texttt{p\{ancho\}} --- Columna con ancho fijo y texto justificado
+  \item \texttt{|} --- Línea vertical entre columnas
+\end{itemize}
 
 \subsection{Tabla simple}
+\label{subsec:tabla-simple}
 
-\begin{latexcode}[title={Código de tabla simple}]
+\begin{verbatim}
 \begin{table}[H]
   \centering
   \begin{tabular}{lcc}
@@ -31,13 +60,12 @@ Las tablas son elementos fundamentales en cualquier documento técnico. A contin
     \hline
     Fila 1 & Dato 1A   & Dato 1B \\
     Fila 2 & Dato 2A   & Dato 2B \\
-    Fila 3 & Dato 3A   & Dato 3B \\
     \hline
   \end{tabular}
   \caption{Ejemplo de tabla simple}
-  \label{tab:simple}
+  \label{tab:ejemplo}
 \end{table}
-\end{latexcode}
+\end{verbatim}
 
 \begin{table}[H]
   \centering
@@ -53,9 +81,29 @@ Las tablas son elementos fundamentales en cualquier documento técnico. A contin
   \label{tab:simple-ejemplo}
 \end{table}
 
-\subsection{Tabla con booktabs}
+\subsection{Tabla con booktabs (recomendado)}
+\label{subsec:tabla-booktabs}
 
-El paquete \texttt{booktabs} proporciona líneas más profesionales:
+El paquete \texttt{booktabs} proporciona líneas horizontales más elegantes y profesionales. Esta plantilla ya lo incluye.
+
+\begin{verbatim}
+\begin{table}[H]
+  \centering
+  \caption{Tabla con estilo booktabs}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    \textbf{Concepto} & \textbf{Valor} & \textbf{Unidad} \\
+    \midrule
+    Velocidad máxima & 120 & km/h \\
+    Consumo medio & 5.5 & L/100km \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\end{verbatim}
+
+\begin{infobox}{Recomendación de estilo}
+Usa siempre \texttt{booktabs} para tablas profesionales. Evita líneas verticales y usa solo \verb|\toprule|, \verb|\midrule| y \verb|\bottomrule|.
+\end{infobox}
 
 \begin{table}[H]
   \centering
@@ -74,8 +122,16 @@ El paquete \texttt{booktabs} proporciona líneas más profesionales:
 \end{table}
 
 \subsection{Tabla con columnas de ancho fijo}
+\label{subsec:tabla-ancho-fijo}
 
-Puedes especificar el ancho de las columnas usando \texttt{p\{ancho\}}, \texttt{L\{ancho\}}, \texttt{C\{ancho\}} o \texttt{R\{ancho\}}:
+Puedes especificar el ancho de las columnas usando \texttt{p\{ancho\}}:
+
+\begin{verbatim}
+% Columnas de ancho fijo con alineación
+p{5cm}  % Justificado, ancho 5cm
+m{5cm}  % Centrado verticalmente
+b{5cm}  % Alineado abajo
+\end{verbatim}
 
 \begin{table}[H]
   \centering
@@ -95,32 +151,59 @@ Puedes especificar el ancho de las columnas usando \texttt{p\{ancho\}}, \texttt{
 \end{table}
 
 \subsection{Tabla con multicolumna y multifila}
+\label{subsec:tabla-multicolrow}
+
+Para combinar celdas se recomienda usar el paquete moderno \texttt{tabularray} que evita conflictos con otros paquetes:
+
+\begin{verbatim}
+% Sintaxis tabularray para combinar celdas
+\begin{tblr}{
+  colspec = {llccc},
+  cell{2}{1} = {r=2}{},  % Combina 2 filas
+  cell{4}{1} = {c=3}{},  % Combina 3 columnas
+}
+  Cabecera & Col2 & Col3 & Col4 & Col5 \\
+  Fase A   & Tarea 1 & 1 & 10 & 100 \\
+           & Tarea 2 & 2 & 20 & 200 \\
+  Total    &         &   & 30 & 300 \\
+\end{tblr}
+\end{verbatim}
 
 \begin{table}[H]
   \centering
-  \caption{Ejemplo de tabla con celdas combinadas}
+  \caption{Ejemplo de tabla con celdas combinadas (tabularray)}
   \label{tab:multicolrow}
-  \begin{tabular}{|c|c|c|c|}
-    \hline
-    \multicolumn{4}{|c|}{\textbf{Distribución de recursos}} \\
-    \hline
-    \multirow{2}{*}{\textbf{Fase}} & \multicolumn{3}{c|}{\textbf{Recursos}} \\
-    \cline{2-4}
-     & Personal & Tiempo (h) & Coste (€) \\
-    \hline
-    Análisis & 2 & 40 & 2.000 \\
-    Diseño & 3 & 80 & 4.800 \\
-    Implementación & 4 & 160 & 9.600 \\
-    Pruebas & 2 & 60 & 3.000 \\
-    \hline
-    \textbf{Total} & -- & \textbf{340} & \textbf{19.400} \\
-    \hline
-  \end{tabular}
+  \begin{tblr}{
+    colspec = {llccc},
+    row{1} = {font=\bfseries},
+    row{6} = {font=\bfseries},
+    hline{1} = {1pt},
+    hline{2,4,6,7} = {0.5pt},
+    cell{2}{1} = {r=2}{},
+    cell{4}{1} = {r=2}{},
+    cell{6}{1} = {c=3}{},
+  }
+    Fase     & Tarea        & Personal & Tiempo (h) & Coste (€) \\
+    Análisis & Requisitos   & 2        & 20         & 1.000     \\
+             & Arquitectura & 2        & 40         & 2.400     \\
+    Diseño   & Prototipado  & 2        & 40         & 2.400     \\
+             & UI/UX        & 1        & 30         & 1.800     \\
+    Total    &              &          & 130        & 7.600     \\
+  \end{tblr}
 \end{table}
 
 \subsection{Tabla con colores alternados}
+\label{subsec:tabla-colores-alternados}
 
 Usando el paquete \texttt{xcolor} con la opción \texttt{table}:
+
+\begin{verbatim}
+% Activar colores alternados
+\rowcolors{2}{gray!15}{white}
+\begin{tabular}{...}
+  ... contenido ...
+\end{tabular}
+\end{verbatim}
 
 \begin{table}[H]
   \centering
@@ -143,35 +226,53 @@ Usando el paquete \texttt{xcolor} con la opción \texttt{table}:
 
 
 \section{Generadores de tablas}
+\label{sec:generadores-tablas}
 
 Crear tablas manualmente puede ser tedioso. Se recomienda usar generadores online:
 
 \begin{itemize}
-  \item \url{https://www.tablesgenerator.com/} -- Generador visual muy completo
-  \item \url{https://www.latex-tables.com/} -- Alternativa sencilla
-  \item Excel2LaTeX -- Plugin para Microsoft Excel
+  \item \url{https://www.tablesgenerator.com/} --- Generador visual muy completo
+  \item \url{https://www.latex-tables.com/} --- Alternativa sencilla
+  \item Excel2LaTeX --- Plugin para Microsoft Excel
 \end{itemize}
 
+\begin{tipbox}{Flujo de trabajo recomendado}
+Crea la estructura básica con un generador online, luego ajusta manualmente el estilo usando \texttt{booktabs}.
+\end{tipbox}
+
 \section{Forzar posición de tablas}
+\label{sec:forzar-posicion}
 
-Para forzar que una tabla aparezca en un lugar específico, se puede usar:
+Para forzar que una tabla aparezca en un lugar específico:
 
-\begin{latexcode}[title={Forzar posición}]
-% Opción 1: Usar FloatBarrier
-\begin{table}[H]
+\begin{verbatim}
+% Opción 1: Usar el especificador H
+\begin{table}[H]  % Requiere paquete float
   ...
 \end{table}
-\FloatBarrier % Fuerza que la tabla aparezca antes
 
-% Opción 2: Usar H (requiere paquete float)
-\begin{table}[H]
+% Opción 2: Usar FloatBarrier
+\begin{table}[htbp]
   ...
 \end{table}
-\end{latexcode}
+\FloatBarrier  % Fuerza que aparezca antes de continuar
+\end{verbatim}
 
 \section{Tablas con notas al pie}
+\label{sec:tablas-notas}
 
 Para añadir notas al pie dentro de una tabla, se usa el paquete \texttt{threeparttable}:
+
+\begin{verbatim}
+\begin{threeparttable}
+  \begin{tabular}{...}
+    ... Texto\tnote{a} ...
+  \end{tabular}
+  \begin{tablenotes}
+    \item[a] Explicación de la nota.
+  \end{tablenotes}
+\end{threeparttable}
+\end{verbatim}
 
 \begin{table}[H]
   \centering
@@ -197,8 +298,20 @@ Para añadir notas al pie dentro de una tabla, se usa el paquete \texttt{threepa
 \end{table}
 
 \section{Tabla con celdas de colores personalizados}
+\label{sec:tablas-colores}
 
-Se pueden colorear celdas individuales usando \texttt{\textbackslash cellcolor}:
+Se pueden colorear celdas individuales usando \verb|\cellcolor{color}|:
+
+\begin{verbatim}
+% Celda coloreada
+\cellcolor{red!50} Texto con fondo rojo
+
+% Fila completa coloreada
+\rowcolor{blue!20}
+
+% Columna coloreada (en especificación)
+>{\columncolor{gray!20}}c
+\end{verbatim}
 
 \begin{table}[H]
   \centering
@@ -222,8 +335,16 @@ Se pueden colorear celdas individuales usando \texttt{\textbackslash cellcolor}:
 \end{table}
 
 \section{Tabla de ancho completo}
+\label{sec:tablas-ancho-completo}
 
 Para que una tabla ocupe todo el ancho disponible, se usa \texttt{tabularx}:
+
+\begin{verbatim}
+\begin{tabularx}{\textwidth}{@{}lXcc@{}}
+  % X = columna que se expande
+  % l, c, r = columnas normales
+\end{tabularx}
+\end{verbatim}
 
 \begin{table}[H]
   \centering
@@ -241,3 +362,39 @@ Para que una tabla ocupe todo el ancho disponible, se usa \texttt{tabularx}:
     \bottomrule
   \end{tabularx}
 \end{table}
+
+\section{Resumen de comandos para tablas}
+\label{sec:resumen-comandos-tablas}
+
+A modo de referencia rápida:
+
+\begin{verbatim}
+% Estructura básica
+\begin{table}[H]
+  \centering
+  \caption{Título}
+  \label{tab:etiqueta}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    Cabecera 1 & Cabecera 2 & Cabecera 3 \\
+    \midrule
+    Dato 1 & Dato 2 & Dato 3 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% Comandos de booktabs
+\toprule      % Línea superior gruesa
+\midrule      % Línea intermedia
+\bottomrule   % Línea inferior gruesa
+\cmidrule{a-b}% Línea parcial de columna a hasta b
+
+% Combinar celdas
+\multicolumn{n}{alineación}{texto}
+\multirow{n}{ancho}{texto}
+
+% Colores
+\rowcolors{inicio}{color1}{color2}  % Filas alternadas
+\cellcolor{color}                    % Celda individual
+\rowcolor{color}                     % Fila completa
+\end{verbatim}

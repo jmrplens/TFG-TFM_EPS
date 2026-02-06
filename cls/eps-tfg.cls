@@ -808,9 +808,12 @@
 \RequirePackage{multicol}
 \RequirePackage{tabularx}
 \RequirePackage{colortbl}       % Para \rowcolors y colores en tablas
+% Fix para conflicto colortbl + multirow (evita números fantasma)
+\renewcommand\multirowsetup{}
 \RequirePackage{ragged2e}
 \RequirePackage{threeparttable} % Para tablas con notas al pie
 \RequirePackage{diagbox}        % Para celdas diagonales en encabezados
+\RequirePackage{tabularray}     % Tablas modernas (alternativa a multirow/multicolumn)
 
 % Tipos de columna personalizados
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
@@ -868,7 +871,7 @@
 %% ============================================================================
 %% GLOSARIOS Y ACRÓNIMOS
 %% ============================================================================
-\RequirePackage[acronym,nonumberlist,toc,automake]{glossaries}
+\RequirePackage[acronym,toc,automake]{glossaries}
 
 % Estilo personalizado simple y robusto para acrónimos
 \newglossarystyle{modsuper}{%

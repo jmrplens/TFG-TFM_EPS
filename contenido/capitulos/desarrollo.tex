@@ -5,15 +5,27 @@
 \label{cap:desarrollo}
 
 Este capítulo demuestra los estilos de cajas de código disponibles en esta plantilla,
-basados en el diseño de Visual Studio Code.
+basados en el diseño de Visual Studio Code. Cada \gls{entorno} genera una caja estilizada
+con el icono del lenguaje, números de línea opcionales y resaltado de sintaxis mediante
+el \gls{compilador} de Pygments.
 
 %% =============================================================================
 \section{Estilo VS Code Light}
 \label{sec:vscode-light}
 
 El estilo VS Code Light imita la apariencia del editor Visual Studio Code en su tema claro.
+Todos los entornos aceptan el contenido directamente entre \texttt{\textbackslash begin} y
+\texttt{\textbackslash end}.
 
 \subsection{Python}
+
+Entorno para código Python con icono \faIcon{python} y números de línea.
+
+\begin{verbatim}
+\begin{pythoncode}
+  ... código Python ...
+\end{pythoncode}
+\end{verbatim}
 
 \begin{pythoncode}
 def fibonacci(n):
@@ -27,7 +39,14 @@ for i in range(10):
 
 \subsection{Sin numeración de líneas}
 
-Usando el sufijo \texttt{NN} (No Numbers) se elimina la numeración:
+Todos los entornos tienen variante \texttt{NN} (No Numbers) que elimina la numeración.
+Útil para fragmentos cortos o pseudocódigo.
+
+\begin{verbatim}
+\begin{pythoncodeNN}
+  ... código sin números ...
+\end{pythoncodeNN}
+\end{verbatim}
 
 \begin{pythoncodeNN}
 mensaje = "Hola, mundo"
@@ -35,6 +54,14 @@ print(mensaje)
 \end{pythoncodeNN}
 
 \subsection{JavaScript}
+
+Entorno para JavaScript con icono \faIcon{js-square}.
+
+\begin{verbatim}
+\begin{jscode}
+  ... código JavaScript ...
+\end{jscode}
+\end{verbatim}
 
 \begin{jscode}
 function validateEmail(email) {
@@ -50,6 +77,14 @@ async function fetchData(url) {
 
 \subsection{Java}
 
+Entorno para Java con icono \faIcon{java}.
+
+\begin{verbatim}
+\begin{javacode}
+  ... código Java ...
+\end{javacode}
+\end{verbatim}
+
 \begin{javacode}
 public class HelloWorld {
     public static void main(String[] args) {
@@ -63,8 +98,17 @@ public class HelloWorld {
 \label{sec:vscode-dark}
 
 El tema oscuro de VS Code, ideal para documentación técnica o presentaciones.
+Todos los entornos Light tienen su versión Dark añadiendo el sufijo \texttt{Dark}.
 
 \subsection{Python Dark}
+
+Versión oscura del entorno Python. Combina con fondos oscuros o diapositivas.
+
+\begin{verbatim}
+\begin{pythoncodeDark}
+  ... código Python ...
+\end{pythoncodeDark}
+\end{verbatim}
 
 \begin{pythoncodeDark}
 import numpy as np
@@ -78,6 +122,14 @@ result = matrix_multiply(A, B)
 \end{pythoncodeDark}
 
 \subsection{JavaScript Dark}
+
+Versión oscura del entorno JavaScript.
+
+\begin{verbatim}
+\begin{jscodeDark}
+  ... código JavaScript ...
+\end{jscodeDark}
+\end{verbatim}
 
 \begin{jscodeDark}
 const express = require('express');
@@ -95,7 +147,17 @@ app.listen(3000);
 \section{Lenguajes Web}
 \label{sec:web}
 
+Entornos especializados para desarrollo web frontend.
+
 \subsection{HTML}
+
+Entorno para HTML con icono \faIcon{html5}.
+
+\begin{verbatim}
+\begin{htmlcode}
+  ... código HTML ...
+\end{htmlcode}
+\end{verbatim}
 
 \begin{htmlcode}
 <!DOCTYPE html>
@@ -111,6 +173,14 @@ app.listen(3000);
 \end{htmlcode}
 
 \subsection{CSS}
+
+Entorno para CSS con icono \faIcon{css3-alt}.
+
+\begin{verbatim}
+\begin{csscode}
+  ... código CSS ...
+\end{csscode}
+\end{verbatim}
 
 \begin{csscode}
 .container {
@@ -132,8 +202,16 @@ app.listen(3000);
 
 \subsection{SQL}
 
+Entorno para consultas SQL con icono \faIcon{database}.
+
+\begin{verbatim}
 \begin{sqlcode}
-SELECT 
+  ... consulta SQL ...
+\end{sqlcode}
+\end{verbatim}
+
+\begin{sqlcode}
+SELECT
     usuarios.nombre,
     COUNT(pedidos.id) as total_pedidos
 FROM usuarios
@@ -147,7 +225,17 @@ LIMIT 10;
 \section{Lenguajes de Sistemas}
 \label{sec:sistemas}
 
+Entornos para lenguajes de sistemas y bajo nivel.
+
 \subsection{C++}
+
+Entorno para C++ con icono \faIcon{copyright}.
+
+\begin{verbatim}
+\begin{cppcode}
+  ... código C++ ...
+\end{cppcode}
+\end{verbatim}
 
 \begin{cppcode}
 \#include <iostream>
@@ -164,11 +252,19 @@ int main() {
 
 \subsection{Rust}
 
+Entorno para Rust con icono \faIcon{rust}.
+
+\begin{verbatim}
+\begin{rustcode}
+  ... código Rust ...
+\end{rustcode}
+\end{verbatim}
+
 \begin{rustcode}
 fn main() {
     let mensaje = "Hola desde Rust";
     println!("{}", mensaje);
-    
+
     let numeros = vec![1, 2, 3, 4, 5];
     for n in numeros {
         println!("{}", n);
@@ -178,6 +274,14 @@ fn main() {
 
 \subsection{Go}
 
+Entorno para Go con icono \faIcon{google}.
+
+\begin{verbatim}
+\begin{gocode}
+  ... código Go ...
+\end{gocode}
+\end{verbatim}
+
 \begin{gocode}
 package main
 
@@ -185,7 +289,7 @@ import "fmt"
 
 func main() {
     fmt.Println("Hola desde Go")
-    
+
     nums := []int{1, 2, 3, 4, 5}
     for _, n := range nums {
         fmt.Println(n)
@@ -197,17 +301,27 @@ func main() {
 \section{Otros Lenguajes}
 \label{sec:otros}
 
+Entornos para otros lenguajes de programación populares.
+
 \subsection{PHP}
+
+Entorno para PHP con icono \faIcon{php}.
+
+\begin{verbatim}
+\begin{phpcode}
+  ... código PHP ...
+\end{phpcode}
+\end{verbatim}
 
 \begin{phpcode}
 <?php
 class Usuario {
     private $nombre;
-    
+
     public function __construct($nombre) {
         $this->nombre = $nombre;
     }
-    
+
     public function saludar() {
         return "Hola, " . $this->nombre . "!";
     }
@@ -220,15 +334,23 @@ echo $usuario->saludar();
 
 \subsection{Ruby}
 
+Entorno para Ruby con icono \faIcon{gem}.
+
+\begin{verbatim}
+\begin{rubycode}
+  ... código Ruby ...
+\end{rubycode}
+\end{verbatim}
+
 \begin{rubycode}
 class Persona
   attr_accessor :nombre, :edad
-  
+
   def initialize(nombre, edad)
     @nombre = nombre
     @edad = edad
   end
-  
+
   def saludar
     puts "Hola, soy " + @nombre
   end
@@ -242,7 +364,17 @@ persona.saludar
 \section{DevOps y Configuración}
 \label{sec:devops}
 
+Entornos para archivos de configuración y DevOps.
+
 \subsection{Docker}
+
+Entorno para Dockerfiles con icono \faIcon{docker}.
+
+\begin{verbatim}
+\begin{dockercode}
+  ... Dockerfile ...
+\end{dockercode}
+\end{verbatim}
 
 \begin{dockercode}
 FROM node:18-alpine
@@ -263,8 +395,16 @@ CMD ["node", "server.js"]
 \section{Entorno Genérico}
 \label{sec:generico}
 
-El entorno \texttt{codigo\{lenguaje\}} permite usar cualquier lenguaje soportado 
-por Pygments:
+El entorno \texttt{codigo\{lenguaje\}} permite usar cualquier lenguaje soportado
+por Pygments. Útil para lenguajes menos comunes que no tienen entorno predefinido.
+
+\begin{verbatim}
+\begin{codigo}{lenguaje}
+  ... código ...
+\end{codigo}
+\end{verbatim}
+
+Ejemplo con Swift:
 
 \begin{codigo}{swift}
 import Foundation
@@ -272,7 +412,7 @@ import Foundation
 struct Persona {
     let nombre: String
     let edad: Int
-    
+
     func saludar() -> String {
         return "Hola, soy " + nombre
     }
@@ -284,6 +424,16 @@ print(persona.saludar())
 
 \subsection{Versión Dark del Genérico}
 
+El entorno genérico también tiene versión oscura.
+
+\begin{verbatim}
+\begin{codigoDark}{lenguaje}
+  ... código ...
+\end{codigoDark}
+\end{verbatim}
+
+Ejemplo con Kotlin:
+
 \begin{codigoDark}{kotlin}
 data class Usuario(val nombre: String, val email: String)
 
@@ -292,10 +442,51 @@ fun main() {
         Usuario("Ana", "ana@mail.com"),
         Usuario("Luis", "luis@mail.com")
     )
-    
+
     usuarios.forEach { println(it) }
 }
 \end{codigoDark}
+
+%% =============================================================================
+\section{Estilo Simple con Título}
+\label{sec:codigosimple}
+
+El entorno \texttt{codigosimple} proporciona un estilo minimalista con título personalizado.
+Es ideal cuando se necesita un diseño más limpio sin los iconos del estilo VS Code.
+
+\subsection{Código Simple con Numeración}
+
+El entorno acepta tres argumentos: opciones extra (opcional), lenguaje y título.
+
+\begin{verbatim}
+\begin{codigosimple}{lenguaje}{Título del código}
+  ... código ...
+\end{codigosimple}
+\end{verbatim}
+
+\begin{codigosimple}{python}{Ejemplo de función}
+def saludar(nombre):
+    return f"Hola, {nombre}!"
+
+print(saludar("Mundo"))
+\end{codigosimple}
+
+\subsection{Código Simple sin Numeración}
+
+Variante sin números de línea usando el sufijo \texttt{NN}.
+
+\begin{verbatim}
+\begin{codigosimpleNN}{lenguaje}{Título}
+  ... código ...
+\end{codigosimpleNN}
+\end{verbatim}
+
+\begin{codigosimpleNN}{javascript}{Configuración JSON}
+const config = {
+  debug: true,
+  version: "1.0.0"
+};
+\end{codigosimpleNN}
 
 %% =============================================================================
 \section{Resumen de Entornos Disponibles}
@@ -303,25 +494,72 @@ fun main() {
 
 \begin{table}[H]
 \centering
-\caption{Entornos de código con icono disponibles}
-\label{tab:entornos-codigo}
+\caption{Entornos de código con icono --- Lenguajes de programación}
+\label{tab:entornos-programacion}
 \begin{tabular}{llll}
 \toprule
 \textbf{Entorno} & \textbf{Lenguaje} & \textbf{Icono} & \textbf{Dark} \\
 \midrule
 \texttt{pythoncode} & Python & \faIcon{python} & \texttt{pythoncodeDark} \\
 \texttt{jscode} & JavaScript & \faIcon{js-square} & \texttt{jscodeDark} \\
+\texttt{tscode} & TypeScript & \faIcon{js-square} & \texttt{tscodeDark} \\
 \texttt{javacode} & Java & \faIcon{java} & \texttt{javacodeDark} \\
+\texttt{ccode} & C & \faIcon{copyright} & \texttt{ccodeDark} \\
 \texttt{cppcode} & C++ & \faIcon{copyright} & \texttt{cppcodeDark} \\
-\texttt{rustcode} & Rust & \faIcon{rust} & \texttt{rustcodeDark} \\
+\texttt{csharpcode} & C\# & \faIcon{microsoft} & \texttt{csharpcodeDark} \\
+\texttt{kotlincode} & Kotlin & \faIcon{android} & \texttt{kotlincodeDark} \\
+\texttt{swiftcode} & Swift & \faIcon{apple} & \texttt{swiftcodeDark} \\
 \texttt{gocode} & Go & \faIcon{google} & \texttt{gocodeDark} \\
+\texttt{rustcode} & Rust & \faIcon{rust} & \texttt{rustcodeDark} \\
 \texttt{phpcode} & PHP & \faIcon{php} & \texttt{phpcodeDark} \\
 \texttt{rubycode} & Ruby & \faIcon{gem} & \texttt{rubycodeDark} \\
+\texttt{rcode} & R & \faIcon{r-project} & \texttt{rcodeDark} \\
+\texttt{scalacode} & Scala & \faIcon{fire} & \texttt{scalacodeDark} \\
+\texttt{luacode} & Lua & \faIcon{moon} & \texttt{luacodeDark} \\
+\texttt{perlcode} & Perl & \faIcon{code} & \texttt{perlcodeDark} \\
+\texttt{haskellcode} & Haskell & \faIcon{code} & \texttt{haskellcodeDark} \\
+\texttt{matlabcode} & MATLAB & \faIcon{chart-line} & \texttt{matlabcodeDark} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Entornos de código con icono --- Web, datos y configuración}
+\label{tab:entornos-web}
+\begin{tabular}{llll}
+\toprule
+\textbf{Entorno} & \textbf{Lenguaje} & \textbf{Icono} & \textbf{Dark} \\
+\midrule
 \texttt{htmlcode} & HTML & \faIcon{html5} & \texttt{htmlcodeDark} \\
 \texttt{csscode} & CSS & \faIcon{css3-alt} & \texttt{csscodeDark} \\
+\texttt{sasscode} & SASS/SCSS & \faIcon{sass} & \texttt{sasscodeDark} \\
 \texttt{sqlcode} & SQL & \faIcon{database} & \texttt{sqlcodeDark} \\
-\texttt{bashcode} & Bash & \faIcon{terminal} & \texttt{bashcodeDark} \\
+\texttt{jsoncode} & JSON & \faIcon{code} & \texttt{jsoncodeDark} \\
+\texttt{xmlcode} & XML & \faIcon{code} & \texttt{xmlcodeDark} \\
+\texttt{yamlcode} & YAML & \faIcon{file-code} & \texttt{yamlcodeDark} \\
+\texttt{tomlcode} & TOML & \faIcon{file-code} & \texttt{tomlcodeDark} \\
+\texttt{mdcode} & Markdown & \faIcon{markdown} & \texttt{mdcodeDark} \\
+\texttt{latexcode} & \LaTeX & \faIcon{file-alt} & \texttt{latexcodeDark} \\
+\texttt{inicode} & INI/Config & \faIcon{sliders-h} & \texttt{inicodeDark} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Entornos de código con icono --- Shell y DevOps}
+\label{tab:entornos-devops}
+\begin{tabular}{llll}
+\toprule
+\textbf{Entorno} & \textbf{Lenguaje} & \textbf{Icono} & \textbf{Dark} \\
+\midrule
+\texttt{bashcode} & Bash/Shell & \faIcon{terminal} & \texttt{bashcodeDark} \\
+\texttt{pscode} & PowerShell & \faIcon{terminal} & \texttt{pscodeDark} \\
 \texttt{dockercode} & Dockerfile & \faIcon{docker} & \texttt{dockercodeDark} \\
+\texttt{makecode} & Makefile & \faIcon{cogs} & \texttt{makecodeDark} \\
+\texttt{gitcode} & Git & \faIcon{git-alt} & \texttt{gitcodeDark} \\
+\texttt{diffcode} & Diff/Patch & \faIcon{code-branch} & \texttt{diffcodeDark} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -354,6 +592,20 @@ fun main() {
 \texttt{codigoNN\{lang\}} & Light sin números \\
 \texttt{codigoDark\{lang\}} & Dark con números \\
 \texttt{codigoDarkNN\{lang\}} & Dark sin números \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Entornos simples con título personalizado}
+\label{tab:codigosimple}
+\begin{tabular}{ll}
+\toprule
+\textbf{Entorno} & \textbf{Descripción} \\
+\midrule
+\texttt{codigosimple\{lang\}\{título\}} & Simple con números \\
+\texttt{codigosimpleNN\{lang\}\{título\}} & Simple sin números \\
 \bottomrule
 \end{tabular}
 \end{table}
