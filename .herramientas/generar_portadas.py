@@ -27,7 +27,9 @@ import re
 import shutil
 import subprocess
 import sys
+import sys
 import tempfile
+import traceback
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from dataclasses import dataclass
 from multiprocessing import cpu_count
@@ -110,40 +112,7 @@ def extraer_titulaciones(cls_path: Path) -> list[Titulacion]:
 # GENERACIÓN DE PORTADAS
 # =============================================================================
 
-def generar_documento_portada(titulacion: Titulacion, bn: bool = False) -> str:
-    """Genera el documento LaTeX para una portada standalone."""
 
-    tipo_portada = "bn" if bn else "color"
-
-    return f"""% Generado automáticamente para preview de portada
-\\documentclass[class=eps-tfg]{{standalone}}
-
-% Cargar la clase real para usar sus comandos
-\\usepackage{{fontspec}}
-\\usepackage{{polyglossia}}
-\\setmainlanguage{{spanish}}
-\\usepackage{{graphicx}}
-\\usepackage{{tikz}}
-\\usepackage{{xcolor}}
-
-% Configurar la titulación
-\\input{{eps-tfg.cls}}
-
-\\EPSsetup{{
-    titulo = {{Título del Trabajo de Ejemplo}},
-    subtitulo = {{Subtítulo opcional del trabajo}},
-    autor = {{Nombre Apellido1 Apellido2}},
-    genero = m,
-    tutor = {{Dr./Dra. Nombre del Tutor/a}},
-    tutor-departamento = {{Departamento Universitario}},
-    titulacion = {titulacion.id},
-    fecha = {{Febrero 2026}},
-}}
-
-\\begin{{document}}
-\\portada{tipo_portada}
-\\end{{document}}
-"""
 
 
 def generar_documento_portada_simple(titulacion: Titulacion, bn: bool = False) -> str:
@@ -197,10 +166,8 @@ def _generar_pdf(titulacion: Titulacion, bn: bool, suffix: str) -> bool:
 
     env = os.environ.copy()
     # Usar rutas absolutas para cls y sty para que kpsewhich las encuentre
+    # Asegurar que termine en : para incluir rutas del sistema
     texinputs = f".:{PROYECTO_ROOT}/cls:{PROYECTO_ROOT}/sty:{PROYECTO_ROOT}/recursos:{env.get('TEXINPUTS', '')}"
-    # Eliminar dobles puntos si TEXINPUTS estaba vacío
-    if texinputs.endswith(":"):
-        texinputs = texinputs[:-1]
     env["TEXINPUTS"] = texinputs
 
     cmd = [
@@ -210,8 +177,9 @@ def _generar_pdf(titulacion: Titulacion, bn: bool, suffix: str) -> bool:
         tex_file.name
     ]
 
+    result = None
     for _ in range(2):
-        subprocess.run(
+        result = subprocess.run(
             cmd,
             cwd=PROYECTO_ROOT,
             capture_output=True,
@@ -220,10 +188,18 @@ def _generar_pdf(titulacion: Titulacion, bn: bool, suffix: str) -> bool:
             env=env
         )
 
-    return pdf_file.exists()
+    if not pdf_file.exists():
+        print(f"Error compiling {tex_file.name}:")
+        if result:
+            # Imprimir últimas líneas del log para no saturar
+            print("\n".join(result.stdout.splitlines()[-20:]))
+            print("\n".join(result.stderr.splitlines()[-20:]))
+        return False
+
+    return True
 
 
-def _convertir_a_imagen(titulacion: Titulacion, bn: bool, suffix: str, output_path: Path) -> Optional[dict]:
+def _convertir_a_imagen(titulacion: Titulacion, suffix: str, output_path: Path) -> Optional[dict]:
     """Convierte el PDF generado a imagen (WebP/PNG)."""
     pdf_file = PROYECTO_ROOT / f"_temp_portada{suffix}.pdf"
     png_file = PROYECTO_ROOT / f"_temp_portada{suffix}.png"
@@ -268,7 +244,7 @@ def _compilar_portada_worker(args: tuple) -> tuple:
         if not _generar_pdf(titulacion, bn, suffix):
             return (titulacion.id, bn, False, None)
 
-        info = _convertir_a_imagen(titulacion, bn, suffix, output_path)
+        info = _convertir_a_imagen(titulacion, suffix, output_path)
 
         if not info:
              return (titulacion.id, bn, False, None)
@@ -276,6 +252,7 @@ def _compilar_portada_worker(args: tuple) -> tuple:
         return (titulacion.id, bn, True, info)
 
     except Exception:
+        traceback.print_exc()
         return (titulacion.id, bn, False, None)
 
     finally:
@@ -286,6 +263,46 @@ def compilar_portada(titulacion: Titulacion, bn: bool, output_path: Path) -> boo
     """Compila una portada y la convierte a WebP (versión secuencial)."""
     result = _compilar_portada_worker((titulacion.__dict__, bn, str(output_path)))
     return result[2]  # success
+
+
+def _preparar_tareas(titulaciones: list[Titulacion]) -> list[tuple]:
+    """Prepara las tareas de compilación."""
+    tareas = []
+    for t in titulaciones:
+        output_color = OUTPUT_DIR / f"portada_{t.id}_color.webp"
+        tareas.append((t.__dict__, False, str(output_color)))
+
+        if t.id == TITULACION_REFERENCIA:
+            output_bn = OUTPUT_DIR / f"portada_{t.id}_bn.webp"
+            tareas.append((t.__dict__, True, str(output_bn)))
+    return tareas
+
+
+def _procesar_resultado_futuro(futuro, resultados: dict, completadas: int, total_tareas: int) -> int:
+    """Procesa un futuro y devuelve 1 si hubo error, 0 si éxito."""
+    try:
+        tid, bn, success, info = futuro.result()
+
+        tipo_str = "(B/N)" if bn else ""
+        status = "✅" if success else "❌"
+        print(f"   [{completadas}/{total_tareas}] {tid} {tipo_str}... {status}")
+
+        if not (success and info):
+            return 1
+
+        if bn:
+            resultados["referencia_bn"] = info["archivo"]
+            color_path = OUTPUT_DIR / f"portada_{tid}_color.webp"
+            if color_path.exists():
+                resultados["referencia_color"] = str(color_path.relative_to(PROYECTO_ROOT))
+        else:
+            lista = resultados["grados"] if info["tipo"] == "tfg" else resultados["masteres"]
+            lista.append(info)
+        return 0
+
+    except Exception as e:
+        print(f"   [{completadas}/{total_tareas}] Error: {e}")
+        return 1
 
 
 def generar_todas_portadas(titulaciones: list[Titulacion]) -> dict:
@@ -300,61 +317,21 @@ def generar_todas_portadas(titulaciones: list[Titulacion]) -> dict:
         "referencia_bn": None,
     }
 
-    total = len(titulaciones)
-
-    # Determinar número de workers (núcleos disponibles, máximo 8 para no saturar)
-    num_workers = min(cpu_count(), 8, total)
-
-    # Preparar tareas para ejecución paralela
-    tareas = []
-    for t in titulaciones:
-        output_color = OUTPUT_DIR / f"portada_{t.id}_color.webp"
-        tareas.append((t.__dict__, False, str(output_color)))
-
-        # Si es la titulación de referencia, añadir también B/N
-        if t.id == TITULACION_REFERENCIA:
-            output_bn = OUTPUT_DIR / f"portada_{t.id}_bn.webp"
-            tareas.append((t.__dict__, True, str(output_bn)))
-
+    tareas = _preparar_tareas(titulaciones)
     total_tareas = len(tareas)
+    num_workers = min(cpu_count(), 8, total_tareas)
+
     completadas = 0
     errores = 0
 
     print(f"   Usando {num_workers} procesos paralelos para {total_tareas} portadas...")
 
-    # Ejecutar en paralelo
     with ProcessPoolExecutor(max_workers=num_workers) as executor:
-        # Enviar todas las tareas
         futuros = {executor.submit(_compilar_portada_worker, tarea): tarea for tarea in tareas}
 
-        # Procesar resultados a medida que completan
         for futuro in as_completed(futuros):
-            try:
-                tid, bn, success, info = futuro.result()
-                completadas += 1
-
-                tipo_str = "(B/N)" if bn else ""
-                status = "✅" if success else "❌"
-                print(f"   [{completadas}/{total_tareas}] {tid} {tipo_str}... {status}")
-
-                if success and info:
-                    if bn:
-                        resultados["referencia_bn"] = info["archivo"]
-                        # También guardar color si existe
-                        color_path = OUTPUT_DIR / f"portada_{tid}_color.webp"
-                        if color_path.exists():
-                            resultados["referencia_color"] = str(color_path.relative_to(PROYECTO_ROOT))
-                    else:
-                        if info["tipo"] == "tfg":
-                            resultados["grados"].append(info)
-                        else:
-                            resultados["masteres"].append(info)
-                else:
-                    errores += 1
-
-            except Exception as e:
-                errores += 1
-                print(f"   [{completadas}/{total_tareas}] Error: {e}")
+            completadas += 1
+            errores += _procesar_resultado_futuro(futuro, resultados, completadas, total_tareas)
 
     # Ordenar resultados por ID para consistencia
     resultados["grados"].sort(key=lambda x: x["id"])
