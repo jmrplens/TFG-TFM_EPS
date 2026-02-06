@@ -137,6 +137,17 @@ El usuario interactúa mediante:
 | `palabras-clave` | lista | ❌ | Palabras clave en español |
 | `keywords` | lista | ❌ | Keywords en inglés |
 
+### Idioma
+
+| Clave | Tipo | Obligatorio | Descripción |
+|-------|------|-------------|-------------|
+| `idioma` | texto | ❌ | Idioma del documento: `espanol` (defecto), `valenciano`, `ingles` |
+
+> ⚠️ **Importante:** Si se cambia el idioma, también se debe actualizar el código de idioma en `cls/eps-metadata.tex` para que los metadatos PDF/UA-2 sean correctos:
+> - `idioma = espanol` → `lang=es-ES`
+> - `idioma = valenciano` → `lang=ca-ES`
+> - `idioma = ingles` → `lang=en-GB`
+
 ---
 
 ## 🎨 Titulaciones y sus Identificadores

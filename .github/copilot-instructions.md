@@ -17,8 +17,21 @@ Esta plantilla LaTeX es para TFG/TFM de la EPS (Universidad de Alicante).
 **Estructura del Proyecto:**
 - `main.tex`: Archivo raíz. Editar SOLO para estructura (activar componentes, añadir capítulos/anexos). NO escribir contenido.
 - `configuracion.tex`: Variables del usuario (`\EPSsetup`).
+- `cls/eps-metadata.tex`: Estándares PDF y código de idioma para metadatos.
 - `contenido/capitulos/`: Archivos `.tex` de contenido.
 - `referencias.bib`: Archivo de bibliografía.
+
+**Configuración de Idioma:**
+La plantilla soporta tres idiomas. En `configuracion.tex`:
+```latex
+\EPSsetup{
+  idioma = espanol,  % espanol (defecto), valenciano, ingles
+}
+```
+Si el usuario cambia el idioma, DEBE editar también `cls/eps-metadata.tex`:
+- `idioma = espanol` → `lang=es-ES`
+- `idioma = valenciano` → `lang=ca-ES`  
+- `idioma = ingles` → `lang=en-GB`
 
 **Comandos Comunes:**
 - Citar: `\cite{key}`, `\textcite{key}`, `\parencite{key}`.

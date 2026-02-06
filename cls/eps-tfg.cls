@@ -82,6 +82,12 @@
 \bool_new:N \g__eps_optimizar_tikz_bool
 \bool_new:N \g__eps_borrador_bool
 
+% Idioma del documento
+\tl_new:N \g__eps_idioma_tl
+\tl_new:N \g__eps_idioma_polyglossia_tl
+\tl_new:N \g__eps_idioma_codigo_tl
+\tl_new:N \g__eps_idioma_biblatex_tl
+
 % Establecer valores por defecto
 \tl_gset:Nn \g__eps_facultad_tl {Escuela~Politécnica~Superior}
 \tl_gset:Nn \g__eps_facultad_corto_tl {EPS~UA}
@@ -89,6 +95,11 @@
 \tl_gset:Nn \g__eps_ubicacion_tl {Alicante}
 \tl_gset:Nn \g__eps_autor_genero_tl {m}
 \bool_gset_true:N \g__eps_optimizar_tikz_bool
+% Idioma por defecto: español
+\tl_gset:Nn \g__eps_idioma_tl {espanol}
+\tl_gset:Nn \g__eps_idioma_polyglossia_tl {spanish}
+\tl_gset:Nn \g__eps_idioma_codigo_tl {es-ES}
+\tl_gset:Nn \g__eps_idioma_biblatex_tl {spanish}
 
 %% ============================================================================
 %% BASE DE DATOS DE TITULACIONES
@@ -289,12 +300,47 @@
   }
 
 %% ============================================================================
+%% FUNCIÓN PARA CONFIGURAR IDIOMA
+%% ============================================================================
+\cs_new_protected:Nn \__eps_setup_idioma:n
+  {
+    \tl_gset:Nn \g__eps_idioma_tl { #1 }
+    \str_case:nnF { #1 }
+      {
+        {espanol} {
+          \tl_gset:Nn \g__eps_idioma_polyglossia_tl {spanish}
+          \tl_gset:Nn \g__eps_idioma_codigo_tl {es-ES}
+          \tl_gset:Nn \g__eps_idioma_biblatex_tl {spanish}
+        }
+        {valenciano} {
+          \tl_gset:Nn \g__eps_idioma_polyglossia_tl {catalan}
+          \tl_gset:Nn \g__eps_idioma_codigo_tl {ca-ES}
+          \tl_gset:Nn \g__eps_idioma_biblatex_tl {catalan}
+        }
+        {ingles} {
+          \tl_gset:Nn \g__eps_idioma_polyglossia_tl {english}
+          \tl_gset:Nn \g__eps_idioma_codigo_tl {en-GB}
+          \tl_gset:Nn \g__eps_idioma_biblatex_tl {english}
+        }
+      }
+      {
+        \msg_error:nnn { eps-tfg } { idioma-desconocido } { #1 }
+      }
+  }
+
+%% ============================================================================
 %% MENSAJES DE ERROR
 %% ============================================================================
 \msg_new:nnn { eps-tfg } { titulacion-desconocida }
   {
     La~titulación~'#1'~no~está~definida.~
     Consulta~la~documentación~para~ver~las~titulaciones~disponibles.
+  }
+
+\msg_new:nnn { eps-tfg } { idioma-desconocido }
+  {
+    El~idioma~'#1'~no~está~soportado.~
+    Valores~válidos:~espanol,~valenciano,~ingles.
   }
 
 \msg_new:nnn { eps-tfg } { campo-requerido }
@@ -361,6 +407,10 @@
     borrador .bool_gset:N = \g__eps_borrador_bool,
     borrador .default:n = true,
     borrador .initial:n = false,
+
+    % Idioma del documento (espanol, valenciano, ingles)
+    idioma .code:n = { \__eps_setup_idioma:n { #1 } },
+    idioma .initial:n = {espanol},
   }
 
 % +m permite párrafos (líneas en blanco) dentro del argumento
@@ -394,6 +444,9 @@
 \NewExpandableDocumentCommand{\EPSlogoGrado}{}{\tl_use:N \g__eps_logo_grado_tl}
 \NewExpandableDocumentCommand{\EPSlogoGradoPortada}{}{\tl_use:N \g__eps_logo_grado_portada_tl}
 \NewExpandableDocumentCommand{\EPSlogoFacultadPortada}{}{\tl_use:N \g__eps_logo_facultad_portada_tl}
+\NewExpandableDocumentCommand{\EPSidioma}{}{\tl_use:N \g__eps_idioma_tl}
+\NewExpandableDocumentCommand{\EPSidiomaCodigo}{}{\tl_use:N \g__eps_idioma_codigo_tl}
+\NewExpandableDocumentCommand{\EPSidiomaBiblatex}{}{\tl_use:N \g__eps_idioma_biblatex_tl}
 
 % Comando para obtener la fecha formateada
 \NewDocumentCommand{\EPSfecha}{}
@@ -591,16 +644,42 @@
 %% IDIOMA (POLYGLOSSIA PARA LUALATEX)
 %% ============================================================================
 \RequirePackage{polyglossia}
+
+% Cargar todos los idiomas soportados (el predeterminado se selecciona en AtBeginDocument)
 \setdefaultlanguage{spanish}
 \setotherlanguage{english}
+\setotherlanguage{catalan}
 
-% Redefinir nombres
+% Redefinir nombres para español
 \gappto\captionsspanish{%
   \renewcommand{\listtablename}{Índice de tablas}
   \renewcommand{\tablename}{Tabla}
   \renewcommand{\glossaryname}{Glosario}
   \renewcommand{\acronymname}{Acrónimos}
   \renewcommand{\bibname}{Bibliografía}
+}
+
+% Redefinir nombres para valenciano/catalán
+\gappto\captionscatalan{%
+  \renewcommand{\listtablename}{Índex de taules}
+  \renewcommand{\tablename}{Taula}
+  \renewcommand{\glossaryname}{Glossari}
+  \renewcommand{\acronymname}{Acrònims}
+  \renewcommand{\bibname}{Bibliografia}
+  \renewcommand{\contentsname}{Índex}
+  \renewcommand{\listfigurename}{Índex de figures}
+  \renewcommand{\figurename}{Figura}
+  \renewcommand{\chaptername}{Capítol}
+  \renewcommand{\appendixname}{Apèndix}
+}
+
+% Redefinir nombres para inglés
+\gappto\captionsenglish{%
+  \renewcommand{\listtablename}{List of Tables}
+  \renewcommand{\tablename}{Table}
+  \renewcommand{\glossaryname}{Glossary}
+  \renewcommand{\acronymname}{Acronyms}
+  \renewcommand{\bibname}{Bibliography}
 }
 
 %% ============================================================================
@@ -857,14 +936,58 @@
 }{}
 
 %% ============================================================================
-%% CONFIGURACIÓN DE HYPERREF (al final)
+%% CONFIGURACIÓN DE HYPERREF Y SELECCIÓN DE IDIOMA (al final)
 %% ============================================================================
+
+% Definir comando auxiliar para seleccionar idioma (debe estar en ExplSyntax)
+\ExplSyntaxOn
+\cs_new_protected:Nn \__eps_seleccionar_idioma:
+  {
+    \str_case:VnF \g__eps_idioma_tl
+      {
+        {espanol} { \selectlanguage{spanish} }
+        {valenciano} { \selectlanguage{catalan} }
+        {ingles} { \selectlanguage{english} }
+      }
+      { \selectlanguage{spanish} } % Fallback
+  }
+% Wrapper para llamar desde fuera de ExplSyntax
+\NewDocumentCommand{\EPSseleccionarIdioma}{}{\__eps_seleccionar_idioma:}
+\ExplSyntaxOff
+
 \AtBeginDocument{%
+  % --- Seleccionar idioma según configuración ---
+  \EPSseleccionarIdioma
+  % --- Configurar biblatex según idioma ---
+  % Nota: biblatex requiere el nombre del idioma, no el código
+  % La configuración se hace en la carga del paquete con language=spanish
+  % por defecto. Para otros idiomas, el usuario puede usar 
+  % \ExecuteBibliographyOptions{language=english} en el preámbulo.
+  % --- Metadatos del PDF ---
   \hypersetup{
+    % --- Metadatos básicos ---
     pdfauthor = {\EPSautor},
     pdftitle = {\EPStitulo},
     pdfsubject = {\EPStipoTrabajo},
-    pdfkeywords = {TFG, TFM, Universidad de Alicante, EPS},
+    pdfkeywords = {TFG, TFM, Universidad de Alicante, EPS, \EPStitulacion},
+    pdflang = {\EPSidiomaCodigo},
+    % --- Metadatos extendidos ---
+    pdfcopyright = {Copyright © \the\year\space \EPSautor. Todos los derechos reservados.},
+    pdfcontactemail = {\EPSautorEmail},
+    pdfpublisher = {Universidad de Alicante - Escuela Politécnica Superior},
+    pdfcontactcountry = {España},
+    pdfcontactcity = {Alicante},
+    % --- Información de la plantilla ---
+    pdfcreator = {LuaLaTeX con plantilla TFG-TFM EPS UA},
+    pdfsource = {https://github.com/jmrplens/TFG-TFM_EPS},
+    % --- Marcadores/Bookmarks ---
+    bookmarksnumbered = true,
+    bookmarksopen = true,
+    bookmarksopenlevel = 1,
+    % --- Visualización inicial ---
+    pdfpagemode = {UseOutlines},
+    pdfdisplaydoctitle = true,
+    % --- Apariencia de enlaces ---
     colorlinks = true,
     linkcolor = black,
     citecolor = blue!50!black,

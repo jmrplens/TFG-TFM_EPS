@@ -18,9 +18,16 @@ Para entender mejor la estructura y reglas, consulta los siguientes archivos:
 
 1. **Configuración Global** (`configuracion.tex`):
    - Define aquí: Título, Autor, Tutor, Grado, Idioma, fecha.
+   - Usa `\EPSsetup{idioma = espanol}` para cambiar idioma (espanol/valenciano/ingles).
    - NO definas aquí comandos de estructura.
 
-2. **Estructura del Documento** (`main.tex`):
+2. **Metadatos PDF** (`cls/eps-metadata.tex`):
+   - Si cambias el idioma en `configuracion.tex`, actualiza `lang=` aquí:
+     - `idioma = espanol` → `lang=es-ES`
+     - `idioma = valenciano` → `lang=ca-ES`
+     - `idioma = ingles` → `lang=en-GB`
+
+3. **Estructura del Documento** (`main.tex`):
    - **EDITAR PARA:**
      - Añadir o quitar capítulos (`\input{contenido/capitulos/...}`).
      - Añadir o quitar anexos (`\input{contenido/anexos/...}`).

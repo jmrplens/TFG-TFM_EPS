@@ -14,6 +14,20 @@ Motor: **LuaLaTeX**. Bibliografía: **BibLaTeX/Biber**.
 - **Ecuaciones:** Usa `\begin{equation}`...`\end{equation}`. `$` para inline.
 - **Referencias:** `\label{fig:nombre}`, `\ref{fig:nombre}`. Prefijos: `fig:`, `tab:`, `eq:`, `sec:`, `chap:`.
 
+## Configuración de Idioma
+La plantilla soporta tres idiomas. Configurar en `configuracion.tex`:
+```latex
+\EPSsetup{
+  idioma = espanol,  % espanol (defecto), valenciano, ingles
+}
+```
+**IMPORTANTE:** Si el alumno cambia el idioma, DEBE editar también `cls/eps-metadata.tex`:
+- `idioma = espanol` → `lang=es-ES`
+- `idioma = valenciano` → `lang=ca-ES`
+- `idioma = ingles` → `lang=en-GB`
+
+El idioma afecta a: títulos automáticos (Tabla, Figura, Bibliografía...), metadatos PDF, y accesibilidad.
+
 ## Componentes Específicos
 - **Avisos:** `infobox`, `warningbox`, `dangerbox`, `successbox`, `tipbox`, `notebox`.
 - **Especiales:** `terminal`, `apiendpoint`, `blockdiagram`, `protocolframe`, `riskmatrix`.

@@ -17,15 +17,21 @@ Estoy utilizando la plantilla "TFG-TFM_EPS" versión 2.0 (2026). Aquí tienes el
 - **Clase principal:** `cls/eps-tfg.cls` (basada en KOMA-Script `scrbook`).
 - **Motor de compilación:** LuaLaTeX (obligatorio).
 - **Bibliografía:** BibLaTeX con Biber (estilo APA 7).
-- **Código fuente:** Paquete `minted` (requiere Python). s
-- **Idioma:** Español (babel).
+- **Código fuente:** Paquete `minted` (requiere Python).
+- **Idioma:** Configurable (español/valenciano/inglés) vía `\EPSsetup{idioma=...}`.
 
 ### 2. Configuración (`configuracion.tex`)
 Toda la configuración personal se hace mediante el comando `\EPSsetup{...}`.
 Claves principales:
 - `titulo`, `subtitulo`, `autor`, `email`, `tutor`.
 - `titulacion`: Define el formato y portada. Valores: `informatica`, `teleco`, `civil`, `quimica`, `arquitectura`, `multimedia`, `robotica` (y sus variantes de máster como `master-informatica`, etc.).
+- `idioma`: Idioma del documento. Valores: `espanol` (defecto), `valenciano`, `ingles`.
 - `optimizar-tikz`: `true` activa la caché de tikz.
+
+**Configuración de idioma:** Si cambias `idioma`, DEBES editar también `cls/eps-metadata.tex` para que el valor `lang` coincida:
+- `idioma = espanol` → `lang=es-ES`
+- `idioma = valenciano` → `lang=ca-ES`
+- `idioma = ingles` → `lang=en-GB`
 
 ### 3. Portadas
 NO se crean manualmente. Se generan automáticamente con `\generarportada[ambas]`, `\portadacolor` o `\portadabn`.
