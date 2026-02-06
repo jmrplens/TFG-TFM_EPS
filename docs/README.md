@@ -23,6 +23,10 @@ Bienvenido a la documentación detallada de la plantilla TFG/TFM EPS Universidad
 - **[Imágenes y Subfiguras](IMAGENES_SUBFIGURAS.md)**: Inserción de imágenes externas y gestión de subfiguras.
 - **[Componentes Personalizados](COMPONENTES.md)**: Elementos de diseño específicos de esta plantilla (cajas de aviso, etc.).
 
+## ♿ Accesibilidad
+
+- **[Accesibilidad PDF](ACCESIBILIDAD.md)**: Crear PDFs accesibles (PDF/UA-2) para lectores de pantalla.
+
 ---
 
 > **Nota:** Cada archivo de documentación contiene ejemplos y explicaciones detalladas. Se recomienda leerlos a medida que los necesites.

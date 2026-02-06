@@ -1221,10 +1221,24 @@ Las ecuaciones de Maxwell en forma diferencial son:
 
 ## Recursos adicionales
 
-- [Documentación de amsmath](https://ctan.org/pkg/amsmath)
-- [Documentación de mathtools](https://ctan.org/pkg/mathtools)
-- [LaTeX Math Symbols](https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols)
-- [Detexify](https://detexify.kirelabs.org/) - Dibuja símbolos para encontrar su código
+### Documentación oficial
+
+| Paquete | Descripción |
+|---------|-------------|
+| [amsmath](https://ctan.org/pkg/amsmath) | Entornos de ecuaciones estándar |
+| [mathtools](https://ctan.org/pkg/mathtools) | Extensiones de amsmath |
+| [unicode-math](https://ctan.org/pkg/unicode-math) | Fuentes matemáticas Unicode (LuaLaTeX) |
+| [siunitx](https://ctan.org/pkg/siunitx) | Unidades científicas |
+| [physics](https://ctan.org/pkg/physics) | Notación física |
+
+### Herramientas y referencias
+
+| Recurso | Descripción |
+|---------|-------------|
+| [Detexify](https://detexify.kirelabs.org/) | Dibuja símbolos para encontrar su código |
+| [LaTeX Math Symbols](https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols) | Lista completa de símbolos |
+| [Mathpix](https://mathpix.com/) | Convierte imágenes de ecuaciones a LaTeX |
+| [Overleaf: Mathematical expressions](https://www.overleaf.com/learn/latex/Mathematical_expressions) | Tutorial completo |
 
 ---
 

@@ -805,10 +805,32 @@ DIJKSTRA(G, origen):
 
 ## Recursos adicionales
 
-- [Documentación de minted](https://ctan.org/pkg/minted)
-- [Documentación de tcolorbox](https://ctan.org/pkg/tcolorbox)
-- [Lista de lexers de Pygments](https://pygments.org/docs/lexers/)
-- [Estilos de Pygments](https://pygments.org/styles/)
+### Documentación oficial
+
+| Recurso | Descripción |
+|---------|-------------|
+| [minted en CTAN](https://ctan.org/pkg/minted) | Documentación oficial del paquete |
+| [latexminted en PyPI](https://pypi.org/project/latexminted/) | Ejecutable Python para minted 3.x |
+| [tcolorbox en CTAN](https://ctan.org/pkg/tcolorbox) | Documentación de cajas personalizadas |
+
+### Pygments
+
+| Recurso | Descripción |
+|---------|-------------|
+| [Pygments Home](https://pygments.org/) | Sitio oficial |
+| [Lista de Lexers](https://pygments.org/docs/lexers/) | Lenguajes soportados |
+| [Estilos disponibles](https://pygments.org/styles/) | Temas de resaltado |
+
+### Compatibilidad con plataformas
+
+| Plataforma | Soporte minted 3.x | Notas |
+|------------|---------------------|-------|
+| **TeX Live 2025** | ✅ Completo | `-shell-escape` opcional en TL2024+ |
+| **Overleaf** | ✅ Completo | Funciona automáticamente |
+| **arXiv** | ✅ Desde sept. 2025 | Ver [arXiv TeX Live 2025](https://info.arxiv.org/help/faq/texlive.html) |
+| **MiKTeX** | ✅ Completo | Requiere `-enable-write18` |
+
+> **Nota sobre minted 3.x:** A partir de TeX Live 2024, el ejecutable `latexminted` está en la lista de programas confiables de TeX, por lo que `-shell-escape` ya no es estrictamente necesario en muchos casos. Sin embargo, se recomienda seguir usándolo por compatibilidad.
 
 ---
 

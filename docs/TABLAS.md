@@ -979,10 +979,22 @@ donde observamos que...
 
 ## Recursos adicionales
 
-- [Documentación de booktabs](https://ctan.org/pkg/booktabs)
-- [Documentación de longtable](https://ctan.org/pkg/longtable)
-- [Documentación de tabularx](https://ctan.org/pkg/tabularx)
-- [Small Guide to Making Nice Tables](https://people.inf.ethz.ch/mark101/download/publications/publications/booktabs.pdf)
+### Documentación oficial
+
+| Paquete | Descripción |
+|---------|-------------|
+| [booktabs](https://ctan.org/pkg/booktabs) | Líneas profesionales para tablas |
+| [longtable](https://ctan.org/pkg/longtable) | Tablas multipágina |
+| [tabularx](https://ctan.org/pkg/tabularx) | Ancho automático de columnas |
+| [tabularray](https://ctan.org/pkg/tabularray) | Alternativa moderna a tabularx |
+| [multirow](https://ctan.org/pkg/multirow) | Combinar filas |
+| [colortbl](https://ctan.org/pkg/colortbl) | Colores en tablas |
+
+### Tutoriales y referencias
+
+- [Small Guide to Making Nice Tables](https://people.inf.ethz.ch/markl/download/publications/publications/booktabs.pdf) - Guía original de booktabs
+- [Overleaf: Tables](https://www.overleaf.com/learn/latex/Tables) - Tutorial completo
+- [Tables Generator](https://www.tablesgenerator.com/) - Generador visual de tablas
 
 ---
 

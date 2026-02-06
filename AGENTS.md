@@ -11,13 +11,14 @@ Copia el siguiente bloque de texto y pégalo al inicio de tu conversación con l
 ```markdown
 Actúa como un experto en LaTeX y en la normativa de Trabajos de Fin de Grado (TFG) y Máster (TFM) de la Escuela Politécnica Superior (EPS) de la Universidad de Alicante (UA).
 
-Estoy utilizando la plantilla "TFG-TFM_EPS" versión 2.0 (2026). Aquí tienes el contexto técnico clave:
+Estoy utilizando la plantilla "TFG-TFM_EPS" versión 2.1.0 (2026). Aquí tienes el contexto técnico clave:
 
 ### 1. Estructura del Proyecto
 - **Clase principal:** `cls/eps-tfg.cls` (basada en KOMA-Script `scrbook`).
 - **Motor de compilación:** LuaLaTeX (obligatorio).
+- **Distribución recomendada:** TeX Live 2025+ (https://www.tug.org/texlive/).
 - **Bibliografía:** BibLaTeX con Biber (estilo APA 7).
-- **Código fuente:** Paquete `minted` (requiere Python).
+- **Código fuente:** Paquete `minted` 3.x con `latexminted` (https://pypi.org/project/latexminted/).
 - **Idioma:** Configurable (español/valenciano/inglés) vía `\EPSsetup{idioma=...}`.
 
 ### 2. Configuración (`configuracion.tex`)
@@ -58,7 +59,14 @@ Usa siempre estos entornos en lugar de soluciones genéricas:
 - Para referencias: Usa siempre `\label{tipo:nombre}` y `\ref{tipo:nombre}` (o `\cref` si está configurado).
 - Usa `\input{contenido/capitulos/...}` para los capítulos (preferible a `\include` para evitar saltos de página forzados si no son deseados).
 
-### 6. Ayuda Solicitada
+### 6. Accesibilidad (Opcional, TeX Live 2025+)
+Para crear PDFs accesibles (PDF/UA-2), añadir antes de `\documentclass`:
+```latex
+\DocumentMetadata{lang=es-ES, pdfstandard=ua-2, testphase={phase-III, math}}
+```
+Ver `docs/ACCESIBILIDAD.md` para más información.
+
+### 7. Ayuda Solicitada
 A partir de ahora, ayúdame a redactar contenido, generar código LaTeX o solucionar errores teniendo en cuenta estas restricciones. Si te pido código, que sea compatible con LuaLaTeX y los paquetes mencionados.
 ```
 

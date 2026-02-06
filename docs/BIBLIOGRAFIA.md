@@ -847,9 +847,40 @@ Como se indica en \parencite[p.~45]{pressman2020}, el proceso de desarrollo debe
 
 ## Recursos adicionales
 
-- [Documentación de BibLaTeX](https://ctan.org/pkg/biblatex)
-- [Documentación de Biber](https://ctan.org/pkg/biber)
-- [BibLaTeX Cheat Sheet](https://tug.ctan.org/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf)
+### Documentación oficial
+
+| Recurso | Descripción |
+|---------|-------------|
+| [BibLaTeX en CTAN](https://ctan.org/pkg/biblatex) | Documentación completa del paquete |
+| [Biber en CTAN](https://ctan.org/pkg/biber) | Documentación del procesador de bibliografía |
+| [biblatex-apa](https://ctan.org/pkg/biblatex-apa) | Estilo APA 7ª edición |
+| [biblatex-ieee](https://ctan.org/pkg/biblatex-ieee) | Estilo IEEE |
+| [biblatex-software](https://ctan.org/pkg/biblatex-software) | Para citar software |
+
+### Hojas de referencia
+
+- [BibLaTeX Cheat Sheet](https://tug.ctan.org/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf) - Referencia rápida PDF
+
+### Herramientas de gestión bibliográfica
+
+| Herramienta | Descripción |
+|-------------|-------------|
+| [JabRef](https://www.jabref.org/) | Gestor de referencias gratuito para BibLaTeX |
+| [Zotero](https://www.zotero.org/) + [Better BibTeX](https://retorque.re/zotero-better-bibtex/) | Gestor con exportación mejorada |
+| [doi2bib](https://www.doi2bib.org/) | Genera entrada BibTeX desde DOI |
+| [Google Scholar](https://scholar.google.com/) | Búsqueda académica con exportación BibTeX |
+
+### Tutoriales recomendados
+
+- [Overleaf: Bibliography management](https://www.overleaf.com/learn/latex/Bibliography_management_with_biblatex) - Tutorial completo
+- [Overleaf: BibLaTeX styles](https://www.overleaf.com/learn/latex/Biblatex_bibliography_styles) - Comparativa de estilos
+
+### Versiones actuales (TeX Live 2025)
+
+| Componente | Versión | Fecha |
+|------------|---------|-------|
+| BibLaTeX | 3.21 | Julio 2025 |
+| Biber | 2.21 | Julio 2025 |
 
 ---
 

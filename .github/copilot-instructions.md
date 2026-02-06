@@ -1,9 +1,11 @@
 Esta plantilla LaTeX es para TFG/TFM de la EPS (Universidad de Alicante).
 
+**Versión:** 2.1.0 | **Distribución recomendada:** TeX Live 2025+
+
 **Reglas Críticas:**
 1. **Motor de Compilación:** SIEMPRE asume **LuaLaTeX**. No sugieras soluciones que solo funcionen en pdfLaTeX (ej: no uses `inputenc` con utf8, LuaLaTeX ya maneja UTF-8 nativamente).
 2. **Bibliografía:** Se usa **BibLaTeX** con **Biber** y estilo APA. No uses BibTeX puro.
-3. **Código Fuente:** Se usa el paquete **minted**. Usa los entornos predefinidos en `sty/eps-codigo.sty`:
+3. **Código Fuente:** Se usa el paquete **minted 3.x** con **latexminted**. Usa los entornos predefinidos en `sty/eps-codigo.sty`:
    - Lenguajes: `pythoncode`, `javacode`, `cppcode`, `jsoncode`, `sqlcode`, `bashcode`, `htmlcode`, etc.
    - Variantes: `*NN` (sin números), `*Dark` (tema oscuro).
 4. **Gráficas:** Prioriza **PGFPlots** y **TikZ** (`\pgfplotsset{compat=1.18}`).
@@ -37,5 +39,11 @@ Si el usuario cambia el idioma, DEBE editar también `cls/eps-metadata.tex`:
 - Citar: `\cite{key}`, `\textcite{key}`, `\parencite{key}`.
 - Referencias cruzadas: `\label{prefijo:nombre}` y `\ref{prefijo:nombre}`. Prefijos sugeridos: `fig:`, `tab:`, `eq:`, `sec:`.
 - Acrónimos: `\gls{id}`, `\acrshort{id}`, `\acrlong{id}`.
+
+**Accesibilidad (opcional, TeX Live 2025+):**
+Para PDFs accesibles (PDF/UA-2), añadir antes de `\documentclass`:
+```latex
+\DocumentMetadata{lang=es-ES, pdfstandard=ua-2, testphase={phase-III, math}}
+```
 
 Si el usuario pide ayuda con errores de compilación, pide ver las últimas líneas del archivo `.log` o la salida del terminal.

@@ -1294,10 +1294,31 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 
 ## Recursos adicionales
 
-- [Manual de PGFPlots](https://ctan.org/pkg/pgfplots) - Documentación oficial
-- [Manual de TikZ/PGF](https://ctan.org/pkg/pgf) - Documentación completa
-- [pgfplots.net](http://pgfplots.net/) - Ejemplos y tutoriales
-- [TeXample.net](https://texample.net/tikz/examples/) - Galería de ejemplos
+### Documentación oficial
+
+| Recurso | Descripción |
+|---------|-------------|
+| [PGFPlots Manual](https://ctan.org/pkg/pgfplots) | Documentación completa |
+| [TikZ & PGF Manual](https://tikz.dev/) | Documentación oficial interactiva |
+| [TikZ en CTAN](https://ctan.org/pkg/pgf) | Paquete base |
+| [circuitikz](https://ctan.org/pkg/circuitikz) | Circuitos eléctricos |
+| [tikz-3dplot](https://ctan.org/pkg/tikz-3dplot) | Gráficos 3D |
+
+### Galerías y ejemplos
+
+| Recurso | Descripción |
+|---------|-------------|
+| [TeXample.net TikZ](https://texample.net/tikz/examples/) | Galería de ejemplos TikZ |
+| [pgfplots.net](http://pgfplots.net/) | Ejemplos de PGFPlots |
+| [Overleaf: TikZ](https://www.overleaf.com/learn/latex/TikZ_package) | Tutorial completo |
+| [Overleaf: Pgfplots](https://www.overleaf.com/learn/latex/Pgfplots_package) | Tutorial de gráficas |
+
+### Versiones actuales (TeX Live 2025)
+
+| Componente | Versión |
+|------------|----------|
+| TikZ/PGF | 3.1.11a |
+| PGFPlots | 1.18.2 |
 
 ---
 

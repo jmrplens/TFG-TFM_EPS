@@ -217,6 +217,8 @@ sudo apt install texlive-latex-extra texlive-fonts-extra \
 pip3 install latexminted
 ```
 
+> **Nota:** Ubuntu/Debian pueden tener versiones antiguas de TeX Live en sus repositorios. Para obtener TeX Live 2025, considera usar la [instalación oficial de TeX Live](https://www.tug.org/texlive/quickinstall.html) en lugar de los paquetes de la distribución.
+
 ---
 
 ## ✍️ Eligiendo un editor
@@ -425,7 +427,10 @@ Según García \cite{garcia2024}, el resultado es...
 |---------|--------|-------------|
 | [Overleaf Learn](https://www.overleaf.com/learn) | EN/ES | Tutorial completo y ejemplos |
 | [LaTeX en 30 minutos](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes) | EN | Introducción rápida |
+| [LaTeX Project](https://www.latex-project.org/help/documentation/) | EN | Documentación oficial |
 | [Manual TEC Costa Rica](https://tecdigital.tec.ac.cr/revistamatematica/Libros/LATEX/LaTeX_2014.pdf) | ES | Libro completo en español |
+| [WikiBooks LaTeX](https://en.wikibooks.org/wiki/LaTeX) | EN | Referencia exhaustiva |
+| [CTAN](https://ctan.org/) | EN | Repositorio de paquetes |
 | [WikiBooks LaTeX](https://en.wikibooks.org/wiki/LaTeX) | EN | Referencia exhaustiva |
 
 ### Vídeos

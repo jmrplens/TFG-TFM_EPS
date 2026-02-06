@@ -5,10 +5,13 @@ Todos los cambios notables de este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
-## [Unreleased]
+## [2.1.0] - 2026-02-06
 
 ### Añadido
 
+- **Guía de accesibilidad**: Nueva guía `docs/ACCESIBILIDAD.md` para crear PDFs accesibles (PDF/UA-2)
+- **Glosario de términos**: 29 definiciones de términos técnicos en `acronimos.tex` además de los acrónimos
+- **Referencias actualizadas**: Enlaces a documentación oficial en todas las guías (CTAN, TikZ, PGFPlots, BibLaTeX, etc.)
 - **Archivos de contexto para IA**: `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md` y `docs/AI_CONTEXT.md` para ayudar a ChatGPT, Claude, Copilot y otros asistentes a dar respuestas precisas sobre la plantilla
 - **CI/CD mejorado**: Comentarios automáticos en PRs con enlace al PDF compilado y tabla de estado de portadas
 - **Opciones de género neutro**: `genero = n` muestra "Autoría" en lugar de "Autor/Autora"
@@ -16,14 +19,18 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - **Script unificado**: `actualizar_previews.py` combina generación e inserción de previews
 - **Paralelización**: Scripts de generación de portadas y previews ahora usan múltiples procesos
 
+### Cambiado
+
+- **TeX Live 2025**: Documentación actualizada para TeX Live 2025 (marzo 2025)
+- **Minted 3.x**: Información actualizada sobre minted 3.x con latexminted
+- **Documentación mejorada**: Secciones de recursos adicionales ampliadas con herramientas y tutoriales
+- **Funding**: Simplificado a solo GitHub Sponsors (eliminado Ko-fi y PayPal)
+
 ### Corregido
 
 - **Portadas**: Eliminado borde blanco de 1px en el borde derecho
 - **Portadas**: Corregida altura de la barra negra (6.86cm según diseño original)
-
-### Cambiado
-
-- **Funding**: Simplificado a solo GitHub Sponsors (eliminado Ko-fi y PayPal)
+- **Glosario**: Habilitados números de página en el glosario (eliminado `nonumberlist`)
 
 ---
 

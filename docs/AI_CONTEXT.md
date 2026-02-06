@@ -579,6 +579,34 @@ $lualatex = 'lualatex -shell-escape %O %S';
 
 ---
 
+## ♿ Accesibilidad y PDF/UA
+
+### Crear PDFs accesibles (TeX Live 2025+)
+
+Para generar PDFs que cumplan con PDF/UA-2, añadir antes de `\documentclass`:
+
+```latex
+\DocumentMetadata{
+    lang = es-ES,
+    pdfstandard = ua-2,
+    testphase = {phase-III, math, table, title, firstaid}
+}
+```
+
+### Requisitos
+
+| Requisito | Descripción |
+|-----------|-------------|
+| LuaLaTeX | Obligatorio para MathML automático |
+| TeX Live 2025+ | Soporte completo del LaTeX Tagging Project |
+| Texto alternativo | Usar `alt={...}` en `\includegraphics` |
+
+### Más información
+
+Ver la guía completa en [docs/ACCESIBILIDAD.md](ACCESIBILIDAD.md).
+
+---
+
 ## 🔧 Personalización Avanzada
 
 ### Añadir un nuevo capítulo
