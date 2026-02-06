@@ -14,7 +14,7 @@
 %% ============================================================================
 %% ARQUITECTURA DE LA CLASE
 %% ============================================================================
-%% Esta clase se basa en 'scrbook' (KOMA-Script) y utiliza 'expl3' para la 
+%% Esta clase se basa en 'scrbook' (KOMA-Script) y utiliza 'expl3' para la
 %% gestión de variables y lógica interna.
 %%
 %% Estructura principal:
@@ -34,6 +34,9 @@
 %% ============================================================================
 %% CONFIGURACIÓN EXPL3
 %% ============================================================================
+% tracklang para datatool y glossaries
+\PassOptionsToPackage{spanish}{tracklang}
+
 \RequirePackage{expl3}
 \RequirePackage{xparse}
 \RequirePackage{l3keys2e}
@@ -234,7 +237,7 @@
 \cs_new_protected:Nn \__eps_setup_titulacion:n
   {
     \tl_gset:Nn \g__eps_titulacion_tl { #1 }
-    
+
     % Obtener datos de la prop list
     \prop_get:NnNTF \g__eps_titulaciones_prop { #1 / nombre } \l_tmpa_tl
       {
@@ -243,7 +246,7 @@
       {
         \msg_error:nnn { eps-tfg } { titulacion-desconocida } { #1 }
       }
-    
+
     \prop_get:NnN \g__eps_titulaciones_prop { #1 / tipo } \l_tmpa_tl
     \str_case:VnF \l_tmpa_tl
       {
@@ -253,30 +256,30 @@
       {
         \tl_gset:Nn \g__eps_tipo_trabajo_tl {Trabajo~Fin~de~Estudios}
       }
-    
+
     \prop_get:NnN \g__eps_titulaciones_prop { #1 / color } \l_tmpa_tl
     \tl_gset_eq:NN \g__eps_color_grado_tl \l_tmpa_tl
-    
+
     \prop_get:NnN \g__eps_titulaciones_prop { #1 / texto } \l_tmpa_tl
     \tl_gset_eq:NN \g__eps_color_texto_tl \l_tmpa_tl
-    
+
     % Configurar logos
     \prop_get:NnN \g__eps_logos_map_prop { #1 } \l_tmpb_tl
     \prop_get:NnN \g__eps_titulaciones_prop { #1 / logo-portada } \l_tmpa_tl
-    \tl_gset:Nx \g__eps_logo_grado_portada_tl 
+    \tl_gset:Nx \g__eps_logo_grado_portada_tl
       { recursos/logos/titulaciones/ \l_tmpb_tl \l_tmpa_tl .pdf }
-    
+
     \prop_get:NnN \g__eps_titulaciones_prop { #1 / logo-normal } \l_tmpa_tl
-    \tl_gset:Nx \g__eps_logo_grado_tl 
+    \tl_gset:Nx \g__eps_logo_grado_tl
       { recursos/logos/titulaciones/ \l_tmpb_tl \l_tmpa_tl .pdf }
-    
+
     % Logo facultad según color de texto
     \str_case:VnF \g__eps_color_texto_tl
       {
-        {blanco} { 
+        {blanco} {
           \tl_gset:Nn \g__eps_logo_facultad_portada_tl {recursos/logos/universidad/LogoEPSBlanco.pdf}
         }
-        {negro} { 
+        {negro} {
           \tl_gset:Nn \g__eps_logo_facultad_portada_tl {recursos/logos/universidad/LogoEPSNegro.pdf}
         }
       }
@@ -289,7 +292,7 @@
 %% MENSAJES DE ERROR
 %% ============================================================================
 \msg_new:nnn { eps-tfg } { titulacion-desconocida }
-  { 
+  {
     La~titulación~'#1'~no~está~definida.~
     Consulta~la~documentación~para~ver~las~titulaciones~disponibles.
   }
@@ -308,53 +311,53 @@
     % Información del documento
     titulo .tl_gset:N = \g__eps_titulo_tl,
     titulo .value_required:n = true,
-    
+
     subtitulo .tl_gset:N = \g__eps_subtitulo_tl,
-    
+
     autor .tl_gset:N = \g__eps_autor_tl,
     autor .value_required:n = true,
-    
+
     genero .tl_gset:N = \g__eps_autor_genero_tl,
     genero .initial:n = {m},
-    
+
     email .tl_gset:N = \g__eps_autor_email_tl,
-    
+
     tutor .tl_gset:N = \g__eps_tutor_tl,
     tutor .value_required:n = true,
-    
+
     tutor-genero .tl_gset:N = \g__eps_tutor_genero_tl,
     tutor-genero .initial:n = {m},
-    
+
     tutor-departamento .tl_gset:N = \g__eps_tutor_dpto_tl,
-    
+
     cotutor .tl_gset:N = \g__eps_cotutor_tl,
-    
+
     cotutor-genero .tl_gset:N = \g__eps_cotutor_genero_tl,
     cotutor-genero .initial:n = {m},
-    
+
     cotutor-departamento .tl_gset:N = \g__eps_cotutor_dpto_tl,
-    
+
     fecha .tl_gset:N = \g__eps_fecha_tl,
-    
+
     % Configuración institucional
     facultad .tl_gset:N = \g__eps_facultad_tl,
     facultad .initial:n = {Escuela~Politécnica~Superior},
-    
+
     universidad .tl_gset:N = \g__eps_universidad_tl,
     universidad .initial:n = {Universidad~de~Alicante},
-    
+
     ubicacion .tl_gset:N = \g__eps_ubicacion_tl,
     ubicacion .initial:n = {Alicante},
-    
+
     % Titulación
     titulacion .code:n = { \__eps_setup_titulacion:n { #1 } },
     titulacion .value_required:n = true,
-    
+
     % Opciones
     optimizar-tikz .bool_gset:N = \g__eps_optimizar_tikz_bool,
     optimizar-tikz .default:n = true,
     optimizar-tikz .initial:n = true,
-    
+
     borrador .bool_gset:N = \g__eps_borrador_bool,
     borrador .default:n = true,
     borrador .initial:n = false,
@@ -807,6 +810,13 @@
 \RequirePackage{nicefrac}
 
 % Soporte Unicode Math (Debe cargarse después de mathtools y otros paquetes ams)
+% Desactivamos comandos de mathtools que entran en conflicto con unicode-math para evitar warnings
+\let\underbracket\relax
+\let\overbracket\relax
+\let\dblcolon\relax
+\let\coloneqq\relax
+\let\Coloneqq\relax
+\let\eqqcolon\relax
 \RequirePackage{unicode-math}
 
 

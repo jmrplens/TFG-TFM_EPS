@@ -4,7 +4,7 @@
 \chapter{Técnicas Avanzadas de \LaTeX}
 \label{anexo:tecnicas-avanzadas}
 
-Este anexo presenta técnicas avanzadas de \LaTeX{} que pueden ser útiles en la 
+Este anexo presenta técnicas avanzadas de \LaTeX{} que pueden ser útiles en la
 elaboración de un \gls{tfg} o \gls{tfm}: tablas rotadas, páginas en horizontal,
 inclusión de documentos PDF externos, y otras funcionalidades.
 
@@ -43,27 +43,27 @@ El siguiente código genera una tabla que ocupa toda la página en horizontal:
   \small % Fuente más pequeña para que quepa
   \begin{tabular}{@{}lccccccccc@{}}
     \toprule
-    \textbf{Módulo} & 
-    \textbf{Líneas} & 
-    \textbf{Clases} & 
-    \textbf{Funciones} & 
-    \textbf{Tests} & 
-    \textbf{Cobertura} & 
-    \textbf{Complejidad} & 
+    \textbf{Módulo} &
+    \textbf{Líneas} &
+    \textbf{Clases} &
+    \textbf{Funciones} &
+    \textbf{Tests} &
+    \textbf{Cobertura} &
+    \textbf{Complejidad} &
     \textbf{Memoria} &
     \textbf{Latencia} &
     \textbf{Estado} \\
     \midrule
-    Autenticación    & 2.450  & 12 & 45  & 89  & 94\% & Media & 128 MB & 45 ms  & \checkmark \\
-    Base de datos    & 3.200  & 18 & 67  & 120 & 91\% & Alta  & 256 MB & 12 ms  & \checkmark \\
-    API REST         & 4.100  & 25 & 98  & 156 & 88\% & Media & 192 MB & 23 ms  & \checkmark \\
+    Autenticación    & 2.450  & 12 & 45  & 89  & 94\% & Media & 128 MB & 45 ms  & \faCheck \\
+    Base de datos    & 3.200  & 18 & 67  & 120 & 91\% & Alta  & 256 MB & 12 ms  & \faCheck \\
+    API REST         & 4.100  & 25 & 98  & 156 & 88\% & Media & 192 MB & 23 ms  & \faCheck \\
     Interfaz web     & 5.600  & 45 & 134 & 89  & 72\% & Baja  & 384 MB & 180 ms & En desarrollo \\
-    Notificaciones   & 1.800  & 8  & 32  & 67  & 96\% & Baja  & 64 MB  & 8 ms   & \checkmark \\
-    Caché            & 980    & 5  & 18  & 45  & 98\% & Baja  & 512 MB & 2 ms   & \checkmark \\
-    Logs y métricas  & 1.200  & 6  & 24  & 38  & 85\% & Baja  & 96 MB  & 5 ms   & \checkmark \\
-    Procesamiento    & 2.800  & 14 & 56  & 78  & 82\% & Alta  & 768 MB & 350 ms & \checkmark \\
-    Exportación      & 1.500  & 9  & 28  & 52  & 90\% & Media & 128 MB & 120 ms & \checkmark \\
-    Configuración    & 650    & 4  & 15  & 34  & 100\%& Baja  & 32 MB  & 1 ms   & \checkmark \\
+    Notificaciones   & 1.800  & 8  & 32  & 67  & 96\% & Baja  & 64 MB  & 8 ms   & \faCheck \\
+    Caché            & 980    & 5  & 18  & 45  & 98\% & Baja  & 512 MB & 2 ms   & \faCheck \\
+    Logs y métricas  & 1.200  & 6  & 24  & 38  & 85\% & Baja  & 96 MB  & 5 ms   & \faCheck \\
+    Procesamiento    & 2.800  & 14 & 56  & 78  & 82\% & Alta  & 768 MB & 350 ms & \faCheck \\
+    Exportación      & 1.500  & 9  & 28  & 52  & 90\% & Media & 128 MB & 120 ms & \faCheck \\
+    Configuración    & 650    & 4  & 15  & 34  & 100\%& Baja  & 32 MB  & 1 ms   & \faCheck \\
     \midrule
     \textbf{Total}   & \textbf{24.280} & \textbf{146} & \textbf{517} & \textbf{768} & \textbf{87\%} & -- & -- & -- & -- \\
     \bottomrule
@@ -132,9 +132,9 @@ Los márgenes están optimizados para aprovechar el espacio disponible.
   \begin{tikzpicture}[
     scale=0.75, transform shape,
     node distance=0.9cm and 1.3cm,
-    block/.style={rectangle, draw, fill=blue!10, text width=1.8cm, text centered, 
+    block/.style={rectangle, draw, fill=blue!10, text width=1.8cm, text centered,
                   rounded corners, minimum height=0.7cm, font=\footnotesize},
-    decision/.style={diamond, draw, fill=yellow!20, text width=1.3cm, 
+    decision/.style={diamond, draw, fill=yellow!20, text width=1.3cm,
                      text centered, aspect=2, font=\footnotesize},
     arrow/.style={thick,->,>=stealth}
   ]
@@ -152,7 +152,7 @@ Los márgenes están optimizados para aprovechar el espacio disponible.
     \node[block, right=of guardar] (bd) {BD};
     \node[block, below=0.6cm of valido] (error) {Error};
     \node[block, below=0.6cm of guardar] (fin) {Fin};
-    
+
     % Flechas
     \draw[arrow] (inicio) -- (auth);
     \draw[arrow] (auth) -- (valido);
@@ -184,7 +184,7 @@ Los márgenes están optimizados para aprovechar el espacio disponible.
   \label{tab:trazabilidad-landscape}
   \begin{tabular}{l|ccccccccccccc}
     \toprule
-    & \textbf{RF01} & \textbf{RF02} & \textbf{RF03} & \textbf{RF04} & \textbf{RF05} & 
+    & \textbf{RF01} & \textbf{RF02} & \textbf{RF03} & \textbf{RF04} & \textbf{RF05} &
       \textbf{RF06} & \textbf{RF07} & \textbf{RF08} & \textbf{RF09} & \textbf{RF10} &
       \textbf{RF11} & \textbf{RF12} & \textbf{RF13} \\
     \midrule
@@ -202,8 +202,8 @@ Los márgenes están optimizados para aprovechar el espacio disponible.
 
 \subsection{Segunda página horizontal consecutiva}
 
-Esta es una segunda página en orientación horizontal para verificar que varias páginas 
-landscape consecutivas funcionan correctamente. Los encabezados y pies de página 
+Esta es una segunda página en orientación horizontal para verificar que varias páginas
+landscape consecutivas funcionan correctamente. Los encabezados y pies de página
 deben mantenerse consistentes en ambas páginas.
 
 \begin{table}[H]
@@ -227,8 +227,8 @@ deben mantenerse consistentes en ambas páginas.
 \end{table}
 
 \vspace{0.5cm}
-\noindent\textbf{Verificación:} Esta demostración confirma que múltiples páginas landscape 
-funcionan correctamente. Los números de página se incrementan normalmente, los encabezados 
+\noindent\textbf{Verificación:} Esta demostración confirma que múltiples páginas landscape
+funcionan correctamente. Los números de página se incrementan normalmente, los encabezados
 muestran la sección actual y los pies de página mantienen su formato.
 
 % Restaurar orientación portrait
@@ -300,8 +300,8 @@ en el documento \LaTeX. Esto es útil para adjuntar:
 
 \subsection{Ejemplo: Documento PDF incluido}
 
-A continuación se incluye un documento PDF de ejemplo que ha sido generado 
-independientemente. Se incluyen sus dos páginas con un marco y una escala 
+A continuación se incluye un documento PDF de ejemplo que ha sido generado
+independientemente. Se incluyen sus dos páginas con un marco y una escala
 ligeramente reducida:
 
 % Incluir el PDF externo de ejemplo
@@ -314,7 +314,7 @@ ligeramente reducida:
 
 \subsection{Múltiples páginas en una hoja}
 
-Para ahorrar espacio, se pueden incluir varias páginas del PDF en una sola 
+Para ahorrar espacio, se pueden incluir varias páginas del PDF en una sola
 hoja del documento:
 
 \begin{latexcode}[title={Varias páginas PDF en una hoja}]
@@ -330,8 +330,8 @@ hoja del documento:
 \section{Figuras de Ancho Completo}
 \label{sec:figuras-ancho-completo}
 
-A veces es necesario que una figura ocupe todo el ancho de la página, 
-incluso invadiendo los márgenes. Para ello se combina el entorno 
+A veces es necesario que una figura ocupe todo el ancho de la página,
+incluso invadiendo los márgenes. Para ello se combina el entorno
 \texttt{figure*} con ajustes de geometría.
 
 \subsection{Figura que invade márgenes}
@@ -350,7 +350,7 @@ incluso invadiendo los márgenes. Para ello se combina el entorno
 \section{Notas al Margen}
 \label{sec:notas-margen}
 
-Las notas al margen son útiles para añadir comentarios breves sin 
+Las notas al margen son útiles para añadir comentarios breves sin
 interrumpir el flujo del texto principal.
 
 \subsection{Uso básico}
@@ -361,8 +361,8 @@ Texto principal del párrafo.\marginpar{Nota breve al margen}
 
 Este es un ejemplo de texto con una nota al margen.\marginpar{\footnotesize\textit{Esta es una nota al margen con información adicional.}}
 
-Las notas al margen se colocan automáticamente en el lado exterior de la 
-página (derecho en páginas impares, izquierdo en pares) cuando se usa 
+Las notas al margen se colocan automáticamente en el lado exterior de la
+página (derecho en páginas impares, izquierdo en pares) cuando se usa
 impresión a doble cara.
 
 %% =============================================================================

@@ -140,43 +140,7 @@ Usando el paquete \texttt{xcolor} con la opción \texttt{table}:
   \end{tabular}
 \end{table}
 
-\subsection{Tabla larga (longtable)}
 
-Para tablas que ocupan varias páginas, se usa el entorno \texttt{longtable}:
-
-% Workaround for tagging error: caption outside longtable
-\captionof{table}{Lista de requisitos del sistema}\label{tab:requisitos}
-\begin{longtable}{@{}clp{7cm}@{}}
-% \caption{Lista de requisitos del sistema} \\
-  \toprule
-  \textbf{ID} & \textbf{Tipo} & \textbf{Descripción} \\
-  \midrule
-  \endfirsthead
-  
-  \multicolumn{3}{c}{\tablename\ \thetable{} -- Continuación} \\
-  \toprule
-  \textbf{ID} & \textbf{Tipo} & \textbf{Descripción} \\
-  \midrule
-  \endhead
-  
-  \midrule
-  \multicolumn{3}{r}{\textit{Continúa en la siguiente página}} \\
-  \endfoot
-  
-  \bottomrule
-  \endlastfoot
-  
-  RF01 & Funcional & El sistema debe permitir el registro de usuarios mediante correo electrónico \\
-  RF02 & Funcional & Los usuarios deben poder iniciar sesión con sus credenciales \\
-  RF03 & Funcional & El sistema debe generar informes en formato PDF \\
-  RF04 & Funcional & Se debe implementar un sistema de notificaciones \\
-  RF05 & Funcional & Los datos deben poder exportarse en formato CSV \\
-  RNF01 & No funcional & El tiempo de respuesta no debe superar los 2 segundos \\
-  RNF02 & No funcional & El sistema debe soportar 100 usuarios concurrentes \\
-  RNF03 & No funcional & La disponibilidad debe ser del 99.5\% \\
-  RNF04 & No funcional & La interfaz debe ser accesible según WCAG 2.1 \\
-  RNF05 & No funcional & Los datos sensibles deben cifrarse con AES-256 \\
-\end{longtable}
 
 \section{Generadores de tablas}
 
@@ -251,7 +215,7 @@ Se pueden colorear celdas individuales usando \texttt{\textbackslash cellcolor}:
     Muy bajo & \cellcolor{green!70}MB & \cellcolor{green!70}MB & \cellcolor{green!50}B & \cellcolor{green!30}B & \cellcolor{yellow!50}M \\
     \bottomrule
   \end{tabular}
-  
+
   \medskip
   \footnotesize
   MB = Muy Bajo, B = Bajo, M = Medio, A = Alto, MA = Muy Alto
