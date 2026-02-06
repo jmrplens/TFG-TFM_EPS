@@ -52,7 +52,7 @@ Si usas ChatGPT, Claude, Copilot u otro asistente de IA para contribuir, el proy
 
 ### Requisitos
 
-- **TeX Live 2023+** o **MiKTeX** con LuaLaTeX
+- **TeX Live 2025+** o **MiKTeX** con LuaLaTeX
 - **Git** para control de versiones
 - Editor recomendado: **VS Code** con [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop)
 

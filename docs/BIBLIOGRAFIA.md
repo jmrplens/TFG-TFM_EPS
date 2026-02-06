@@ -6,14 +6,71 @@ Esta guía explica cómo gestionar referencias bibliográficas usando **BibLaTeX
 
 ## 📋 Índice
 
-1. [Introducción](#introducción)
-2. [Archivo .bib](#archivo-bib)
-3. [Tipos de entrada](#tipos-de-entrada)
-4. [Comandos de cita](#comandos-de-cita)
-5. [Estilos de bibliografía](#estilos-de-bibliografía)
-6. [Configuración avanzada](#configuración-avanzada)
-7. [Múltiples bibliografías](#múltiples-bibliografías)
-8. [Solución de problemas](#solución-de-problemas)
+- [📋 Índice](#-índice)
+- [Introducción](#introducción)
+  - [Compilación](#compilación)
+- [Archivo .bib](#archivo-bib)
+  - [Ubicación](#ubicación)
+  - [Estructura de una entrada](#estructura-de-una-entrada)
+  - [Ejemplo básico](#ejemplo-básico)
+  - [Campos comunes](#campos-comunes)
+  - [Formato de autores](#formato-de-autores)
+  - [Proteger mayúsculas en títulos](#proteger-mayúsculas-en-títulos)
+- [Tipos de entrada](#tipos-de-entrada)
+  - [@article - Artículo de revista](#article---artículo-de-revista)
+  - [@book - Libro](#book---libro)
+  - [@inbook - Capítulo de libro](#inbook---capítulo-de-libro)
+  - [@incollection - Parte de colección](#incollection---parte-de-colección)
+  - [@inproceedings - Artículo en conferencia](#inproceedings---artículo-en-conferencia)
+  - [@thesis - Tesis (TFG, TFM, doctorado)](#thesis---tesis-tfg-tfm-doctorado)
+  - [@online - Recurso web](#online---recurso-web)
+  - [@manual - Manual técnico](#manual---manual-técnico)
+  - [@techreport - Informe técnico](#techreport---informe-técnico)
+  - [@patent - Patente](#patent---patente)
+  - [@software - Software](#software---software)
+  - [@misc - Otros](#misc---otros)
+- [Comandos de cita](#comandos-de-cita)
+  - [Citas básicas](#citas-básicas)
+  - [Múltiples citas](#múltiples-citas)
+  - [Citas con información adicional](#citas-con-información-adicional)
+  - [Comandos natbib (compatibilidad)](#comandos-natbib-compatibilidad)
+  - [Cita textual (quote)](#cita-textual-quote)
+  - [Cita sin paréntesis](#cita-sin-paréntesis)
+- [Estilos de bibliografía](#estilos-de-bibliografía)
+  - [Cambiar estilo](#cambiar-estilo)
+  - [Estilos disponibles](#estilos-disponibles)
+  - [Estilo APA (por defecto)](#estilo-apa-por-defecto)
+  - [Personalizar apariencia](#personalizar-apariencia)
+- [Configuración avanzada](#configuración-avanzada)
+  - [Filtrar por tipo](#filtrar-por-tipo)
+  - [Dividir bibliografía](#dividir-bibliografía)
+  - [Por palabras clave](#por-palabras-clave)
+  - [Añadir entrada sin citar](#añadir-entrada-sin-citar)
+  - [Campos opcionales según estilo](#campos-opcionales-según-estilo)
+  - [URL solo si no hay DOI](#url-solo-si-no-hay-doi)
+- [Múltiples bibliografías](#múltiples-bibliografías)
+  - [Por capítulo](#por-capítulo)
+  - [Bibliografía separada](#bibliografía-separada)
+- [Solución de problemas](#solución-de-problemas)
+  - ["Citation undefined"](#citation-undefined)
+  - ["I couldn't open file name.bib"](#i-couldnt-open-file-namebib)
+  - [Caracteres especiales en el .bib](#caracteres-especiales-en-el-bib)
+  - [La bibliografía no aparece](#la-bibliografía-no-aparece)
+  - [Ordenación incorrecta](#ordenación-incorrecta)
+  - [Advertencias de Biber](#advertencias-de-biber)
+- [Herramientas útiles](#herramientas-útiles)
+  - [Gestores de referencias](#gestores-de-referencias)
+  - [Obtener entradas BibTeX](#obtener-entradas-bibtex)
+  - [Validar y formatear .bib](#validar-y-formatear-bib)
+- [Ejemplo completo](#ejemplo-completo)
+  - [Archivo referencias.bib](#archivo-referenciasbib)
+  - [En el documento](#en-el-documento)
+- [Ejemplos visuales](#ejemplos-visuales)
+  - [Citas en el texto (estilo autor-año)](#citas-en-el-texto-estilo-autor-año)
+  - [Bibliografía estilo APA](#bibliografía-estilo-apa)
+  - [Bibliografía estilo IEEE (numérico)](#bibliografía-estilo-ieee-numérico)
+- [Recursos adicionales](#recursos-adicionales)
+- [Ver también](#ver-también)
 
 ---
 
@@ -728,118 +785,102 @@ Estos ejemplos muestran cómo se visualizan las citas y la bibliografía en el d
 ### Citas en el texto (estilo autor-año)
 
 ```latex <!-- preview -->
-% Simulación visual de citas en texto
-
 \noindent\textbf{Cita entre paréntesis:}\\[0.5em]
-El aprendizaje profundo (Goodfellow et al., 2016) ha revolucionado 
-el campo de la inteligencia artificial.
+La ingeniería de software \parencite{pressman2020} es fundamental para el desarrollo de sistemas robustos.
 
 \vspace{1em}
 \noindent\textbf{Cita como parte de la oración:}\\[0.5em]
-Según Goodfellow et al. (2016), las redes neuronales profundas
-son ``representaciones composicionales de funciones''.
+Según \textcite{martin2019}, la arquitectura limpia permite mantener el código mantenible a largo plazo.
 
 \vspace{1em}
 \noindent\textbf{Múltiples citas:}\\[0.5em]
-Diversos autores han estudiado este fenómeno 
-(García, 2024; López, 2023; Martínez et al., 2022).
+Diversos autores han establecido los patrones de diseño clásicos \parencite{gamma1994,knuth1997}.
 
 \vspace{1em}
 \noindent\textbf{Cita con página:}\\[0.5em]
-Como se indica en (Goodfellow et al., 2016, p.~45), el gradiente 
-descendente es fundamental para el entrenamiento.
+Como se indica en \parencite[p.~45]{pressman2020}, el proceso de desarrollo debe adaptarse al equipo.
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/BIBLIOGRAFIA_001.webp)
+<img src="assets/previews/BIBLIOGRAFIA_001.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/BIBLIOGRAFIA_001.pdf)
-
-</details>
-
 
 ### Bibliografía estilo APA
 
 ```latex <!-- preview -->
-% Simulación visual de bibliografía estilo APA
-\section*{Referencias}
-
-\hangindent=1.5em
-\noindent García, M. (2024). \textit{Aprendizaje automático: fundamentos 
-y aplicaciones}. Editorial Universitaria.
-
+\textbf{\Large Referencias}
 \vspace{0.5em}
-\hangindent=1.5em
-\noindent Goodfellow, I., Bengio, Y., \& Courville, A. (2016). 
-\textit{Deep Learning}. MIT Press.
 
-\vspace{0.5em}
-\hangindent=1.5em
-\noindent López, A., Martínez, B., \& Sánchez, C. (2023). Optimización 
-de redes neuronales convolucionales. \textit{Revista de Inteligencia 
-Artificial}, \textit{15}(2), 45--67.
+% Forzamos inclusión de referencias para el ejemplo
+\nocite{pressman2020,martin2019,gamma1994,knuth1997}
 
-\vspace{0.5em}
-\hangindent=1.5em
-\noindent Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., 
-Gomez, A. N., Kaiser, L., \& Polosukhin, I. (2017). Attention is all 
-you need. \textit{Advances in Neural Information Processing Systems}, 
-\textit{30}, 5998--6008.
+\printbibliography[heading=none]
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/BIBLIOGRAFIA_002.webp)
+<img src="assets/previews/BIBLIOGRAFIA_002.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/BIBLIOGRAFIA_002.pdf)
-
-</details>
-
 
 ### Bibliografía estilo IEEE (numérico)
 
 ```latex <!-- preview -->
-% Simulación visual de bibliografía estilo IEEE
-\section*{Referencias}
-
-\noindent [1]\hspace{0.5em} M. García, \textit{Aprendizaje automático: 
-fundamentos y aplicaciones}. Editorial Universitaria, 2024.
-
+% bibstyle: ieee
+\textbf{\Large Referencias}
 \vspace{0.5em}
-\noindent [2]\hspace{0.5em} I. Goodfellow, Y. Bengio, and A. Courville, 
-\textit{Deep Learning}. MIT Press, 2016.
 
-\vspace{0.5em}
-\noindent [3]\hspace{0.5em} A. López, B. Martínez, and C. Sánchez, 
-``Optimización de redes neuronales convolucionales,'' 
-\textit{Rev. Intel. Artif.}, vol. 15, no. 2, pp. 45--67, 2023.
+\nocite{pressman2020,martin2019,gamma1994,knuth1997}
 
-\vspace{0.5em}
-\noindent [4]\hspace{0.5em} A. Vaswani \textit{et al.}, ``Attention is 
-all you need,'' in \textit{Proc. Adv. Neural Inf. Process. Syst.}, 
-vol. 30, 2017, pp. 5998--6008.
+\printbibliography[heading=none]
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/BIBLIOGRAFIA_003.webp)
+<img src="assets/previews/BIBLIOGRAFIA_003.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/BIBLIOGRAFIA_003.pdf)
-
-</details>
-
 
 ---
 
 ## Recursos adicionales
 
-- [Documentación de BibLaTeX](https://ctan.org/pkg/biblatex)
-- [Documentación de Biber](https://ctan.org/pkg/biber)
-- [BibLaTeX Cheat Sheet](https://tug.ctan.org/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf)
+### Documentación oficial
+
+| Recurso | Descripción |
+|---------|-------------|
+| [BibLaTeX en CTAN](https://ctan.org/pkg/biblatex) | Documentación completa del paquete |
+| [Biber en CTAN](https://ctan.org/pkg/biber) | Documentación del procesador de bibliografía |
+| [biblatex-apa](https://ctan.org/pkg/biblatex-apa) | Estilo APA 7ª edición |
+| [biblatex-ieee](https://ctan.org/pkg/biblatex-ieee) | Estilo IEEE |
+| [biblatex-software](https://ctan.org/pkg/biblatex-software) | Para citar software |
+
+### Hojas de referencia
+
+- [BibLaTeX Cheat Sheet](https://tug.ctan.org/info/biblatex-cheatsheet/biblatex-cheatsheet.pdf) - Referencia rápida PDF
+
+### Herramientas de gestión bibliográfica
+
+| Herramienta | Descripción |
+|-------------|-------------|
+| [JabRef](https://www.jabref.org/) | Gestor de referencias gratuito para BibLaTeX |
+| [Zotero](https://www.zotero.org/) + [Better BibTeX](https://retorque.re/zotero-better-bibtex/) | Gestor con exportación mejorada |
+| [doi2bib](https://www.doi2bib.org/) | Genera entrada BibTeX desde DOI |
+| [Google Scholar](https://scholar.google.com/) | Búsqueda académica con exportación BibTeX |
+
+### Tutoriales recomendados
+
+- [Overleaf: Bibliography management](https://www.overleaf.com/learn/latex/Bibliography_management_with_biblatex) - Tutorial completo
+- [Overleaf: BibLaTeX styles](https://www.overleaf.com/learn/latex/Biblatex_bibliography_styles) - Comparativa de estilos
+
+### Versiones actuales (TeX Live 2025)
+
+| Componente | Versión | Fecha |
+|------------|---------|-------|
+| BibLaTeX | 3.21 | Julio 2025 |
+| Biber | 2.21 | Julio 2025 |
 
 ---
 

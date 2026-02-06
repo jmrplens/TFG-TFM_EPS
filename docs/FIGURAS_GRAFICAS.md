@@ -6,16 +6,63 @@ Esta guía explica cómo crear gráficas profesionales usando **pgfplots** y **T
 
 ## 📋 Índice
 
-1. [Introducción](#introducción)
-2. [Gráficas básicas](#gráficas-básicas)
-3. [Tipos de gráficas](#tipos-de-gráficas)
-4. [Personalización](#personalización)
-5. [Múltiples gráficas](#múltiples-gráficas)
-6. [Datos externos](#datos-externos)
-7. [Gráficas 3D](#gráficas-3d)
-8. [Gráficas circulares (pie)](#gráficas-circulares)
-9. [Opciones avanzadas](#opciones-avanzadas)
-10. [Solución de problemas](#solución-de-problemas)
+- [📋 Índice](#-índice)
+- [Introducción](#introducción)
+  - [Estructura básica](#estructura-básica)
+- [Gráficas básicas](#gráficas-básicas)
+  - [Gráfica de línea simple](#gráfica-de-línea-simple)
+  - [Gráfica de función matemática](#gráfica-de-función-matemática)
+  - [Gráfica con barras de error](#gráfica-con-barras-de-error)
+- [Tipos de gráficas](#tipos-de-gráficas)
+  - [Gráfica de barras verticales](#gráfica-de-barras-verticales)
+  - [Gráfica de barras horizontales](#gráfica-de-barras-horizontales)
+  - [Gráfica de barras agrupadas](#gráfica-de-barras-agrupadas)
+  - [Gráfica de barras apiladas](#gráfica-de-barras-apiladas)
+  - [Histograma](#histograma)
+  - [Gráfica de dispersión (scatter)](#gráfica-de-dispersión-scatter)
+  - [Gráfica de área](#gráfica-de-área)
+  - [Gráfica polar](#gráfica-polar)
+  - [Box plot](#box-plot)
+- [Personalización](#personalización)
+  - [Opciones del eje (axis)](#opciones-del-eje-axis)
+  - [Opciones de plot (addplot)](#opciones-de-plot-addplot)
+  - [Estilos de línea predefinidos](#estilos-de-línea-predefinidos)
+  - [Colores personalizados](#colores-personalizados)
+  - [Mapas de colores (colormaps)](#mapas-de-colores-colormaps)
+- [Múltiples gráficas](#múltiples-gráficas)
+  - [Subfiguras con gráficas](#subfiguras-con-gráficas)
+  - [Groupplots (múltiples ejes)](#groupplots-múltiples-ejes)
+  - [Dos ejes Y](#dos-ejes-y)
+- [Datos externos](#datos-externos)
+  - [Desde archivo CSV](#desde-archivo-csv)
+  - [Desde archivo con espacios](#desde-archivo-con-espacios)
+  - [Con pgfplotstable](#con-pgfplotstable)
+  - [Opciones de lectura de tabla](#opciones-de-lectura-de-tabla)
+- [Gráficas 3D](#gráficas-3d)
+  - [Superficie 3D](#superficie-3d)
+  - [Malla 3D](#malla-3d)
+  - [Contornos](#contornos)
+  - [Scatter 3D](#scatter-3d)
+- [Gráficas circulares](#gráficas-circulares)
+  - [Pie chart básico](#pie-chart-básico)
+  - [Pie chart con porcentajes](#pie-chart-con-porcentajes)
+  - [Opciones de pgf-pie](#opciones-de-pgf-pie)
+  - [Donut chart](#donut-chart)
+- [Opciones avanzadas](#opciones-avanzadas)
+  - [Área entre curvas (fill between)](#área-entre-curvas-fill-between)
+  - [Anotaciones](#anotaciones)
+  - [Líneas de referencia](#líneas-de-referencia)
+  - [Estilos globales (cycle list)](#estilos-globales-cycle-list)
+- [Solución de problemas](#solución-de-problemas)
+  - [La gráfica es muy pequeña/grande](#la-gráfica-es-muy-pequeñagrande)
+  - [Los números se superponen](#los-números-se-superponen)
+  - [La leyenda tapa la gráfica](#la-leyenda-tapa-la-gráfica)
+  - [Compilación muy lenta](#compilación-muy-lenta)
+  - [Error "Dimension too large"](#error-dimension-too-large)
+- [Ejemplos completos](#ejemplos-completos)
+  - [Gráfica científica completa](#gráfica-científica-completa)
+- [Recursos adicionales](#recursos-adicionales)
+- [Ver también](#ver-también)
 
 ---
 
@@ -35,7 +82,7 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 ### Estructura básica
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -49,6 +96,12 @@ Esta plantilla carga los siguientes paquetes para gráficas:
     \label{fig:mi-grafica}
 \end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_001.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_001.pdf)
 
 ---
 
@@ -83,15 +136,11 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/FIGURAS_GRAFICAS_001.webp)
+<img src="assets/previews/FIGURAS_GRAFICAS_002.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_001.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_002.pdf)
 
 ### Gráfica de función matemática
 
@@ -118,19 +167,15 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/FIGURAS_GRAFICAS_002.webp)
+<img src="assets/previews/FIGURAS_GRAFICAS_003.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_002.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_003.pdf)
 
 ### Gráfica con barras de error
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -158,6 +203,12 @@ Esta plantilla carga los siguientes paquetes para gráficas:
     \label{fig:errores}
 \end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_004.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_004.pdf)
 
 ---
 
@@ -189,15 +240,11 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/FIGURAS_GRAFICAS_003.webp)
+<img src="assets/previews/FIGURAS_GRAFICAS_005.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_003.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_005.pdf)
 
 ### Gráfica de barras horizontales
 
@@ -231,9 +278,16 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_005.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_005.pdf)
+
+
 ### Gráfica de barras agrupadas
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -259,9 +313,15 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_006.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_006.pdf)
+
 ### Gráfica de barras apiladas
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -292,9 +352,15 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_007.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_007.pdf)
+
 ### Histograma
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -316,8 +382,14 @@ Esta plantilla carga los siguientes paquetes para gráficas:
     \end{tikzpicture}
     \caption{Distribución de edades}
     \label{fig:histograma}
-\end{figure>
+\end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_008.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_008.pdf)
 
 ### Gráfica de dispersión (scatter)
 
@@ -346,19 +418,15 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/FIGURAS_GRAFICAS_004.webp)
+<img src="assets/previews/FIGURAS_GRAFICAS_009.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_004.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_009.pdf)
 
 ### Gráfica de área
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -386,6 +454,12 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_010.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_010.pdf)
+
 ### Gráfica polar
 
 ```latex <!-- preview -->
@@ -408,19 +482,15 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/FIGURAS_GRAFICAS_005.webp)
+<img src="assets/previews/FIGURAS_GRAFICAS_011.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_005.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_011.pdf)
 
 ### Box plot
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -460,6 +530,12 @@ Esta plantilla carga los siguientes paquetes para gráficas:
     \label{fig:boxplot}
 \end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_012.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_012.pdf)
 
 ---
 
@@ -550,7 +626,7 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 ### Subfiguras con gráficas
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
@@ -591,9 +667,15 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_013.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_013.pdf)
+
 ### Groupplots (múltiples ejes)
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -624,9 +706,15 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_014.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_014.pdf)
+
 ### Dos ejes Y
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -661,8 +749,14 @@ Esta plantilla carga los siguientes paquetes para gráficas:
     
     \caption{Evolución de temperatura y presión}
     \label{fig:dos-ejes}
-\end{figure>
+\end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_015.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_015.pdf)
 
 ---
 
@@ -750,7 +844,7 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 ### Superficie 3D
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -775,9 +869,15 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_016.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_016.pdf)
+
 ### Malla 3D
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -800,9 +900,15 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_017.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_017.pdf)
+
 ### Contornos
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -826,9 +932,15 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_018.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_018.pdf)
+
 ### Scatter 3D
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -856,6 +968,12 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_019.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_019.pdf)
+
 ---
 
 ## Gráficas circulares
@@ -864,7 +982,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 
 ### Pie chart básico
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -884,9 +1002,15 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_020.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_020.pdf)
+
 ### Pie chart con porcentajes
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -908,6 +1032,12 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_021.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_021.pdf)
+
 ### Opciones de pgf-pie
 
 | Opción | Descripción | Valores |
@@ -925,7 +1055,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 
 ### Donut chart
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -945,13 +1075,19 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_022.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_022.pdf)
+
 ---
 
 ## Opciones avanzadas
 
 ### Área entre curvas (fill between)
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -972,12 +1108,18 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
     \end{tikzpicture}
     \caption{Área entre curvas}
     \label{fig:fill-between}
-\end{figure>
+\end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_023.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_023.pdf)
 
 ### Anotaciones
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -1004,6 +1146,12 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
     \label{fig:anotaciones}
 \end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_024.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_024.pdf)
 
 ### Líneas de referencia
 
@@ -1101,7 +1249,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 
 ### Gráfica científica completa
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -1136,14 +1284,41 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/FIGURAS_GRAFICAS_025.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_025.pdf)
+
 ---
 
 ## Recursos adicionales
 
-- [Manual de PGFPlots](https://ctan.org/pkg/pgfplots) - Documentación oficial
-- [Manual de TikZ/PGF](https://ctan.org/pkg/pgf) - Documentación completa
-- [pgfplots.net](http://pgfplots.net/) - Ejemplos y tutoriales
-- [TeXample.net](https://texample.net/tikz/examples/) - Galería de ejemplos
+### Documentación oficial
+
+| Recurso | Descripción |
+|---------|-------------|
+| [PGFPlots Manual](https://ctan.org/pkg/pgfplots) | Documentación completa |
+| [TikZ & PGF Manual](https://tikz.dev/) | Documentación oficial interactiva |
+| [TikZ en CTAN](https://ctan.org/pkg/pgf) | Paquete base |
+| [circuitikz](https://ctan.org/pkg/circuitikz) | Circuitos eléctricos |
+| [tikz-3dplot](https://ctan.org/pkg/tikz-3dplot) | Gráficos 3D |
+
+### Galerías y ejemplos
+
+| Recurso | Descripción |
+|---------|-------------|
+| [TeXample.net TikZ](https://texample.net/tikz/examples/) | Galería de ejemplos TikZ |
+| [pgfplots.net](http://pgfplots.net/) | Ejemplos de PGFPlots |
+| [Overleaf: TikZ](https://www.overleaf.com/learn/latex/TikZ_package) | Tutorial completo |
+| [Overleaf: Pgfplots](https://www.overleaf.com/learn/latex/Pgfplots_package) | Tutorial de gráficas |
+
+### Versiones actuales (TeX Live 2025)
+
+| Componente | Versión |
+|------------|----------|
+| TikZ/PGF | 3.1.11a |
+| PGFPlots | 1.18.2 |
 
 ---
 

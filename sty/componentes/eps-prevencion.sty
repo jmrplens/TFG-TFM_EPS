@@ -1,0 +1,451 @@
+%% eps-prevencion.sty
+%% Componentes para prevención de riesgos laborales
+%%
+%% Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+%% Autor:    José Manuel Requena Plens
+%% Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
+%% Licencia: GNU GPL v3.0
+%% Versión:  2.1.0 (2026/02/05)
+%%
+%% Parte de eps-componentes.sty
+%% -----------------------------------------------------------------------------
+\ProvidesFile{eps-prevencion.sty}[2026/02/05 v2.1.0 Componentes prevención EPS UA]
+
+% ============================================================================
+% DEPENDENCIAS
+% ============================================================================
+
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% ============================================================================
+% MATRIZ DE RIESGOS
+% ============================================================================
+
+% Colores para niveles de riesgo
+\definecolor{risk-trivial}{HTML}{22C55E}      % Verde
+\definecolor{risk-tolerable}{HTML}{84CC16}    % Verde lima
+\definecolor{risk-moderate}{HTML}{EAB308}     % Amarillo
+\definecolor{risk-important}{HTML}{F97316}    % Naranja
+\definecolor{risk-intolerable}{HTML}{DC2626}  % Rojo
+
+% Matriz de riesgos (environment para añadir puntos)
+\newenvironment{riskmatrixplot}[1][]{%
+  \begin{tikzpicture}[x=1.2cm, y=1cm, #1]
+    % Celdas de la matriz
+    % Fila 1 (Probabilidad muy baja)
+    \fill[risk-trivial!50] (0,0) rectangle (1,1);
+    \fill[risk-trivial!50] (1,0) rectangle (2,1);
+    \fill[risk-tolerable!50] (2,0) rectangle (3,1);
+    \fill[risk-tolerable!50] (3,0) rectangle (4,1);
+    \fill[risk-moderate!50] (4,0) rectangle (5,1);
+    
+    % Fila 2 (Probabilidad baja)
+    \fill[risk-trivial!50] (0,1) rectangle (1,2);
+    \fill[risk-tolerable!50] (1,1) rectangle (2,2);
+    \fill[risk-tolerable!50] (2,1) rectangle (3,2);
+    \fill[risk-moderate!50] (3,1) rectangle (4,2);
+    \fill[risk-important!50] (4,1) rectangle (5,2);
+    
+    % Fila 3 (Probabilidad media)
+    \fill[risk-tolerable!50] (0,2) rectangle (1,3);
+    \fill[risk-tolerable!50] (1,2) rectangle (2,3);
+    \fill[risk-moderate!50] (2,2) rectangle (3,3);
+    \fill[risk-important!50] (3,2) rectangle (4,3);
+    \fill[risk-important!50] (4,2) rectangle (5,3);
+    
+    % Fila 4 (Probabilidad alta)
+    \fill[risk-tolerable!50] (0,3) rectangle (1,4);
+    \fill[risk-moderate!50] (1,3) rectangle (2,4);
+    \fill[risk-important!50] (2,3) rectangle (3,4);
+    \fill[risk-important!50] (3,3) rectangle (4,4);
+    \fill[risk-intolerable!50] (4,3) rectangle (5,4);
+    
+    % Fila 5 (Probabilidad muy alta)
+    \fill[risk-moderate!50] (0,4) rectangle (1,5);
+    \fill[risk-important!50] (1,4) rectangle (2,5);
+    \fill[risk-important!50] (2,4) rectangle (3,5);
+    \fill[risk-intolerable!50] (3,4) rectangle (4,5);
+    \fill[risk-intolerable!50] (4,4) rectangle (5,5);
+    
+    % Grid
+    \draw[eps-gray, thin] (0,0) grid (5,5);
+    \draw[eps-dark, thick] (0,0) rectangle (5,5);
+    
+    % Etiquetas de severidad (eje X)
+    \node[below, font=\tiny, align=center] at (0.5,-0.1) {Muy\\leve};
+    \node[below, font=\tiny, align=center] at (1.5,-0.1) {Leve};
+    \node[below, font=\tiny, align=center] at (2.5,-0.1) {Moderada};
+    \node[below, font=\tiny, align=center] at (3.5,-0.1) {Grave};
+    \node[below, font=\tiny, align=center] at (4.5,-0.1) {Muy\\grave};
+    \node[below, font=\footnotesize\bfseries] at (2.5,-0.8) {SEVERIDAD};
+    
+    % Etiquetas de probabilidad (eje Y)
+    \node[left, font=\tiny, align=right] at (-0.1,0.5) {Muy\\baja};
+    \node[left, font=\tiny] at (-0.1,1.5) {Baja};
+    \node[left, font=\tiny] at (-0.1,2.5) {Media};
+    \node[left, font=\tiny] at (-0.1,3.5) {Alta};
+    \node[left, font=\tiny, align=right] at (-0.1,4.5) {Muy\\alta};
+    \node[left, font=\footnotesize\bfseries, rotate=90, anchor=south] at (-0.8,2.5) {PROBABILIDAD};
+}{%
+  \end{tikzpicture}
+}
+
+% Alias para compatibilidad (deprecated, mejor usar entorno)
+\newcommand{\riskmatrix}{%
+  \begin{riskmatrixplot}
+  \end{riskmatrixplot}
+}
+
+% Matriz de riesgos (estilo Card, centrada)
+% Uso: \begin{riskmatrixbox}[Matriz del proyecto X]
+%        \begin{riskmatrixplot}
+%          \riskpoint{3}{4}{R-01}
+%        \end{riskmatrixplot}
+%      \end{riskmatrixbox}
+\newenvironment{riskmatrixbox}[1][Matriz de evaluación de riesgos]{%
+  \begin{tcolorbox}[eps-card, title={\faThLarge~#1}, halign=center]
+}{%
+  \end{tcolorbox}
+}
+
+% Punto en la matriz
+\newcommand{\riskpoint}[3]{%
+  % #1 = severidad (1-5), #2 = probabilidad (1-5), #3 = etiqueta
+  \fill[eps-dark] (#1-0.5,#2-0.5) circle (0.15);
+  \node[font=\tiny, above right] at (#1-0.3,#2-0.3) {#3};
+}
+
+% ============================================================================
+% EVALUACIÓN DE RIESGOS - Estilo profesional
+% ============================================================================
+
+% Tabla de evaluación de riesgos estilo booktabs (sin caja)
+% Uso: \begin{riskassessment}[Evaluación de riesgos - Obra X]
+%        \riskentry{R-01}{Caída a distinto nivel}{3}{4}{}{Uso de arnés, líneas de vida}
+%      \end{riskassessment}
+\newenvironment{riskassessment}[1][Evaluación de riesgos]{%
+  \begingroup
+  \small
+  \subsection*{#1}
+  \begin{longtable}{@{}p{1cm}p{4cm}cclp{4.5cm}@{}}
+    \toprule
+    \textbf{ID} & \textbf{Riesgo identificado} & \textbf{P} & \textbf{S} & \textbf{Nivel} & \textbf{Medidas preventivas} \\
+    \midrule
+    \endhead
+    \midrule
+    \multicolumn{6}{r}{\footnotesize\emph{Continúa...}} \\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+}{%
+  \end{longtable}
+  \endgroup
+}
+
+\newcommand{\riskentry}[6]{%
+  #1 & #2 & #3 & #4 & 
+  \pgfmathsetmacro{\risklevel}{int(#3*#4)}
+  \ifnum\risklevel<5
+    \badge[risk-trivial]{Trivial}
+  \else\ifnum\risklevel<9
+    \badge[risk-tolerable]{Tolerable}
+  \else\ifnum\risklevel<15
+    \badge[risk-moderate]{Moderado}
+  \else\ifnum\risklevel<21
+    \badge[risk-important]{Importante}
+  \else
+    \badge[risk-intolerable]{Intolerable}
+  \fi\fi\fi\fi
+  & #6 \\
+}
+
+% Separador de grupo de riesgos
+\newcommand{\riskgroup}[1]{%
+  \midrule
+  \multicolumn{6}{@{}l}{\bfseries\textcolor{eps-primary}{#1}} \\
+  \midrule
+}
+
+% ============================================================================
+% FICHA DE SEGURIDAD - Estilo profesional sin caja
+% ============================================================================
+
+% Ficha de seguridad completa (sin caja, estilo ficha técnica)
+% Uso: \begin{safetysheet}{Nombre del producto/proceso}
+%        \safetysection{Identificación}{Datos del producto}
+%      \end{safetysheet}
+\newenvironment{safetysheet}[1]{%
+  \begingroup
+  \small
+  \subsection*{{\textcolor{eps-primary}{\faShieldVirus}~Ficha de seguridad: #1}}
+  \vspace{-0.3em}
+  \hrule height 0.5pt
+  \vspace{0.5em}
+}{%
+  \vspace{0.5em}
+  \hrule height 0.5pt
+  \endgroup
+}
+
+% Sección de la ficha
+\newcommand{\safetysection}[2]{%
+  \textbf{\textcolor{eps-primary}{#1}}\\
+  #2
+  \vspace{6pt}
+}
+
+% Lista de EPIs requeridos
+\newenvironment{epilist}{%
+  \textbf{\textcolor{eps-primary}{Equipos de Protección Individual (EPI):}}
+  \begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+}{%
+  \end{itemize}
+}
+
+% Iconos de EPIs
+\newcommand{\epihardhat}{\textcolor{eps-warning}{\faHardHat}~Casco}
+\newcommand{\epigloves}{\textcolor{eps-info}{\faHandPaper}~Guantes}
+\newcommand{\epigoggles}{\textcolor{eps-secondary}{\faGlasses}~Gafas}
+\newcommand{\epiboots}{\textcolor{eps-dark}{\faShoePrints}~Calzado seguridad}
+\newcommand{\epimask}{\textcolor{eps-success}{\faHeadSideMask}~Mascarilla}
+\newcommand{\epiearprotection}{\textcolor{eps-danger}{\faDeaf}~Protección auditiva}
+\newcommand{\epivest}{\textcolor{eps-warning}{\faTshirt}~Chaleco reflectante}
+\newcommand{\epiharness}{\textcolor{eps-primary}{\faLink}~Arnés anticaídas}
+
+% ============================================================================
+% CHECKLIST DE SEGURIDAD - Estilo profesional sin caja
+% ============================================================================
+
+% Checklist de verificación (sin caja, estilo lista con título)
+% Uso: \begin{safetychecklist}[Título]
+%        \checkitem{Elemento verificado}
+%        \uncheckitem{Pendiente}
+%      \end{safetychecklist}
+\newenvironment{safetychecklist}[1][Lista de verificación de seguridad]{%
+  \begingroup
+  \small
+  \noindent\textbf{{\textcolor{eps-success}{\faClipboardCheck}~#1}}\par
+  \vspace{0.3em}
+  \begin{itemize}[label=\unchecked, leftmargin=1.5em, itemsep=2pt, topsep=0pt]
+}{%
+  \end{itemize}
+  \endgroup
+}
+
+% Items con diferentes estados
+\newcommand{\checkitem}[1]{\item[\checked] #1}
+\newcommand{\uncheckitem}[1]{\item[\unchecked] #1}
+\newcommand{\naitem}[1]{\item[\textcolor{eps-gray}{\faMinus}] #1 \textcolor{eps-gray}{(N/A)}}
+
+% ============================================================================
+% SEÑALIZACIÓN
+% ============================================================================
+
+% Señales de seguridad
+\newcommand{\signwarning}[1]{%
+  \begin{tikzpicture}[baseline=-0.3em]
+    \node[regular polygon, regular polygon sides=3, fill=eps-warning,
+          minimum size=1.2cm, font=\footnotesize\bfseries] (sign) {};
+    \node[font=\Large, text=black] at (sign.center) {\faExclamationTriangle};
+  \end{tikzpicture}
+  ~#1
+}
+
+\newcommand{\signprohibition}[1]{%
+  \begin{tikzpicture}[baseline=-0.3em]
+    \node[circle, fill=white, draw=eps-danger, line width=2pt,
+          minimum size=1.2cm] (sign) {};
+    \draw[eps-danger, line width=2pt] (sign.north west) -- (sign.south east);
+  \end{tikzpicture}
+  ~#1
+}
+
+\newcommand{\signmandatory}[1]{%
+  \begin{tikzpicture}[baseline=-0.3em]
+    \node[circle, fill=eps-primary,
+          minimum size=1.2cm, font=\footnotesize] (sign) {};
+    \node[font=\large, text=white] at (sign.center) {\faCheck};
+  \end{tikzpicture}
+  ~#1
+}
+
+\newcommand{\signemergency}[1]{%
+  \begin{tikzpicture}[baseline=-0.3em]
+    \node[rectangle, fill=eps-success,
+          minimum width=1.2cm, minimum height=1cm, font=\footnotesize] (sign) {};
+    \node[font=\large, text=white] at (sign.center) {\faRunning};
+  \end{tikzpicture}
+  ~#1
+}
+
+\newcommand{\signfire}[1]{%
+  \begin{tikzpicture}[baseline=-0.3em]
+    \node[rectangle, fill=eps-danger,
+          minimum width=1.2cm, minimum height=1cm, font=\footnotesize] (sign) {};
+    \node[font=\large, text=white] at (sign.center) {\faFireExtinguisher};
+  \end{tikzpicture}
+  ~#1
+}
+
+% ============================================================================
+% PLAN DE EMERGENCIA - Estilo profesional
+% ============================================================================
+
+% Procedimiento de emergencia (estilo alerta con barra lateral)
+% Uso: \begin{emergencyprocedure}[Título]
+%        Paso 1: ...
+%      \end{emergencyprocedure}
+\newenvironment{emergencyprocedure}[1][Procedimiento de emergencia]{%
+  \begingroup
+  \small
+  \par\vspace{0.5em}
+  \noindent\begin{minipage}[t]{3pt}\color{eps-danger}\rule{3pt}{\baselineskip}\end{minipage}%
+  \hspace{0.5em}%
+  \begin{minipage}[t]{\dimexpr\linewidth-3pt-0.5em\relax}
+    \textbf{{\textcolor{eps-danger}{\faAmbulance}~#1}}\par
+    \vspace{0.3em}
+}{%
+  \end{minipage}
+  \par\vspace{0.5em}
+  \endgroup
+}
+
+% Teléfonos de emergencia
+\newcommand{\emergencyphone}[2]{%
+  \textcolor{eps-danger}{\faPhone}~\textbf{#1:}~#2
+}
+
+% ============================================================================
+% ACCIDENTES E INCIDENTES - Estilo formulario
+% ============================================================================
+
+% Registro de accidente (estilo formulario sin caja)
+% Uso: \begin{accidentreport}[Título]
+%        \reportfield{Fecha}{01/01/2024}
+%      \end{accidentreport}
+\newenvironment{accidentreport}[1][Informe de accidente/incidente]{%
+  \begingroup
+  \small
+  \subsection*{{\textcolor{eps-danger}{\faFile}~#1}}
+  \vspace{-0.3em}
+  {\color{eps-danger}\hrule height 1pt}
+  \vspace{0.5em}
+}{%
+  \vspace{0.5em}
+  {\color{eps-danger}\hrule height 0.5pt}
+  \endgroup
+}
+
+% Campo del informe
+\newcommand{\reportfield}[2]{%
+  \textbf{#1:} #2\\[4pt]
+}
+
+% Tipo de accidente
+\newcommand{\accidenttype}[1]{%
+  \ifstrequal{#1}{leve}{\badge[eps-warning]{Leve}}{}
+  \ifstrequal{#1}{grave}{\badge[eps-danger]{Grave}}{}
+  \ifstrequal{#1}{muy grave}{\badge[eps-danger!80!black]{Muy grave}}{}
+  \ifstrequal{#1}{mortal}{\badge[black]{Mortal}}{}
+  \ifstrequal{#1}{incidente}{\badge[eps-info]{Incidente}}{}
+}
+
+% ============================================================================
+% ESTADÍSTICAS DE SEGURIDAD - Estilo minimalista
+% ============================================================================
+
+% Indicadores de seguridad (sin caja, estilo KPI card)
+% Uso: \safetyindicator{valor}{nombre}{color}
+\newcommand{\safetyindicator}[3]{%
+  \begin{minipage}[t]{0.22\textwidth}
+    \centering
+    {\LARGE\bfseries\textcolor{#3}{#1}}\\[2pt]
+    {\footnotesize #2}
+  \end{minipage}%
+}
+
+% Indicadores predefinidos
+\newcommand{\indicatorIF}[1]{\safetyindicator{#1}{Índice de Frecuencia}{eps-info}}
+\newcommand{\indicatorIG}[1]{\safetyindicator{#1}{Índice de Gravedad}{eps-warning}}
+\newcommand{\indicatorII}[1]{\safetyindicator{#1}{Índice de Incidencia}{eps-danger}}
+\newcommand{\indicatorDaysSafe}[1]{\safetyindicator{#1}{Días sin accidentes}{eps-success}}
+
+% Fila de indicadores (para mostrar varios juntos)
+\newcommand{\indicatorrow}[1]{%
+  \par\vspace{1em}
+  \begin{center}
+    #1
+  \end{center}
+  \par\vspace{0.5em}
+}
+
+% ============================================================================
+% FORMACIÓN EN SEGURIDAD - Estilo profesional
+% ============================================================================
+
+% Registro de formación estilo booktabs (sin caja)
+% Uso: \begin{trainingrecord}[Formación trabajador X]
+%        \trainingentry{PRL Básico (20h)}{20}{2024-01-15}{2029-01-15}{vigente}
+%      \end{trainingrecord}
+\newenvironment{trainingrecord}[1][Registro de formación]{%
+  \begingroup
+  \small
+  \subsection*{#1}
+  \begin{tabular}{@{}p{5cm}cccp{2.5cm}@{}}
+    \toprule
+    \textbf{Curso/Formación} & \textbf{Duración} & \textbf{Fecha} & \textbf{Caducidad} & \textbf{Estado} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \endgroup
+}
+
+\newcommand{\trainingentry}[5]{%
+  #1 & #2 h & #3 & #4 & 
+  \ifstrequal{#5}{vigente}{\textcolor{eps-success}{\faCheck}~Vigente}{}%
+  \ifstrequal{#5}{caducado}{\textcolor{eps-danger}{\faTimes}~Caducado}{}%
+  \ifstrequal{#5}{proximo}{\textcolor{eps-warning}{\faClock}~Próximo}{}%
+  \\
+}
+
+% Indicadores de estado
+\newcommand{\trainingok}{\textcolor{eps-success}{\faCheck}~Vigente}
+\newcommand{\trainingexpired}{\textcolor{eps-danger}{\faTimes}~Caducado}
+\newcommand{\trainingsoon}{\textcolor{eps-warning}{\faClock}~Próximo}
+
+% ============================================================================
+% MAPA DE RIESGOS
+% ============================================================================
+
+% Mapa de riesgos (sin caja, centrado)
+% Uso: \begin{riskmapbox}[Mapa de riesgos - Planta baja]
+%        \begin{tikzpicture}...
+%        \riskmarker{3}{4}{5}
+%      \end{riskmapbox}
+\newenvironment{riskmapbox}[1][Mapa de riesgos]{%
+  \begin{center}
+  {\small\bfseries\faMapMarked\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
+}
+
+% Marcador de riesgo en el mapa
+\newcommand{\riskmarker}[3]{%
+  % #1 = x, #2 = y, #3 = nivel (1-5)
+  \ifnum#3<2
+    \node[circle, fill=risk-trivial, minimum size=0.5cm] at (#1,#2) {};
+  \else\ifnum#3<3
+    \node[circle, fill=risk-tolerable, minimum size=0.5cm] at (#1,#2) {};
+  \else\ifnum#3<4
+    \node[circle, fill=risk-moderate, minimum size=0.5cm] at (#1,#2) {};
+  \else\ifnum#3<5
+    \node[circle, fill=risk-important, minimum size=0.5cm] at (#1,#2) {};
+  \else
+    \node[circle, fill=risk-intolerable, minimum size=0.5cm] at (#1,#2) {};
+  \fi\fi\fi\fi
+}
+
+\endinput

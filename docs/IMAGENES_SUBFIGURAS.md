@@ -6,17 +6,64 @@ Esta guía explica cómo incluir imágenes, organizarlas en subfiguras, y contro
 
 ## 📋 Índice
 
-1. [Introducción](#introducción)
-2. [Insertar imagen básica](#insertar-imagen-básica)
-3. [Opciones de includegraphics](#opciones-de-includegraphics)
-4. [Entorno figure](#entorno-figure)
-5. [Subfiguras](#subfiguras)
-6. [Posicionamiento](#posicionamiento)
-7. [Figuras anchas](#figuras-anchas)
-8. [Texto alrededor de figuras](#texto-alrededor-de-figuras)
-9. [Rotación de imágenes](#rotación-de-imágenes)
-10. [Marcos y bordes](#marcos-y-bordes)
-11. [Solución de problemas](#solución-de-problemas)
+- [📋 Índice](#-índice)
+- [Introducción](#introducción)
+  - [Formatos soportados](#formatos-soportados)
+  - [Dónde guardar las imágenes](#dónde-guardar-las-imágenes)
+- [Insertar imagen básica](#insertar-imagen-básica)
+  - [Sintaxis mínima](#sintaxis-mínima)
+  - [Con tamaño específico](#con-tamaño-específico)
+  - [Escalar proporcionalmente](#escalar-proporcionalmente)
+- [Opciones de includegraphics](#opciones-de-includegraphics)
+  - [Todas las opciones disponibles](#todas-las-opciones-disponibles)
+  - [Ejemplos de opciones](#ejemplos-de-opciones)
+- [Entorno figure](#entorno-figure)
+  - [Estructura básica](#estructura-básica)
+  - [Referenciar figuras](#referenciar-figuras)
+  - [Caption largo y corto](#caption-largo-y-corto)
+  - [Personalizar caption](#personalizar-caption)
+  - [Opciones de captionsetup](#opciones-de-captionsetup)
+- [Subfiguras](#subfiguras)
+  - [Dos subfiguras lado a lado](#dos-subfiguras-lado-a-lado)
+  - [Tres subfiguras](#tres-subfiguras)
+  - [Cuadrícula 2x2](#cuadrícula-2x2)
+  - [Subfiguras con diferentes tamaños](#subfiguras-con-diferentes-tamaños)
+  - [Personalizar numeración de subfiguras](#personalizar-numeración-de-subfiguras)
+  - [Referenciar subfiguras](#referenciar-subfiguras)
+- [Posicionamiento](#posicionamiento)
+  - [Especificadores de posición](#especificadores-de-posición)
+  - [Ejemplos de posicionamiento](#ejemplos-de-posicionamiento)
+  - [Controlar flotantes](#controlar-flotantes)
+  - [Ajustar parámetros de flotantes](#ajustar-parámetros-de-flotantes)
+- [Figuras anchas](#figuras-anchas)
+  - [Usar todo el ancho (en documentos a dos columnas)](#usar-todo-el-ancho-en-documentos-a-dos-columnas)
+  - [Figura más ancha que el texto](#figura-más-ancha-que-el-texto)
+  - [Figura en el margen](#figura-en-el-margen)
+- [Texto alrededor de figuras](#texto-alrededor-de-figuras)
+  - [Usando wrapfigure](#usando-wrapfigure)
+  - [Opciones de wrapfigure](#opciones-de-wrapfigure)
+- [Rotación de imágenes](#rotación-de-imágenes)
+  - [Rotar con includegraphics](#rotar-con-includegraphics)
+  - [Rotar figura completa (con caption)](#rotar-figura-completa-con-caption)
+  - [Rotar solo la imagen dentro de figure](#rotar-solo-la-imagen-dentro-de-figure)
+- [Marcos y bordes](#marcos-y-bordes)
+  - [Borde simple con fbox](#borde-simple-con-fbox)
+  - [Personalizar el borde](#personalizar-el-borde)
+  - [Borde con color](#borde-con-color)
+  - [Sombra con TikZ](#sombra-con-tikz)
+  - [Marco decorativo con tcolorbox](#marco-decorativo-con-tcolorbox)
+- [Solución de problemas](#solución-de-problemas)
+  - ["File not found"](#file-not-found)
+  - [Imagen borrosa o pixelada](#imagen-borrosa-o-pixelada)
+  - [La figura aparece en otro lugar](#la-figura-aparece-en-otro-lugar)
+  - [Espacio excesivo alrededor de figuras](#espacio-excesivo-alrededor-de-figuras)
+  - [Subfiguras desalineadas](#subfiguras-desalineadas)
+  - [Caption demasiado ancho](#caption-demasiado-ancho)
+- [Ejemplos completos](#ejemplos-completos)
+  - [Figura con múltiples elementos](#figura-con-múltiples-elementos)
+  - [Galería de imágenes](#galería-de-imágenes)
+- [Recursos adicionales](#recursos-adicionales)
+- [Ver también](#ver-también)
 
 ---
 
@@ -169,15 +216,11 @@ El entorno `figure` permite:
 \end{figure}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/IMAGENES_SUBFIGURAS_001.webp)
+<img src="assets/previews/IMAGENES_SUBFIGURAS_001.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_001.pdf)
-
-</details>
-
 
 ### Referenciar figuras
 
@@ -190,10 +233,10 @@ La \autoref{fig:mi-figura} ilustra el proceso.
 
 ### Caption largo y corto
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{recursos/imagenes/diagrama.pdf}
+    \includegraphics[width=0.8\textwidth]{example-image-a}
     \caption[Título corto para el índice]{%
         Título largo con descripción detallada que aparece bajo la figura.
         Puede incluir varias oraciones explicando el contenido.%
@@ -201,6 +244,12 @@ La \autoref{fig:mi-figura} ilustra el proceso.
     \label{fig:diagrama}
 \end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/IMAGENES_SUBFIGURAS_002.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_002.pdf)
 
 ### Personalizar caption
 
@@ -266,15 +315,11 @@ La \autoref{fig:mi-figura} ilustra el proceso.
 \end{figure}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/IMAGENES_SUBFIGURAS_002.webp)
+<img src="assets/previews/IMAGENES_SUBFIGURAS_003.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_002.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_003.pdf)
 
 ### Tres subfiguras
 
@@ -306,30 +351,26 @@ La \autoref{fig:mi-figura} ilustra el proceso.
 \end{figure}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/IMAGENES_SUBFIGURAS_003.webp)
+<img src="assets/previews/IMAGENES_SUBFIGURAS_004.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_003.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_004.pdf)
 
 ### Cuadrícula 2x2
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img1.jpg}
+        \includegraphics[width=\textwidth]{example-image-a}
         \caption{Superior izquierda}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img2.jpg}
+        \includegraphics[width=\textwidth]{example-image-b}
         \caption{Superior derecha}
     \end{subfigure}
     
@@ -337,13 +378,13 @@ La \autoref{fig:mi-figura} ilustra el proceso.
     
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img3.jpg}
+        \includegraphics[width=\textwidth]{example-image-c}
         \caption{Inferior izquierda}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{img4.jpg}
+        \includegraphics[width=\textwidth]{example-image}
         \caption{Inferior derecha}
     \end{subfigure}
     \caption{Cuadrícula de cuatro imágenes}
@@ -351,14 +392,20 @@ La \autoref{fig:mi-figura} ilustra el proceso.
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/IMAGENES_SUBFIGURAS_005.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_005.pdf)
+
 ### Subfiguras con diferentes tamaños
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.6\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{principal.jpg}
+        \includegraphics[width=\textwidth]{example-image-a}
         \caption{Imagen principal}
         \label{fig:principal}
     \end{subfigure}
@@ -367,25 +414,31 @@ La \autoref{fig:mi-figura} ilustra el proceso.
     
     \begin{subfigure}[b]{0.28\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{detalle1.jpg}
+        \includegraphics[width=\textwidth]{example-image-b}
         \caption{Detalle 1}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.28\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{detalle2.jpg}
+        \includegraphics[width=\textwidth]{example-image-c}
         \caption{Detalle 2}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.28\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{detalle3.jpg}
+        \includegraphics[width=\textwidth]{example-image}
         \caption{Detalle 3}
     \end{subfigure}
     \caption{Imagen principal con detalles ampliados}
     \label{fig:con-detalles}
 \end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/IMAGENES_SUBFIGURAS_006.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_006.pdf)
 
 ### Personalizar numeración de subfiguras
 
@@ -425,7 +478,7 @@ Ver Figuras~\ref{fig:antes} y \ref{fig:despues}.
 
 ### Ejemplos de posicionamiento
 
-```latex
+```latex <!-- preview -->
 % Intenta aquí, luego arriba, luego abajo, luego página especial
 \begin{figure}[htbp]
     ...
@@ -446,6 +499,12 @@ Ver Figuras~\ref{fig:antes} y \ref{fig:despues}.
     ...
 \end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/IMAGENES_SUBFIGURAS_007.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_007.pdf)
 
 ### Controlar flotantes
 
@@ -518,14 +577,11 @@ Ver Figuras~\ref{fig:antes} y \ref{fig:despues}.
 
 ### Usando wrapfigure
 
-```latex
-% Primero cargar el paquete (si no está)
-\usepackage{wrapfig}
-
+```latex <!-- preview -->
 % En el documento
 \begin{wrapfigure}{r}{0.4\textwidth}
     \centering
-    \includegraphics[width=0.38\textwidth]{imagen.jpg}
+    \includegraphics[width=0.38\textwidth]{example-image-a}
     \caption{Imagen con texto alrededor}
     \label{fig:wrap}
 \end{wrapfigure}
@@ -538,6 +594,12 @@ fluyendo hasta que pase la altura de la imagen.
 Más texto aquí que seguirá fluyendo normalmente 
 una vez que pase la imagen.
 ```
+
+**Resultado:**
+
+<img src="assets/previews/IMAGENES_SUBFIGURAS_008.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_008.pdf)
 
 ### Opciones de wrapfigure
 
@@ -600,14 +662,20 @@ una vez que pase la imagen.
 
 ### Borde simple con fbox
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
-    \fbox{\includegraphics[width=0.6\textwidth]{imagen.jpg}}
+    \fbox{\includegraphics[width=0.6\textwidth]{example-image-a}}
     \caption{Imagen con borde negro}
     \label{fig:borde}
 \end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/IMAGENES_SUBFIGURAS_009.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_009.pdf)
 
 ### Personalizar el borde
 
@@ -621,19 +689,25 @@ una vez que pase la imagen.
 
 ### Borde con color
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \fcolorbox{blue}{white}{%
-        \includegraphics[width=0.6\textwidth]{imagen.jpg}%
+        \includegraphics[width=0.6\textwidth]{example-image-a}%
     }
     \caption{Imagen con borde azul}
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/IMAGENES_SUBFIGURAS_010.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_010.pdf)
+
 ### Sombra con TikZ
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -643,7 +717,7 @@ una vez que pase la imagen.
             inner sep=0pt,
             drop shadow={shadow xshift=3pt, shadow yshift=-3pt}
         ] {
-            \includegraphics[width=0.6\textwidth]{imagen.jpg}
+            \includegraphics[width=0.6\textwidth]{example-image-a}
         };
     \end{tikzpicture}
     \caption{Imagen con sombra}
@@ -651,9 +725,15 @@ una vez que pase la imagen.
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/IMAGENES_SUBFIGURAS_011.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_011.pdf)
+
 ### Marco decorativo con tcolorbox
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{tcolorbox}[
@@ -665,12 +745,18 @@ una vez que pase la imagen.
         shadow={2mm}{-2mm}{0mm}{gray!50},
         width=0.7\textwidth,
     ]
-        \includegraphics[width=\linewidth]{imagen.jpg}
+        \includegraphics[width=\linewidth]{example-image-a}
     \end{tcolorbox}
     \caption{Imagen con marco decorativo}
     \label{fig:decorativa}
-\end{figure>
+\end{figure}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/IMAGENES_SUBFIGURAS_012.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/IMAGENES_SUBFIGURAS_012.pdf)
 
 ---
 

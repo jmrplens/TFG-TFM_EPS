@@ -6,16 +6,71 @@ Esta guía explica cómo escribir ecuaciones y expresiones matemáticas en LaTeX
 
 ## 📋 Índice
 
-1. [Introducción](#introducción)
-2. [Modo matemático básico](#modo-matemático-básico)
-3. [Entornos de ecuaciones](#entornos-de-ecuaciones)
-4. [Símbolos y operadores](#símbolos-y-operadores)
-5. [Fracciones y raíces](#fracciones-y-raíces)
-6. [Subíndices y superíndices](#subíndices-y-superíndices)
-7. [Matrices y sistemas](#matrices-y-sistemas)
-8. [Alineación de ecuaciones](#alineación-de-ecuaciones)
-9. [Teoremas y definiciones](#teoremas-y-definiciones)
-10. [Trucos avanzados](#trucos-avanzados)
+- [📋 Índice](#-índice)
+- [Introducción](#introducción)
+  - [Entornos predefinidos para teoremas](#entornos-predefinidos-para-teoremas)
+- [Modo matemático básico](#modo-matemático-básico)
+  - [Matemáticas en línea](#matemáticas-en-línea)
+  - [Matemáticas en bloque (display)](#matemáticas-en-bloque-display)
+  - [Ecuación numerada](#ecuación-numerada)
+  - [Ecuación sin número](#ecuación-sin-número)
+- [Entornos de ecuaciones](#entornos-de-ecuaciones)
+  - [equation - Una ecuación](#equation---una-ecuación)
+  - [align - Múltiples ecuaciones alineadas](#align---múltiples-ecuaciones-alineadas)
+  - [align* - Sin numeración](#align---sin-numeración)
+  - [gather - Ecuaciones centradas](#gather---ecuaciones-centradas)
+  - [multline - Ecuación larga en varias líneas](#multline---ecuación-larga-en-varias-líneas)
+  - [split - División dentro de equation](#split---división-dentro-de-equation)
+  - [cases - Funciones por partes](#cases---funciones-por-partes)
+  - [subequations - Subnumeración](#subequations---subnumeración)
+- [Símbolos y operadores](#símbolos-y-operadores)
+  - [Letras griegas](#letras-griegas)
+  - [Operadores relacionales](#operadores-relacionales)
+  - [Operadores binarios](#operadores-binarios)
+  - [Flechas](#flechas)
+  - [Operadores grandes](#operadores-grandes)
+  - [Funciones comunes](#funciones-comunes)
+  - [Definir operadores propios](#definir-operadores-propios)
+- [Fracciones y raíces](#fracciones-y-raíces)
+  - [Fracciones](#fracciones)
+  - [Ejemplos de fracciones](#ejemplos-de-fracciones)
+  - [Raíces](#raíces)
+- [Subíndices y superíndices](#subíndices-y-superíndices)
+  - [Básicos](#básicos)
+  - [Ejemplos](#ejemplos)
+  - [Límites debajo/encima](#límites-debajoencima)
+- [Matrices y sistemas](#matrices-y-sistemas)
+  - [Matrices básicas](#matrices-básicas)
+  - [Matrices con puntos](#matrices-con-puntos)
+  - [Matriz identidad](#matriz-identidad)
+  - [Matriz pequeña en línea](#matriz-pequeña-en-línea)
+  - [Sistemas de ecuaciones](#sistemas-de-ecuaciones)
+  - [Matriz aumentada](#matriz-aumentada)
+- [Alineación de ecuaciones](#alineación-de-ecuaciones)
+  - [Alineación simple con align](#alineación-simple-con-align)
+  - [Múltiples puntos de alineación](#múltiples-puntos-de-alineación)
+  - [Texto dentro de ecuaciones](#texto-dentro-de-ecuaciones)
+  - [Intertext](#intertext)
+  - [Numerar solo algunas ecuaciones](#numerar-solo-algunas-ecuaciones)
+  - [Etiquetar con tag](#etiquetar-con-tag)
+- [Teoremas y definiciones](#teoremas-y-definiciones)
+  - [Usar entornos predefinidos](#usar-entornos-predefinidos)
+  - [Crear nuevos entornos](#crear-nuevos-entornos)
+- [Trucos avanzados](#trucos-avanzados)
+  - [Delimitadores escalables](#delimitadores-escalables)
+  - [Acentos matemáticos](#acentos-matemáticos)
+  - [Estilos de fuente en matemáticas](#estilos-de-fuente-en-matemáticas)
+  - [Espaciado en matemáticas](#espaciado-en-matemáticas)
+  - [Texto en modo matemático](#texto-en-modo-matemático)
+  - [Cancelar términos](#cancelar-términos)
+  - [Cajas en ecuaciones](#cajas-en-ecuaciones)
+  - [Entorno para describir variables](#entorno-para-describir-variables)
+  - [Ecuaciones con flechas de implicación](#ecuaciones-con-flechas-de-implicación)
+- [Ejemplos completos](#ejemplos-completos)
+  - [Integral de Gauss](#integral-de-gauss)
+  - [Ecuaciones de Maxwell](#ecuaciones-de-maxwell)
+- [Recursos adicionales](#recursos-adicionales)
+- [Ver también](#ver-también)
 
 ---
 
@@ -59,15 +114,11 @@ El valor de $\pi \approx 3.14159$.
 Para $x > 0$, tenemos $\sqrt{x} \geq 0$.
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_001.webp)
+<img src="assets/previews/ECUACIONES_001.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/ECUACIONES_001.pdf)
-
-</details>
-
 
 ### Matemáticas en bloque (display)
 
@@ -81,15 +132,11 @@ La fórmula cuadrática es:
 $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_002.webp)
+<img src="assets/previews/ECUACIONES_002.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/ECUACIONES_002.pdf)
-
-</details>
-
 
 ### Ecuación numerada
 
@@ -102,19 +149,15 @@ $$ x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$
 Como se muestra en la Ecuación~\eqref{eq:einstein}...
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_003.webp)
+<img src="assets/previews/ECUACIONES_003.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/ECUACIONES_003.pdf)
 
-</details>
-
-
 ### Ecuación sin número
 
-```latex
+```latex <!-- preview -->
 \begin{equation*}
     a^2 + b^2 = c^2
 \end{equation*}
@@ -125,28 +168,46 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
 \]
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_004.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_004.pdf)
+
 ---
 
 ## Entornos de ecuaciones
 
 ### equation - Una ecuación
 
-```latex
+```latex <!-- preview:2 -->
 \begin{equation}
     \int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
     \label{eq:gaussiana}
 \end{equation}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_005.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_005.pdf)
+
 ### align - Múltiples ecuaciones alineadas
 
-```latex
+```latex <!-- preview:2 -->
 \begin{align}
     f(x) &= x^2 + 2x + 1 \label{eq:f}\\
     g(x) &= x^3 - x \label{eq:g}\\
     h(x) &= f(x) + g(x) \label{eq:h}
 \end{align}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_006.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_006.pdf)
 
 ### align* - Sin numeración
 
@@ -158,15 +219,11 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
 \end{align*}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_004.webp)
+<img src="assets/previews/ECUACIONES_007.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/ECUACIONES_004.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/ECUACIONES_007.pdf)
 
 ### gather - Ecuaciones centradas
 
@@ -178,28 +235,32 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
 \end{gather}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_005.webp)
+<img src="assets/previews/ECUACIONES_008.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/ECUACIONES_005.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/ECUACIONES_008.pdf)
 
 ### multline - Ecuación larga en varias líneas
 
-```latex
-\begin{multline}
-    p(x) = x^8 + x^7 + x^6 + x^5 + x^4 \\
-    + x^3 + x^2 + x + 1
-\end{multline}
+```latex <!-- preview -->
+\begin{equation}
+    \begin{split}
+        p(x) &= x^8 + x^7 + x^6 + x^5 + x^4 \\
+             &\quad + x^3 + x^2 + x + 1
+    \end{split}
+\end{equation}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_009.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_009.pdf)
 
 ### split - División dentro de equation
 
-```latex
+```latex <!-- preview -->
 \begin{equation}
     \begin{split}
         (a + b)^3 &= (a + b)(a + b)^2 \\
@@ -208,6 +269,12 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
     \end{split}
 \end{equation}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_010.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_010.pdf)
 
 ### cases - Funciones por partes
 
@@ -221,15 +288,11 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
 \end{equation}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_006.webp)
+<img src="assets/previews/ECUACIONES_011.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/ECUACIONES_006.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/ECUACIONES_011.pdf)
 
 ### subequations - Subnumeración
 
@@ -245,15 +308,11 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
 \end{subequations}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_007.webp)
+<img src="assets/previews/ECUACIONES_012.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/ECUACIONES_007.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/ECUACIONES_012.pdf)
 
 ---
 
@@ -261,124 +320,167 @@ Como se muestra en la Ecuación~\eqref{eq:einstein}...
 
 ### Letras griegas
 
-| Minúscula | Código | Mayúscula | Código |
-|-----------|--------|-----------|--------|
-| α | `\alpha` | A | `A` |
-| β | `\beta` | B | `B` |
-| γ | `\gamma` | Γ | `\Gamma` |
-| δ | `\delta` | Δ | `\Delta` |
-| ε | `\epsilon`, `\varepsilon` | E | `E` |
-| ζ | `\zeta` | Z | `Z` |
-| η | `\eta` | H | `H` |
-| θ | `\theta`, `\vartheta` | Θ | `\Theta` |
-| ι | `\iota` | I | `I` |
-| κ | `\kappa` | K | `K` |
-| λ | `\lambda` | Λ | `\Lambda` |
-| μ | `\mu` | M | `M` |
-| ν | `\nu` | N | `N` |
-| ξ | `\xi` | Ξ | `\Xi` |
-| π | `\pi`, `\varpi` | Π | `\Pi` |
-| ρ | `\rho`, `\varrho` | P | `P` |
-| σ | `\sigma`, `\varsigma` | Σ | `\Sigma` |
-| τ | `\tau` | T | `T` |
-| υ | `\upsilon` | Υ | `\Upsilon` |
-| φ | `\phi`, `\varphi` | Φ | `\Phi` |
-| χ | `\chi` | X | `X` |
-| ψ | `\psi` | Ψ | `\Psi` |
-| ω | `\omega` | Ω | `\Omega` |
+```latex <!-- preview -->
+\begin{tabular}{llll}
+Minúscula & Código & Mayúscula & Código \\
+\hline
+$\alpha$ & \texttt{\textbackslash alpha} & $A$ & \texttt{A} \\
+$\beta$ & \texttt{\textbackslash beta} & $B$ & \texttt{B} \\
+$\gamma$ & \texttt{\textbackslash gamma} & $\Gamma$ & \texttt{\textbackslash Gamma} \\
+$\delta$ & \texttt{\textbackslash delta} & $\Delta$ & \texttt{\textbackslash Delta} \\
+$\epsilon, \varepsilon$ & \texttt{\textbackslash epsilon, \textbackslash varepsilon} & $E$ & \texttt{E} \\
+$\zeta$ & \texttt{\textbackslash zeta} & $Z$ & \texttt{Z} \\
+$\eta$ & \texttt{\textbackslash eta} & $H$ & \texttt{H} \\
+$\theta, \vartheta$ & \texttt{\textbackslash theta, \textbackslash vartheta} & $\Theta$ & \texttt{\textbackslash Theta} \\
+$\iota$ & \texttt{\textbackslash iota} & $I$ & \texttt{I} \\
+$\kappa$ & \texttt{\textbackslash kappa} & $K$ & \texttt{K} \\
+$\lambda$ & \texttt{\textbackslash lambda} & $\Lambda$ & \texttt{\textbackslash Lambda} \\
+$\mu$ & \texttt{\textbackslash mu} & $M$ & \texttt{M} \\
+$\nu$ & \texttt{\textbackslash nu} & $N$ & \texttt{N} \\
+$\xi$ & \texttt{\textbackslash xi} & $\Xi$ & \texttt{\textbackslash Xi} \\
+$\pi, \varpi$ & \texttt{\textbackslash pi, \textbackslash varpi} & $\Pi$ & \texttt{\textbackslash Pi} \\
+$\rho, \varrho$ & \texttt{\textbackslash rho, \textbackslash varrho} & $P$ & \texttt{P} \\
+$\sigma, \varsigma$ & \texttt{\textbackslash sigma, \textbackslash varsigma} & $\Sigma$ & \texttt{\textbackslash Sigma} \\
+$\tau$ & \texttt{\textbackslash tau} & $T$ & \texttt{T} \\
+$\upsilon$ & \texttt{\textbackslash upsilon} & $\Upsilon$ & \texttt{\textbackslash Upsilon} \\
+$\phi, \varphi$ & \texttt{\textbackslash phi, \textbackslash varphi} & $\Phi$ & \texttt{\textbackslash Phi} \\
+$\chi$ & \texttt{\textbackslash chi} & $X$ & \texttt{X} \\
+$\psi$ & \texttt{\textbackslash psi} & $\Psi$ & \texttt{\textbackslash Psi} \\
+$\omega$ & \texttt{\textbackslash omega} & $\Omega$ & \texttt{\textbackslash Omega} \\
+\end{tabular}
+```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_013.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_013.pdf)
 
 ### Operadores relacionales
 
-```latex
-$a = b$      % Igual
-$a \neq b$   % Distinto
-$a < b$      % Menor
-$a > b$      % Mayor
-$a \leq b$   % Menor o igual
-$a \geq b$   % Mayor o igual
-$a \ll b$    % Mucho menor
-$a \gg b$    % Mucho mayor
-$a \approx b$ % Aproximadamente
-$a \sim b$   % Similar
-$a \equiv b$ % Equivalente
-$a \propto b$ % Proporcional
-$a \in A$    % Pertenece
-$a \notin A$ % No pertenece
-$A \subset B$ % Subconjunto
-$A \subseteq B$ % Subconjunto o igual
-$A \supset B$ % Superconjunto
-$A \cup B$   % Unión
-$A \cap B$   % Intersección
+```latex <!-- preview -->
+\begin{tabular}{ll}
+$a = b$      & Igual \\
+$a \neq b$   & Distinto \\
+$a < b$      & Menor \\
+$a > b$      & Mayor \\
+$a \leq b$   & Menor o igual \\
+$a \geq b$   & Mayor o igual \\
+$a \ll b$    & Mucho menor \\
+$a \gg b$    & Mucho mayor \\
+$a \approx b$ & Aproximadamente \\
+$a \sim b$   & Similar \\
+$a \equiv b$ & Equivalente \\
+$a \propto b$ & Proporcional \\
+$a \in A$    & Pertenece \\
+$a \notin A$ & No pertenece \\
+$A \subset B$ & Subconjunto \\
+$A \subseteq B$ & Subconjunto o igual \\
+$A \supset B$ & Superconjunto \\
+$A \cup B$   & Unión \\
+$A \cap B$   & Intersección
+\end{tabular}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_014.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_014.pdf)
 
 ### Operadores binarios
 
-```latex
-$a + b$      % Suma
-$a - b$      % Resta
-$a \times b$ % Multiplicación
-$a \div b$   % División
-$a \cdot b$  % Producto punto
-$a \pm b$    % Más menos
-$a \mp b$    % Menos más
-$a \ast b$   % Asterisco
-$a \star b$  % Estrella
-$a \circ b$  % Composición
-$a \bullet b$ % Punto
-$a \oplus b$ % Suma directa
-$a \otimes b$ % Producto tensorial
+```latex <!-- preview -->
+\begin{tabular}{ll}
+$a + b$      & Suma \\
+$a - b$      & Resta \\
+$a \times b$ & Multiplicación \\
+$a \div b$   & División \\
+$a \cdot b$  & Producto punto \\
+$a \pm b$    & Más menos \\
+$a \mp b$    & Menos más \\
+$a \ast b$   & Asterisco \\
+$a \star b$  & Estrella \\
+$a \circ b$  & Composición \\
+$a \bullet b$ & Punto \\
+$a \oplus b$ & Suma directa \\
+$a \otimes b$ & Producto tensorial
+\end{tabular}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_015.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_015.pdf)
 
 ### Flechas
 
-```latex
-$\rightarrow$ o $\to$       % →
-$\leftarrow$ o $\gets$      % ←
-$\leftrightarrow$           % ↔
-$\Rightarrow$               % ⇒
-$\Leftarrow$                % ⇐
-$\Leftrightarrow$           % ⇔
-$\mapsto$                   % ↦
-$\uparrow$                  % ↑
-$\downarrow$                % ↓
-$\nearrow$                  % ↗
-$\searrow$                  % ↘
-$\nwarrow$                  % ↖
-$\swarrow$                  % ↙
-$\longrightarrow$           % ⟶
-$\xrightarrow{texto}$       % → con texto arriba
-$\xrightarrow[abajo]{arriba}$ % → con texto arriba y abajo
+```latex <!-- preview -->
+\begin{tabular}{ll}
+$\rightarrow$ o $\to$       & $\rightarrow$ \\
+$\leftarrow$ o $\gets$      & $\leftarrow$ \\
+$\leftrightarrow$           & $\leftrightarrow$ \\
+$\Rightarrow$               & $\Rightarrow$ \\
+$\Leftarrow$                & $\Leftarrow$ \\
+$\Leftrightarrow$           & $\Leftrightarrow$ \\
+$\mapsto$                   & $\mapsto$ \\
+$\uparrow$                  & $\uparrow$ \\
+$\downarrow$                & $\downarrow$ \\
+$\nearrow$                  & $\nearrow$ \\
+$\searrow$                  & $\searrow$ \\
+$\nwarrow$                  & $\nwarrow$ \\
+$\swarrow$                  & $\swarrow$ \\
+$\longrightarrow$           & $\longrightarrow$ \\
+\multicolumn{2}{l}{$\xrightarrow{\text{texto}}$} \\
+\multicolumn{2}{l}{$\xrightarrow[\text{abajo}]{\text{arriba}}$}
+\end{tabular}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_016.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_016.pdf)
 
 ### Operadores grandes
 
-```latex
-$\sum_{i=1}^{n} a_i$        % Sumatorio
-$\prod_{i=1}^{n} a_i$       % Productorio
-$\int_a^b f(x) dx$          % Integral
-$\oint f(z) dz$             % Integral de contorno
-$\iint f(x,y) dx\,dy$       % Integral doble
-$\iiint f(x,y,z) dx\,dy\,dz$ % Integral triple
-$\lim_{x \to \infty} f(x)$  % Límite
-$\bigcup_{i=1}^{n} A_i$     % Unión grande
-$\bigcap_{i=1}^{n} A_i$     % Intersección grande
-$\bigoplus_{i=1}^{n} V_i$   % Suma directa grande
-$\bigotimes_{i=1}^{n} V_i$  % Producto tensorial grande
+```latex <!-- preview -->
+\begin{gather*}
+\sum_{i=1}^{n} a_i \quad \prod_{i=1}^{n} a_i \quad \int_a^b f(x) dx \\
+\oint f(z) dz \quad \iint f(x,y) dx\,dy \quad \iiint f(x,y,z) dx\,dy\,dz \\
+\lim_{x \to \infty} f(x) \quad \bigcup_{i=1}^{n} A_i \quad \bigcap_{i=1}^{n} A_i \\
+\bigoplus_{i=1}^{n} V_i \quad \bigotimes_{i=1}^{n} V_i
+\end{gather*}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_017.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_017.pdf)
 
 ### Funciones comunes
 
-```latex
-$\sin(x)$, $\cos(x)$, $\tan(x)$
-$\arcsin(x)$, $\arccos(x)$, $\arctan(x)$
-$\sinh(x)$, $\cosh(x)$, $\tanh(x)$
-$\exp(x)$, $\ln(x)$, $\log(x)$, $\log_{10}(x)$
-$\min(a, b)$, $\max(a, b)$
-$\det(A)$, $\dim(V)$
-$\gcd(a, b)$, $\lcm(a, b)$
-$\inf S$, $\sup S$
-$\arg z$, $\ker T$, $\Im(z)$, $\Re(z)$
+```latex <!-- preview -->
+\begin{gather*}
+\sin(x), \cos(x), \tan(x) \\
+\arcsin(x), \arccos(x), \arctan(x) \\
+\sinh(x), \cosh(x), \tanh(x) \\
+\exp(x), \ln(x), \log(x), \log_{10}(x) \\
+\min(a, b), \max(a, b) \\
+\det(A), \dim(V) \\
+\gcd(a, b), \operatorname{lcm}(a, b) \\
+\inf S, \sup S \\
+\arg z, \ker T, \Im(z), \Re(z)
+\end{gather*}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_018.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_018.pdf)
 
 ### Definir operadores propios
 
@@ -402,7 +504,7 @@ $\sen(x)$, $\argmax_x f(x)$
 
 ### Fracciones
 
-```latex
+```latex <!-- preview -->
 % Fracción estándar
 $\frac{a}{b}$
 
@@ -424,9 +526,15 @@ $\dbinom{n}{k}$  % Display
 $\tbinom{n}{k}$  % Texto
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_019.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_019.pdf)
+
 ### Ejemplos de fracciones
 
-```latex
+```latex <!-- preview -->
 \begin{equation}
     \frac{d}{dx}\left(\frac{f(x)}{g(x)}\right) = 
     \frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}
@@ -438,14 +546,26 @@ $\tbinom{n}{k}$  % Texto
 \end{equation}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_020.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_020.pdf)
+
 ### Raíces
 
-```latex
+```latex <!-- preview -->
 $\sqrt{x}$          % Raíz cuadrada
 $\sqrt[3]{x}$       % Raíz cúbica
 $\sqrt[n]{x}$       % Raíz n-ésima
 $\sqrt{a^2 + b^2}$  % Raíz de expresión
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_021.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_021.pdf)
 
 ---
 
@@ -453,7 +573,7 @@ $\sqrt{a^2 + b^2}$  % Raíz de expresión
 
 ### Básicos
 
-```latex
+```latex <!-- preview -->
 $x^2$           % Superíndice simple
 $x_1$           % Subíndice simple
 $x^{n+1}$       % Superíndice compuesto
@@ -463,9 +583,15 @@ $x^{2^n}$       % Superíndice de superíndice
 ${}_a^b X$      % Pre-superíndice y pre-subíndice
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_022.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_022.pdf)
+
 ### Ejemplos
 
-```latex
+```latex <!-- preview -->
 $a_1, a_2, \ldots, a_n$
 
 $x_{ij}^{(k)}$
@@ -477,9 +603,15 @@ $\lim_{n \to \infty} a_n$
 $\int_{-\infty}^{+\infty} e^{-x^2} dx$
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_023.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_023.pdf)
+
 ### Límites debajo/encima
 
-```latex
+```latex <!-- preview -->
 % En línea
 $\sum_{i=1}^n$
 
@@ -497,13 +629,19 @@ $\sum\limits_{i=1}^n$
 \]
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_024.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_024.pdf)
+
 ---
 
 ## Matrices y sistemas
 
 ### Matrices básicas
 
-```latex
+```latex <!-- preview -->
 % Sin delimitadores
 \begin{equation}
     \begin{matrix}
@@ -553,10 +691,17 @@ $\sum\limits_{i=1}^n$
 \end{equation}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_025.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_025.pdf)
+
 ### Matrices con puntos
 
 ```latex <!-- preview -->
 \begin{equation}
+    % Matriz general con puntos
     A = \begin{pmatrix}
         a_{11} & a_{12} & \cdots & a_{1n} \\
         a_{21} & a_{22} & \cdots & a_{2n} \\
@@ -566,20 +711,17 @@ $\sum\limits_{i=1}^n$
 \end{equation}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_008.webp)
+<img src="assets/previews/ECUACIONES_026.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/ECUACIONES_008.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/ECUACIONES_026.pdf)
 
 ### Matriz identidad
 
-```latex
+```latex <!-- preview -->
 \begin{equation}
+    % Matriz identidad
     I_n = \begin{pmatrix}
         1 & 0 & \cdots & 0 \\
         0 & 1 & \cdots & 0 \\
@@ -589,16 +731,28 @@ $\sum\limits_{i=1}^n$
 \end{equation}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_027.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_027.pdf)
+
 ### Matriz pequeña en línea
 
-```latex
+```latex <!-- preview -->
 La matriz $\bigl(\begin{smallmatrix} a & b \\ c & d \end{smallmatrix}\bigr)$ 
 es invertible si $ad - bc \neq 0$.
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_028.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_028.pdf)
+
 ### Sistemas de ecuaciones
 
-```latex
+```latex <!-- preview -->
 \begin{equation}
     \begin{cases}
         x + y + z = 1 \\
@@ -619,9 +773,15 @@ es invertible si $ad - bc \neq 0$.
 \end{equation}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_029.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_029.pdf)
+
 ### Matriz aumentada
 
-```latex
+```latex <!-- preview -->
 \begin{equation}
     \left(\begin{array}{ccc|c}
         1 & 2 & 3 & 4 \\
@@ -631,31 +791,49 @@ es invertible si $ad - bc \neq 0$.
 \end{equation}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_030.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_030.pdf)
+
 ---
 
 ## Alineación de ecuaciones
 
 ### Alineación simple con align
 
-```latex
+```latex <!-- preview -->
 \begin{align}
     f(x) &= (x+1)^2 \\
          &= x^2 + 2x + 1
 \end{align}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_031.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_031.pdf)
+
 ### Múltiples puntos de alineación
 
-```latex
+```latex <!-- preview -->
 \begin{align}
     x &= a + b & y &= c + d \\
     x' &= a' + b' & y' &= c' + d'
 \end{align}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_032.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_032.pdf)
+
 ### Texto dentro de ecuaciones
 
-```latex
+```latex <!-- preview -->
 \begin{align}
     f(x) &= x^2 - 4 \\
          &= (x-2)(x+2) && \text{factorizando} \\
@@ -663,9 +841,15 @@ es invertible si $ad - bc \neq 0$.
 \end{align}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_033.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_033.pdf)
+
 ### Intertext
 
-```latex
+```latex <!-- preview -->
 \begin{align}
     x^2 + y^2 &= r^2
     \intertext{sustituyendo $y = x$:}
@@ -674,9 +858,15 @@ es invertible si $ad - bc \neq 0$.
 \end{align}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_034.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_034.pdf)
+
 ### Numerar solo algunas ecuaciones
 
-```latex
+```latex <!-- preview -->
 \begin{align}
     a &= b + c \notag \\
     d &= e + f \\
@@ -684,9 +874,15 @@ es invertible si $ad - bc \neq 0$.
 \end{align}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_035.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_035.pdf)
+
 ### Etiquetar con tag
 
-```latex
+```latex <!-- preview -->
 \begin{equation}
     E = mc^2 \tag{Einstein}
 \end{equation}
@@ -695,6 +891,12 @@ es invertible si $ad - bc \neq 0$.
     F = ma \tag{$\ast$}
 \end{equation}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_036.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_036.pdf)
 
 ---
 
@@ -717,15 +919,11 @@ es invertible si $ad - bc \neq 0$.
 \end{proof}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_009.webp)
+<img src="assets/previews/ECUACIONES_037.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/ECUACIONES_009.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/ECUACIONES_037.pdf)
 
 ```latex <!-- preview -->
 \begin{definicion}[Derivada]
@@ -737,15 +935,11 @@ es invertible si $ad - bc \neq 0$.
 \end{definicion}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_010.webp)
+<img src="assets/previews/ECUACIONES_038.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/ECUACIONES_010.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/ECUACIONES_038.pdf)
 
 ```latex <!-- preview -->
 \begin{lema}
@@ -757,17 +951,13 @@ es invertible si $ad - bc \neq 0$.
 \end{lema}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/ECUACIONES_011.webp)
+<img src="assets/previews/ECUACIONES_039.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/ECUACIONES_011.pdf)
+[📄 Ver PDF](assets/previews/ECUACIONES_039.pdf)
 
-</details>
-
-
-```latex
+```latex <!-- preview -->
 \begin{ejemplo}
     Calcular la derivada de $f(x) = x^3$:
     \begin{align*}
@@ -777,6 +967,12 @@ es invertible si $ad - bc \neq 0$.
     \end{align*}
 \end{ejemplo}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_040.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_040.pdf)
 
 ### Crear nuevos entornos
 
@@ -820,7 +1016,7 @@ es invertible si $ad - bc \neq 0$.
 
 ### Acentos matemáticos
 
-```latex
+```latex <!-- preview -->
 $\hat{x}$       % Sombrero
 $\bar{x}$       % Barra
 $\vec{x}$       % Vector
@@ -835,9 +1031,15 @@ $\overbrace{x+y}^{z}$ % Llave superior
 $\underbrace{x+y}_{z}$ % Llave inferior
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_041.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_041.pdf)
+
 ### Estilos de fuente en matemáticas
 
-```latex
+```latex <!-- preview -->
 $\mathbf{v}$    % Negrita (vectores)
 $\bm{v}$        % Negrita mejorada (paquete bm)
 $\mathit{diff}$ % Itálica
@@ -849,6 +1051,12 @@ $\mathscr{L}$   % Script (mathrsfs)
 $\mathbb{R}$    % Blackboard bold
 $\mathfrak{g}$  % Fraktur
 ```
+
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_042.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_042.pdf)
 
 ### Espaciado en matemáticas
 
@@ -864,7 +1072,7 @@ $a\negthinspace b$ % Igual que \!
 
 ### Texto en modo matemático
 
-```latex
+```latex <!-- preview -->
 % Texto normal
 $x = 1 \text{ si } y > 0$
 
@@ -879,6 +1087,12 @@ $\text{velocidad} = \frac{\text{distancia}}{\text{tiempo}}$
 \end{align}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_043.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_043.pdf)
+
 ### Cancelar términos
 
 ```latex
@@ -891,7 +1105,7 @@ $\cancelto{0}{\sin(0)}$
 
 ### Cajas en ecuaciones
 
-```latex
+```latex <!-- preview -->
 \begin{equation}
     \boxed{E = mc^2}
 \end{equation}
@@ -902,9 +1116,15 @@ $\cancelto{0}{\sin(0)}$
 \end{equation}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_044.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_044.pdf)
+
 ### Entorno para describir variables
 
-```latex
+```latex <!-- preview -->
 % Definido en la plantilla
 \begin{equation}
     F = ma
@@ -916,9 +1136,15 @@ $\cancelto{0}{\sin(0)}$
 \end{condiciones}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_045.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_045.pdf)
+
 ### Ecuaciones con flechas de implicación
 
-```latex
+```latex <!-- preview -->
 \begin{align}
     x^2 &= 4 \\
     \Downarrow \\
@@ -926,13 +1152,19 @@ $\cancelto{0}{\sin(0)}$
 \end{align}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_046.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_046.pdf)
+
 ---
 
 ## Ejemplos completos
 
 ### Integral de Gauss
 
-```latex
+```latex <!-- preview:2 -->
 \begin{teorema}[Integral de Gauss]
     La integral de la función gaussiana sobre toda la recta real es:
     \begin{equation}
@@ -953,9 +1185,15 @@ $\cancelto{0}{\sin(0)}$
 \end{proof}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_047.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_047.pdf)
+
 ### Ecuaciones de Maxwell
 
-```latex
+```latex <!-- preview:2 -->
 Las ecuaciones de Maxwell en forma diferencial son:
 \begin{subequations}
     \begin{align}
@@ -973,14 +1211,34 @@ Las ecuaciones de Maxwell en forma diferencial son:
 \end{subequations}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/ECUACIONES_048.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/ECUACIONES_048.pdf)
+
 ---
 
 ## Recursos adicionales
 
-- [Documentación de amsmath](https://ctan.org/pkg/amsmath)
-- [Documentación de mathtools](https://ctan.org/pkg/mathtools)
-- [LaTeX Math Symbols](https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols)
-- [Detexify](https://detexify.kirelabs.org/) - Dibuja símbolos para encontrar su código
+### Documentación oficial
+
+| Paquete | Descripción |
+|---------|-------------|
+| [amsmath](https://ctan.org/pkg/amsmath) | Entornos de ecuaciones estándar |
+| [mathtools](https://ctan.org/pkg/mathtools) | Extensiones de amsmath |
+| [unicode-math](https://ctan.org/pkg/unicode-math) | Fuentes matemáticas Unicode (LuaLaTeX) |
+| [siunitx](https://ctan.org/pkg/siunitx) | Unidades científicas |
+| [physics](https://ctan.org/pkg/physics) | Notación física |
+
+### Herramientas y referencias
+
+| Recurso | Descripción |
+|---------|-------------|
+| [Detexify](https://detexify.kirelabs.org/) | Dibuja símbolos para encontrar su código |
+| [LaTeX Math Symbols](https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols) | Lista completa de símbolos |
+| [Mathpix](https://mathpix.com/) | Convierte imágenes de ecuaciones a LaTeX |
+| [Overleaf: Mathematical expressions](https://www.overleaf.com/learn/latex/Mathematical_expressions) | Tutorial completo |
 
 ---
 

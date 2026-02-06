@@ -4,7 +4,7 @@
 
 [![LaTeX](https://img.shields.io/badge/LaTeX-LuaLaTeX-008080?logo=latex)](https://www.latex-project.org/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Version](https://img.shields.io/badge/Versión-2.0-blue.svg)](https://github.com/jmrplens/TFG-TFM_EPS/releases)
+[![Version](https://img.shields.io/badge/Versión-2.1.0-blue.svg)](https://github.com/jmrplens/TFG-TFM_EPS/releases)
 
 Plantilla LaTeX moderna y profesional para la elaboración de **Trabajos de Fin de Grado (TFG)** y **Trabajos de Fin de Máster (TFM)** de la Escuela Politécnica Superior de la Universidad de Alicante.
 
@@ -42,7 +42,12 @@ Incluye:
 
 ## � Documentación Especializada
 
-Guías detalladas para cada aspecto de tu documento:
+Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG/TFM. Puedes acceder al índice completo o ir directamente a las guías específicas:
+
+👉 **[ÍNDICE DE DOCUMENTACIÓN](docs/README.md)** (Empieza aquí si tienes dudas)
+
+<details>
+<summary><b>Ver lista de guías disponibles</b></summary>
 
 | Guía | Descripción |
 |------|-------------|
@@ -55,6 +60,10 @@ Guías detalladas para cada aspecto de tu documento:
 | 📖 [Bibliografía](docs/BIBLIOGRAFIA.md) | Gestión de referencias con BibLaTeX |
 | 📓 [Glosarios y Acrónimos](docs/GLOSARIOS_ACRONIMOS.md) | Términos, siglas y símbolos |
 | 🔗 [Referencias Cruzadas](docs/REFERENCIAS_CRUZADAS.md) | Etiquetas, referencias y hyperref |
+| ♿ [Accesibilidad PDF](docs/ACCESIBILIDAD.md) | PDFs accesibles (PDF/UA-2) |
+| 🤖 [Contexto IA](docs/AI_CONTEXT.md) | Información para asistentes de IA |
+
+</details>
 
 ---
 
@@ -79,19 +88,20 @@ Guías detalladas para cada aspecto de tu documento:
 - **TeX Live 2024** o superior (recomendado: TeX Live 2025)
 - **LuaLaTeX** como motor de compilación
 - **Biber** para bibliografía
-- **Python + Pygments** para resaltado de código (minted)
+- **Python + latexminted** para resaltado de código (minted 3.x)
 
 ```bash
 # Ubuntu/Debian
-sudo apt install texlive-full python3-pygments
+sudo apt install texlive-full
+pip3 install latexminted
 
 # macOS con Homebrew
 brew install --cask mactex
-pip3 install Pygments
+pip3 install latexminted
 
 # Windows con Chocolatey
 choco install miktex
-pip install Pygments
+pip install latexminted
 ```
 
 ### Compilación
@@ -542,9 +552,9 @@ Si tienes un documento con la versión anterior:
 
 ### Error: "File 'minted.sty' not found"
 
-Instalar el paquete de Python Pygments:
+Instalar el paquete de Python latexminted:
 ```bash
-pip3 install Pygments
+pip3 install latexminted
 ```
 
 ### Error: "You must invoke LaTeX with -shell-escape"
@@ -573,10 +583,10 @@ lualatex -shell-escape main.tex
 
 ### El código fuente no tiene colores
 
-Verifica que Pygments esté instalado:
+Verifica que latexminted esté instalado:
 ```bash
-pygmentize -V
-# Si no está: pip3 install Pygments
+latexminted --version
+# Si no está: pip3 install latexminted
 ```
 
 ### Compilación muy lenta
@@ -624,6 +634,8 @@ Consulta la [Guía de Contribución](CONTRIBUTING.md) para más detalles.
 | [Mathpix](https://mathpix.com/) | Convierte imágenes de ecuaciones a LaTeX |
 | [doi2bib](https://www.doi2bib.org/) | Genera BibTeX desde DOI |
 | [Zotero](https://www.zotero.org/) + [Better BibTeX](https://retorque.re/zotero-better-bibtex/) | Gestión bibliográfica |
+| [JabRef](https://www.jabref.org/) | Gestor de bibliografía BibLaTeX |
+| [arXiv TeX Live Info](https://info.arxiv.org/help/faq/texlive.html) | Compatibilidad con arXiv |
 
 ### Documentación y tutoriales
 
@@ -633,6 +645,10 @@ Consulta la [Guía de Contribución](CONTRIBUTING.md) para más detalles.
 | [LaTeX Wikibook](https://en.wikibooks.org/wiki/LaTeX) | Referencia exhaustiva |
 | [TeX StackExchange](https://tex.stackexchange.com/) | Preguntas y respuestas |
 | [CTAN](https://ctan.org/) | Repositorio de paquetes LaTeX |
+| [LaTeX Project](https://www.latex-project.org/) | Documentación oficial de LaTeX |
+| [TikZ & PGF Manual](https://tikz.dev/) | Documentación oficial de TikZ |
+| [PGFPlots Manual](https://pgfplots.sourceforge.io/) | Manual oficial de PGFPlots |
+| [BibLaTeX Manual](https://ctan.org/pkg/biblatex) | Documentación de bibliografía |
 
 ---
 

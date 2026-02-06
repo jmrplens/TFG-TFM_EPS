@@ -1,19 +1,42 @@
 %% eps-tfg.cls
-%% Clase LaTeX para TFG/TFM de la Escuela Politécnica Superior
-%% Universidad de Alicante
+%% Clase principal para TFG/TFM de la Escuela Politécnica Superior (UA)
 %%
-%% Versión 2.0 - Febrero 2026
-%% Modernización completa con expl3, biblatex, LuaLaTeX
+%% Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+%% Autor:    José Manuel Requena Plens
+%% Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
+%% Licencia: GNU GPL v3.0
+%% Versión:  2.1.0 (2026/02/05)
 %%
-%% Autor original: José Manuel Requena Plens
-%% Modernización: GitHub Copilot
-%%
+%% -----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2022/06/01]
-\ProvidesClass{eps-tfg}[2026/02/02 v2.0 Clase TFG/TFM EPS Universidad de Alicante]
+\ProvidesClass{eps-tfg}[2026/02/05 v2.1.0 Clase TFG/TFM EPS Universidad de Alicante]
+
+%% ============================================================================
+%% ARQUITECTURA DE LA CLASE
+%% ============================================================================
+%% Esta clase se basa en 'scrbook' (KOMA-Script) y utiliza 'expl3' para la
+%% gestión de variables y lógica interna.
+%%
+%% Estructura principal:
+%% 1. Carga de expl3 y xparse para definiciones modernas.
+%% 2. Definición de variables globales (prefijo g__eps_).
+%% 3. Base de datos de titulaciones (Property List):
+%%    Almacena colores, logos y textos específicos de cada grado/máster.
+%% 4. Interfaz de usuario (\EPSsetup):
+%%    Permite configurar el documento mediante pares clave-valor.
+%% 5. Configuración de KOMA-Script y paquetes base (geometría, fuentes, idioma).
+%% 6. Definición de comandos de portada y metadatos.
+%%
+%% Las variables internas siguen la convención de nombres de LaTeX3:
+%% \g__eps_nombre_tipo (g=global, eps=módulo, tipo=tl/bool/prop/...)
+%% ============================================================================
 
 %% ============================================================================
 %% CONFIGURACIÓN EXPL3
 %% ============================================================================
+% tracklang para datatool y glossaries
+\PassOptionsToPackage{spanish}{tracklang}
+
 \RequirePackage{expl3}
 \RequirePackage{xparse}
 \RequirePackage{l3keys2e}
@@ -59,6 +82,12 @@
 \bool_new:N \g__eps_optimizar_tikz_bool
 \bool_new:N \g__eps_borrador_bool
 
+% Idioma del documento
+\tl_new:N \g__eps_idioma_tl
+\tl_new:N \g__eps_idioma_polyglossia_tl
+\tl_new:N \g__eps_idioma_codigo_tl
+\tl_new:N \g__eps_idioma_biblatex_tl
+
 % Establecer valores por defecto
 \tl_gset:Nn \g__eps_facultad_tl {Escuela~Politécnica~Superior}
 \tl_gset:Nn \g__eps_facultad_corto_tl {EPS~UA}
@@ -66,6 +95,11 @@
 \tl_gset:Nn \g__eps_ubicacion_tl {Alicante}
 \tl_gset:Nn \g__eps_autor_genero_tl {m}
 \bool_gset_true:N \g__eps_optimizar_tikz_bool
+% Idioma por defecto: español
+\tl_gset:Nn \g__eps_idioma_tl {espanol}
+\tl_gset:Nn \g__eps_idioma_polyglossia_tl {spanish}
+\tl_gset:Nn \g__eps_idioma_codigo_tl {es-ES}
+\tl_gset:Nn \g__eps_idioma_biblatex_tl {spanish}
 
 %% ============================================================================
 %% BASE DE DATOS DE TITULACIONES
@@ -214,7 +248,7 @@
 \cs_new_protected:Nn \__eps_setup_titulacion:n
   {
     \tl_gset:Nn \g__eps_titulacion_tl { #1 }
-    
+
     % Obtener datos de la prop list
     \prop_get:NnNTF \g__eps_titulaciones_prop { #1 / nombre } \l_tmpa_tl
       {
@@ -223,7 +257,7 @@
       {
         \msg_error:nnn { eps-tfg } { titulacion-desconocida } { #1 }
       }
-    
+
     \prop_get:NnN \g__eps_titulaciones_prop { #1 / tipo } \l_tmpa_tl
     \str_case:VnF \l_tmpa_tl
       {
@@ -233,30 +267,30 @@
       {
         \tl_gset:Nn \g__eps_tipo_trabajo_tl {Trabajo~Fin~de~Estudios}
       }
-    
+
     \prop_get:NnN \g__eps_titulaciones_prop { #1 / color } \l_tmpa_tl
     \tl_gset_eq:NN \g__eps_color_grado_tl \l_tmpa_tl
-    
+
     \prop_get:NnN \g__eps_titulaciones_prop { #1 / texto } \l_tmpa_tl
     \tl_gset_eq:NN \g__eps_color_texto_tl \l_tmpa_tl
-    
+
     % Configurar logos
     \prop_get:NnN \g__eps_logos_map_prop { #1 } \l_tmpb_tl
     \prop_get:NnN \g__eps_titulaciones_prop { #1 / logo-portada } \l_tmpa_tl
-    \tl_gset:Nx \g__eps_logo_grado_portada_tl 
+    \tl_gset:Nx \g__eps_logo_grado_portada_tl
       { recursos/logos/titulaciones/ \l_tmpb_tl \l_tmpa_tl .pdf }
-    
+
     \prop_get:NnN \g__eps_titulaciones_prop { #1 / logo-normal } \l_tmpa_tl
-    \tl_gset:Nx \g__eps_logo_grado_tl 
+    \tl_gset:Nx \g__eps_logo_grado_tl
       { recursos/logos/titulaciones/ \l_tmpb_tl \l_tmpa_tl .pdf }
-    
+
     % Logo facultad según color de texto
     \str_case:VnF \g__eps_color_texto_tl
       {
-        {blanco} { 
+        {blanco} {
           \tl_gset:Nn \g__eps_logo_facultad_portada_tl {recursos/logos/universidad/LogoEPSBlanco.pdf}
         }
-        {negro} { 
+        {negro} {
           \tl_gset:Nn \g__eps_logo_facultad_portada_tl {recursos/logos/universidad/LogoEPSNegro.pdf}
         }
       }
@@ -266,12 +300,47 @@
   }
 
 %% ============================================================================
+%% FUNCIÓN PARA CONFIGURAR IDIOMA
+%% ============================================================================
+\cs_new_protected:Nn \__eps_setup_idioma:n
+  {
+    \tl_gset:Nn \g__eps_idioma_tl { #1 }
+    \str_case:nnF { #1 }
+      {
+        {espanol} {
+          \tl_gset:Nn \g__eps_idioma_polyglossia_tl {spanish}
+          \tl_gset:Nn \g__eps_idioma_codigo_tl {es-ES}
+          \tl_gset:Nn \g__eps_idioma_biblatex_tl {spanish}
+        }
+        {valenciano} {
+          \tl_gset:Nn \g__eps_idioma_polyglossia_tl {catalan}
+          \tl_gset:Nn \g__eps_idioma_codigo_tl {ca-ES}
+          \tl_gset:Nn \g__eps_idioma_biblatex_tl {catalan}
+        }
+        {ingles} {
+          \tl_gset:Nn \g__eps_idioma_polyglossia_tl {english}
+          \tl_gset:Nn \g__eps_idioma_codigo_tl {en-GB}
+          \tl_gset:Nn \g__eps_idioma_biblatex_tl {english}
+        }
+      }
+      {
+        \msg_error:nnn { eps-tfg } { idioma-desconocido } { #1 }
+      }
+  }
+
+%% ============================================================================
 %% MENSAJES DE ERROR
 %% ============================================================================
 \msg_new:nnn { eps-tfg } { titulacion-desconocida }
-  { 
+  {
     La~titulación~'#1'~no~está~definida.~
     Consulta~la~documentación~para~ver~las~titulaciones~disponibles.
+  }
+
+\msg_new:nnn { eps-tfg } { idioma-desconocido }
+  {
+    El~idioma~'#1'~no~está~soportado.~
+    Valores~válidos:~espanol,~valenciano,~ingles.
   }
 
 \msg_new:nnn { eps-tfg } { campo-requerido }
@@ -288,56 +357,60 @@
     % Información del documento
     titulo .tl_gset:N = \g__eps_titulo_tl,
     titulo .value_required:n = true,
-    
+
     subtitulo .tl_gset:N = \g__eps_subtitulo_tl,
-    
+
     autor .tl_gset:N = \g__eps_autor_tl,
     autor .value_required:n = true,
-    
+
     genero .tl_gset:N = \g__eps_autor_genero_tl,
     genero .initial:n = {m},
-    
+
     email .tl_gset:N = \g__eps_autor_email_tl,
-    
+
     tutor .tl_gset:N = \g__eps_tutor_tl,
     tutor .value_required:n = true,
-    
+
     tutor-genero .tl_gset:N = \g__eps_tutor_genero_tl,
     tutor-genero .initial:n = {m},
-    
+
     tutor-departamento .tl_gset:N = \g__eps_tutor_dpto_tl,
-    
+
     cotutor .tl_gset:N = \g__eps_cotutor_tl,
-    
+
     cotutor-genero .tl_gset:N = \g__eps_cotutor_genero_tl,
     cotutor-genero .initial:n = {m},
-    
+
     cotutor-departamento .tl_gset:N = \g__eps_cotutor_dpto_tl,
-    
+
     fecha .tl_gset:N = \g__eps_fecha_tl,
-    
+
     % Configuración institucional
     facultad .tl_gset:N = \g__eps_facultad_tl,
     facultad .initial:n = {Escuela~Politécnica~Superior},
-    
+
     universidad .tl_gset:N = \g__eps_universidad_tl,
     universidad .initial:n = {Universidad~de~Alicante},
-    
+
     ubicacion .tl_gset:N = \g__eps_ubicacion_tl,
     ubicacion .initial:n = {Alicante},
-    
+
     % Titulación
     titulacion .code:n = { \__eps_setup_titulacion:n { #1 } },
     titulacion .value_required:n = true,
-    
+
     % Opciones
     optimizar-tikz .bool_gset:N = \g__eps_optimizar_tikz_bool,
     optimizar-tikz .default:n = true,
     optimizar-tikz .initial:n = true,
-    
+
     borrador .bool_gset:N = \g__eps_borrador_bool,
     borrador .default:n = true,
     borrador .initial:n = false,
+
+    % Idioma del documento (espanol, valenciano, ingles)
+    idioma .code:n = { \__eps_setup_idioma:n { #1 } },
+    idioma .initial:n = {espanol},
   }
 
 % +m permite párrafos (líneas en blanco) dentro del argumento
@@ -371,6 +444,9 @@
 \NewExpandableDocumentCommand{\EPSlogoGrado}{}{\tl_use:N \g__eps_logo_grado_tl}
 \NewExpandableDocumentCommand{\EPSlogoGradoPortada}{}{\tl_use:N \g__eps_logo_grado_portada_tl}
 \NewExpandableDocumentCommand{\EPSlogoFacultadPortada}{}{\tl_use:N \g__eps_logo_facultad_portada_tl}
+\NewExpandableDocumentCommand{\EPSidioma}{}{\tl_use:N \g__eps_idioma_tl}
+\NewExpandableDocumentCommand{\EPSidiomaCodigo}{}{\tl_use:N \g__eps_idioma_codigo_tl}
+\NewExpandableDocumentCommand{\EPSidiomaBiblatex}{}{\tl_use:N \g__eps_idioma_biblatex_tl}
 
 % Comando para obtener la fecha formateada
 \NewDocumentCommand{\EPSfecha}{}
@@ -424,21 +500,24 @@
 \NewDocumentCommand{\EPSetiquetaTutor}{}
   {
     \tl_if_empty:NTF \g__eps_cotutor_tl
-      {% Solo tutor principal
+      {
+        % Solo tutor principal
         \str_case:VnF \g__eps_tutor_genero_tl
           {
             {f} {Tutora}
             {m} {Tutor}
-            {n} {Tutoría}
           }
           {Tutoría}
       }
-      {% Hay cotutor - usar plural
-        \str_case:VnF \g__eps_tutor_genero_tl
+      {
+        % Hay cotutor - concatenamos géneros en variable temporal
+        \tl_set:Nx \l_tmpa_tl { \g__eps_tutor_genero_tl \g__eps_cotutor_genero_tl }
+        \str_case:VnF \l_tmpa_tl
           {
-            {f} {\str_case:VnF \g__eps_cotutor_genero_tl {{f}{Tutoras}}{{m}{Tutores}}{{n}{Tutorías}}{Tutorías}}
-            {m} {\str_case:VnF \g__eps_cotutor_genero_tl {{f}{Tutores}}{{m}{Tutores}}{{n}{Tutorías}}{Tutorías}}
-            {n} {Tutorías}
+            {mm} {Tutores}
+            {mf} {Tutores}
+            {fm} {Tutores}
+            {ff} {Tutoras}
           }
           {Tutorías}
       }
@@ -521,13 +600,57 @@
 \RequirePackage{pdflscape}
 
 %% ============================================================================
+%% SOPORTE PARA PÁGINAS LANDSCAPE CON HEADERS CORRECTOS
+%% ============================================================================
+% Comando para iniciar sección landscape con headers correctos
+% Usa las primitivas de LuaTeX para cambiar las dimensiones de la página
+% y geometry con layoutwidth/layoutheight para calcular textwidth correcto
+\NewDocumentCommand{\BeginLandscapePage}{O{2cm}}{%
+  \clearpage
+  % Cambiar dimensiones de la página PDF (LuaTeX primitives)
+  \pagewidth=297mm  % A4 landscape width
+  \pageheight=210mm % A4 landscape height
+  % Aplicar nuevos márgenes Y layout para landscape
+  % layoutwidth/layoutheight fuerzan a geometry a recalcular textwidth
+  \newgeometry{%
+    layoutwidth=297mm,
+    layoutheight=210mm,
+    left=#1,
+    right=#1,
+    top=#1,
+    bottom=#1,
+    includeheadfoot,
+    headheight=14pt,
+    headsep=1cm,
+    footskip=1.5cm
+  }%
+  % Actualizar anchos de header/footer al nuevo textwidth con offset 0
+  \KOMAoptions{paper=landscape, headwidth=\textwidth:0pt, footwidth=\textwidth:0pt}%
+}
+
+% Comando para restaurar orientación portrait
+\NewDocumentCommand{\EndLandscapePage}{}{%
+  \clearpage
+  % Restaurar dimensiones de la página PDF (A4 portrait)
+  \pagewidth=210mm
+  \pageheight=297mm
+  % Restaurar márgenes
+  \restoregeometry
+  % Restaurar anchos de header/footer con offset 0
+  \KOMAoptions{paper=portrait, headwidth=\textwidth:0pt, footwidth=\textwidth:0pt}%
+}
+
+%% ============================================================================
 %% IDIOMA (POLYGLOSSIA PARA LUALATEX)
 %% ============================================================================
 \RequirePackage{polyglossia}
+
+% Cargar todos los idiomas soportados (el predeterminado se selecciona en AtBeginDocument)
 \setdefaultlanguage{spanish}
 \setotherlanguage{english}
+\setotherlanguage{catalan}
 
-% Redefinir nombres
+% Redefinir nombres para español
 \gappto\captionsspanish{%
   \renewcommand{\listtablename}{Índice de tablas}
   \renewcommand{\tablename}{Tabla}
@@ -536,42 +659,33 @@
   \renewcommand{\bibname}{Bibliografía}
 }
 
+% Redefinir nombres para valenciano/catalán
+\gappto\captionscatalan{%
+  \renewcommand{\listtablename}{Índex de taules}
+  \renewcommand{\tablename}{Taula}
+  \renewcommand{\glossaryname}{Glossari}
+  \renewcommand{\acronymname}{Acrònims}
+  \renewcommand{\bibname}{Bibliografia}
+  \renewcommand{\contentsname}{Índex}
+  \renewcommand{\listfigurename}{Índex de figures}
+  \renewcommand{\figurename}{Figura}
+  \renewcommand{\chaptername}{Capítol}
+  \renewcommand{\appendixname}{Apèndix}
+}
+
+% Redefinir nombres para inglés
+\gappto\captionsenglish{%
+  \renewcommand{\listtablename}{List of Tables}
+  \renewcommand{\tablename}{Table}
+  \renewcommand{\glossaryname}{Glossary}
+  \renewcommand{\acronymname}{Acronyms}
+  \renewcommand{\bibname}{Bibliography}
+}
+
 %% ============================================================================
 %% FUENTES (FONTSPEC PARA LUALATEX)
 %% ============================================================================
 \RequirePackage{fontspec}
-
-% Fuentes para portada - usando fallbacks del sistema si las personalizadas no están
-% Usamos \IfFontExistsTF para comprobar si la fuente está en el sistema
-% Si no, definimos comandos simples de formato
-
-% Fuente condensada para títulos
-\IfFontExistsTF{HelveticaNeue-CondensedBold}{%
-  \newfontfamily\FuenteTitulo{HelveticaNeue-CondensedBold}%
-}{%
-  % Intentar con Arial Narrow como alternativa común
-  \IfFontExistsTF{Arial Narrow}{%
-    \newfontfamily\FuenteTitulo{Arial Narrow}[BoldFont=* Bold]%
-  }{%
-    % Fallback a sans-serif del sistema
-    \newcommand{\FuenteTitulo}{\sffamily\bfseries}%
-  }%
-}
-
-% Fuente principal para portada
-\IfFontExistsTF{Helvetica}{%
-  \newfontfamily\FuentePortada{Helvetica}%
-}{%
-  \IfFontExistsTF{Arial}{%
-    \newfontfamily\FuentePortada{Arial}%
-  }{%
-    \IfFontExistsTF{DejaVu Sans}{%
-      \newfontfamily\FuentePortada{DejaVu Sans}%
-    }{%
-      \newcommand{\FuentePortada}{\sffamily}%
-    }%
-  }%
-}
 
 % Fuente monoespaciada con soporte Unicode completo (para caracteres de caja)
 \IfFontExistsTF{DejaVu Sans Mono}{%
@@ -694,7 +808,12 @@
 \RequirePackage{multicol}
 \RequirePackage{tabularx}
 \RequirePackage{colortbl}       % Para \rowcolors y colores en tablas
+% Fix para conflicto colortbl + multirow (evita números fantasma)
+\renewcommand\multirowsetup{}
 \RequirePackage{ragged2e}
+\RequirePackage{threeparttable} % Para tablas con notas al pie
+\RequirePackage{diagbox}        % Para celdas diagonales en encabezados
+\RequirePackage{tabularray}     % Tablas modernas (alternativa a multirow/multicolumn)
 
 % Tipos de columna personalizados
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
@@ -752,7 +871,7 @@
 %% ============================================================================
 %% GLOSARIOS Y ACRÓNIMOS
 %% ============================================================================
-\RequirePackage[acronym,nonumberlist,toc,automake]{glossaries}
+\RequirePackage[acronym,toc,automake]{glossaries}
 
 % Estilo personalizado simple y robusto para acrónimos
 \newglossarystyle{modsuper}{%
@@ -771,6 +890,17 @@
 \RequirePackage{bm}
 \RequirePackage{mathrsfs}
 \RequirePackage{nicefrac}
+
+% Soporte Unicode Math (Debe cargarse después de mathtools y otros paquetes ams)
+% Desactivamos comandos de mathtools que entran en conflicto con unicode-math para evitar warnings
+\let\underbracket\relax
+\let\overbracket\relax
+\let\dblcolon\relax
+\let\coloneqq\relax
+\let\Coloneqq\relax
+\let\eqqcolon\relax
+\RequirePackage{unicode-math}
+
 
 % Entorno para describir variables en ecuaciones
 \newenvironment{condiciones}[1][donde:]
@@ -809,14 +939,58 @@
 }{}
 
 %% ============================================================================
-%% CONFIGURACIÓN DE HYPERREF (al final)
+%% CONFIGURACIÓN DE HYPERREF Y SELECCIÓN DE IDIOMA (al final)
 %% ============================================================================
+
+% Definir comando auxiliar para seleccionar idioma (debe estar en ExplSyntax)
+\ExplSyntaxOn
+\cs_new_protected:Nn \__eps_seleccionar_idioma:
+  {
+    \str_case:VnF \g__eps_idioma_tl
+      {
+        {espanol} { \selectlanguage{spanish} }
+        {valenciano} { \selectlanguage{catalan} }
+        {ingles} { \selectlanguage{english} }
+      }
+      { \selectlanguage{spanish} } % Fallback
+  }
+% Wrapper para llamar desde fuera de ExplSyntax
+\NewDocumentCommand{\EPSseleccionarIdioma}{}{\__eps_seleccionar_idioma:}
+\ExplSyntaxOff
+
 \AtBeginDocument{%
+  % --- Seleccionar idioma según configuración ---
+  \EPSseleccionarIdioma
+  % --- Configurar biblatex según idioma ---
+  % Nota: biblatex requiere el nombre del idioma, no el código
+  % La configuración se hace en la carga del paquete con language=spanish
+  % por defecto. Para otros idiomas, el usuario puede usar
+  % \ExecuteBibliographyOptions{language=english} en el preámbulo.
+  % --- Metadatos del PDF ---
   \hypersetup{
+    % --- Metadatos básicos ---
     pdfauthor = {\EPSautor},
     pdftitle = {\EPStitulo},
     pdfsubject = {\EPStipoTrabajo},
-    pdfkeywords = {TFG, TFM, Universidad de Alicante, EPS},
+    pdfkeywords = {TFG, TFM, Universidad de Alicante, EPS, \EPStitulacion},
+    pdflang = {\EPSidiomaCodigo},
+    % --- Metadatos extendidos ---
+    pdfcopyright = {Copyright © \the\year\space \EPSautor. Todos los derechos reservados.},
+    pdfcontactemail = {\EPSautorEmail},
+    pdfpublisher = {Universidad de Alicante - Escuela Politécnica Superior},
+    pdfcontactcountry = {España},
+    pdfcontactcity = {Alicante},
+    % --- Información de la plantilla ---
+    pdfcreator = {LuaLaTeX con plantilla TFG-TFM EPS UA},
+    pdfsource = {https://github.com/jmrplens/TFG-TFM_EPS},
+    % --- Marcadores/Bookmarks ---
+    bookmarksnumbered = true,
+    bookmarksopen = true,
+    bookmarksopenlevel = 1,
+    % --- Visualización inicial ---
+    pdfpagemode = {UseOutlines},
+    pdfdisplaydoctitle = true,
+    % --- Apariencia de enlaces ---
     colorlinks = true,
     linkcolor = black,
     citecolor = blue!50!black,

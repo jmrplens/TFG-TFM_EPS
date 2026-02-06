@@ -1,47 +1,143 @@
 \chapter{Conclusiones (Ejemplos de matemáticas)}
 \label{ch:conclusiones}
 
-Este capítulo presenta las conclusiones del trabajo y demuestra las capacidades matemáticas de \LaTeX.
+Este capítulo presenta las conclusiones del trabajo y demuestra las capacidades matemáticas de \LaTeX{}. Se incluyen ejemplos de \glspl{algoritmo} expresados en notación matemática.
 
 \section{Ecuaciones matemáticas}
+\label{sec:ecuaciones-matematicas}
 
-\LaTeX{} es el estándar para la composición de fórmulas matemáticas. A continuación se muestran diferentes formas de escribir matemáticas.
+\LaTeX{} es el estándar para la composición de fórmulas matemáticas. A continuación se muestran diferentes formas de escribir matemáticas usando diversos \glspl{entorno}.
+
+\subsection{Modos matemáticos}
+\label{subsec:modos-matematicos}
+
+Existen dos modos de escribir matemáticas:
+
+\begin{verbatim}
+% Modo inline (en línea con el texto)
+La ecuación $E = mc^2$ es famosa.
+
+% Modo display (centrado, en línea aparte)
+\[ E = mc^2 \]
+
+% También con doble dólar (no recomendado)
+$$ E = mc^2 $$
+\end{verbatim}
+
+\begin{infobox}{Recomendación}
+Usa \verb|$...$| para fórmulas en línea y \verb|\[...\]| o el entorno \texttt{equation} para fórmulas en modo display. Evita \verb|$$...$$| ya que puede causar problemas de espaciado.
+\end{infobox}
 
 \subsection{Ecuaciones numeradas}
+\label{subsec:ecuaciones-numeradas}
 
 Para mostrar una ecuación numerada se usa el entorno \texttt{equation}:
 
-\begin{latexcode}[title={Ecuación numerada}]
-\begin{equation}
-  E = mc^2
-  \label{eq:einstein}
-\end{equation}
-\end{latexcode}
-
+\begin{verbatim}
 \begin{equation}
   E = mc^2
   \label{eq:einstein}
 \end{equation}
 
-La famosa ecuación de Einstein (\ref{eq:einstein}) relaciona masa y energía.
-
-\subsection{Ecuaciones complejas}
+Referencia: como se ve en la Ecuación \ref{eq:einstein}...
+\end{verbatim}
 
 \begin{equation}
-  \nabla \times \mathbf{H} = \left[ \frac{1}{r} \frac{\partial}{\partial r}(r H_\theta) - \frac{1}{r} \frac{\partial H_r}{\partial \theta} \right] \hat{\mathbf{z}}
-  \label{eq:maxwell}
+  E = mc^2
+  \label{eq:einstein-demo}
 \end{equation}
+
+La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energía.
+
+\subsection{Fracciones y raíces}
+\label{subsec:fracciones-raices}
+
+\begin{verbatim}
+% Fracciones
+\frac{numerador}{denominador}
+\dfrac{a}{b}  % Fuerza tamaño display
+\tfrac{a}{b}  % Fuerza tamaño texto
+
+% Raíces
+\sqrt{x}      % Raíz cuadrada
+\sqrt[3]{x}   % Raíz cúbica
+\sqrt[n]{x}   % Raíz n-ésima
+\end{verbatim}
+
+\begin{equation}
+  x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+  \label{eq:cuadratica}
+\end{equation}
+
+\begin{equation}
+  \sqrt[3]{\frac{a^3 + b^3}{2}} \neq \frac{\sqrt[3]{a^3} + \sqrt[3]{b^3}}{2}
+  \label{eq:raices}
+\end{equation}
+
+\subsection{Sumas, integrales y límites}
+\label{subsec:sumas-integrales}
+
+\begin{verbatim}
+% Sumatorios
+\sum_{i=1}^{n} a_i         % Suma de i=1 a n
+\prod_{i=1}^{n} a_i        % Productorio
+
+% Integrales
+\int_{a}^{b} f(x) \, dx    % Integral definida
+\iint_S f \, dA            % Integral doble
+\oint_C f \, dz            % Integral de contorno
+
+% Límites
+\lim_{x \to \infty} f(x)   % Límite
+\end{verbatim}
 
 \begin{equation}
   \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
   \label{eq:gauss}
 \end{equation}
 
-\subsection{Ecuaciones en línea}
+\begin{equation}
+  \sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}
+  \label{eq:basel}
+\end{equation}
 
-El texto puede contener fórmulas como $\int_{a}^{b} f(x)\,dx = F(b) - F(a)$ directamente en el párrafo, o con mayor tamaño usando doble dólar: $$\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$$
+\begin{equation}
+  \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e
+  \label{eq:euler}
+\end{equation}
+
+\subsection{Operadores diferenciales}
+\label{subsec:operadores-diferenciales}
+
+\begin{verbatim}
+% Derivadas
+\frac{dy}{dx}              % Derivada
+\frac{\partial f}{\partial x}  % Derivada parcial
+\frac{d^2 y}{dx^2}         % Segunda derivada
+
+% Operadores vectoriales
+\nabla f                   % Gradiente
+\nabla \cdot \mathbf{F}    % Divergencia
+\nabla \times \mathbf{F}   % Rotacional
+\end{verbatim}
+
+\begin{equation}
+  \nabla \times \mathbf{H} = \left[ \frac{1}{r} \frac{\partial}{\partial r}(r H_\theta) - \frac{1}{r} \frac{\partial H_r}{\partial \theta} \right] \hat{\mathbf{z}}
+  \label{eq:maxwell}
+\end{equation}
 
 \subsection{Sistemas de ecuaciones}
+\label{subsec:sistemas-ecuaciones}
+
+\begin{verbatim}
+\begin{equation}
+  \begin{cases}
+    x + y + z = 6 \\
+    2x - y + z = 3 \\
+    x + 2y - z = 2
+  \end{cases}
+\end{equation}
+\end{verbatim}
 
 \begin{equation}
   \begin{cases}
@@ -52,18 +148,69 @@ El texto puede contener fórmulas como $\int_{a}^{b} f(x)\,dx = F(b) - F(a)$ dir
   \label{eq:sistema}
 \end{equation}
 
-\subsection{Ecuaciones agrupadas}
+\subsection{Ecuaciones alineadas}
+\label{subsec:ecuaciones-alineadas}
+
+El entorno \texttt{align} permite alinear múltiples ecuaciones por el símbolo \texttt{\&}:
+
+\begin{verbatim}
+\begin{align}
+  (a+b)^2 &= a^2 + 2ab + b^2 \\
+  (a-b)^2 &= a^2 - 2ab + b^2 \\
+  (a+b)(a-b) &= a^2 - b^2
+\end{align}
+
+% Sin números: usar align*
+\begin{align*}
+  ...
+\end{align*}
+\end{verbatim}
+
+\begin{align}
+  (a+b)^2 &= a^2 + 2ab + b^2 \\
+  (a-b)^2 &= a^2 - 2ab + b^2 \\
+  (a+b)(a-b) &= a^2 - b^2
+\end{align}
+
+\subsection{Subecuaciones}
+\label{subsec:subecuaciones}
+
+Para numerar ecuaciones como (1a), (1b), usa \texttt{subequations}:
+
+\begin{verbatim}
+\begin{subequations}
+  \begin{align}
+    \mathbf{E} &= E_z \hat{\mathbf{z}} \label{eq:campo-E} \\
+    \mathbf{H} &= H_r \hat{\mathbf{r}} \label{eq:campo-H}
+  \end{align}
+\end{subequations}
+\end{verbatim}
 
 \begin{subequations}
   \begin{align}
     \mathbf{E} &= E_z(r,\theta) \hat{\mathbf{z}} \label{eq:E} \\
-    \mathbf{H} &= H_r(r,\theta) \hat{\mathbf{r}} + H_\theta(r,\theta) \hat{\boldsymbol{\theta}} \label{eq:H}
+    \mathbf{H} &= H_r(r,\theta) \hat{\mathbf{r}} + H_\theta(r,\theta) \hat{\theta} \label{eq:H}
   \end{align}
 \end{subequations}
 
 Las ecuaciones (\ref{eq:E}) y (\ref{eq:H}) describen los campos electromagnéticos.
 
 \subsection{Matrices}
+\label{subsec:matrices}
+
+\begin{verbatim}
+% Tipos de delimitadores
+\begin{pmatrix} ... \end{pmatrix}  % Paréntesis ( )
+\begin{bmatrix} ... \end{bmatrix}  % Corchetes [ ]
+\begin{vmatrix} ... \end{vmatrix}  % Barras | | (determinante)
+\begin{Bmatrix} ... \end{Bmatrix}  % Llaves { }
+
+% Ejemplo
+\begin{pmatrix}
+  a & b \\
+  c & d
+\end{pmatrix}
+\end{verbatim}
 
 \begin{equation}
   \mathbf{A} = \begin{pmatrix}
@@ -82,15 +229,29 @@ Las ecuaciones (\ref{eq:E}) y (\ref{eq:H}) describen los campos electromagnétic
   \label{eq:determinante}
 \end{equation}
 
-\subsection{Ecuaciones alineadas}
+\subsection{Símbolos griegos y especiales}
+\label{subsec:simbolos-griegos}
 
-\begin{align}
-  (a+b)^2 &= a^2 + 2ab + b^2 \\
-  (a-b)^2 &= a^2 - 2ab + b^2 \\
-  (a+b)(a-b) &= a^2 - b^2
-\end{align}
+\begin{verbatim}
+% Letras griegas minúsculas
+\alpha \beta \gamma \delta \epsilon \zeta \eta \theta
+\iota \kappa \lambda \mu \nu \xi \pi \rho
+\sigma \tau \upsilon \phi \chi \psi \omega
+
+% Letras griegas mayúsculas
+\Gamma \Delta \Theta \Lambda \Xi \Pi \Sigma \Phi \Psi \Omega
+
+% Símbolos de relación
+\leq \geq \neq \approx \equiv \sim \propto \in \subset
+
+% Operadores
+\times \div \pm \mp \cdot \cap \cup \wedge \vee
+\end{verbatim}
+
+Ejemplo: $\alpha + \beta = \gamma$, $\forall x \in \mathbb{R}: x^2 \geq 0$
 
 \subsection{Ecuación con condiciones}
+\label{subsec:ecuacion-condiciones}
 
 La función \texttt{condiciones} de la plantilla permite documentar las variables:
 
@@ -106,6 +267,23 @@ La función \texttt{condiciones} de la plantilla permite documentar las variable
 \end{condiciones}
 
 \subsection{Teoremas y demostraciones}
+\label{subsec:teoremas-demostraciones}
+
+La plantilla incluye entornos para teoremas, demostraciones y definiciones:
+
+\begin{verbatim}
+\begin{theorem}[Nombre del teorema]
+  Enunciado del teorema...
+\end{theorem}
+
+\begin{proof}
+  Demostración... \qedhere
+\end{proof}
+
+\begin{definition}[Nombre]
+  Definición formal...
+\end{definition}
+\end{verbatim}
 
 \begin{theorem}[Teorema de Pitágoras]
   En un triángulo rectángulo, el cuadrado de la hipotenusa es igual a la suma de los cuadrados de los catetos:
@@ -116,7 +294,7 @@ La función \texttt{condiciones} de la plantilla permite documentar las variable
 
 \begin{proof}
   Sea un triángulo rectángulo con catetos $a$ y $b$, e hipotenusa $c$. Considerando el área del cuadrado de lado $(a+b)$...
-  
+
   Por lo tanto, $c^2 = a^2 + b^2$. \qedhere
 \end{proof}
 
@@ -128,60 +306,65 @@ La función \texttt{condiciones} de la plantilla permite documentar las variable
 \end{definition}
 
 \section{Conclusiones generales}
+\label{sec:conclusiones-generales}
 
 El desarrollo de este \EPStipoTrabajo{} ha permitido alcanzar los objetivos planteados inicialmente. Las principales conclusiones son:
 
 \begin{enumerate}
   \item Se ha desarrollado con éxito un sistema que cumple con los requisitos funcionales y no funcionales establecidos.
-  
+
   \item La arquitectura diseñada ha demostrado ser escalable y mantenible, facilitando futuras extensiones del sistema.
-  
+
   \item Los resultados de las pruebas confirman que el sistema es robusto y ofrece un rendimiento adecuado para el caso de uso planteado.
-  
+
   \item El proceso de desarrollo ha seguido las mejores prácticas de ingeniería de software, incluyendo control de versiones, integración continua y documentación exhaustiva.
 \end{enumerate}
 
 \section{Aportaciones del trabajo}
+\label{sec:aportaciones-trabajo}
 
 Las principales aportaciones de este trabajo son:
 
 \begin{description}
   \item[Aportación técnica:] Desarrollo de una solución innovadora que mejora en un 40\% el rendimiento respecto a sistemas anteriores.
-  
+
   \item[Aportación metodológica:] Aplicación de una metodología híbrida que combina prácticas ágiles con documentación formal.
-  
+
   \item[Aportación práctica:] Sistema funcional desplegado y en uso por usuarios reales.
 \end{description}
 
 \section{Dificultades encontradas}
+\label{sec:dificultades-encontradas}
 
 Durante el desarrollo del trabajo se han encontrado las siguientes dificultades:
 
 \begin{enumerate}
   \item \textbf{Integración de sistemas:} La integración con sistemas externos requirió un esfuerzo adicional debido a diferencias en los formatos de datos.
-  
+
   \item \textbf{Rendimiento:} Fue necesario optimizar varias consultas a base de datos para cumplir con los requisitos de tiempo de respuesta.
-  
+
   \item \textbf{Documentación externa:} Parte de la documentación de las bibliotecas utilizadas estaba desactualizada.
 \end{enumerate}
 
 \section{Trabajo futuro}
+\label{sec:trabajo-futuro}
 
 Como líneas de trabajo futuro se proponen:
 
 \begin{enumerate}
   \item \textbf{Ampliación de funcionalidades:} Implementar las características identificadas como deseables pero fuera del alcance inicial.
-  
+
   \item \textbf{Mejora del rendimiento:} Implementar un sistema de caché distribuida para mejorar los tiempos de respuesta en escenarios de alta carga.
-  
+
   \item \textbf{Versión móvil:} Desarrollar una aplicación móvil nativa para iOS y Android.
-  
+
   \item \textbf{Internacionalización:} Añadir soporte para múltiples idiomas en la interfaz de usuario.
-  
+
   \item \textbf{Machine Learning:} Incorporar algoritmos de aprendizaje automático para predicción y recomendaciones.
 \end{enumerate}
 
 \section{Valoración personal}
+\label{sec:valoracion-personal}
 
 El desarrollo de este trabajo ha sido una experiencia muy enriquecedora que me ha permitido aplicar los conocimientos adquiridos durante la carrera y profundizar en áreas de especial interés.
 

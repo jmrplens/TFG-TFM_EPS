@@ -1,0 +1,35 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{lipsum}
+\usepackage{geometry}
+\geometry{margin=2.5cm}
+
+\title{Documento de Ejemplo para Inclusión}
+\author{Generado automáticamente}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Introducción}
+Este es un documento PDF de ejemplo que se incluirá en el trabajo principal 
+usando el paquete \texttt{pdfpages}.
+
+\section{Contenido de ejemplo}
+\lipsum[1-2]
+
+\section{Datos técnicos}
+\begin{itemize}
+  \item Formato: A4
+  \item Márgenes: 2.5 cm
+  \item Compilador: LuaLaTeX
+\end{itemize}
+
+\lipsum[3]
+
+\newpage
+\section{Segunda página}
+\lipsum[4-6]
+
+\end{document}

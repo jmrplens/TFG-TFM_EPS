@@ -1,91 +1,49 @@
-# GitHub Copilot Instructions for TFG-TFM_EPS
+Esta plantilla LaTeX es para TFG/TFM de la EPS (Universidad de Alicante).
 
-## Project Overview
+**Versión:** 2.1.0 | **Distribución recomendada:** TeX Live 2025+
 
-This is a **LaTeX template** for Bachelor's (TFG) and Master's (TFM) thesis at the Polytechnic School of the University of Alicante (Spain). 
+**Reglas Críticas:**
+1. **Motor de Compilación:** SIEMPRE asume **LuaLaTeX**. No sugieras soluciones que solo funcionen en pdfLaTeX (ej: no uses `inputenc` con utf8, LuaLaTeX ya maneja UTF-8 nativamente).
+2. **Bibliografía:** Se usa **BibLaTeX** con **Biber** y estilo APA. No uses BibTeX puro.
+3. **Código Fuente:** Se usa el paquete **minted 3.x** con **latexminted**. Usa los entornos predefinidos en `sty/eps-codigo.sty`:
+   - Lenguajes: `pythoncode`, `javacode`, `cppcode`, `jsoncode`, `sqlcode`, `bashcode`, `htmlcode`, etc.
+   - Variantes: `*NN` (sin números), `*Dark` (tema oscuro).
+4. **Gráficas:** Prioriza **PGFPlots** y **TikZ** (`\pgfplotsset{compat=1.18}`).
+5. **Componentes:** Usa las cajas personalizadas definidas en `sty/eps-componentes.sty` en lugar de bloques genéricos:
+   - **Avisos:** `infobox`, `warningbox`, `successbox`, `dangerbox`, `tipbox`, `notebox`.
+   - **Contenedores:** `titlebox`, `definitionbox`, `examplebox`.
+   - **Software:** `terminal`, `apiendpoint`, `dirtreebox`.
+   - **Ingeniería:** `blockdiagram`, `protocolframe`, `riskmatrix`.
+   - **Tablas:** Usa siempre `booktabs` (`\toprule`, `\midrule`, `\bottomrule`).
 
-**Key facts:**
-- Must compile with **LuaLaTeX** (not pdfLaTeX)
-- Requires `-shell-escape` flag for minted package
-- Spanish is the primary language
-- Supports 21 different degree programs
+**Estructura del Proyecto:**
+- `main.tex`: Archivo raíz. Editar SOLO para estructura (activar componentes, añadir capítulos/anexos). NO escribir contenido.
+- `configuracion.tex`: Variables del usuario (`\EPSsetup`).
+- `cls/eps-metadata.tex`: Estándares PDF y código de idioma para metadatos.
+- `contenido/capitulos/`: Archivos `.tex` de contenido.
+- `referencias.bib`: Archivo de bibliografía.
 
-## File Structure
-
-- `main.tex` - Entry point, includes all chapters
-- `configuracion.tex` - User configuration via `\EPSsetup{}`
-- `capitulos/*.tex` - Chapter content files
-- `anexos/*.tex` - Appendix files
-- `bibliografia/bibliografia.bib` - BibTeX references
-- `cls/eps-tfg.cls` - Main class file (DO NOT MODIFY)
-- `sty/*.sty` - Style packages (DO NOT MODIFY)
-
-## When Helping Users
-
-### For LaTeX content questions:
-- Always suggest using the template's built-in commands
-- Reference the `docs/` folder for detailed guides
-- Use `\autoref{}` for cross-references (auto-detects type)
-- Use `\parencite{}` for citations (BibLaTeX style)
-
-### For configuration questions:
-- All settings go in `configuracion.tex` inside `\EPSsetup{}`
-- Available degrees: `informatica`, `teleco`, `arquitectura`, `civil`, `quimica`, `robotica`, `multimedia`, `arquitectura-tecnica`, and masters with `master-` prefix
-
-### For compilation issues:
-1. Check LuaLaTeX is being used
-2. Verify `-shell-escape` is enabled
-3. Run full compilation: `lualatex → biber → lualatex → lualatex`
-
-## Code Style
-
-When writing LaTeX code for this project:
-- Use Spanish for comments and content
-- Indent with 2 spaces inside environments
-- Use `%` comments to explain complex macros
-- Prefer semantic commands (`\autoref`) over manual references
-
-## Common Commands
-
+**Configuración de Idioma:**
+La plantilla soporta tres idiomas. En `configuracion.tex`:
 ```latex
-% Configuration
 \EPSsetup{
-    titulo = {Title},
-    autor = {Name},
-    titulacion = informatica,
+  idioma = espanol,  % espanol (defecto), valenciano, ingles
 }
+```
+Si el usuario cambia el idioma, DEBE editar también `cls/eps-metadata.tex`:
+- `idioma = espanol` → `lang=es-ES`
+- `idioma = valenciano` → `lang=ca-ES`  
+- `idioma = ingles` → `lang=en-GB`
 
-% Citations
-\parencite{key}     % (Author, Year)
-\textcite{key}      % Author (Year)
+**Comandos Comunes:**
+- Citar: `\cite{key}`, `\textcite{key}`, `\parencite{key}`.
+- Referencias cruzadas: `\label{prefijo:nombre}` y `\ref{prefijo:nombre}`. Prefijos sugeridos: `fig:`, `tab:`, `eq:`, `sec:`.
+- Acrónimos: `\gls{id}`, `\acrshort{id}`, `\acrlong{id}`.
 
-% Cross-references
-\autoref{fig:name}  % "Figure 1"
-\autoref{tab:name}  % "Table 1"
-
-% Acronyms
-\gls{acronym}       % Smart expansion
-\acrshort{acronym}  % Short form only
-
-% Code
-\begin{pythoncode}
-# Python code here
-\end{pythoncode}
+**Accesibilidad (opcional, TeX Live 2025+):**
+Para PDFs accesibles (PDF/UA-2), añadir antes de `\documentclass`:
+```latex
+\DocumentMetadata{lang=es-ES, pdfstandard=ua-2, testphase={phase-III, math}}
 ```
 
-## Documentation
-
-Point users to these files in `docs/`:
-- `ECUACIONES.md` - Math equations
-- `TABLAS.md` - Tables
-- `FIGURAS_GRAFICAS.md` - Figures and graphics
-- `CODIGO_FUENTE.md` - Source code listings
-- `BIBLIOGRAFIA.md` - Bibliography management
-- `GLOSARIOS_ACRONIMOS.md` - Glossaries and acronyms
-
-## Important Warnings
-
-1. Never suggest pdfLaTeX - this template requires LuaLaTeX
-2. Don't modify files in `cls/` or `sty/` directories
-3. The `titulacion` value must match exactly (case-sensitive)
-4. Bibliography uses Biber, not BibTeX
+Si el usuario pide ayuda con errores de compilación, pide ver las últimas líneas del archivo `.log` o la salida del terminal.

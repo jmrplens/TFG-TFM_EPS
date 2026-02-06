@@ -1,0 +1,409 @@
+%% eps-comunes.sty
+%% Componentes comunes para todas las disciplinas
+%%
+%% Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+%% Autor:    José Manuel Requena Plens
+%% Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
+%% Licencia: GNU GPL v3.0
+%% Versión:  2.1.0 (2026/02/05)
+%%
+%% Parte de eps-componentes.sty
+%% -----------------------------------------------------------------------------
+\ProvidesFile{eps-comunes.sty}[2026/02/05 v2.1.0 Componentes comunes EPS UA]
+
+% ============================================================================
+% CAJAS DE INFORMACIÓN
+% ============================================================================
+
+% Caja de información general
+% Uso: \infobox{Texto de información}
+\newtcolorbox{infobox}[1][]{
+  eps-alert=eps-info,
+  before upper={\textcolor{eps-info}{\faInfoCircle}\hspace{8pt}},
+  #1
+}
+
+% Caja de éxito/correcto
+% Uso: \successbox{Texto de éxito}
+\newtcolorbox{successbox}[1][]{
+  eps-alert=eps-success,
+  before upper={\textcolor{eps-success}{\faCheckCircle}\hspace{8pt}},
+  #1
+}
+
+% Caja de advertencia
+% Uso: \warningbox{Texto de advertencia}
+\newtcolorbox{warningbox}[1][]{
+  eps-alert=eps-warning,
+  before upper={\textcolor{eps-warning}{\faExclamationTriangle}\hspace{8pt}},
+  #1
+}
+
+% Caja de peligro/error
+% Uso: \dangerbox{Texto de peligro}
+\newtcolorbox{dangerbox}[1][]{
+  eps-alert=eps-danger,
+  before upper={\textcolor{eps-danger}{\faTimesCircle}\hspace{8pt}},
+  #1
+}
+
+% Caja de consejo/tip
+% Uso: \tipbox{Texto de consejo}
+\newtcolorbox{tipbox}[1][]{
+  eps-alert=eps-secondary,
+  before upper={\textcolor{eps-secondary}{\faLightbulb}\hspace{8pt}},
+  #1
+}
+
+% Caja de nota
+% Uso: \notebox{Texto de nota}
+\newtcolorbox{notebox}[1][]{
+  eps-alert=eps-gray,
+  before upper={\textcolor{eps-gray}{\faStickyNote}\hspace{8pt}},
+  #1
+}
+
+% ============================================================================
+% CAJAS CON TÍTULO
+% ============================================================================
+
+% Caja con título personalizado
+% Uso: \begin{titlebox}{Título}...\end{titlebox}
+\newtcolorbox{titlebox}[2][]{
+  eps-float-title=eps-primary,
+  title={#2},
+  #1
+}
+
+% Caja de definición
+% Uso: \begin{definitionbox}{Término}...\end{definitionbox}
+\newtcolorbox{definitionbox}[2][]{
+  eps-float-title=eps-info,
+  title={\faBook~#2},
+  #1
+}
+
+% Caja de ejemplo
+% Uso: \begin{examplebox}[título opcional]...\end{examplebox}
+\newtcolorbox{examplebox}[1][Ejemplo]{
+  eps-float-title=eps-success,
+  title={\faFlask~#1},
+}
+
+% Caja de importante
+% Uso: \begin{importantbox}...\end{importantbox}
+\newtcolorbox{importantbox}[1][Importante]{
+  eps-float-title=eps-warning,
+  title={\faExclamationCircle~#1},
+}
+
+% ============================================================================
+% LISTAS ESPECIALES
+% ============================================================================
+
+% Checklist con casillas
+\newcommand{\checked}{{\color{eps-success}\faCheckSquare}}
+\newcommand{\unchecked}{{\color{eps-gray!50}\faSquare}}
+\newcommand{\partialchecked}{{\color{eps-warning}\faMinusSquare}}
+
+\newenvironment{checklist}{%
+  \begin{itemize}[label=\none, leftmargin=1.5em]
+  \renewcommand{\labelitemi}{\unchecked}
+}{%
+  \end{itemize}
+}
+
+% Lista de pros y contras
+\newcommand{\pro}{\item[{\color{eps-success}\faPlusCircle}]}
+\newcommand{\con}{\item[{\color{eps-danger}\faMinusCircle}]}
+
+\newenvironment{proscons}{%
+  \begin{itemize}[leftmargin=1.5em]
+}{%
+  \end{itemize}
+}
+
+% Lista de pasos numerados (procedimiento)
+% Uso: \begin{steplist} \step ... \end{steplist}
+\newcounter{stepcount}
+\newcommand{\stepval}[1]{%
+  \tikz[baseline=(char.base)]{
+    \node[shape=circle, fill=eps-primary, inner sep=1.5pt, text=white,
+          font=\bfseries\footnotesize, minimum size=1.2em] (char) {#1};
+  }%
+}
+\newcommand{\step}{%
+  \stepcounter{stepcount}%
+  \item[\stepval{\thestepcount}]%
+}
+
+\newenvironment{steplist}{%
+  \setcounter{stepcount}{0}%
+  \begin{itemize}[leftmargin=2.5em, itemsep=0.5em]
+}{%
+  \end{itemize}
+}
+
+% ============================================================================
+% ETIQUETAS Y BADGES
+% ============================================================================
+
+% Estilo base para badges usando TikZ para armonización
+% (Reemplaza al anterior tcbox para permitir transparencia y bordes)
+\newcommand{\badge}[2][eps-primary]{%
+  \begin{tikzpicture}[baseline=-0.25em]
+    \node[
+      draw=#1,
+      fill=#1!10,
+      text=#1,
+      rounded corners=2pt,
+      inner sep=2pt,
+      font=\sffamily\bfseries\tiny
+    ] {#2};
+  \end{tikzpicture}%
+}
+
+% Badges predefinidos (usan el nuevo estilo automáticamente)
+\newcommand{\badgenew}{\badge[eps-success]{NUEVO}}
+\newcommand{\badgewip}{\badge[eps-warning]{EN PROGRESO}}
+\newcommand{\badgedeprecated}{\badge[eps-danger]{OBSOLETO}}
+\newcommand{\badgebeta}{\badge[eps-info]{BETA}}
+\newcommand{\badgerequired}{\badge[eps-danger]{REQUERIDO}}
+\newcommand{\badgeoptional}{\badge[eps-gray]{OPCIONAL}}
+
+% Estado de versión
+\newcommand{\version}[1]{%
+  \badge[eps-secondary]{v#1}%
+}
+
+% ============================================================================
+% COMPARATIVAS Y DIFERENCIAS
+% ============================================================================
+
+% Tabla comparativa
+\newenvironment{comparison}[2]{%
+  \begingroup
+  \small
+  \setlength{\tabcolsep}{12pt}
+  \renewcommand{\arraystretch}{1.3}
+  \begin{center}
+  \begin{tabular}{@{} l c c @{}}
+    \toprule
+    \textbf{Criterio} & \textbf{\color{eps-primary} #1} & \textbf{\color{eps-primary} #2} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \endgroup
+}
+
+\newcommand{\comprow}[3]{ \textbf{#1} & #2 & #3 \\ }
+
+% ============================================================================
+% CITAS Y REFERENCIAS DESTACADAS
+% ============================================================================
+
+% Cita destacada reimplementada con tcolorbox para mejor soporte de page breaks y estilos
+\newtcolorbox{quotebox}[1][]{
+  enhanced,
+  boxrule=0pt,
+  frame hidden,
+  colback=eps-gray!5,
+  borderline west={3pt}{0pt}{eps-secondary},
+  fontupper=\itshape,
+  before upper={\textcolor{eps-secondary}{\faQuoteLeft}~},
+  after upper={~\textcolor{eps-secondary}{\faQuoteRight}\ifstrempty{#1}{}{\par\vspace{0.3em}\hfill{\normalfont\footnotesize\textemdash~#1}}},
+  arc=0pt,
+  outer arc=0pt,
+  left=10pt, right=10pt, top=8pt, bottom=8pt
+}
+
+% ============================================================================
+% INDICADORES Y MÉTRICAS
+% ============================================================================
+
+% Indicador de progreso
+% \progressbar[ancho]{porcentaje}
+\newcommand{\progressbar}[2][5cm]{%
+  \begingroup
+  \tracinglostchars=0
+  \begin{tikzpicture}[baseline=-0.3em]
+      \fill[eps-gray!10, rounded corners=2pt] (0,0) rectangle (#1, 0.4);
+      \fill[eps-primary, rounded corners=2pt] (0,0) rectangle ({#1*#2/100}, 0.4);
+      \node[font=\sffamily\tiny\bfseries, text=white, anchor=east] at ({#1*#2/100 - 2pt}, 0.2) {#2\%};
+  \end{tikzpicture}%
+  \endgroup
+}
+
+% Indicador de rating
+\ExplSyntaxOn
+\NewDocumentCommand{\rating}{mm}
+  {
+    \int_step_inline:nn { #2 }
+      {
+        \int_compare:nNnTF { ##1 } > { #1 }
+          { \textcolor{eps-gray!20}{\faStar} }
+          { \textcolor{eps-warning}{\faStar} }
+      }
+  }
+\ExplSyntaxOff
+
+% Indicador de nivel (bloques)
+\ExplSyntaxOn
+\NewDocumentCommand{\levelbar}{mm}
+  {
+    \begingroup
+    \tracinglostchars=0
+    \begin{tikzpicture}[baseline=-0.3em]
+      \int_step_inline:nn { #2 }
+        {
+          \fill [
+            \int_compare:nNnTF { ##1 } > { #1 } { eps-gray!20 } { eps-primary },
+            rounded~corners=1pt
+          ] ( \fp_to_decimal:n { (##1 - 1) * 0.35 }, 0 ) rectangle ++(0.25, 0.4);
+        }
+    \end{tikzpicture}
+    \endgroup
+  }
+\ExplSyntaxOff
+
+% ============================================================================
+% TARJETAS DE INFORMACIÓN
+% ============================================================================
+
+% Tarjeta de persona (estilo Card)
+\newcommand{\personcard}[3]{%
+  \tcbox[
+    enhanced,
+    frame style={color=eps-gray!20},
+    colback=white,
+    colframe=eps-gray!20,
+    boxrule=0.5pt,
+    drop shadow={opacity=0.05, xshift=1pt, yshift=-1pt},
+    arc=4pt,
+    left=10pt, right=10pt, top=10pt, bottom=10pt,
+    boxsep=0pt
+  ]{%
+    \begin{minipage}{0.35\textwidth}
+      \centering
+      \textcolor{eps-primary}{\Huge\faUserCircle}\\[0.5em]
+      {\bfseries\large #1}\\[0.2em]
+      {\small\textcolor{eps-gray}{\bfseries #2}}\\[0.5em]
+      {\footnotesize\itshape #3}
+    \end{minipage}%
+  }%
+}
+
+% Tarjeta de estadística
+% \statcard{Valor}{Etiqueta}{Icono}{Color}
+\newcommand{\statcard}[4]{%
+  \tcbox[
+    enhanced,
+    colback=white,
+    colframe=white,
+    boxrule=0pt,
+    drop shadow={opacity=0.1},
+    arc=4pt,
+    left=6pt, right=6pt, top=6pt, bottom=6pt
+  ]{%
+    \begin{minipage}{0.2\textwidth}
+      \centering
+      \textcolor{#4}{\huge #3}\\[0.2em]
+      {\bfseries\Large #1}\\[0.1em]
+      {\scriptsize\sffamily\color{eps-gray} #2}
+    \end{minipage}%
+  }%
+}
+
+% ============================================================================
+% TIMELINE/CRONOLOGÍA
+% ============================================================================
+
+% Timeline usando tcolorbox y chain de nodos para control fino de la línea vertical
+\newenvironment{timeline}{%
+  \begin{description}[
+    style=multiline,
+    leftmargin=3.5cm,      % Margen para la fecha
+    labelwidth=3cm,        % Ancho de la etiqueta fecha
+    font=\normalfont,      % Fuente de la etiqueta (la gestionamos nosotros)
+    itemsep=1em            % Separación entre items
+  ]
+}{%
+  \end{description}
+}
+
+\newcommand{\timeitem}[2]{%
+  % #1: Fecha (Badge)
+  % #2: Contenido
+  \item[%
+    \tikz[baseline=(badge.base)]{
+       % Nodo badge alineado a la base
+       \node[anchor=east, inner sep=0pt] (badge) {\badge[eps-primary]{#1}};
+       % Círculo conector sobre la línea (visual)
+       \coordinate (conector) at ([xshift=1em]badge.east);
+       \fill[eps-white] (conector) circle (2.5pt);
+       \draw[eps-primary, thick] (conector) circle (2.5pt);
+       % Línea vertical hacia abajo (simulada por item, no continua global)
+       % La línea continua global se puede hacer con un tcolorbox envolvente,
+       % pero para ajustar altura al párrafo exacto usamos overlay relativo.
+    }%
+  ]
+  % Dibujamos la línea vertical en el margen izquierdo usando overlay absoluto relativo a la página/columna
+  % O mejor: un tcolorbox "sidebyside" invisible para cada item
+  \begin{tikzpicture}[remember picture, overlay]
+       % Coordenada del badge en este item
+       \coordinate (badgepos) at (-0.8cm, 0.7em); % Ajuste manual respecto al inicio de texto
+       % Dibujar línea vertical desde el badge hacia abajo cubriendo el párrafo
+       % Usamos parbox height o similar? Difícil.
+       % Volvemos a la estrategia de Borderline Global que funciona mejor, ajustando alineación.
+  \end{tikzpicture}%
+  #2
+}
+
+% Re-definición robusta basada en la petición del usuario:
+% "alineada verticalmente con el badge, la primera linea debe coincidir... la linea vertical se ajustara a la cantidad de lineas"
+
+\renewenvironment{timeline}{%
+  \begin{tcolorbox}[
+    breakable,
+    enhanced,
+    frame hidden,
+    colback=white,
+    left=3.5cm,   % Espacio para badge
+    boxsep=0pt,
+    top=0.5em, bottom=0.5em,
+    % Línea vertical CONTINUA a la izquierda
+    borderline west={1.5pt}{1.3cm}{eps-primary!30}
+  ]
+}{%
+  \end{tcolorbox}
+}
+
+\renewcommand{\timeitem}[2]{%
+  \par
+  % Aseguramos que estamos en modo horizontal al inicio del párrafo para el anclaje
+  \noindent
+  % STRUT para fijar la altura de la primera línea y que la alineación sea consistente
+  \strut
+  \begin{tikzpicture}[remember picture, overlay]
+     % El origen (0,0) es la baseline del inicio del texto.
+     % La línea vertical del box está a 1.3cm del borde izquierdo del frame.
+     % El contenido (texto) empieza a 3.5cm del borde izquierdo.
+     % Distancia del texto a la línea = 3.5 - 1.3 = 2.2cm hacia la izquierda.
+
+     % Alineación vertical: Centrado en la 'x-height' de la fuente (aprox 0.3-0.4em sobre baseline)
+     \node[anchor=center] at (-2.2cm, 0.3em) {%
+        \badge[eps-primary]{#1}%
+     };
+
+     % Opcional: Punto/Círculo sobre la línea para marcar el hito exacto
+     \fill[white] (-2.2cm, 0.3em) circle (2pt); % Hueco línea
+     \fill[eps-primary] (-2.2cm, 0.3em) circle (1.5pt); % Punto
+  \end{tikzpicture}%
+  % Texto del item
+  #2\par
+  % Espacio tras el párrafo para separar del siguiente.
+  % La línea vertical del box cubrirá este espacio, uniéndolo al siguiente.
+  \vspace{1.5em}
+}

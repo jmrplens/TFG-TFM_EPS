@@ -4,40 +4,47 @@
     // =========================================================================
     // 
     // Esta configuración está optimizada para trabajar con la plantilla.
-    // Si usas VS Code, instala la extensión "LaTeX Workshop" (James-Yu.latex-workshop)
+    // Requiere la extensión "LaTeX Workshop" (James-Yu.latex-workshop)
     //
-    // La receta por defecto (latexmk) hace múltiples pasadas automáticamente
-    // para generar correctamente índices, bibliografía y referencias cruzadas.
+    // La receta por defecto usa latexmk que, junto con .latexmkrc, ejecuta
+    // automáticamente todas las pasadas necesarias para generar:
+    //   - Referencias cruzadas y enlaces
+    //   - Bibliografía (biber/biblatex)
+    //   - Glosarios y acrónimos
+    //   - Índices de figuras, tablas y código
+    //   - Tabla de contenidos
     // =========================================================================
 
     // =========================================================================
     // LATEX WORKSHOP - COMPILACIÓN
     // =========================================================================
     
-    // Receta por defecto: latexmk hace múltiples pasadas automáticamente
-    // Esto genera correctamente: índices, bibliografía, glosarios, referencias
-    "latex-workshop.latex.recipe.default": "🚀 Compilación completa (latexmk)",
+    // Receta por defecto: latexmk gestiona automáticamente todas las pasadas
+    "latex-workshop.latex.recipe.default": "latexmk (lualatex)",
     
-    // Recetas de compilación (ordenadas de más a menos completa)
+    // Compilar automáticamente al guardar
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    
+    // Recetas de compilación disponibles
     "latex-workshop.latex.recipes": [
         {
-            "name": "🚀 Compilación completa (latexmk)",
+            "name": "latexmk (lualatex)",
             "tools": ["latexmk-lualatex"]
         },
         {
-            "name": "📄 Compilación manual completa",
+            "name": "Compilación manual completa",
             "tools": ["lualatex", "biber", "makeglossaries", "lualatex", "lualatex"]
         },
         {
-            "name": "⚡ Compilación rápida (solo lualatex)",
+            "name": "LuaLaTeX (una pasada)",
             "tools": ["lualatex"]
         },
         {
-            "name": "📚 Solo bibliografía (biber)",
+            "name": "Biber (bibliografía)",
             "tools": ["biber"]
         },
         {
-            "name": "📖 Solo glosarios",
+            "name": "Makeglossaries",
             "tools": ["makeglossaries"]
         }
     ],
@@ -54,8 +61,7 @@
                 "-file-line-error",
                 "-synctex=1",
                 "%DOC%"
-            ],
-            "env": {}
+            ]
         },
         {
             "name": "lualatex",
@@ -66,79 +72,74 @@
                 "-file-line-error",
                 "-synctex=1",
                 "%DOC%"
-            ],
-            "env": {}
+            ]
         },
         {
             "name": "biber",
             "command": "biber",
-            "args": ["%DOCFILE%"],
-            "env": {}
+            "args": ["%DOCFILE%"]
         },
         {
             "name": "makeglossaries",
             "command": "makeglossaries",
-            "args": ["%DOCFILE%"],
-            "env": {}
+            "args": ["%DOCFILE%"]
         }
     ],
     
-    // Limpiar archivos auxiliares al cerrar
+    // Archivos auxiliares a limpiar (comando: LaTeX Workshop: Clean up auxiliary files)
     "latex-workshop.latex.clean.fileTypes": [
-        "*.aux",
-        "*.bbl",
-        "*.bcf",
-        "*.blg",
-        "*.fdb_latexmk",
-        "*.fls",
-        "*.idx",
-        "*.ilg",
-        "*.ind",
-        "*.lof",
-        "*.log",
-        "*.lol",
-        "*.lot",
-        "*.out",
-        "*.run.xml",
-        "*.synctex.gz",
-        "*.toc",
-        "*.acn",
-        "*.acr",
-        "*.alg",
-        "*.glg",
-        "*.glo",
-        "*.gls",
-        "*.ist",
+        "*.aux", "*.bbl", "*.bcf", "*.blg",
+        "*.fdb_latexmk", "*.fls",
+        "*.idx", "*.ilg", "*.ind",
+        "*.lof", "*.log", "*.lol", "*.lot",
+        "*.out", "*.run.xml", "*.synctex.gz", "*.toc",
+        "*.acn", "*.acr", "*.alg",
+        "*.glg", "*.glo", "*.gls", "*.ist",
         "*.listing"
     ],
     
-    // Configuración del visor de PDF
+    // =========================================================================
+    // LATEX WORKSHOP - VISOR PDF Y NAVEGACIÓN
+    // =========================================================================
+    
+    // Visor de PDF integrado en pestaña
     "latex-workshop.view.pdf.viewer": "tab",
     
-    // Directorio de salida (mantener en raíz para compatibilidad)
+    // Directorio de salida (raíz del proyecto)
     "latex-workshop.latex.outDir": "%DIR%",
     
-    // Mostrar errores en el editor
-    "latex-workshop.message.error.show": true,
-    "latex-workshop.message.warning.show": true,
-    
-    // Autocompletado inteligente
-    "latex-workshop.intellisense.package.enabled": true,
-    "latex-workshop.intellisense.citation.backend": "biblatex",
-    
-    // Sincronización bidireccional PDF ↔ código
+    // Sincronización bidireccional PDF ↔ código (SyncTeX)
     "latex-workshop.synctex.afterBuild.enabled": true,
     
     // =========================================================================
-    // FORMATEO Y ESTILO
+    // LATEX WORKSHOP - MENSAJES Y DIAGNÓSTICOS
     // =========================================================================
     
-    // Asociaciones de archivo
+    // Mostrar errores y warnings en el panel de problemas
+    "latex-workshop.message.error.show": true,
+    "latex-workshop.message.warning.show": true,
+    "latex-workshop.message.information.show": false,
+    
+    // =========================================================================
+    // LATEX WORKSHOP - INTELLISENSE
+    // =========================================================================
+    
+    // Autocompletado de paquetes y comandos
+    "latex-workshop.intellisense.package.enabled": true,
+    
+    // Backend de citas: biblatex (usado en la plantilla)
+    "latex-workshop.intellisense.citation.backend": "biblatex",
+    
+    // =========================================================================
+    // EDITOR - LATEX
+    // =========================================================================
+    
     "[latex]": {
         "editor.formatOnSave": false,
         "editor.wordWrap": "on",
         "editor.tabSize": 2,
-        "editor.insertSpaces": true
+        "editor.insertSpaces": true,
+        "editor.suggest.snippetsPreventQuickSuggestions": false
     },
     
     "[bibtex]": {
@@ -146,19 +147,27 @@
         "editor.insertSpaces": true
     },
     
-    // Diccionario español para corrección ortográfica
+    // =========================================================================
+    // CORRECTOR ORTOGRÁFICO (cSpell)
+    // =========================================================================
+    
+    // Idiomas: español (principal) e inglés
     "cSpell.language": "es,en",
+    
+    // Ignorar archivos de configuración y estilos
     "cSpell.ignorePaths": [
         "*.bib",
-        "cls/*",
-        "sty/*"
+        "cls/**",
+        "sty/**",
+        ".latexmkrc",
+        "Makefile"
     ],
     
     // =========================================================================
-    // EXPLORADOR DE ARCHIVOS
+    // EXPLORADOR - OCULTAR ARCHIVOS AUXILIARES
     // =========================================================================
     
-    // Ocultar archivos auxiliares en el explorador
+    // Ocultar archivos generados por LaTeX (no son necesarios en el explorador)
     "files.exclude": {
         "**/*.aux": true,
         "**/*.bbl": true,
@@ -172,9 +181,8 @@
         "**/*.toc": true,
         "**/*.lof": true,
         "**/*.lot": true,
+        "**/*.lol": true,
         "**/*.run.xml": true,
-        "**/_minted*": true,
-        "**/*.listing": true,
         "**/*.acn": true,
         "**/*.acr": true,
         "**/*.alg": true,
@@ -182,6 +190,18 @@
         "**/*.glo": true,
         "**/*.gls": true,
         "**/*.ist": true,
-        "**/*.lol": true
+        "**/*.listing": true,
+        "**/_minted*": true
+    },
+    
+    // =========================================================================
+    // ARCHIVOS Y BÚSQUEDA
+    // =========================================================================
+    
+    // Excluir de búsquedas archivos binarios y generados
+    "search.exclude": {
+        "**/*.pdf": true,
+        "**/_minted*": true,
+        "**/docs/assets/**": true
     }
 }

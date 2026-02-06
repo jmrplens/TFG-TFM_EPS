@@ -1,9 +1,15 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% CONFIGURACIÓN DEL TFG/TFM
-% 
+%% =============================================================================
+%% configuracion.tex
+%% Archivo de configuración global del usuario
+%%
+%% Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+%% Autor:    José Manuel Requena Plens
+%% Versión:  2.1.0 (2026/02/05)
+%% =============================================================================
+%
 % Este archivo contiene toda la información personal y del trabajo.
 % Modifica los valores según corresponda a tu situación.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
 
 \EPSsetup{
   %% =====================================================================
@@ -73,6 +79,25 @@
   %   master-geologica  - Ingeniería Geológica
   %
   titulacion = teleco,
+  
+  %% =====================================================================
+  %% IDIOMA DEL DOCUMENTO
+  %% =====================================================================
+  %
+  % Idioma principal del trabajo. Afecta a:
+  % - Títulos de secciones automáticas (Tabla, Figura, Bibliografía, etc.)
+  % - Formato de citas y bibliografía
+  % - Metadatos del PDF
+  %
+  % Valores disponibles:
+  %   espanol    - Español (predeterminado)
+  %   valenciano - Valenciano/Catalán
+  %   ingles     - Inglés
+  %
+  % IMPORTANTE: Si cambias el idioma, actualiza también el archivo
+  % 'cls/eps-metadata.tex' para que coincida (ver comentarios allí).
+  %
+  idioma = espanol,
   
   %% =====================================================================
   %% INFORMACIÓN INSTITUCIONAL (normalmente no hay que cambiar)

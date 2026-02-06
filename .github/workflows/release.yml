@@ -34,7 +34,8 @@ jobs:
         latexmk_use_lualatex: true
         latexmk_shell_escape: true
         texlive_version: ${{ env.TEXLIVE_VERSION }}
-        extra_system_packages: py3-pygments perl
+        extra_system_packages: py3-pip perl
+        pre_compile: pip install latexminted
         
     - name: Rename PDF
       run: mv main.pdf TFG-TFM_EPS_UA.pdf
@@ -72,7 +73,7 @@ jobs:
         
         - TeX Live 2024 o superior
         - LuaLaTeX (obligatorio)
-        - Pygments para resaltado de código
+        - latexminted para resaltado de código (`pip install latexminted`)
         
         ### 📖 Documentación
         

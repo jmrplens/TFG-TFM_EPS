@@ -2,21 +2,29 @@
 
 Esta carpeta contiene herramientas internas para el mantenimiento de la plantilla.
 
-## 📸 Generador de Previsualizaciones
+## � Herramientas disponibles
 
-Genera imágenes de previsualización para los snippets LaTeX de la documentación.
+| Script | Descripción |
+|--------|-------------|
+| `actualizar_previews.py` | Genera e inserta previews de snippets LaTeX en la documentación |
+| `generar_portadas.py` | Genera las imágenes de portadas para el README principal |
+
+---
+
+## 📸 Generador de Previews (`actualizar_previews.py`)
+
+Herramienta unificada que extrae, compila e inserta previews de snippets LaTeX en los archivos de documentación.
 
 **Características:**
 - Compilación paralela usando todos los núcleos disponibles (máximo 8)
-- Caché inteligente: solo recompila snippets modificados
-- Soporte para múltiples pasadas de compilación (referencias cruzadas)
+- Caché inteligente: solo recompila snippets modificados (manifest.json)
+- Usa los paquetes EPS de la plantilla (`eps-componentes`) como preámbulo
 - Conversión automática a WebP para menor tamaño
+- Sistema opt-in: solo procesa snippets marcados
 
-### Sistema Opt-In
+### Sistema de marcadores
 
-**Solo se procesan snippets marcados explícitamente** con el comentario HTML `<!-- preview -->`.
-
-#### Marcadores disponibles
+Solo se procesan snippets marcados explícitamente con `<!-- preview -->`:
 
 ```markdown
 ```latex <!-- preview -->
@@ -28,10 +36,10 @@ Genera imágenes de previsualización para los snippets LaTeX de la documentaci�
 
 ```latex <!-- preview:2 -->
 % Se renderiza con 2 pasadas (para referencias cruzadas)
-La Figura~\ref{fig:ejemplo} muestra...
+La ecuación~\ref{eq:ejemplo} muestra...
 ```
 
-```latex <!-- preview:3 mi_nombre -->
+```latex <!-- preview:3 mi_nombre_custom -->
 % 3 pasadas + nombre personalizado para el archivo
 ```
 ```
@@ -39,41 +47,41 @@ La Figura~\ref{fig:ejemplo} muestra...
 ### Uso
 
 ```bash
-# Listar TODOS los bloques latex (para decidir cuáles marcar)
-python3 .herramientas/generar_previews.py --listar-todos
+# Generar e insertar todos los previews
+python3 .herramientas/actualizar_previews.py
 
-# Listar solo snippets marcados con <!-- preview -->
-python3 .herramientas/generar_previews.py --listar
+# Listar snippets marcados (sin generar)
+python3 .herramientas/actualizar_previews.py --listar
 
-# Generar previews PDF
-python3 .herramientas/generar_previews.py
-
-# Generar PDF + PNG
-python3 .herramientas/generar_previews.py --png
+# Forzar regeneración de todos
+python3 .herramientas/actualizar_previews.py --forzar
 
 # Solo un archivo específico
-python3 .herramientas/generar_previews.py --archivo docs/ECUACIONES.md
+python3 .herramientas/actualizar_previews.py --archivo ECUACIONES
 
-# Forzar regeneración (ignora caché)
-python3 .herramientas/generar_previews.py --forzar
+# Solo generar (sin insertar enlaces)
+python3 .herramientas/actualizar_previews.py --solo-generar
 
-# Limpiar previsualizaciones huérfanas
-python3 .herramientas/generar_previews.py --limpiar
+# Solo insertar enlaces (sin compilar)
+python3 .herramientas/actualizar_previews.py --solo-insertar
+
+# Limpiar previews huérfanos
+python3 .herramientas/actualizar_previews.py --limpiar
 ```
 
 ### Requisitos
 
 - Python 3.8+
 - LuaLaTeX con `-shell-escape`
-- Paquetes LaTeX de la plantilla instalados
-- (Opcional) poppler-utils o ImageMagick para conversión a PNG
+- poppler-utils (pdftoppm)
+- (Opcional) cwebp para conversión a WebP
 
 ```bash
 # Ubuntu/Debian
-sudo apt install poppler-utils
+sudo apt install poppler-utils webp
 
 # macOS
-brew install poppler
+brew install poppler webp
 ```
 
 ### Estructura generada
@@ -82,75 +90,76 @@ brew install poppler
 docs/
 └── assets/
     └── previews/
+        ├── manifest.json
         ├── ECUACIONES_001.pdf
-        ├── ECUACIONES_001.png
+        ├── ECUACIONES_001.webp
         ├── FIGURAS_GRAFICAS_003.pdf
         └── ...
 ```
 
-### Workflow recomendado
+---
 
-1. **Identificar snippets renderizables**:
-   ```bash
-   python3 .herramientas/generar_previews.py --listar-todos
-   ```
+## 🎨 Generador de Portadas (`generar_portadas.py`)
 
-2. **Marcar snippets en los .md**:
+Genera las imágenes de portadas para cada titulación disponible.
+
+### Uso
+
+```bash
+# Generar todas las portadas
+python3 .herramientas/generar_portadas.py
+
+# Solo listar titulaciones
+python3 .herramientas/generar_portadas.py --listar
+
+# Forzar regeneración
+python3 .herramientas/generar_portadas.py --forzar
+```
+
+---
+
+## 🔧 Makefile
+
+Para mayor comodidad, se incluye un Makefile:
+
+```bash
+# Desde la raíz del proyecto
+make -f .herramientas/Makefile previews     # Generar e insertar previews
+make -f .herramientas/Makefile listar       # Listar snippets marcados
+make -f .herramientas/Makefile limpiar      # Limpiar huérfanos
+make -f .herramientas/Makefile portadas     # Generar portadas
+```
+
+---
+
+## 📝 Workflow recomendado
+
+1. **Marcar snippets en los archivos `.md`**:
    ```markdown
    ```latex <!-- preview -->
    \begin{equation}...
    ```
    ```
 
-3. **Generar previews**:
+2. **Generar e insertar previews**:
    ```bash
-   python3 .herramientas/generar_previews.py --png
+   python3 .herramientas/actualizar_previews.py
    ```
 
-4. **Verificar resultados** en `docs/assets/previews/`
+3. **Verificar resultados** en `docs/assets/previews/`
 
-5. **(Opcional) Insertar enlaces**:
-   ```bash
-   python3 .herramientas/insertar_previews.py
-   ```
-## 🔄 Script Unificado: actualizar_previews.py
+4. **Commit de los cambios** (archivos .md + assets)
 
-Combina la generación e inserción de previews en un solo comando:
+---
 
-```bash
-# Generar e insertar todos los previews (uso típico)
-python3 .herramientas/actualizar_previews.py
+## 🧪 Verificación
 
-# Procesar solo un archivo específico
-python3 .herramientas/actualizar_previews.py --archivo TEXTO
-
-# Solo generar imágenes (sin insertar enlaces)
-python3 .herramientas/actualizar_previews.py --solo-generar
-
-# Solo insertar enlaces (usando previews existentes)
-python3 .herramientas/actualizar_previews.py --solo-insertar
-
-# Forzar regeneración de todos los previews
-python3 .herramientas/actualizar_previews.py --forzar
-
-# Limpiar previews huérfanos
-python3 .herramientas/actualizar_previews.py --limpiar
-```
-
-## 🎨 Generador de Portadas: generar_portadas.py
-
-Genera automáticamente las imágenes de portadas para todas las titulaciones y actualiza el README principal.
+Después de hacer cambios, ejecuta:
 
 ```bash
-# Generar todas las portadas (usa paralelización automática)
-python3 .herramientas/generar_portadas.py
+# Ver sintaxis del script
+python3 -m py_compile .herramientas/actualizar_previews.py
+
+# Ver ayuda completa
+python3 .herramientas/actualizar_previews.py --help
 ```
-
-### Características
-
-- Lee las titulaciones directamente del archivo `.cls` (no valores hardcodeados)
-- Genera portada a color para cada una de las 21 titulaciones
-- Genera portada B/N para la titulación de referencia (teleco)
-- Usa compilación paralela con el número de núcleos disponibles
-- Actualiza automáticamente la galería de portadas en el README.md
-- Convierte a formato WebP para menor tamaño

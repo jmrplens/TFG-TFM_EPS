@@ -1,0 +1,963 @@
+%% eps-telecom.sty
+%% Componentes para telecomunicaciones, electrónica, robótica
+%%
+%% Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+%% Autor:    José Manuel Requena Plens
+%% Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
+%% Licencia: GNU GPL v3.0
+%% Versión:  2.1.0 (2026/02/05)
+%%
+%% Parte de eps-componentes.sty
+%% -----------------------------------------------------------------------------
+\ProvidesFile{eps-telecom.sty}[2026/02/05 v2.1.0 Componentes telecom EPS UA]
+
+% ============================================================================
+% DEPENDENCIAS
+% ============================================================================
+
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{polar,smithchart}
+\RequirePackage{circuitikz}
+\IfFileExists{siunitx.sty}{\RequirePackage{siunitx}}{%
+  \PackageWarning{eps-telecom}{siunitx no disponible, algunas funciones pueden fallar}%
+}
+
+% Configuración para evitar warnings de nullfont en LuaLaTeX
+% Esto fuerza que los números en pgfplots usen modo math
+\pgfkeys{/pgf/number format/assume math mode=true}
+
+% Suprimir warnings de "Missing character in nullfont" en LuaLaTeX
+% Estos warnings ocurren internamente en pgfplots/pgfgantt durante cálculos
+% y son inofensivos (no afectan el output del PDF)
+\tracinglostchars=0
+
+% ============================================================================
+% CARTA DE SMITH
+% ============================================================================
+
+% Estilo base para carta de Smith
+\pgfplotsset{
+  eps smith style/.style={
+    width=10cm,
+    height=10cm,
+    every node near coord/.append style={font=\footnotesize},
+  },
+}
+
+% Entorno para carta de Smith (sin caja)
+% Uso: \begin{smithplot}[opciones]
+%        \addplot...
+%      \end{smithplot}
+\newenvironment{smithplot}[1][]{%
+  \normalfont\selectfont
+  \begin{tikzpicture}[font=\footnotesize]
+    \begin{smithchart}[
+      eps smith style,
+      #1
+    ]
+}{
+    \end{smithchart}
+  \end{tikzpicture}
+}
+
+% Carta de Smith con título (estilo Card)
+% Uso: \begin{smithchartbox}[título]
+%        \smithpoint{0.5}{0.3}{Punto 1}
+%      \end{smithchartbox}
+\newenvironment{smithchartbox}[1][Carta de Smith]{%
+  \begin{tcolorbox}[eps-card, title={\faBroadcastTower~#1}, halign=center]
+    \begin{smithplot}
+}{%
+    \end{smithplot}
+  \end{tcolorbox}
+}
+
+% Punto en carta de Smith con etiqueta
+\newcommand{\smithpoint}[3]{%
+  \addplot[only marks, mark=*, mark size=3pt, eps-primary]
+    coordinates {(#1,#2)} node[above right, font=\footnotesize] {#3};
+}
+
+% Arco de impedancia constante
+\newcommand{\smitharc}[2]{%
+  \addplot[thick, eps-secondary, domain=#1:#2, samples=100] ({#1/360},{#2}); % Dummy implementation fix
+}
+
+% ============================================================================
+% DIAGRAMA DE CONSTELACIÓN
+% ============================================================================
+
+% Estilo para diagrama de constelación
+% Nota: Se usa assume math mode para evitar problemas con nullfont en LuaLaTeX
+\pgfplotsset{
+  constellation style/.style={
+    width=8cm,
+    height=8cm,
+    axis lines=middle,
+    xlabel={I},
+    ylabel={Q},
+    xmin=-2, xmax=2,
+    ymin=-2, ymax=2,
+    grid=both,
+    grid style={eps-gray!30},
+    axis line style={eps-gray},
+    tick style={eps-gray},
+    tick label style={/pgf/number format/assume math mode=true},
+  },
+}
+
+% Entorno para constelación (sin caja)
+% Uso: \begin{constellationplot}[opciones]
+%        \constpoint{1}{1}
+%      \end{constellationplot}
+\newenvironment{constellationplot}[1][]{%
+  \normalfont\selectfont
+  \begin{tikzpicture}[font=\footnotesize]
+    \begin{axis}[constellation style, #1]
+}{
+    \end{axis}
+  \end{tikzpicture}
+}
+
+% Entorno para constelación (estilo Card)
+% Uso: \begin{constellationbox}[título]
+%        \constpoint{1}{1}
+%      \end{constellationbox}
+\newenvironment{constellationbox}[1][Diagrama de constelación]{
+  \begin{tcolorbox}[eps-card, title={\faStar~#1}, halign=center]
+    \begin{constellationplot}
+}{
+    \end{constellationplot}
+  \end{tcolorbox}
+}
+
+% Punto de constelación
+\newcommand{\constpoint}[2]{%
+  \addplot[only marks, mark=*, mark size=4pt, eps-primary]
+    coordinates {(#1,#2)};
+}
+
+% Punto con etiqueta de bits
+\newcommand{\constpointlabel}[3]{%
+  \addplot[only marks, mark=*, mark size=4pt, eps-primary]
+    coordinates {(#1,#2)} node[above right, font=\tiny\ttfamily] {#3};
+}
+
+% Constelaciones predefinidas
+\newcommand{\qpsk}{%
+  \constpointlabel{0.707}{0.707}{00}
+  \constpointlabel{-0.707}{0.707}{01}
+  \constpointlabel{-0.707}{-0.707}{11}
+  \constpointlabel{0.707}{-0.707}{10}
+}
+
+% ============================================================================
+% DIAGRAMA DE BODE
+% ============================================================================
+
+% Estilos para Bode
+\pgfplotsset{
+  bode magnitude style/.style={
+    width=12cm,
+    height=5cm,
+    xmode=log,
+    xlabel={Frecuencia (Hz)},
+    ylabel={Magnitud (dB)},
+    grid=both,
+    grid style={eps-gray!30},
+    axis line style={eps-gray},
+  },
+  bode phase style/.style={
+    width=12cm,
+    height=4cm,
+    xmode=log,
+    xlabel={Frecuencia (Hz)},
+    ylabel={Fase (°)},
+    grid=both,
+    grid style={eps-gray!30},
+    axis line style={eps-gray},
+  },
+}
+
+% Entorno para diagrama de Bode
+% Uso: \begin{bodeplot}
+%        \bodemagnitude{datos}
+%        \bodephase{datos}
+%      \end{bodeplot}
+\newenvironment{bodeplot}{
+  \begin{center}
+    \begin{tikzpicture}
+}{
+    \end{tikzpicture}
+  \end{center}
+}
+
+% ============================================================================
+% DIAGRAMA DE BLOQUES
+% ============================================================================
+
+% Estilos TikZ para diagramas de bloques
+\tikzset{
+  % Bloques
+  sysblock/.style={
+    rectangle, draw=eps-primary, fill=eps-primary!10,
+    minimum width=2cm, minimum height=1cm,
+    font=\small, align=center, rounded corners=2pt,
+  },
+  sumblock/.style={
+    circle, draw=eps-primary, fill=white,
+    minimum size=0.6cm, font=\footnotesize,
+  },
+  gainblock/.style={
+    isosceles triangle, isosceles triangle apex angle=60,
+    draw=eps-primary, fill=eps-primary!10,
+    minimum width=1cm, minimum height=0.8cm,
+    font=\small, shape border rotate=90,
+  },
+  integratorblock/.style={
+    rectangle, draw=eps-secondary, fill=eps-secondary!10,
+    minimum width=1.5cm, minimum height=1cm,
+    font=\small, align=center,
+  },
+  delayblock/.style={
+    rectangle, draw=eps-warning, fill=eps-warning!10,
+    minimum width=1cm, minimum height=0.8cm,
+    font=\small, align=center,
+  },
+  % Conexiones
+  sysarrowstyle/.style={
+    ->, >=stealth, thick, eps-dark,
+  },
+  syslabel/.style={
+    font=\footnotesize, eps-gray,
+  },
+  % Puntos de suma
+  plusmark/.style={font=\tiny},
+  minusmark/.style={font=\tiny},
+}
+
+% Símbolos para suma
+\newcommand{\plusmark}{\scriptsize$+$}
+\newcommand{\minusmark}{\scriptsize$-$}
+
+% Entorno para diagramas de bloques
+% Uso: \begin{blockdiagram}...\end{blockdiagram}
+\newenvironment{blockdiagram}{%
+  \begin{center}
+  \begin{tikzpicture}[node distance=2cm]
+}{%
+  \end{tikzpicture}
+  \end{center}
+}
+
+% Comando para añadir bloque
+% Uso: \sysblock{id}{x,y}{Etiqueta}
+\newcommand{\sysblock}[3]{%
+  \node[sysblock] (#1) at (#2) {#3};
+}
+
+% Comando para flecha entre bloques
+% Uso: \sysarrow{origen}{destino}
+\newcommand{\sysarrow}[2]{%
+  \draw[sysarrowstyle] (#1) -- (#2);
+}
+
+% ============================================================================
+% CRONOGRAMA DE SEÑALES (TIMING DIAGRAM)
+% ============================================================================
+
+% Estilos para timing diagrams
+\tikzset{
+  timing style/.style={
+    x=0.5cm, y=0.6cm,
+  },
+  timing signal/.style={
+    thick, eps-primary,
+  },
+  timing label/.style={
+    font=\footnotesize\ttfamily, anchor=east,
+  },
+  timing grid/.style={
+    very thin, eps-gray!30,
+  },
+  timing clock/.style={
+    thick, eps-secondary,
+  },
+}
+
+% Comandos para señales
+\newcommand{\timinglow}[2]{%
+  \draw[timing signal] (#1,0) -- (#2,0);
+}
+\newcommand{\timinghigh}[2]{%
+  \draw[timing signal] (#1,1) -- (#2,1);
+}
+\newcommand{\timingrise}[1]{%
+  \draw[timing signal] (#1,0) -- (#1,1);
+}
+\newcommand{\timingfall}[1]{%
+  \draw[timing signal] (#1,1) -- (#1,0);
+}
+\newcommand{\timingclock}[3]{% inicio, fin, periodo
+  \foreach \i in {#1,#3,...,#2} {
+    \draw[timing clock] (\i,0) -- (\i,1) -- (\i+#3/2,1) -- (\i+#3/2,0);
+  }
+}
+
+% Cronograma de señales (sin caja, centrado)
+% Uso: \begin{timingbox}[Cronograma de la comunicación]
+%        ... TikZ timing diagram ...
+%      \end{timingbox}
+\newenvironment{timingbox}[1][Cronograma de señales]{%
+  \begin{center}
+  {\small\bfseries\faWaveSquare\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
+}
+
+% ============================================================================
+% PARÁMETROS S - Tabla profesional estilo booktabs
+% ============================================================================
+
+% Tabla de parámetros S mejorada (sin caja, estilo booktabs)
+% Uso: \begin{sparameters}[título opcional]
+%        \sparam{1 GHz}{-15.2}{20.5}{-30.1}{-12.3}
+%      \end{sparameters}
+\newenvironment{sparameters}[1][]{%
+  \begingroup
+  \small
+  \begin{center}
+  \ifx\\#1\\%
+  \else
+    \textbf{#1}\par\vspace{0.5em}
+  \fi
+  \begin{tabular}{@{}ccccc@{}}
+    \toprule
+    \textbf{Frecuencia} & \textbf{S\textsubscript{11} (dB)} & \textbf{S\textsubscript{21} (dB)} & \textbf{S\textsubscript{12} (dB)} & \textbf{S\textsubscript{22} (dB)} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \endgroup
+}
+
+% Fila de parámetros S
+\newcommand{\sparam}[5]{%
+  #1 & #2 & #3 & #4 & #5 \\
+}
+
+% Fila con indicador de cumplimiento (para tablas con columna extra)
+\newcommand{\sparamrowok}[5]{%
+  #1 & #2 & #3 & #4 & #5 & \textcolor{eps-success}{\faCheck} \\
+}
+
+\newcommand{\sparamrowfail}[5]{%
+  #1 & #2 & #3 & #4 & #5 & \textcolor{eps-danger}{\faTimes} \\
+}
+
+% Indicadores inline de cumplimiento
+\newcommand{\sparamok}{\textcolor{eps-success}{\faCheck}}
+\newcommand{\sparamfail}{\textcolor{eps-danger}{\faTimes}}
+
+% ============================================================================
+% DIAGRAMA DE ESTADOS (FSM)
+% ============================================================================
+
+% Estilos TikZ para máquinas de estados
+\tikzset{
+  fsmstate/.style={
+    circle, draw=eps-primary, fill=eps-primary!10,
+    minimum size=1.2cm, font=\small\bfseries,
+  },
+  fsminitial/.style={
+    fsmstate, fill=eps-success!20, draw=eps-success,
+  },
+  fsmfinal/.style={
+    fsmstate, double, double distance=2pt,
+  },
+  fsmtransition/.style={
+    ->, >=stealth, thick, eps-dark,
+    shorten >=2pt, shorten <=2pt,
+  },
+  fsmlabel/.style={
+    font=\footnotesize, fill=white, inner sep=1pt,
+  },
+  fsmloop/.style={
+    looseness=5, in=60, out=120,
+  },
+}
+
+% Comando para transición con etiqueta
+% Uso: \fsmtrans{estado1}{estado2}{etiqueta}
+\newcommand{\fsmtrans}[3]{%
+  \draw[fsmtransition] (#1) -- node[fsmlabel, above] {#3} (#2);
+}
+
+% Entorno para máquinas de estados finitos
+% Uso: \begin{fsmdiagram} ... \end{fsmdiagram}
+\newenvironment{fsmdiagram}{%
+  \begin{center}
+  \begin{tikzpicture}[node distance=3cm]
+}{%
+  \end{tikzpicture}
+  \end{center}
+}
+
+% Comando para estado FSM
+% Uso: \fsmstate{id}{x,y}{etiqueta}{opciones: initial, final o vacío}
+\newcommand{\fsmstate}[4]{%
+  \ifstrequal{#4}{initial}{%
+    \node[fsminitial] (#1) at (#2) {#3};
+  }{%
+    \ifstrequal{#4}{final}{%
+      \node[fsmfinal] (#1) at (#2) {#3};
+    }{%
+      \node[fsmstate] (#1) at (#2) {#3};
+    }%
+  }%
+}
+
+% ============================================================================
+% ANTENAS Y PATRONES DE RADIACIÓN
+% ============================================================================
+
+% Estilo para diagrama polar de radiación
+\pgfplotsset{
+  radiation pattern style/.style={
+    width=8cm,
+    height=8cm,
+    axis lines=none,
+    samples=100,
+  },
+}
+
+% Patrón de radiación (sin caja, centrado)
+% Uso: \begin{radiationbox}[Patrón de la antena Yagi]
+%        \begin{tikzpicture}...
+%      \end{radiationbox}
+\newenvironment{radiationbox}[1][Patrón de radiación]{%
+  \begin{center}
+  {\small\bfseries\faBroadcastTower\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
+}
+
+% ============================================================================
+% ESPECTRO DE FRECUENCIAS
+% ============================================================================
+
+% Estilo para espectro
+\pgfplotsset{
+  spectrum style/.style={
+    width=12cm,
+    height=5cm,
+    xlabel={Frecuencia},
+    ylabel={Amplitud (dB)},
+    grid=both,
+    grid style={eps-gray!30},
+    axis line style={eps-gray},
+  },
+}
+
+% Espectro de frecuencias (sin caja, centrado)
+% Uso: \begin{spectrumbox}[Espectro de la señal modulada]
+%        \begin{tikzpicture}...
+%      \end{spectrumbox}
+\newenvironment{spectrumbox}[1][Espectro de frecuencias]{%
+  \begin{center}
+  {\small\bfseries\faChartArea\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
+}
+
+% ============================================================================
+% DIAGRAMA DE OJO
+% ============================================================================
+
+% Estilo para diagrama de ojo
+\pgfplotsset{
+  eye diagram style/.style={
+    width=10cm,
+    height=6cm,
+    xlabel={Tiempo},
+    ylabel={Amplitud},
+    xmin=0, xmax=2,
+    ymin=-1.5, ymax=1.5,
+    axis lines=middle,
+    axis line style={eps-gray},
+    ticks=none,
+  },
+}
+
+% Diagrama de ojo (sin caja, centrado)
+% Uso: \begin{eyediagrambox}[Diagrama de la señal QPSK]
+%        \begin{tikzpicture}...
+%      \end{eyediagrambox}
+\newenvironment{eyediagrambox}[1][Diagrama de ojo]{%
+  \begin{center}
+  {\small\bfseries\faEye\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
+}
+
+% ============================================================================
+% ESPECIFICACIONES RF - Tabla profesional estilo datasheet
+% ============================================================================
+
+% Tabla de especificaciones estilo datasheet (sin caja)
+% Uso: \begin{rfspecs}[título]
+%        \rfspec{Frecuencia}{2.4}{GHz}{Nominal}
+%        \rfspecrange{Potencia TX}{18}{22}{dBm}{@25°C}
+%      \end{rfspecs}
+\newenvironment{rfspecs}[1][Especificaciones]{%
+  \begingroup
+  \small
+  \begin{center}
+  \textbf{#1}\par\vspace{0.5em}
+  \begin{tabular}{@{}lccl@{}}
+    \toprule
+    \textbf{Parámetro} & \textbf{Valor} & \textbf{Unidad} & \textbf{Condiciones} \\
+    \midrule
+}{%
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \endgroup
+}
+
+% Especificación simple
+\newcommand{\rfspec}[4]{%
+  #1 & #2 & #3 & #4 \\
+}
+
+% Especificación con rango (min-max)
+\newcommand{\rfspecrange}[5]{%
+  #1 & #2 -- #3 & #4 & #5 \\
+}
+
+% Especificación típica con min/typ/max
+\newcommand{\rfspecfull}[6]{%
+  #1 & #2/#3/#4 & #5 & #6 \\
+}
+
+% ============================================================================
+% CIRCUITOS CON CIRCUITIKZ
+% ============================================================================
+
+% Estilos personalizados para circuitikz
+\ctikzset{
+  resistors/scale=0.8,
+  capacitors/scale=0.8,
+  inductors/scale=0.8,
+}
+
+% Circuito con CircuiTikZ (sin caja, centrado)
+% Uso: \begin{circuitbox}[Filtro paso bajo]
+%        \begin{circuitikz}...
+%      \end{circuitbox}
+\newenvironment{circuitbox}[1][Esquema del circuito]{%
+  \begin{center}
+  {\small\bfseries\faPlug\hspace{0.5em}#1}
+  \par\vspace{4pt}
+}{%
+  \end{center}
+}
+
+% ============================================================================
+% PROTOCOLO DE COMUNICACIÓN - TRAMAS DE DATOS
+% ============================================================================
+% Implementación moderna inspirada en bytefield con diseño visual mejorado
+%
+% Características:
+% - Esquinas redondeadas y colores temáticos
+% - Cabecera de bits configurable (cada 8, cada 4, o todos)
+% - Soporte para little-endian y big-endian
+% - Campos multi-fila (wordbox)
+% - Campos que continúan entre filas
+% - Agrupación de campos con llaves laterales
+% - Campos destacados, variables y reservados
+%
+% Uso básico:
+%   \begin{protocolframe}[bits por fila]
+%     \framefield{8}{Preámbulo}
+%     \framefield{16}{Dirección}
+%   \end{protocolframe}
+%
+% Uso avanzado:
+%   \begin{protocolframe}[32]
+%     \framebitheader{0-31}           % Cabecera completa
+%     \framefield{4}{Ver}
+%     \framefieldmulti{2}{32}{Datos}  % Campo de 2 filas
+%     \framewordgroup{3}{Cabecera}    % Llave agrupando 3 filas
+%   \end{protocolframe}
+
+\newcounter{framepos}
+\newcounter{framerow}
+\newlength{\framebitwidth}
+\newlength{\frameheight}
+\setlength{\frameheight}{0.8cm}
+
+% Factor de espaciado entre filas (0.15 = 15% de espacio adicional)
+\newcommand{\framerowspacing}{1.15}
+
+% Configuración por defecto
+\newcommand{\framebitsperrow}{32}
+\newif\ifframelittleendian
+\framelittleendianfalse
+
+% Comando para configurar endianness
+% Uso: \frameendianness{little} o \frameendianness{big}
+\newcommand{\frameendianness}[1]{%
+  \def\@temparg{#1}%
+  \def\@littlearg{little}%
+  \ifx\@temparg\@littlearg
+    \framelittleendiantrue
+  \else
+    \framelittleendianfalse
+  \fi
+}
+
+% Entorno principal
+\newenvironment{protocolframe}[1][32]{%
+  \renewcommand{\framebitsperrow}{#1}%
+  % Calcular ancho: dejar 4em de margen total (2em cada lado) + espacio para llaves
+  \setlength{\framebitwidth}{\dimexpr(\linewidth-5em)/#1\relax}%
+  \setcounter{framepos}{0}%
+  \setcounter{framerow}{0}%
+  \centering
+  \begin{tikzpicture}[
+    x=\framebitwidth,
+    y=\frameheight,
+    every node/.style={font=\footnotesize}
+  ]
+    % Regla de bits superior por defecto (cada 8 bits)
+    \foreach \b in {0,8,...,\numexpr#1-1\relax} {
+      \ifframelittleendian
+        \pgfmathtruncatemacro{\bitlabel}{#1-1-\b}%
+      \else
+        \pgfmathtruncatemacro{\bitlabel}{\b}%
+      \fi
+      \node[above, font=\tiny, eps-gray] at (\b+0.5, 0) {\bitlabel};
+    }
+}{%
+  \end{tikzpicture}
+}
+
+% ---- CABECERA DE BITS PERSONALIZADA ----
+% Uso: \framebitheader{0-31} o \framebitheader{0,4,8,12,...} o \framebitheader*{0-15}
+% Con * muestra TODOS los bits
+\newcommand{\framebitheader}{\@ifstar\framebitheader@all\framebitheader@range}
+
+\newcommand{\framebitheader@all}[1]{%
+  % Muestra todos los números de bit
+  \pgfmathtruncatemacro{\startb}{0}%
+  \pgfmathtruncatemacro{\endb}{\framebitsperrow-1}%
+  \foreach \b in {\startb,...,\endb} {
+    \ifframelittleendian
+      \pgfmathtruncatemacro{\bitlabel}{\framebitsperrow-1-\b}%
+    \else
+      \pgfmathtruncatemacro{\bitlabel}{\b}%
+    \fi
+    \node[above, font=\tiny, eps-gray] at (\b+0.5, 0) {\bitlabel};
+  }
+}
+
+\newcommand{\framebitheader@range}[1]{%
+  % Parsea rangos como 0-31 o listas como 0,8,16,24
+  \@for\@bititem:=#1\do{%
+    \expandafter\framebitheader@parseitem\@bititem--\@nil
+  }%
+}
+
+\def\framebitheader@parseitem#1-#2-#3\@nil{%
+  \def\@tempa{#2}%
+  \ifx\@tempa\empty
+    % Es un número solo
+    \pgfmathtruncatemacro{\bitpos}{#1}%
+    \ifframelittleendian
+      \pgfmathtruncatemacro{\bitlabel}{\framebitsperrow-1-\bitpos}%
+    \else
+      \pgfmathtruncatemacro{\bitlabel}{\bitpos}%
+    \fi
+    \node[above, font=\tiny, eps-gray] at (\bitpos+0.5, 0) {\bitlabel};
+  \else
+    % Es un rango start-end
+    \pgfmathtruncatemacro{\startb}{#1}%
+    \pgfmathtruncatemacro{\endb}{#2}%
+    \foreach \b in {\startb,...,\endb} {
+      \ifframelittleendian
+        \pgfmathtruncatemacro{\bitlabel}{\framebitsperrow-1-\b}%
+      \else
+        \pgfmathtruncatemacro{\bitlabel}{\b}%
+      \fi
+      \node[above, font=\tiny, eps-gray] at (\b+0.5, 0) {\bitlabel};
+    }
+  \fi
+}
+
+% ---- Umbral para campos estrechos (en bits) ----
+\def\framenarrowthreshold{3}
+
+% ---- CAMPO BÁSICO ----
+% Uso: \framefield{bits}{etiqueta}
+% Usa automáticamente etiqueta externa si el campo es muy estrecho
+\newcommand{\framefield}[2]{%
+  \pgfmathsetmacro{\startbit}{Mod(\value{framepos}, \framebitsperrow)}%
+  \pgfmathsetmacro{\rownum}{-\value{framerow}*\framerowspacing}%
+  \pgfmathsetmacro{\endbit}{\startbit + #1}%
+  \pgfmathsetmacro{\midbit}{(\startbit+\endbit)/2}%
+  % Dibujar campo
+  \fill[eps-primary!10, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \draw[eps-primary, thick, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  % Detectar si es campo estrecho
+  \pgfmathtruncatemacro{\isnarrow}{#1 < \framenarrowthreshold ? 1 : 0}%
+  \ifnum\isnarrow=1
+    % Campo estrecho: etiqueta externa con línea de referencia
+    \draw[eps-gray, thin] (\midbit, \rownum) -- (\midbit, \rownum+0.4);
+    \node[above, font=\scriptsize, align=center, inner sep=1pt] at (\midbit, \rownum+0.4) {#2};
+    \node[font=\tiny, eps-gray] at (\midbit, \rownum-0.5) {\tiny #1};
+  \else
+    % Campo normal: etiqueta centrada dentro
+    \node[align=center] at (\midbit, \rownum-0.4) {#2};
+    \node[font=\tiny, eps-gray] at (\midbit, \rownum-0.8) {#1};
+  \fi
+  \addtocounter{framepos}{#1}%
+  % Si llegamos al final de la fila, saltar
+  \pgfmathtruncatemacro{\newpos}{\value{framepos}}%
+  \pgfmathtruncatemacro{\check}{Mod(\newpos, \framebitsperrow)}%
+  \ifnum\check=0
+    \stepcounter{framerow}%
+  \fi
+}
+
+% ---- CAMPO CON ETIQUETA EXTERNA (forzado) ----
+% Uso: \framefieldext{bits}{etiqueta}
+% Siempre coloca la etiqueta fuera del campo, útil para campos estrechos
+\NewDocumentCommand{\framefieldext}{m m}{%
+  \pgfmathsetmacro{\startbit}{Mod(\value{framepos}, \framebitsperrow)}%
+  \pgfmathsetmacro{\rownum}{-\value{framerow}*\framerowspacing}%
+  \pgfmathsetmacro{\endbit}{\startbit + #1}%
+  \pgfmathsetmacro{\midbit}{(\startbit+\endbit)/2}%
+  % Dibujar campo
+  \fill[eps-primary!10, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \draw[eps-primary, thick, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  % Etiqueta externa con línea de referencia
+  \draw[eps-gray, thin] (\midbit, \rownum) -- (\midbit, \rownum+0.4);
+  \node[above, font=\scriptsize, align=center, inner sep=1pt] at (\midbit, \rownum+0.4) {#2};
+  \node[font=\tiny, eps-gray] at (\midbit, \rownum-0.5) {\tiny #1};
+  \addtocounter{framepos}{#1}%
+  \pgfmathtruncatemacro{\newpos}{\value{framepos}}%
+  \pgfmathtruncatemacro{\check}{Mod(\newpos, \framebitsperrow)}%
+  \ifnum\check=0
+    \stepcounter{framerow}%
+  \fi
+}
+
+% ---- CAMPO DESTACADO ----
+% Uso: \framefieldhighlight{bits}{etiqueta}
+\newcommand{\framefieldhighlight}[2]{%
+  \pgfmathsetmacro{\startbit}{Mod(\value{framepos}, \framebitsperrow)}%
+  \pgfmathsetmacro{\rownum}{-\value{framerow}*\framerowspacing}%
+  \pgfmathsetmacro{\endbit}{\startbit + #1}%
+  \pgfmathsetmacro{\midbit}{(\startbit+\endbit)/2}%
+  \fill[eps-warning!15, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \draw[eps-warning, thick, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  % Detectar si es campo estrecho
+  \pgfmathtruncatemacro{\isnarrow}{#1 < \framenarrowthreshold ? 1 : 0}%
+  \ifnum\isnarrow=1
+    % Campo estrecho: etiqueta externa
+    \draw[eps-warning, thin] (\midbit, \rownum) -- (\midbit, \rownum+0.4);
+    \node[above, font=\scriptsize\bfseries, align=center, inner sep=1pt, eps-warning] at (\midbit, \rownum+0.4) {#2};
+    \node[font=\tiny, eps-gray] at (\midbit, \rownum-0.5) {\tiny #1};
+  \else
+    % Campo normal
+    \node[align=center, font=\footnotesize\bfseries] at (\midbit, \rownum-0.4) {#2};
+    \node[font=\tiny, eps-gray] at (\midbit, \rownum-0.8) {#1};
+  \fi
+  \addtocounter{framepos}{#1}%
+  \pgfmathtruncatemacro{\newpos}{\value{framepos}}%
+  \pgfmathtruncatemacro{\check}{Mod(\newpos, \framebitsperrow)}%
+  \ifnum\check=0
+    \stepcounter{framerow}%
+  \fi
+}
+
+% ---- CAMPO VARIABLE ----
+% Uso: \framefieldvar{texto} o \framefieldvar[ancho]{texto}
+\newcommand{\framefieldvar}[2][\framebitsperrow]{%
+  \pgfmathsetmacro{\startbit}{Mod(\value{framepos}, \framebitsperrow)}%
+  \pgfmathsetmacro{\rownum}{-\value{framerow}*\framerowspacing}%
+  \pgfmathsetmacro{\endbit}{\startbit + #1}%
+  \fill[eps-gray!10, pattern=north east lines, pattern color=eps-gray!30, rounded corners=2pt]
+    (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \draw[eps-gray, thick, dashed, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \node[align=center] at ({(\startbit+\endbit)/2}, \rownum-0.4) {#2};
+  \node[font=\tiny, eps-gray] at ({(\startbit+\endbit)/2}, \rownum-0.8) {var};
+  \addtocounter{framepos}{#1}%
+  \pgfmathtruncatemacro{\newpos}{\value{framepos}}%
+  \pgfmathtruncatemacro{\check}{Mod(\newpos, \framebitsperrow)}%
+  \ifnum\check=0
+    \stepcounter{framerow}%
+  \fi
+}
+
+% ---- CAMPO RESERVADO ----
+% Uso: \framefieldreserved{bits} o \framefieldreserved[texto]{bits}
+\newcommand{\framefieldreserved}[2][Reservado]{%
+  \pgfmathsetmacro{\startbit}{Mod(\value{framepos}, \framebitsperrow)}%
+  \pgfmathsetmacro{\rownum}{-\value{framerow}*\framerowspacing}%
+  \pgfmathsetmacro{\endbit}{\startbit + #2}%
+  \pgfmathsetmacro{\midbit}{(\startbit+\endbit)/2}%
+  \fill[eps-gray!5, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \draw[eps-gray!50, thick, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  % Detectar si es campo estrecho
+  \pgfmathtruncatemacro{\isnarrow}{#2 < \framenarrowthreshold ? 1 : 0}%
+  \ifnum\isnarrow=1
+    % Campo estrecho: etiqueta externa
+    \draw[eps-gray!50, thin] (\midbit, \rownum) -- (\midbit, \rownum+0.4);
+    \node[above, font=\scriptsize\itshape, align=center, inner sep=1pt, eps-gray] at (\midbit, \rownum+0.4) {#1};
+    \node[font=\tiny, eps-gray] at (\midbit, \rownum-0.5) {\tiny #2};
+  \else
+    % Campo normal
+    \node[align=center, font=\footnotesize\itshape, eps-gray] at (\midbit, \rownum-0.4) {#1};
+    \node[font=\tiny, eps-gray] at (\midbit, \rownum-0.8) {#2};
+  \fi
+  \addtocounter{framepos}{#2}%
+  \pgfmathtruncatemacro{\newpos}{\value{framepos}}%
+  \pgfmathtruncatemacro{\check}{Mod(\newpos, \framebitsperrow)}%
+  \ifnum\check=0
+    \stepcounter{framerow}%
+  \fi
+}
+
+% ---- CAMPO MULTI-FILA (wordbox) ----
+% Uso: \framefieldmulti{filas}{bits por fila}{etiqueta}
+\newcommand{\framefieldmulti}[3]{%
+  \pgfmathsetmacro{\startbit}{Mod(\value{framepos}, \framebitsperrow)}%
+  \pgfmathsetmacro{\rownum}{-\value{framerow}*\framerowspacing}%
+  \pgfmathsetmacro{\endbit}{\startbit + #2}%
+  % Calcular fila final considerando espaciado
+  \pgfmathsetmacro{\endrow}{\rownum - #1*\framerowspacing + (\framerowspacing - 1)}%
+  % Fondo y borde para múltiples filas
+  \fill[eps-primary!10, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \endrow);
+  \draw[eps-primary, thick, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \endrow);
+  % Etiqueta centrada
+  \node[align=center] at ({(\startbit+\endbit)/2}, {(\rownum+\endrow)/2}) {#3};
+  % Tamaño total (dentro del campo)
+  \pgfmathtruncatemacro{\totalbits}{#1 * #2}%
+  \node[font=\tiny, eps-gray] at ({(\startbit+\endbit)/2}, \endrow+0.2) {\totalbits};
+  % Actualizar posición
+  \addtocounter{framerow}{#1}%
+  \setcounter{framepos}{0}%
+}
+
+% ---- CAMPO CON CONTINUACIÓN (split field) ----
+% Para campos que se dividen entre filas
+% Uso: \framefieldstart{bits}{etiqueta} ... \framefieldend{bits}
+\newcommand{\framefieldstart}[2]{%
+  \pgfmathsetmacro{\startbit}{Mod(\value{framepos}, \framebitsperrow)}%
+  \pgfmathsetmacro{\rownum}{-\value{framerow}*\framerowspacing}%
+  \pgfmathsetmacro{\endbit}{\startbit + #1}%
+  % Campo sin borde derecho (continúa)
+  \fill[eps-secondary!15, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \draw[eps-secondary, thick]
+    ([xshift=2pt]\startbit, \rownum) -- (\startbit, \rownum) -- (\startbit, \rownum-1) -- ([xshift=2pt]\startbit, \rownum-1);
+  \draw[eps-secondary, thick] (\endbit, \rownum) -- (\endbit, \rownum-1);
+  % Etiqueta con indicador de continuación
+  \node[align=center] at ({(\startbit+\endbit)/2}, \rownum-0.4) {#2};
+  \node[right, font=\tiny, eps-secondary] at (\endbit-0.3, \rownum-0.5) {$\sim$\kern-0.5em$\rightarrow$};
+  \addtocounter{framepos}{#1}%
+  \pgfmathtruncatemacro{\newpos}{\value{framepos}}%
+  \pgfmathtruncatemacro{\check}{Mod(\newpos, \framebitsperrow)}%
+  \ifnum\check=0
+    \stepcounter{framerow}%
+  \fi
+}
+
+\newcommand{\framefieldend}[1]{%
+  \pgfmathsetmacro{\startbit}{Mod(\value{framepos}, \framebitsperrow)}%
+  \pgfmathsetmacro{\rownum}{-\value{framerow}*\framerowspacing}%
+  \pgfmathsetmacro{\endbit}{\startbit + #1}%
+  % Campo sin borde izquierdo (viene de arriba)
+  \fill[eps-secondary!15, rounded corners=2pt] (\startbit, \rownum) rectangle (\endbit, \rownum-1);
+  \draw[eps-secondary, thick] (\startbit, \rownum) -- (\startbit, \rownum-1);
+  \draw[eps-secondary, thick]
+    ([xshift=-2pt]\endbit, \rownum) -- (\endbit, \rownum) -- (\endbit, \rownum-1) -- ([xshift=-2pt]\endbit, \rownum-1);
+  % Indicador de continuación
+  \node[left, font=\tiny, eps-secondary] at (\startbit+0.3, \rownum-0.5) {$\leftarrow$\kern-0.5em$\sim$};
+  \addtocounter{framepos}{#1}%
+  \pgfmathtruncatemacro{\newpos}{\value{framepos}}%
+  \pgfmathtruncatemacro{\check}{Mod(\newpos, \framebitsperrow)}%
+  \ifnum\check=0
+    \stepcounter{framerow}%
+  \fi
+}
+
+% ---- CAMPO VACÍO (sin bordes) ----
+% Uso: \frameskip{bits}
+\newcommand{\frameskip}[1]{%
+  \addtocounter{framepos}{#1}%
+  \pgfmathtruncatemacro{\newpos}{\value{framepos}}%
+  \pgfmathtruncatemacro{\check}{Mod(\newpos, \framebitsperrow)}%
+  \ifnum\check=0
+    \stepcounter{framerow}%
+  \fi
+}
+
+% ---- AGRUPACIÓN CON LLAVE (wordgroup) ----
+% Uso: \framewordgroup{fila inicio}{fila fin}{etiqueta}
+% Dibuja una llave a la derecha agrupando las filas indicadas
+\newcommand{\framewordgroup}[3]{%
+  \pgfmathsetmacro{\starty}{-#1*\framerowspacing}%
+  \pgfmathsetmacro{\endy}{-(#2+1)*\framerowspacing + (\framerowspacing - 1)}%
+  \pgfmathsetmacro{\midy}{(\starty+\endy)/2}%
+  % Llave decorativa
+  \draw[eps-primary, thick, decorate, decoration={brace, amplitude=8pt, mirror}]
+    (\framebitsperrow+0.3, \starty) -- (\framebitsperrow+0.3, \endy);
+  % Etiqueta
+  \node[right, font=\footnotesize, eps-primary] at (\framebitsperrow+0.8, \midy-0.5) {#3};
+}
+
+% ---- AGRUPACIÓN CON LLAVE IZQUIERDA ----
+% Uso: \framewordgroupleft{fila inicio}{fila fin}{etiqueta}
+\newcommand{\framewordgroupleft}[3]{%
+  \pgfmathsetmacro{\starty}{-#1*\framerowspacing}%
+  \pgfmathsetmacro{\endy}{-(#2+1)*\framerowspacing + (\framerowspacing - 1)}%
+  \pgfmathsetmacro{\midy}{(\starty+\endy)/2}%
+  % Llave decorativa
+  \draw[eps-primary, thick, decorate, decoration={brace, amplitude=8pt}]
+    (-0.3, \starty) -- (-0.3, \endy);
+  % Etiqueta
+  \node[left, font=\footnotesize, eps-primary] at (-0.8, \midy-0.5) {#3};
+}
+
+% ---- SEPARADOR DE SECCIÓN ----
+% Uso: \frameseparator{etiqueta opcional}
+\newcommand{\frameseparator}[1][]{%
+  \pgfmathsetmacro{\rownum}{-\value{framerow}*\framerowspacing}%
+  \draw[eps-gray, dashed] (0, \rownum-0.5) -- (\framebitsperrow, \rownum-0.5);
+  \ifx\relax#1\relax\else
+    \node[fill=white, font=\tiny\itshape, eps-gray] at (\framebitsperrow/2, \rownum-0.5) {#1};
+  \fi
+}
+
+% ---- ANOTACIÓN ----
+% Uso: \frameannotation{bit}{fila}{texto}
+\newcommand{\frameannotation}[3]{%
+  \pgfmathsetmacro{\annoty}{-#2*\framerowspacing - 1.2}%
+  \node[below right, font=\scriptsize, eps-info, align=left] at (#1, \annoty) {#3};
+}
+
+% Salto manual de línea
+\newcommand{\framebreak}{%
+  \stepcounter{framerow}%
+  \setcounter{framepos}{0}%
+}
+
+\endinput

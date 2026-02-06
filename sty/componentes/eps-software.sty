@@ -1,0 +1,626 @@
+%% eps-software.sty
+%% Componentes para desarrollo de software, APIs, IT
+%%
+%% Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+%% Autor:    José Manuel Requena Plens
+%% Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
+%% Licencia: GNU GPL v3.0
+%% Versión:  2.1.0 (2026/02/05)
+%%
+%% Parte de eps-componentes.sty
+%% -----------------------------------------------------------------------------
+\ProvidesFile{eps-software.sty}[2026/02/05 v2.1.0 Componentes software EPS UA]
+
+% ============================================================================
+% DEPENDENCIAS
+% ============================================================================
+
+% \RequirePackage{listings}
+\RequirePackage{forest}  % Para árboles de directorios
+\RequirePackage{tabularx} % Para tablas auto-ajustables
+\RequirePackage{varwidth} % Para cajas de ancho variable (UML)
+\RequirePackage{environ}  % Para capturar cuerpo de entorno (dbtable)
+
+% ============================================================================
+% ENDPOINTS REST API
+% ============================================================================
+
+% Los colores base eps-http-* se definen en eps-componentes.sty
+% Aquí solo definimos la lógica de visualización.
+
+% Comando para método HTTP con estilo badge moderno
+\newcommand{\httpmethod}[1]{%
+  \ifstrequal{#1}{GET}{\tcbox[on line, boxsep=0pt, left=3pt, right=3pt, top=1pt, bottom=1pt, colback=eps-http-get!10, colframe=eps-http-get, boxrule=0.5pt, arc=2pt, fontupper=\bfseries\sffamily\tiny, colupper=eps-http-get]{GET}}{}%
+  \ifstrequal{#1}{POST}{\tcbox[on line, boxsep=0pt, left=3pt, right=3pt, top=1pt, bottom=1pt, colback=eps-http-post!10, colframe=eps-http-post, boxrule=0.5pt, arc=2pt, fontupper=\bfseries\sffamily\tiny, colupper=eps-http-post]{POST}}{}%
+  \ifstrequal{#1}{PUT}{\tcbox[on line, boxsep=0pt, left=3pt, right=3pt, top=1pt, bottom=1pt, colback=eps-http-put!10, colframe=eps-http-put, boxrule=0.5pt, arc=2pt, fontupper=\bfseries\sffamily\tiny, colupper=eps-http-put]{PUT}}{}%
+  \ifstrequal{#1}{PATCH}{\tcbox[on line, boxsep=0pt, left=3pt, right=3pt, top=1pt, bottom=1pt, colback=eps-http-patch!10, colframe=eps-http-patch, boxrule=0.5pt, arc=2pt, fontupper=\bfseries\sffamily\tiny, colupper=eps-http-patch]{PATCH}}{}%
+  \ifstrequal{#1}{DELETE}{\tcbox[on line, boxsep=0pt, left=3pt, right=3pt, top=1pt, bottom=1pt, colback=eps-http-delete!10, colframe=eps-http-delete, boxrule=0.5pt, arc=2pt, fontupper=\bfseries\sffamily\tiny, colupper=eps-http-delete]{DELETE}}{}%
+}
+
+% Comandos de conveniencia para métodos HTTP
+\newcommand{\httpget}{\httpmethod{GET}}
+\newcommand{\httppost}{\httpmethod{POST}}
+\newcommand{\httpput}{\httpmethod{PUT}}
+\newcommand{\httppatch}{\httpmethod{PATCH}}
+\newcommand{\httpdelete}{\httpmethod{DELETE}}
+
+% Endpoint completo (Diseño web API moderno)
+% Uso: \begin{apiendpoint}{GET}{/api/users/:id}
+%        \apidescription{Obtiene un usuario por ID}
+%        ...
+%      \end{apiendpoint}
+\newenvironment{apiendpoint}[2]{%
+  \par\vspace{0.5em}
+  % Definir color base según método
+  \ifstrequal{#1}{GET}{\colorlet{api-color}{eps-http-get}}{}%
+  \ifstrequal{#1}{POST}{\colorlet{api-color}{eps-http-post}}{}%
+  \ifstrequal{#1}{PUT}{\colorlet{api-color}{eps-http-put}}{}%
+  \ifstrequal{#1}{PATCH}{\colorlet{api-color}{eps-http-patch}}{}%
+  \ifstrequal{#1}{DELETE}{\colorlet{api-color}{eps-http-delete}}{}%
+  % Caja principal
+  \begin{tcolorbox}[
+    enhanced,
+    colback=white,
+    colframe=eps-gray!20,
+    boxrule=0.5pt,
+    borderline west={3pt}{0pt}{api-color},
+    arc=3pt,
+    left=8pt, right=8pt, top=8pt, bottom=8pt,
+    drop shadow=eps-gray!10,
+  ]
+    \makebox[0pt][l]{\httpmethod{#1}}\hspace{4em}% Espacio para el badge
+    {\ttfamily\bfseries\color{eps-dark} #2}
+    \par\vspace{6pt}
+    \hrule height 0.1pt depth 0pt width \textwidth \relax
+    \par\vspace{6pt}
+    \begingroup
+    \small
+}{%
+    \endgroup
+  \end{tcolorbox}
+  \par\vspace{0.5em}
+}
+
+% Descripción del endpoint
+\newcommand{\apidescription}[1]{%
+  \par\vspace{4pt}
+  \textit{\textcolor{eps-gray}{#1}}\par\vspace{8pt}
+}
+
+% Headers del endpoint
+\newcommand{\apiheaders}[1]{%
+  \par\textbf{Headers:}\par
+  \smallskip
+  \begin{tabularx}{\linewidth}{@{}l X@{}}
+    #1
+  \end{tabularx}\par\vspace{8pt}
+}
+\newcommand{\header}[2]{\texttt{#1} & \texttt{#2} \\}
+
+% Parámetros del endpoint (estilo tabla limpia)
+\newcommand{\apiparams}[1]{%
+  \par\textbf{Parámetros:}\par
+  \smallskip
+  \begin{tabularx}{\linewidth}{@{}l l X l@{}}
+    \toprule
+    \textbf{Nombre} & \textbf{Tipo} & \textbf{Descripción} & \textbf{Requerido} \\
+    \midrule
+    #1
+    \bottomrule
+  \end{tabularx}\par\vspace{8pt}
+}
+
+% Request body 
+\newcommand{\apibody}[2]{%
+  \par\textbf{Body} (\texttt{#1}):\par
+  \begin{tcolorbox}[colback=eps-light!10, colframe=eps-gray!20, boxrule=0.5pt, left=4pt, right=4pt, top=4pt, bottom=4pt, arc=2pt]
+    \ttfamily\footnotesize\textcolor{eps-code-fg}{#2}
+  \end{tcolorbox}\vspace{4pt}
+}
+
+% Respuesta del endpoint
+% Uso: \apiresponse{código}{contenido}
+\newcommand{\apiresponse}[2]{%
+  \par\textbf{Respuesta} \badge[%
+    \ifnum#1<300 eps-success\else%
+    \ifnum#1<400 eps-warning\else%
+    eps-danger\fi\fi]{#1}:\par
+  \begin{tcolorbox}[colback=eps-light!20, colframe=eps-gray!30, boxrule=0.5pt, left=4pt, right=4pt, top=4pt, bottom=4pt, arc=2pt]
+    \ttfamily\footnotesize\textcolor{eps-code-bg}{#2}
+  \end{tcolorbox}
+}
+
+
+% ============================================================================
+% TERMINAL / CLI
+% ============================================================================
+
+% Terminal box (estilo MacOS/VSCode moderno)
+\newtcolorbox{terminal}[1][Terminal]{
+  enhanced,
+  title={#1},
+  colback=eps-code-bg,
+  colframe=eps-dark,
+  coltitle=eps-gray!80,
+  colbacktitle=eps-dark,
+  fonttitle=\sffamily\small\bfseries,
+  halign title=center,
+  boxrule=0.5pt,
+  arc=5pt,
+  outer arc=5pt,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  before skip=8pt,
+  after skip=8pt,
+  drop shadow=eps-gray!20,
+  toptitle=4pt,
+  bottomtitle=4pt,
+  title style={fill=eps-dark, draw=eps-dark},
+  overlay={
+     % Decoración de semáforo estilo MacOS en la barra de título
+     \fill[eps-danger] ([xshift=10pt]frame.north west) ++(0,-7pt) circle (3pt);
+     \fill[eps-warning] ([xshift=20pt]frame.north west) ++(0,-7pt) circle (3pt);
+     \fill[eps-success] ([xshift=30pt]frame.north west) ++(0,-7pt) circle (3pt);
+  },
+  fontupper=\ttfamily\small\color{eps-code-fg},
+}
+
+% Prompt de terminal
+\newcommand{\prompt}{{\textcolor{eps-terminal-green}{\textbf{\$}}}~}
+\newcommand{\promptroot}{{\textcolor{eps-danger}{\textbf{\#}}}~}
+\newcommand{\promptuser}[1]{{\textcolor{eps-terminal-green}{#1@host:{\raise.17ex\hbox{$\scriptstyle\sim$}}\$}}~}
+
+% Comentario en terminal
+\newcommand{\termcomment}[1]{{\textcolor{eps-gray}{\textit{\# #1}}}}
+
+% ============================================================================
+% ÁRBOL DE DIRECTORIOS
+% ============================================================================
+
+% Estilo para árbol de directorios usando forest
+\forestset{
+  dirtree/.style={
+    for tree={
+      font=\ttfamily\small,
+      grow'=0,
+      child anchor=west,
+      parent anchor=south,
+      anchor=west,
+      calign=first,
+      edge path={
+        \noexpand\path [draw, eps-gray, thin]
+        (!u.south west) +(5pt,0) |- node[fill,inner sep=1pt] {} (.child anchor)\forestoption{edge label};
+      },
+      before typesetting nodes={
+        if n=1
+          {insert before={[,phantom]}}
+          {}
+      },
+      fit=band,
+      before computing xy={l=12pt},
+    }
+  },
+  dir/.style={
+    before typesetting nodes={
+      content={\textcolor{eps-warning}{\faFolderOpen}~#1},
+    },
+  },
+  file/.style={
+    before typesetting nodes={
+      content={\textcolor{eps-gray}{\faFile}~#1},
+    },
+  },
+}
+
+% Iconos especiales para archivos
+\newcommand{\diricon}{\textcolor{eps-warning}{\faFolderOpen}}
+\newcommand{\fileicon}{\textcolor{eps-gray}{\faFile}}
+\newcommand{\jsicon}{\textcolor{yellow!80!black}{\faJs}}
+\newcommand{\pyicon}{\textcolor{eps-info}{\faPython}}
+\newcommand{\giticon}{\textcolor{eps-danger}{\faGit}}
+\newcommand{\dockericon}{\textcolor{eps-info}{\faDocker}}
+\newcommand{\jsonicon}{\textcolor{eps-warning}{\faCubes}}
+\newcommand{\mdicon}{\textcolor{eps-info}{\faMarkdown}}
+
+% Árbol de directorios (estilo Card)
+% Uso: \begin{dirtreebox}[título]
+%        \dirtreeitem[0]{proyecto/}
+%        \dirtreeitem[1]{src/}
+%      \end{dirtreebox}
+\newenvironment{dirtreebox}[1][Estructura del proyecto]{%
+  \begin{tcolorbox}[eps-card, title={\faFolder~#1}]
+  \ttfamily\small
+}{%
+  \end{tcolorbox}
+}
+
+% Elemento de árbol de directorios
+% #1: Nivel de indentación (0, 1, 2...)
+% #2: Nombre del archivo/directorio (si termina en / es directorio)
+\newcommand{\dirtreeitem}[2][0]{%
+  \par\noindent
+  \hspace*{#1\dimexpr1.5em\relax}%
+  \IfEndWith{#2}{/}{%
+    \textcolor{eps-warning}{\faFolderOpen}~#2%
+  }{%
+    \textcolor{eps-gray}{\faFile}~#2%
+  }%
+  \par
+}
+
+% ============================================================================
+% DIAGRAMAS DE FLUJO
+% ============================================================================
+
+% Estilos TikZ para diagramas de flujo
+\tikzset{
+  % Nodos
+  flowstart/.style={
+    ellipse, draw=eps-success, fill=eps-success!10,
+    minimum width=2cm, minimum height=1cm,
+    font=\small, align=center,
+  },
+  flowend/.style={
+    ellipse, draw=eps-danger, fill=eps-danger!10,
+    minimum width=2cm, minimum height=1cm,
+    font=\small, align=center,
+  },
+  flowprocess/.style={
+    rectangle, draw=eps-primary, fill=eps-primary!10,
+    minimum width=3cm, minimum height=1cm, rounded corners=2pt,
+    font=\small, align=center,
+  },
+  flowdecision/.style={
+    diamond, draw=eps-warning, fill=eps-warning!10,
+    minimum width=2.5cm, minimum height=2cm, aspect=2,
+    font=\small, align=center,
+  },
+  flowio/.style={
+    trapezium, trapezium left angle=70, trapezium right angle=110,
+    draw=eps-secondary, fill=eps-secondary!10,
+    minimum width=2.5cm, minimum height=1cm,
+    font=\small, align=center,
+  },
+  flowdata/.style={
+    cylinder, shape border rotate=90, draw=eps-accent, fill=eps-accent!10,
+    minimum width=2cm, minimum height=1.2cm,
+    font=\small, align=center,
+  },
+  % Flechas
+  flowarrow/.style={
+    ->, >=stealth, thick, eps-gray,
+  },
+  flowlabel/.style={
+    font=\footnotesize, eps-gray,
+  },
+}
+
+% ============================================================================
+% DIAGRAMAS DE CLASES UML
+% ============================================================================
+
+% Clase UML flexible
+% Uso: \umlclass{NombreClase}{atributos}{métodos}
+\newcommand{\umlclass}[3]{
+  \begin{tcolorbox}[
+    enhanced,
+    capture=hbox,
+    colback=white,
+    colframe=eps-primary,
+    coltitle=white,
+    colbacktitle=eps-primary,
+    fonttitle=\bfseries\small\centering,
+    title=#1,
+    boxrule=0.5pt,
+    arc=3pt,
+    drop shadow=eps-gray!20,
+    left=6pt, right=6pt, top=4pt, bottom=4pt,
+    before skip=8pt, after skip=8pt,
+    varwidth upper
+  ]
+    \footnotesize\ttfamily
+    \ifblank{#2}{}{%
+      #2\par\vspace{2pt}
+      \noindent\textcolor{eps-primary}{\rule{\linewidth}{0.5pt}}\par\vspace{2pt}
+    }
+    #3
+  \end{tcolorbox}
+}
+
+% Interface UML
+\newcommand{\umlinterface}[2]{
+  \begin{tcolorbox}[
+    enhanced,
+    capture=hbox,
+    colback=white,
+    colframe=eps-secondary,
+    coltitle=white,
+    colbacktitle=eps-secondary,
+    fonttitle=\bfseries\small\centering,
+    title={\guillemotleft interface\guillemotright\\#1},
+    boxrule=0.5pt,
+    arc=3pt,
+    drop shadow=eps-gray!20,
+    left=6pt, right=6pt, top=4pt, bottom=4pt,
+    before skip=8pt, after skip=8pt,
+    varwidth upper
+  ]
+    \footnotesize\ttfamily
+    #2
+  \end{tcolorbox}
+}
+
+% Modificadores de acceso
+\newcommand{\public}{\textcolor{eps-success}{+}~}
+\newcommand{\private}{\textcolor{eps-danger}{-}~}
+\newcommand{\protectedvis}{\textcolor{eps-warning}{\#}~}
+
+% Comando genérico de visibilidad
+% Uso: \visibility{+} \visibility{-} \visibility{#}
+\newcommand{\visibility}[1]{%
+  \ifstrequal{#1}{+}{\public}{}%
+  \ifstrequal{#1}{-}{\private}{}%
+  \ifstrequal{#1}{\#}{\protectedvis}{}%
+}
+
+
+% ============================================================================
+% DIAGRAMAS DE SECUENCIA
+% ============================================================================
+
+% Estilos para diagramas de secuencia
+\tikzset{
+  seqactor/.style={
+    rectangle, draw=eps-primary, fill=eps-primary!10,
+    minimum width=1.5cm, minimum height=0.8cm,
+    font=\small\bfseries, align=center,
+  },
+  seqlifeline/.style={
+    dashed, eps-gray,
+  },
+  seqmessage/.style={
+    ->, >=stealth, thick, eps-dark,
+  },
+  seqreturn/.style={
+    <-, >=stealth, dashed, eps-gray,
+  },
+  seqactivation/.style={
+    fill=eps-primary!20, draw=eps-primary,
+  },
+}
+
+% ============================================================================
+% TABLA DE REQUISITOS
+% ============================================================================
+
+% Tabla de requisitos estilo booktabs con cabecera moderna
+% Uso: \begin{requirements}
+%        \requirement{RF-01}{Alta}{Pendiente}{Descripción del requisito}
+%      \end{requirements}
+\newenvironment{requirements}{%
+  \small
+  \begin{longtable}{@{}p{1.5cm}p{2cm}p{2.5cm}p{7cm}@{}}
+    \rowcolor{eps-primary}
+    \textbf{\textcolor{white}{ID}} & 
+    \textbf{\textcolor{white}{Prioridad}} & 
+    \textbf{\textcolor{white}{Estado}} & 
+    \textbf{\textcolor{white}{Descripción}} \\
+    \endhead
+    \rowcolor{white}
+    \multicolumn{4}{r@{}}{\footnotesize\textit{Continúa...}} \\
+    \endfoot
+    \bottomrule
+    \endlastfoot
+}{%
+  \end{longtable}
+}
+
+\newcommand{\requirement}[4]{%
+  \textbf{#1} & 
+  \ifstrequal{#2}{Alta}{\badge[eps-danger]{Alta}}{}%
+  \ifstrequal{#2}{Media}{\badge[eps-warning]{Media}}{}%
+  \ifstrequal{#2}{Baja}{\badge[eps-success]{Baja}}{}%
+  &
+  \ifstrequal{#3}{Pendiente}{\textbullet~\textit{Pendiente}}{}%
+  \ifstrequal{#3}{En progreso}{\textcolor{eps-warning}{\faSpinner}~En progreso}{}%
+  \ifstrequal{#3}{Completado}{\textcolor{eps-success}{\faCheck}~Completado}{}%
+  \ifstrequal{#3}{Cancelado}{\textcolor{eps-danger}{\faTimes}~Cancelado}{}%
+  & #4 \\ \addlinespace[4pt]
+}
+
+% ============================================================================
+% MÉTRICAS Y KPIs
+% ============================================================================
+
+% Métrica individual estilo Card
+% Uso: \metricbox{Tiempo de respuesta}{45ms}{-12\%}{\faArrowDown}
+% Para agrupar: \metricsrow{\metricbox{...}\hfill\metricbox{...}}
+\newcommand{\metricbox}[4]{%
+  \begin{tcolorbox}[eps-card, width=0.23\textwidth, halign=center, bottom=2pt, top=2pt]
+    {\footnotesize\textcolor{eps-gray}{#1}}\\[2pt]
+    {\Large\bfseries\textcolor{eps-dark}{#2}}\\[2pt]
+    {\small\textcolor{eps-success}{#4 #3}}
+  \end{tcolorbox}
+}
+% Fila de métricas
+\newcommand{\metricsrow}[1]{%
+  \par\noindent #1 \par
+}
+
+% Benchmark comparativo
+% Uso: \benchmark{Librería A}{120ms}{80}
+%      \benchmark{Librería B}{95ms}{100}
+\newcommand{\benchmark}[3]{%
+  \begin{tcolorbox}[enhanced, frame hidden, colback=white, pad at break=0pt, left=0pt, right=0pt, top=2pt, bottom=2pt, boxrule=0pt]
+    \begin{minipage}[t]{0.25\textwidth}
+      \textbf{\small #1}\\[-2pt]
+      {\scriptsize #2}
+    \end{minipage}%
+    \begin{minipage}[t]{0.7\textwidth}
+      \vspace{2pt}
+      \begin{tikzpicture}
+        \fill[eps-light, rounded corners=2pt] (0,0) rectangle (8,0.5);
+        \ifnumgreater{#3}{50}{%
+             \fill[eps-success, rounded corners=2pt] (0,0) rectangle ({8*#3/100},0.5);
+        }{%
+             \fill[eps-warning, rounded corners=2pt] (0,0) rectangle ({8*#3/100},0.5);
+        }
+        \node[fill=white, inner sep=1pt, rounded corners=1pt, opacity=0.8, text opacity=1, font=\footnotesize] at ({4},0.25) {#3\%};
+      \end{tikzpicture}
+    \end{minipage}
+  \end{tcolorbox}
+}
+
+% ============================================================================
+% GIT Y CONTROL DE VERSIONES
+% ============================================================================
+
+% Commit de git
+% Uso: \gitcommit{abc1234}{feat: nueva funcionalidad}{Juan}{2024-01-15}
+\newcommand{\gitcommit}[4]{%
+  \begin{tcolorbox}[enhanced, boxrule=0pt, colback=eps-light!30, left=4pt, borderline west={2pt}{0pt}{eps-warning}]
+  \small
+  \textcolor{eps-warning}{\faCodeBranch}~
+  \texttt{\textcolor{eps-primary}{#1}}~
+  \textbf{#2}\\
+  {\footnotesize\textcolor{eps-gray}{\faUser~#3 \quad \faCalendar~#4}}
+  \end{tcolorbox}
+}
+
+% Branch de git
+\newcommand{\gitbranch}[1]{%
+  \begin{tikzpicture}[baseline=-0.3em]
+    \node[draw=eps-success, fill=eps-success!10, rounded corners=3pt, inner sep=2.5pt, font=\small\ttfamily] {
+      \textcolor{eps-success}{\faCodeBranch}~#1
+    };
+  \end{tikzpicture}%
+}
+
+% Tag de git
+\newcommand{\gittag}[1]{%
+  \begin{tikzpicture}[baseline=-0.3em]
+    \node[draw=eps-warning, fill=eps-warning!10, rounded corners=3pt, inner sep=2.5pt, font=\small\ttfamily] {
+      \textcolor{eps-warning}{\faTag}~#1
+    };
+  \end{tikzpicture}%
+}
+
+% ============================================================================
+% LOGS Y DEBUGGING
+% ============================================================================
+
+% Entrada de log
+% Uso: \logentry{INFO}{2024-01-15 10:30:45}{Servidor iniciado en puerto 3000}
+\newcommand{\logentry}[3]{%
+  {\ttfamily\footnotesize%
+    \textcolor{eps-gray}{#2}~%
+    \ifstrequal{#1}{INFO}{\textcolor{eps-info}{\textbf{[INFO]}}}{}%
+    \ifstrequal{#1}{WARN}{\textcolor{eps-warning}{\textbf{[WARN]}}}{}%
+    \ifstrequal{#1}{ERROR}{\textcolor{eps-danger}{\textbf{[ERROR]}}}{}%
+    \ifstrequal{#1}{DEBUG}{\textcolor{eps-secondary}{\textbf{[DEBUG]}}}{}%
+    ~#3%
+  }\par
+}
+
+% Entorno de logs (Estilo terminal moderno)
+% Uso: \begin{logbox}[Logs del servidor]
+%        \logentry{INFO}{...}{...}
+%      \end{logbox}
+\newenvironment{logbox}[1][Logs]{%
+  \begin{tcolorbox}[enhanced,
+    title={{\small\faStream}~#1},
+    colback=eps-code-bg,
+    colframe=eps-gray,
+    coltitle=eps-code-fg,
+    colbacktitle=eps-gray,
+    fonttitle=\sffamily\small,
+    boxrule=0.5pt,
+    arc=3pt,
+    left=6pt, right=6pt, top=4pt, bottom=4pt,
+    fontupper=\ttfamily\small\color{eps-code-fg},
+    drop shadow=eps-gray!20,
+  ]
+}{%
+  \end{tcolorbox}
+}
+
+% ============================================================================
+% BASE DE DATOS
+% ============================================================================
+
+% Tabla de base de datos (Estilo Card)
+% Uso: \dbtable{users}{
+%        id & INT & PK, AUTO\_INCREMENT \\
+%        name & VARCHAR(100) & NOT NULL \\
+%      }
+\NewEnviron{dbtable}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    colback=white,
+    colframe=eps-gray,
+    coltitle=eps-dark,
+    colbacktitle=eps-light,
+    fonttitle=\bfseries\small,
+    boxrule=0.5pt,
+    arc=3pt,
+    drop shadow=eps-gray!20,
+    title={\faDatabase~#1},
+    left=6pt, right=6pt, top=4pt, bottom=4pt,
+    before skip=8pt, after skip=8pt
+  ]
+  \small
+  % Usamos tabularx para ancho total y columnas adaptables
+  \begin{tabularx}{\linewidth}{@{} c l l X @{}}
+    \toprule
+    & \textbf{Campo} & \textbf{Tipo} & \textbf{Restricciones} \\
+    \midrule
+    \BODY
+    \bottomrule
+  \end{tabularx}
+  \end{tcolorbox}
+}
+
+% Iconos para restricciones
+\newcommand{\pkicon}{\textcolor{eps-warning}{\faKey}}
+\newcommand{\fkicon}{\textcolor{eps-info}{\faLink}}
+\newcommand{\uniqueicon}{\textcolor{eps-secondary}{\faFingerprint}}
+
+% ============================================================================
+% CONFIGURACIÓN / ENV
+% ============================================================================
+
+% Variable de entorno
+% Uso: \envvar{DATABASE_URL}{postgresql://localhost/db}
+\newcommand{\envvar}[2]{%
+  \texttt{\textcolor{eps-secondary}{#1}=\textcolor{eps-success}{"#2"}}\par
+}
+
+% Entorno de configuración (Estilo archivo .env moderno)
+% Uso: \begin{configbox}[.env.production]
+%        \envvar{DATABASE_URL}{...}
+%      \end{configbox}
+\newenvironment{configbox}[1][.env]{%
+  \begin{tcolorbox}[enhanced,
+    title={{\small\faCog}~#1},
+    colback=eps-dark,
+    colframe=eps-dark,
+    coltitle=eps-code-fg,
+    colbacktitle=eps-dark,
+    fonttitle=\ttfamily\small,
+    boxrule=0.5pt,
+    arc=3pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    fontupper=\ttfamily\small\color{eps-code-fg},
+    drop shadow=eps-gray!20,
+    overlay={
+      \node[anchor=north east, font=\tiny\sffamily, text=eps-gray] at (frame.north east) {INI/ENV};
+    }
+  ]
+}{%
+  \end{tcolorbox}
+}
+
+
+\endinput

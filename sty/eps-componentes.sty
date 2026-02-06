@@ -1,0 +1,222 @@
+%% eps-componentes.sty
+%% Componentes especializados para TFG/TFM - EPS Universidad de Alicante
+%%
+%% Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+%% Autor:    José Manuel Requena Plens
+%% Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
+%% Licencia: GNU GPL v3.0
+%% Versión:  2.1.0 (2026/02/05)
+%%
+%% Uso:
+%%   \usepackage{eps-componentes}                    % Carga solo comunes
+%%   \usepackage[software]{eps-componentes}         % Comunes + Software
+%%   \usepackage[telecom]{eps-componentes}          % Comunes + Telecom
+%%   \usepackage[arquitectura]{eps-componentes}     % Comunes + Arquitectura
+%%   \usepackage[quimica]{eps-componentes}          % Comunes + Química
+%%   \usepackage[all]{eps-componentes}              % Todos los componentes
+%%
+%% -----------------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{eps-componentes}[2026/02/05 v2.1.0 Componentes especializados EPS UA]
+
+% ============================================================================
+% OPCIONES DEL PAQUETE (Modernizado con l3keys)
+% ============================================================================
+\RequirePackage{expl3}
+\RequirePackage{l3keys2e}
+
+% Mantenemos los flags legacy para compatibilidad con la lógica de carga
+\newif\if@eps@comunes     \@eps@comunestrue   % Siempre se cargan
+\newif\if@eps@software    \@eps@softwarefalse
+\newif\if@eps@telecom     \@eps@telecomfalse
+\newif\if@eps@arquitectura\@eps@arquitecturafalse
+\newif\if@eps@quimica     \@eps@quimicafalse
+\newif\if@eps@geologia    \@eps@geologiafalse
+\newif\if@eps@prevencion  \@eps@prevencionfalse
+
+\ExplSyntaxOn
+\keys_define:nn { eps-componentes }
+  {
+    comunes .code:n = {}, % Opción explícita (noop)
+    software .code:n = { \legacy_if_set_true:n { @eps@software } },
+    telecom .code:n = { \legacy_if_set_true:n { @eps@telecom } },
+    arquitectura .code:n = { \legacy_if_set_true:n { @eps@arquitectura } },
+    quimica .code:n = { \legacy_if_set_true:n { @eps@quimica } },
+    geologia .code:n = { \legacy_if_set_true:n { @eps@geologia } },
+    prevencion .code:n = { \legacy_if_set_true:n { @eps@prevencion } },
+    all .code:n = {
+      \legacy_if_set_true:n { @eps@software }
+      \legacy_if_set_true:n { @eps@telecom }
+      \legacy_if_set_true:n { @eps@arquitectura }
+      \legacy_if_set_true:n { @eps@quimica }
+      \legacy_if_set_true:n { @eps@geologia }
+      \legacy_if_set_true:n { @eps@prevencion }
+    }
+  }
+
+\ProcessKeysOptions { eps-componentes }
+\ExplSyntaxOff
+
+% ============================================================================
+% DEPENDENCIAS COMUNES
+% ============================================================================
+
+\RequirePackage{xcolor}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{skins,breakable,theorems}
+\RequirePackage{fontawesome5}
+\RequirePackage{etoolbox}
+\RequirePackage{xstring}
+\RequirePackage{calc}
+\RequirePackage{enumitem}  % Para listas personalizadas
+
+% ============================================================================
+% PALETA DE COLORES COMÚN
+% ============================================================================
+% Diseñada para ser coherente y accesible
+
+% Colores base
+\definecolor{eps-primary}{HTML}{2563EB}      % Azul principal
+\definecolor{eps-secondary}{HTML}{7C3AED}    % Violeta
+\definecolor{eps-accent}{HTML}{0891B2}       % Cian
+
+% Colores semánticos
+\definecolor{eps-success}{HTML}{059669}      % Verde éxito
+\definecolor{eps-warning}{HTML}{D97706}      % Naranja advertencia
+\definecolor{eps-danger}{HTML}{DC2626}       % Rojo peligro
+\definecolor{eps-info}{HTML}{0284C7}         % Azul información
+
+% Colores neutros
+\definecolor{eps-dark}{HTML}{1F2937}         % Gris oscuro
+\definecolor{eps-gray}{HTML}{6B7280}         % Gris medio
+\definecolor{eps-light}{HTML}{F3F4F6}        % Gris claro
+\definecolor{eps-white}{HTML}{FFFFFF}        % Blanco
+
+% Colores para código/terminal
+\definecolor{eps-code-bg}{HTML}{1E293B}      % Fondo oscuro código
+\definecolor{eps-code-fg}{HTML}{E2E8F0}      % Texto claro código
+\definecolor{eps-terminal-green}{HTML}{4ADE80} % Verde terminal
+\definecolor{eps-terminal-text}{HTML}{E5E5E5}  % Texto terminal (mejor contraste)
+
+% Colores HTTP para APIs (Estilo Swagger)
+\definecolor{eps-http-get}{HTML}{61AFFE}     % GET - Azul
+\definecolor{eps-http-post}{HTML}{49CC90}    % POST - Verde
+\definecolor{eps-http-put}{HTML}{FCA130}     % PUT - Naranja
+\definecolor{eps-http-patch}{HTML}{50E3C2}   % PATCH - Turquesa
+\definecolor{eps-http-delete}{HTML}{F93E3E}  % DELETE - Rojo
+
+% ============================================================================
+% ESTILOS BASE PARA TCOLORBOX
+% ============================================================================
+
+\tcbset{
+  % --- Estilo de alerta moderno (Sombra + Borde izq) ---
+  eps-alert/.style={
+    enhanced,
+    breakable,
+    boxrule=0pt,
+    frame hidden,
+    borderline west={3pt}{0pt}{#1},
+    colback=#1!5,
+    sharp corners,
+    left=8pt,
+    right=8pt,
+    top=6pt,
+    bottom=6pt,
+    drop fuzzy shadow=eps-gray!20,
+  },
+  % --- Estilo "Card" para componentes visuales (Gráficas, Tablas) ---
+  eps-card/.style={
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=eps-gray!30,
+    boxrule=0.5pt,
+    arc=3pt,
+    drop shadow=eps-gray!10,
+    left=12pt,
+    right=12pt,
+    top=10pt,
+    bottom=10pt,
+    toptitle=4pt,
+    bottomtitle=4pt,
+    fonttitle=\bfseries\sffamily\color{eps-dark},
+    coltitle=eps-dark,
+    colbacktitle=eps-light,
+    title style={draw=none, fill=eps-light}, 
+  },
+  % --- Estilo "Float Title" para Teoremas/Definiciones ---
+  eps-float-title/.style={
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=#1,
+    coltitle=white,
+    fonttitle=\bfseries\sffamily,
+    attach boxed title to top left={yshift*=-\tcboxedtitleheight/2, xshift=5mm},
+    boxed title style={
+      colback=#1,
+      colframe=#1,
+      sharp corners,
+      rounded corners=north,
+      arc=3pt,
+      boxrule=0pt,
+      drop shadow=eps-gray!20,
+    },
+    boxrule=0.5pt,
+    left=8pt,
+    right=8pt,
+    top=12pt,
+    bottom=6pt,
+    drop fuzzy shadow=eps-gray!20,
+  },
+}
+
+% ============================================================================
+% CARGAR MÓDULOS
+% ============================================================================
+% Se cargan condicionalmente según las opciones del paquete.
+% Cada submódulo contiene definiciones de entornos (cajas, diagramas, etc.)
+% específicos para esa área de conocimiento.
+
+% Componentes comunes (siempre se cargan)
+% Incluye: Cajas de aviso (warning, info...), terminal, y estilos base.
+\if@eps@comunes
+  \input{componentes/eps-comunes.sty}
+\fi
+
+% Componentes de software/IT
+% Incluye: Definiciones de API, JSON, diagramas de clases simples.
+\if@eps@software
+  \input{componentes/eps-software.sty}
+\fi
+
+% Componentes de telecomunicaciones
+% Incluye: Tramas de bits, señales, diagramas de red.
+\if@eps@telecom
+  \input{componentes/eps-telecom.sty}
+\fi
+
+% Componentes de arquitectura/construcción
+% Incluye: Fichas de materiales, detalles constructivos.
+\if@eps@arquitectura
+  \input{componentes/eps-arquitectura.sty}
+\fi
+
+% Componentes de química/materiales
+% Incluye: Fichas de seguridad, reacciones, material de laboratorio.
+\if@eps@quimica
+  \input{componentes/eps-quimica.sty}
+\fi
+
+% Componentes de geología
+\if@eps@geologia
+  \input{componentes/eps-geologia.sty}
+\fi
+
+% Componentes de prevención de riesgos
+\if@eps@prevencion
+  \input{componentes/eps-prevencion.sty}
+\fi
+
+\endinput

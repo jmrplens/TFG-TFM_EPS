@@ -1,20 +1,28 @@
 % !TeX program = lualatex
 % !TeX encoding = UTF-8
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Plantilla TFG/TFM - Escuela Politécnica Superior
-% Universidad de Alicante
-%
-% Versión 2.0 - Febrero 2026
+%% =============================================================================
+%% main.tex
+%% Archivo principal del documento (Root)
+%%
+%% Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
+%% Autor:    José Manuel Requena Plens
+%% Versión:  2.1.0 (2026/02/05)
+%% =============================================================================
 %
 % Este es el archivo principal del documento.
-% La configuración del trabajo se realiza en 'configuracion.tex'
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% La configuración del trabajo se realiza en 'configuracion.tex'.
 
-% Ruta donde buscar la clase y los paquetes
+% Definir rutas de búsqueda para clase y paquetes (compatibilidad editores)
 \makeatletter
-\providecommand\input@path{}
-\edef\input@path{{cls/}{sty/}\input@path}
+\def\input@path{{cls/}{sty/}{sty/componentes/}{recursos/}}
 \makeatother
+
+% =============================================================================
+% ACTIVACIÓN DE ESTÁNDARES MODERNOS (PDF/UA-2 & Tagging)
+% =============================================================================
+% Carga la configuración de metadatos y accesibilidad desde la carpeta cls.
+% Esto debe ir ANTES de \documentclass.
+\input{eps-metadata}
 
 % Cargar la clase eps-tfg
 \documentclass{eps-tfg}
@@ -24,6 +32,21 @@
 % Toda la información personal y del trabajo se define aquí
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{configuracion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COMPONENTES ESPECIALIZADOS (OPCIONAL)
+% Carga modular: software, telecom, arquitectura, quimica, geologia, prevencion
+% Usa [all] para cargar todos, o especifica los que necesites
+% Descomenta la línea que corresponda a tu titulación:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \usepackage{eps-componentes}                    % Solo comunes
+% \usepackage[software]{eps-componentes}          % Informática
+% \usepackage[telecom]{eps-componentes}           % Telecomunicaciones
+% \usepackage[arquitectura]{eps-componentes}      % Arquitectura/Civil
+% \usepackage[quimica]{eps-componentes}           % Química
+% \usepackage[geologia]{eps-componentes}          % Geología
+% \usepackage[prevencion]{eps-componentes}        % Prevención
+\usepackage[all]{eps-componentes}               % Todos (lento)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BIBLIOGRAFÍA
@@ -53,18 +76,18 @@
 % Páginas preliminares (agradecimientos, resumen, etc.)
 \input{contenido/frontmatter/preliminares}
 
-% Índices
-\tableofcontents           % Índice general
+% Índices (comenta los que no necesites)
+\tableofcontents          % Índice general
 \listoffigures             % Índice de figuras
-\listoftables              % Índice de tablas
-% \indiceCodigos           % Índice de códigos (descomentar si se usa)
+\listoftables             % Índice de tablas
+\indiceCodigos            % Índice de códigos
 
 %% =======================================================================
 %% MAINMATTER - Contenido principal
 %% =======================================================================
 \mainmatter
 
-% Capítulos del trabajo
+% Capítulos del trabajo (ajusta segun tu estructura)
 \input{contenido/capitulos/introduccion}
 \input{contenido/capitulos/marco-teorico}
 \input{contenido/capitulos/objetivos}
@@ -86,12 +109,17 @@
   type=\acronymtype,
   title={Lista de Acrónimos y Abreviaturas}
 ]
+
+% Glosario de términos
+\printglossary[
+  style=listgroup,
+  type=main,
+  title={Glosario de Términos}
+]
 \glsaddallunused
 
-% Anexos
+% Anexos (ajusta según tus necesidades)
 \appendix
-\input{contenido/anexos/anexo-a}
-\input{contenido/anexos/anexo-b}
-\input{contenido/anexos/anexo_codigo}
+\input{contenido/anexos/anexo-tecnicas-avanzadas}
 
 \end{document}

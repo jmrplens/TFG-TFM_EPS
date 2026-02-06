@@ -8,14 +8,56 @@ Si vienes de Word, Google Docs o similar, LaTeX puede parecer intimidante al pri
 
 ## 📖 Índice
 
-1. [¿Qué es LaTeX y por qué usarlo?](#qué-es-latex-y-por-qué-usarlo)
-2. [Conceptos básicos](#conceptos-básicos)
-3. [Instalación paso a paso](#instalación-paso-a-paso)
-4. [Eligiendo un editor](#eligiendo-un-editor)
-5. [Tu primera compilación](#tu-primera-compilación)
-6. [Escribiendo contenido](#escribiendo-contenido)
-7. [Recursos de aprendizaje](#recursos-de-aprendizaje)
-8. [Errores comunes y soluciones](#errores-comunes-y-soluciones)
+- [📖 Índice](#-índice)
+- [🤔 ¿Qué es LaTeX y por qué usarlo?](#-qué-es-latex-y-por-qué-usarlo)
+  - [¿Qué es?](#qué-es)
+  - [¿Por qué usarlo para el TFG/TFM?](#por-qué-usarlo-para-el-tfgtfm)
+  - [¿Cuál es el inconveniente?](#cuál-es-el-inconveniente)
+- [📝 Conceptos básicos](#-conceptos-básicos)
+  - [Archivos y extensiones](#archivos-y-extensiones)
+  - [Estructura de un documento LaTeX](#estructura-de-un-documento-latex)
+  - [Comandos básicos](#comandos-básicos)
+  - [Entornos](#entornos)
+  - [Comentarios](#comentarios)
+- [💻 Instalación paso a paso](#-instalación-paso-a-paso)
+  - [Opción 1: Overleaf (sin instalar nada) ⭐ Recomendado para empezar](#opción-1-overleaf-sin-instalar-nada-recomendado-para-empezar)
+  - [Opción 2: Instalación local en Windows](#opción-2-instalación-local-en-windows)
+  - [Opción 3: Instalación local en macOS](#opción-3-instalación-local-en-macos)
+  - [Opción 4: Instalación local en Linux (Ubuntu/Debian)](#opción-4-instalación-local-en-linux-ubuntudebian)
+- [✍️ Eligiendo un editor](#-eligiendo-un-editor)
+  - [VS Code + LaTeX Workshop ⭐ Recomendado](#vs-code-latex-workshop-recomendado)
+  - [TeXstudio - Alternativa popular](#texstudio---alternativa-popular)
+  - [Texmaker - Similar a TeXstudio](#texmaker---similar-a-texstudio)
+  - [Comparativa rápida](#comparativa-rápida)
+- [🚀 Tu primera compilación](#-tu-primera-compilación)
+  - [Con VS Code](#con-vs-code)
+  - [Con TeXstudio/Texmaker](#con-texstudiotexmaker)
+  - [Desde terminal](#desde-terminal)
+  - [¿Por qué hay que compilar varias veces?](#por-qué-hay-que-compilar-varias-veces)
+- [✏️ Escribiendo contenido](#-escribiendo-contenido)
+  - [Lo que debes editar](#lo-que-debes-editar)
+  - [Ejemplo: Escribir un capítulo](#ejemplo-escribir-un-capítulo)
+  - [Añadir figuras](#añadir-figuras)
+  - [Añadir tablas](#añadir-tablas)
+  - [Añadir código fuente](#añadir-código-fuente)
+  - [Citar bibliografía](#citar-bibliografía)
+- [📚 Recursos de aprendizaje](#-recursos-de-aprendizaje)
+  - [Tutoriales recomendados](#tutoriales-recomendados)
+  - [Vídeos](#vídeos)
+  - [Cheatsheets (hojas de referencia rápida)](#cheatsheets-hojas-de-referencia-rápida)
+  - [Herramientas útiles](#herramientas-útiles)
+- [🤖 Uso de IA para ayuda](#-uso-de-ia-para-ayuda)
+  - [Proporcionar contexto](#proporcionar-contexto)
+  - [Qué puedes pedirles](#qué-puedes-pedirles)
+- [❗ Errores comunes y soluciones](#-errores-comunes-y-soluciones)
+  - ["File not found" / "Archivo no encontrado"](#file-not-found-archivo-no-encontrado)
+  - ["Undefined control sequence"](#undefined-control-sequence)
+  - ["Missing $ inserted" / "Falta $"](#missing-inserted-falta-)
+  - [La bibliografía no aparece](#la-bibliografía-no-aparece)
+  - [El código no tiene colores](#el-código-no-tiene-colores)
+  - [Compilación muy lenta](#compilación-muy-lenta)
+  - ["You must invoke LaTeX with -shell-escape"](#you-must-invoke-latex-with--shell-escape)
+- [💡 Consejos finales](#-consejos-finales)
 
 ---
 
@@ -136,13 +178,13 @@ Esto sí aparece en el PDF  % Esto también es comentario
 3. **Importante:** Selecciona "Install missing packages on-the-fly: Yes"
 4. Completa la instalación (puede tardar 15-30 minutos)
 
-#### Paso 2: Instalar Python y Pygments (para código fuente con colores)
+#### Paso 2: Instalar Python y latexminted (para código fuente con colores)
 
 1. Descarga [Python](https://www.python.org/downloads/)
 2. **Importante:** Marca ✅ "Add Python to PATH" durante la instalación
 3. Abre PowerShell o CMD y ejecuta:
    ```
-   pip install Pygments
+   pip install latexminted
    ```
 
 #### Paso 3: Instalar un editor (ver sección siguiente)
@@ -155,10 +197,10 @@ Esto sí aparece en el PDF  % Esto también es comentario
 2. Abre el archivo .pkg y sigue las instrucciones
 3. Reinicia el terminal
 
-#### Paso 2: Instalar Pygments
+#### Paso 2: Instalar latexminted
 
 ```bash
-pip3 install Pygments
+pip3 install latexminted
 ```
 
 ### Opción 4: Instalación local en Linux (Ubuntu/Debian)
@@ -171,9 +213,11 @@ sudo apt install texlive-full
 sudo apt install texlive-latex-extra texlive-fonts-extra \
                  texlive-luatex texlive-bibtex-extra biber
 
-# Pygments para código con colores
-pip3 install Pygments
+# latexminted para código con colores (minted 3.x)
+pip3 install latexminted
 ```
+
+> **Nota:** Ubuntu/Debian pueden tener versiones antiguas de TeX Live en sus repositorios. Para obtener TeX Live 2025, considera usar la [instalación oficial de TeX Live](https://www.tug.org/texlive/quickinstall.html) en lugar de los paquetes de la distribución.
 
 ---
 
@@ -383,7 +427,10 @@ Según García \cite{garcia2024}, el resultado es...
 |---------|--------|-------------|
 | [Overleaf Learn](https://www.overleaf.com/learn) | EN/ES | Tutorial completo y ejemplos |
 | [LaTeX en 30 minutos](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes) | EN | Introducción rápida |
+| [LaTeX Project](https://www.latex-project.org/help/documentation/) | EN | Documentación oficial |
 | [Manual TEC Costa Rica](https://tecdigital.tec.ac.cr/revistamatematica/Libros/LATEX/LaTeX_2014.pdf) | ES | Libro completo en español |
+| [WikiBooks LaTeX](https://en.wikibooks.org/wiki/LaTeX) | EN | Referencia exhaustiva |
+| [CTAN](https://ctan.org/) | EN | Repositorio de paquetes |
 | [WikiBooks LaTeX](https://en.wikibooks.org/wiki/LaTeX) | EN | Referencia exhaustiva |
 
 ### Vídeos
@@ -400,11 +447,32 @@ Según García \cite{garcia2024}, el resultado es...
 
 | Herramienta | Para qué sirve |
 |-------------|----------------|
+| [Overleaf Learn](https://www.overleaf.com/learn) | Documentación excelente (aunque uses editor local) |
 | [Detexify](https://detexify.kirelabs.org/) | Dibuja un símbolo y te dice el comando |
 | [Tables Generator](https://www.tablesgenerator.com/) | Crea tablas visualmente |
 | [Mathpix](https://mathpix.com/) | Convierte imágenes de ecuaciones a LaTeX |
 | [BibTeX Online](https://www.bibtex.com/c/doi-to-bibtex-converter/) | Genera BibTeX desde DOI |
 | [Zotero](https://www.zotero.org/) | Gestor de bibliografía (exporta a BibTeX) |
+
+---
+
+## 🤖 Uso de IA para ayuda
+
+Si utilizas herramientas como ChatGPT, Claude o GitHub Copilot para redactar o solucionar problemas con tu TFG, te recomendamos lo siguiente:
+
+### Proporcionar contexto
+Las IAs funcionan mejor si saben cómo está configurado tu proyecto. 
+1. Abre el archivo **`AGENTS.md`** (en la raíz del proyecto).
+2. Copia todo su contenido.
+3. Pégalo al inicio de tu conversación con la IA.
+
+Esto le enseñará a la IA qué paquetes usamos, cómo se hacen las portadas y las reglas específicas de la Universidad de Alicante.
+
+### Qué puedes pedirles
+- **Generar tablas:** "Hazme una tabla LaTeX con 3 columnas (Concepto, Descripción, Valor) para..."
+- **Corregir errores:** Pega el error de la consola y la IA te dirá qué falla.
+- **Escribir fórmulas:** "Escribe la fórmula de la Entropía de Shannon en LaTeX".
+- **Resumir textos:** "Resumen este texto para ponerlo en el Abstract".
 
 ---
 
@@ -445,8 +513,8 @@ Según García \cite{garcia2024}, el resultado es...
 ### El código no tiene colores
 
 **Solución:**
-- Instala Pygments: `pip install Pygments`
-- Verifica con: `pygmentize -V`
+- Instala latexminted: `pip install latexminted`
+- Verifica con: `latexminted --version`
 
 ### Compilación muy lenta
 

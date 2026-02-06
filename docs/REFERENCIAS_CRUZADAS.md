@@ -6,15 +6,64 @@ Esta guía explica cómo crear y usar referencias cruzadas internas en documento
 
 ## 📋 Índice
 
-1. [Introducción](#introducción)
-2. [Etiquetas y referencias básicas](#etiquetas-y-referencias-básicas)
-3. [Tipos de elementos referenciables](#tipos-de-elementos-referenciables)
-4. [Comandos de referencia avanzados](#comandos-de-referencia-avanzados)
-5. [Hyperref y enlaces](#hyperref-y-enlaces)
-6. [Cleveref - Referencias inteligentes](#cleveref---referencias-inteligentes)
-7. [Personalización](#personalización)
-8. [Buenas prácticas](#buenas-prácticas)
-9. [Solución de problemas](#solución-de-problemas)
+- [📋 Índice](#-índice)
+- [Introducción](#introducción)
+  - [Paquetes utilizados](#paquetes-utilizados)
+- [Etiquetas y referencias básicas](#etiquetas-y-referencias-básicas)
+  - [Crear etiquetas](#crear-etiquetas)
+  - [Referenciar](#referenciar)
+  - [Ejemplo básico](#ejemplo-básico)
+- [Tipos de elementos referenciables](#tipos-de-elementos-referenciables)
+  - [Secciones y capítulos](#secciones-y-capítulos)
+  - [Figuras](#figuras)
+  - [Tablas](#tablas)
+  - [Ecuaciones](#ecuaciones)
+  - [Listas enumeradas](#listas-enumeradas)
+  - [Teoremas y definiciones](#teoremas-y-definiciones)
+  - [Código fuente (listings)](#código-fuente-listings)
+- [Comandos de referencia avanzados](#comandos-de-referencia-avanzados)
+  - [Referencia con nombre (nameref)](#referencia-con-nombre-nameref)
+  - [Autoreferencia (autoref)](#autoreferencia-autoref)
+  - [Personalizar nombres de autoref](#personalizar-nombres-de-autoref)
+  - [Referencias a subfiguras](#referencias-a-subfiguras)
+- [Hyperref y enlaces](#hyperref-y-enlaces)
+  - [Configuración básica](#configuración-básica)
+  - [Opciones principales](#opciones-principales)
+  - [Metadatos del PDF](#metadatos-del-pdf)
+  - [Crear hipervínculos](#crear-hipervínculos)
+  - [Anclas personalizadas](#anclas-personalizadas)
+- [Cleveref - Referencias inteligentes](#cleveref---referencias-inteligentes)
+  - [Configuración](#configuración)
+  - [Uso básico](#uso-básico)
+  - [Múltiples referencias](#múltiples-referencias)
+  - [Configurar nombres](#configurar-nombres)
+  - [Con página](#con-página)
+- [Personalización](#personalización)
+  - [Formato de números](#formato-de-números)
+  - [Reiniciar contadores](#reiniciar-contadores)
+  - [Formato personalizado de referencias](#formato-personalizado-de-referencias)
+  - [Referencias con texto fijo](#referencias-con-texto-fijo)
+- [Buenas prácticas](#buenas-prácticas)
+  - [Convención de nombres para etiquetas](#convención-de-nombres-para-etiquetas)
+  - [Nombres descriptivos](#nombres-descriptivos)
+  - [Colocación correcta de \label](#colocación-correcta-de-label)
+  - [Espacio irrompible](#espacio-irrompible)
+- [Solución de problemas](#solución-de-problemas)
+  - ["Reference undefined"](#reference-undefined)
+  - [Referencias muestran "??"](#referencias-muestran-)
+  - [Números de página incorrectos](#números-de-página-incorrectos)
+  - [Hyperref conflictos](#hyperref-conflictos)
+  - [Etiquetas duplicadas](#etiquetas-duplicadas)
+  - [Enlaces no funcionan en el PDF](#enlaces-no-funcionan-en-el-pdf)
+  - [Colores de enlaces para impresión](#colores-de-enlaces-para-impresión)
+- [Ejemplos completos](#ejemplos-completos)
+  - [Documento con referencias](#documento-con-referencias)
+  - [Con cleveref](#con-cleveref)
+- [Ejemplos visuales](#ejemplos-visuales)
+  - [Referencias básicas en contexto](#referencias-básicas-en-contexto)
+  - [Ejemplo de referencias múltiples](#ejemplo-de-referencias-múltiples)
+- [Recursos adicionales](#recursos-adicionales)
+- [Ver también](#ver-también)
 
 ---
 
@@ -91,10 +140,10 @@ Ver Sección~\ref{sec:motivacion}...
 
 ### Figuras
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{diagrama.pdf}
+    \includegraphics[width=0.7\textwidth]{example-image-a}
     \caption{Diagrama del sistema propuesto}
     \label{fig:diagrama}
 \end{figure}
@@ -102,6 +151,12 @@ Ver Sección~\ref{sec:motivacion}...
 % Referencia
 La Figura~\ref{fig:diagrama} muestra...
 ```
+
+**Resultado:**
+
+<img src="assets/previews/REFERENCIAS_CRUZADAS_001.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_001.pdf)
 
 ### Tablas
 
@@ -215,16 +270,16 @@ Ver la sección ``\nameref{sec:metodologia}''  % "Metodología"
 
 ### Referencias a subfiguras
 
-```latex
+```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{imagen_a.pdf}
+        \includegraphics[width=\textwidth]{example-image-a}
         \caption{Primera imagen}
         \label{fig:sub_a}
     \end{subfigure}
     \begin{subfigure}[b]{0.45\textwidth}
-        \includegraphics[width=\textwidth]{imagen_b.pdf}
+        \includegraphics[width=\textwidth]{example-image-b}
         \caption{Segunda imagen}
         \label{fig:sub_b}
     \end{subfigure}
@@ -236,6 +291,12 @@ Ver la sección ``\nameref{sec:metodologia}''  % "Metodología"
 La Figura~\ref{fig:comparativa} muestra la comparativa.
 En particular, la Figura~\ref{fig:sub_a} presenta...
 ```
+
+**Resultado:**
+
+<img src="assets/previews/REFERENCIAS_CRUZADAS_002.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_002.pdf)
 
 ---
 
@@ -688,15 +749,11 @@ presenta un comportamiento estable.
 \end{equation}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/REFERENCIAS_CRUZADAS_001.webp)
+<img src="assets/previews/REFERENCIAS_CRUZADAS_003.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_001.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_003.pdf)
 
 ### Ejemplo de referencias múltiples
 
@@ -723,15 +780,11 @@ los resultados concuerdan con las ecuaciones 1 y 2.
 Ver la Figura 3.1 en la página 45.
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/REFERENCIAS_CRUZADAS_002.webp)
+<img src="assets/previews/REFERENCIAS_CRUZADAS_004.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_002.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/REFERENCIAS_CRUZADAS_004.pdf)
 
 ---
 

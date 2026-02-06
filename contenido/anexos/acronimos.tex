@@ -82,3 +82,168 @@
 \newacronym{paas}{PaaS}{Platform as a Service}
 \newacronym{saas}{SaaS}{Software as a Service}
 \newacronym{k8s}{K8s}{Kubernetes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% GLOSARIO DE TÉRMINOS
+%
+% Formato: \newglossaryentry{etiqueta}{name={término}, description={definición}}
+% Uso en el texto: \gls{etiqueta} (singular), \glspl{etiqueta} (plural)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% === Conceptos de programación ===
+\newglossaryentry{algoritmo}{
+  name={algoritmo},
+  description={Conjunto ordenado y finito de operaciones que permite hallar la solución de un problema. Los algoritmos son la base de la programación y definen los pasos lógicos para resolver tareas computacionales}
+}
+
+\newglossaryentry{framework}{
+  name={framework},
+  plural={frameworks},
+  description={Estructura conceptual y tecnológica de soporte definido, normalmente con artefactos o módulos de software concretos, que puede servir de base para la organización y desarrollo de software}
+}
+
+\newglossaryentry{backend}{
+  name={backend},
+  description={Parte del software que procesa la entrada desde el frontend, gestiona la lógica de negocio y se comunica con la base de datos. También conocido como lado del servidor}
+}
+
+\newglossaryentry{frontend}{
+  name={frontend},
+  description={Parte del software que interactúa directamente con el usuario. Incluye la interfaz gráfica, formularios y todos los elementos visuales de una aplicación}
+}
+
+\newglossaryentry{middleware}{
+  name={middleware},
+  description={Software que actúa como puente entre el sistema operativo o base de datos y las aplicaciones, especialmente en una red. Facilita la comunicación y gestión de datos entre sistemas distribuidos}
+}
+
+\newglossaryentry{compilador}{
+  name={compilador},
+  description={Programa informático que traduce código escrito en un lenguaje de programación (código fuente) a otro lenguaje (código objeto), típicamente código máquina ejecutable}
+}
+
+\newglossaryentry{interprete}{
+  name={intérprete},
+  description={Programa que ejecuta instrucciones escritas en un lenguaje de programación línea por línea, sin necesidad de compilación previa. Python y JavaScript son ejemplos de lenguajes interpretados}
+}
+
+% === Arquitectura de software ===
+\newglossaryentry{microservicio}{
+  name={microservicio},
+  plural={microservicios},
+  description={Estilo arquitectónico que estructura una aplicación como una colección de servicios pequeños, autónomos y débilmente acoplados. Cada microservicio implementa una funcionalidad de negocio específica}
+}
+
+\newglossaryentry{monolito}{
+  name={monolito},
+  description={Arquitectura de software donde todos los componentes de la aplicación están interconectados y son interdependientes, desplegándose como una única unidad}
+}
+
+\newglossaryentry{escalabilidad}{
+  name={escalabilidad},
+  description={Capacidad de un sistema para manejar una cantidad creciente de trabajo, o su potencial para ser ampliado para acomodar ese crecimiento. Puede ser vertical (más recursos) u horizontal (más instancias)}
+}
+
+\newglossaryentry{latencia}{
+  name={latencia},
+  description={Tiempo que transcurre desde que se envía una solicitud hasta que se recibe la respuesta. En sistemas distribuidos, se mide típicamente en milisegundos}
+}
+
+\newglossaryentry{throughput}{
+  name={throughput},
+  description={Cantidad de datos o transacciones que un sistema puede procesar en una unidad de tiempo. Es una medida clave del rendimiento de sistemas}
+}
+
+% === Bases de datos ===
+\newglossaryentry{transaccion}{
+  name={transacción},
+  plural={transacciones},
+  description={Unidad lógica de trabajo en una base de datos que debe completarse en su totalidad o no ejecutarse en absoluto. Las transacciones garantizan la integridad de los datos}
+}
+
+\newglossaryentry{indice}{
+  name={índice},
+  plural={índices},
+  description={Estructura de datos que mejora la velocidad de las operaciones de búsqueda en una tabla de base de datos, a costa de espacio adicional y tiempo de escritura}
+}
+
+\newglossaryentry{normalizacion}{
+  name={normalización},
+  description={Proceso de organización de datos en una base de datos relacional para reducir la redundancia y mejorar la integridad de los datos. Incluye varias formas normales (1NF, 2NF, 3NF, BCNF)}
+}
+
+\newglossaryentry{query}{
+  name={query},
+  plural={queries},
+  description={Consulta o solicitud de datos a una base de datos. En SQL, las queries se escriben usando comandos como SELECT, INSERT, UPDATE y DELETE}
+}
+
+% === Seguridad informática ===
+\newglossaryentry{hash}{
+  name={hash},
+  plural={hashes},
+  description={Función que convierte una entrada de datos de cualquier tamaño en una salida de tamaño fijo. Se usa para verificar integridad de datos y almacenar contraseñas de forma segura}
+}
+
+\newglossaryentry{cifrado}{
+  name={cifrado},
+  description={Proceso de codificación de información para que solo las partes autorizadas puedan acceder a ella. Puede ser simétrico (misma clave) o asimétrico (par de claves pública/privada)}
+}
+
+\newglossaryentry{firewall}{
+  name={firewall},
+  description={Sistema de seguridad de red que monitoriza y controla el tráfico de red entrante y saliente según reglas de seguridad predeterminadas}
+}
+
+\newglossaryentry{token}{
+  name={token},
+  plural={tokens},
+  description={Cadena de caracteres que representa una credencial de seguridad o sesión. En autenticación, los tokens permiten verificar la identidad sin transmitir contraseñas}
+}
+
+% === Metodologías y procesos ===
+\newglossaryentry{sprint}{
+  name={sprint},
+  plural={sprints},
+  description={Período de tiempo fijo (generalmente 2-4 semanas) durante el cual se completa un conjunto específico de trabajo en metodologías ágiles como Scrum}
+}
+
+\newglossaryentry{refactorizacion}{
+  name={refactorización},
+  description={Proceso de reestructurar código existente sin cambiar su comportamiento externo. Mejora la legibilidad, reduce la complejidad y facilita el mantenimiento}
+}
+
+\newglossaryentry{deploy}{
+  name={deploy},
+  plural={deploys},
+  description={Proceso de poner una aplicación o actualización a disposición de los usuarios finales. Incluye la instalación, configuración y activación del software en el entorno de producción}
+}
+
+\newglossaryentry{pipeline}{
+  name={pipeline},
+  description={Secuencia automatizada de pasos para compilar, probar y desplegar software. En CI/CD, los pipelines automatizan el flujo desde el código fuente hasta producción}
+}
+
+% === Conceptos de LaTeX ===
+\newglossaryentry{preambulo}{
+  name={preámbulo},
+  description={Parte del documento \LaTeX{} entre \texttt{\textbackslash documentclass} y \texttt{\textbackslash begin\{document\}}. Contiene la configuración del documento y la carga de paquetes}
+}
+
+\newglossaryentry{macro}{
+  name={macro},
+  plural={macros},
+  description={Comando definido por el usuario en \LaTeX{} que representa una secuencia de instrucciones. Permite automatizar tareas repetitivas y crear abstracciones}
+}
+
+\newglossaryentry{flotante}{
+  name={flotante},
+  plural={flotantes},
+  description={Elemento (figura o tabla) que \LaTeX{} puede mover de su posición en el código fuente para optimizar la maquetación. Se controla con especificadores como [htbp]}
+}
+
+\newglossaryentry{entorno}{
+  name={entorno},
+  plural={entornos},
+  description={Bloque de código en \LaTeX{} delimitado por \texttt{\textbackslash begin\{nombre\}} y \texttt{\textbackslash end\{nombre\}}. Define un contexto especial para el contenido}
+}

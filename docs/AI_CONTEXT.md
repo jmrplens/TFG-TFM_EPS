@@ -2,6 +2,69 @@
 
 Este documento proporciona información técnica detallada para que los asistentes de IA puedan dar respuestas precisas sobre esta plantilla LaTeX.
 
+
+## 📋 Índice
+
+- [� Contexto Técnico para IA - Plantilla TFG/TFM EPS UA](#-contexto-técnico-para-ia-plantilla-tfgtfm-eps-ua)
+  - [📋 Índice](#-índice)
+  - [🏗️ Arquitectura de la Plantilla](#️-arquitectura-de-la-plantilla)
+    - [Clase Principal: `eps-tfg.cls`](#clase-principal-eps-tfgcls)
+    - [Paquetes de Estilo (`sty/`)](#paquetes-de-estilo-sty)
+  - [📋 Referencia Completa de `\EPSsetup{}`](#-referencia-completa-de-epssetup)
+    - [Información del Documento](#información-del-documento)
+    - [Información del Autor](#información-del-autor)
+    - [Información del Tutor](#información-del-tutor)
+    - [Información del Cotutor (opcional)](#información-del-cotutor-opcional)
+    - [Metadatos](#metadatos)
+    - [Idioma](#idioma)
+  - [🎨 Titulaciones y sus Identificadores](#-titulaciones-y-sus-identificadores)
+    - [Grados (TFG)](#grados-tfg)
+    - [Másteres (TFM)](#másteres-tfm)
+  - [📝 Entornos de Código Disponibles](#-entornos-de-código-disponibles)
+    - [Entornos con colores claros (fondo blanco/gris)](#entornos-con-colores-claros-fondo-blancogris)
+    - [Entornos con colores oscuros (tema dark)](#entornos-con-colores-oscuros-tema-dark)
+    - [Código inline](#código-inline)
+    - [Opciones comunes](#opciones-comunes)
+  - [📊 Entornos de Ecuaciones](#-entornos-de-ecuaciones)
+    - [Ecuación simple numerada](#ecuación-simple-numerada)
+    - [Ecuaciones alineadas](#ecuaciones-alineadas)
+    - [Ecuación sin numerar](#ecuación-sin-numerar)
+    - [Sistema de ecuaciones](#sistema-de-ecuaciones)
+    - [Teoremas y definiciones](#teoremas-y-definiciones)
+  - [🧩 Componentes Especializados (Nuevo en v2.1)](#-componentes-especializados-nuevo-en-v21)
+    - [Activación](#activación)
+    - [Módulos Disponibles](#módulos-disponibles)
+      - [Comunes (Siempre activos)](#comunes-siempre-activos)
+      - [`[software]`](#software)
+      - [`[telecom]`](#telecom)
+      - [`[arquitectura]`](#arquitectura)
+      - [`[quimica]`](#quimica)
+  - [📚 Sistema de Bibliografía](#-sistema-de-bibliografía)
+    - [Formato del archivo `.bib`](#formato-del-archivo-bib)
+    - [Comandos de cita](#comandos-de-cita)
+  - [🔤 Glosarios y Acrónimos](#-glosarios-y-acrónimos)
+    - [Definir términos en `anexos/acronimos.tex`](#definir-términos-en-anexosacronimostex)
+    - [Usar en el documento](#usar-en-el-documento)
+  - [🖼️ Figuras y Gráficas](#️-figuras-y-gráficas)
+    - [Figura simple](#figura-simple)
+    - [Subfiguras](#subfiguras)
+    - [Gráfica con PGFPlots](#gráfica-con-pgfplots)
+  - [📋 Tablas](#-tablas)
+    - [Tabla con booktabs (recomendado)](#tabla-con-booktabs-recomendado)
+    - [Tabla larga (múltiples páginas)](#tabla-larga-múltiples-páginas)
+  - [⚡ Compilación](#-compilación)
+    - [Orden de compilación completa](#orden-de-compilación-completa)
+    - [Con latexmk (recomendado)](#con-latexmk-recomendado)
+    - [Configuración de latexmk (`.latexmkrc`)](#configuración-de-latexmk-latexmkrc)
+  - [🐛 Diagnóstico de Errores](#-diagnóstico-de-errores)
+    - [Errores de compilación](#errores-de-compilación)
+    - [Errores de minted](#errores-de-minted)
+    - [Errores de bibliografía](#errores-de-bibliografía)
+  - [🔧 Personalización Avanzada](#-personalización-avanzada)
+    - [Añadir un nuevo capítulo](#añadir-un-nuevo-capítulo)
+    - [Añadir un nuevo anexo](#añadir-un-nuevo-anexo)
+    - [Cambiar estilo de bibliografía](#cambiar-estilo-de-bibliografía)
+
 ---
 
 ## 🏗️ Arquitectura de la Plantilla
@@ -35,6 +98,7 @@ El usuario interactúa mediante:
 | `eps-fuentes.sty` | Configuración de tipografía |
 | `eps-colores.sty` | Paleta de colores por titulación |
 | `eps-codigo.sty` | Entornos de código con minted |
+| `eps-componentes.sty` | Componentes visuales y especializados (Modular) |
 | `eps-estilos.sty` | Estilos generales del documento |
 
 ---
@@ -82,6 +146,17 @@ El usuario interactúa mediante:
 |-------|------|-------------|-------------|
 | `palabras-clave` | lista | ❌ | Palabras clave en español |
 | `keywords` | lista | ❌ | Keywords en inglés |
+
+### Idioma
+
+| Clave | Tipo | Obligatorio | Descripción |
+|-------|------|-------------|-------------|
+| `idioma` | texto | ❌ | Idioma del documento: `espanol` (defecto), `valenciano`, `ingles` |
+
+> ⚠️ **Importante:** Si se cambia el idioma, también se debe actualizar el código de idioma en `cls/eps-metadata.tex` para que los metadatos PDF/UA-2 sean correctos:
+> - `idioma = espanol` → `lang=es-ES`
+> - `idioma = valenciano` → `lang=ca-ES`
+> - `idioma = ingles` → `lang=en-GB`
 
 ---
 
@@ -220,6 +295,43 @@ En Python usamos \mintinline{python}{print("Hola")} para imprimir.
     ...
 \end{lema}
 ```
+
+---
+
+## 🧩 Componentes Especializados (Nuevo en v2.1)
+
+El paquete `eps-componentes` introduce un sistema modular para cargar solo los entornos necesarios.
+
+### Activación
+En `main.tex`:
+```latex
+% Opciones: software, telecom, arquitectura, quimica, geologia, prevencion, all
+\usepackage[software,telecom]{eps-componentes}
+```
+
+### Módulos Disponibles
+
+#### Comunes (Siempre activos)
+- **Cajas de aviso:** `infobox`, `warningbox`, `dangerbox`, `successbox`, `tipbox`, `notebox`.
+- **Contenedores:** `titlebox`, `definitionbox`, `examplebox`.
+
+#### `[software]`
+- **Entornos:** `terminal` (simula consola), `apiendpoint` (documentación REST), `dirtreebox` (árbol de archivos).
+- **Código:** `jsoncode`, `sqlcode`, `yamlcode`, `bashcode`.
+- **Diagramas:** `umlclass`, `umlseq` (basados en TikZ/pgf-umlcd).
+
+#### `[telecom]`
+- **Redes:** `protocolframe` (tramas de bits), `rackcabinet` (armarios).
+- **Circuitos:** `circuit` (wrapper de circuitikz).
+- **RF:** Carta de Smith (`smithchart`).
+
+#### `[arquitectura]`
+- **Planificación:** `ganttchart` (diagramas de Gantt).
+- **Planos:** `compass` (norte), `scalebar`.
+
+#### `[quimica]`
+- **Fórmulas:** `chemscheme`, `reaction` (chemfig/chemmacros).
+- **Seguridad:** `riskmatrix` (matriz de riesgos).
 
 ---
 
@@ -454,7 +566,7 @@ $lualatex = 'lualatex -shell-escape %O %S';
 | Error | Solución |
 |-------|----------|
 | `You must invoke LaTeX with -shell-escape` | Añadir `-shell-escape` al comando |
-| `Pygments not found` | Instalar: `pip install Pygments` |
+| `Pygments not found` | Instalar: `pip install latexminted` |
 | `Cannot find ... lexer` | Verificar nombre del lenguaje |
 
 ### Errores de bibliografía
@@ -464,6 +576,34 @@ $lualatex = 'lualatex -shell-escape %O %S';
 | `Citation undefined` | Ejecutar `biber main` |
 | `I couldn't open file` | Verificar nombre del archivo .bib |
 | `Biber error` | Revisar sintaxis del archivo .bib |
+
+---
+
+## ♿ Accesibilidad y PDF/UA
+
+### Crear PDFs accesibles (TeX Live 2025+)
+
+Para generar PDFs que cumplan con PDF/UA-2, añadir antes de `\documentclass`:
+
+```latex
+\DocumentMetadata{
+    lang = es-ES,
+    pdfstandard = ua-2,
+    testphase = {phase-III, math, table, title, firstaid}
+}
+```
+
+### Requisitos
+
+| Requisito | Descripción |
+|-----------|-------------|
+| LuaLaTeX | Obligatorio para MathML automático |
+| TeX Live 2025+ | Soporte completo del LaTeX Tagging Project |
+| Texto alternativo | Usar `alt={...}` en `\includegraphics` |
+
+### Más información
+
+Ver la guía completa en [docs/ACCESIBILIDAD.md](ACCESIBILIDAD.md).
 
 ---
 

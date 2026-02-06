@@ -1,0 +1,34 @@
+% =============================================================================
+% METADATOS Y ESTÁNDARES DEL DOCUMENTO (PDF/UA & Tagging)
+% =============================================================================
+% Este archivo configura los estándares de accesibilidad y metadatos PDF.
+% Se carga ANTES de \documentclass para asegurar que el motor PDF se
+% inicialice correctamente.
+
+\DocumentMetadata{
+  % --- Fase de pruebas de accesibilidad (tagging) ---
+  % phase-I:  Etiquetado básico automático.
+  % phase-II: Etiquetado avanzado (puede dar conflictos con minted/float).
+  testphase={phase-I}, 
+  %
+  % --- Estándar PDF ---
+  % Descomenta para forzar estándares específicos. 
+  % ua-2 es el estándar moderno de accesibilidad universal (sugerido).
+  % a-2b es común para archivado a largo plazo.
+  pdfstandard=ua-2,  
+  %
+  % --- Versión PDF ---
+  % 1.7 es el estándar más compatible. 2.0 permite características nuevas.
+  % Para PDF/UA-2 se recomienda usar PDF 2.0.
+  pdfversion=2.0,
+  %
+  % --- Idioma principal del documento ---
+  % IMPORTANTE: Este valor debe coincidir con 'idioma' en configuracion.tex
+  %
+  % Valores según idioma en EPSsetup:
+  %   idioma = espanol    →  lang=es-ES
+  %   idioma = valenciano →  lang=ca-ES
+  %   idioma = ingles     →  lang=en-GB
+  %
+  lang=es-ES
+}

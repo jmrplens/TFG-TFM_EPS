@@ -6,24 +6,64 @@ Esta guía explica cómo incluir código fuente en tu documento usando los entor
 
 ## 📋 Índice
 
-1. [Introducción](#introducción)
-2. [Entornos disponibles](#entornos-disponibles)
-3. [Uso básico](#uso-básico)
-4. [Opciones de personalización](#opciones-de-personalización)
-5. [Incluir código desde archivo](#incluir-código-desde-archivo)
-6. [Código inline](#código-inline)
-7. [Resaltar líneas](#resaltar-líneas)
-8. [Crear entornos personalizados](#crear-entornos-personalizados)
-9. [Solución de problemas](#solución-de-problemas)
+- [📋 Índice](#-índice)
+- [Introducción](#introducción)
+  - [Requisitos](#requisitos)
+- [Entornos disponibles](#entornos-disponibles)
+  - [Lenguajes de programación](#lenguajes-de-programación)
+  - [Web y markup](#web-y-markup)
+  - [Shell y sistema](#shell-y-sistema)
+  - [Bases de datos y redes](#bases-de-datos-y-redes)
+  - [Hardware y bajo nivel](#hardware-y-bajo-nivel)
+  - [Genéricos (cualquier lenguaje)](#genéricos-cualquier-lenguaje)
+- [Uso básico](#uso-básico)
+  - [Ejemplo simple](#ejemplo-simple)
+  - [Con tema oscuro](#con-tema-oscuro)
+  - [Sin números de línea](#sin-números-de-línea)
+  - [Estilo Simple (Borde Negro)](#estilo-simple-borde-negro)
+- [Opciones de personalización](#opciones-de-personalización)
+  - [Título personalizado](#título-personalizado)
+  - [Caption y etiqueta (para índice de códigos)](#caption-y-etiqueta-para-índice-de-códigos)
+  - [Opciones de minted](#opciones-de-minted)
+  - [Todas las opciones de minted disponibles](#todas-las-opciones-de-minted-disponibles)
+  - [Opciones de tcolorbox](#opciones-de-tcolorbox)
+- [Incluir código desde archivo](#incluir-código-desde-archivo)
+  - [Usando inputminted directamente](#usando-inputminted-directamente)
+  - [Crear un entorno con archivo](#crear-un-entorno-con-archivo)
+  - [Ejemplo completo de archivo externo](#ejemplo-completo-de-archivo-externo)
+- [Código inline](#código-inline)
+  - [Usando mintinline](#usando-mintinline)
+  - [Opciones de mintinline](#opciones-de-mintinline)
+  - [Crear comando personalizado para inline](#crear-comando-personalizado-para-inline)
+- [Resaltar líneas](#resaltar-líneas)
+  - [Resaltado básico](#resaltado-básico)
+  - [Resaltado con diferentes colores](#resaltado-con-diferentes-colores)
+- [Crear entornos personalizados](#crear-entornos-personalizados)
+  - [Crear un nuevo lenguaje con estilo personalizado](#crear-un-nuevo-lenguaje-con-estilo-personalizado)
+  - [Crear entorno con caption flotante](#crear-entorno-con-caption-flotante)
+- [Solución de problemas](#solución-de-problemas)
+  - [Error: "You must invoke LaTeX with the -shell-escape flag"](#error-you-must-invoke-latex-with-the--shell-escape-flag)
+  - [Error: "latexminted not found" o "Pygments not found"](#error-latexminted-not-found-o-pygments-not-found)
+  - [Error: "Couldn't find lexer"](#error-couldnt-find-lexer)
+  - [El código no se muestra correctamente](#el-código-no-se-muestra-correctamente)
+  - [Las líneas son muy largas](#las-líneas-son-muy-largas)
+  - [Error con caracteres Unicode](#error-con-caracteres-unicode)
+- [Ejemplos completos](#ejemplos-completos)
+  - [Comparación de algoritmos](#comparación-de-algoritmos)
+  - [Código con explicaciones](#código-con-explicaciones)
+  - [Pseudocódigo](#pseudocódigo)
+- [Recursos adicionales](#recursos-adicionales)
+- [Ver también](#ver-también)
 
 ---
 
 ## Introducción
 
-Esta plantilla incluye el paquete `eps-codigo.sty` que proporciona entornos predefinidos para más de **40 lenguajes de programación** con dos temas visuales:
+Esta plantilla incluye el paquete `eps-codigo.sty` que proporciona entornos predefinidos para más de **40 lenguajes de programación** con tres temas visuales:
 
 - **VS Code Light** (fondo claro) - Por defecto
 - **VS Code Dark** (fondo oscuro) - Añadiendo `Dark` al nombre del entorno
+- **Simple** (borde negro, sin colores de fondo) - Usando el entorno `codigosimple`
 
 Cada lenguaje tiene dos variantes:
 - **Con números de línea** - Por defecto
@@ -31,11 +71,11 @@ Cada lenguaje tiene dos variantes:
 
 ### Requisitos
 
-El resaltado de sintaxis usa **Pygments**, que requiere Python. Al compilar con `-shell-escape`, minted ejecuta Pygments automáticamente.
+El resaltado de sintaxis usa **minted 3.x** con **latexminted**, que requiere Python. Al compilar con `-shell-escape`, minted ejecuta el resaltado automáticamente.
 
 ```bash
-# Instalar Pygments si no está instalado
-pip install Pygments
+# Instalar latexminted (incluye Pygments automáticamente)
+pip install latexminted
 ```
 
 ---
@@ -120,6 +160,8 @@ pip install Pygments
 | Light sin líneas | `\begin{codigoNN}{lenguaje}...\end{codigoNN}` |
 | Dark con líneas | `\begin{codigoDark}{lenguaje}...\end{codigoDark}` |
 | Dark sin líneas | `\begin{codigoDarkNN}{lenguaje}...\end{codigoDarkNN}` |
+| Simple con líneas | `\begin{codigosimple}{lenguaje}{Título}...\end{codigosimple}` |
+| Simple sin líneas | `\begin{codigosimpleNN}{lenguaje}{Título}...\end{codigosimpleNN}` |
 
 ---
 
@@ -141,15 +183,11 @@ for i in range(10):
 \end{pythoncode}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/CODIGO_FUENTE_001.webp)
+<img src="assets/previews/CODIGO_FUENTE_001.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/CODIGO_FUENTE_001.pdf)
-
-</details>
-
 
 ### Con tema oscuro
 
@@ -166,15 +204,11 @@ def quicksort(arr):
 \end{pythoncodeDark}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/CODIGO_FUENTE_002.webp)
+<img src="assets/previews/CODIGO_FUENTE_002.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/CODIGO_FUENTE_002.pdf)
-
-</details>
-
 
 ### Sin números de línea
 
@@ -185,15 +219,31 @@ console.log(greeting);
 \end{jscodeNN}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/CODIGO_FUENTE_003.webp)
+<img src="assets/previews/CODIGO_FUENTE_003.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/CODIGO_FUENTE_003.pdf)
 
-</details>
+### Estilo Simple (Borde Negro)
 
+Ideal para versiones impresas o cuando se prefiere un estilo minimalista. A diferencia de los otros entornos, este **requiere** que indiques el lenguaje y el título como argumentos obligatorios.
+
+```latex <!-- preview -->
+\begin{codigosimple}{python}{Script de Análisis}
+def calcular_media(datos):
+    """Calcula la media aritmética."""
+    if not datos:
+        return 0
+    return sum(datos) / len(datos)
+\end{codigosimple}
+```
+
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_004.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_004.pdf)
 
 ---
 
@@ -203,7 +253,7 @@ Todos los entornos aceptan opciones opcionales entre corchetes `[...]`. Las opci
 
 ### Título personalizado
 
-```latex
+```latex <!-- preview -->
 \begin{pythoncode}[title={Mi algoritmo de ordenación}]
 def bubble_sort(arr):
     n = len(arr)
@@ -215,9 +265,15 @@ def bubble_sort(arr):
 \end{pythoncode}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_005.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_005.pdf)
+
 ### Caption y etiqueta (para índice de códigos)
 
-```latex
+```latex <!-- preview:2 -->
 \begin{pythoncode}[title={Algoritmo de búsqueda binaria}, label={cod:busqueda-binaria}]
 def busqueda_binaria(arr, x):
     izq, der = 0, len(arr) - 1
@@ -232,6 +288,12 @@ def busqueda_binaria(arr, x):
     return -1
 \end{pythoncode}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_006.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_006.pdf)
 
 Para referenciar: `Como se muestra en el Código~\ref{cod:busqueda-binaria}...`
 
@@ -356,7 +418,7 @@ def ejemplo():
 
 ### Usando mintinline
 
-```latex
+```latex <!-- preview:2 -->
 La función \mintinline{python}{print("Hola")} muestra texto en pantalla.
 
 En JavaScript usamos \mintinline{javascript}{const x = 10} para declarar constantes.
@@ -364,9 +426,15 @@ En JavaScript usamos \mintinline{javascript}{const x = 10} para declarar constan
 El comando SQL \mintinline{sql}{SELECT * FROM usuarios} obtiene todos los registros.
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_007.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_007.pdf)
+
 ### Opciones de mintinline
 
-```latex
+```latex <!-- preview:2 -->
 % Con estilo diferente
 \mintinline[style=colorful]{python}{lambda x: x**2}
 
@@ -377,9 +445,15 @@ El comando SQL \mintinline{sql}{SELECT * FROM usuarios} obtiene todos los regist
 \mintinline[fontsize=\large]{java}{public static void main}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_008.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_008.pdf)
+
 ### Crear comando personalizado para inline
 
-```latex
+```latex <!-- preview:2 -->
 % En el preámbulo
 \newcommand{\py}[1]{\mintinline{python}{#1}}
 \newcommand{\js}[1]{\mintinline{javascript}{#1}}
@@ -389,19 +463,20 @@ El comando SQL \mintinline{sql}{SELECT * FROM usuarios} obtiene todos los regist
 La función \py{range(10)} genera números del 0 al 9.
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_009.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_009.pdf)
+
 ---
 
 ## Resaltar líneas
 
 ### Resaltado básico
 
-```latex
-\begin{pythoncode}[
-    minted options={
-        highlightlines={2,4-6},
-        highlightcolor=yellow!40
-    }
-]
+```latex <!-- preview:2 -->
+\begin{pythoncode}[minted options={highlightlines={2,4-6}, highlightcolor=yellow!40}]
 def procesar_datos(datos):
     resultado = []  # Esta línea está resaltada
     for item in datos:
@@ -412,26 +487,33 @@ def procesar_datos(datos):
 \end{pythoncode}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_010.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_010.pdf)
+
 ### Resaltado con diferentes colores
 
-```latex
+```latex <!-- preview:2 -->
 % Definir colores primero
 \definecolor{resaltado1}{RGB}{255,255,150}
 \definecolor{resaltado2}{RGB}{150,255,150}
 
 % Usar en el código
-\begin{pythoncode}[
-    minted options={
-        highlightlines={3},
-        highlightcolor=resaltado1
-    }
-]
+\begin{pythoncode}[minted options={highlightlines={3}, highlightcolor=resaltado1}]
 def ejemplo():
     paso_1 = inicializar()
-    paso_importante = procesar()  # Resaltado
+    paso_importante = procesar()  % Resaltado
     return paso_importante
 \end{pythoncode}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_011.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_011.pdf)
 
 ---
 
@@ -510,7 +592,7 @@ def factorial(n):
 
 ### Error: "You must invoke LaTeX with the -shell-escape flag"
 
-**Causa**: minted necesita ejecutar Pygments externamente.
+**Causa**: minted necesita ejecutar latexminted externamente.
 
 **Solución**: Compila con la opción `-shell-escape`:
 ```bash
@@ -533,20 +615,20 @@ O en VS Code, asegúrate de que el archivo `.vscode/settings.json` tenga:
 ]
 ```
 
-### Error: "Pygments not found"
+### Error: "latexminted not found" o "Pygments not found"
 
-**Causa**: Python o Pygments no están instalados.
+**Causa**: Python o latexminted no están instalados.
 
 **Solución**:
 ```bash
 # Linux/Mac
-pip install Pygments
+pip install latexminted
 
 # Windows
-py -m pip install Pygments
+py -m pip install latexminted
 
 # Verificar instalación
-pygmentize -V
+latexminted --version
 ```
 
 ### Error: "Couldn't find lexer"
@@ -555,8 +637,10 @@ pygmentize -V
 
 **Solución**: Usa uno de los lenguajes soportados. Lista completa:
 ```bash
-pygmentize -L lexers
+python -c "from pygments.lexers import get_all_lexers; print([l[1][0] for l in get_all_lexers()])"
 ```
+
+O consulta la [documentación de Pygments](https://pygments.org/docs/lexers/).
 
 ### El código no se muestra correctamente
 
@@ -610,7 +694,7 @@ def saludar(nombre):
 
 ### Comparación de algoritmos
 
-```latex
+```latex <!-- preview:2 -->
 \begin{figure}[htbp]
 \centering
 
@@ -646,13 +730,16 @@ def quick_sort(arr):
 \end{figure}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_012.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_012.pdf)
+
 ### Código con explicaciones
 
-```latex
-\begin{pythoncode}[
-    title={API REST con Flask},
-    minted options={highlightlines={5-8}}
-]
+```latex <!-- preview:2 -->
+\begin{pythoncode}[title={API REST con Flask}, minted options={highlightlines={5-8}}]
 from flask import Flask, jsonify, request
 
 app = Flask(__name__)
@@ -677,12 +764,16 @@ Las líneas resaltadas (5-8) muestran el decorador de ruta y la función
 que maneja las peticiones GET al endpoint \mintinline{text}{/api/users}.
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_013.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_013.pdf)
+
 ### Pseudocódigo
 
-```latex
-\begin{codigo}[
-    title={Algoritmo de Dijkstra (pseudocódigo)}
-]{text}
+```latex <!-- preview:2 -->
+\begin{codigo}[title={Algoritmo de Dijkstra (pseudocódigo)}]{text}
 DIJKSTRA(G, origen):
     dist[origen] = 0
     PARA cada vértice v en G:
@@ -704,14 +795,42 @@ DIJKSTRA(G, origen):
 \end{codigo}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/CODIGO_FUENTE_014.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/CODIGO_FUENTE_014.pdf)
+
 ---
 
 ## Recursos adicionales
 
-- [Documentación de minted](https://ctan.org/pkg/minted)
-- [Documentación de tcolorbox](https://ctan.org/pkg/tcolorbox)
-- [Lista de lexers de Pygments](https://pygments.org/docs/lexers/)
-- [Estilos de Pygments](https://pygments.org/styles/)
+### Documentación oficial
+
+| Recurso | Descripción |
+|---------|-------------|
+| [minted en CTAN](https://ctan.org/pkg/minted) | Documentación oficial del paquete |
+| [latexminted en PyPI](https://pypi.org/project/latexminted/) | Ejecutable Python para minted 3.x |
+| [tcolorbox en CTAN](https://ctan.org/pkg/tcolorbox) | Documentación de cajas personalizadas |
+
+### Pygments
+
+| Recurso | Descripción |
+|---------|-------------|
+| [Pygments Home](https://pygments.org/) | Sitio oficial |
+| [Lista de Lexers](https://pygments.org/docs/lexers/) | Lenguajes soportados |
+| [Estilos disponibles](https://pygments.org/styles/) | Temas de resaltado |
+
+### Compatibilidad con plataformas
+
+| Plataforma | Soporte minted 3.x | Notas |
+|------------|---------------------|-------|
+| **TeX Live 2025** | ✅ Completo | `-shell-escape` opcional en TL2024+ |
+| **Overleaf** | ✅ Completo | Funciona automáticamente |
+| **arXiv** | ✅ Desde sept. 2025 | Ver [arXiv TeX Live 2025](https://info.arxiv.org/help/faq/texlive.html) |
+| **MiKTeX** | ✅ Completo | Requiere `-enable-write18` |
+
+> **Nota sobre minted 3.x:** A partir de TeX Live 2024, el ejecutable `latexminted` está en la lista de programas confiables de TeX, por lo que `-shell-escape` ya no es estrictamente necesario en muchos casos. Sin embargo, se recomienda seguir usándolo por compatibilidad.
 
 ---
 

@@ -1,256 +1,88 @@
-# 🤖 Guía para Asistentes de IA
+# 🤖 Contexto para Asistentes de IA
 
-Este archivo proporciona contexto para que los asistentes de IA (ChatGPT, Claude, Copilot, etc.) puedan ayudar eficazmente a los estudiantes que usan esta plantilla LaTeX.
-
-## 📋 Descripción del Proyecto
-
-**TFG-TFM_EPS_UA** es una plantilla LaTeX profesional para la elaboración de:
-- **TFG** (Trabajo Fin de Grado)
-- **TFM** (Trabajo Fin de Máster)
-
-En la **Escuela Politécnica Superior de la Universidad de Alicante** (España).
-
-### Características principales
-- Compilación con **LuaLaTeX** (obligatorio, no funciona con pdfLaTeX)
-- Soporte para **21 titulaciones** diferentes (grados y másteres)
-- Portadas oficiales en color y blanco/negro
-- Bibliografía con BibLaTeX + Biber
-- Código fuente con sintaxis resaltada (minted + Pygments)
-- Glosarios y acrónimos integrados
-- Cumple con la normativa de la EPS UA
+Esta guía está diseñada para ser copiada y pegada en el prompt de tu asistente de IA favorito (ChatGPT, Claude, Gemini, etc.) para que entienda perfectamente cómo trabajar con esta plantilla de TFG/TFM.
 
 ---
 
-## 📁 Estructura del Proyecto
+## 📋 Prompt del Sistema (Copiar y Pegar)
 
-```
-/
-├── main.tex                 # Documento principal (punto de entrada)
-├── configuracion.tex        # ⭐ ARCHIVO CLAVE: Configuración del usuario
-├── capitulos/               # Contenido del documento
-│   ├── Introduccion.tex
-│   ├── objetivos.tex
-│   ├── marcoteorico.tex
-│   ├── metodologia.tex
-│   ├── desarrollo.tex
-│   ├── resultados.tex
-│   └── conclusiones.tex
-├── anexos/                  # Anexos y apéndices
-├── bibliografia/
-│   └── bibliografia.bib     # Referencias en formato BibTeX
-├── archivos/
-│   ├── figuras/             # Imágenes del documento
-│   └── ejemplos/            # Código fuente de ejemplo
-├── cls/
-│   └── eps-tfg.cls          # Clase principal (NO MODIFICAR)
-├── sty/                     # Paquetes de estilo (NO MODIFICAR)
-└── docs/                    # Documentación detallada
-```
+Copia el siguiente bloque de texto y pégalo al inicio de tu conversación con la IA:
 
----
+```markdown
+Actúa como un experto en LaTeX y en la normativa de Trabajos de Fin de Grado (TFG) y Máster (TFM) de la Escuela Politécnica Superior (EPS) de la Universidad de Alicante (UA).
 
-## ⚙️ Configuración Principal
+Estoy utilizando la plantilla "TFG-TFM_EPS" versión 2.1.0 (2026). Aquí tienes el contexto técnico clave:
 
-El archivo `configuracion.tex` contiene todas las opciones personalizables mediante `\EPSsetup{}`:
+### 1. Estructura del Proyecto
+- **Clase principal:** `cls/eps-tfg.cls` (basada en KOMA-Script `scrbook`).
+- **Motor de compilación:** LuaLaTeX (obligatorio).
+- **Distribución recomendada:** TeX Live 2025+ (https://www.tug.org/texlive/).
+- **Bibliografía:** BibLaTeX con Biber (estilo APA 7).
+- **Código fuente:** Paquete `minted` 3.x con `latexminted` (https://pypi.org/project/latexminted/).
+- **Idioma:** Configurable (español/valenciano/inglés) vía `\EPSsetup{idioma=...}`.
 
-### Datos básicos obligatorios
+### 2. Configuración (`configuracion.tex`)
+Toda la configuración personal se hace mediante el comando `\EPSsetup{...}`.
+Claves principales:
+- `titulo`, `subtitulo`, `autor`, `email`, `tutor`.
+- `titulacion`: Define el formato y portada. Valores: `informatica`, `teleco`, `civil`, `quimica`, `arquitectura`, `multimedia`, `robotica` (y sus variantes de máster como `master-informatica`, etc.).
+- `idioma`: Idioma del documento. Valores: `espanol` (defecto), `valenciano`, `ingles`.
+- `optimizar-tikz`: `true` activa la caché de tikz.
+
+**Configuración de idioma:** Si cambias `idioma`, DEBES editar también `cls/eps-metadata.tex` para que el valor `lang` coincida:
+- `idioma = espanol` → `lang=es-ES`
+- `idioma = valenciano` → `lang=ca-ES`
+- `idioma = ingles` → `lang=en-GB`
+
+### 3. Portadas
+NO se crean manualmente. Se generan automáticamente con `\generarportada[ambas]`, `\portadacolor` o `\portadabn`.
+Los logotipos están en `recursos/logos/`.
+
+### 4. Componentes Personalizados (Paquete `eps-componentes`)
+La plantilla es modular. Activa los módulos necesarios en `main.tex` (línea `\usepackage[...]{eps-componentes}`).
+Módulos: `all`, `software`, `telecom`, `arquitectura`, `quimica`, `geologia`, `prevencion`.
+
+Usa siempre estos entornos en lugar de soluciones genéricas:
+- **Cajas de aviso:** `infobox`, `warningbox`, `dangerbox`, `successbox`, `tipbox`, `notebox`.
+- **Software:** `terminal` (consola), `apiendpoint` (REST), `jsoncode`, `sqlcode`.
+- **Ingeniería:** `blockdiagram` (bloques), `protocolframe` (tramas bits), `riskmatrix` (riesgos).
+- **Tablas:** Usa siempre `booktabs` (`\toprule`, `\midrule`, `\bottomrule`).
+
+### 5. Reglas de Redacción TeX
+- **`main.tex`:** Edítalo SOLO para:
+    1. Activar/desactivar módulos de componentes.
+    2. Añadir/quitar capítulos (`\input{...}`).
+    3. Añadir bibliografía (`\addbibresource`).
+    - *No escribas texto de contenido aquí.*
+- **Paquetes:** Si necesitas paquetes extra, hazlo en el preámbulo, pero intenta usar los ya incluidos.
+- Para imágenes: `\includegraphics[width=\linewidth]{ruta}` (formatos soportados: PDF, PNG, JPG, EPS).
+- Para referencias: Usa siempre `\label{tipo:nombre}` y `\ref{tipo:nombre}` (o `\cref` si está configurado).
+- Usa `\input{contenido/capitulos/...}` para los capítulos (preferible a `\include` para evitar saltos de página forzados si no son deseados).
+
+### 6. Accesibilidad (Opcional, TeX Live 2025+)
+Para crear PDFs accesibles (PDF/UA-2), añadir antes de `\documentclass`:
 ```latex
-\EPSsetup{
-    titulo = {Título del trabajo},
-    autor = {Nombre Apellido1 Apellido2},
-    genero = m,                          % m = masculino, f = femenino, n = neutro
-    tutor = {Dr. Nombre del Tutor},
-    tutor-departamento = {Nombre del Departamento},
-    titulacion = informatica,            % Ver lista de titulaciones abajo
-    fecha = {Junio 2026},
-}
+\DocumentMetadata{lang=es-ES, pdfstandard=ua-2, testphase={phase-III, math}}
 ```
+Ver `docs/ACCESIBILIDAD.md` para más información.
 
-### Titulaciones disponibles (valor para `titulacion`)
-**Grados:**
-- `arquitectura`, `arquitectura-tecnica`, `civil`, `informatica`
-- `multimedia`, `quimica`, `robotica`, `teleco`
-
-**Másteres:**
-- `master-agua`, `master-caminos`, `master-ciberseguridad`
-- `master-edificacion`, `master-geologica`, `master-informatica`
-- `master-materiales`, `master-moviles`, `master-prevencion`
-- `master-quimica`, `master-robotica`, `master-teleco`, `master-web`
-
-### Opciones de género
-```latex
-genero = m,           % Muestra "Autor" y "Tutor"
-genero = f,           % Muestra "Autora" y "Tutora"  
-genero = n,           % Muestra "Autoría" y "Tutoría" (neutro)
-
-tutor-genero = m,     % Género del tutor: m/f/n
-cotutor-genero = f,   % Género del cotutor: m/f/n
-```
-
-### Opciones adicionales comunes
-```latex
-\EPSsetup{
-    % Subtítulo opcional
-    subtitulo = {Subtítulo del trabajo},
-    
-    % Cotutor (opcional)
-    cotutor = {Dra. Nombre Cotutora},
-    cotutor-departamento = {Otro Departamento},
-    
-    % Email institucional
-    email = nombre@alu.ua.es,
-    
-    % Palabras clave
-    palabras-clave = {palabra1, palabra2, palabra3},
-    keywords = {keyword1, keyword2, keyword3},
-}
+### 7. Ayuda Solicitada
+A partir de ahora, ayúdame a redactar contenido, generar código LaTeX o solucionar errores teniendo en cuenta estas restricciones. Si te pido código, que sea compatible con LuaLaTeX y los paquetes mencionados.
 ```
 
 ---
 
-## 🔧 Comandos Principales
+## 🛠️ Archivos Clave para Contexto (Para upload)
 
-### Portadas
-```latex
-\portadacolor    % Portada a color (por defecto)
-\portadabn       % Portada en blanco y negro
-```
+Si tu IA permite subir archivos (como ChatGPT Plus o Claude Pro), sube estos archivos para un contexto perfecto:
 
-### Resúmenes
-```latex
-\begin{resumen}
-Texto del resumen en español...
-\end{resumen}
+1.  **`cls/eps-tfg.cls`**: Define toda la estructura y comandos base.
+2.  **`sty/eps-componentes.sty`**: Define todas las cajas y componentes visuales.
+3.  **`configuracion.tex`**: Tu configuración actual.
+4.  **`docs/AI_CONTEXT.md`**: Resumen técnico completo.
 
-\begin{abstract}
-Abstract text in English...
-\end{abstract}
-```
+## 💡 Consejos para mejores respuestas
 
-### Citas bibliográficas
-```latex
-\parencite{clave}      % (Autor, 2024)
-\textcite{clave}       % Autor (2024)
-\cite{clave}           % Cita numérica [1]
-```
-
-### Acrónimos y glosario
-```latex
-\gls{acronimo}         % Primera vez: "Nombre Completo (NC)", después: "NC"
-\acrshort{acronimo}    % Solo las siglas: NC
-\acrlong{acronimo}     % Solo el nombre completo
-\acrfull{acronimo}     % Siempre completo: Nombre Completo (NC)
-```
-
-### Referencias cruzadas
-```latex
-\autoref{fig:nombre}   % "Figura 1" (automático)
-\autoref{tab:nombre}   % "Tabla 1"
-\autoref{sec:nombre}   % "Sección 1"
-\autoref{eq:nombre}    % "Ecuación 1"
-```
-
-### Código fuente
-```latex
-% Código Python con números de línea
-\begin{pythoncode}[title={script.py}]
-def hello():
-    print("Hello, World!")
-\end{pythoncode}
-
-% Código inline
-\mintinline{python}{print("Hello")}
-```
-
----
-
-## ❌ Errores Comunes y Soluciones
-
-### 1. "Package minted Error: You must invoke LaTeX with -shell-escape"
-**Causa:** Minted necesita ejecutar comandos externos.
-**Solución:** Compilar con `lualatex -shell-escape main.tex` o configurar el editor.
-
-### 2. "Undefined control sequence: \EPSsetup"
-**Causa:** No se está usando la clase correcta o hay error en main.tex.
-**Solución:** Verificar que `main.tex` comienza con `\documentclass{eps-tfg}`.
-
-### 3. "File 'eps-tfg.cls' not found"
-**Causa:** Las rutas no están configuradas correctamente.
-**Solución:** Verificar que existe el bloque `\input@path` en main.tex.
-
-### 4. "Citation undefined" o "Reference undefined"
-**Causa:** Falta ejecutar biber o hay errores en .bib.
-**Solución:** Ejecutar: `lualatex → biber → lualatex → lualatex`.
-
-### 5. La portada no tiene los colores correctos
-**Causa:** Titulación mal escrita en configuracion.tex.
-**Solución:** Verificar que el valor de `titulacion` coincide exactamente con la lista.
-
-### 6. "Font not found" o errores de fuentes
-**Causa:** LuaLaTeX no encuentra las fuentes del sistema.
-**Solución:** 
-- En Overleaf: Funciona automáticamente
-- Local: Instalar TeX Live completo o las fuentes necesarias
-
----
-
-## 💡 Consejos para Ayudar a Estudiantes
-
-### Cuando pregunten sobre estructura
-- Sugerir usar la estructura de capítulos existente
-- Los archivos en `capitulos/` ya tienen el orden lógico típico
-- Pueden añadir/eliminar capítulos modificando `main.tex`
-
-### Cuando pregunten sobre bibliografía
-- El archivo es `bibliografia/bibliografia.bib`
-- Usar formato BibTeX estándar
-- Herramientas útiles: Zotero, Mendeley, Google Scholar (exportar BibTeX)
-
-### Cuando pregunten sobre imágenes
-- Colocar en `archivos/figuras/`
-- Formatos recomendados: PDF (vectorial), PNG (raster)
-- Usar `\includegraphics[width=0.8\textwidth]{nombre}`
-
-### Cuando pregunten sobre tablas
-- Recomendar el paquete `booktabs` (ya incluido)
-- Usar `\toprule`, `\midrule`, `\bottomrule`
-- Para tablas largas: `longtable`
-
-### Cuando pregunten sobre ecuaciones
-- Entorno `equation` para ecuaciones numeradas
-- Entorno `align` para ecuaciones alineadas
-- Usar `\label{eq:nombre}` para referenciar
-
----
-
-## 📚 Documentación Adicional
-
-La carpeta `docs/` contiene guías detalladas:
-- `ECUACIONES.md` - Guía completa de ecuaciones matemáticas
-- `TABLAS.md` - Creación de tablas profesionales
-- `FIGURAS_GRAFICAS.md` - Imágenes y gráficas con TikZ/PGFPlots
-- `CODIGO_FUENTE.md` - Inserción de código con minted
-- `BIBLIOGRAFIA.md` - Gestión de referencias
-- `GLOSARIOS_ACRONIMOS.md` - Términos y acrónimos
-
----
-
-## ⚠️ Advertencias Importantes
-
-1. **NO modificar** los archivos en `cls/` y `sty/` a menos que sea absolutamente necesario
-2. **Siempre compilar con LuaLaTeX**, no pdfLaTeX ni XeLaTeX
-3. **Usar UTF-8** como codificación de todos los archivos .tex
-4. **Respetar los nombres** de las titulaciones exactamente como están listados
-5. La plantilla está diseñada para **español**, pero soporta contenido bilingüe
-
----
-
-## 🔗 Enlaces Útiles
-
-- **Repositorio:** https://github.com/jmrplens/TFG-TFM_EPS
-- **Documentación LaTeX:** https://www.overleaf.com/learn
-- **Comunidad TeX:** https://tex.stackexchange.com/
-
----
-
-*Este archivo está diseñado para proporcionar contexto a asistentes de IA. Si eres un estudiante leyendo esto, ¡bienvenido! Puedes usar esta información como referencia rápida.*
+- **Errores de compilación:** Copia siempre las últimas 20 líneas del archivo `.log` o la salida de la terminal.
+- **Gráficas:** Si pides una gráfica TikZ/PGFPlots, especifica que debe usar el estilo definido en la plantilla (`\pgfplotsset{compat=1.18}`).
+- **Bibliografía:** Si pides referencias, especifica que sean en formato `.bib` para BibLaTeX APA.

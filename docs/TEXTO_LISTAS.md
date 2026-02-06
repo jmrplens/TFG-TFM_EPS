@@ -6,17 +6,70 @@ Esta guía explica todas las opciones de formato de texto, listas, y estructurac
 
 ## 📋 Índice
 
-1. [Formato básico de texto](#formato-básico-de-texto)
-2. [Tamaños de fuente](#tamaños-de-fuente)
-3. [Familias de fuentes](#familias-de-fuentes)
-4. [Colores de texto](#colores-de-texto)
-5. [Alineación](#alineación)
-6. [Espaciado](#espaciado)
-7. [Listas](#listas)
-8. [Descripción y definiciones](#descripción-y-definiciones)
-9. [Citas y bloques](#citas-y-bloques)
-10. [Cajas y recuadros](#cajas-y-recuadros)
-11. [Caracteres especiales](#caracteres-especiales)
+- [📋 Índice](#-índice)
+- [Formato básico de texto](#formato-básico-de-texto)
+  - [Estilos de texto](#estilos-de-texto)
+  - [Combinaciones](#combinaciones)
+  - [Comandos de conmutación (afectan hasta el final del grupo)](#comandos-de-conmutación-afectan-hasta-el-final-del-grupo)
+  - [Tachado y resaltado](#tachado-y-resaltado)
+- [Tamaños de fuente](#tamaños-de-fuente)
+  - [Comandos de tamaño (relativos)](#comandos-de-tamaño-relativos)
+  - [Tamaño absoluto (con anyfontsize)](#tamaño-absoluto-con-anyfontsize)
+  - [Escalar texto proporcionalmente](#escalar-texto-proporcionalmente)
+- [Familias de fuentes](#familias-de-fuentes)
+  - [Familias estándar](#familias-estándar)
+  - [Con LuaLaTeX (fontspec)](#con-lualatex-fontspec)
+- [Colores de texto](#colores-de-texto)
+  - [Colores básicos](#colores-básicos)
+  - [Colores personalizados](#colores-personalizados)
+  - [Mezcla de colores](#mezcla-de-colores)
+  - [Fondo de texto](#fondo-de-texto)
+- [Alineación](#alineación)
+  - [Alineación de párrafos](#alineación-de-párrafos)
+  - [Comandos de conmutación](#comandos-de-conmutación)
+  - [Con ragged2e (mejor calidad)](#con-ragged2e-mejor-calidad)
+- [Espaciado](#espaciado)
+  - [Espaciado horizontal](#espaciado-horizontal)
+  - [Espaciado vertical](#espaciado-vertical)
+  - [Interlineado](#interlineado)
+  - [Control de párrafos](#control-de-párrafos)
+- [Listas](#listas)
+  - [Lista sin numerar (itemize)](#lista-sin-numerar-itemize)
+  - [Lista numerada (enumerate)](#lista-numerada-enumerate)
+  - [Listas anidadas](#listas-anidadas)
+  - [Personalizar símbolos de itemize](#personalizar-símbolos-de-itemize)
+  - [Personalizar enumerate](#personalizar-enumerate)
+  - [Opciones avanzadas con enumitem](#opciones-avanzadas-con-enumitem)
+  - [Lista en línea](#lista-en-línea)
+- [Descripción y definiciones](#descripción-y-definiciones)
+  - [Lista de descripción básica](#lista-de-descripción-básica)
+  - [Descripción con formato](#descripción-con-formato)
+  - [Estilo personalizado](#estilo-personalizado)
+  - [Glosario manual](#glosario-manual)
+- [Citas y bloques](#citas-y-bloques)
+  - [Cita corta (quote)](#cita-corta-quote)
+  - [Cita larga (quotation)](#cita-larga-quotation)
+  - [Verso (poem)](#verso-poem)
+  - [Bloque literal (verbatim)](#bloque-literal-verbatim)
+  - [Abstracto](#abstracto)
+- [Cajas y recuadros](#cajas-y-recuadros)
+  - [Caja simple (fbox)](#caja-simple-fbox)
+  - [Caja con color](#caja-con-color)
+  - [Minipage (caja con ancho)](#minipage-caja-con-ancho)
+  - [Cajas lado a lado](#cajas-lado-a-lado)
+  - [Tcolorbox (cajas decorativas)](#tcolorbox-cajas-decorativas)
+  - [Mdframed (marcos)](#mdframed-marcos)
+- [Caracteres especiales](#caracteres-especiales)
+  - [Caracteres reservados en LaTeX](#caracteres-reservados-en-latex)
+  - [Comillas tipográficas](#comillas-tipográficas)
+  - [Guiones y rayas](#guiones-y-rayas)
+  - [Puntos suspensivos](#puntos-suspensivos)
+  - [Símbolos comunes](#símbolos-comunes)
+  - [Iconos con FontAwesome](#iconos-con-fontawesome)
+- [Ejemplos completos](#ejemplos-completos)
+  - [Documento con formato mixto](#documento-con-formato-mixto)
+- [Recursos adicionales](#recursos-adicionales)
+- [Ver también](#ver-también)
 
 ---
 
@@ -149,7 +202,7 @@ Esta guía explica todas las opciones de formato de texto, listas, y estructurac
 
 ### Colores básicos
 
-```latex
+```latex <!-- preview -->
 \textcolor{red}{Texto rojo}
 \textcolor{blue}{Texto azul}
 \textcolor{green}{Texto verde}
@@ -157,6 +210,12 @@ Esta guía explica todas las opciones de formato de texto, listas, y estructurac
 \textcolor{purple}{Texto púrpura}
 \textcolor{gray}{Texto gris}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_001.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_001.pdf)
 
 ### Colores personalizados
 
@@ -180,7 +239,7 @@ Esta guía explica todas las opciones de formato de texto, listas, y estructurac
 
 ### Fondo de texto
 
-```latex
+```latex <!-- preview -->
 \colorbox{yellow}{Texto con fondo amarillo}
 
 \colorbox{blue!20}{\textcolor{blue}{Texto azul con fondo azul claro}}
@@ -188,13 +247,19 @@ Esta guía explica todas las opciones de formato de texto, listas, y estructurac
 \fcolorbox{red}{yellow}{Texto con borde rojo y fondo amarillo}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_002.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_002.pdf)
+
 ---
 
 ## Alineación
 
 ### Alineación de párrafos
 
-```latex
+```latex <!-- preview -->
 % Izquierda (por defecto en español)
 \begin{flushleft}
     Este texto está alineado a la izquierda.
@@ -218,6 +283,12 @@ Este es el comportamiento normal de LaTeX,
 el texto se justifica en ambos lados.
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_003.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_003.pdf)
+
 ### Comandos de conmutación
 
 ```latex
@@ -230,7 +301,7 @@ el texto se justifica en ambos lados.
 
 ### Con ragged2e (mejor calidad)
 
-```latex
+```latex <!-- preview -->
 % Más opciones de configuración
 \begin{FlushLeft}
     Texto a la izquierda con mejor espaciado.
@@ -249,6 +320,12 @@ el texto se justifica en ambos lados.
     Texto justificado con mejor hifenación.
 \end{justify}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_004.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_004.pdf)
 
 ---
 
@@ -293,7 +370,7 @@ Línea 2 (con 1cm de separación)
 
 ### Interlineado
 
-```latex
+```latex <!-- preview -->
 % Para todo el documento (en preámbulo)
 \renewcommand{\baselinestretch}{1.5}
 
@@ -307,6 +384,12 @@ Línea 2 (con 1cm de separación)
 \onehalfspacing
 \doublespacing
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_005.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_005.pdf)
 
 ### Control de párrafos
 
@@ -338,15 +421,11 @@ Línea 2 (con 1cm de separación)
 \end{itemize}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/TEXTO_LISTAS_001.webp)
+<img src="assets/previews/TEXTO_LISTAS_006.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_001.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_006.pdf)
 
 ### Lista numerada (enumerate)
 
@@ -358,15 +437,11 @@ Línea 2 (con 1cm de separación)
 \end{enumerate}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/TEXTO_LISTAS_002.webp)
+<img src="assets/previews/TEXTO_LISTAS_007.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_002.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_007.pdf)
 
 ### Listas anidadas
 
@@ -385,19 +460,15 @@ Línea 2 (con 1cm de separación)
 \end{itemize}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/TEXTO_LISTAS_003.webp)
+<img src="assets/previews/TEXTO_LISTAS_008.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_003.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_008.pdf)
 
 ### Personalizar símbolos de itemize
 
-```latex
+```latex <!-- preview -->
 % Para un item específico
 \begin{itemize}
     \item[--] Con guion
@@ -414,9 +485,15 @@ Línea 2 (con 1cm de separación)
 \renewcommand{\labelitemiv}{\textperiodcentered}    % Nivel 4
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_009.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_009.pdf)
+
 ### Personalizar enumerate
 
-```latex
+```latex <!-- preview -->
 % Con enumerate de KOMA-Script o enumitem
 \begin{enumerate}[label=\alph*)]   % a) b) c)
     \item Primer elemento
@@ -439,10 +516,16 @@ Línea 2 (con 1cm de separación)
 \end{enumerate}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_010.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_010.pdf)
+
 ### Opciones avanzadas con enumitem
 
-```latex
-\usepackage{enumitem}
+```latex <!-- preview -->
+% \usepackage{enumitem}
 
 % Sin espacio entre items
 \begin{itemize}[noitemsep]
@@ -479,6 +562,12 @@ Texto intermedio...
 \end{enumerate}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_011.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_011.pdf)
+
 ### Lista en línea
 
 ```latex
@@ -513,28 +602,30 @@ Las opciones son \begin{itemize*}[label={}]
 \end{description}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/TEXTO_LISTAS_004.webp)
+<img src="assets/previews/TEXTO_LISTAS_012.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_004.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_012.pdf)
 
 ### Descripción con formato
 
-```latex
+```latex <!-- preview -->
 \begin{description}[font=\normalfont\itshape]
     \item[Variable] Un contenedor para datos.
     \item[Función] Un bloque de código reutilizable.
 \end{description}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_013.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_013.pdf)
+
 ### Estilo personalizado
 
-```latex
+```latex <!-- preview -->
 \begin{description}[
     style=nextline,           % Definición en línea siguiente
     leftmargin=3cm,           % Margen izquierdo
@@ -548,9 +639,15 @@ Las opciones son \begin{itemize*}[label={}]
 \end{description}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_014.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_014.pdf)
+
 ### Glosario manual
 
-```latex
+```latex <!-- preview -->
 \newcommand{\term}[2]{\item[\textbf{#1}] #2}
 
 \begin{description}
@@ -561,8 +658,14 @@ Las opciones son \begin{itemize*}[label={}]
         Estilo arquitectónico para servicios web.}
     \term{JSON}{Notación de Objetos JavaScript. Formato 
         ligero de intercambio de datos.}
-\end{description>
+\end{description}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_015.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_015.pdf)
 
 ---
 
@@ -577,19 +680,15 @@ Como dijo Einstein:
 \end{quote}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/TEXTO_LISTAS_005.webp)
+<img src="assets/previews/TEXTO_LISTAS_016.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_005.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_016.pdf)
 
 ### Cita larga (quotation)
 
-```latex
+```latex <!-- preview -->
 Según el autor:
 \begin{quotation}
     Este es un texto más largo que puede ocupar varios párrafos.
@@ -599,6 +698,12 @@ Según el autor:
     cómo la sangría ayuda a distinguir los párrafos.
 \end{quotation}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_017.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_017.pdf)
 
 ### Verso (poem)
 
@@ -611,15 +716,11 @@ Según el autor:
 \end{verse}
 ```
 
-<details>
-<summary>📸 Ver resultado</summary>
+**Resultado:**
 
-![Preview](assets/previews/TEXTO_LISTAS_006.webp)
+<img src="assets/previews/TEXTO_LISTAS_018.webp" alt="Preview">
 
-[📄 Ver PDF](assets/previews/TEXTO_LISTAS_006.pdf)
-
-</details>
-
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_018.pdf)
 
 ### Bloque literal (verbatim)
 
@@ -628,7 +729,7 @@ Según el autor:
 Este texto se muestra exactamente como se escribe.
     Los espacios     se preservan.
 Los caracteres especiales % $ & _ también.
-\end{verbatim>
+\end{verbatim}
 
 % Inline
 \verb|texto literal con | símbolos $%&|
@@ -636,12 +737,18 @@ Los caracteres especiales % $ & _ también.
 
 ### Abstracto
 
-```latex
+```latex <!-- preview -->
 \begin{abstract}
     Este trabajo presenta un nuevo enfoque para resolver
     el problema de optimización en redes neuronales...
 \end{abstract}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_019.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_019.pdf)
 
 ---
 
@@ -676,16 +783,22 @@ Los caracteres especiales % $ & _ también.
 
 ### Minipage (caja con ancho)
 
-```latex
+```latex <!-- preview -->
 \begin{minipage}{0.45\textwidth}
     Este es un bloque de texto con ancho controlado.
     Puede contener párrafos, listas, y otros elementos.
 \end{minipage}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_020.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_020.pdf)
+
 ### Cajas lado a lado
 
-```latex
+```latex <!-- preview -->
 \begin{minipage}[t]{0.48\textwidth}
     \textbf{Columna izquierda}
     
@@ -701,9 +814,15 @@ Los caracteres especiales % $ & _ también.
 \end{minipage}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_021.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_021.pdf)
+
 ### Tcolorbox (cajas decorativas)
 
-```latex
+```latex <!-- preview -->
 % La plantilla incluye tcolorbox
 \begin{tcolorbox}[
     colback=blue!5,
@@ -723,15 +842,21 @@ Los caracteres especiales % $ & _ también.
 \begin{tcolorbox}[
     colback=red!10,
     colframe=red!75!black,
-    title={\faIcon{exclamation-triangle} Advertencia}
+    title={Advertencia}
 ]
     Contenido de advertencia importante.
 \end{tcolorbox}
 ```
 
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_022.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_022.pdf)
+
 ### Mdframed (marcos)
 
-```latex
+```latex <!-- preview -->
 % La plantilla incluye mdframed
 \begin{mdframed}[
     linecolor=blue,
@@ -743,6 +868,12 @@ Los caracteres especiales % $ & _ también.
     con esquinas redondeadas.
 \end{mdframed}
 ```
+
+**Resultado:**
+
+<img src="assets/previews/TEXTO_LISTAS_023.webp" alt="Preview">
+
+[📄 Ver PDF](assets/previews/TEXTO_LISTAS_023.pdf)
 
 ---
 

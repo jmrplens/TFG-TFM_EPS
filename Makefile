@@ -1,5 +1,12 @@
-# Makefile para TFG/TFM EPS Universidad de Alicante
-# ================================================
+# ==============================================================================
+# Makefile - Automatización de compilación para TFG/TFM
+# Plantilla TFG/TFM EPS Universidad de Alicante
+#
+# Autor:    José Manuel Requena Plens
+# Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
+# Licencia: GNU GPL v3.0
+# Versión:  2.1.0
+# ==============================================================================
 #
 # Comandos disponibles:
 #   make         - Compilación completa (lualatex + biber + 2x lualatex)
@@ -11,6 +18,7 @@
 #   make help    - Mostrar ayuda
 
 # Configuración
+export TEXINPUTS := .:cls/:sty/:$(TEXINPUTS)
 MAIN = main
 LATEX = lualatex
 LATEX_FLAGS = -shell-escape -interaction=nonstopmode -halt-on-error
@@ -29,7 +37,7 @@ AUX_FILES = *.aux *.log *.out *.toc *.lof *.lot *.bbl *.bcf *.blg \
 all: $(MAIN).pdf
 
 # Compilación completa con bibliografía
-$(MAIN).pdf: $(MAIN).tex configuracion.tex $(wildcard contenido/**/*.tex) referencias.bib
+$(MAIN).pdf: $(MAIN).tex configuracion.tex $(wildcard contenido/**/*.tex) referencias.bib $(wildcard cls/*.cls) $(wildcard sty/*.sty) $(wildcard sty/componentes/*.sty)
 	@echo "══════════════════════════════════════════════════════════════"
 	@echo "  Compilando $(MAIN).tex (paso 1/4)..."
 	@echo "══════════════════════════════════════════════════════════════"
