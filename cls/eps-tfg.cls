@@ -961,7 +961,7 @@
   % --- Configurar biblatex según idioma ---
   % Nota: biblatex requiere el nombre del idioma, no el código
   % La configuración se hace en la carga del paquete con language=spanish
-  % por defecto. Para otros idiomas, el usuario puede usar 
+  % por defecto. Para otros idiomas, el usuario puede usar
   % \ExecuteBibliographyOptions{language=english} en el preámbulo.
   % --- Metadatos del PDF ---
   \hypersetup{

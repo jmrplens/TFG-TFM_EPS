@@ -32,7 +32,7 @@ Para entender mejor la estructura y reglas, consulta los siguientes archivos:
      - Añadir o quitar capítulos (`\input{contenido/capitulos/...}`).
      - Añadir o quitar anexos (`\input{contenido/anexos/...}`).
      - Seleccionar módulos de componentes (`\usepackage[software]{eps-componentes}`).
-   - **NO EDITAR PARA:** 
+   - **NO EDITAR PARA:**
      - Escribir contenido de texto (hazlo en los archivos de capítulos).
 
 3. **Contenido** (`contenido/`):
