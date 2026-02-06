@@ -444,21 +444,24 @@
 \NewDocumentCommand{\EPSetiquetaTutor}{}
   {
     \tl_if_empty:NTF \g__eps_cotutor_tl
-      {% Solo tutor principal
+      {
+        % Solo tutor principal
         \str_case:VnF \g__eps_tutor_genero_tl
           {
             {f} {Tutora}
             {m} {Tutor}
-            {n} {Tutoría}
           }
           {Tutoría}
       }
-      {% Hay cotutor - usar plural
-        \str_case:VnF \g__eps_tutor_genero_tl
+      {
+        % Hay cotutor - concatenamos géneros en variable temporal
+        \tl_set:Nx \l_tmpa_tl { \g__eps_tutor_genero_tl \g__eps_cotutor_genero_tl }
+        \str_case:VnF \l_tmpa_tl
           {
-            {f} {\str_case:VnF \g__eps_cotutor_genero_tl {{f}{Tutoras}}{{m}{Tutores}}{{n}{Tutorías}}{Tutorías}}
-            {m} {\str_case:VnF \g__eps_cotutor_genero_tl {{f}{Tutores}}{{m}{Tutores}}{{n}{Tutorías}}{Tutorías}}
-            {n} {Tutorías}
+            {mm} {Tutores}
+            {mf} {Tutores}
+            {fm} {Tutores}
+            {ff} {Tutoras}
           }
           {Tutorías}
       }
@@ -601,52 +604,6 @@
 %% FUENTES (FONTSPEC PARA LUALATEX)
 %% ============================================================================
 \RequirePackage{fontspec}
-
-% Fuentes para portada - Priorizando archivos locales en recursos/fuentes/
-
-% Fuente condensada para títulos (Helvetica Condensed)
-\IfFileExists{recursos/fuentes/HelveticaLTStd-Cond.otf}{%
-  \newfontfamily\FuenteTitulo{HelveticaLTStd-Cond.otf}[%
-    Path = recursos/fuentes/%
-  ]%
-}{%
-  % Fallback: HelveticaNeue del sistema
-  \IfFontExistsTF{HelveticaNeue-CondensedBold}{%
-    \newfontfamily\FuenteTitulo{HelveticaNeue-CondensedBold}%
-  }{%
-    % Fallback: Arial Narrow
-    \IfFontExistsTF{Arial Narrow}{%
-      \newfontfamily\FuenteTitulo{Arial Narrow}[BoldFont=* Bold]%
-    }{%
-      % Fallback definitivo
-      \newcommand{\FuenteTitulo}{\sffamily\bfseries}%
-    }%
-  }%
-}
-
-% Fuente principal para portada (Helvetica)
-\IfFileExists{recursos/fuentes/Helvetica.ttf}{%
-  \newfontfamily\FuentePortada{Helvetica.ttf}[%
-    Path = recursos/fuentes/%
-  ]%
-}{%
-  % Fallback: Helvetica del sistema
-  \IfFontExistsTF{Helvetica}{%
-    \newfontfamily\FuentePortada{Helvetica}%
-  }{%
-    % Fallback: Arial
-    \IfFontExistsTF{Arial}{%
-      \newfontfamily\FuentePortada{Arial}%
-    }{%
-      % Fallback: DejaVu Sans
-      \IfFontExistsTF{DejaVu Sans}{%
-        \newfontfamily\FuentePortada{DejaVu Sans}%
-      }{%
-        \newcommand{\FuentePortada}{\sffamily}%
-      }%
-    }%
-  }%
-}
 
 % Fuente monoespaciada con soporte Unicode completo (para caracteres de caja)
 \IfFontExistsTF{DejaVu Sans Mono}{%

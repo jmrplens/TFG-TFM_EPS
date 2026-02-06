@@ -16,6 +16,55 @@
 \RequirePackage{afterpage} 
 % Necesario para \pagecolor
 \RequirePackage{xcolor} 
+\RequirePackage{fontspec}
+
+%% ============================================================================
+%% DEFINICIÓN DE FUENTES DE PORTADA
+%% ============================================================================
+
+% Fuente condensada para títulos (Helvetica Condensed)
+\IfFileExists{recursos/fuentes/HelveticaLTStd-Cond.otf}{%
+  \newfontfamily\FuenteTitulo{HelveticaLTStd-Cond.otf}[%
+    Path = recursos/fuentes/%
+  ]%
+}{%
+  % Fallback: HelveticaNeue del sistema
+  \IfFontExistsTF{HelveticaNeue-CondensedBold}{%
+    \newfontfamily\FuenteTitulo{HelveticaNeue-CondensedBold}%
+  }{%
+    % Fallback: Arial Narrow
+    \IfFontExistsTF{Arial Narrow}{%
+      \newfontfamily\FuenteTitulo{Arial Narrow}[BoldFont=* Bold]%
+    }{%
+      % Fallback definitivo
+      \newcommand{\FuenteTitulo}{\sffamily\bfseries}%
+    }%
+  }%
+}
+
+% Fuente principal para portada (Helvetica)
+\IfFileExists{recursos/fuentes/Helvetica.ttf}{%
+  \newfontfamily\FuentePortada{Helvetica.ttf}[%
+    Path = recursos/fuentes/%
+  ]%
+}{%
+  % Fallback: Helvetica del sistema
+  \IfFontExistsTF{Helvetica}{%
+    \newfontfamily\FuentePortada{Helvetica}%
+  }{%
+    % Fallback: Arial
+    \IfFontExistsTF{Arial}{%
+      \newfontfamily\FuentePortada{Arial}%
+    }{%
+      % Fallback: DejaVu Sans
+      \IfFontExistsTF{DejaVu Sans}{%
+        \newfontfamily\FuentePortada{DejaVu Sans}%
+      }{%
+        \newcommand{\FuentePortada}{\sffamily}%
+      }%
+    }%
+  }%
+} 
 
 %% ============================================================================
 %% VARIABLES CONFIGURABLES DE PORTADA COLOR
@@ -60,7 +109,7 @@
 
 % 2 y 3. Autor y Tutor: Distribuidos en medio
 % Espacio disponible entre tipo y fecha: 6.25 - 0.75 = 5.5cm aprox.
-% Asignamos posiciones fijas razonables:
+% Asignamos posiciones fijas razonables (sobreescritas en \portadacolor según cotutor):
 \newcommand{\eps@portadaOffsetAutor}{4.4cm}
 \newcommand{\eps@portadaOffsetTutor}{2.8cm}
 
@@ -89,12 +138,80 @@
   \FuentePortada\fontsize{\eps@sizeTipoTrabajo}{\dimexpr1.2\dimexpr\eps@sizeTipoTrabajo\relax\relax}\selectfont
 }
 
+% --- LÓGICA DE ESCALADO AUTOMÁTICO DEL TÍTULO ---
+\newlength{\eps@titleAvailableH}
+\newlength{\eps@titleContentH}
+\newlength{\eps@logoH}
+\newsavebox{\eps@logoBox}
+\newsavebox{\eps@titleBox}
+
+\newcommand{\eps@optimizeTitleSize}{%
+  % 1. Medir la altura real del logo superior derecho
+  \savebox{\eps@logoBox}{\includegraphics[width=\eps@portadaLogoTRWidth]{\EPSlogoFacultadPortada}}%
+  \setlength{\eps@logoH}{\ht\eps@logoBox + \dp\eps@logoBox}%
+  
+  % 2. Calcular espacio vertical disponible
+  % Altura Página (29.7cm) + OffsetY (negativo) - AlturaLogo - OrigenTitulo (16.2cm) - Margen seguridad (0.5cm)
+  \setlength{\eps@titleAvailableH}{29.7cm}%
+  \addtolength{\eps@titleAvailableH}{\eps@portadaLogoTRY}% Resta el margen superior
+  \addtolength{\eps@titleAvailableH}{-\eps@logoH}% Resta la altura del logo
+  \addtolength{\eps@titleAvailableH}{-\eps@portadaTituloY}% Resta el inicio del título
+  \addtolength{\eps@titleAvailableH}{-0.5cm}% Margen de seguridad extra
+  
+  % 3. Bucle de optimización: Reducir fuente hasta que quepa
+  % Empezamos en 55 (valor por defecto)
+  \def\eps@currSize{55}%
+  \loop
+    % Aplicar tamaño actual
+    \renewcommand{\eps@sizeTitulo}{\eps@currSize pt}%
+    % Medir caja de texto
+    \savebox{\eps@titleBox}{%
+       \parbox{\eps@portadaTituloWidth}{%
+          \eps@FuenteTituloStyle
+          \linespread{\eps@leadingTitulo}\selectfont % Asegurar interlineado correcto en medición
+          \EPStitulo
+       }%
+    }%
+    \setlength{\eps@titleContentH}{\ht\eps@titleBox + \dp\eps@titleBox}%
+    
+    % Imprimir log para depuración (visible en .log)
+    %\message{EPS-DEBUG: Font \eps@currSize pt -> Height \the\eps@titleContentH \space vs Available \the\eps@titleAvailableH}%
+    
+    % Condición de salida: Si la altura del contenido es MENOR que la disponible
+    % O si hemos llegado al tamaño mínimo (20pt).
+    \ifdim\eps@titleContentH>\eps@titleAvailableH
+       \ifnum\eps@currSize>20
+          \edef\eps@currSize{\the\numexpr\eps@currSize-2}% Reducir 2pt
+       \else
+          % Forzar salida si llegamos al mínimo
+          \setlength{\eps@titleContentH}{0pt}%
+       \fi
+    \else
+       % Cabe perfectamente, forzar salida
+       \setlength{\eps@titleContentH}{0pt}%
+    \fi
+  \ifdim\eps@titleContentH>0pt
+  \repeat
+}
+
 %% ============================================================================
 %% PORTADA A COLOR DEFINITIVA
 %% ============================================================================
 \NewDocumentCommand{\portadacolor}{}{%
+  % Ajustar posiciones vertical según si hay cotutor (2 personas vs 1)
+  \EPSsiCotutor{%
+    \renewcommand{\eps@portadaOffsetAutor}{4.9cm}%
+    \renewcommand{\eps@portadaOffsetTutor}{3.4cm}%
+  }{%
+    \renewcommand{\eps@portadaOffsetAutor}{4.4cm}%
+    \renewcommand{\eps@portadaOffsetTutor}{2.8cm}%
+  }%
+  
   % Configuración de página limpia
   \newgeometry{ignoreall,top=0cm,bottom=0cm,outer=0cm,inner=0cm}
+  
+  % Calcular tamaño óptimo del título antes de dibujar
+  \eps@optimizeTitleSize
   
   \ifdefined\tikzexternaldisable\tikzexternaldisable\fi
   \thispagestyle{empty}
@@ -181,10 +298,7 @@
         {%
           \EPSetiquetaTutor: \\
           \EPStutor
-          \EPSsiCotutor{\\ 
-            Cotutor/a:\\ 
-            \EPScotutor
-          }{}
+          \EPSsiCotutor{\\ \EPScotutor}{}
         };
 
     % B.4 Fecha (Bottom Anchor - South West)
