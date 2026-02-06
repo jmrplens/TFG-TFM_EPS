@@ -602,34 +602,48 @@
 %% ============================================================================
 \RequirePackage{fontspec}
 
-% Fuentes para portada - usando fallbacks del sistema si las personalizadas no están
-% Usamos \IfFontExistsTF para comprobar si la fuente está en el sistema
-% Si no, definimos comandos simples de formato
+% Fuentes para portada - Priorizando archivos locales en recursos/fuentes/
 
-% Fuente condensada para títulos
-\IfFontExistsTF{HelveticaNeue-CondensedBold}{%
-  \newfontfamily\FuenteTitulo{HelveticaNeue-CondensedBold}%
+% Fuente condensada para títulos (Helvetica Condensed)
+\IfFileExists{recursos/fuentes/HelveticaLTStd-Cond.otf}{%
+  \newfontfamily\FuenteTitulo{HelveticaLTStd-Cond.otf}[%
+    Path = recursos/fuentes/%
+  ]%
 }{%
-  % Intentar con Arial Narrow como alternativa común
-  \IfFontExistsTF{Arial Narrow}{%
-    \newfontfamily\FuenteTitulo{Arial Narrow}[BoldFont=* Bold]%
+  % Fallback: HelveticaNeue del sistema
+  \IfFontExistsTF{HelveticaNeue-CondensedBold}{%
+    \newfontfamily\FuenteTitulo{HelveticaNeue-CondensedBold}%
   }{%
-    % Fallback a sans-serif del sistema
-    \newcommand{\FuenteTitulo}{\sffamily\bfseries}%
+    % Fallback: Arial Narrow
+    \IfFontExistsTF{Arial Narrow}{%
+      \newfontfamily\FuenteTitulo{Arial Narrow}[BoldFont=* Bold]%
+    }{%
+      % Fallback definitivo
+      \newcommand{\FuenteTitulo}{\sffamily\bfseries}%
+    }%
   }%
 }
 
-% Fuente principal para portada
-\IfFontExistsTF{Helvetica}{%
-  \newfontfamily\FuentePortada{Helvetica}%
+% Fuente principal para portada (Helvetica)
+\IfFileExists{recursos/fuentes/Helvetica.ttf}{%
+  \newfontfamily\FuentePortada{Helvetica.ttf}[%
+    Path = recursos/fuentes/%
+  ]%
 }{%
-  \IfFontExistsTF{Arial}{%
-    \newfontfamily\FuentePortada{Arial}%
+  % Fallback: Helvetica del sistema
+  \IfFontExistsTF{Helvetica}{%
+    \newfontfamily\FuentePortada{Helvetica}%
   }{%
-    \IfFontExistsTF{DejaVu Sans}{%
-      \newfontfamily\FuentePortada{DejaVu Sans}%
+    % Fallback: Arial
+    \IfFontExistsTF{Arial}{%
+      \newfontfamily\FuentePortada{Arial}%
     }{%
-      \newcommand{\FuentePortada}{\sffamily}%
+      % Fallback: DejaVu Sans
+      \IfFontExistsTF{DejaVu Sans}{%
+        \newfontfamily\FuentePortada{DejaVu Sans}%
+      }{%
+        \newcommand{\FuentePortada}{\sffamily}%
+      }%
     }%
   }%
 }
@@ -834,6 +848,10 @@
 \RequirePackage{bm}
 \RequirePackage{mathrsfs}
 \RequirePackage{nicefrac}
+
+% Soporte Unicode Math (Debe cargarse después de mathtools y otros paquetes ams)
+\RequirePackage{unicode-math}
+
 
 % Entorno para describir variables en ecuaciones
 \newenvironment{condiciones}[1][donde:]

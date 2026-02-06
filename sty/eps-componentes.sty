@@ -20,9 +20,12 @@
 \ProvidesPackage{eps-componentes}[2026/02/05 v2.1.0 Componentes especializados EPS UA]
 
 % ============================================================================
-% OPCIONES DEL PAQUETE
+% OPCIONES DEL PAQUETE (Modernizado con l3keys)
 % ============================================================================
+\RequirePackage{expl3}
+\RequirePackage{l3keys2e}
 
+% Mantenemos los flags legacy para compatibilidad con la lógica de carga
 \newif\if@eps@comunes     \@eps@comunestrue   % Siempre se cargan
 \newif\if@eps@software    \@eps@softwarefalse
 \newif\if@eps@telecom     \@eps@telecomfalse
@@ -31,23 +34,28 @@
 \newif\if@eps@geologia    \@eps@geologiafalse
 \newif\if@eps@prevencion  \@eps@prevencionfalse
 
-\DeclareOption{comunes}{}  % Opción explícita (por defecto ya se cargan)
-\DeclareOption{software}{\@eps@softwaretrue}
-\DeclareOption{telecom}{\@eps@telecomtrue}
-\DeclareOption{arquitectura}{\@eps@arquitecturatrue}
-\DeclareOption{quimica}{\@eps@quimicatrue}
-\DeclareOption{geologia}{\@eps@geologiatrue}
-\DeclareOption{prevencion}{\@eps@prevenciontrue}
-\DeclareOption{all}{%
-  \@eps@softwaretrue
-  \@eps@telecomtrue
-  \@eps@arquitecturatrue
-  \@eps@quimicatrue
-  \@eps@geologiatrue
-  \@eps@prevenciontrue
-}
+\ExplSyntaxOn
+\keys_define:nn { eps-componentes }
+  {
+    comunes .code:n = {}, % Opción explícita (noop)
+    software .code:n = { \legacy_if_set_true:n { @eps@software } },
+    telecom .code:n = { \legacy_if_set_true:n { @eps@telecom } },
+    arquitectura .code:n = { \legacy_if_set_true:n { @eps@arquitectura } },
+    quimica .code:n = { \legacy_if_set_true:n { @eps@quimica } },
+    geologia .code:n = { \legacy_if_set_true:n { @eps@geologia } },
+    prevencion .code:n = { \legacy_if_set_true:n { @eps@prevencion } },
+    all .code:n = {
+      \legacy_if_set_true:n { @eps@software }
+      \legacy_if_set_true:n { @eps@telecom }
+      \legacy_if_set_true:n { @eps@arquitectura }
+      \legacy_if_set_true:n { @eps@quimica }
+      \legacy_if_set_true:n { @eps@geologia }
+      \legacy_if_set_true:n { @eps@prevencion }
+    }
+  }
 
-\ProcessOptions\relax
+\ProcessKeysOptions { eps-componentes }
+\ExplSyntaxOff
 
 % ============================================================================
 % DEPENDENCIAS COMUNES

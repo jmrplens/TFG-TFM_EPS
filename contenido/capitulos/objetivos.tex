@@ -144,8 +144,10 @@ Usando el paquete \texttt{xcolor} con la opción \texttt{table}:
 
 Para tablas que ocupan varias páginas, se usa el entorno \texttt{longtable}:
 
+% Workaround for tagging error: caption outside longtable
+\captionof{table}{Lista de requisitos del sistema}\label{tab:requisitos}
 \begin{longtable}{@{}clp{7cm}@{}}
-  \caption{Lista de requisitos del sistema} \label{tab:requisitos} \\
+% \caption{Lista de requisitos del sistema} \\
   \toprule
   \textbf{ID} & \textbf{Tipo} & \textbf{Descripción} \\
   \midrule
