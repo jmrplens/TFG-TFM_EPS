@@ -64,12 +64,12 @@ jobs:
         extra_system_packages: python3-pip
         pre_compile: |
           pip install --break-system-packages latexminted
-          # Deshabilitar tagging/accesibilidad en CI
-          # testphase activa el paquete block que es incompatible con enumitem
-          # pdfstandard=ua-2 también activa testphase automáticamente en TeX Live 2025
-          sed -i 's/testphase=/%testphase=/; s/pdfstandard=/%pdfstandard=/' cls/eps-metadata.tex
-          echo "Contenido de eps-metadata.tex después de deshabilitar accesibilidad:"
-          grep -E "testphase|pdfstandard" cls/eps-metadata.tex
+          # Deshabilitar completamente DocumentMetadata en CI
+          # El paquete block de TeX Live 2025 es incompatible con enumitem
+          # Comentamos todo el bloque \DocumentMetadata{...}
+          sed -i 's/\\DocumentMetadata{/%\\DocumentMetadata{/' cls/eps-metadata.tex
+          echo "Contenido de eps-metadata.tex:"
+          head -10 cls/eps-metadata.tex
         
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v6
