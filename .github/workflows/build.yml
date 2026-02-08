@@ -47,27 +47,23 @@ env:
 jobs:
   build:
     name: Compilar documento LaTeX
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     
     steps:
     - name: Checkout repository
       uses: actions/checkout@v6
+
+    - name: Instalar TeX Live y dependencias
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y texlive-full latexmk python3-pip
+        pip install --break-system-packages latexminted
+        lualatex --version | head -2
       
-    - name: Compile LaTeX document
-      uses: xu-cheng/latex-action@v4
-      with:
-        root_file: main.tex
-        latexmk_use_lualatex: true
-        latexmk_shell_escape: true
-        os: debian
-        extra_system_packages: python3-pip
-        pre_compile: |
-          pip install --break-system-packages latexminted
-          # Sin DocumentMetadata, las claves extendidas de hyperxmp no existen
-          # Eliminarlas del hypersetup en eps-tfg.cls
-          sed -i '/pdfcopyright\|pdfcontactemail\|pdfpublisher\|pdfcontactcountry\|pdfcontactcity\|pdfsource/d' cls/eps-tfg.cls
-          echo "Claves hyperxmp eliminadas de eps-tfg.cls"
+    - name: Compilar documento LaTeX
+      run: |
+        latexmk -lualatex -shell-escape -interaction=nonstopmode main.tex
         
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v6
