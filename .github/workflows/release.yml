@@ -22,7 +22,7 @@ env:
 jobs:
   release:
     name: Crear release
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     
     steps:
@@ -30,17 +30,19 @@ jobs:
       uses: actions/checkout@v6
       with:
         fetch-depth: 0
-
-    - name: Instalar TeX Live y dependencias
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y texlive-full latexmk python3-pip
-        pip install --break-system-packages latexminted
-        lualatex --version | head -2
       
-    - name: Compilar documento LaTeX
-      run: |
-        latexmk -lualatex -shell-escape -interaction=nonstopmode main.tex
+    - name: Compile LaTeX document
+      uses: xu-cheng/latex-action@v4
+      with:
+        root_file: main.tex
+        latexmk_use_lualatex: true
+        latexmk_shell_escape: true
+        os: debian
+        extra_system_packages: python3-pip
+        pre_compile: |
+          pip install --break-system-packages latexminted
+          # Deshabilitar DocumentMetadata en CI (el paquete block es experimental)
+          sed -i 's/\\input{eps-metadata}/%\\input{eps-metadata}/' main.tex
         
     - name: Rename PDF
       run: mv main.pdf TFG-TFM_EPS_UA.pdf

@@ -17,6 +17,12 @@
 \def\input@path{{cls/}{sty/}{sty/componentes/}{recursos/}}
 \makeatother
 
+% =============================================================================
+% ACTIVACIÓN DE ESTÁNDARES MODERNOS (PDF/UA-2 & Tagging)
+% =============================================================================
+% Carga la configuración de metadatos y accesibilidad desde la carpeta cls.
+% Esto debe ir ANTES de \documentclass.
+\input{eps-metadata}
 
 % Cargar la clase eps-tfg
 \documentclass{eps-tfg}
@@ -117,4 +123,3 @@
 \input{contenido/anexos/anexo-tecnicas-avanzadas}
 
 \end{document}
-
