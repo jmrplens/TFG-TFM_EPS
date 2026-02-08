@@ -64,10 +64,10 @@ jobs:
         extra_system_packages: python3-pip
         pre_compile: |
           pip install --break-system-packages latexminted
-          # Eliminar eps-metadata completamente (el paquete block de TeX Live 2025 es incompatible con enumitem)
-          sed -i '/\\input{eps-metadata}/d' main.tex
-          echo "Primeras 30 líneas de main.tex:"
-          head -30 main.tex
+          # Sin DocumentMetadata, las claves extendidas de hyperxmp no existen
+          # Eliminarlas del hypersetup en eps-tfg.cls
+          sed -i '/pdfcopyright\|pdfcontactemail\|pdfpublisher\|pdfcontactcountry\|pdfcontactcity\|pdfsource/d' cls/eps-tfg.cls
+          echo "Claves hyperxmp eliminadas de eps-tfg.cls"
         
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v6

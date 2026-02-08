@@ -41,8 +41,8 @@ jobs:
         extra_system_packages: python3-pip
         pre_compile: |
           pip install --break-system-packages latexminted
-          # Eliminar eps-metadata completamente (el paquete block de TeX Live 2025 es incompatible con enumitem)
-          sed -i '/\\input{eps-metadata}/d' main.tex
+          # Sin DocumentMetadata, las claves extendidas de hyperxmp no existen
+          sed -i '/pdfcopyright\|pdfcontactemail\|pdfpublisher\|pdfcontactcountry\|pdfcontactcity\|pdfsource/d' cls/eps-tfg.cls
         
     - name: Rename PDF
       run: mv main.pdf TFG-TFM_EPS_UA.pdf
