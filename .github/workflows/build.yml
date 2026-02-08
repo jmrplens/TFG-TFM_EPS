@@ -134,12 +134,12 @@ jobs:
         extra_system_packages: python3-pip
         pre_compile: |
           pip install --break-system-packages latexminted
-          # Deshabilitar testphase en CI (el paquete 'block' de TeX Live 2025 bleeding edge
-          # es incompatible con opciones de enumitem como noitemsep).
-          # Mantiene DocumentMetadata con pdfstandard=ua-2 pero sin tagging experimental.
-          sed -i 's/testphase={phase-I}/%testphase={phase-I}/' cls/eps-metadata.tex
-          echo "Verificando que testphase está comentado:"
-          grep -n "testphase" cls/eps-metadata.tex
+          # Deshabilitar DocumentMetadata en CI (pdfstandard=ua-2 carga el paquete
+          # 'block' experimental que es incompatible con opciones de enumitem).
+          # En local con TeX Live estable funciona correctamente.
+          sed -i 's/\\input{eps-metadata}/%\\input{eps-metadata}/' main.tex
+          echo "Verificando que eps-metadata está comentado:"
+          grep -n "eps-metadata" main.tex
         
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v6
