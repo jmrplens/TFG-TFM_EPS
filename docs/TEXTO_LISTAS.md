@@ -527,8 +527,15 @@ Línea 2 (con 1cm de separación)
 ```latex <!-- preview -->
 % \usepackage{enumitem}
 
-% Sin espacio entre items
+% Sin espacio entre items (forma abreviada)
 \begin{itemize}[noitemsep]
+    \item Item 1
+    \item Item 2
+\end{itemize}
+
+% Sin espacio entre items (forma explícita, compatible con PDF/UA-2)
+% Usar esta alternativa si se activa accesibilidad con \DocumentMetadata{}
+\begin{itemize}[itemsep=0pt, parsep=0pt]
     \item Item 1
     \item Item 2
 \end{itemize}
