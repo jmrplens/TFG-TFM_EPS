@@ -41,8 +41,9 @@ jobs:
         extra_system_packages: python3-pip
         pre_compile: |
           pip install --break-system-packages latexminted
-          # Deshabilitar DocumentMetadata en CI (el paquete block es experimental)
-          sed -i 's/\\input{eps-metadata}/%\\input{eps-metadata}/' main.tex
+          # Deshabilitar testphase en CI (el paquete 'block' de TeX Live 2025 bleeding edge
+          # es incompatible con opciones de enumitem como noitemsep).
+          sed -i 's/testphase={phase-I}/%testphase={phase-I}/' cls/eps-metadata.tex
         
     - name: Rename PDF
       run: mv main.pdf TFG-TFM_EPS_UA.pdf
