@@ -1,5 +1,7 @@
 name: Create Release
 
+run-name: "📦 Release ${{ github.event.inputs.version || github.ref_name }}"
+
 on:
   push:
     tags:
@@ -15,11 +17,13 @@ permissions:
   contents: write
 
 env:
-  TEXLIVE_VERSION: "2024"
+  TEXLIVE_VERSION: "2025"
 
 jobs:
   release:
+    name: Crear release
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     
     steps:
     - name: Checkout repository
@@ -52,10 +56,11 @@ jobs:
     - name: Generate release notes
       id: notes
       run: |
-        cat << 'EOF' > release_notes.md
+        VERSION="${{ steps.version.outputs.VERSION }}"
+        cat << EOF > release_notes.md
         ## 📦 Plantilla TFG/TFM - EPS Universidad de Alicante
         
-        Esta release incluye la plantilla LaTeX actualizada y el documento de ejemplo compilado.
+        Esta release **${VERSION}** incluye la plantilla LaTeX actualizada y el documento de ejemplo compilado.
         
         ### 📥 Archivos incluidos
         
@@ -67,17 +72,17 @@ jobs:
         1. Descarga el código fuente (zip o tar.gz)
         2. Extrae los archivos
         3. Abre el proyecto en tu editor LaTeX favorito
-        4. Compila con **LuaLaTeX** usando el flag `-shell-escape`
+        4. Compila con **LuaLaTeX** usando el flag \`-shell-escape\`
         
         ### 📋 Requisitos
         
-        - TeX Live 2024 o superior
+        - TeX Live ${{ env.TEXLIVE_VERSION }} o superior
         - LuaLaTeX (obligatorio)
-        - latexminted para resaltado de código (`pip install latexminted`)
+        - latexminted para resaltado de código (\`pip install latexminted\`)
         
         ### 📖 Documentación
         
-        Consulta la carpeta `docs/` para guías detalladas sobre:
+        Consulta la carpeta \`docs/\` para guías detalladas sobre:
         - Ecuaciones matemáticas
         - Tablas y figuras
         - Código fuente
@@ -86,6 +91,8 @@ jobs:
         
         ---
         *Escuela Politécnica Superior - Universidad de Alicante*
+        
+        > Compilado automáticamente con GitHub Actions 🤖
         EOF
         
     - name: Create Release

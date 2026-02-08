@@ -1,36 +1,58 @@
 name: Build LaTeX Document
 
+# Run name dinámico para mejor visibilidad en la UI
+run-name: >-
+  ${{ github.event_name == 'pull_request' 
+      && format('PR #{0}: {1}', github.event.pull_request.number, github.event.pull_request.title) 
+      || format('Build: {0}', github.event.head_commit.message || 'Manual trigger') }}
+
 on:
   push:
     branches: [ main ]
+    # Solo compilar si hay cambios relevantes (no solo docs)
+    paths:
+      - '**.tex'
+      - '**.sty'
+      - '**.cls'
+      - '**.bib'
+      - 'recursos/**'
+      - 'contenido/**'
+      - '.latexmkrc'
+      - '.github/workflows/build.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - '**.tex'
+      - '**.sty'
+      - '**.cls'
+      - '**.bib'
+      - 'recursos/**'
+      - 'contenido/**'
+      - '.latexmkrc'
+      - '.github/workflows/build.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
   pull-requests: write
 
+# Control de concurrencia: cancela builds anteriores del mismo PR/branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
 env:
-  TEXLIVE_VERSION: "2024"
+  TEXLIVE_VERSION: "2025"
 
 jobs:
   build:
+    name: Compilar documento LaTeX
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     
     steps:
     - name: Checkout repository
       uses: actions/checkout@v6
-      
-    - name: Cache TeX Live
-      uses: actions/cache@v5
-      with:
-        path: |
-          /tmp/texlive
-          ~/.texlive*
-        key: texlive-${{ env.TEXLIVE_VERSION }}-${{ runner.os }}-${{ hashFiles('.latexmkrc') }}
-        restore-keys: |
-          texlive-${{ env.TEXLIVE_VERSION }}-${{ runner.os }}-
       
     - name: Compile LaTeX document
       uses: xu-cheng/latex-action@v4
@@ -48,28 +70,42 @@ jobs:
         name: TFG-TFM_EPS_UA
         path: main.pdf
         retention-days: 90
+        
+    - name: Upload log on failure
+      if: failure()
+      uses: actions/upload-artifact@v6
+      with:
+        name: build-logs
+        path: |
+          *.log
+          *.blg
+        retention-days: 7
 
   comment-pr:
+    name: Comentar en PR
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     needs: build
     
-    steps:
-    - name: Get workflow run URL
-      id: run-url
-      run: |
-        echo "RUN_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
-        
+    steps:       
     - name: Comment on PR
       uses: actions/github-script@v8
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const runUrl = '${{ steps.run-url.outputs.RUN_URL }}';
+          const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+          const prNumber = context.issue.number;
+          const sha = context.payload.pull_request.head.sha.substring(0, 7);
           
           const body = `## 📄 Compilación del documento
           
           ✅ El documento **main.pdf** se ha compilado correctamente.
+          
+          | Detalle | Valor |
+          |---------|-------|
+          | **Commit** | \`${sha}\` |
+          | **PR** | #${prNumber} |
+          | **TeX Live** | ${{ env.TEXLIVE_VERSION }} |
           
           ### 📥 Descargar PDF
           
@@ -111,7 +147,13 @@ jobs:
           }
 
   check-links:
+    name: Verificar enlaces
     runs-on: ubuntu-latest
+    # Solo ejecutar si hay cambios en archivos markdown
+    if: >-
+      github.event_name == 'workflow_dispatch' || 
+      contains(github.event.head_commit.modified, '.md') ||
+      github.event_name == 'pull_request'
     
     steps:
     - name: Checkout repository
