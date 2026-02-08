@@ -524,18 +524,13 @@ Línea 2 (con 1cm de separación)
 
 ### Opciones avanzadas con enumitem
 
+> ⚠️ **Nota sobre accesibilidad PDF/UA-2**: Las opciones de `enumitem` (`noitemsep`, `nosep`, etc.) **no son compatibles** con el paquete experimental `block` que se activa al usar `\DocumentMetadata{}` para accesibilidad. Si necesitas PDFs accesibles, usa listas sin opciones personalizadas.
+
 ```latex <!-- preview -->
 % \usepackage{enumitem}
 
-% Sin espacio entre items (forma abreviada)
+% Sin espacio entre items
 \begin{itemize}[noitemsep]
-    \item Item 1
-    \item Item 2
-\end{itemize}
-
-% Sin espacio entre items (forma explícita, compatible con PDF/UA-2)
-% Usar esta alternativa si se activa accesibilidad con \DocumentMetadata{}
-\begin{itemize}[itemsep=0pt, parsep=0pt]
     \item Item 1
     \item Item 2
 \end{itemize}
