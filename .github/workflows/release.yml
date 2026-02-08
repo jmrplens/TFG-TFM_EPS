@@ -1,5 +1,7 @@
 name: Create Release
 
+run-name: "📦 Release ${{ github.event.inputs.version || github.ref_name }}"
+
 on:
   push:
     tags:
@@ -15,11 +17,13 @@ permissions:
   contents: write
 
 env:
-  TEXLIVE_VERSION: "2024"
+  TEXLIVE_VERSION: "2025"
 
 jobs:
   release:
+    name: Crear release
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     
     steps:
     - name: Checkout repository
@@ -33,9 +37,13 @@ jobs:
         root_file: main.tex
         latexmk_use_lualatex: true
         latexmk_shell_escape: true
-        texlive_version: ${{ env.TEXLIVE_VERSION }}
-        extra_system_packages: py3-pip perl
-        pre_compile: pip install latexminted
+        os: debian
+        extra_system_packages: python3-pip
+        pre_compile: |
+          pip3 install --break-system-packages latexminted
+          # Deshabilitar DocumentMetadata en CI (pdfstandard=ua-2 carga el paquete
+          # 'block' experimental que es incompatible con opciones de enumitem).
+          sed -i 's/\\input{eps-metadata}/%\\input{eps-metadata}/' main.tex
         
     - name: Rename PDF
       run: mv main.pdf TFG-TFM_EPS_UA.pdf
@@ -52,10 +60,11 @@ jobs:
     - name: Generate release notes
       id: notes
       run: |
-        cat << 'EOF' > release_notes.md
+        VERSION="${{ steps.version.outputs.VERSION }}"
+        cat << EOF > release_notes.md
         ## 📦 Plantilla TFG/TFM - EPS Universidad de Alicante
         
-        Esta release incluye la plantilla LaTeX actualizada y el documento de ejemplo compilado.
+        Esta release **${VERSION}** incluye la plantilla LaTeX actualizada y el documento de ejemplo compilado.
         
         ### 📥 Archivos incluidos
         
@@ -67,17 +76,17 @@ jobs:
         1. Descarga el código fuente (zip o tar.gz)
         2. Extrae los archivos
         3. Abre el proyecto en tu editor LaTeX favorito
-        4. Compila con **LuaLaTeX** usando el flag `-shell-escape`
+        4. Compila con **LuaLaTeX** usando el flag \`-shell-escape\`
         
         ### 📋 Requisitos
         
-        - TeX Live 2024 o superior
+        - TeX Live ${{ env.TEXLIVE_VERSION }} o superior
         - LuaLaTeX (obligatorio)
-        - latexminted para resaltado de código (`pip install latexminted`)
+        - latexminted para resaltado de código (\`pip install latexminted\`)
         
         ### 📖 Documentación
         
-        Consulta la carpeta `docs/` para guías detalladas sobre:
+        Consulta la carpeta \`docs/\` para guías detalladas sobre:
         - Ecuaciones matemáticas
         - Tablas y figuras
         - Código fuente
@@ -86,6 +95,8 @@ jobs:
         
         ---
         *Escuela Politécnica Superior - Universidad de Alicante*
+        
+        > Compilado automáticamente con GitHub Actions 🤖
         EOF
         
     - name: Create Release

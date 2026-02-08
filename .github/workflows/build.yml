@@ -1,36 +1,127 @@
 name: Build LaTeX Document
 
+# Run name dinámico para mejor visibilidad en la UI
+run-name: >-
+  ${{ github.event_name == 'pull_request' 
+      && format('PR #{0}: {1}', github.event.pull_request.number, github.event.pull_request.title) 
+      || format('Build: {0}', github.event.head_commit.message || 'Manual trigger') }}
+
 on:
   push:
     branches: [ main ]
+    # Solo compilar si hay cambios relevantes (no solo docs)
+    paths:
+      - '**.tex'
+      - '**.sty'
+      - '**.cls'
+      - '**.bib'
+      - 'recursos/**'
+      - 'contenido/**'
+      - '.latexmkrc'
+      - '.github/workflows/build.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - '**.tex'
+      - '**.sty'
+      - '**.cls'
+      - '**.bib'
+      - 'recursos/**'
+      - 'contenido/**'
+      - '.latexmkrc'
+      - '.github/workflows/build.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
   pull-requests: write
 
+# Control de concurrencia: cancela builds anteriores del mismo PR/branch
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
 env:
-  TEXLIVE_VERSION: "2024"
+  TEXLIVE_VERSION: "2025"
 
 jobs:
-  build:
+  # 1. Crear comentario inicial en PR (aparece justo después de la descripción)
+  init-comment:
+    name: Iniciar comentario en PR
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    outputs:
+      comment_id: ${{ steps.create-comment.outputs.comment_id }}
+    
+    steps:
+    - name: Create or update initial comment
+      id: create-comment
+      uses: actions/github-script@v8
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+          const sha = context.payload.pull_request.head.sha.substring(0, 7);
+          
+          const body = `## 📄 Compilación del documento
+          
+          ⏳ **Compilando...** El documento se está procesando.
+          
+          | Detalle | Valor |
+          |---------|-------|
+          | **Commit** | \`${sha}\` |
+          | **Estado** | 🔄 En progreso |
+          
+          👉 **[Ver progreso del workflow](${runUrl})**
+          
+          ---
+          *Generado automáticamente por GitHub Actions* 🤖
+          `;
+          
+          // Buscar comentario existente del bot
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+          
+          const botComment = comments.find(comment => 
+            comment.user.type === 'Bot' && 
+            comment.body.includes('📄 Compilación del documento')
+          );
+          
+          let commentId;
+          if (botComment) {
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: botComment.id,
+              body: body,
+            });
+            commentId = botComment.id;
+          } else {
+            const { data: newComment } = await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body,
+            });
+            commentId = newComment.id;
+          }
+          
+          core.setOutput('comment_id', commentId);
+
+  # 2. Compilar documento
+  build:
+    name: Compilar documento LaTeX
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # No depender de init-comment para que push y workflow_dispatch funcionen
+    if: "!cancelled()"
     
     steps:
     - name: Checkout repository
       uses: actions/checkout@v6
-      
-    - name: Cache TeX Live
-      uses: actions/cache@v5
-      with:
-        path: |
-          /tmp/texlive
-          ~/.texlive*
-        key: texlive-${{ env.TEXLIVE_VERSION }}-${{ runner.os }}-${{ hashFiles('.latexmkrc') }}
-        restore-keys: |
-          texlive-${{ env.TEXLIVE_VERSION }}-${{ runner.os }}-
       
     - name: Compile LaTeX document
       uses: xu-cheng/latex-action@v4
@@ -38,9 +129,16 @@ jobs:
         root_file: main.tex
         latexmk_use_lualatex: true
         latexmk_shell_escape: true
-        texlive_version: ${{ env.TEXLIVE_VERSION }}
-        extra_system_packages: py3-pip perl
-        pre_compile: pip install latexminted
+        os: debian
+        extra_system_packages: python3-pip
+        pre_compile: |
+          pip3 install --break-system-packages latexminted
+          # Deshabilitar DocumentMetadata en CI (pdfstandard=ua-2 carga el paquete
+          # 'block' experimental que es incompatible con opciones de enumitem).
+          # En local con TeX Live estable funciona correctamente.
+          sed -i 's/\\input{eps-metadata}/%\\input{eps-metadata}/' main.tex
+          echo "Verificando que eps-metadata está comentado:"
+          grep -n "eps-metadata" main.tex
         
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v6
@@ -48,29 +146,52 @@ jobs:
         name: TFG-TFM_EPS_UA
         path: main.pdf
         retention-days: 90
-
-  comment-pr:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    needs: build
-    
-    steps:
-    - name: Get workflow run URL
-      id: run-url
-      run: |
-        echo "RUN_URL=https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> $GITHUB_OUTPUT
         
-    - name: Comment on PR
+    - name: Upload log on failure
+      if: failure()
+      uses: actions/upload-artifact@v6
+      with:
+        name: build-logs
+        path: |
+          *.log
+          *.blg
+        retention-days: 7
+
+  # 3. Actualizar comentario con resultado final
+  comment-pr:
+    name: Actualizar comentario en PR
+    runs-on: ubuntu-latest
+    if: always() && github.event_name == 'pull_request' && !cancelled()
+    needs: [init-comment, build]
+    
+    steps:       
+    - name: Update PR comment with result
       uses: actions/github-script@v8
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const runUrl = '${{ steps.run-url.outputs.RUN_URL }}';
+          const buildResult = '${{ needs.build.result }}';
+          const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+          const prNumber = context.issue.number;
+          const sha = context.payload.pull_request.head.sha.substring(0, 7);
           
-          const body = `## 📄 Compilación del documento
+          const isSuccess = buildResult === 'success';
+          const statusEmoji = isSuccess ? '✅' : '❌';
+          const statusText = isSuccess ? 'Compilado correctamente' : 'Error de compilación';
           
-          ✅ El documento **main.pdf** se ha compilado correctamente.
+          let body = `## 📄 Compilación del documento
           
+          ${statusEmoji} **${statusText}**
+          
+          | Detalle | Valor |
+          |---------|-------|
+          | **Commit** | \`${sha}\` |
+          | **PR** | #${prNumber} |
+          | **TeX Live** | ${{ env.TEXLIVE_VERSION }} |
+          `;
+          
+          if (isSuccess) {
+            body += `
           ### 📥 Descargar PDF
           
           👉 **[Ver workflow y descargar artefactos](${runUrl})**
@@ -78,11 +199,23 @@ jobs:
           En la sección "Artifacts" encontrarás el archivo **TFG-TFM_EPS_UA** con el PDF compilado.
           
           > **Nota:** Los artefactos estarán disponibles durante 90 días.
+          `;
+          } else {
+            body += `
+          ### ⚠️ Error en la compilación
           
+          👉 **[Ver logs del workflow](${runUrl})**
+          
+          Revisa los logs para identificar el problema.
+          `;
+          }
+          
+          body += `
           ---
           *Generado automáticamente por GitHub Actions* 🤖
           `;
           
+          // Buscar y actualizar el comentario del bot
           const { data: comments } = await github.rest.issues.listComments({
             owner: context.repo.owner,
             repo: context.repo.repo,
@@ -110,8 +243,15 @@ jobs:
             });
           }
 
+  # 4. Verificar enlaces
   check-links:
+    name: Verificar enlaces
     runs-on: ubuntu-latest
+    # Solo ejecutar en workflow_dispatch, PR, o push (el workflow ya tiene path filters)
+    if: >-
+      github.event_name == 'workflow_dispatch' || 
+      github.event_name == 'pull_request' ||
+      github.event_name == 'push'
     
     steps:
     - name: Checkout repository

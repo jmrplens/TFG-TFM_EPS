@@ -524,6 +524,8 @@ Línea 2 (con 1cm de separación)
 
 ### Opciones avanzadas con enumitem
 
+> ⚠️ **Nota sobre accesibilidad PDF/UA-2**: Las opciones de `enumitem` (`noitemsep`, `nosep`, etc.) **no son compatibles** con el paquete experimental `block` que se activa al usar `\DocumentMetadata{}` para accesibilidad. Si necesitas PDFs accesibles, usa listas sin opciones personalizadas.
+
 ```latex <!-- preview -->
 % \usepackage{enumitem}
 

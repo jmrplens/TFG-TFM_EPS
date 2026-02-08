@@ -852,6 +852,7 @@
 \RequirePackage{pdfpages}
 \RequirePackage{url}
 \RequirePackage[pdfborder={0 0 0}]{hyperref}
+\RequirePackage{hyperxmp}  % Metadatos XMP extendidos para PDF
 \RequirePackage{float}
 \RequirePackage{placeins}
 \RequirePackage{afterpage}
