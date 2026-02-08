@@ -64,12 +64,10 @@ jobs:
         extra_system_packages: python3-pip
         pre_compile: |
           pip install --break-system-packages latexminted
-          # Deshabilitar completamente DocumentMetadata en CI
-          # El paquete block de TeX Live 2025 es incompatible con enumitem
-          # Comentamos todo el bloque \DocumentMetadata{...}
-          sed -i 's/\\DocumentMetadata{/%\\DocumentMetadata{/' cls/eps-metadata.tex
-          echo "Contenido de eps-metadata.tex:"
-          head -10 cls/eps-metadata.tex
+          # Eliminar eps-metadata completamente (el paquete block de TeX Live 2025 es incompatible con enumitem)
+          sed -i '/\\input{eps-metadata}/d' main.tex
+          echo "Primeras 30 líneas de main.tex:"
+          head -30 main.tex
         
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v6
