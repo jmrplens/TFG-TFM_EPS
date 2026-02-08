@@ -1,9 +1,9 @@
-2026-02-08T12:43:02.1050000Z Evaluating check-links.if
-2026-02-08T12:43:02.1050000Z Evaluating: (success() && (((github.event_name == 'workflow_dispatch') || contains(github.event.head_commit.modified, '.md') || (github.event_name == 'pull_request'))))
-2026-02-08T12:43:02.1050000Z Expanded: (true && (('pull_request' == 'workflow_dispatch') || contains(null, '.md') || ('pull_request' == 'pull_request')))
-2026-02-08T12:43:02.1050000Z Result: true
-2026-02-08T12:43:02.1060000Z Requested labels: ubuntu-latest
-2026-02-08T12:43:02.1060000Z Job defined at: jmrplens/TFG-TFM_EPS/.github/workflows/build.yml@refs/pull/13/merge
-2026-02-08T12:43:02.1060000Z Waiting for a runner to pick up this job...
-2026-02-08T12:43:02.6020000Z Job is about to start running on the hosted runner: GitHub Actions 1000018890
-2026-02-08T12:43:02.6010000Z Job is waiting for a hosted runner to come online.
+2026-02-08T13:49:46.4870000Z Requested labels: ubuntu-latest
+2026-02-08T13:49:46.4870000Z Job defined at: jmrplens/TFG-TFM_EPS/.github/workflows/build.yml@refs/heads/improve-ci-workflows
+2026-02-08T13:49:46.4870000Z Waiting for a runner to pick up this job...
+2026-02-08T13:49:46.4850000Z Evaluating check-links.if
+2026-02-08T13:49:46.4850000Z Evaluating: (success() && (((github.event_name == 'workflow_dispatch') || contains(github.event.head_commit.modified, '.md') || (github.event_name == 'pull_request'))))
+2026-02-08T13:49:46.4850000Z Expanded: (true && (('workflow_dispatch' == 'workflow_dispatch') || contains(github.event.head_commit.modified, '.md') || (github.event_name == 'pull_request')))
+2026-02-08T13:49:46.4850000Z Result: true
+2026-02-08T13:49:46.9700000Z Job is about to start running on the hosted runner: GitHub Actions 1000018901
+2026-02-08T13:49:46.9700000Z Job is waiting for a hosted runner to come online.
