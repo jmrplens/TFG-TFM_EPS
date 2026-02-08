@@ -63,16 +63,11 @@ jobs:
         os: debian
         extra_system_packages: python3-pip
         pre_compile: |
-          echo "=== Pre-compile script starting ==="
           pip install --break-system-packages latexminted
-          echo "=== Checking cls/eps-metadata.tex before sed ==="
-          ls -la cls/
-          grep pdfstandard cls/eps-metadata.tex || echo "File not found or no match"
-          echo "=== Running sed ==="
-          sed -i 's/pdfstandard=ua-2/%pdfstandard=ua-2/' cls/eps-metadata.tex
-          echo "=== Checking after sed ==="
-          grep pdfstandard cls/eps-metadata.tex
-          echo "=== Pre-compile script complete ==="
+          # Deshabilitar tagging/accesibilidad en CI (testphase activa el paquete block que es incompatible con enumitem)
+          sed -i 's/testphase=/%testphase=/' cls/eps-metadata.tex
+          echo "Contenido de eps-metadata.tex después de deshabilitar testphase:"
+          grep -E "testphase|pdfstandard" cls/eps-metadata.tex
         
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v6
