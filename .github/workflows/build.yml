@@ -60,7 +60,7 @@ jobs:
         root_file: main.tex
         latexmk_use_lualatex: true
         latexmk_shell_escape: true
-        docker_image: ghcr.io/xu-cheng/texlive-debian:2025
+        os: debian
         extra_system_packages: python3-pip
         pre_compile: pip install --break-system-packages latexminted
         
