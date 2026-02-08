@@ -45,10 +45,80 @@ env:
   TEXLIVE_VERSION: "2025"
 
 jobs:
+  # 1. Crear comentario inicial en PR (aparece justo después de la descripción)
+  init-comment:
+    name: Iniciar comentario en PR
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    outputs:
+      comment_id: ${{ steps.create-comment.outputs.comment_id }}
+    
+    steps:
+    - name: Create or update initial comment
+      id: create-comment
+      uses: actions/github-script@v8
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+          const sha = context.payload.pull_request.head.sha.substring(0, 7);
+          
+          const body = `## 📄 Compilación del documento
+          
+          ⏳ **Compilando...** El documento se está procesando.
+          
+          | Detalle | Valor |
+          |---------|-------|
+          | **Commit** | \`${sha}\` |
+          | **Estado** | 🔄 En progreso |
+          
+          👉 **[Ver progreso del workflow](${runUrl})**
+          
+          ---
+          *Generado automáticamente por GitHub Actions* 🤖
+          `;
+          
+          // Buscar comentario existente del bot
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+          
+          const botComment = comments.find(comment => 
+            comment.user.type === 'Bot' && 
+            comment.body.includes('📄 Compilación del documento')
+          );
+          
+          let commentId;
+          if (botComment) {
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: botComment.id,
+              body: body,
+            });
+            commentId = botComment.id;
+          } else {
+            const { data: newComment } = await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: body,
+            });
+            commentId = newComment.id;
+          }
+          
+          core.setOutput('comment_id', commentId);
+
+  # 2. Compilar documento
   build:
     name: Compilar documento LaTeX
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    needs: [init-comment]
+    # Ejecutar aunque init-comment se salte (push a main, workflow_dispatch)
+    if: always() && !cancelled()
     
     steps:
     - name: Checkout repository
@@ -87,32 +157,41 @@ jobs:
           *.blg
         retention-days: 7
 
+  # 3. Actualizar comentario con resultado final
   comment-pr:
-    name: Comentar en PR
+    name: Actualizar comentario en PR
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    needs: build
+    if: always() && github.event_name == 'pull_request' && !cancelled()
+    needs: [init-comment, build]
     
     steps:       
-    - name: Comment on PR
+    - name: Update PR comment with result
       uses: actions/github-script@v8
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
+          const buildResult = '${{ needs.build.result }}';
           const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
           const prNumber = context.issue.number;
           const sha = context.payload.pull_request.head.sha.substring(0, 7);
           
-          const body = `## 📄 Compilación del documento
+          const isSuccess = buildResult === 'success';
+          const statusEmoji = isSuccess ? '✅' : '❌';
+          const statusText = isSuccess ? 'Compilado correctamente' : 'Error de compilación';
           
-          ✅ El documento **main.pdf** se ha compilado correctamente.
+          let body = `## 📄 Compilación del documento
+          
+          ${statusEmoji} **${statusText}**
           
           | Detalle | Valor |
           |---------|-------|
           | **Commit** | \`${sha}\` |
           | **PR** | #${prNumber} |
           | **TeX Live** | ${{ env.TEXLIVE_VERSION }} |
+          `;
           
+          if (isSuccess) {
+            body += `
           ### 📥 Descargar PDF
           
           👉 **[Ver workflow y descargar artefactos](${runUrl})**
@@ -120,11 +199,23 @@ jobs:
           En la sección "Artifacts" encontrarás el archivo **TFG-TFM_EPS_UA** con el PDF compilado.
           
           > **Nota:** Los artefactos estarán disponibles durante 90 días.
+          `;
+          } else {
+            body += `
+          ### ⚠️ Error en la compilación
           
+          👉 **[Ver logs del workflow](${runUrl})**
+          
+          Revisa los logs para identificar el problema.
+          `;
+          }
+          
+          body += `
           ---
           *Generado automáticamente por GitHub Actions* 🤖
           `;
           
+          // Buscar y actualizar el comentario del bot
           const { data: comments } = await github.rest.issues.listComments({
             owner: context.repo.owner,
             repo: context.repo.repo,
@@ -152,6 +243,7 @@ jobs:
             });
           }
 
+  # 4. Verificar enlaces
   check-links:
     name: Verificar enlaces
     runs-on: ubuntu-latest
