@@ -116,9 +116,8 @@ jobs:
     name: Compilar documento LaTeX
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    needs: [init-comment]
-    # Ejecutar aunque init-comment se salte (push a main, workflow_dispatch)
-    if: always() && !cancelled()
+    # No depender de init-comment para que push y workflow_dispatch funcionen
+    if: "!cancelled()"
     
     steps:
     - name: Checkout repository
@@ -133,7 +132,7 @@ jobs:
         os: debian
         extra_system_packages: python3-pip
         pre_compile: |
-          pip install --break-system-packages latexminted
+          pip3 install --break-system-packages latexminted
           # Deshabilitar DocumentMetadata en CI (pdfstandard=ua-2 carga el paquete
           # 'block' experimental que es incompatible con opciones de enumitem).
           # En local con TeX Live estable funciona correctamente.
@@ -248,11 +247,11 @@ jobs:
   check-links:
     name: Verificar enlaces
     runs-on: ubuntu-latest
-    # Solo ejecutar si hay cambios en archivos markdown
+    # Solo ejecutar en workflow_dispatch, PR, o push (el workflow ya tiene path filters)
     if: >-
       github.event_name == 'workflow_dispatch' || 
-      contains(github.event.head_commit.modified, '.md') ||
-      github.event_name == 'pull_request'
+      github.event_name == 'pull_request' ||
+      github.event_name == 'push'
     
     steps:
     - name: Checkout repository

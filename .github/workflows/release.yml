@@ -40,7 +40,7 @@ jobs:
         os: debian
         extra_system_packages: python3-pip
         pre_compile: |
-          pip install --break-system-packages latexminted
+          pip3 install --break-system-packages latexminted
           # Deshabilitar DocumentMetadata en CI (pdfstandard=ua-2 carga el paquete
           # 'block' experimental que es incompatible con opciones de enumitem).
           sed -i 's/\\input{eps-metadata}/%\\input{eps-metadata}/' main.tex
