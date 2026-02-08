@@ -63,9 +63,16 @@ jobs:
         os: debian
         extra_system_packages: python3-pip
         pre_compile: |
+          echo "=== Pre-compile script starting ==="
           pip install --break-system-packages latexminted
-          # Deshabilitar PDF/UA-2 en CI (incompatible con algunas opciones de enumitem)
+          echo "=== Checking cls/eps-metadata.tex before sed ==="
+          ls -la cls/
+          grep pdfstandard cls/eps-metadata.tex || echo "File not found or no match"
+          echo "=== Running sed ==="
           sed -i 's/pdfstandard=ua-2/%pdfstandard=ua-2/' cls/eps-metadata.tex
+          echo "=== Checking after sed ==="
+          grep pdfstandard cls/eps-metadata.tex
+          echo "=== Pre-compile script complete ==="
         
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v6
