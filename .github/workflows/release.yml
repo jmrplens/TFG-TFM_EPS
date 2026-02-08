@@ -37,8 +37,8 @@ jobs:
         root_file: main.tex
         latexmk_use_lualatex: true
         latexmk_shell_escape: true
-        texlive_version: ${{ env.TEXLIVE_VERSION }}
-        extra_system_packages: py3-pip perl
+        docker_image: ghcr.io/xu-cheng/texlive-debian:2025
+        extra_system_packages: python3-pip
         pre_compile: pip install --break-system-packages latexminted
         
     - name: Rename PDF

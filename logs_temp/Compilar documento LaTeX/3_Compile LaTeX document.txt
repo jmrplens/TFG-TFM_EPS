@@ -1,0 +1,1326 @@
+﻿2026-02-08T12:43:08.0967177Z ##[group]Run xu-cheng/latex-action@v4
+2026-02-08T12:43:08.1038873Z with:
+2026-02-08T12:43:08.1039813Z   root_file: main.tex
+2026-02-08T12:43:08.1040832Z   latexmk_use_lualatex: true
+2026-02-08T12:43:08.1041854Z   latexmk_shell_escape: true
+2026-02-08T12:43:08.1043120Z   texlive_version: 2025
+2026-02-08T12:43:08.1044099Z   extra_system_packages: py3-pip perl
+2026-02-08T12:43:08.1045532Z   pre_compile: pip install --break-system-packages latexminted
+2026-02-08T12:43:08.1046935Z   os: alpine
+2026-02-08T12:43:08.1047758Z   work_in_root_file_dir: false
+2026-02-08T12:43:08.1048748Z   continue_on_error: false
+2026-02-08T12:43:08.1049699Z   compiler: latexmk
+2026-02-08T12:43:08.1050942Z   args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+2026-02-08T12:43:08.1052524Z   latexmk_use_xelatex: false
+2026-02-08T12:43:08.1053454Z env:
+2026-02-08T12:43:08.1054161Z   TEXLIVE_VERSION: 2025
+2026-02-08T12:43:08.1054991Z ##[endgroup]
+2026-02-08T12:43:08.1218125Z ##[group]Run "${GITHUB_ACTION_PATH}/action.sh"
+2026-02-08T12:43:08.1219463Z [36;1m"${GITHUB_ACTION_PATH}/action.sh"[0m
+2026-02-08T12:43:08.1258411Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-02-08T12:43:08.1259695Z env:
+2026-02-08T12:43:08.1260389Z   TEXLIVE_VERSION: 2025
+2026-02-08T12:43:08.1261323Z   INPUT_TEXLIVE_VERSION: 2025
+2026-02-08T12:43:08.1262230Z   INPUT_OS: alpine
+2026-02-08T12:43:08.1263613Z   INPUT_DOCKER_IMAGE: 
+2026-02-08T12:43:08.1264494Z   INPUT_ROOT_FILE: main.tex
+2026-02-08T12:43:08.1265423Z   INPUT_WORKING_DIRECTORY: 
+2026-02-08T12:43:08.1266358Z   INPUT_WORK_IN_ROOT_FILE_DIR: false
+2026-02-08T12:43:08.1267398Z   INPUT_CONTINUE_ON_ERROR: false
+2026-02-08T12:43:08.1268367Z   INPUT_COMPILER: latexmk
+2026-02-08T12:43:08.1269685Z   INPUT_ARGS: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+2026-02-08T12:43:08.1271265Z   INPUT_EXTRA_SYSTEM_PACKAGES: py3-pip perl
+2026-02-08T12:43:08.1272344Z   INPUT_EXTRA_FONTS: 
+2026-02-08T12:43:08.1273656Z   INPUT_PRE_COMPILE: pip install --break-system-packages latexminted
+2026-02-08T12:43:08.1275094Z   INPUT_POST_COMPILE: 
+2026-02-08T12:43:08.1276168Z   INPUT_LATEXMK_SHELL_ESCAPE: true
+2026-02-08T12:43:08.1277206Z   INPUT_LATEXMK_USE_LUALATEX: true
+2026-02-08T12:43:08.1278227Z   INPUT_LATEXMK_USE_XELATEX: false
+2026-02-08T12:43:08.1279191Z ##[endgroup]
+2026-02-08T12:43:08.1416324Z ::stop-commands::***
+2026-02-08T12:43:08.1451407Z [1;34m'docker' 'run' '--rm' '-e' 'BIBINPUTS' '-e' 'BSTINPUTS' '-e' 'MFINPUTS' '-e' 'TEXINPUTS' '-e' 'TFMFONTS' '-e' 'HOME' '-e' 'INPUT_ARGS' '-e' 'INPUT_COMPILER' '-e' 'INPUT_CONTINUE_ON_ERROR' '-e' 'INPUT_EXTRA_FONTS' '-e' 'INPUT_EXTRA_SYSTEM_PACKAGES' '-e' 'INPUT_LATEXMK_SHELL_ESCAPE' '-e' 'INPUT_LATEXMK_USE_LUALATEX' '-e' 'INPUT_LATEXMK_USE_XELATEX' '-e' 'INPUT_POST_COMPILE' '-e' 'INPUT_PRE_COMPILE' '-e' 'INPUT_ROOT_FILE' '-e' 'INPUT_WORKING_DIRECTORY' '-e' 'INPUT_WORK_IN_ROOT_FILE_DIR' '-e' 'GITHUB_ACTION' '-e' 'GITHUB_ACTION_REF' '-e' 'GITHUB_ACTION_REPOSITORY' '-e' 'GITHUB_ACTOR' '-e' 'GITHUB_ACTOR_ID' '-e' 'GITHUB_API_URL' '-e' 'GITHUB_BASE_REF' '-e' 'GITHUB_ENV' '-e' 'GITHUB_EVENT_NAME' '-e' 'GITHUB_EVENT_PATH' '-e' 'GITHUB_GRAPHQL_URL' '-e' 'GITHUB_HEAD_REF' '-e' 'GITHUB_JOB' '-e' 'GITHUB_OUTPUT' '-e' 'GITHUB_PATH' '-e' 'GITHUB_REF' '-e' 'GITHUB_REF_NAME' '-e' 'GITHUB_REF_PROTECTED' '-e' 'GITHUB_REF_TYPE' '-e' 'GITHUB_REPOSITORY' '-e' 'GITHUB_REPOSITORY_ID' '-e' 'GITHUB_REPOSITORY_OWNER' '-e' 'GITHUB_REPOSITORY_OWNER_ID' '-e' 'GITHUB_RETENTION_DAYS' '-e' 'GITHUB_RUN_ATTEMPT' '-e' 'GITHUB_RUN_ID' '-e' 'GITHUB_RUN_NUMBER' '-e' 'GITHUB_SERVER_URL' '-e' 'GITHUB_SHA' '-e' 'GITHUB_STATE' '-e' 'GITHUB_STEP_SUMMARY' '-e' 'GITHUB_TRIGGERING_ACTOR' '-e' 'GITHUB_WORKFLOW' '-e' 'GITHUB_WORKFLOW_REF' '-e' 'GITHUB_WORKFLOW_SHA' '-e' 'GITHUB_WORKSPACE' '-e' 'RUNNER_ARCH' '-e' 'RUNNER_ENVIRONMENT' '-e' 'RUNNER_NAME' '-e' 'RUNNER_OS' '-e' 'RUNNER_TEMP' '-e' 'RUNNER_TOOL_CACHE' '-e' 'RUNNER_WORKSPACE' '-e' 'ACTIONS_CACHE_URL' '-e' 'ACTIONS_RUNTIME_TOKEN' '-e' 'ACTIONS_RUNTIME_URL' '-e' 'GITHUB_ACTIONS=true' '-e' 'CI=true' '-v' '/var/run/docker.sock:/var/run/docker.sock' '-v' '/home/runner:/home/runner' '-v' '/home/runner/work/_temp/_runner_file_commands/set_env_d25d8a38-68bc-4d08-889d-73c1c7c06211:/home/runner/work/_temp/_runner_file_commands/set_env_d25d8a38-68bc-4d08-889d-73c1c7c06211' '-v' '/home/runner/work/_temp/_runner_file_commands/set_output_d25d8a38-68bc-4d08-889d-73c1c7c06211:/home/runner/work/_temp/_runner_file_commands/set_output_d25d8a38-68bc-4d08-889d-73c1c7c06211' '-v' '/home/runner/work/_temp/_runner_file_commands/step_summary_d25d8a38-68bc-4d08-889d-73c1c7c06211:/home/runner/work/_temp/_runner_file_commands/step_summary_d25d8a38-68bc-4d08-889d-73c1c7c06211' '-v' '/home/runner/work/_temp/_runner_file_commands/add_path_d25d8a38-68bc-4d08-889d-73c1c7c06211:/home/runner/work/_temp/_runner_file_commands/add_path_d25d8a38-68bc-4d08-889d-73c1c7c06211' '-v' '/home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS:/home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS' '-v' '/home/runner/work/_actions/xu-cheng/latex-action/v4/entrypoint.sh:/entrypoint.sh' '-w' '/home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS' '--entrypoint' '/entrypoint.sh' 'ghcr.io/xu-cheng/texlive-alpine:latest'[0m
+2026-02-08T12:43:08.1486349Z ::***::
+2026-02-08T12:43:09.0040228Z Unable to find image 'ghcr.io/xu-cheng/texlive-alpine:latest' locally
+2026-02-08T12:43:09.3307623Z latest: Pulling from xu-cheng/texlive-alpine
+2026-02-08T12:43:09.4277538Z 1074353eec0d: Pulling fs layer
+2026-02-08T12:43:09.4278212Z b92772c95a16: Pulling fs layer
+2026-02-08T12:43:09.4278936Z e5ce42e3a174: Pulling fs layer
+2026-02-08T12:43:09.4279372Z 58e7fd50b5ec: Pulling fs layer
+2026-02-08T12:43:09.4279776Z 625510e6524c: Pulling fs layer
+2026-02-08T12:43:09.4280167Z 58e7fd50b5ec: Waiting
+2026-02-08T12:43:09.4280614Z 625510e6524c: Waiting
+2026-02-08T12:43:09.5370195Z 1074353eec0d: Verifying Checksum
+2026-02-08T12:43:09.5370821Z 1074353eec0d: Download complete
+2026-02-08T12:43:09.5477293Z b92772c95a16: Verifying Checksum
+2026-02-08T12:43:09.5479649Z b92772c95a16: Download complete
+2026-02-08T12:43:09.5489267Z e5ce42e3a174: Verifying Checksum
+2026-02-08T12:43:09.5490084Z e5ce42e3a174: Download complete
+2026-02-08T12:43:09.6523252Z 1074353eec0d: Pull complete
+2026-02-08T12:43:09.6688812Z 58e7fd50b5ec: Verifying Checksum
+2026-02-08T12:43:09.6689660Z 58e7fd50b5ec: Download complete
+2026-02-08T12:43:10.5765870Z b92772c95a16: Pull complete
+2026-02-08T12:43:10.6170059Z e5ce42e3a174: Pull complete
+2026-02-08T12:43:11.0618943Z 58e7fd50b5ec: Pull complete
+2026-02-08T12:43:23.1190862Z 625510e6524c: Download complete
+2026-02-08T12:44:31.6766553Z 625510e6524c: Pull complete
+2026-02-08T12:44:31.6801869Z Digest: sha256:9aa57c8ddef934cb1f25837539c654980680ea4d42554a05ca7a672845ebfe6a
+2026-02-08T12:44:31.6812147Z Status: Downloaded newer image for ghcr.io/xu-cheng/texlive-alpine:latest
+2026-02-08T12:44:32.1386517Z [1;34mInstall py3-pip by apk[0m
+2026-02-08T12:44:32.4501476Z (1/8) Installing py3-parsing (3.2.5-r0)
+2026-02-08T12:44:32.4589289Z (2/8) Installing py3-parsing-pyc (3.2.5-r0)
+2026-02-08T12:44:32.4660419Z (3/8) Installing py3-packaging (25.0-r0)
+2026-02-08T12:44:32.4716801Z (4/8) Installing py3-packaging-pyc (25.0-r0)
+2026-02-08T12:44:32.4769048Z (5/8) Installing py3-setuptools (80.9.0-r2)
+2026-02-08T12:44:32.5421264Z (6/8) Installing py3-setuptools-pyc (80.9.0-r2)
+2026-02-08T12:44:32.6037575Z (7/8) Installing py3-pip (25.1.1-r1)
+2026-02-08T12:44:32.6773164Z (8/8) Installing py3-pip-pyc (25.1.1-r1)
+2026-02-08T12:44:32.7523960Z Executing busybox-1.37.0-r30.trigger
+2026-02-08T12:44:32.7639401Z OK: 480.0 MiB in 163 packages
+2026-02-08T12:44:32.7955984Z [1;34mInstall perl by apk[0m
+2026-02-08T12:44:33.1064504Z OK: 480.0 MiB in 163 packages
+2026-02-08T12:44:33.1267185Z [1;34mRun pre compile commands[0m
+2026-02-08T12:44:33.4856215Z WARNING: The directory '/home/runner/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+2026-02-08T12:44:33.5802168Z Collecting latexminted
+2026-02-08T12:44:33.6232323Z   Downloading latexminted-0.6.0-py3-none-any.whl.metadata (9.4 kB)
+2026-02-08T12:44:33.6541198Z Collecting latex2pydata>=0.5.0 (from latexminted)
+2026-02-08T12:44:33.6587888Z   Downloading latex2pydata-0.5.0-py3-none-any.whl.metadata (6.5 kB)
+2026-02-08T12:44:33.6874235Z Collecting latexrestricted>=0.6.2 (from latexminted)
+2026-02-08T12:44:33.6920771Z   Downloading latexrestricted-0.6.2-py3-none-any.whl.metadata (21 kB)
+2026-02-08T12:44:33.6995491Z Requirement already satisfied: pygments>=2.17.0 in /usr/lib/python3.12/site-packages (from latexminted) (2.19.2)
+2026-02-08T12:44:33.7281942Z Downloading latexminted-0.6.0-py3-none-any.whl (36 kB)
+2026-02-08T12:44:33.7333673Z Downloading latex2pydata-0.5.0-py3-none-any.whl (13 kB)
+2026-02-08T12:44:33.7372165Z Downloading latexrestricted-0.6.2-py3-none-any.whl (27 kB)
+2026-02-08T12:44:33.7627851Z Installing collected packages: latexrestricted, latex2pydata, latexminted
+2026-02-08T12:44:33.8435321Z 
+2026-02-08T12:44:33.8454245Z Successfully installed latex2pydata-0.5.0 latexminted-0.6.0 latexrestricted-0.6.2
+2026-02-08T12:44:33.8459324Z WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+2026-02-08T12:44:33.8961233Z [1;34mCompile main.tex[0m
+2026-02-08T12:44:34.0011095Z Rc files read:
+2026-02-08T12:44:34.0011505Z   .latexmkrc
+2026-02-08T12:44:34.0011983Z Latexmk: This is Latexmk, John Collins, 15 June 2025. Version 4.87.
+2026-02-08T12:44:34.0020204Z No existing .aux file, so I'll make a simple one, and require run of *latex.
+2026-02-08T12:44:34.0028062Z Latexmk: applying rule 'lualatex'...
+2026-02-08T12:44:34.0028771Z Rule 'lualatex':  Reasons for rerun
+2026-02-08T12:44:34.0029226Z Category 'other':
+2026-02-08T12:44:34.0029640Z   Rerun of 'lualatex' forced or previously required:
+2026-02-08T12:44:34.0030177Z     Reason or flag: 'Initial setup'
+2026-02-08T12:44:34.0030787Z 
+2026-02-08T12:44:34.0030896Z ------------
+2026-02-08T12:44:34.0031204Z Run number 1 of rule 'lualatex'
+2026-02-08T12:44:34.0031575Z ------------
+2026-02-08T12:44:34.0033678Z ------------
+2026-02-08T12:44:34.0034735Z Running 'lualatex -shell-escape -interaction=nonstopmode -file-line-error -synctex=1  --file-line-error --halt-on-error --interaction=nonstopmode --shell-escape -recorder  "main.tex"'
+2026-02-08T12:44:34.0035627Z ------------
+2026-02-08T12:44:34.0797817Z This is LuaHBTeX, Version 1.22.0 (TeX Live 2025) 
+2026-02-08T12:44:34.2264382Z  system commands enabled.
+2026-02-08T12:44:34.2567331Z (./main.tex
+2026-02-08T12:44:34.2568709Z LaTeX2e <2025-11-01>
+2026-02-08T12:44:34.2569055Z L3 programming layer <2025-12-29>
+2026-02-08T12:44:34.2573477Z sh: tput: not found
+2026-02-08T12:44:34.5015440Z  (./cls/eps-metadata.tex
+2026-02-08T12:44:34.5015929Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/documentmetadata-support.lt
+2026-02-08T12:44:34.5037176Z x
+2026-02-08T12:44:34.5037771Z (/opt/texlive/texdir/texmf-dist/tex/latex/pdfmanagement-testphase/pdfmanagement
+2026-02-08T12:44:34.5055553Z -testphase.sty (/opt/texlive/texdir/texmf-dist/tex/latex/tagpdf/tagpdf-base.sty
+2026-02-08T12:44:34.5089463Z )
+2026-02-08T12:44:34.5090269Z (/opt/texlive/texdir/texmf-dist/tex/latex/pdfmanagement-testphase/pdfmanagement
+2026-02-08T12:44:34.5378191Z .ltx)))
+2026-02-08T12:44:34.5403117Z (/opt/texlive/texdir/texmf-dist/tex/latex/l3backend/l3backend-luatex.def)
+2026-02-08T12:44:34.5404065Z (/opt/texlive/texdir/texmf-dist/tex/latex/pdfmanagement-testphase/l3backend-tes
+2026-02-08T12:44:34.5450776Z tphase-luatex.def)
+2026-02-08T12:44:34.5451523Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-latest.
+2026-02-08T12:44:34.5504651Z sty (/opt/texlive/texdir/texmf-dist/tex/latex/tagpdf/tagpdf.sty
+2026-02-08T12:44:34.6488645Z (/opt/texlive/texdir/texmf-dist/tex/latex/tagpdf/tagpdf-luatex.def)
+2026-02-08T12:44:35.1266954Z (/opt/texlive/texdir/texmf-dist/tex/latex/tagpdf/tagpdf-mc-code-lua.sty))
+2026-02-08T12:44:35.1267895Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-names.s
+2026-02-08T12:44:35.1298394Z ty)
+2026-02-08T12:44:35.1299001Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-new-or-
+2026-02-08T12:44:35.1315708Z 2.sty
+2026-02-08T12:44:35.1419495Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-footnotes.ltx))
+2026-02-08T12:44:35.1420469Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-block.s
+2026-02-08T12:44:35.1441475Z ty
+2026-02-08T12:44:35.1442063Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-kernel-changes.st
+2026-02-08T12:44:35.1593463Z y (/opt/texlive/texdir/texmf-dist/tex/generic/pdftex/glyphtounicode.tex)
+2026-02-08T12:44:35.1626450Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/glyphtounicode-cmex.tex))
+2026-02-08T12:44:35.1627453Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-context
+2026-02-08T12:44:35.2404618Z .sty))
+2026-02-08T12:44:35.2405194Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-sec.sty
+2026-02-08T12:44:35.2506904Z )
+2026-02-08T12:44:35.2507475Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-toc.sty
+2026-02-08T12:44:35.2767435Z )
+2026-02-08T12:44:35.2768082Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-minipag
+2026-02-08T12:44:35.2790790Z e.sty
+2026-02-08T12:44:35.2791366Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-new-or-
+2026-02-08T12:44:35.2837212Z 1.sty))
+2026-02-08T12:44:35.2837940Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-graphic
+2026-02-08T12:44:35.2969742Z .sty)
+2026-02-08T12:44:35.2970490Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-float.s
+2026-02-08T12:44:35.3035228Z ty)
+2026-02-08T12:44:35.3035930Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-bib.sty
+2026-02-08T12:44:35.3145870Z )
+2026-02-08T12:44:35.3147020Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-text.st
+2026-02-08T12:44:35.3199090Z y)
+2026-02-08T12:44:35.3199853Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-marginp
+2026-02-08T12:44:35.3232326Z ar.sty)
+2026-02-08T12:44:35.3233081Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-title.s
+2026-02-08T12:44:35.3285390Z ty)
+2026-02-08T12:44:35.3286107Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-table.s
+2026-02-08T12:44:35.3373721Z ty (/opt/texlive/texdir/texmf-dist/tex/latex/tools/array.sty))
+2026-02-08T12:44:35.3374553Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-math.st
+2026-02-08T12:44:35.3465974Z y (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-math.ltx)
+2026-02-08T12:44:35.3514762Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-mathpkg.ltx)
+2026-02-08T12:44:35.3549228Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-mathintent.ltx))
+2026-02-08T12:44:35.3550402Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-firstai
+2026-02-08T12:44:35.3660043Z d.sty)
+2026-02-08T12:44:35.3660611Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-testphase-tikz.st
+2026-02-08T12:44:35.3806537Z y)))
+2026-02-08T12:44:35.3807360Z (/opt/texlive/texdir/texmf-dist/tex/latex/pdfmanagement-testphase/pdfmanagement
+2026-02-08T12:44:35.3883507Z -firstaid.sty) (./cls/eps-tfg.cls
+2026-02-08T12:44:35.3887267Z 
+2026-02-08T12:44:35.3887668Z LaTeX Warning: You have requested document class `cls/eps-tfg',
+2026-02-08T12:44:35.3890055Z                but the document class provides `eps-tfg'.
+2026-02-08T12:44:35.3890542Z 
+2026-02-08T12:44:35.3891006Z Document Class: eps-tfg 2026/02/05 v2.1.0 Clase TFG/TFM EPS Universidad de Alic
+2026-02-08T12:44:35.3893173Z ante
+2026-02-08T12:44:35.3933568Z (/opt/texlive/texdir/texmf-dist/tex/latex/l3kernel/expl3.sty)
+2026-02-08T12:44:35.3960877Z (/opt/texlive/texdir/texmf-dist/tex/latex/l3packages/xparse/xparse.sty)
+2026-02-08T12:44:35.4138542Z (/opt/texlive/texdir/texmf-dist/tex/latex/l3packages/l3keys2e/l3keys2e.sty)
+2026-02-08T12:44:35.4143748Z (/opt/texlive/texdir/texmf-dist/tex/latex/koma-script/scrbook.cls
+2026-02-08T12:44:35.4144541Z Document Class: scrbook 2025/12/01 v3.49 KOMA-Script document class (book)
+2026-02-08T12:44:35.4177307Z (/opt/texlive/texdir/texmf-dist/tex/latex/koma-script/scrkbase.sty
+2026-02-08T12:44:35.4195884Z (/opt/texlive/texdir/texmf-dist/tex/latex/koma-script/scrbase.sty
+2026-02-08T12:44:35.4213946Z (/opt/texlive/texdir/texmf-dist/tex/latex/koma-script/scrlfile.sty
+2026-02-08T12:44:35.4287577Z (/opt/texlive/texdir/texmf-dist/tex/latex/koma-script/scrlfile-hook.sty
+2026-02-08T12:44:35.4324899Z (/opt/texlive/texdir/texmf-dist/tex/latex/koma-script/scrlogo.sty)))
+2026-02-08T12:44:35.4430583Z (/opt/texlive/texdir/texmf-dist/tex/latex/graphics/keyval.sty)))
+2026-02-08T12:44:35.4866680Z (/opt/texlive/texdir/texmf-dist/tex/latex/koma-script/tocbasic.sty)
+2026-02-08T12:44:35.4867332Z 
+2026-02-08T12:44:35.4867616Z LaTeX Warning: Command \@footnotemark  has changed.
+2026-02-08T12:44:35.4868072Z                Check if current package is valid.
+2026-02-08T12:44:35.4868338Z 
+2026-02-08T12:44:35.5338061Z (/opt/texlive/texdir/texmf-dist/tex/latex/koma-script/scrsize11pt.clo)
+2026-02-08T12:44:35.9121043Z (/opt/texlive/texdir/texmf-dist/tex/latex/koma-script/typearea.sty))
+2026-02-08T12:44:35.9200126Z (/opt/texlive/texdir/texmf-dist/tex/latex/scrhack/scrhack.sty)
+2026-02-08T12:44:35.9218695Z (/opt/texlive/texdir/texmf-dist/tex/latex/koma-script/scrlayer-scrpage.sty
+2026-02-08T12:44:35.9565520Z (/opt/texlive/texdir/texmf-dist/tex/latex/koma-script/scrlayer.sty))
+2026-02-08T12:44:35.9584375Z (/opt/texlive/texdir/texmf-dist/tex/latex/geometry/geometry.sty
+2026-02-08T12:44:35.9601184Z (/opt/texlive/texdir/texmf-dist/tex/generic/iftex/ifvtex.sty
+2026-02-08T12:44:35.9691486Z (/opt/texlive/texdir/texmf-dist/tex/generic/iftex/iftex.sty)))
+2026-02-08T12:44:35.9709106Z (/opt/texlive/texdir/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+2026-02-08T12:44:35.9726984Z (/opt/texlive/texdir/texmf-dist/tex/latex/graphics/lscape.sty
+2026-02-08T12:44:35.9743203Z (/opt/texlive/texdir/texmf-dist/tex/latex/graphics/graphics.sty
+2026-02-08T12:44:35.9764200Z (/opt/texlive/texdir/texmf-dist/tex/latex/graphics/trig.sty)
+2026-02-08T12:44:35.9779517Z (/opt/texlive/texdir/texmf-dist/tex/latex/graphics-cfg/graphics.cfg)
+2026-02-08T12:44:35.9840731Z (/opt/texlive/texdir/texmf-dist/tex/latex/graphics-def/luatex.def))
+2026-02-08T12:44:35.9891677Z (/opt/texlive/texdir/texmf-dist/tex/latex/graphics/graphicx.sty))
+2026-02-08T12:44:35.9919326Z (/opt/texlive/texdir/texmf-dist/tex/latex/lscapeenhanced/lscapeenhanced.sty
+2026-02-08T12:44:35.9943123Z (/opt/texlive/texdir/texmf-dist/tex/latex/xpatch/xpatch.sty
+2026-02-08T12:44:36.0128184Z (/opt/texlive/texdir/texmf-dist/tex/latex/etoolbox/etoolbox.sty))))
+2026-02-08T12:44:36.0149034Z (/opt/texlive/texdir/texmf-dist/tex/latex/polyglossia/polyglossia.sty
+2026-02-08T12:44:36.0198518Z (/opt/texlive/texdir/texmf-dist/tex/latex/fontspec/fontspec.sty
+2026-02-08T12:44:36.0235155Z (/opt/texlive/texdir/texmf-dist/tex/latex/fontspec/fontspec-luatex.sty
+2026-02-08T12:44:36.1475798Z (/opt/texlive/texdir/texmf-dist/tex/latex/base/fontenc.sty)
+2026-02-08T12:44:36.2469774Z (/opt/texlive/texdir/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
+2026-02-08T12:44:36.2520174Z (/opt/texlive/texdir/texmf-dist/tex/latex/polyglossia/gloss-latex.ldf))
+2026-02-08T12:44:36.2666254Z (/opt/texlive/texdir/texmf-dist/tex/latex/polyglossia/gloss-spanish.ldf)
+2026-02-08T12:44:36.2786460Z (/opt/texlive/texdir/texmf-dist/tex/latex/polyglossia/gloss-english.ldf)
+2026-02-08T12:44:36.2825661Z (/opt/texlive/texdir/texmf-dist/tex/latex/polyglossia/gloss-catalan.ldf
+2026-02-08T12:44:36.7025307Z (/opt/texlive/texdir/texmf-dist/tex/latex/polyglossia/babelsh.def))
+2026-02-08T12:44:36.7164453Z (/opt/texlive/texdir/texmf-dist/tex/latex/xcolor/xcolor.sty
+2026-02-08T12:44:36.7210562Z (/opt/texlive/texdir/texmf-dist/tex/latex/graphics-cfg/color.cfg)
+2026-02-08T12:44:36.7283149Z (/opt/texlive/texdir/texmf-dist/tex/latex/graphics/mathcolor.ltx))
+2026-02-08T12:44:36.7284050Z (/opt/texlive/texdir/texmf-dist/tex/latex/pdfmanagement-testphase/xcolor-patche
+2026-02-08T12:44:36.7381868Z s-tmp-ltx.sty) (/opt/texlive/texdir/texmf-dist/tex/latex/graphics/dvipsnam.def)
+2026-02-08T12:44:36.7532008Z  (/opt/texlive/texdir/texmf-dist/tex/latex/xcolor/svgnam.def)
+2026-02-08T12:44:36.7854085Z (/opt/texlive/texdir/texmf-dist/tex/latex/xcolor/x11nam.def)
+2026-02-08T12:44:36.7873130Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/biblatex.sty
+2026-02-08T12:44:36.7891815Z (/opt/texlive/texdir/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+2026-02-08T12:44:36.7918607Z (/opt/texlive/texdir/texmf-dist/tex/generic/infwarerr/infwarerr.sty)
+2026-02-08T12:44:36.7968748Z (/opt/texlive/texdir/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty))
+2026-02-08T12:44:36.7991327Z (/opt/texlive/texdir/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+2026-02-08T12:44:36.8031161Z (/opt/texlive/texdir/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty))
+2026-02-08T12:44:36.8054861Z (/opt/texlive/texdir/texmf-dist/tex/latex/logreq/logreq.sty
+2026-02-08T12:44:36.8085743Z (/opt/texlive/texdir/texmf-dist/tex/latex/logreq/logreq.def))
+2026-02-08T12:44:36.8108088Z (/opt/texlive/texdir/texmf-dist/tex/latex/base/ifthen.sty)
+2026-02-08T12:44:36.8549917Z (/opt/texlive/texdir/texmf-dist/tex/latex/url/url.sty)
+2026-02-08T12:44:37.0109880Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/blx-dm.def)
+2026-02-08T12:44:37.0884006Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex-apa/apa.dbx)
+2026-02-08T12:44:37.3357355Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/blx-unicode.def)
+2026-02-08T12:44:37.3407547Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/blx-compat.def)
+2026-02-08T12:44:37.3627256Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/biblatex.def)
+2026-02-08T12:44:37.3648030Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/blx-natbib.def)
+2026-02-08T12:44:37.3656464Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex-apa/apa.bbx
+2026-02-08T12:44:37.3784723Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/bbx/standard.bbx))
+2026-02-08T12:44:37.3857634Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex-apa/apa.cbx)
+2026-02-08T12:44:37.3888847Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/biblatex.cfg)
+2026-02-08T12:44:37.4085402Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty))
+2026-02-08T12:44:37.4100337Z (/opt/texlive/texdir/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+2026-02-08T12:44:37.4116838Z (/opt/texlive/texdir/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+2026-02-08T12:44:37.4120289Z (/opt/texlive/texdir/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+2026-02-08T12:44:37.4139343Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.tex)
+2026-02-08T12:44:37.4162744Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def)
+2026-02-08T12:44:37.4167258Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+2026-02-08T12:44:37.4200691Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/pgf.revision.tex)))
+2026-02-08T12:44:37.4220249Z (/opt/texlive/texdir/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+2026-02-08T12:44:37.4233258Z (/opt/texlive/texdir/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+2026-02-08T12:44:37.4237508Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+2026-02-08T12:44:37.4277225Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+2026-02-08T12:44:37.4278197Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltere
+2026-02-08T12:44:37.4335347Z d.code.tex))
+2026-02-08T12:44:37.4348305Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg)
+2026-02-08T12:44:37.4352807Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-luatex.def
+2026-02-08T12:44:37.4353753Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-pdf.d
+2026-02-08T12:44:37.4390101Z ef)))
+2026-02-08T12:44:37.4390694Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.code
+2026-02-08T12:44:37.4408747Z .tex)
+2026-02-08T12:44:37.4409420Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.code
+2026-02-08T12:44:37.4446847Z .tex))
+2026-02-08T12:44:37.4450582Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+2026-02-08T12:44:37.4453967Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+2026-02-08T12:44:37.4464460Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+2026-02-08T12:44:37.4490974Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex)
+2026-02-08T12:44:37.4500163Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.tex)
+2026-02-08T12:44:37.4502091Z 
+2026-02-08T12:44:37.4502659Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic.cod
+2026-02-08T12:44:37.4521315Z e.tex)
+2026-02-08T12:44:37.4521884Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigonome
+2026-02-08T12:44:37.4584743Z tric.code.tex)
+2026-02-08T12:44:37.4585381Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.random.co
+2026-02-08T12:44:37.4592727Z de.tex)
+2026-02-08T12:44:37.4593289Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compariso
+2026-02-08T12:44:37.4604902Z n.code.tex)
+2026-02-08T12:44:37.4605496Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.code
+2026-02-08T12:44:37.4615713Z .tex)
+2026-02-08T12:44:37.4616409Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round.cod
+2026-02-08T12:44:37.4623389Z e.tex)
+2026-02-08T12:44:37.4624278Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.code
+2026-02-08T12:44:37.4636992Z .tex)
+2026-02-08T12:44:37.4637591Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integerar
+2026-02-08T12:44:37.4644000Z ithmetics.code.tex)
+2026-02-08T12:44:37.4652232Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
+2026-02-08T12:44:37.4724539Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex))
+2026-02-08T12:44:37.4730212Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+2026-02-08T12:44:37.4731254Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.code.t
+2026-02-08T12:44:37.4765517Z ex)
+2026-02-08T12:44:37.4766254Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconstruct
+2026-02-08T12:44:37.4787731Z .code.tex)
+2026-02-08T12:44:37.4788262Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage.cod
+2026-02-08T12:44:37.4806521Z e.tex)
+2026-02-08T12:44:37.4807106Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.code.t
+2026-02-08T12:44:37.4828517Z ex)
+2026-02-08T12:44:37.4829203Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicstate.
+2026-02-08T12:44:37.4839528Z code.tex)
+2026-02-08T12:44:37.4840107Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransformatio
+2026-02-08T12:44:37.4856027Z ns.code.tex)
+2026-02-08T12:44:37.4856969Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.code.te
+2026-02-08T12:44:37.4863746Z x)
+2026-02-08T12:44:37.4864343Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.code.
+2026-02-08T12:44:37.4869286Z tex)
+2026-02-08T12:44:37.4869879Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathprocessin
+2026-02-08T12:44:37.4880174Z g.code.tex)
+2026-02-08T12:44:37.4881030Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.code.t
+2026-02-08T12:44:37.4947942Z ex)
+2026-02-08T12:44:37.4948749Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.code.te
+2026-02-08T12:44:37.4963924Z x)
+2026-02-08T12:44:37.4964592Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.code.te
+2026-02-08T12:44:37.4976239Z x)
+2026-02-08T12:44:37.4976868Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.code
+2026-02-08T12:44:37.5004132Z .tex)
+2026-02-08T12:44:37.5004865Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.code.t
+2026-02-08T12:44:37.5011623Z ex)
+2026-02-08T12:44:37.5012109Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransparency.
+2026-02-08T12:44:37.5024368Z code.tex)
+2026-02-08T12:44:37.5024973Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.code
+2026-02-08T12:44:37.5033219Z .tex)
+2026-02-08T12:44:37.5041281Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.tex)
+2026-02-08T12:44:37.5052283Z ))
+2026-02-08T12:44:37.5053094Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.code.te
+2026-02-08T12:44:37.5080066Z x)
+2026-02-08T12:44:37.5100297Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.tex)
+2026-02-08T12:44:37.5121332Z 
+2026-02-08T12:44:37.5121820Z (/opt/texlive/texdir/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-0-6
+2026-02-08T12:44:37.5189252Z 5.sty)
+2026-02-08T12:44:37.5189920Z (/opt/texlive/texdir/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version-1-1
+2026-02-08T12:44:37.5240915Z 8.sty)) (/opt/texlive/texdir/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+2026-02-08T12:44:37.5250749Z (/opt/texlive/texdir/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+2026-02-08T12:44:37.5275647Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex))
+2026-02-08T12:44:37.5289864Z (/opt/texlive/texdir/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+2026-02-08T12:44:37.5311131Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+2026-02-08T12:44:37.5349098Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex))
+2026-02-08T12:44:37.5350786Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.code.te
+2026-02-08T12:44:37.5365011Z x
+2026-02-08T12:44:37.5365786Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandler
+2026-02-08T12:44:37.5494212Z s.code.tex)
+2026-02-08T12:44:37.5494968Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.te
+2026-02-08T12:44:37.5630023Z x)
+2026-02-08T12:44:37.5630633Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.5693109Z kzlibrarytopaths.code.tex)))
+2026-02-08T12:44:37.5714179Z (/opt/texlive/texdir/texmf-dist/tex/latex/tikzpagenodes/tikzpagenodes.sty
+2026-02-08T12:44:37.5742975Z (/opt/texlive/texdir/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty))
+2026-02-08T12:44:37.5743879Z (/opt/texlive/texdir/texmf-dist/tex/latex/tikzmark/tikzlibrarytikzmark.code.tex
+2026-02-08T12:44:37.5806170Z )
+2026-02-08T12:44:37.5806991Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.5833714Z kzlibrarycalc.code.tex)
+2026-02-08T12:44:37.5834482Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.5848445Z kzlibraryshapes.geometric.code.tex
+2026-02-08T12:44:37.5849232Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshap
+2026-02-08T12:44:37.5927910Z es.geometric.code.tex))
+2026-02-08T12:44:37.5928566Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.5940827Z kzlibraryarrows.code.tex
+2026-02-08T12:44:37.5941782Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code
+2026-02-08T12:44:37.6075695Z .tex))
+2026-02-08T12:44:37.6076402Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.6107244Z kzlibrarybackgrounds.code.tex)
+2026-02-08T12:44:37.6108033Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.6120996Z kzlibraryshadings.code.tex
+2026-02-08T12:44:37.6121654Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/pgflibraryshadings.co
+2026-02-08T12:44:37.6151425Z de.tex))
+2026-02-08T12:44:37.6152108Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.6167210Z kzlibraryshapes.arrows.code.tex
+2026-02-08T12:44:37.6167923Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshap
+2026-02-08T12:44:37.6218416Z es.arrows.code.tex))
+2026-02-08T12:44:37.6219300Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.6234381Z kzlibraryshapes.symbols.code.tex
+2026-02-08T12:44:37.6235072Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshap
+2026-02-08T12:44:37.6298157Z es.symbols.code.tex))
+2026-02-08T12:44:37.6298805Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.6311992Z kzlibraryshadows.code.tex
+2026-02-08T12:44:37.6312918Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.6325331Z kzlibraryfadings.code.tex
+2026-02-08T12:44:37.6326019Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/pgflibraryfadings.cod
+2026-02-08T12:44:37.6634543Z e.tex)))
+2026-02-08T12:44:37.6635477Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.6657533Z kzlibrarypositioning.code.tex)
+2026-02-08T12:44:37.6658534Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.6677391Z kzlibraryfit.code.tex)
+2026-02-08T12:44:37.6678236Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.6691880Z kzlibraryautomata.code.tex
+2026-02-08T12:44:37.6692987Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.6707033Z kzlibraryshapes.multipart.code.tex
+2026-02-08T12:44:37.6707876Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshap
+2026-02-08T12:44:37.6796940Z es.multipart.code.tex)))
+2026-02-08T12:44:37.6797762Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.6810182Z kzlibrarypatterns.code.tex
+2026-02-08T12:44:37.6811176Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/pgflibrarypatterns.co
+2026-02-08T12:44:37.7198332Z de.tex))
+2026-02-08T12:44:37.7199024Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.7211902Z kzlibraryintersections.code.tex
+2026-02-08T12:44:37.7212801Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/pgflibraryintersectio
+2026-02-08T12:44:37.7225323Z ns.code.tex
+2026-02-08T12:44:37.7226037Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/pgflibraryfpu.code.te
+2026-02-08T12:44:37.7317458Z x))) (/opt/texlive/texdir/texmf-dist/tex/latex/pgfplots/pgfplots.sty
+2026-02-08T12:44:37.7329581Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
+2026-02-08T12:44:37.7333178Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfplots.code.tex
+2026-02-08T12:44:37.7423408Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfplotscore.code.tex
+2026-02-08T12:44:37.7424053Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/sys/pgfplotssysgeneric.cod
+2026-02-08T12:44:37.7434727Z e.tex))
+2026-02-08T12:44:37.7435308Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/libs/pgfplotslibrary.code.
+2026-02-08T12:44:37.7441095Z tex)
+2026-02-08T12:44:37.7441655Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsold
+2026-02-08T12:44:37.7449459Z pgfsupp_loader.code.tex
+2026-02-08T12:44:37.7450080Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/oldpgfcompatib/pgfplotsold
+2026-02-08T12:44:37.7467676Z pgfsupp_pgfutil-common-lists.tex)
+2026-02-08T12:44:37.7468371Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/luamath/pgflibrarylua
+2026-02-08T12:44:37.7492642Z math.code.tex))
+2026-02-08T12:44:37.7493359Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.code.tex
+2026-02-08T12:44:37.7526818Z 
+2026-02-08T12:44:37.7527594Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotslist
+2026-02-08T12:44:37.7536835Z structure.code.tex)
+2026-02-08T12:44:37.7537435Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotslist
+2026-02-08T12:44:37.7549641Z structureext.code.tex)
+2026-02-08T12:44:37.7550265Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsarra
+2026-02-08T12:44:37.7561514Z y.code.tex)
+2026-02-08T12:44:37.7562068Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsmatr
+2026-02-08T12:44:37.7571480Z ix.code.tex)
+2026-02-08T12:44:37.7572058Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstableshar
+2026-02-08T12:44:37.7630223Z ed.code.tex)
+2026-02-08T12:44:37.7630932Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/liststructure/pgfplotsdequ
+2026-02-08T12:44:37.7635554Z e.code.tex)
+2026-02-08T12:44:37.7636304Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.code.t
+2026-02-08T12:44:37.7639370Z ex
+2026-02-08T12:44:37.7640046Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/util/pgfplotsbinary.data.c
+2026-02-08T12:44:37.7661275Z ode.tex))
+2026-02-08T12:44:37.7661834Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/util/pgfplotsutil.verb.cod
+2026-02-08T12:44:37.7671771Z e.tex)
+2026-02-08T12:44:37.7672524Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/libs/pgflibrarypgfplots.su
+2026-02-08T12:44:37.7691620Z rfshading.code.tex
+2026-02-08T12:44:37.7692246Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/sys/pgflibrarypgfplots.sur
+2026-02-08T12:44:37.7697859Z fshading.pgfsys-luatex.def)))
+2026-02-08T12:44:37.7698577Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/util/pgfplotscolormap.code
+2026-02-08T12:44:37.7700798Z .tex
+2026-02-08T12:44:37.7701380Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/util/pgfplotscolor.code.te
+2026-02-08T12:44:37.7809689Z x))
+2026-02-08T12:44:37.7810281Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfplotsstackedplots.code.
+2026-02-08T12:44:37.7821502Z tex)
+2026-02-08T12:44:37.7822099Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfplotsplothandlers.code.
+2026-02-08T12:44:37.7897460Z tex
+2026-02-08T12:44:37.7898053Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplothandler.co
+2026-02-08T12:44:37.7901329Z de.tex
+2026-02-08T12:44:37.7901916Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfplotsmeshplotimage.code
+2026-02-08T12:44:37.7989490Z .tex)))
+2026-02-08T12:44:37.8014451Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfplots.scaling.code.tex)
+2026-02-08T12:44:37.8017002Z 
+2026-02-08T12:44:37.8017577Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfplotscoordprocessing.co
+2026-02-08T12:44:37.8149537Z de.tex)
+2026-02-08T12:44:37.8159692Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfplots.errorbars.code.te
+2026-02-08T12:44:37.8160390Z x)
+2026-02-08T12:44:37.8164889Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfplots.markers.code.tex)
+2026-02-08T12:44:37.8193428Z  (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfplotsticks.code.tex)
+2026-02-08T12:44:37.8210077Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfplots.paths.code.tex)
+2026-02-08T12:44:37.8214394Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.8215157Z kzlibrarydecorations.code.tex
+2026-02-08T12:44:37.8215824Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/modules/pgfmoduledecorations.co
+2026-02-08T12:44:37.8284266Z de.tex))
+2026-02-08T12:44:37.8284891Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.8299676Z kzlibrarydecorations.pathmorphing.code.tex
+2026-02-08T12:44:37.8301066Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrar
+2026-02-08T12:44:37.8331781Z ydecorations.pathmorphing.code.tex))
+2026-02-08T12:44:37.8332722Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.8347434Z kzlibrarydecorations.pathreplacing.code.tex
+2026-02-08T12:44:37.8348581Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrar
+2026-02-08T12:44:37.8368550Z ydecorations.pathreplacing.code.tex))
+2026-02-08T12:44:37.8369318Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.c
+2026-02-08T12:44:37.9341105Z ontourlua.code.tex))
+2026-02-08T12:44:37.9341788Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:37.9355476Z kzlibraryplotmarks.code.tex
+2026-02-08T12:44:37.9356275Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/pgflibraryplotmarks.c
+2026-02-08T12:44:37.9533123Z ode.tex)))
+2026-02-08T12:44:37.9533854Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.p
+2026-02-08T12:44:37.9623340Z atchplots.code.tex)
+2026-02-08T12:44:37.9624085Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.g
+2026-02-08T12:44:37.9659317Z roupplots.code.tex)
+2026-02-08T12:44:37.9660154Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.f
+2026-02-08T12:44:37.9673744Z illbetween.code.tex
+2026-02-08T12:44:37.9674568Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfcontrib/tikzlibraryfill
+2026-02-08T12:44:37.9690676Z between.code.tex
+2026-02-08T12:44:37.9691701Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfcontrib/tikzlibrarydeco
+2026-02-08T12:44:37.9705964Z rations.softclip.code.tex
+2026-02-08T12:44:37.9706685Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfcontrib/pgflibraryfillb
+2026-02-08T12:44:37.9762207Z etween.code.tex)))
+2026-02-08T12:44:37.9763015Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.d
+2026-02-08T12:44:37.9774825Z ecorations.softclip.code.tex))
+2026-02-08T12:44:37.9775509Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.p
+2026-02-08T12:44:37.9805180Z olar.code.tex)
+2026-02-08T12:44:37.9810395Z (/opt/texlive/texdir/texmf-dist/tex/latex/pgfplots/pgfplotstable.sty
+2026-02-08T12:44:37.9817660Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/pgfplots.revision.tex)
+2026-02-08T12:44:37.9818687Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstable.cod
+2026-02-08T12:44:37.9821832Z e.tex
+2026-02-08T12:44:37.9822609Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/numtable/pgfplotstable.col
+2026-02-08T12:44:37.9954736Z type.code.tex))) (/opt/texlive/texdir/texmf-dist/tex/latex/pgf-pie/pgf-pie.sty
+2026-02-08T12:44:37.9972151Z (/opt/texlive/texdir/texmf-dist/tex/latex/pgf-pie/tikzlibrarypie.code.tex
+2026-02-08T12:44:38.0021402Z (/opt/texlive/texdir/texmf-dist/tex/latex/carlisle/scalefnt.sty)))
+2026-02-08T12:44:38.0059284Z (/opt/texlive/texdir/texmf-dist/tex/latex/tools/longtable.sty)
+2026-02-08T12:44:38.0096050Z (/opt/texlive/texdir/texmf-dist/tex/latex/booktabs/booktabs.sty)
+2026-02-08T12:44:38.0122101Z (/opt/texlive/texdir/texmf-dist/tex/latex/multirow/multirow.sty)
+2026-02-08T12:44:38.0160986Z (/opt/texlive/texdir/texmf-dist/tex/latex/tools/multicol.sty)
+2026-02-08T12:44:38.0189567Z (/opt/texlive/texdir/texmf-dist/tex/latex/tools/tabularx.sty)
+2026-02-08T12:44:38.0308159Z (/opt/texlive/texdir/texmf-dist/tex/latex/colortbl/colortbl.sty)
+2026-02-08T12:44:38.0342724Z (/opt/texlive/texdir/texmf-dist/tex/latex/ragged2e/ragged2e.sty)
+2026-02-08T12:44:38.0372932Z (/opt/texlive/texdir/texmf-dist/tex/latex/threeparttable/threeparttable.sty)
+2026-02-08T12:44:38.0391584Z (/opt/texlive/texdir/texmf-dist/tex/latex/diagbox/diagbox.sty
+2026-02-08T12:44:38.0405554Z (/opt/texlive/texdir/texmf-dist/tex/latex/pict2e/pict2e.sty
+2026-02-08T12:44:38.0419927Z (/opt/texlive/texdir/texmf-dist/tex/latex/pict2e/pict2e.cfg)
+2026-02-08T12:44:38.0495368Z (/opt/texlive/texdir/texmf-dist/tex/latex/pict2e/p2e-luatex.def))
+2026-02-08T12:44:38.0550278Z (/opt/texlive/texdir/texmf-dist/tex/latex/tools/calc.sty))
+2026-02-08T12:44:38.0571153Z (/opt/texlive/texdir/texmf-dist/tex/latex/tabularray/tabularray.sty
+2026-02-08T12:44:38.2568048Z (/opt/texlive/texdir/texmf-dist/tex/latex/ninecolors/ninecolors.sty))
+2026-02-08T12:44:38.2585829Z (/opt/texlive/texdir/texmf-dist/tex/latex/caption/subcaption.sty
+2026-02-08T12:44:38.2612207Z (/opt/texlive/texdir/texmf-dist/tex/latex/caption/caption.sty
+2026-02-08T12:44:38.2772139Z (/opt/texlive/texdir/texmf-dist/tex/latex/caption/caption3.sty)
+2026-02-08T12:44:38.2852251Z (/opt/texlive/texdir/texmf-dist/tex/latex/caption/ltcaption.sty)))
+2026-02-08T12:44:38.2890986Z (/opt/texlive/texdir/texmf-dist/tex/latex/setspace/setspace.sty)
+2026-02-08T12:44:38.2891930Z (/opt/texlive/texdir/texmf-dist/tex/latex/setspaceenhanced/setspaceenhanced.sty
+2026-02-08T12:44:38.2980446Z ) (/opt/texlive/texdir/texmf-dist/tex/latex/anyfontsize/anyfontsize.sty)
+2026-02-08T12:44:38.2988742Z (/opt/texlive/texdir/texmf-dist/tex/latex/textpos/textpos.sty
+2026-02-08T12:44:38.2989436Z Grid set 16 x 16 = 37.34424pt x 52.81543pt
+2026-02-08T12:44:38.3049881Z ) (/opt/texlive/texdir/texmf-dist/tex/latex/mdframed/mdframed.sty
+2026-02-08T12:44:38.3067935Z (/opt/texlive/texdir/texmf-dist/tex/latex/zref/zref-abspage.sty
+2026-02-08T12:44:38.3096811Z (/opt/texlive/texdir/texmf-dist/tex/latex/zref/zref-base.sty
+2026-02-08T12:44:38.3126001Z (/opt/texlive/texdir/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty)
+2026-02-08T12:44:38.3156855Z (/opt/texlive/texdir/texmf-dist/tex/generic/etexcmds/etexcmds.sty)
+2026-02-08T12:44:38.3207401Z (/opt/texlive/texdir/texmf-dist/tex/latex/auxhook/auxhook.sty)))
+2026-02-08T12:44:38.3273148Z (/opt/texlive/texdir/texmf-dist/tex/latex/needspace/needspace.sty)
+2026-02-08T12:44:38.3355375Z (/opt/texlive/texdir/texmf-dist/tex/latex/mdframed/md-frame-0.mdf))
+2026-02-08T12:44:38.3375167Z (/opt/texlive/texdir/texmf-dist/tex/generic/soul/soul.sty
+2026-02-08T12:44:38.3458977Z (/opt/texlive/texdir/texmf-dist/tex/generic/soul/soul-ori.sty))
+2026-02-08T12:44:38.3499345Z (/opt/texlive/texdir/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+2026-02-08T12:44:38.3553227Z (/opt/texlive/texdir/texmf-dist/tex/latex/eso-pic/eso-pic.sty)
+2026-02-08T12:44:38.3647986Z (/opt/texlive/texdir/texmf-dist/tex/latex/pdfpages/ppluatex.def))
+2026-02-08T12:44:38.3677383Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/hyperref.sty
+2026-02-08T12:44:38.3710925Z (/opt/texlive/texdir/texmf-dist/tex/generic/pdfescape/pdfescape.sty)
+2026-02-08T12:44:38.3767398Z (/opt/texlive/texdir/texmf-dist/tex/latex/hycolor/hycolor.sty)
+2026-02-08T12:44:38.3785148Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/nameref.sty
+2026-02-08T12:44:38.3820465Z (/opt/texlive/texdir/texmf-dist/tex/latex/refcount/refcount.sty)
+2026-02-08T12:44:38.3926990Z (/opt/texlive/texdir/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty))
+2026-02-08T12:44:38.3994975Z  (/opt/texlive/texdir/texmf-dist/tex/generic/stringenc/stringenc.sty)
+2026-02-08T12:44:38.4035171Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/pd1enc.def)
+2026-02-08T12:44:38.4072817Z (/opt/texlive/texdir/texmf-dist/tex/generic/intcalc/intcalc.sty)
+2026-02-08T12:44:38.4309178Z (/opt/texlive/texdir/texmf-dist/tex/latex/hyperref/puenc.def)
+2026-02-08T12:44:38.4335036Z (/opt/texlive/texdir/texmf-dist/tex/generic/bitset/bitset.sty
+2026-02-08T12:44:38.4484413Z (/opt/texlive/texdir/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty)))
+2026-02-08T12:44:38.4485355Z (/opt/texlive/texdir/texmf-dist/tex/latex/pdfmanagement-testphase/hgeneric-test
+2026-02-08T12:44:38.4494182Z phase.def
+2026-02-08T12:44:38.4494996Z (/opt/texlive/texdir/texmf-dist/tex/latex/pdfmanagement-testphase/hyperref-colo
+2026-02-08T12:44:38.5051626Z rschemes.def)) (/opt/texlive/texdir/texmf-dist/tex/latex/float/float.sty)
+2026-02-08T12:44:38.5104228Z (/opt/texlive/texdir/texmf-dist/tex/latex/floatbytocbasic/floatbytocbasic.sty)
+2026-02-08T12:44:38.5133642Z (/opt/texlive/texdir/texmf-dist/tex/latex/placeins/placeins.sty)
+2026-02-08T12:44:38.5158448Z (/opt/texlive/texdir/texmf-dist/tex/latex/tools/afterpage.sty)
+2026-02-08T12:44:38.5210258Z (/opt/texlive/texdir/texmf-dist/tex/latex/graphics/rotating.sty)
+2026-02-08T12:44:38.5230730Z (/opt/texlive/texdir/texmf-dist/tex/latex/todonotes/todonotes.sty
+2026-02-08T12:44:38.5235222Z (/opt/texlive/texdir/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+2026-02-08T12:44:38.5239558Z (/opt/texlive/texdir/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+2026-02-08T12:44:38.5351168Z (/opt/texlive/texdir/texmf-dist/tex/generic/xkeyval/xkvutils.tex))))
+2026-02-08T12:44:38.5374813Z (/opt/texlive/texdir/texmf-dist/tex/latex/glossaries/base/glossaries.sty
+2026-02-08T12:44:38.5410892Z (/opt/texlive/texdir/texmf-dist/tex/latex/mfirstuc/mfirstuc.sty)
+2026-02-08T12:44:38.5433903Z (/opt/texlive/texdir/texmf-dist/tex/latex/xfor/xfor.sty)
+2026-02-08T12:44:38.5509730Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsgen.sty)
+2026-02-08T12:44:38.6271648Z ("|kpsewhich --var-value=TEXMF_OUTPUT_DIRECTORY")
+2026-02-08T12:44:38.6286197Z (/opt/texlive/texdir/texmf-dist/tex/latex/tracklang/tracklang.sty
+2026-02-08T12:44:38.6561044Z (/opt/texlive/texdir/texmf-dist/tex/generic/tracklang/tracklang.tex))
+2026-02-08T12:44:38.6562054Z (/opt/texlive/texdir/texmf-dist/tex/latex/glossaries-spanish/glossaries-spanish
+2026-02-08T12:44:38.6572356Z .ldf
+2026-02-08T12:44:38.6573616Z (/opt/texlive/texdir/texmf-dist/tex/latex/glossaries-spanish/glossaries-spanish
+2026-02-08T12:44:38.6600665Z -noenc.ldf))
+2026-02-08T12:44:38.6621182Z (/opt/texlive/texdir/texmf-dist/tex/latex/datatool/datatool-base.sty
+2026-02-08T12:44:38.6628919Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsmath.sty
+2026-02-08T12:44:38.6629634Z For additional information on amsmath, use the `?' option.
+2026-02-08T12:44:38.6673891Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amstext.sty)
+2026-02-08T12:44:38.6698391Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsbsy.sty)
+2026-02-08T12:44:38.6817455Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsmath/amsopn.sty))
+2026-02-08T12:44:38.6943547Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-amsmath.ltx)
+2026-02-08T12:44:38.7041255Z (/opt/texlive/texdir/texmf-dist/tex/latex/datatool/datatool-lua.def)
+2026-02-08T12:44:38.8018377Z (/opt/texlive/texdir/texmf-dist/tex/latex/datatool/datatool-utf8.ldf)
+2026-02-08T12:44:38.8018764Z 
+2026-02-08T12:44:38.8019003Z Package tracklang Warning: No `datatool' support for dialect `spanish'  on inpu
+2026-02-08T12:44:38.8019682Z t line 9924.
+2026-02-08T12:44:38.8019803Z 
+2026-02-08T12:44:38.8238163Z )
+2026-02-08T12:44:38.8238907Z (/opt/texlive/texdir/texmf-dist/tex/latex/glossaries/styles/glossary-hypernav.s
+2026-02-08T12:44:38.8270094Z ty)
+2026-02-08T12:44:38.8299222Z (/opt/texlive/texdir/texmf-dist/tex/latex/glossaries/styles/glossary-list.sty)
+2026-02-08T12:44:38.8330908Z (/opt/texlive/texdir/texmf-dist/tex/latex/glossaries/styles/glossary-long.sty)
+2026-02-08T12:44:38.8349609Z (/opt/texlive/texdir/texmf-dist/tex/latex/glossaries/styles/glossary-super.sty
+2026-02-08T12:44:38.8390081Z (/opt/texlive/texdir/texmf-dist/tex/latex/supertabular/supertabular.sty))
+2026-02-08T12:44:38.8521884Z (/opt/texlive/texdir/texmf-dist/tex/latex/glossaries/styles/glossary-tree.sty))
+2026-02-08T12:44:38.8567884Z  (/opt/texlive/texdir/texmf-dist/tex/latex/mathtools/mathtools.sty
+2026-02-08T12:44:38.8686341Z (/opt/texlive/texdir/texmf-dist/tex/latex/mathtools/mhsetup.sty))
+2026-02-08T12:44:38.8713042Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-mathtools.ltx)
+2026-02-08T12:44:38.8756145Z (/opt/texlive/texdir/texmf-dist/tex/latex/amscls/amsthm.sty)
+2026-02-08T12:44:38.8788125Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/amsfonts.sty)
+2026-02-08T12:44:38.8841292Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/amssymb.sty)
+2026-02-08T12:44:38.8873232Z (/opt/texlive/texdir/texmf-dist/tex/latex/tools/bm.sty)
+2026-02-08T12:44:38.8897356Z (/opt/texlive/texdir/texmf-dist/tex/latex/jknapltx/mathrsfs.sty)
+2026-02-08T12:44:38.8927165Z (/opt/texlive/texdir/texmf-dist/tex/latex/units/nicefrac.sty)
+2026-02-08T12:44:38.8952642Z (/opt/texlive/texdir/texmf-dist/tex/latex/unicode-math/unicode-math.sty
+2026-02-08T12:44:38.8982718Z (/opt/texlive/texdir/texmf-dist/tex/latex/unicode-math/unicode-math-luatex.sty
+2026-02-08T12:44:38.8991078Z (/opt/texlive/texdir/texmf-dist/tex/latex/base/fix-cm.sty
+2026-02-08T12:44:38.9053612Z (/opt/texlive/texdir/texmf-dist/tex/latex/base/ts1enc.def))
+2026-02-08T12:44:38.9180400Z (/opt/texlive/texdir/texmf-dist/tex/lualatex/lualatex-math/lualatex-math.sty)
+2026-02-08T12:44:38.9498364Z (/opt/texlive/texdir/texmf-dist/tex/latex/unicode-math/unicode-math-table.tex))
+2026-02-08T12:44:38.9528726Z )
+2026-02-08T12:44:38.9539929Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex-lab/latex-lab-unicode-math.ltx)
+2026-02-08T12:44:38.9582949Z (./sty/eps-portadas.sty
+2026-02-08T12:44:38.9583227Z 
+2026-02-08T12:44:38.9583632Z LaTeX Warning: You have requested package `sty/eps-portadas',
+2026-02-08T12:44:38.9584260Z                but the package provides `eps-portadas'.
+2026-02-08T12:44:38.9584622Z 
+2026-02-08T12:44:38.9618256Z (/opt/texlive/texdir/texmf-dist/tex/generic/xstring/xstring.sty
+2026-02-08T12:44:39.0117718Z (/opt/texlive/texdir/texmf-dist/tex/generic/xstring/xstring.tex)))
+2026-02-08T12:44:39.0118510Z (./sty/eps-codigo.sty
+2026-02-08T12:44:39.0118699Z 
+2026-02-08T12:44:39.0118927Z LaTeX Warning: You have requested package `sty/eps-codigo',
+2026-02-08T12:44:39.0119376Z                but the package provides `eps-codigo'.
+2026-02-08T12:44:39.0119622Z 
+2026-02-08T12:44:39.0158075Z (/opt/texlive/texdir/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
+2026-02-08T12:44:39.0203192Z (/opt/texlive/texdir/texmf-dist/tex/latex/tools/verbatim.sty)
+2026-02-08T12:44:39.0203901Z (/opt/texlive/texdir/texmf-dist/tex/latex/environ/environ.sty
+2026-02-08T12:44:39.0630691Z (/opt/texlive/texdir/texmf-dist/tex/latex/trimspaces/trimspaces.sty)))
+2026-02-08T12:44:39.0631513Z (/opt/texlive/texdir/texmf-dist/tex/latex/tcolorbox/tcbminted.code.tex
+2026-02-08T12:44:39.0632035Z Library (tcolorbox): 'tcbminted.code.tex' version '6.9.0'
+2026-02-08T12:44:39.0667589Z (/opt/texlive/texdir/texmf-dist/tex/latex/minted/minted.sty
+2026-02-08T12:44:39.0705387Z (/opt/texlive/texdir/texmf-dist/tex/generic/catchfile/catchfile.sty)
+2026-02-08T12:44:39.0725735Z (/opt/texlive/texdir/texmf-dist/tex/latex/fvextra/fvextra.sty
+2026-02-08T12:44:39.0829616Z (/opt/texlive/texdir/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty)
+2026-02-08T12:44:39.0848411Z (/opt/texlive/texdir/texmf-dist/tex/latex/upquote/upquote.sty
+2026-02-08T12:44:39.0900474Z (/opt/texlive/texdir/texmf-dist/tex/latex/base/textcomp.sty))
+2026-02-08T12:44:39.1260069Z (/opt/texlive/texdir/texmf-dist/tex/latex/lineno/lineno.sty))
+2026-02-08T12:44:39.1310360Z (/opt/texlive/texdir/texmf-dist/tex/latex/latex2pydata/latex2pydata.sty)
+2026-02-08T12:44:39.1340752Z (/opt/texlive/texdir/texmf-dist/tex/latex/pgfopts/pgfopts.sty)
+2026-02-08T12:44:39.1960637Z (/opt/texlive/texdir/texmf-dist/tex/latex/tools/shellesc.sty))
+2026-02-08T12:44:39.1961610Z (/opt/texlive/texdir/texmf-dist/tex/latex/tcolorbox/tcblistingscore.code.tex
+2026-02-08T12:44:39.1962830Z Library (tcolorbox): 'tcblistingscore.code.tex' version '6.9.0'
+2026-02-08T12:44:39.1967995Z (/opt/texlive/texdir/texmf-dist/tex/latex/tcolorbox/tcbprocessing.code.tex
+2026-02-08T12:44:39.1968800Z Library (tcolorbox): 'tcbprocessing.code.tex' version '6.9.0'
+2026-02-08T12:44:39.2058840Z ))) (/opt/texlive/texdir/texmf-dist/tex/latex/tcolorbox/tcbskins.code.tex
+2026-02-08T12:44:39.2059646Z Library (tcolorbox): 'tcbskins.code.tex' version '6.9.0'
+2026-02-08T12:44:39.2101820Z (/opt/texlive/texdir/texmf-dist/tex/latex/tikzfill/tikzfill.image.sty
+2026-02-08T12:44:39.2124188Z (/opt/texlive/texdir/texmf-dist/tex/latex/tikzfill/tikzfill-common.sty)
+2026-02-08T12:44:39.2125207Z (/opt/texlive/texdir/texmf-dist/tex/latex/tikzfill/tikzlibraryfill.image.code.t
+2026-02-08T12:44:39.2376646Z ex))
+2026-02-08T12:44:39.2377713Z (/opt/texlive/texdir/texmf-dist/tex/latex/tcolorbox/tcbskinsjigsaw.code.tex
+2026-02-08T12:44:39.2378717Z Library (tcolorbox): 'tcbskinsjigsaw.code.tex' version '6.9.0'
+2026-02-08T12:44:39.2398331Z )) (/opt/texlive/texdir/texmf-dist/tex/latex/tcolorbox/tcbbreakable.code.tex
+2026-02-08T12:44:39.2399734Z Library (tcolorbox): 'tcbbreakable.code.tex' version '6.9.0'
+2026-02-08T12:44:39.2463513Z (/opt/texlive/texdir/texmf-dist/tex/latex/pdfcol/pdfcol.sty)
+2026-02-08T12:44:39.2513685Z (/opt/texlive/texdir/texmf-dist/tex/generic/iftex/ifluatex.sty))
+2026-02-08T12:44:39.2515523Z (/opt/texlive/texdir/texmf-dist/tex/latex/tcolorbox/tcbtheorems.code.tex
+2026-02-08T12:44:39.2516319Z Library (tcolorbox): 'tcbtheorems.code.tex' version '6.9.0'
+2026-02-08T12:44:39.2638422Z ) (/opt/texlive/texdir/texmf-dist/tex/latex/fontawesome5/fontawesome5.sty
+2026-02-08T12:44:39.2639351Z (/opt/texlive/texdir/texmf-dist/tex/latex/fontawesome5/fontawesome5-utex-helper
+2026-02-08T12:44:39.2678913Z .sty (/opt/texlive/texdir/texmf-dist/tex/luatex/luatexbase/luatexbase.sty
+2026-02-08T12:44:39.2714717Z (/opt/texlive/texdir/texmf-dist/tex/luatex/ctablestack/ctablestack.sty))
+2026-02-08T12:44:39.4467901Z (/opt/texlive/texdir/texmf-dist/tex/latex/fontawesome5/tufontawesomefree.fd)
+2026-02-08T12:44:39.5316229Z (/opt/texlive/texdir/texmf-dist/tex/latex/fontawesome5/tufontawesomebrands.fd))
+2026-02-08T12:44:39.6605159Z ))) (./configuracion.tex) (./sty/eps-componentes.sty
+2026-02-08T12:44:39.6605595Z 
+2026-02-08T12:44:39.6605825Z LaTeX Warning: You have requested package `sty/eps-componentes',
+2026-02-08T12:44:39.6606334Z                but the package provides `eps-componentes'.
+2026-02-08T12:44:39.6606613Z 
+2026-02-08T12:44:39.6757812Z (/opt/texlive/texdir/texmf-dist/tex/latex/enumitem/enumitem.sty)
+2026-02-08T12:44:39.6857650Z (./sty/componentes/eps-comunes.sty) (./sty/componentes/eps-software.sty
+2026-02-08T12:44:39.6875445Z (/opt/texlive/texdir/texmf-dist/tex/latex/forest/forest.sty
+2026-02-08T12:44:39.6876441Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:39.6890010Z kzlibraryshapes.code.tex
+2026-02-08T12:44:39.6890781Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:39.6905261Z kzlibraryshapes.misc.code.tex
+2026-02-08T12:44:39.6905989Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshap
+2026-02-08T12:44:39.6946987Z es.misc.code.tex))
+2026-02-08T12:44:39.6947595Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:39.6963656Z kzlibraryshapes.callouts.code.tex
+2026-02-08T12:44:39.6964362Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshap
+2026-02-08T12:44:39.7013788Z es.callouts.code.tex)))
+2026-02-08T12:44:39.7044132Z (/opt/texlive/texdir/texmf-dist/tex/latex/elocalloc/elocalloc.sty)
+2026-02-08T12:44:39.7985835Z (/opt/texlive/texdir/texmf-dist/tex/latex/inlinedef/inlinedef.sty))
+2026-02-08T12:44:39.7996766Z (/opt/texlive/texdir/texmf-dist/tex/latex/varwidth/varwidth.sty)
+2026-02-08T12:44:39.7997438Z ==> First Aid for varwidth.sty applied!
+2026-02-08T12:44:39.8111917Z ) (./sty/componentes/eps-telecom.sty
+2026-02-08T12:44:39.8113013Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgfplots/libs/tikzlibrarypgfplots.s
+2026-02-08T12:44:39.8166667Z mithchart.code.tex)
+2026-02-08T12:44:39.8188984Z (/opt/texlive/texdir/texmf-dist/tex/latex/circuitikz/circuitikz.sty
+2026-02-08T12:44:39.8189900Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.meta
+2026-02-08T12:44:39.8720557Z .code.tex)
+2026-02-08T12:44:39.8721150Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:39.8725584Z kzlibrarybending.code.tex
+2026-02-08T12:44:39.8726245Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/modules/pgfmodulebending.code.t
+2026-02-08T12:44:39.8730003Z ex
+2026-02-08T12:44:39.8730582Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/modules/pgfmodulenonlineartrans
+2026-02-08T12:44:39.8750203Z formations.code.tex)
+2026-02-08T12:44:39.8750899Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/libraries/pgflibrarycurvilinear
+2026-02-08T12:44:39.8786041Z .code.tex)))
+2026-02-08T12:44:39.8786767Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/ti
+2026-02-08T12:44:39.8799753Z kzlibraryfpu.code.tex)
+2026-02-08T12:44:39.8945603Z (/opt/texlive/texdir/texmf-dist/tex/generic/circuitikz/pgfcirc.defines.tex)
+2026-02-08T12:44:39.8954338Z (/opt/texlive/texdir/texmf-dist/tex/generic/circuitikz/pgfcircutils.tex)
+2026-02-08T12:44:39.8987926Z (/opt/texlive/texdir/texmf-dist/tex/generic/circuitikz/pgfcircpath.tex)
+2026-02-08T12:44:39.9025518Z (/opt/texlive/texdir/texmf-dist/tex/generic/circuitikz/pgfcircshapes.tex)
+2026-02-08T12:44:39.9079565Z (/opt/texlive/texdir/texmf-dist/tex/generic/circuitikz/pgfcircmonopoles.tex)
+2026-02-08T12:44:39.9853620Z (/opt/texlive/texdir/texmf-dist/tex/generic/circuitikz/pgfcircbipoles.tex)
+2026-02-08T12:44:40.0444800Z (/opt/texlive/texdir/texmf-dist/tex/generic/circuitikz/pgfcirctripoles.tex)
+2026-02-08T12:44:40.0639657Z (/opt/texlive/texdir/texmf-dist/tex/generic/circuitikz/pgfcircquadpoles.tex)
+2026-02-08T12:44:40.0743193Z (/opt/texlive/texdir/texmf-dist/tex/generic/circuitikz/pgfcircmultipoles.tex)
+2026-02-08T12:44:40.0768779Z (/opt/texlive/texdir/texmf-dist/tex/generic/circuitikz/pgfcirclabel.tex)
+2026-02-08T12:44:40.0801600Z (/opt/texlive/texdir/texmf-dist/tex/generic/circuitikz/pgfcircvoltage.tex)
+2026-02-08T12:44:40.0818669Z (/opt/texlive/texdir/texmf-dist/tex/generic/circuitikz/pgfcirccurrent.tex)
+2026-02-08T12:44:40.0870262Z (/opt/texlive/texdir/texmf-dist/tex/generic/circuitikz/pgfcircflow.tex))
+2026-02-08T12:44:40.1079612Z (/opt/texlive/texdir/texmf-dist/tex/latex/siunitx/siunitx.sty
+2026-02-08T12:44:40.1834205Z (/opt/texlive/texdir/texmf-dist/tex/latex/translations/translations.sty)))
+2026-02-08T12:44:40.1852797Z (./sty/componentes/eps-arquitectura.sty
+2026-02-08T12:44:40.1876056Z (/opt/texlive/texdir/texmf-dist/tex/latex/pgfgantt/pgfgantt.sty
+2026-02-08T12:44:40.1895140Z (/opt/texlive/texdir/texmf-dist/tex/latex/pgf/utilities/pgfcalendar.sty
+2026-02-08T12:44:40.1915464Z (/opt/texlive/texdir/texmf-dist/tex/generic/pgf/utilities/pgfcalendar.code.tex)
+2026-02-08T12:44:40.2074792Z )) (/opt/texlive/texdir/texmf-dist/tex/latex/eurosym/eurosym.sty))
+2026-02-08T12:44:40.2098503Z (./sty/componentes/eps-quimica.sty
+2026-02-08T12:44:40.2105129Z (/opt/texlive/texdir/texmf-dist/tex/generic/chemfig/chemfig.sty
+2026-02-08T12:44:40.2110534Z (/opt/texlive/texdir/texmf-dist/tex/generic/chemfig/chemfig.tex
+2026-02-08T12:44:40.2240948Z (/opt/texlive/texdir/texmf-dist/tex/generic/simplekv/simplekv.tex)))
+2026-02-08T12:44:40.2284426Z (/opt/texlive/texdir/texmf-dist/tex/latex/chemmacros/chemmacros.sty
+2026-02-08T12:44:40.2285097Z Loading the chemmacros module `base' ...
+2026-02-08T12:44:40.2323189Z Loading the chemmacros module `errorcheck' ...
+2026-02-08T12:44:40.2344402Z Loading the chemmacros module `lang' ...
+2026-02-08T12:44:40.2380305Z Loading the chemmacros module `greek' ...
+2026-02-08T12:44:40.2859094Z (/opt/texlive/texdir/texmf-dist/tex/latex/chemgreek/chemgreek.sty)
+2026-02-08T12:44:40.2859774Z Loading the chemmacros module `formula' ...
+2026-02-08T12:44:40.2873990Z Loading the chemmacros module `charges' ...
+2026-02-08T12:44:40.2910374Z Loading the chemmacros module `acid-base' ...
+2026-02-08T12:44:40.2939967Z Loading the chemmacros module `symbols' ...
+2026-02-08T12:44:40.2948777Z Loading the chemmacros module `particles' ...
+2026-02-08T12:44:40.2981705Z Loading the chemmacros module `phases' ...
+2026-02-08T12:44:40.3008652Z Loading the chemmacros module `nomenclature' ...
+2026-02-08T12:44:40.3123615Z Loading the chemmacros module `tikz' ...
+2026-02-08T12:44:40.3140341Z Loading the chemmacros module `isotopes' ...
+2026-02-08T12:44:40.3231527Z (/opt/texlive/texdir/texmf-dist/tex/latex/elements/elements.sty)
+2026-02-08T12:44:40.3232215Z Loading the chemmacros module `mechanisms' ...
+2026-02-08T12:44:40.3245280Z Loading the chemmacros module `newman' ...
+2026-02-08T12:44:40.3257342Z Loading the chemmacros module `orbital' ...
+2026-02-08T12:44:40.3278854Z Loading the chemmacros module `polymers' ...
+2026-02-08T12:44:40.3357489Z Loading the chemmacros module `reactions' ...
+2026-02-08T12:44:40.3419987Z Loading the chemmacros module `redox' ...
+2026-02-08T12:44:40.3483809Z (/opt/texlive/texdir/texmf-dist/tex/latex/relsize/relsize.sty)
+2026-02-08T12:44:40.3484571Z Loading the chemmacros module `xfrac' ...
+2026-02-08T12:44:40.4040045Z (/opt/texlive/texdir/texmf-dist/tex/latex/xfrac/xfrac.sty)
+2026-02-08T12:44:40.4041213Z Loading the chemmacros module `scheme' ...
+2026-02-08T12:44:40.4092814Z (/opt/texlive/texdir/texmf-dist/tex/latex/chemnum/chemnum.sty
+2026-02-08T12:44:40.4251286Z (/opt/texlive/texdir/texmf-dist/tex/latex/psfrag/psfrag.sty))
+2026-02-08T12:44:40.4251900Z ==> First Aid for chemnum.sty applied!
+2026-02-08T12:44:40.4290761Z Loading the chemmacros module `spectroscopy' ...
+2026-02-08T12:44:40.4370991Z Loading the chemmacros module `thermodynamics' ...
+2026-02-08T12:44:40.4424227Z Loading the chemmacros module `units' ...
+2026-02-08T12:44:40.4443829Z Loading the chemmacros module `reactants' ...
+2026-02-08T12:44:40.4516683Z Loading the chemmacros module `translations' ...
+2026-02-08T12:44:40.4958607Z ) (/opt/texlive/texdir/texmf-dist/tex/latex/chemformula/chemformula.sty))
+2026-02-08T12:44:40.5158049Z (./sty/componentes/eps-geologia.sty) (./sty/componentes/eps-prevencion.sty))
+2026-02-08T12:44:40.5158645Z 
+2026-02-08T12:44:40.5159128Z Package glossaries Warning: can't automake `main': main.glo doesn't exist. Reru
+2026-02-08T12:44:40.5159989Z n may be required on input line 60.
+2026-02-08T12:44:40.5160341Z 
+2026-02-08T12:44:40.5178551Z 
+2026-02-08T12:44:40.5179413Z Package glossaries Warning: can't automake `acronym': main.acn doesn't exist. R
+2026-02-08T12:44:40.5180300Z erun may be required on input line 60.
+2026-02-08T12:44:40.5180606Z 
+2026-02-08T12:44:40.7099172Z (./contenido/anexos/acronimos.tex)
+2026-02-08T12:44:40.7195224Z (/opt/texlive/texdir/texmf-dist/tex/lualatex/luamml/luamml.sty
+2026-02-08T12:44:40.7221627Z (/opt/texlive/texdir/texmf-dist/tex/lualatex/luamml/luamml-patches-kernel.sty)
+2026-02-08T12:44:40.7229981Z (/opt/texlive/texdir/texmf-dist/tex/lualatex/luamml/luamml-patches-amsmath.sty)
+2026-02-08T12:44:40.7349216Z ) (/opt/texlive/texdir/texmf-dist/tex/latex/bookmark/bookmark.sty
+2026-02-08T12:44:40.8573672Z (/opt/texlive/texdir/texmf-dist/tex/latex/bookmark/bkm-pdftex.def)) (./main.aux
+2026-02-08T12:44:40.8651025Z )
+2026-02-08T12:44:40.8651763Z Info: mathml file main-mathml does not exist
+2026-02-08T12:44:40.8661320Z Info: mathml file main-luamml-mathml does not exist
+2026-02-08T12:44:40.8681293Z 
+2026-02-08T12:44:40.8687910Z Package scrbook Warning: Activated tagging detected but not supported!
+2026-02-08T12:44:40.8690253Z (scrbook)                Note: This class currently does not actively support
+2026-02-08T12:44:40.8691292Z (scrbook)                tagging. This means: Several elements will not be
+2026-02-08T12:44:40.8692237Z (scrbook)                tagged correctly. We therefore currently suggest to
+2026-02-08T12:44:40.8693042Z (scrbook)                not use tagging and i.e. use
+2026-02-08T12:44:40.8693616Z (scrbook)                  \RequirePackage{pdfmetadata}
+2026-02-08T12:44:40.8694227Z (scrbook)                  \SetKeys[document/metadata]{...}
+2026-02-08T12:44:40.8694729Z (scrbook)                instead of
+2026-02-08T12:44:40.8695040Z (scrbook)                  \DocumentMetadata{...}
+2026-02-08T12:44:40.8695557Z (scrbook)                to avoid automatic activation of tagging.
+2026-02-08T12:44:40.8695958Z 
+2026-02-08T12:44:40.8722782Z *geometry* driver: auto-detecting
+2026-02-08T12:44:40.8723253Z *geometry* detected driver: luatex
+2026-02-08T12:44:40.8745556Z (/opt/texlive/texdir/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+2026-02-08T12:44:40.8746325Z [Loading MPS to PDF converter (version 2006.09.02).]
+2026-02-08T12:44:40.8826190Z ) (/opt/texlive/texdir/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+2026-02-08T12:44:40.9261794Z (/opt/texlive/texdir/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+2026-02-08T12:44:40.9270918Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex-apa/american-apa.lbx
+2026-02-08T12:44:40.9282152Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/lbx/american.lbx
+2026-02-08T12:44:40.9291923Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex-apa/english-apa.lbx
+2026-02-08T12:44:40.9486322Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/lbx/english.lbx)))
+2026-02-08T12:44:40.9495831Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/lbx/american.lbx
+2026-02-08T12:44:40.9542172Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex-apa/english-apa.lbx
+2026-02-08T12:44:40.9550151Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/lbx/american.lbx
+2026-02-08T12:44:41.0269086Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/lbx/english.lbx)))))
+2026-02-08T12:44:41.0280475Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex-apa/catalan-apa.lbx
+2026-02-08T12:44:41.0342653Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/lbx/catalan.lbx)
+2026-02-08T12:44:41.0956798Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/lbx/catalan.lbx))
+2026-02-08T12:44:41.0963728Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex-apa/spanish-apa.lbx
+2026-02-08T12:44:41.1025566Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/lbx/spanish.lbx)
+2026-02-08T12:44:41.2022339Z (/opt/texlive/texdir/texmf-dist/tex/latex/biblatex/lbx/spanish.lbx))
+2026-02-08T12:44:41.2023336Z No file main.bbl.
+2026-02-08T12:44:41.2039930Z Package pgfplots notification 'compat/show suggested version=true': document ha
+2026-02-08T12:44:41.2040950Z s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
+2026-02-08T12:44:41.2041558Z 
+2026-02-08T12:44:41.9776981Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/umsa.fd)
+2026-02-08T12:44:41.9863878Z (/opt/texlive/texdir/texmf-dist/tex/latex/amsfonts/umsb.fd)
+2026-02-08T12:44:41.9899548Z (/opt/texlive/texdir/texmf-dist/tex/latex/jknapltx/ursfs.fd)
+2026-02-08T12:44:41.9900151Z 
+2026-02-08T12:44:41.9904118Z Package unicode-math Warning: Using \overbracket and \underbracket from
+2026-02-08T12:44:41.9906012Z (unicode-math)                `mathtools' package.
+2026-02-08T12:44:41.9906533Z (unicode-math)                 
+2026-02-08T12:44:41.9907069Z (unicode-math)                 Use \Uoverbracket and \Uunderbracket for
+2026-02-08T12:44:41.9907758Z (unicode-math)                original `unicode-math' definition.
+2026-02-08T12:44:41.9908179Z 
+2026-02-08T12:44:41.9912253Z 
+2026-02-08T12:44:41.9916818Z Package unicode-math Warning: I'm going to overwrite the following commands
+2026-02-08T12:44:41.9918161Z (unicode-math)                from the `mathtools' package: 
+2026-02-08T12:44:41.9918915Z (unicode-math)                 
+2026-02-08T12:44:41.9919706Z (unicode-math)                     \dblcolon, \coloneqq, \Coloneqq, \eqqcolon.
+2026-02-08T12:44:41.9920489Z (unicode-math)                
+2026-02-08T12:44:41.9920938Z (unicode-math)                 
+2026-02-08T12:44:41.9921549Z (unicode-math)                 Note that since I won't overwrite the other
+2026-02-08T12:44:41.9922242Z (unicode-math)                colon-like commands, using them will lead to
+2026-02-08T12:44:41.9927631Z (unicode-math)                inconsistencies.
+2026-02-08T12:44:41.9928114Z 
+2026-02-08T12:44:41.9976931Z 
+2026-02-08T12:44:41.9977527Z (/opt/texlive/texdir/texmf-dist/tex/latex/translations/translations-basic-dicti
+2026-02-08T12:44:42.0051697Z onary-spanish.trsl)
+2026-02-08T12:44:42.0052319Z (/opt/texlive/texdir/texmf-dist/tex/latex/translations/translations-basic-dicti
+2026-02-08T12:44:42.0124397Z onary-english.trsl)
+2026-02-08T12:44:42.0124864Z (/opt/texlive/texdir/texmf-dist/tex/latex/translations/translations-basic-dicti
+2026-02-08T12:44:42.0154494Z onary-catalan.trsl)
+2026-02-08T12:44:42.0154791Z 
+2026-02-08T12:44:42.0156863Z Package translations Warning: file `translations-basic-dictionary-catalan.trsl'
+2026-02-08T12:44:42.0157752Z  does not appear to be a dictionary on input line 66.
+2026-02-08T12:44:42.0158131Z 
+2026-02-08T12:44:42.0766414Z (/opt/texlive/texdir/texmf-dist/tex/latex/elements/elements_names_spanish.def)
+2026-02-08T12:44:42.0767037Z 
+2026-02-08T12:44:42.0768405Z Package tagpdf Info: luamml has been enabled and will create an MathML file.
+2026-02-08T12:44:42.0769072Z 
+2026-02-08T12:44:42.0802622Z 
+2026-02-08T12:44:42.0806480Z Package tagpdf Warning: Alternative text for graphic is missing.
+2026-02-08T12:44:42.0807184Z (tagpdf)                Using 'recursos/logos/universidad/LogoEPSBlanco.pdf'
+2026-02-08T12:44:42.0808260Z (tagpdf)                instead.
+2026-02-08T12:44:42.0808725Z 
+2026-02-08T12:44:42.0869877Z 
+2026-02-08T12:44:42.0874430Z Package tagpdf Warning: Parent-Child 'pdf:StructTreeRoot' --> 'pdf2:Div'.
+2026-02-08T12:44:42.0875493Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.0876662Z (tagpdf)                struct 1, StructTreeRoot --> struct 6, Div
+2026-02-08T12:44:42.0877089Z 
+2026-02-08T12:44:42.0914298Z 
+2026-02-08T12:44:42.0918599Z Package tagpdf Warning: Parent-Child 'pdf:StructTreeRoot' --> 'pdf2:Part'.
+2026-02-08T12:44:42.0919361Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.0919982Z (tagpdf)                struct 6, Div --> struct 7, text-unit
+2026-02-08T12:44:42.0920366Z 
+2026-02-08T12:44:42.0936449Z 
+2026-02-08T12:44:42.0940513Z Package tagpdf Warning: Parent-Child 'pdf:StructTreeRoot' --> 'pdf2:P'.
+2026-02-08T12:44:42.0941309Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.0941910Z (tagpdf)                struct 7, text-unit --> struct 8, text
+2026-02-08T12:44:42.0942305Z 
+2026-02-08T12:44:42.0968806Z 
+2026-02-08T12:44:42.0973334Z Package tagpdf Warning: Parent-Child 'pdf:StructTreeRoot' --> 'pdf2:P'.
+2026-02-08T12:44:42.0975115Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.0975698Z (tagpdf)                struct 1, StructTreeRoot --> struct 9, text
+2026-02-08T12:44:42.0976095Z 
+2026-02-08T12:44:42.0994618Z 
+2026-02-08T12:44:42.0998724Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:42.0999657Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.1000312Z (tagpdf)                struct 9, text --> struct 10, text-unit
+2026-02-08T12:44:42.1001223Z 
+2026-02-08T12:44:42.1016791Z 
+2026-02-08T12:44:42.1020631Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.1021397Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.1022036Z (tagpdf)                struct 10, text-unit --> struct 11, text
+2026-02-08T12:44:42.1022875Z 
+2026-02-08T12:44:42.1074175Z 
+2026-02-08T12:44:42.1076615Z Package tagpdf Warning: Alternative text for graphic is missing.
+2026-02-08T12:44:42.1078147Z (tagpdf)                Using 'recursos/logos/universidad/LogoEPSBlanco.pdf'
+2026-02-08T12:44:42.1078786Z (tagpdf)                instead.
+2026-02-08T12:44:42.1079054Z 
+2026-02-08T12:44:42.1182757Z 
+2026-02-08T12:44:42.1186658Z Package tagpdf Warning: Alternative text for graphic is missing.
+2026-02-08T12:44:42.1187486Z (tagpdf)                Using 'recursos/logos/universidad/LogoUABlanco.pdf'
+2026-02-08T12:44:42.1188125Z (tagpdf)                instead.
+2026-02-08T12:44:42.1188411Z 
+2026-02-08T12:44:42.1285735Z 
+2026-02-08T12:44:42.1288482Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Div'.
+2026-02-08T12:44:42.1289554Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.1290589Z (tagpdf)                struct 10, text-unit --> struct 14, Div
+2026-02-08T12:44:42.1291028Z 
+2026-02-08T12:44:42.1306993Z 
+2026-02-08T12:44:42.1311915Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:42.1312357Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.1312965Z (tagpdf)                struct 14, Div --> struct 15, text-unit
+2026-02-08T12:44:42.1313198Z 
+2026-02-08T12:44:42.1328887Z 
+2026-02-08T12:44:42.1332143Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.1333793Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.1334598Z (tagpdf)                struct 15, text-unit --> struct 16, text
+2026-02-08T12:44:42.1335046Z 
+2026-02-08T12:44:42.1362568Z 
+2026-02-08T12:44:42.1366908Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.1367610Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.1368186Z (tagpdf)                struct 10, text-unit --> struct 17, text
+2026-02-08T12:44:42.1368683Z 
+2026-02-08T12:44:42.1427261Z 
+2026-02-08T12:44:42.1429856Z Package tagpdf Warning: Alternative text for graphic is missing.
+2026-02-08T12:44:42.1431220Z (tagpdf)                Using
+2026-02-08T12:44:42.1431930Z (tagpdf)                'recursos/logos/titulaciones/LogoTelecoBlanco.pdf'
+2026-02-08T12:44:42.1432736Z (tagpdf)                instead.
+2026-02-08T12:44:42.1433008Z 
+2026-02-08T12:44:42.1531018Z 
+2026-02-08T12:44:42.1534565Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Div'.
+2026-02-08T12:44:42.1535554Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.1536418Z (tagpdf)                struct 10, text-unit --> struct 19, Div
+2026-02-08T12:44:42.1536717Z 
+2026-02-08T12:44:42.1553245Z 
+2026-02-08T12:44:42.1556913Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:42.1557894Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.1558333Z (tagpdf)                struct 19, Div --> struct 20, text-unit
+2026-02-08T12:44:42.1558613Z 
+2026-02-08T12:44:42.1574220Z 
+2026-02-08T12:44:42.1578210Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.1578916Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.1579950Z (tagpdf)                struct 20, text-unit --> struct 21, text
+2026-02-08T12:44:42.1580380Z 
+2026-02-08T12:44:42.1635342Z 
+2026-02-08T12:44:42.1639466Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.1640215Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.1640860Z (tagpdf)                struct 10, text-unit --> struct 22, text
+2026-02-08T12:44:42.1641308Z 
+2026-02-08T12:44:42.4823484Z [1
+2026-02-08T12:44:42.4842173Z Non-PDF special ignored!{/opt/texlive/texdir/texmf-var/fonts/map/pdftex/updmap/
+2026-02-08T12:44:42.5519924Z pdftex.map}<./recursos/logos/universidad/LogoEPSBlanco.pdf><./recursos/logos/un
+2026-02-08T12:44:42.5527207Z iversidad/LogoUABlanco.pdf><./recursos/logos/titulaciones/LogoTelecoBlanco.pdf>
+2026-02-08T12:44:42.5664384Z ] [2]
+2026-02-08T12:44:42.5664742Z 
+2026-02-08T12:44:42.5668138Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:42.5668871Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.5669489Z (tagpdf)                struct 9, text --> struct 23, text-unit
+2026-02-08T12:44:42.5669894Z 
+2026-02-08T12:44:42.5687291Z 
+2026-02-08T12:44:42.5691086Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.5691931Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.5692886Z (tagpdf)                struct 23, text-unit --> struct 24, text
+2026-02-08T12:44:42.5693289Z 
+2026-02-08T12:44:42.5711257Z 
+2026-02-08T12:44:42.5714877Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Div'.
+2026-02-08T12:44:42.5716044Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.5716647Z (tagpdf)                struct 23, text-unit --> struct 25, Div
+2026-02-08T12:44:42.5716999Z 
+2026-02-08T12:44:42.7277730Z 
+2026-02-08T12:44:42.7280152Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:42.7286366Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.7287074Z (tagpdf)                struct 25, Div --> struct 26, text-unit
+2026-02-08T12:44:42.7287469Z 
+2026-02-08T12:44:42.7301880Z 
+2026-02-08T12:44:42.7306034Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.7306694Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.7307889Z (tagpdf)                struct 26, text-unit --> struct 27, text
+2026-02-08T12:44:42.7308308Z 
+2026-02-08T12:44:42.7333807Z 
+2026-02-08T12:44:42.7337893Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:42.7338941Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.7339606Z (tagpdf)                struct 25, Div --> struct 28, text-unit
+2026-02-08T12:44:42.7340356Z 
+2026-02-08T12:44:42.7356338Z 
+2026-02-08T12:44:42.7360847Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.7361539Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.7362159Z (tagpdf)                struct 28, text-unit --> struct 29, text
+2026-02-08T12:44:42.7362772Z 
+2026-02-08T12:44:42.8167540Z 
+2026-02-08T12:44:42.8170392Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:42.8171115Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8171731Z (tagpdf)                struct 25, Div --> struct 30, text-unit
+2026-02-08T12:44:42.8172117Z 
+2026-02-08T12:44:42.8190618Z 
+2026-02-08T12:44:42.8194295Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.8195576Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8196208Z (tagpdf)                struct 30, text-unit --> struct 31, text
+2026-02-08T12:44:42.8196645Z 
+2026-02-08T12:44:42.8222908Z 
+2026-02-08T12:44:42.8228660Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.8229342Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8229935Z (tagpdf)                struct 23, text-unit --> struct 32, text
+2026-02-08T12:44:42.8230331Z 
+2026-02-08T12:44:42.8249622Z 
+2026-02-08T12:44:42.8254395Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:42.8255068Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8255684Z (tagpdf)                struct 9, text --> struct 33, text-unit
+2026-02-08T12:44:42.8256089Z 
+2026-02-08T12:44:42.8272643Z 
+2026-02-08T12:44:42.8275998Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.8277408Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8278252Z (tagpdf)                struct 33, text-unit --> struct 34, text
+2026-02-08T12:44:42.8278657Z 
+2026-02-08T12:44:42.8297434Z 
+2026-02-08T12:44:42.8301835Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Div'.
+2026-02-08T12:44:42.8303014Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8303620Z (tagpdf)                struct 33, text-unit --> struct 35, Div
+2026-02-08T12:44:42.8304004Z 
+2026-02-08T12:44:42.8319504Z 
+2026-02-08T12:44:42.8323169Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:42.8323882Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8324553Z (tagpdf)                struct 35, Div --> struct 36, text-unit
+2026-02-08T12:44:42.8324923Z 
+2026-02-08T12:44:42.8341246Z 
+2026-02-08T12:44:42.8344917Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.8345782Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8346402Z (tagpdf)                struct 36, text-unit --> struct 37, text
+2026-02-08T12:44:42.8346794Z 
+2026-02-08T12:44:42.8369071Z 
+2026-02-08T12:44:42.8373207Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:42.8373978Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8374541Z (tagpdf)                struct 35, Div --> struct 38, text-unit
+2026-02-08T12:44:42.8374782Z 
+2026-02-08T12:44:42.8390884Z 
+2026-02-08T12:44:42.8393924Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.8395188Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8395780Z (tagpdf)                struct 38, text-unit --> struct 39, text
+2026-02-08T12:44:42.8396040Z 
+2026-02-08T12:44:42.8417904Z 
+2026-02-08T12:44:42.8422038Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:42.8423065Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8423438Z (tagpdf)                struct 35, Div --> struct 40, text-unit
+2026-02-08T12:44:42.8423672Z 
+2026-02-08T12:44:42.8439577Z 
+2026-02-08T12:44:42.8443333Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.8444012Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8444606Z (tagpdf)                struct 40, text-unit --> struct 41, text
+2026-02-08T12:44:42.8444963Z 
+2026-02-08T12:44:42.8469521Z 
+2026-02-08T12:44:42.8473482Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:42.8474148Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8474723Z (tagpdf)                struct 35, Div --> struct 42, text-unit
+2026-02-08T12:44:42.8475047Z 
+2026-02-08T12:44:42.8490193Z 
+2026-02-08T12:44:42.8493656Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.8494298Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8495225Z (tagpdf)                struct 42, text-unit --> struct 43, text
+2026-02-08T12:44:42.8495608Z 
+2026-02-08T12:44:42.8519280Z 
+2026-02-08T12:44:42.8521879Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:42.8523251Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8523901Z (tagpdf)                struct 35, Div --> struct 44, text-unit
+2026-02-08T12:44:42.8524279Z 
+2026-02-08T12:44:42.8540444Z 
+2026-02-08T12:44:42.8543701Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.8544782Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.8545377Z (tagpdf)                struct 44, text-unit --> struct 45, text
+2026-02-08T12:44:42.8545770Z 
+2026-02-08T12:44:42.9926119Z 
+2026-02-08T12:44:42.9929296Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.9930505Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.9931163Z (tagpdf)                struct 33, text-unit --> struct 46, text
+2026-02-08T12:44:42.9931521Z 
+2026-02-08T12:44:42.9953820Z 
+2026-02-08T12:44:42.9958171Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:42.9959057Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.9960114Z (tagpdf)                struct 9, text --> struct 47, text-unit
+2026-02-08T12:44:42.9960488Z 
+2026-02-08T12:44:42.9976754Z 
+2026-02-08T12:44:42.9980628Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:42.9981419Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:42.9982034Z (tagpdf)                struct 47, text-unit --> struct 48, text
+2026-02-08T12:44:42.9982669Z 
+2026-02-08T12:44:42.9999739Z 
+2026-02-08T12:44:43.0004064Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Div'.
+2026-02-08T12:44:43.0004820Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0005580Z (tagpdf)                struct 47, text-unit --> struct 49, Div
+2026-02-08T12:44:43.0005975Z 
+2026-02-08T12:44:43.0024711Z 
+2026-02-08T12:44:43.0029462Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:43.0029926Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0030324Z (tagpdf)                struct 49, Div --> struct 50, text-unit
+2026-02-08T12:44:43.0030572Z 
+2026-02-08T12:44:43.0047907Z 
+2026-02-08T12:44:43.0051850Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:43.0052824Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0053618Z (tagpdf)                struct 50, text-unit --> struct 51, text
+2026-02-08T12:44:43.0054102Z 
+2026-02-08T12:44:43.0076920Z 
+2026-02-08T12:44:43.0080603Z Package tagpdf Warning: Alternative text for graphic is missing.
+2026-02-08T12:44:43.0081207Z (tagpdf)                Using
+2026-02-08T12:44:43.0081727Z (tagpdf)                'recursos/logos/titulaciones/LogoTelecoNegro.pdf'
+2026-02-08T12:44:43.0082310Z (tagpdf)                instead.
+2026-02-08T12:44:43.0082796Z 
+2026-02-08T12:44:43.0151700Z 
+2026-02-08T12:44:43.0156747Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:43.0157687Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0158303Z (tagpdf)                struct 50, text-unit --> struct 53, text
+2026-02-08T12:44:43.0158694Z 
+2026-02-08T12:44:43.0183406Z 
+2026-02-08T12:44:43.0187660Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:43.0188785Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0189446Z (tagpdf)                struct 50, text-unit --> struct 54, text
+2026-02-08T12:44:43.0189740Z 
+2026-02-08T12:44:43.0207090Z 
+2026-02-08T12:44:43.0211079Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Div'.
+2026-02-08T12:44:43.0211887Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0212656Z (tagpdf)                struct 50, text-unit --> struct 55, Div
+2026-02-08T12:44:43.0213074Z 
+2026-02-08T12:44:43.0228673Z 
+2026-02-08T12:44:43.0233586Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:43.0234323Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0235417Z (tagpdf)                struct 55, Div --> struct 56, text-unit
+2026-02-08T12:44:43.0235823Z 
+2026-02-08T12:44:43.0251018Z 
+2026-02-08T12:44:43.0255691Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:43.0256381Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0256982Z (tagpdf)                struct 56, text-unit --> struct 57, text
+2026-02-08T12:44:43.0257385Z 
+2026-02-08T12:44:43.0278980Z 
+2026-02-08T12:44:43.0282174Z Package tagpdf Warning: Alternative text for graphic is missing.
+2026-02-08T12:44:43.0283170Z (tagpdf)                Using 'recursos/logos/universidad/LogoEPSNegro.pdf'
+2026-02-08T12:44:43.0283779Z (tagpdf)                instead.
+2026-02-08T12:44:43.0285014Z 
+2026-02-08T12:44:43.0348939Z 
+2026-02-08T12:44:43.0352638Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:43.0353511Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0354263Z (tagpdf)                struct 50, text-unit --> struct 59, text
+2026-02-08T12:44:43.0355025Z 
+2026-02-08T12:44:43.0370958Z 
+2026-02-08T12:44:43.0375205Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Div'.
+2026-02-08T12:44:43.0375985Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0376436Z (tagpdf)                struct 50, text-unit --> struct 60, Div
+2026-02-08T12:44:43.0376706Z 
+2026-02-08T12:44:43.0391771Z 
+2026-02-08T12:44:43.0395646Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:43.0396333Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0396939Z (tagpdf)                struct 60, Div --> struct 61, text-unit
+2026-02-08T12:44:43.0399045Z 
+2026-02-08T12:44:43.0413839Z 
+2026-02-08T12:44:43.0417496Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:43.0418163Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0418788Z (tagpdf)                struct 61, text-unit --> struct 62, text
+2026-02-08T12:44:43.0420282Z 
+2026-02-08T12:44:43.0440797Z 
+2026-02-08T12:44:43.0444822Z Package tagpdf Warning: Alternative text for graphic is missing.
+2026-02-08T12:44:43.0445428Z (tagpdf)                Using 'recursos/logos/universidad/LogoUANegro.pdf'
+2026-02-08T12:44:43.0445784Z (tagpdf)                instead.
+2026-02-08T12:44:43.0445954Z 
+2026-02-08T12:44:43.0508667Z 
+2026-02-08T12:44:43.0511621Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:43.0513709Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0514435Z (tagpdf)                struct 50, text-unit --> struct 64, text
+2026-02-08T12:44:43.0514803Z 
+2026-02-08T12:44:43.0574561Z 
+2026-02-08T12:44:43.0579144Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:43.0580020Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0580879Z (tagpdf)                struct 49, Div --> struct 65, text-unit
+2026-02-08T12:44:43.0581179Z 
+2026-02-08T12:44:43.0595298Z 
+2026-02-08T12:44:43.0599408Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:43.0600064Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0600689Z (tagpdf)                struct 65, text-unit --> struct 66, text
+2026-02-08T12:44:43.0601089Z 
+2026-02-08T12:44:43.0623427Z 
+2026-02-08T12:44:43.0627718Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:43.0628499Z (tagpdf)                Relation is not allowed! on line 74
+2026-02-08T12:44:43.0629118Z (tagpdf)                struct 47, text-unit --> struct 67, text
+2026-02-08T12:44:43.0629422Z 
+2026-02-08T12:44:43.0757836Z [3<./recursos/logos/titulaciones/LogoTelecoNegro.pdf><./recursos/logos/universi
+2026-02-08T12:44:43.0775517Z dad/LogoEPSNegro.pdf><./recursos/logos/universidad/LogoUANegro.pdf>]
+2026-02-08T12:44:43.0793421Z (./contenido/frontmatter/preliminares.tex
+2026-02-08T12:44:43.0793807Z 
+2026-02-08T12:44:43.0796583Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Part'.
+2026-02-08T12:44:43.0797657Z (tagpdf)                Relation is not allowed! on line 11
+2026-02-08T12:44:43.0798329Z (tagpdf)                struct 9, text --> struct 68, text-unit
+2026-02-08T12:44:43.0798741Z 
+2026-02-08T12:44:43.0816501Z 
+2026-02-08T12:44:43.0819746Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:P'.
+2026-02-08T12:44:43.0821641Z (tagpdf)                Relation is not allowed! on line 12
+2026-02-08T12:44:43.0822283Z (tagpdf)                struct 68, text-unit --> struct 69, text
+2026-02-08T12:44:43.0822865Z 
+2026-02-08T12:44:43.0960528Z [4]
+2026-02-08T12:44:43.0961022Z 
+2026-02-08T12:44:43.0964639Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Sect'.
+2026-02-08T12:44:43.0965466Z (tagpdf)                Relation is not allowed! on line 20
+2026-02-08T12:44:43.0966171Z (tagpdf)                struct 9, text --> struct 70, Sect
+2026-02-08T12:44:43.0966474Z 
+2026-02-08T12:44:43.3527748Z [5] [6]
+2026-02-08T12:44:43.3528281Z 
+2026-02-08T12:44:43.3531918Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Sect'.
+2026-02-08T12:44:43.3532837Z (tagpdf)                Relation is not allowed! on line 34
+2026-02-08T12:44:43.3533473Z (tagpdf)                struct 9, text --> struct 79, Sect
+2026-02-08T12:44:43.3533870Z 
+2026-02-08T12:44:43.4513460Z [7] [8]
+2026-02-08T12:44:43.4513742Z 
+2026-02-08T12:44:43.4516943Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Sect'.
+2026-02-08T12:44:43.4517923Z (tagpdf)                Relation is not allowed! on line 58
+2026-02-08T12:44:43.4519304Z (tagpdf)                struct 9, text --> struct 120, Sect
+2026-02-08T12:44:43.4519776Z 
+2026-02-08T12:44:43.5488019Z [9] [10])
+2026-02-08T12:44:43.5488252Z 
+2026-02-08T12:44:43.5492606Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Sect'.
+2026-02-08T12:44:43.5493310Z (tagpdf)                Relation is not allowed! on line 80
+2026-02-08T12:44:43.5493962Z (tagpdf)                struct 9, text --> struct 161, Sect
+2026-02-08T12:44:43.5494354Z 
+2026-02-08T12:44:43.5573767Z No file main.toc.
+2026-02-08T12:44:43.5891108Z [11] [12]
+2026-02-08T12:44:43.5891313Z 
+2026-02-08T12:44:43.5895519Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Sect'.
+2026-02-08T12:44:43.5896175Z (tagpdf)                Relation is not allowed! on line 81
+2026-02-08T12:44:43.5896783Z (tagpdf)                struct 9, text --> struct 165, Sect
+2026-02-08T12:44:43.5897165Z 
+2026-02-08T12:44:43.5976112Z No file main.lof.
+2026-02-08T12:44:43.6302821Z [13] [14]
+2026-02-08T12:44:43.6303045Z 
+2026-02-08T12:44:43.6306861Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Sect'.
+2026-02-08T12:44:43.6307678Z (tagpdf)                Relation is not allowed! on line 82
+2026-02-08T12:44:43.6308268Z (tagpdf)                struct 9, text --> struct 169, Sect
+2026-02-08T12:44:43.6308651Z 
+2026-02-08T12:44:43.6393988Z No file main.lot.
+2026-02-08T12:44:43.6707540Z [15] [16]
+2026-02-08T12:44:43.6708985Z 
+2026-02-08T12:44:43.6711153Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Sect'.
+2026-02-08T12:44:43.6712346Z (tagpdf)                Relation is not allowed! on line 83
+2026-02-08T12:44:43.6713161Z (tagpdf)                struct 9, text --> struct 173, Sect
+2026-02-08T12:44:43.6713624Z 
+2026-02-08T12:44:43.6796288Z No file main.lol.
+2026-02-08T12:44:43.7126501Z [17] [18] (./contenido/capitulos/introduccion.tex
+2026-02-08T12:44:43.7126886Z 
+2026-02-08T12:44:43.7130706Z Package tagpdf Warning: Parent-Child 'pdf2:P' --> 'pdf2:Sect'.
+2026-02-08T12:44:43.7131405Z (tagpdf)                Relation is not allowed! on line 1
+2026-02-08T12:44:43.7131977Z (tagpdf)                struct 9, text --> struct 177, Sect
+2026-02-08T12:44:43.7132347Z 
+2026-02-08T12:44:43.7161026Z chapter 1.
+2026-02-08T12:44:44.2823862Z [1] [2]
+2026-02-08T12:44:44.2824072Z 
+2026-02-08T12:44:44.2824322Z LaTeX Warning: Citation 'latex2024' on page 3 undefined on input line 113.
+2026-02-08T12:44:44.2824659Z 
+2026-02-08T12:44:44.2852029Z 
+2026-02-08T12:44:44.2852597Z LaTeX Warning: Citation '' on page 3 undefined on input line 113.
+2026-02-08T12:44:44.2853008Z 
+2026-02-08T12:44:44.3027059Z 
+2026-02-08T12:44:44.3027750Z LaTeX Warning: Citation 'latex2024' on page 3 undefined on input line 114.
+2026-02-08T12:44:44.3028534Z 
+2026-02-08T12:44:44.3158697Z 
+2026-02-08T12:44:44.3159346Z LaTeX Warning: Citation 'latex2024' on page 3 undefined on input line 115.
+2026-02-08T12:44:44.3159864Z 
+2026-02-08T12:44:44.3166390Z 
+2026-02-08T12:44:44.3167387Z LaTeX Warning: Citation 'overleaf2024' on page 3 undefined on input line 115.
+2026-02-08T12:44:44.3168036Z 
+2026-02-08T12:44:44.6738796Z [3] [4]
+2026-02-08T12:44:44.6739079Z 
+2026-02-08T12:44:44.6739533Z ./contenido/capitulos/introduccion.tex:235: Package block Error: Some keys spec
+2026-02-08T12:44:44.6740293Z ified on the itemize environment are
+2026-02-08T12:44:44.6740760Z (block)                unknown.
+2026-02-08T12:44:44.6741037Z 
+2026-02-08T12:44:44.6741219Z For immediate help type H <return>.
+2026-02-08T12:44:44.6741776Z  ...                                              
+2026-02-08T12:44:44.6742864Z                                                   
+2026-02-08T12:44:44.6743319Z l.235     \item U
+2026-02-08T12:44:44.6744213Z                  sa claves descriptivas: \texttt{apellidoAñoPalabra} (ej: \...
+2026-02-08T12:44:44.6744827Z 
+2026-02-08T12:44:44.6745015Z  14843 words of node memory still in use:
+2026-02-08T12:44:44.6745658Z    123 hlist, 20 vlist, 91 rule, 83 disc, 21 local_par, 2 dir, 4 math, 309 glue
+2026-02-08T12:44:44.6746486Z , 45 kern, 65 penalty, 639 glyph, 1262 attribute, 180 glue_spec, 437 attribute_
+2026-02-08T12:44:44.6747334Z list, 1 temp, 1 shape, 6 write, 2 save_pos, 16 pdf_literal, 4 pdf_dest, 29 pdf_
+2026-02-08T12:44:44.6748042Z colorstack, 1 pdf_setmatrix, 1 pdf_save, 1 pdf_restore nodes
+2026-02-08T12:44:44.6748586Z    avail lists: 1:3,2:1992,3:1060,4:66,5:219,6:111,7:4387,8:1,9:413,10:10,11:56
+2026-02-08T12:44:44.6748909Z 0,12:1
+2026-02-08T12:44:44.6752350Z ./contenido/capitulos/introduccion.tex:235:  ==> Fatal error occurred, no outpu
+2026-02-08T12:44:44.6757508Z t PDF file produced!SyncTeX written on main.synctex.gz.
+2026-02-08T12:44:44.6757939Z 
+2026-02-08T12:44:44.6758043Z Transcript written on main.log.
+2026-02-08T12:44:44.8320126Z Latexmk: Getting log file 'main.log'
+2026-02-08T12:44:44.8410280Z Latexmk: Examining 'main.fls'
+2026-02-08T12:44:44.8533431Z Latexmk: Examining 'main.log'
+2026-02-08T12:44:45.1415133Z Latexmk: Missing bbl file 'main.bbl' in following:
+2026-02-08T12:44:45.1415768Z  No file main.bbl.
+2026-02-08T12:44:45.1963421Z Latexmk: Missing input file 'main.toc' message in .log file:
+2026-02-08T12:44:45.1964029Z   No file main.toc.
+2026-02-08T12:44:45.1973422Z Latexmk: Missing input file 'main.lof' message in .log file:
+2026-02-08T12:44:45.1973888Z   No file main.lof.
+2026-02-08T12:44:45.1982231Z Latexmk: Missing input file 'main.lot' message in .log file:
+2026-02-08T12:44:45.1982928Z   No file main.lot.
+2026-02-08T12:44:45.1990771Z Latexmk: Missing input file 'main.lol' message in .log file:
+2026-02-08T12:44:45.1991511Z   No file main.lol.
+2026-02-08T12:44:45.2118741Z Latexmk: Using biber to make bibliography file(s).
+2026-02-08T12:44:45.2137251Z Latexmk: Incomplete (and hence corrupt) bcf file 'main.bcf'
+2026-02-08T12:44:45.2138009Z Latexmk: Bibliography file(s) from .bcf file:
+2026-02-08T12:44:45.2138473Z   referencias.bib
+2026-02-08T12:44:45.2138794Z Sources for biber
+2026-02-08T12:44:45.2139116Z   referencias.bib
+2026-02-08T12:44:45.2139410Z   main.bcf
+2026-02-08T12:44:45.2140643Z Latexmk: ========== Incomplete .bcf file 'main.bcf'.
+2026-02-08T12:44:45.2141232Z   I'll rename the file to 'main.bcf-SAVE-ERROR'.
+2026-02-08T12:44:45.2141811Z   I'll rename the bbl file to 'main.bbl-SAVE-ERROR',
+2026-02-08T12:44:45.2142691Z   in case the incomplete bcf file was a result of error in
+2026-02-08T12:44:45.2143300Z   'lualatex' caused by an error in the bbl file.
+2026-02-08T12:44:45.3345605Z Latexmk: Summary of warnings from last run of *latex:
+2026-02-08T12:44:45.3346234Z   Latex failed to resolve 5 citation(s)
+2026-02-08T12:44:45.3346801Z Latexmk: Errors, so I did not complete making targets
+2026-02-08T12:44:45.3347438Z Collected error summary (may duplicate other messages):
+2026-02-08T12:44:45.3348069Z   lualatex: Command for 'lualatex' gave return code 1
+2026-02-08T12:44:45.3348676Z       Refer to 'main.log' and/or above output for details
+2026-02-08T12:44:45.3349083Z 
+2026-02-08T12:44:45.3349374Z Latexmk: Sometimes, the -f option can be used to get latexmk
+2026-02-08T12:44:45.3349851Z   to try to force complete processing.
+2026-02-08T12:44:45.3350386Z   But normally, you will need to correct the file(s) that caused the
+2026-02-08T12:44:45.3350776Z   error, and then rerun latexmk.
+2026-02-08T12:44:45.3351129Z   In some cases, it is best to clean out generated files before rerunning
+2026-02-08T12:44:45.3351537Z   latexmk after you've corrected the files.
+2026-02-08T12:44:45.4988764Z ##[error]Process completed with exit code 12.

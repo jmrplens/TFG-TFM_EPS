@@ -1,0 +1,25 @@
+﻿2026-02-08T12:44:45.5084053Z ##[group]Run actions/upload-artifact@v6
+2026-02-08T12:44:45.5084343Z with:
+2026-02-08T12:44:45.5084695Z   name: build-logs
+2026-02-08T12:44:45.5084884Z   path: *.log
+*.blg
+
+2026-02-08T12:44:45.5085086Z   retention-days: 7
+2026-02-08T12:44:45.5085283Z   if-no-files-found: warn
+2026-02-08T12:44:45.5085504Z   compression-level: 6
+2026-02-08T12:44:45.5085708Z   overwrite: false
+2026-02-08T12:44:45.5085903Z   include-hidden-files: false
+2026-02-08T12:44:45.5086122Z env:
+2026-02-08T12:44:45.5086290Z   TEXLIVE_VERSION: 2025
+2026-02-08T12:44:45.5086492Z ##[endgroup]
+2026-02-08T12:44:45.6638281Z With the provided path, there will be 1 file uploaded
+2026-02-08T12:44:45.6643607Z Artifact name is valid!
+2026-02-08T12:44:45.6644582Z Root directory input is valid!
+2026-02-08T12:44:45.7623087Z Beginning upload of artifact content to blob storage
+2026-02-08T12:44:45.9098816Z Uploaded bytes 35735
+2026-02-08T12:44:45.9403709Z Finished uploading artifact content to blob storage!
+2026-02-08T12:44:45.9405103Z SHA256 digest of uploaded artifact zip is c033e46ec329c670fd71d7f7c8e532e976736a8d863383f2e405135efc5d161a
+2026-02-08T12:44:45.9406992Z Finalizing artifact upload
+2026-02-08T12:44:46.0904470Z Artifact build-logs.zip successfully finalized. Artifact ID 5422479822
+2026-02-08T12:44:46.0905520Z Artifact build-logs has been successfully uploaded! Final size is 35735 bytes. Artifact ID is 5422479822
+2026-02-08T12:44:46.0909613Z Artifact download URL: https://github.com/jmrplens/TFG-TFM_EPS/actions/runs/21798346897/artifacts/5422479822

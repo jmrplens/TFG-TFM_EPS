@@ -1,0 +1,433 @@
+﻿2026-02-08T12:43:05.5588960Z Current runner version: '2.331.0'
+2026-02-08T12:43:05.5614933Z ##[group]Runner Image Provisioner
+2026-02-08T12:43:05.5616119Z Hosted Compute Agent
+2026-02-08T12:43:05.5616682Z Version: 20260123.484
+2026-02-08T12:43:05.5617242Z Commit: 6bd6555ca37d84114959e1c76d2c01448ff61c5d
+2026-02-08T12:43:05.5618043Z Build Date: 2026-01-23T19:41:17Z
+2026-02-08T12:43:05.5618675Z Worker ID: {1f5c41bf-04b6-474a-b724-db17f87605cc}
+2026-02-08T12:43:05.5619349Z Azure Region: westus
+2026-02-08T12:43:05.5619879Z ##[endgroup]
+2026-02-08T12:43:05.5621288Z ##[group]Operating System
+2026-02-08T12:43:05.5621845Z Ubuntu
+2026-02-08T12:43:05.5622426Z 24.04.3
+2026-02-08T12:43:05.5622875Z LTS
+2026-02-08T12:43:05.5623339Z ##[endgroup]
+2026-02-08T12:43:05.5623878Z ##[group]Runner Image
+2026-02-08T12:43:05.5624411Z Image: ubuntu-24.04
+2026-02-08T12:43:05.5624922Z Version: 20260201.15.1
+2026-02-08T12:43:05.5626385Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260201.15/images/ubuntu/Ubuntu2404-Readme.md
+2026-02-08T12:43:05.5627797Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260201.15
+2026-02-08T12:43:05.5628743Z ##[endgroup]
+2026-02-08T12:43:05.5629851Z ##[group]GITHUB_TOKEN Permissions
+2026-02-08T12:43:05.5631691Z Contents: read
+2026-02-08T12:43:05.5632310Z Metadata: read
+2026-02-08T12:43:05.5632831Z PullRequests: write
+2026-02-08T12:43:05.5633302Z ##[endgroup]
+2026-02-08T12:43:05.5635540Z Secret source: Actions
+2026-02-08T12:43:05.5636461Z Prepare workflow directory
+2026-02-08T12:43:05.6026099Z Prepare all required actions
+2026-02-08T12:43:05.6070201Z Getting action download info
+2026-02-08T12:43:06.0898980Z Download action repository 'actions/checkout@v6' (SHA:de0fac2e4500dabe0009e67214ff5f5447ce83dd)
+2026-02-08T12:43:06.1990598Z Download action repository 'gaurav-nelson/github-action-markdown-link-check@v1' (SHA:5c5dfc0ac2e225883c0e5f03a85311ec2830d368)
+2026-02-08T12:43:07.0429802Z Complete job name: Verificar enlaces
+2026-02-08T12:43:07.0887752Z ##[group]Build container for action use: '/home/runner/work/_actions/gaurav-nelson/github-action-markdown-link-check/v1/Dockerfile'.
+2026-02-08T12:43:07.0939965Z ##[command]/usr/bin/docker build -t 5c6072:e19f0887e7404fdb9de6f48d80ab9660 -f "/home/runner/work/_actions/gaurav-nelson/github-action-markdown-link-check/v1/Dockerfile" "/home/runner/work/_actions/gaurav-nelson/github-action-markdown-link-check/v1"
+2026-02-08T12:43:07.6379918Z #0 building with "default" instance using docker driver
+2026-02-08T12:43:07.6381392Z 
+2026-02-08T12:43:07.6382058Z #1 [internal] load build definition from Dockerfile
+2026-02-08T12:43:07.6383873Z #1 transferring dockerfile: 204B done
+2026-02-08T12:43:07.6385323Z #1 DONE 0.0s
+2026-02-08T12:43:07.6386248Z 
+2026-02-08T12:43:07.6387194Z #2 [internal] load metadata for docker.io/library/node:lts-alpine
+2026-02-08T12:43:07.8519284Z #2 ...
+2026-02-08T12:43:07.8520047Z 
+2026-02-08T12:43:07.8521105Z #3 [auth] library/node:pull token for registry-1.docker.io
+2026-02-08T12:43:07.8523142Z #3 DONE 0.0s
+2026-02-08T12:43:08.0023731Z 
+2026-02-08T12:43:08.0024776Z #2 [internal] load metadata for docker.io/library/node:lts-alpine
+2026-02-08T12:43:08.4144827Z #2 DONE 0.9s
+2026-02-08T12:43:08.5366155Z 
+2026-02-08T12:43:08.5367040Z #4 [internal] load .dockerignore
+2026-02-08T12:43:08.5368944Z #4 transferring context: 2B done
+2026-02-08T12:43:08.5370547Z #4 DONE 0.0s
+2026-02-08T12:43:08.5371216Z 
+2026-02-08T12:43:08.5371795Z #5 [internal] load build context
+2026-02-08T12:43:08.5373487Z #5 transferring context: 4.91kB done
+2026-02-08T12:43:08.5375185Z #5 DONE 0.0s
+2026-02-08T12:43:08.5376118Z 
+2026-02-08T12:43:08.5378740Z #6 [1/4] FROM docker.io/library/node:lts-alpine@sha256:cd6fb7efa6490f039f3471a189214d5f548c11df1ff9e5b181aa49e22c14383e
+2026-02-08T12:43:08.5385271Z #6 resolve docker.io/library/node:lts-alpine@sha256:cd6fb7efa6490f039f3471a189214d5f548c11df1ff9e5b181aa49e22c14383e done
+2026-02-08T12:43:08.5391435Z #6 sha256:26eb49fbfdf03bf69f728b73178fa6f9e7c2cef88b06561b65497f5ae8e50a3d 1.72kB / 1.72kB done
+2026-02-08T12:43:08.5397465Z #6 sha256:830a00b153fccc810930d0fff2681b173fa3acc2ab8c45d8af972f50d4bcd09d 6.52kB / 6.52kB done
+2026-02-08T12:43:08.5402612Z #6 sha256:589002ba0eaed121a1dbf42f6648f29e5be55d5c8a6ee0f8eaa0285cc21ac153 0B / 3.86MB 0.1s
+2026-02-08T12:43:08.5407864Z #6 sha256:4ef00bbbc75186b55c2be094a1c5ac03cbfac8897f1f2ed86107bf908a95fda9 0B / 50.98MB 0.1s
+2026-02-08T12:43:08.5412883Z #6 sha256:14b92b0c10a5cc759604614d048be3aad4c013e9b574a6bff7f6fa78ac4e5860 0B / 1.26MB 0.1s
+2026-02-08T12:43:08.5418030Z #6 sha256:cd6fb7efa6490f039f3471a189214d5f548c11df1ff9e5b181aa49e22c14383e 3.87kB / 3.87kB done
+2026-02-08T12:43:08.6799975Z #6 sha256:4ef00bbbc75186b55c2be094a1c5ac03cbfac8897f1f2ed86107bf908a95fda9 27.26MB / 50.98MB 0.2s
+2026-02-08T12:43:08.6805033Z #6 extracting sha256:589002ba0eaed121a1dbf42f6648f29e5be55d5c8a6ee0f8eaa0285cc21ac153
+2026-02-08T12:43:08.7804710Z #6 sha256:589002ba0eaed121a1dbf42f6648f29e5be55d5c8a6ee0f8eaa0285cc21ac153 3.86MB / 3.86MB 0.2s done
+2026-02-08T12:43:08.7810044Z #6 sha256:4ef00bbbc75186b55c2be094a1c5ac03cbfac8897f1f2ed86107bf908a95fda9 50.98MB / 50.98MB 0.3s done
+2026-02-08T12:43:08.7814247Z #6 sha256:14b92b0c10a5cc759604614d048be3aad4c013e9b574a6bff7f6fa78ac4e5860 1.26MB / 1.26MB 0.3s done
+2026-02-08T12:43:08.7818488Z #6 sha256:8d660e9b10b3e184cb399d48eb01ecf741674c77553a9a4c3490696169041c5d 0B / 446B 0.3s
+2026-02-08T12:43:08.9436953Z #6 extracting sha256:589002ba0eaed121a1dbf42f6648f29e5be55d5c8a6ee0f8eaa0285cc21ac153 0.1s done
+2026-02-08T12:43:08.9442798Z #6 sha256:8d660e9b10b3e184cb399d48eb01ecf741674c77553a9a4c3490696169041c5d 446B / 446B 0.3s done
+2026-02-08T12:43:08.9449202Z #6 extracting sha256:4ef00bbbc75186b55c2be094a1c5ac03cbfac8897f1f2ed86107bf908a95fda9 0.1s
+2026-02-08T12:43:10.2174459Z #6 extracting sha256:4ef00bbbc75186b55c2be094a1c5ac03cbfac8897f1f2ed86107bf908a95fda9 1.2s done
+2026-02-08T12:43:10.2986358Z #6 extracting sha256:14b92b0c10a5cc759604614d048be3aad4c013e9b574a6bff7f6fa78ac4e5860
+2026-02-08T12:43:10.5196194Z #6 extracting sha256:14b92b0c10a5cc759604614d048be3aad4c013e9b574a6bff7f6fa78ac4e5860 0.0s done
+2026-02-08T12:43:10.5197168Z #6 extracting sha256:8d660e9b10b3e184cb399d48eb01ecf741674c77553a9a4c3490696169041c5d done
+2026-02-08T12:43:10.5197716Z #6 DONE 1.9s
+2026-02-08T12:43:10.5197918Z 
+2026-02-08T12:43:10.5198105Z #7 [2/4] RUN apk add --no-cache bash>5.0.16-r0 git>2.26.0-r0
+2026-02-08T12:43:11.0636977Z #7 DONE 0.7s
+2026-02-08T12:43:11.2051444Z 
+2026-02-08T12:43:11.2052023Z #8 [3/4] COPY entrypoint.sh /entrypoint.sh
+2026-02-08T12:43:11.2052578Z #8 DONE 0.0s
+2026-02-08T12:43:11.2052801Z 
+2026-02-08T12:43:11.2053003Z #9 [4/4] RUN chmod +x /entrypoint.sh
+2026-02-08T12:43:11.2053430Z #9 DONE 0.1s
+2026-02-08T12:43:11.3570530Z 
+2026-02-08T12:43:11.3570962Z #10 exporting to image
+2026-02-08T12:43:11.3571412Z #10 exporting layers
+2026-02-08T12:43:12.0150447Z #10 exporting layers 0.8s done
+2026-02-08T12:43:12.0441586Z #10 writing image sha256:c02fe079c8a935e70ebd266b4104acae400f8a65e13374fd7376d759265b8aa6 done
+2026-02-08T12:43:12.0442467Z #10 naming to docker.io/library/5c6072:e19f0887e7404fdb9de6f48d80ab9660 done
+2026-02-08T12:43:12.0518113Z #10 DONE 0.8s
+2026-02-08T12:43:12.0526659Z ##[endgroup]
+2026-02-08T12:43:12.0793210Z ##[group]Run actions/checkout@v6
+2026-02-08T12:43:12.0793774Z with:
+2026-02-08T12:43:12.0793976Z   repository: jmrplens/TFG-TFM_EPS
+2026-02-08T12:43:12.0794472Z   token: ***
+2026-02-08T12:43:12.0794651Z   ssh-strict: true
+2026-02-08T12:43:12.0794833Z   ssh-user: git
+2026-02-08T12:43:12.0795019Z   persist-credentials: true
+2026-02-08T12:43:12.0795268Z   clean: true
+2026-02-08T12:43:12.0795467Z   sparse-checkout-cone-mode: true
+2026-02-08T12:43:12.0795882Z   fetch-depth: 1
+2026-02-08T12:43:12.0796063Z   fetch-tags: false
+2026-02-08T12:43:12.0796257Z   show-progress: true
+2026-02-08T12:43:12.0796461Z   lfs: false
+2026-02-08T12:43:12.0796620Z   submodules: false
+2026-02-08T12:43:12.0796822Z   set-safe-directory: true
+2026-02-08T12:43:12.0797250Z env:
+2026-02-08T12:43:12.0797422Z   TEXLIVE_VERSION: 2025
+2026-02-08T12:43:12.0797619Z ##[endgroup]
+2026-02-08T12:43:12.1760470Z Syncing repository: jmrplens/TFG-TFM_EPS
+2026-02-08T12:43:12.1762515Z ##[group]Getting Git version info
+2026-02-08T12:43:12.1763258Z Working directory is '/home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS'
+2026-02-08T12:43:12.1764355Z [command]/usr/bin/git version
+2026-02-08T12:43:12.1764845Z git version 2.52.0
+2026-02-08T12:43:12.1782957Z ##[endgroup]
+2026-02-08T12:43:12.1799341Z Temporarily overriding HOME='/home/runner/work/_temp/58ff43aa-f604-4b18-88d5-313e6b209e13' before making global git config changes
+2026-02-08T12:43:12.1800737Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-08T12:43:12.1805367Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS
+2026-02-08T12:43:12.1852699Z Deleting the contents of '/home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS'
+2026-02-08T12:43:12.1856723Z ##[group]Initializing the repository
+2026-02-08T12:43:12.1861677Z [command]/usr/bin/git init /home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS
+2026-02-08T12:43:12.1977404Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-02-08T12:43:12.1978427Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-02-08T12:43:12.1978943Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-02-08T12:43:12.1979306Z hint: call:
+2026-02-08T12:43:12.1979479Z hint:
+2026-02-08T12:43:12.1979848Z hint: 	git config --global init.defaultBranch <name>
+2026-02-08T12:43:12.1980141Z hint:
+2026-02-08T12:43:12.1980421Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-02-08T12:43:12.1980984Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-02-08T12:43:12.1981624Z hint:
+2026-02-08T12:43:12.1981914Z hint: 	git branch -m <name>
+2026-02-08T12:43:12.1982228Z hint:
+2026-02-08T12:43:12.1982529Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-02-08T12:43:12.1983107Z Initialized empty Git repository in /home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS/.git/
+2026-02-08T12:43:12.1993669Z [command]/usr/bin/git remote add origin https://github.com/jmrplens/TFG-TFM_EPS
+2026-02-08T12:43:12.2030626Z ##[endgroup]
+2026-02-08T12:43:12.2031049Z ##[group]Disabling automatic garbage collection
+2026-02-08T12:43:12.2034945Z [command]/usr/bin/git config --local gc.auto 0
+2026-02-08T12:43:12.2063043Z ##[endgroup]
+2026-02-08T12:43:12.2063388Z ##[group]Setting up auth
+2026-02-08T12:43:12.2064891Z Removing SSH command configuration
+2026-02-08T12:43:12.2071103Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-08T12:43:12.2103403Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-08T12:43:12.2469204Z Removing HTTP extra header
+2026-02-08T12:43:12.2474931Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-08T12:43:12.2509770Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-08T12:43:12.2733248Z Removing includeIf entries pointing to credentials config files
+2026-02-08T12:43:12.2739247Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-08T12:43:12.2773640Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-08T12:43:12.3000809Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-dce53c86-37a6-4d77-bd6b-dd06bf4862ae.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-02-08T12:43:12.3039421Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS/.git.path /home/runner/work/_temp/git-credentials-dce53c86-37a6-4d77-bd6b-dd06bf4862ae.config
+2026-02-08T12:43:12.3070673Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-dce53c86-37a6-4d77-bd6b-dd06bf4862ae.config
+2026-02-08T12:43:12.3101189Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-dce53c86-37a6-4d77-bd6b-dd06bf4862ae.config
+2026-02-08T12:43:12.3131332Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-dce53c86-37a6-4d77-bd6b-dd06bf4862ae.config
+2026-02-08T12:43:12.3163453Z ##[endgroup]
+2026-02-08T12:43:12.3164081Z ##[group]Fetching the repository
+2026-02-08T12:43:12.3173455Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +dfb2c704806f2835e6cb89f29a3fa2effdf99f01:refs/remotes/pull/13/merge
+2026-02-08T12:43:14.1911111Z From https://github.com/jmrplens/TFG-TFM_EPS
+2026-02-08T12:43:14.1911925Z  * [new ref]         dfb2c704806f2835e6cb89f29a3fa2effdf99f01 -> pull/13/merge
+2026-02-08T12:43:14.1945387Z ##[endgroup]
+2026-02-08T12:43:14.1946321Z ##[group]Determining the checkout info
+2026-02-08T12:43:14.1947184Z ##[endgroup]
+2026-02-08T12:43:14.1951895Z [command]/usr/bin/git sparse-checkout disable
+2026-02-08T12:43:14.1994340Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-02-08T12:43:14.2021645Z ##[group]Checking out the ref
+2026-02-08T12:43:14.2026990Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/13/merge
+2026-02-08T12:43:14.3544481Z Note: switching to 'refs/remotes/pull/13/merge'.
+2026-02-08T12:43:14.3545022Z 
+2026-02-08T12:43:14.3545437Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-02-08T12:43:14.3546799Z changes and commit them, and you can discard any commits you make in this
+2026-02-08T12:43:14.3547808Z state without impacting any branches by switching back to a branch.
+2026-02-08T12:43:14.3548344Z 
+2026-02-08T12:43:14.3548573Z If you want to create a new branch to retain commits you create, you may
+2026-02-08T12:43:14.3549092Z do so (now or later) by using -c with the switch command. Example:
+2026-02-08T12:43:14.3549388Z 
+2026-02-08T12:43:14.3549497Z   git switch -c <new-branch-name>
+2026-02-08T12:43:14.3549692Z 
+2026-02-08T12:43:14.3549799Z Or undo this operation with:
+2026-02-08T12:43:14.3549976Z 
+2026-02-08T12:43:14.3550062Z   git switch -
+2026-02-08T12:43:14.3550315Z 
+2026-02-08T12:43:14.3550658Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-02-08T12:43:14.3551137Z 
+2026-02-08T12:43:14.3551703Z HEAD is now at dfb2c70 Merge 35d59b56c8f9813b6361e8c72b112b8d2832f203 into ff2868d59b49781cf315b79dc13dd78c61e03775
+2026-02-08T12:43:14.3562767Z ##[endgroup]
+2026-02-08T12:43:14.3602280Z [command]/usr/bin/git log -1 --format=%H
+2026-02-08T12:43:14.3625410Z dfb2c704806f2835e6cb89f29a3fa2effdf99f01
+2026-02-08T12:43:14.3820481Z ##[group]Run gaurav-nelson/github-action-markdown-link-check@v1
+2026-02-08T12:43:14.3820855Z with:
+2026-02-08T12:43:14.3821030Z   use-quiet-mode: yes
+2026-02-08T12:43:14.3821238Z   config-file: .github/mlc_config.json
+2026-02-08T12:43:14.3821484Z   use-verbose-mode: no
+2026-02-08T12:43:14.3821670Z   folder-path: .
+2026-02-08T12:43:14.3821869Z   max-depth: -1
+2026-02-08T12:43:14.3822057Z   check-modified-files-only: no
+2026-02-08T12:43:14.3822278Z   base-branch: master
+2026-02-08T12:43:14.3822463Z   file-extension: .md
+2026-02-08T12:43:14.3822636Z env:
+2026-02-08T12:43:14.3822793Z   TEXLIVE_VERSION: 2025
+2026-02-08T12:43:14.3822978Z ##[endgroup]
+2026-02-08T12:43:14.3931411Z ##[command]/usr/bin/docker run --name c6072e19f0887e7404fdb9de6f48d80ab9660_a7d80f --label 5c6072 --workdir /github/workspace --rm -e "TEXLIVE_VERSION" -e "INPUT_USE-QUIET-MODE" -e "INPUT_CONFIG-FILE" -e "INPUT_USE-VERBOSE-MODE" -e "INPUT_FOLDER-PATH" -e "INPUT_MAX-DEPTH" -e "INPUT_CHECK-MODIFIED-FILES-ONLY" -e "INPUT_BASE-BRANCH" -e "INPUT_FILE-EXTENSION" -e "INPUT_FILE-PATH" -e "HOME" -e "GITHUB_JOB" -e "GITHUB_REF" -e "GITHUB_SHA" -e "GITHUB_REPOSITORY" -e "GITHUB_REPOSITORY_OWNER" -e "GITHUB_REPOSITORY_OWNER_ID" -e "GITHUB_RUN_ID" -e "GITHUB_RUN_NUMBER" -e "GITHUB_RETENTION_DAYS" -e "GITHUB_RUN_ATTEMPT" -e "GITHUB_ACTOR_ID" -e "GITHUB_ACTOR" -e "GITHUB_WORKFLOW" -e "GITHUB_HEAD_REF" -e "GITHUB_BASE_REF" -e "GITHUB_EVENT_NAME" -e "GITHUB_SERVER_URL" -e "GITHUB_API_URL" -e "GITHUB_GRAPHQL_URL" -e "GITHUB_REF_NAME" -e "GITHUB_REF_PROTECTED" -e "GITHUB_REF_TYPE" -e "GITHUB_WORKFLOW_REF" -e "GITHUB_WORKFLOW_SHA" -e "GITHUB_REPOSITORY_ID" -e "GITHUB_TRIGGERING_ACTOR" -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -e "GITHUB_EVENT_PATH" -e "GITHUB_ACTION_REPOSITORY" -e "GITHUB_ACTION_REF" -e "GITHUB_PATH" -e "GITHUB_ENV" -e "GITHUB_STEP_SUMMARY" -e "GITHUB_STATE" -e "GITHUB_OUTPUT" -e "RUNNER_OS" -e "RUNNER_ARCH" -e "RUNNER_NAME" -e "RUNNER_ENVIRONMENT" -e "RUNNER_TOOL_CACHE" -e "RUNNER_TEMP" -e "RUNNER_WORKSPACE" -e "ACTIONS_RUNTIME_URL" -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e "ACTIONS_RESULTS_URL" -e "ACTIONS_ORCHESTRATION_ID" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp":"/github/runner_temp" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS":"/github/workspace" 5c6072:e19f0887e7404fdb9de6f48d80ab9660  "yes" "no" ".github/mlc_config.json" "." "-1" "no" "master" ".md" ""
+2026-02-08T12:43:16.4248203Z npm warn deprecated har-validator@5.1.5: this library is no longer supported
+2026-02-08T12:43:16.4940236Z npm warn deprecated uuid@3.4.0: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+2026-02-08T12:43:16.5054551Z npm warn deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142
+2026-02-08T12:43:16.7444729Z 
+2026-02-08T12:43:16.7447268Z added 65 packages in 2s
+2026-02-08T12:43:16.7448852Z 
+2026-02-08T12:43:16.7449020Z 5 packages are looking for funding
+2026-02-08T12:43:16.7450555Z   run `npm fund` for details
+2026-02-08T12:43:16.8158572Z [0;34mCannot find [0;33m.github/mlc_config.json[0m
+2026-02-08T12:43:16.8159624Z [0;33mNOTE: See https://github.com/tcort/markdown-link-check#config-file-format to know more about
+2026-02-08T12:43:16.8160701Z customizing markdown-link-check by using a configuration file.[0m
+2026-02-08T12:43:16.8161395Z [0;34mUSE_QUIET_MODE: yes[0m
+2026-02-08T12:43:16.8161920Z [0;34mUSE_VERBOSE_MODE: no[0m
+2026-02-08T12:43:16.8163851Z [0;34mFOLDER_PATH: .[0m
+2026-02-08T12:43:16.8164563Z [0;34mMAX_DEPTH: -1[0m
+2026-02-08T12:43:16.8165359Z [0;34mCHECK_MODIFIED_FILES: no[0m
+2026-02-08T12:43:16.8170060Z [0;34mFILE_EXTENSION: .md[0m
+2026-02-08T12:43:16.8178725Z + find . -name '*.md' -not -path './node_modules/*' -exec markdown-link-check '{}' -q ';'
+2026-02-08T12:43:16.8179987Z [0;34mFILE_PATH: [0m
+2026-02-08T12:44:15.2297027Z + set +x
+2026-02-08T12:44:15.2306199Z [0;33m=========================> MARKDOWN LINK CHECK <=========================[0m
+2026-02-08T12:44:15.2315389Z 
+2026-02-08T12:44:15.2316299Z FILE: ./CHANGELOG.md
+2026-02-08T12:44:15.2318735Z 
+2026-02-08T12:44:15.2318885Z 2 links checked.
+2026-02-08T12:44:15.2319094Z 
+2026-02-08T12:44:15.2319210Z FILE: ./sty/README.md
+2026-02-08T12:44:15.2319411Z 
+2026-02-08T12:44:15.2319527Z 4 links checked.
+2026-02-08T12:44:15.2319716Z 
+2026-02-08T12:44:15.2319845Z FILE: ./CONTRIBUTING.md
+2026-02-08T12:44:15.2324092Z (node:41) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2325017Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2325473Z 
+2026-02-08T12:44:15.2325762Z 10 links checked.
+2026-02-08T12:44:15.2325966Z 
+2026-02-08T12:44:15.2326090Z FILE: ./.herramientas/README.md
+2026-02-08T12:44:15.2326628Z 
+2026-02-08T12:44:15.2326730Z 0 links checked.
+2026-02-08T12:44:15.2326896Z 
+2026-02-08T12:44:15.2327061Z FILE: ./.github/copilot-instructions.md
+2026-02-08T12:44:15.2327374Z 
+2026-02-08T12:44:15.2327477Z 0 links checked.
+2026-02-08T12:44:15.2327662Z 
+2026-02-08T12:44:15.2327843Z FILE: ./.github/PULL_REQUEST_TEMPLATE.md
+2026-02-08T12:44:15.2328149Z 
+2026-02-08T12:44:15.2328248Z 0 links checked.
+2026-02-08T12:44:15.2328418Z 
+2026-02-08T12:44:15.2328543Z FILE: ./recursos/figuras/README.md
+2026-02-08T12:44:15.2328790Z 
+2026-02-08T12:44:15.2328893Z 0 links checked.
+2026-02-08T12:44:15.2329068Z 
+2026-02-08T12:44:15.2329174Z FILE: ./AGENTS.md
+2026-02-08T12:44:15.2329355Z 
+2026-02-08T12:44:15.2329470Z 0 links checked.
+2026-02-08T12:44:15.2329638Z 
+2026-02-08T12:44:15.2329745Z FILE: ./README.md
+2026-02-08T12:44:15.2330360Z (node:107) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2331274Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2332117Z [✖] https://www.gnu.org/licenses/gpl-3.0
+2026-02-08T12:44:15.2332704Z [✖] https://tex.stackexchange.com/
+2026-02-08T12:44:15.2333267Z [✖] https://pgfplots.sourceforge.io/
+2026-02-08T12:44:15.2333571Z 
+2026-02-08T12:44:15.2333685Z 43 links checked.
+2026-02-08T12:44:15.2333864Z 
+2026-02-08T12:44:15.2333990Z ERROR: 3 dead links found!
+2026-02-08T12:44:15.2334567Z [✖] https://www.gnu.org/licenses/gpl-3.0 → Status: 403
+2026-02-08T12:44:15.2335206Z [✖] https://tex.stackexchange.com/ → Status: 403
+2026-02-08T12:44:15.2336136Z [✖] https://pgfplots.sourceforge.io/ → Status: 403
+2026-02-08T12:44:15.2336481Z 
+2026-02-08T12:44:15.2336623Z FILE: ./docs/BIBLIOGRAFIA.md
+2026-02-08T12:44:15.2337305Z (node:118) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2338232Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2338994Z [✖] https://scholar.google.com/
+2026-02-08T12:44:15.2339275Z 
+2026-02-08T12:44:15.2339402Z 87 links checked.
+2026-02-08T12:44:15.2339596Z 
+2026-02-08T12:44:15.2339737Z ERROR: 1 dead links found!
+2026-02-08T12:44:15.2340237Z [✖] https://scholar.google.com/ → Status: 403
+2026-02-08T12:44:15.2340581Z 
+2026-02-08T12:44:15.2340707Z FILE: ./docs/AUDIT_2025.md
+2026-02-08T12:44:15.2340937Z 
+2026-02-08T12:44:15.2341048Z 0 links checked.
+2026-02-08T12:44:15.2341224Z 
+2026-02-08T12:44:15.2341385Z FILE: ./docs/IMAGENES_SUBFIGURAS.md
+2026-02-08T12:44:15.2342089Z (node:140) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2343029Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2343510Z 
+2026-02-08T12:44:15.2343620Z 77 links checked.
+2026-02-08T12:44:15.2343816Z 
+2026-02-08T12:44:15.2343955Z FILE: ./docs/ACCESIBILIDAD.md
+2026-02-08T12:44:15.2344837Z (node:151) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2345789Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2346537Z [✖] https://www.adobe.com/acrobat
+2026-02-08T12:44:15.2347139Z [✖] https://www.overleaf.com/learn/latex/Accessibility
+2026-02-08T12:44:15.2348144Z [✖] https://esail.tamu.edu/faculty-tutorials/accessible-latex-pdf-ua-2-overleaf-2025/
+2026-02-08T12:44:15.2348766Z 
+2026-02-08T12:44:15.2348895Z 21 links checked.
+2026-02-08T12:44:15.2349102Z 
+2026-02-08T12:44:15.2349219Z ERROR: 3 dead links found!
+2026-02-08T12:44:15.2349713Z [✖] https://www.adobe.com/acrobat → Status: 0
+2026-02-08T12:44:15.2350429Z [✖] https://www.overleaf.com/learn/latex/Accessibility → Status: 404
+2026-02-08T12:44:15.2351455Z [✖] https://esail.tamu.edu/faculty-tutorials/accessible-latex-pdf-ua-2-overleaf-2025/ → Status: 403
+2026-02-08T12:44:15.2352116Z 
+2026-02-08T12:44:15.2352266Z FILE: ./docs/REFERENCIAS_CRUZADAS.md
+2026-02-08T12:44:15.2353004Z (node:162) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2354130Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2354616Z 
+2026-02-08T12:44:15.2354740Z 69 links checked.
+2026-02-08T12:44:15.2354938Z 
+2026-02-08T12:44:15.2355089Z FILE: ./docs/README.md
+2026-02-08T12:44:15.2355970Z (node:173) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2356648Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2357045Z 
+2026-02-08T12:44:15.2357117Z 13 links checked.
+2026-02-08T12:44:15.2357308Z 
+2026-02-08T12:44:15.2357437Z FILE: ./docs/TABLAS.md
+2026-02-08T12:44:15.2358116Z (node:184) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2359062Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2359569Z 
+2026-02-08T12:44:15.2359697Z 89 links checked.
+2026-02-08T12:44:15.2359914Z 
+2026-02-08T12:44:15.2360072Z FILE: ./docs/TEXTO_LISTAS.md
+2026-02-08T12:44:15.2360739Z (node:195) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2361665Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2362203Z 
+2026-02-08T12:44:15.2362344Z 94 links checked.
+2026-02-08T12:44:15.2362555Z 
+2026-02-08T12:44:15.2362690Z FILE: ./docs/CODIGO_FUENTE.md
+2026-02-08T12:44:15.2363242Z (node:206) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2364244Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2364615Z 
+2026-02-08T12:44:15.2364754Z 72 links checked.
+2026-02-08T12:44:15.2364939Z 
+2026-02-08T12:44:15.2365088Z FILE: ./docs/FIGURAS_GRAFICAS.md
+2026-02-08T12:44:15.2365944Z (node:217) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2366907Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2367457Z 
+2026-02-08T12:44:15.2367579Z 94 links checked.
+2026-02-08T12:44:15.2367772Z 
+2026-02-08T12:44:15.2367934Z FILE: ./docs/COMPONENTES.md
+2026-02-08T12:44:15.2368529Z (node:228) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2369152Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2369434Z 
+2026-02-08T12:44:15.2369504Z 118 links checked.
+2026-02-08T12:44:15.2369643Z 
+2026-02-08T12:44:15.2369784Z FILE: ./docs/AI_CONTEXT.md
+2026-02-08T12:44:15.2370258Z (node:239) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2371125Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2371404Z 
+2026-02-08T12:44:15.2371479Z 60 links checked.
+2026-02-08T12:44:15.2371658Z 
+2026-02-08T12:44:15.2371974Z FILE: ./docs/GLOSARIOS_ACRONIMOS.md
+2026-02-08T12:44:15.2372456Z (node:250) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2373120Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2373493Z 
+2026-02-08T12:44:15.2373562Z 73 links checked.
+2026-02-08T12:44:15.2373669Z 
+2026-02-08T12:44:15.2373753Z FILE: ./docs/ECUACIONES.md
+2026-02-08T12:44:15.2374120Z (node:261) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2374620Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2375139Z [✖] https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols
+2026-02-08T12:44:15.2375377Z 
+2026-02-08T12:44:15.2375444Z 125 links checked.
+2026-02-08T12:44:15.2375711Z 
+2026-02-08T12:44:15.2375844Z ERROR: 1 dead links found!
+2026-02-08T12:44:15.2376494Z [✖] https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols → Status: 403
+2026-02-08T12:44:15.2376976Z 
+2026-02-08T12:44:15.2377148Z FILE: ./docs/GUIA_PRINCIPIANTES.md
+2026-02-08T12:44:15.2378077Z (node:272) [DEP0176] DeprecationWarning: fs.R_OK is deprecated, use fs.constants.R_OK instead
+2026-02-08T12:44:15.2379039Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-02-08T12:44:15.2380016Z [✖] https://tecdigital.tec.ac.cr/revistamatematica/Libros/LATEX/LaTeX_2014.pdf
+2026-02-08T12:44:15.2380578Z [✖] https://www.youtube.com/c/Overleaf
+2026-02-08T12:44:15.2380866Z 
+2026-02-08T12:44:15.2380946Z 72 links checked.
+2026-02-08T12:44:15.2381055Z 
+2026-02-08T12:44:15.2381130Z ERROR: 2 dead links found!
+2026-02-08T12:44:15.2381590Z [✖] https://tecdigital.tec.ac.cr/revistamatematica/Libros/LATEX/LaTeX_2014.pdf → Status: 404
+2026-02-08T12:44:15.2382091Z [✖] https://www.youtube.com/c/Overleaf → Status: 404
+2026-02-08T12:44:15.2382315Z 
+2026-02-08T12:44:15.2382382Z FILE: ./CLAUDE.md
+2026-02-08T12:44:15.2382494Z 
+2026-02-08T12:44:15.2382560Z 0 links checked.
+2026-02-08T12:44:15.2382675Z 
+2026-02-08T12:44:15.2382759Z FILE: ./cls/README.md
+2026-02-08T12:44:15.2383019Z [✖] https://ctan.org/pkg/interface3
+2026-02-08T12:44:15.2383195Z 
+2026-02-08T12:44:15.2383261Z 4 links checked.
+2026-02-08T12:44:15.2383363Z 
+2026-02-08T12:44:15.2383447Z ERROR: 1 dead links found!
+2026-02-08T12:44:15.2383726Z [✖] https://ctan.org/pkg/interface3 → Status: 404
+2026-02-08T12:44:15.2383932Z 
+2026-02-08T12:44:15.2384114Z [0;33m=========================================================================[0m
+2026-02-08T12:44:15.3958953Z Post job cleanup.
+2026-02-08T12:44:15.4745847Z [command]/usr/bin/git version
+2026-02-08T12:44:15.4783854Z git version 2.52.0
+2026-02-08T12:44:15.4823074Z Temporarily overriding HOME='/home/runner/work/_temp/8ebeaf74-6dec-45e8-b48d-419a06366e54' before making global git config changes
+2026-02-08T12:44:15.4824209Z Adding repository directory to the temporary git global config as a safe directory
+2026-02-08T12:44:15.4828853Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS
+2026-02-08T12:44:15.4860884Z Removing SSH command configuration
+2026-02-08T12:44:15.4867941Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-02-08T12:44:15.4902844Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-02-08T12:44:15.5131598Z Removing HTTP extra header
+2026-02-08T12:44:15.5137374Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-02-08T12:44:15.5173793Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-02-08T12:44:15.5396323Z Removing includeIf entries pointing to credentials config files
+2026-02-08T12:44:15.5403223Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-02-08T12:44:15.5426478Z includeif.gitdir:/home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS/.git.path
+2026-02-08T12:44:15.5427400Z includeif.gitdir:/home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS/.git/worktrees/*.path
+2026-02-08T12:44:15.5427857Z includeif.gitdir:/github/workspace/.git.path
+2026-02-08T12:44:15.5428201Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-02-08T12:44:15.5437154Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS/.git.path
+2026-02-08T12:44:15.5458921Z /home/runner/work/_temp/git-credentials-dce53c86-37a6-4d77-bd6b-dd06bf4862ae.config
+2026-02-08T12:44:15.5470089Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS/.git.path /home/runner/work/_temp/git-credentials-dce53c86-37a6-4d77-bd6b-dd06bf4862ae.config
+2026-02-08T12:44:15.5504004Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS/.git/worktrees/*.path
+2026-02-08T12:44:15.5526555Z /home/runner/work/_temp/git-credentials-dce53c86-37a6-4d77-bd6b-dd06bf4862ae.config
+2026-02-08T12:44:15.5536210Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/TFG-TFM_EPS/TFG-TFM_EPS/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-dce53c86-37a6-4d77-bd6b-dd06bf4862ae.config
+2026-02-08T12:44:15.5566757Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-02-08T12:44:15.5589419Z /github/runner_temp/git-credentials-dce53c86-37a6-4d77-bd6b-dd06bf4862ae.config
+2026-02-08T12:44:15.5597503Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-dce53c86-37a6-4d77-bd6b-dd06bf4862ae.config
+2026-02-08T12:44:15.5627594Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-02-08T12:44:15.5647438Z /github/runner_temp/git-credentials-dce53c86-37a6-4d77-bd6b-dd06bf4862ae.config
+2026-02-08T12:44:15.5656539Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-dce53c86-37a6-4d77-bd6b-dd06bf4862ae.config
+2026-02-08T12:44:15.5688280Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-02-08T12:44:15.5908521Z Removing credentials config '/home/runner/work/_temp/git-credentials-dce53c86-37a6-4d77-bd6b-dd06bf4862ae.config'
+2026-02-08T12:44:15.6033743Z Cleaning up orphan processes
