@@ -103,7 +103,7 @@ pip install latexminted
 | Scala | `scalacode` | `scalacodeNN` | - | - |
 | Perl | `perlcode` | `perlcodeNN` | - | - |
 | Haskell | `haskellcode` | `haskellcodeNN` | - | - |
-| Lua | `luacode` | `luacodeNN` | - | - |
+| Lua | `lualangcode` | `lualangcodeNN` | `lualangcodeDark` | `lualangcodeDarkNN` |
 | Prolog | `prologcode` | `prologcodeNN` | `prologcodeDark` | `prologcodeDarkNN` |
 | MATLAB | `matlabcode` | `matlabcodeNN` | `matlabcodeDark` | `matlabcodeDarkNN` |
 | Fortran | `fortrancode` | `fortrancodeNN` | `fortrancodeDark` | `fortrancodeDarkNN` |
@@ -169,7 +169,7 @@ pip install latexminted
 
 ### Ejemplo simple
 
-```latex <!-- preview -->
+```latex <!-- preview:2 -->
 \begin{pythoncode}
 def fibonacci(n):
     """Calcula el n-ésimo número de Fibonacci."""
@@ -191,7 +191,7 @@ for i in range(10):
 
 ### Con tema oscuro
 
-```latex <!-- preview -->
+```latex <!-- preview:2 -->
 \begin{pythoncodeDark}
 def quicksort(arr):
     if len(arr) <= 1:
@@ -212,7 +212,7 @@ def quicksort(arr):
 
 ### Sin números de línea
 
-```latex <!-- preview -->
+```latex <!-- preview:2 -->
 \begin{jscodeNN}
 const greeting = "Hello, World!";
 console.log(greeting);
@@ -229,7 +229,7 @@ console.log(greeting);
 
 Ideal para versiones impresas o cuando se prefiere un estilo minimalista. A diferencia de los otros entornos, este **requiere** que indiques el lenguaje y el título como argumentos obligatorios.
 
-```latex <!-- preview -->
+```latex <!-- preview:2 -->
 \begin{codigosimple}{python}{Script de Análisis}
 def calcular_media(datos):
     """Calcula la media aritmética."""
@@ -253,7 +253,7 @@ Todos los entornos aceptan opciones opcionales entre corchetes `[...]`. Las opci
 
 ### Título personalizado
 
-```latex <!-- preview -->
+```latex <!-- preview:2 -->
 \begin{pythoncode}[title={Mi algoritmo de ordenación}]
 def bubble_sort(arr):
     n = len(arr)
