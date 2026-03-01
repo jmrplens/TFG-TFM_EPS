@@ -141,7 +141,7 @@ jobs:
           grep -n "eps-metadata" main.tex
         
     - name: Upload PDF artifact
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: TFG-TFM_EPS_UA
         path: main.pdf
@@ -149,7 +149,7 @@ jobs:
         
     - name: Upload log on failure
       if: failure()
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with:
         name: build-logs
         path: |
