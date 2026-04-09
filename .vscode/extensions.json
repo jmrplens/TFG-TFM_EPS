@@ -1,0 +1,16 @@
+{
+    // Extensiones recomendadas para la plantilla TFG/TFM EPS UA
+    // VS Code las sugerirá automáticamente al abrir el proyecto
+    "recommendations": [
+        // LaTeX
+        "james-yu.latex-workshop",
+
+        // Corrector ortográfico (español + inglés)
+        "streetsidesoftware.code-spell-checker",
+        "streetsidesoftware.code-spell-checker-spanish",
+
+        // GitHub Copilot
+        "github.copilot",
+        "github.copilot-chat"
+    ]
+}

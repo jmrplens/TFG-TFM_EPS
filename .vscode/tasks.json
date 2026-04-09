@@ -1,0 +1,73 @@
+{
+    // Tareas de VS Code para la plantilla TFG/TFM EPS UA
+    // Acceder desde: Terminal → Ejecutar tarea...
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compilar (completo)",
+            "type": "shell",
+            "command": "make",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            },
+            "problemMatcher": [
+                "$laTeX"
+            ]
+        },
+        {
+            "label": "Compilar (rápido)",
+            "type": "shell",
+            "command": "make quick",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            },
+            "problemMatcher": [
+                "$laTeX"
+            ]
+        },
+        {
+            "label": "Limpiar auxiliares",
+            "type": "shell",
+            "command": "make clean",
+            "group": "build",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Revisión rápida del documento",
+            "type": "shell",
+            "command": "python3 scripts/revision-rapida.py",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Actualizar previews de documentación",
+            "type": "shell",
+            "command": "python3 .herramientas/actualizar_previews.py",
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
