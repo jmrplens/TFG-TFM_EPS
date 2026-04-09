@@ -27,7 +27,7 @@ Herramienta unificada que extrae, compila e inserta previews de snippets LaTeX e
 
 Solo se procesan snippets marcados explícitamente con `<!-- preview -->`:
 
-```markdown
+````markdown
 ```latex <!-- preview -->
 % Se renderiza con 1 pasada de compilación
 \begin{equation}
@@ -43,8 +43,7 @@ La ecuación~\ref{eq:ejemplo} muestra...
 ```latex <!-- preview:3 mi_nombre_custom -->
 % 3 pasadas + nombre personalizado para el archivo
 ```
-
-```text
+````
 
 ### Uso
 
@@ -138,12 +137,11 @@ make -f .herramientas/Makefile portadas     # Generar portadas
 
 1. **Marcar snippets en los archivos `.md`**:
 
-   ```markdown
+   ````markdown
    ```latex <!-- preview -->
    \begin{equation}...
    ```
-
-   ```text
+   ````
 
 2. **Generar e insertar previews**:
 
