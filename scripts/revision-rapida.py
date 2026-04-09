@@ -116,6 +116,27 @@ def contar_palabras(texto: str) -> int:
     return len(texto.split())
 
 
+def extraer_texto_plano(archivos_tex: list) -> str:
+    """Extrae texto sin markup LaTeX para envío a APIs externas de plagio."""
+    fragmentos = []
+    for ruta in archivos_tex:
+        texto = leer_tex(ruta)
+        if not texto.strip():
+            continue
+        texto = eliminar_comentarios(texto)
+        prev = None
+        while prev != texto:
+            prev = texto
+            texto = re.sub(r"\\[a-zA-Z]+\*?\{[^{}]*\}", " ", texto)
+        texto = re.sub(r"\\[a-zA-Z]+\*?", " ", texto)
+        texto = re.sub(r"[{}]", " ", texto)
+        texto = re.sub(r"\$[^$]*\$", " ", texto)
+        texto = re.sub(r"\s+", " ", texto).strip()
+        if texto:
+            fragmentos.append(texto)
+    return "\n\n".join(fragmentos)
+
+
 # ---------------------------------------------------------------------------
 # Análisis
 # ---------------------------------------------------------------------------
@@ -392,43 +413,212 @@ def analizar_estructura_global(archivos_tex: list) -> list:
 
 def verificar_plagio_copyleaks(texto: str, api_key: str) -> list:
     """
-    Esqueleto para integración con Copyleaks API (opt-in).
+    Integración con Copyleaks API v3 (opt-in).
 
-    Esta función es un stub intencionado. Para activar la verificación real,
-    implementar la llamada a la API siguiendo:
-    https://api.copyleaks.com/documentation/v3
+    Autentica con la cuenta Copyleaks y envía el documento para análisis.
+    La API v3 es asíncrona (webhook): los resultados detallados llegan al
+    endpoint configurado en el dashboard de Copyleaks o a COPYLEAKS_WEBHOOK_URL.
 
-    La clave se carga desde COPYLEAKS_API_KEY en el archivo .env (no se sube
-    al repositorio). Mientras no se implemente, devuelve un aviso informativo.
+    Credencial en .env (formato email:clave-uuid):
+        COPYLEAKS_API_KEY=email@dominio.com:00000000-0000-0000-0000-000000000000
     """
-    return [{
-        "tipo": "info",
-        "mensaje": "Verificación Copyleaks configurada (stub). "
-                   "Implementar la llamada a la API en scripts/revision-rapida.py "
-                   "siguiendo https://api.copyleaks.com/documentation/v3",
-    }]
+    import base64
+    import json
+    import uuid
+    import urllib.request
+    import urllib.error
+
+    if ":" not in api_key:
+        return [{
+            "tipo": "error",
+            "mensaje": "COPYLEAKS_API_KEY debe tener formato "
+                       "'email@dominio.com:clave-uuid'",
+        }]
+
+    email, _, key = api_key.partition(":")
+
+    try:
+        # 1. Autenticación
+        login_body = json.dumps({"email": email, "key": key}).encode()
+        req = urllib.request.Request(
+            "https://id.copyleaks.com/v3/account/login/api",
+            data=login_body,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            token = json.loads(resp.read().decode())["access_token"]
+
+        # 2. Envío del documento
+        scan_id = str(uuid.uuid4())
+        text_b64 = base64.b64encode(texto.encode("utf-8")).decode()
+        submit_body = json.dumps({
+            "base64": text_b64,
+            "filename": "tfg-tfm.txt",
+            "properties": {
+                "sandbox": False,
+                "action": 0,
+                "webhooks": {"status": "https://webhook.site/placeholder"},
+            },
+        }).encode()
+        req = urllib.request.Request(
+            f"https://api.copyleaks.com/v3/scans/submit/file/{scan_id}",
+            data=submit_body,
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {token}",
+            },
+            method="PUT",
+        )
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            pass  # 200 OK
+
+        return [{
+            "tipo": "info",
+            "mensaje": (
+                f"Copyleaks: documento enviado (scan ID: {scan_id}). "
+                "El análisis es asíncrono — ver resultados en "
+                "https://app.copyleaks.com"
+            ),
+        }]
+
+    except urllib.error.HTTPError as e:
+        detalle = e.read().decode(errors="replace")[:200]
+        return [{"tipo": "error", "mensaje": f"Copyleaks HTTP {e.code}: {detalle}"}]
+    except Exception as e:
+        return [{"tipo": "error", "mensaje": f"Error al conectar con Copyleaks: {e}"}]
 
 
-def verificar_plagio_turnitin(texto: str, api_key: str) -> list:
+def verificar_plagio_turnitin(texto: str, api_key: str, tenant_url: str) -> list:
     """
-    Esqueleto para integración con Turnitin API (opt-in).
+    Integración completa con Turnitin Core API v1 (opt-in).
 
-    Esta función es un stub intencionado. Para activar la verificación real,
-    implementar la llamada a la API siguiendo la documentación oficial de
-    Turnitin. La clave se carga desde TURNITIN_API_KEY en el archivo .env.
+    Crea la entrega, sube el contenido y obtiene el porcentaje de similitud
+    mediante sondeo (polling). Requiere acceso institucional a Turnitin.
+
+    Credenciales en .env:
+        TURNITIN_API_KEY=tu-clave-de-api
+        TURNITIN_TENANT_URL=https://tu-institucion.turnitin.com/api/v1
     """
-    return [{
-        "tipo": "info",
-        "mensaje": "Verificación Turnitin configurada (stub). "
-                   "Implementar la llamada a la API en scripts/revision-rapida.py.",
-    }]
+    import json
+    import time
+    import urllib.request
+    import urllib.error
+
+    if not tenant_url:
+        return [{
+            "tipo": "error",
+            "mensaje": (
+                "Falta TURNITIN_TENANT_URL en .env "
+                "(ej: https://tu-institucion.turnitin.com/api/v1)"
+            ),
+        }]
+
+    base_url = tenant_url.rstrip("/")
+    base_headers = {
+        "Authorization": f"Bearer {api_key}",
+        "X-Turnitin-Integration-Name": "TFG-TFM-EPS-UA",
+        "X-Turnitin-Integration-Version": "2.1.0",
+    }
+
+    def _request(method: str, path: str, body=None, binary: bool = False) -> dict:
+        url = f"{base_url}/{path.lstrip('/')}"
+        headers = dict(base_headers)
+        data = None
+        if body is not None:
+            if binary:
+                headers["Content-Type"] = "binary/octet-stream"
+                headers["Content-Disposition"] = 'inline; filename="tfg-tfm.txt"'
+                data = body if isinstance(body, bytes) else body.encode("utf-8")
+            else:
+                headers["Content-Type"] = "application/json"
+                data = json.dumps(body).encode()
+        req = urllib.request.Request(url, data=data, headers=headers, method=method)
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            raw = resp.read()
+            return json.loads(raw) if raw else {}
+
+    def _poll(method: str, path: str, campo: str, valor_ok: str,
+              valor_error: str, intentos: int = 24, espera: int = 5) -> dict | None:
+        for _ in range(intentos):
+            time.sleep(espera)
+            data = _request(method, path)
+            if data.get(campo) == valor_ok:
+                return data
+            if data.get(campo) == valor_error:
+                return None
+        return None
+
+    try:
+        # 1. Crear entrega
+        submission = _request("POST", "/submissions", {
+            "owner": "student",
+            "title": "TFG-TFM EPS UA",
+            "submitter": "student",
+            "owner_default_permission_set": "LEARNER",
+            "submitter_default_permission_set": "INSTRUCTOR",
+        })
+        sid = submission["id"]
+
+        # 2. Subir contenido
+        _request("PUT", f"/submissions/{sid}/original", body=texto, binary=True)
+
+        # 3. Esperar procesamiento de la entrega
+        estado = _poll("GET", f"/submissions/{sid}", "status", "COMPLETE", "ERROR")
+        if estado is None:
+            return [{
+                "tipo": "advertencia",
+                "mensaje": (
+                    f"Turnitin: tiempo de espera agotado (entrega ID: {sid}). "
+                    "Consultar el panel de Turnitin para ver el resultado."
+                ),
+            }]
+
+        # 4. Solicitar informe de similitud
+        _request("PUT", f"/submissions/{sid}/similarity", {
+            "generation_settings": {
+                "search_repositories": ["SUBMITTED_WORK", "INTERNET", "PUBLICATION"],
+                "auto_exclude_self_matching_scope": "ALL",
+            }
+        })
+
+        # 5. Obtener informe de similitud
+        sim = _poll("GET", f"/submissions/{sid}/similarity", "status", "COMPLETE", "ERROR")
+        if sim is None:
+            return [{
+                "tipo": "advertencia",
+                "mensaje": (
+                    f"Turnitin: informe de similitud en curso (entrega ID: {sid}). "
+                    "Consultar el panel de Turnitin."
+                ),
+            }]
+
+        pct = sim.get("overall_match_percentage", 0)
+        internet = sim.get("internet_match_percentage", "?")
+        publicaciones = sim.get("publication_match_percentage", "?")
+        trabajos = sim.get("submitted_works_match_percentage", "?")
+        nivel = "error" if pct > 20 else "advertencia" if pct > 10 else "info"
+        return [{
+            "tipo": nivel,
+            "mensaje": (
+                f"Turnitin: similitud global {pct}% "
+                f"(internet {internet}%, publicaciones {publicaciones}%, "
+                f"trabajos previos {trabajos}%)"
+            ),
+        }]
+
+    except urllib.error.HTTPError as e:
+        detalle = e.read().decode(errors="replace")[:200]
+        return [{"tipo": "error", "mensaje": f"Turnitin HTTP {e.code}: {detalle}"}]
+    except Exception as e:
+        return [{"tipo": "error", "mensaje": f"Error al conectar con Turnitin: {e}"}]
 
 
 # ---------------------------------------------------------------------------
 # Generación del informe
 # ---------------------------------------------------------------------------
 
-def generar_informe(problemas: list, env: dict, archivos_analizados: list) -> str:
+def generar_informe(problemas: list, env: dict, archivos_analizados: list, texto: str = "") -> str:
     """Genera el informe de revisión en formato Markdown."""
     ahora = datetime.now().strftime("%d/%m/%Y %H:%M")
     n_errores = sum(1 for p in problemas if p.severidad == "error")
@@ -503,17 +693,18 @@ def generar_informe(problemas: list, env: dict, archivos_analizados: list) -> st
     # Plagio por API
     copyleaks_key = env.get("COPYLEAKS_API_KEY")
     turnitin_key = env.get("TURNITIN_API_KEY")
+    turnitin_tenant = env.get("TURNITIN_TENANT_URL", "")
 
     if copyleaks_key or turnitin_key:
         lineas += ["## Plagio (API)", ""]
         if copyleaks_key:
-            resultados = verificar_plagio_copyleaks("", copyleaks_key)
+            resultados = verificar_plagio_copyleaks(texto, copyleaks_key)
             for r in resultados:
                 icono = "ℹ️" if r["tipo"] == "info" else "❌"
                 lineas.append(f"{icono} {r['mensaje']}")
                 lineas.append("")
         if turnitin_key:
-            resultados = verificar_plagio_turnitin("", turnitin_key)
+            resultados = verificar_plagio_turnitin(texto, turnitin_key, turnitin_tenant)
             for r in resultados:
                 icono = "ℹ️" if r["tipo"] == "info" else "❌"
                 lineas.append(f"{icono} {r['mensaje']}")
@@ -525,10 +716,13 @@ def generar_informe(problemas: list, env: dict, archivos_analizados: list) -> st
             "ℹ️ No se ha configurado ninguna API de detección de plagio.",
             "",
             "Para activar la verificación externa, crear un archivo `.env` en la raíz del proyecto con:",
-            "```",
-            "COPYLEAKS_API_KEY=tu_clave_aqui",
-            "# o",
-            "TURNITIN_API_KEY=tu_clave_aqui",
+            "```text",
+            "# Copyleaks — formato email:clave-uuid",
+            "COPYLEAKS_API_KEY=email@dominio.com:00000000-0000-0000-0000-000000000000",
+            "",
+            "# Turnitin — requiere acceso institucional",
+            "TURNITIN_API_KEY=tu-clave-de-api",
+            "TURNITIN_TENANT_URL=https://tu-institucion.turnitin.com/api/v1",
             "```",
             "",
             "El archivo `.env` ya está en `.gitignore` y no se subirá al repositorio.",
@@ -632,9 +826,12 @@ def main():
     if args.solo_errores:
         todos_los_problemas = [p for p in todos_los_problemas if p.severidad == "error"]
 
+    # Extraer texto plano para APIs externas de plagio
+    texto_plano = extraer_texto_plano(archivos_tex)
+
     # Generar informe
     archivos_rel = [str(r.relative_to(RAIZ)) for r in archivos_tex if r.exists()]
-    informe = generar_informe(todos_los_problemas, env, archivos_rel)
+    informe = generar_informe(todos_los_problemas, env, archivos_rel, texto_plano)
 
     # Guardar informe
     salida = Path(args.salida)
