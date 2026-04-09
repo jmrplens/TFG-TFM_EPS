@@ -285,5 +285,5 @@ Párrafo introductorio del capítulo.
 - Toda afirmación relevante debe tener cita bibliográfica.
 - Definir los acrónimos la primera vez que aparecen con `\gls{}` o
   `\acrfull{}`.
-- Usar `~` antes de `\ref{}`, `\cite{}`, `\parencite{}` para evitar saltos
-  de línea: `la Figura~\ref{fig:nombre}`.
+- Usar `~` antes de `\ref{}`, `\parencite{}` y otros comandos de referencia
+  para evitar saltos de línea: `la Figura~\ref{fig:nombre}`.

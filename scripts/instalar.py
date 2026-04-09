@@ -104,7 +104,7 @@ def ejecutar(cmd: list, capture: bool = True, timeout: int | None = 60) -> tuple
             text=True,
             timeout=timeout,
         )
-        salida = (resultado.stdout + resultado.stderr).strip()
+        salida = ((resultado.stdout or "") + (resultado.stderr or "")).strip()
         return resultado.returncode == 0, salida
     except FileNotFoundError:
         return False, ""
@@ -152,7 +152,7 @@ def comprobar_comando(cmd: str, args: list | None = None) -> tuple[bool, str]:
         args = ["--version"]
     if shutil.which(cmd) is None:
         return False, ""
-    ok, salida = ejecutar([cmd] + args)
+    ok, salida = ejecutar([cmd, *args])
     # Algunos comandos retornan código != 0 en --version pero funcionan
     # correctamente (ej. biber). Si produce salida con texto, se considera
     # instalado. Si hay timeout o no hay salida y el código falla, se
@@ -172,7 +172,7 @@ def instalar_pip_paquete(nombre: str, modo_auto: bool = False) -> bool:
         try:
             respuesta = input(f"  ¿Instalar {nombre} automáticamente? [S/n] ").strip().lower()
         except EOFError:
-            respuesta = "s"  # sin terminal interactivo: instalar por defecto
+            respuesta = "n"  # sin terminal interactivo: no instalar sin confirmación
         if respuesta == "n":
             return False
 
@@ -390,7 +390,8 @@ def main():
     print(_linea_resultado("pip", pip_ok, pip_ver))
     if not pip_ok:
         print(amarillo("\n  pip no encontrado. Intenta reinstalar Python o ejecuta:"))
-        print("    python3 -m ensurepip --upgrade\n")
+        cmd_pip = "python" if so == "windows" else "python3"
+        print(f"    {cmd_pip} -m ensurepip --upgrade\n")
 
     # ------------------------------------------------------------------
     # 3. latexminted (paquete Python para minted 3.x)
@@ -437,13 +438,27 @@ def main():
         print()
         print(verde("  ✔ Todo correcto. El entorno está listo para compilar."))
         print()
-        print("  Compila el documento con:")
-        print(cyan("      make            ") + " → compilación completa")
-        print(cyan("      make quick      ") + " → compilación rápida (solo sintaxis)")
-        print(cyan("      make watch      ") + " → compilación continua al guardar")
-        print()
-        print("  Ejecuta el revisor estático con:")
-        print(cyan("      python3 scripts/revision-rapida.py"))
+        if so == "windows":
+            print("  Compila el documento (con Git Bash o WSL):")
+            print(cyan("      make            ") + " → compilación completa")
+            print(cyan("      make quick      ") + " → compilación rápida (solo sintaxis)")
+            print()
+            print("  O sin make, desde PowerShell / CMD:")
+            print(cyan("      lualatex -shell-escape main.tex"))
+            print(cyan("      biber main"))
+            print(cyan("      lualatex -shell-escape main.tex"))
+            print(cyan("      lualatex -shell-escape main.tex"))
+            print()
+            print("  Ejecuta el revisor estático con:")
+            print(cyan("      python scripts/revision-rapida.py"))
+        else:
+            print("  Compila el documento con:")
+            print(cyan("      make            ") + " → compilación completa")
+            print(cyan("      make quick      ") + " → compilación rápida (solo sintaxis)")
+            print(cyan("      make watch      ") + " → compilación continua al guardar")
+            print()
+            print("  Ejecuta el revisor estático con:")
+            print(cyan("      python3 scripts/revision-rapida.py"))
         print()
         return
 
@@ -543,7 +558,10 @@ def main():
 
     print()
     if todo_resuelto:
-        print(verde("  ✔ Todo listo. Compila con: make"))
+        if so == "windows":
+            print(verde("  ✔ Todo listo. Compila con: make (Git Bash/WSL) o lualatex manualmente"))
+        else:
+            print(verde("  ✔ Todo listo. Compila con: make"))
     else:
         print(amarillo("  Sigue las instrucciones anteriores para completar la instalación."))
         print("  Si tienes dudas, consulta docs/GUIA_PRINCIPIANTES.md o")

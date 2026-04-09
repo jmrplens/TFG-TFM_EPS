@@ -24,7 +24,7 @@ salida de `make quick`.
 
 ## Estructura de archivos
 
-```
+```text
 main.tex              → Raíz. Solo estructura, nunca contenido.
 configuracion.tex     → Datos del autor, título, titulación, idioma.
 referencias.bib       → Entradas bibliográficas (BibLaTeX).

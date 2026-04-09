@@ -255,7 +255,6 @@ Prefijos de etiquetas a respetar:
 | `tab:` | Tabla |
 | `eq:` | Ecuación |
 | `cod:` | Bloque de código |
-| `lst:` | Listado |
 | `anexo:` | Anexo |
 
 ---
@@ -292,6 +291,7 @@ Formato de entrada en `referencias.bib`:
 - ❌ Usar `\usepackage[utf8]{inputenc}`. LuaLaTeX maneja UTF-8 nativamente.
 - ❌ Usar `\usepackage{subfigure}`. Usar `subcaption` (ya incluido).
 - ❌ Usar `\usepackage{subfig}`. Usar `subcaption`.
+- ❌ Usar paquetes obsoletos: `utf8x`, `t1enc`, `ae`, `times`, `mathptmx`.
 - ❌ Usar `\begin{verbatim}` para código. Usar los entornos `*code`.
 - ❌ Usar `\begin{lstlisting}`. Usar los entornos `*code` de minted.
 - ❌ Escribir contenido en `main.tex`. Solo estructura.

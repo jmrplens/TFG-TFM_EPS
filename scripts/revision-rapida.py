@@ -87,8 +87,11 @@ def leer_tex(ruta: Path) -> str:
         return ruta.read_text(encoding="utf-8")
     except FileNotFoundError:
         return ""
-    except Exception as e:
-        print(f"Advertencia: no se pudo leer {ruta}: {e}", file=sys.stderr)
+    except PermissionError as e:
+        print(f"Error de permisos al leer {ruta}: {e}", file=sys.stderr)
+        return ""
+    except UnicodeDecodeError as e:
+        print(f"Error de codificación en {ruta}: {e}", file=sys.stderr)
         return ""
 
 

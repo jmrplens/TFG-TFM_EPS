@@ -18,7 +18,7 @@ resolver el problema automáticamente.
 ## Cómo adjuntar contexto en Claude
 
 1. Adjunta la **salida del script de instalación** (texto copiado del terminal)
-2. Adjunta el archivo **`main.log`** si hay errores de compilación
+2. Si hay errores de compilación, adjunta **las últimas 30–50 líneas de `main.log`**
 3. Usa los prompts de `docs/agents/prompts-instalacion.md` como punto de partida
 
 ---
