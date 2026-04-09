@@ -156,6 +156,26 @@ Esto sí aparece en el PDF  % Esto también es comentario
 
 ## 💻 Instalación paso a paso
 
+### Opción 0: Script de instalación automática ⭐ Recomendado para instalación local
+
+Si vas a trabajar en tu propio ordenador, la forma más sencilla es ejecutar el script de instalación incluido en el proyecto. Se encarga de comprobar qué tienes instalado y guiarte para instalar lo que falta:
+
+```bash
+# Linux / macOS
+python3 scripts/instalar.py
+
+# Windows (desde PowerShell o CMD)
+python scripts/instalar.py
+```
+
+> **¿No tienes Python todavía?** Descárgalo desde [python.org](https://www.python.org/downloads/) y asegúrate de marcar **"Add Python to PATH"** durante la instalación. Luego vuelve a ejecutar el script.
+
+Si prefieres que una IA te guíe paso a paso, usa el **agente de instalación**:
+- En GitHub Copilot Chat: carga [`.github/agents/instalacion.md`](../.github/agents/instalacion.md) y pide ayuda
+- En Claude: consulta [agents/instalacion-claude.md](agents/instalacion-claude.md) o usa los [prompts listos](agents/prompts-instalacion.md)
+
+Si prefieres instalar manualmente, sigue las opciones a continuación.
+
 ### Opción 1: Overleaf (sin instalar nada) ⭐ Recomendado para empezar
 
 [Overleaf](https://www.overleaf.com) es un editor LaTeX online. No necesitas instalar nada.
@@ -460,6 +480,18 @@ Según García \cite{garcia2024}, el resultado es...
 
 Si utilizas herramientas como ChatGPT, Claude o GitHub Copilot para redactar o solucionar problemas con tu TFG, te recomendamos lo siguiente:
 
+### Agentes especializados
+
+El proyecto incluye agentes preconfigurados para las tareas más comunes:
+
+| Tarea | GitHub Copilot | Claude |
+|-------|---------------|--------|
+| Instalar el entorno | [instalacion.md](../.github/agents/instalacion.md) | [instalacion-claude.md](agents/instalacion-claude.md) |
+| Redactar capítulos | [redaccion.md](../.github/agents/redaccion.md) | [redaccion-claude.md](agents/redaccion-claude.md) |
+| Revisar antes de la defensa | [revisor.md](../.github/agents/revisor.md) | [revisor-claude.md](agents/revisor-claude.md) |
+
+Cada agente tiene también una carpeta de **prompts listos para copiar y pegar** en `docs/agents/prompts-*.md`. Úsalos si no tienes integración directa con la IA.
+
 ### Proporcionar contexto
 Las IAs funcionan mejor si saben cómo está configurado tu proyecto. 
 1. Abre el archivo **`AGENTS.md`** (en la raíz del proyecto).
@@ -469,6 +501,7 @@ Las IAs funcionan mejor si saben cómo está configurado tu proyecto.
 Esto le enseñará a la IA qué paquetes usamos, cómo se hacen las portadas y las reglas específicas de la Universidad de Alicante.
 
 ### Qué puedes pedirles
+- **Instalar el entorno:** "Necesito instalar todo para usar la plantilla en Windows 11"
 - **Generar tablas:** "Hazme una tabla LaTeX con 3 columnas (Concepto, Descripción, Valor) para..."
 - **Corregir errores:** Pega el error de la consola y la IA te dirá qué falla.
 - **Escribir fórmulas:** "Escribe la fórmula de la Entropía de Shannon en LaTeX".

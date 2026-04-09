@@ -84,6 +84,7 @@ Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG
 
 | Agente | Para Copilot | Para Claude | Prompts |
 |---|---|---|---|
+| Instalación guiada | [.github/agents/instalacion.md](.github/agents/instalacion.md) | [docs/agents/instalacion-claude.md](docs/agents/instalacion-claude.md) | [docs/agents/prompts-instalacion.md](docs/agents/prompts-instalacion.md) |
 | Redacción de capítulos | [.github/agents/redaccion.md](.github/agents/redaccion.md) | [docs/agents/redaccion-claude.md](docs/agents/redaccion-claude.md) | [docs/agents/prompts-redaccion.md](docs/agents/prompts-redaccion.md) |
 | Revisor tipo tribunal | [.github/agents/revisor.md](.github/agents/revisor.md) | [docs/agents/revisor-claude.md](docs/agents/revisor-claude.md) | [docs/agents/prompts-revisor.md](docs/agents/prompts-revisor.md) |
 
@@ -95,6 +96,24 @@ Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG
 
 ## 🚀 Inicio Rápido
 
+### Instalación automática (recomendado)
+
+La forma más sencilla de preparar el entorno es ejecutar el script de instalación incluido:
+
+```bash
+# Linux / macOS
+python3 scripts/instalar.py
+
+# Windows
+python scripts/instalar.py
+```
+
+El script detecta qué falta, ofrece instalarlo automáticamente cuando es posible y guía paso a paso cuando requiere intervención manual. Si Python no está instalado aún, consulta la [Guía para Principiantes](docs/GUIA_PRINCIPIANTES.md#-instalación-paso-a-paso).
+
+Para ayuda interactiva, usa el **agente de instalación**:
+- GitHub Copilot: carga [`.github/agents/instalacion.md`](.github/agents/instalacion.md) en Copilot Chat
+- Claude: consulta [docs/agents/instalacion-claude.md](docs/agents/instalacion-claude.md) o usa los [prompts listos](docs/agents/prompts-instalacion.md)
+
 ### Requisitos
 
 - **TeX Live 2024** o superior (recomendado: TeX Live 2025)
@@ -103,7 +122,7 @@ Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG
 - **Python + latexminted** para resaltado de código (minted 3.x)
 
 ```bash
-# Ubuntu/Debian
+# Ubuntu/Debian (instalación manual)
 sudo apt install texlive-full
 pip3 install latexminted
 
@@ -111,8 +130,8 @@ pip3 install latexminted
 brew install --cask mactex
 pip3 install latexminted
 
-# Windows con Chocolatey
-choco install miktex
+# Windows con MiKTeX
+# Descargar desde https://miktex.org/download
 pip install latexminted
 ```
 
@@ -147,6 +166,11 @@ TFG-TFM_EPS/
 ├── referencias.bib             # Bibliografía
 ├── Makefile                    # Comandos de compilación
 ├── .latexmkrc                  # Configuración de latexmk
+├── .env.example                # Plantilla de credenciales (Copyleaks/Turnitin)
+│
+├── scripts/
+│   ├── instalar.py             # Script de instalación y diagnóstico del entorno
+│   └── revision-rapida.py      # Revisor estático del documento
 │
 ├── cls/
 │   └── eps-tfg.cls             # Clase principal
@@ -181,8 +205,16 @@ TFG-TFM_EPS/
 │   ├── GUIA_PRINCIPIANTES.md
 │   ├── CODIGO_FUENTE.md
 │   ├── ECUACIONES.md
+│   ├── agents/                 # Agentes IA y prompts listos
 │   └── ...                     # Más guías especializadas
 │
+├── .github/
+│   ├── agents/                 # Agentes para GitHub Copilot
+│   └── workflows/
+│       ├── build.yml           # CI: compilar PDF
+│       └── revision.yml        # CI: revisión estática automática en PR
+│
+├── .vscode/                    # Tareas y configuración para VS Code
 ├── AGENTS.md                   # Contexto para asistentes IA
 ├── CLAUDE.md                   # Instrucciones para Claude
 ├── CHANGELOG.md                # Historial de cambios
@@ -627,6 +659,16 @@ Consulta la [Guía de Contribución](CONTRIBUTING.md) para más detalles.
 ---
 
 ## 🛠️ Herramientas y Recursos
+
+### Herramientas incluidas en el proyecto
+
+| Herramienta | Cómo ejecutar | Para qué sirve |
+|-------------|---------------|----------------|
+| `scripts/instalar.py` | `python3 scripts/instalar.py` | Comprueba e instala dependencias del entorno |
+| `scripts/revision-rapida.py` | `python3 scripts/revision-rapida.py` | Análisis estático del documento; genera `informe-revision.md` |
+| `.env.example` | Copiar a `.env` y rellenar | Credenciales para Copyleaks y Turnitin (opcional) |
+
+La revisión estática también se ejecuta automáticamente en cada push/PR mediante el workflow de GitHub Actions (`.github/workflows/revision.yml`).
 
 ### Editores recomendados
 

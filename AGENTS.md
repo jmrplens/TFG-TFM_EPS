@@ -50,6 +50,8 @@ Escuela Politécnica Superior (EPS) de la Universidad de Alicante (UA).
 | `.latexmkrc` | Configuración de compilación |
 | `Makefile` | Automatización de compilación |
 | `.github/workflows/*.yml` | CI/CD |
+| `scripts/instalar.py` | Script de instalación; requiere coherencia con el agente |
+| `scripts/revision-rapida.py` | Revisor estático; lógica de análisis sensible |
 
 ### Regla crítica de idioma
 
@@ -319,6 +321,19 @@ Formato de entrada en `referencias.bib`:
 Además de las instrucciones generales de este archivo, existen agentes
 especializados para las tareas más comunes:
 
+### Agente de instalación
+
+Ayuda a un estudiante sin experiencia a instalar y configurar el entorno
+completo (LaTeX, Python, latexminted, make) en Windows, macOS o Linux.
+
+- **GitHub Copilot:** `.github/agents/instalacion.md`
+- **Claude:** `docs/agents/instalacion-claude.md`
+- **Prompts listos:** `docs/agents/prompts-instalacion.md`
+
+Flujos cubiertos: instalación desde cero, diagnóstico tras ejecutar
+`scripts/instalar.py`, errores de compilación, instalación en Windows sin
+experiencia, configuración de verificación de plagio.
+
 ### Agente de redacción
 
 Ayuda a redactar secciones y capítulos completos en LaTeX respetando las
@@ -343,15 +358,28 @@ estructurado antes de la defensa.
 Dimensiones: estructura, coherencia, bibliografía, lenguaje, formato LaTeX,
 figuras/tablas, plagio semántico, normativa EPS UA.
 
-### Revisión automática (sin IA)
+### Herramientas de diagnóstico e instalación (sin IA)
 
+**Comprobación e instalación del entorno:**
 ```bash
-python3 scripts/revision-rapida.py
+python3 scripts/instalar.py   # Linux / macOS
+python  scripts/instalar.py   # Windows
 ```
+Detecta dependencias faltantes (LaTeX, Python, latexminted, make) y ofrece
+instalarlas automáticamente. Acepta `--auto` para ejecución no interactiva.
 
+**Revisión estática del documento:**
+```bash
+python3 scripts/revision-rapida.py   # Linux / macOS
+python  scripts/revision-rapida.py   # Windows
+```
 Análisis estático que detecta referencias rotas, comandos prohibidos, citas
 sin entrada `.bib` y más. Genera `informe-revision.md`. También se ejecuta
 automáticamente como GitHub Action en cada push/PR que modifique archivos `.tex`.
+
+**Verificación de plagio (opcional):**
+Copiar `.env.example` a `.env` y rellenar las claves de Copyleaks o Turnitin.
+El revisor las detecta automáticamente y añade el resultado al informe.
 
 ---
 

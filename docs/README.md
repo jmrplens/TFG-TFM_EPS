@@ -10,8 +10,11 @@ Bienvenido a la documentación detallada de la plantilla TFG/TFM EPS Universidad
 
 ## 🤖 Agentes especializados
 
+Ver el **[índice completo de agentes](agents/README.md)** para instrucciones de uso.
+
 | Agente | Copilot | Claude | Prompts |
 |---|---|---|---|
+| Instalación guiada | [instalacion.md](../.github/agents/instalacion.md) | [instalacion-claude.md](agents/instalacion-claude.md) | [prompts-instalacion.md](agents/prompts-instalacion.md) |
 | Redacción de capítulos | [redaccion.md](../.github/agents/redaccion.md) | [redaccion-claude.md](agents/redaccion-claude.md) | [prompts-redaccion.md](agents/prompts-redaccion.md) |
 | Revisor tipo tribunal | [revisor.md](../.github/agents/revisor.md) | [revisor-claude.md](agents/revisor-claude.md) | [prompts-revisor.md](agents/prompts-revisor.md) |
 
