@@ -30,7 +30,7 @@ comandos prohibidos, citas sin entrada `.bib`, etc.).
 
 ### R01 — Revisión completa del documento
 
-```
+```text
 @workspace Actúa como un tribunal de TFG/TFM de la EPS de la Universidad
 de Alicante. Revisa mi trabajo completo y genera un informe estructurado
 siguiendo las instrucciones de .github/agents/revisor.md.
@@ -53,7 +53,7 @@ el informe con:
 
 ### R02 — Revisión rápida antes de entregar
 
-```
+```text
 @workspace Tengo que entregar mi TFG/TFM en [N días]. Haz una revisión
 rápida y dime los 5 problemas más importantes que debo resolver antes
 de la entrega.
@@ -71,7 +71,7 @@ podría señalar en la defensa.
 
 ### R03 — Revisar estructura y coherencia
 
-```
+```text
 @workspace Revisa la estructura y coherencia de mi TFG/TFM.
 
 Comprueba:
@@ -89,7 +89,7 @@ Para cada problema, indica el capítulo/sección y sugiere cómo resolverlo.
 
 ### R04 — Revisar bibliografía y citas
 
-```
+```text
 @workspace Revisa la bibliografía y las citas de mi TFG/TFM.
 
 Comprueba:
@@ -107,7 +107,7 @@ Lista todos los problemas encontrados con la ubicación exacta.
 
 ### R05 — Revisar lenguaje y estilo
 
-```
+```text
 @workspace Revisa el lenguaje y estilo académico de mi TFG/TFM.
 
 Comprueba:
@@ -125,7 +125,7 @@ Para cada problema, cita el fragmento exacto y propón la corrección.
 
 ### R06 — Revisar formato LaTeX
 
-```
+```text
 @workspace Revisa el formato LaTeX de mi TFG/TFM.
 
 Comprueba:
@@ -143,7 +143,7 @@ Lista todos los problemas con el archivo y número de línea aproximado.
 
 ### R07 — Revisar figuras, tablas y código
 
-```
+```text
 @workspace Revisa las figuras, tablas y bloques de código de mi TFG/TFM.
 
 Comprueba:
@@ -160,7 +160,7 @@ Para cada problema, indica la ubicación y sugiere la corrección.
 
 ### R08 — Análisis de plagio semántico
 
-```
+```text
 @workspace Analiza este fragmento de mi TFG/TFM en busca de posibles
 indicios de plagio o texto generado por IA sin revisión:
 
@@ -183,7 +183,7 @@ sospechoso. Recuerda que es un análisis orientativo, no definitivo.
 
 ### R09 — Revisar introducción
 
-```
+```text
 @workspace Revisa la introducción de mi TFG/TFM.
 
 Comprueba que contiene:
@@ -201,7 +201,7 @@ Comprueba que contiene:
 
 ### R10 — Revisar conclusiones
 
-```
+```text
 @workspace Revisa el capítulo de conclusiones de mi TFG/TFM.
 
 Comprueba:
@@ -220,7 +220,7 @@ cualquier objetivo no respondido.
 
 ### R11 — Comparar objetivos con resultados
 
-```
+```text
 @workspace Compara los objetivos planteados en la introducción con los
 resultados obtenidos en el capítulo de resultados y las conclusiones.
 
@@ -237,7 +237,7 @@ Resultado → Conclusión.
 
 ### R12 — Informe ejecutivo para el tutor
 
-```
+```text
 @workspace Genera un informe ejecutivo de 1 página sobre el estado de
 mi TFG/TFM, pensado para compartir con mi tutor/a.
 
@@ -265,3 +265,7 @@ Fecha objetivo de defensa: [fecha]
 - **Con el tutor:** usa R12 para preparar la reunión de seguimiento.
 - **Plagio:** el análisis semántico (R08) es orientativo. Para verificación
   definitiva, configurar un token de API en `.env` y ejecutar el script.
+- **Terminología de severidad:** los prompts de IA usan niveles «crítico /
+  importante / menor» (alineados con `.github/agents/revisor.md`); el script
+  `revision-rapida.py` usa «error / advertencia / info». La correspondencia
+  aproximada es: crítico → error, importante → advertencia, menor → info.

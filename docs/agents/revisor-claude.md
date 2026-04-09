@@ -31,8 +31,8 @@ y áreas de mejora antes de la defensa.
 
 **Comandos prohibidos** (su presencia es un error):
 `\hline`, `\begin{verbatim}`, `\begin{lstlisting}`, `\cite{}` directo,
-`\usepackage[utf8]{inputenc}`, `\usepackage{subfigure}`, `\bibliography{}`,
-`\bibliographystyle{}`.
+`\usepackage[utf8]{inputenc}`, `\usepackage{subfigure}`, `\usepackage{subfig}`,
+`\bibliography{}`, `\bibliographystyle{}`.
 
 ---
 

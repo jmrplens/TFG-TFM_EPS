@@ -82,7 +82,10 @@ def leer_tex(ruta: Path) -> str:
     """Lee un archivo .tex ignorando líneas de comentario."""
     try:
         return ruta.read_text(encoding="utf-8")
-    except Exception:
+    except FileNotFoundError:
+        return ""
+    except Exception as e:
+        print(f"Advertencia: no se pudo leer {ruta}: {e}", file=sys.stderr)
         return ""
 
 
@@ -149,7 +152,7 @@ def analizar_comandos_prohibidos(ruta: Path, texto: str) -> list:
 
 
 def analizar_etiquetas(ruta: Path, texto: str) -> list:
-    """Detecta figuras, tablas y ecuaciones sin \label{}."""
+    r"""Detecta figuras, tablas y ecuaciones sin \label{}."""
     problemas = []
     texto_sin_comentarios = eliminar_comentarios(texto)
 
@@ -174,7 +177,7 @@ def analizar_etiquetas(ruta: Path, texto: str) -> list:
 
 
 def analizar_captions(ruta: Path, texto: str) -> list:
-    """Detecta figuras y tablas sin \caption{}."""
+    r"""Detecta figuras y tablas sin \caption{}."""
     problemas = []
     texto_sin_comentarios = eliminar_comentarios(texto)
 
@@ -197,7 +200,7 @@ def analizar_captions(ruta: Path, texto: str) -> list:
 
 
 def analizar_referencias_cruzadas(archivos_tex: list) -> list:
-    """Detecta \ref{} sin \label{} correspondiente."""
+    r"""Detecta \ref{} sin \label{} correspondiente."""
     problemas = []
     labels_definidos = set()
     refs_usadas = []  # (archivo, linea, clave)
@@ -249,7 +252,7 @@ def analizar_bibliografia(archivos_tex: list) -> list:
         texto = eliminar_comentarios(leer_tex(ruta))
         for m in re.finditer(
             r"\\(?:parencite|textcite|cite|citeauthor|citeyear|citetitle)"
-            r"(?:\[[^\]]*\])?\{([^}]+)\}",
+            r"(?:\[[^\]]*\]){0,2}\{([^}]+)\}",
             texto
         ):
             for clave in m.group(1).split(","):
@@ -293,6 +296,8 @@ def analizar_secciones_vacias(ruta: Path, texto: str) -> list:
     # Dividir por secciones
     patron_seccion = r"(\\(?:chapter|section|subsection)\{[^}]+\})"
     partes = re.split(patron_seccion, texto_sin_comentarios)
+    # Localizar posiciones reales de cada sección en el texto
+    coincidencias_seccion = list(re.finditer(patron_seccion, texto_sin_comentarios))
 
     for i in range(1, len(partes) - 1, 2):
         titulo = partes[i]
@@ -300,7 +305,13 @@ def analizar_secciones_vacias(ruta: Path, texto: str) -> list:
         palabras = contar_palabras(contenido)
 
         if palabras < 50:
-            linea = texto_sin_comentarios[:texto_sin_comentarios.find(titulo)].count("\n") + 1
+            # Usar la posición real del match para calcular la línea
+            indice_seccion = (i - 1) // 2
+            if 0 <= indice_seccion < len(coincidencias_seccion):
+                inicio_seccion = coincidencias_seccion[indice_seccion].start()
+                linea = texto_sin_comentarios.count("\n", 0, inicio_seccion) + 1
+            else:
+                linea = 1
             nivel = "capítulo" if "chapter" in titulo else "sección"
             problemas.append(Problema(
                 archivo=str(ruta.relative_to(RAIZ)),
@@ -431,8 +442,8 @@ def generar_informe(problemas: list, env: dict, archivos_analizados: list) -> st
         lineas += [
             "## Resumen",
             "",
-            f"| Severidad | Cantidad |",
-            f"|---|---|",
+            "| Severidad | Cantidad |",
+            "|---|---|",
             f"| ❌ Errores | {n_errores} |",
             f"| ⚠️ Advertencias | {n_advertencias} |",
             f"| ℹ️ Informativos | {n_info} |",

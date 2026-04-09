@@ -24,7 +24,7 @@ Universidad de Alicante. Versión 2.1.0 (2026).
 
 ## Estructura del proyecto
 
-```
+```text
 main.tex              → Raíz. Solo estructura (inputs, usepackage, addbibresource).
 configuracion.tex     → Datos del usuario (\EPSsetup{...}).
 referencias.bib       → Bibliografía BibLaTeX.

@@ -23,7 +23,7 @@ Sustituir los valores entre `[corchetes]` por los datos reales del trabajo.
 
 ### P01 — Proponer estructura de capítulo
 
-```
+```text
 @workspace Soy alumno de [titulación] en la EPS de la Universidad de Alicante.
 Estoy escribiendo mi TFG/TFM sobre [tema del trabajo].
 
@@ -41,7 +41,7 @@ Usa las convenciones de la plantilla TFG/TFM EPS UA.
 
 ### P02 — Generar capítulo completo
 
-```
+```text
 @workspace Genera el capítulo "[nombre del capítulo]" completo para mi
 TFG/TFM de [titulación] sobre [tema].
 
@@ -53,7 +53,7 @@ Estructura acordada:
 Requisitos:
 - LaTeX válido para LuaLaTeX con los entornos de la plantilla EPS UA
 - Idioma: [español/valenciano/inglés]
-- Módulo de componentes activo: [software/telecom/arquitectura/quimica/ninguno]
+- Módulo de componentes activo: [software/telecom/arquitectura/quimica/geologia/prevencion/all/ninguno]
 - Incluir al menos [N] citas bibliográficas (usar \parencite{CLAVE})
 - Incluir al menos una figura, tabla o bloque de código si el contenido
   lo justifica
@@ -64,7 +64,7 @@ Requisitos:
 
 ### P03 — Expandir esquema a texto académico
 
-```
+```text
 @workspace Convierte este esquema en texto académico LaTeX para mi TFG/TFM
 de [titulación]. Sección: "[nombre de la sección]".
 
@@ -86,7 +86,7 @@ Requisitos:
 
 ### P04 — Revisar y mejorar fragmento
 
-```
+```text
 @workspace Mejora este fragmento de mi TFG/TFM. Identifica los problemas
 primero y luego reescríbelo:
 
@@ -105,7 +105,7 @@ Problemas a buscar:
 
 ### P05 — Mejorar coherencia entre secciones
 
-```
+```text
 @workspace Tengo estas dos secciones consecutivas en mi TFG/TFM. Mejora
 las transiciones entre ellas y asegúrate de que hay coherencia temática:
 
@@ -123,7 +123,7 @@ y un párrafo introductorio a la sección 2 que recoja el hilo de la 1.
 
 ### P06 — Añadir citas a un fragmento
 
-```
+```text
 @workspace Tengo este fragmento de mi TFG/TFM que necesita citas
 bibliográficas. Indica qué afirmaciones deberían tener cita y sugiere
 qué tipo de fuente buscar para cada una:
@@ -140,7 +140,7 @@ Para cada afirmación que necesite cita, usa el formato:
 
 ### P07 — Generar resumen y abstract
 
-```
+```text
 @workspace Genera el resumen y el abstract para mi TFG/TFM.
 
 Datos del trabajo:
@@ -162,7 +162,7 @@ Requisitos:
 
 ### P08 — Generar conclusiones
 
-```
+```text
 @workspace Genera el capítulo de conclusiones para mi TFG/TFM de
 [titulación] sobre [tema].
 
@@ -192,7 +192,7 @@ Longitud: 600-1000 palabras. Tono afirmativo, sin información nueva.
 
 ### P09 — Generar introducción (al final del proceso)
 
-```
+```text
 @workspace Genera la introducción de mi TFG/TFM. La escribo al final
 porque ya tengo el resto del documento.
 
@@ -215,7 +215,7 @@ Estructura obligatoria:
 
 ### P10 — Generar sección de trabajos relacionados
 
-```
+```text
 @workspace Genera la sección "Trabajos relacionados" para mi TFG/TFM
 de [titulación] sobre [tema].
 
@@ -237,7 +237,7 @@ Requisitos:
 
 ### P11 — Generar descripción de figura o tabla
 
-```
+```text
 @workspace Genera el pie de figura/tabla y el párrafo de referencia en
 el texto para este elemento de mi TFG/TFM:
 
@@ -255,7 +255,7 @@ Genera:
 
 ### P12 — Adaptar capítulo a otro idioma
 
-```
+```text
 @workspace Traduce este capítulo de mi TFG/TFM de [idioma origen] a
 [idioma destino], manteniendo el LaTeX intacto y adaptando solo el texto:
 

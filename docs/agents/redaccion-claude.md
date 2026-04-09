@@ -373,7 +373,7 @@ infieren patrones estadísticos a partir de ejemplos de entrenamiento
 convertirlo en texto académico.
 
 **Ejemplo de entrada:**
-```
+```text
 - Definición de red neuronal convolucional
 - Capas: convolución, pooling, fully connected
 - Aplicaciones en visión por computador
