@@ -13,6 +13,8 @@ Uso:
     python3 scripts/instalar.py --auto  (instala sin preguntar en Linux)
 """
 
+from __future__ import annotations
+
 import sys
 import os
 import subprocess
@@ -88,14 +90,19 @@ def detectar_so() -> str:
 # Comprobaciones individuales
 # ---------------------------------------------------------------------------
 
-def ejecutar(cmd: list, capture: bool = True) -> tuple[bool, str]:
-    """Ejecuta un comando y devuelve (éxito, salida)."""
+def ejecutar(cmd: list, capture: bool = True, timeout: int | None = 60) -> tuple[bool, str]:
+    """
+    Ejecuta un comando y devuelve (éxito, salida).
+
+    El parámetro `timeout` controla cuántos segundos esperar antes de
+    cancelar el proceso (None = sin límite, útil para instalaciones largas).
+    """
     try:
         resultado = subprocess.run(
             cmd,
             capture_output=capture,
             text=True,
-            timeout=60,
+            timeout=timeout,
         )
         salida = (resultado.stdout + resultado.stderr).strip()
         return resultado.returncode == 0, salida
@@ -140,15 +147,19 @@ def comprobar_paquete_python(nombre: str) -> tuple[bool, str]:
 
 
 def comprobar_comando(cmd: str, args: list = None) -> tuple[bool, str]:
-    """Verifica si un comando del sistema está disponible."""
+    """Verifica si un comando del sistema está disponible y responde."""
     if args is None:
         args = ["--version"]
     if shutil.which(cmd) is None:
         return False, ""
     ok, salida = ejecutar([cmd] + args)
-    # La mayoría de --version devuelve código 0; algunos no (ej. biber)
-    version = salida.splitlines()[0][:60] if salida else "(versión desconocida)"
-    return True, version
+    # Algunos comandos retornan código != 0 en --version pero funcionan
+    # correctamente (ej. biber). Si produce salida con texto, se considera
+    # instalado. Si hay timeout o no hay salida y el código falla, se
+    # reporta como problema.
+    tiene_salida = bool(salida and salida != "(tiempo de espera agotado)")
+    version = salida.splitlines()[0][:60] if tiene_salida else "(versión desconocida)"
+    return ok or tiene_salida, version
 
 
 # ---------------------------------------------------------------------------
@@ -166,7 +177,10 @@ def instalar_pip_paquete(nombre: str, modo_auto: bool = False) -> bool:
             return False
 
     print(f"  Instalando {nombre}...", end=" ", flush=True)
-    ok, salida = ejecutar([sys.executable, "-m", "pip", "install", "--upgrade", nombre])
+    ok, salida = ejecutar(
+        [sys.executable, "-m", "pip", "install", "--upgrade", nombre],
+        timeout=300,  # 5 min: conexiones lentas o paquetes con muchas dependencias
+    )
     if ok:
         print(verde("OK"))
         return True
@@ -200,7 +214,7 @@ def intentar_instalar_latex_linux(so: str, modo_auto: bool = False) -> bool:
         "texlive-full", "latexmk", "biber",
     ]
     print("  Instalando TeX Live (puede tardar varios minutos)...", flush=True)
-    ok, _ = ejecutar(cmd, capture=False)
+    ok, _ = ejecutar(cmd, capture=False, timeout=None)  # sin límite: descarga ~4-6 GB
     return ok
 
 

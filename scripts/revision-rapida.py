@@ -15,6 +15,8 @@ Uso:
     python3 scripts/revision-rapida.py --capitulo contenido/capitulos/introduccion.tex
 """
 
+from __future__ import annotations
+
 import os
 import re
 import sys
@@ -44,7 +46,7 @@ COMANDOS_PROHIBIDOS = [
     (r"\\usepackage\{subfig\}", "Usar `subcaption`"),
     (r"\\bibliographystyle\{", "Usar BibLaTeX con `\\printbibliography`"),
     (r"\\bibliography\{", "Usar BibLaTeX con `\\printbibliography`"),
-    (r"\\cite\{", "Usar `\\parencite{}` o `\\textcite{}`"),
+    (r"\\cite(?![a-zA-Z])", "Usar `\\parencite{}` o `\\textcite{}`"),
     (r"\\include\{", "Usar `\\input{}` para evitar saltos de página forzados"),
 ]
 
@@ -104,12 +106,14 @@ def eliminar_comentarios(texto: str) -> str:
 
 def contar_palabras(texto: str) -> int:
     """Cuenta palabras aproximadas en texto LaTeX."""
-    # Eliminar comandos con argumento de forma iterativa para manejar
-    # llaves anidadas (p.ej. \caption{texto \ref{fig:x}})
+    # Reemplazar comandos preservando su contenido de forma iterativa para
+    # manejar llaves anidadas (p.ej. \caption{texto \ref{fig:x}}).
+    # Se usa r"\1" para conservar las palabras dentro de \textit{}, \textbf{},
+    # \caption{}, etc. y obtener un conteo más preciso.
     prev = None
     while prev != texto:
         prev = texto
-        texto = re.sub(r"\\[a-zA-Z]+\*?\{[^{}]*\}", " ", texto)
+        texto = re.sub(r"\\[a-zA-Z]+\*?\{([^{}]*)\}", r"\1", texto)
     texto = re.sub(r"\\[a-zA-Z]+\*?", " ", texto)
     texto = re.sub(r"[{}]", " ", texto)
     texto = re.sub(r"\$[^$]*\$", " ", texto)
@@ -127,7 +131,7 @@ def extraer_texto_plano(archivos_tex: list) -> str:
         prev = None
         while prev != texto:
             prev = texto
-            texto = re.sub(r"\\[a-zA-Z]+\*?\{[^{}]*\}", " ", texto)
+            texto = re.sub(r"\\[a-zA-Z]+\*?\{([^{}]*)\}", r"\1", texto)
         texto = re.sub(r"\\[a-zA-Z]+\*?", " ", texto)
         texto = re.sub(r"[{}]", " ", texto)
         texto = re.sub(r"\$[^$]*\$", " ", texto)

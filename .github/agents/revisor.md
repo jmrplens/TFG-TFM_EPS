@@ -162,9 +162,12 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 - Frases como "en resumen", "en conclusión", "es importante destacar" en
   exceso (patrón típico de texto generado por IA).
 
-**Nota:** Este análisis es orientativo. La detección definitiva requiere
-herramientas especializadas (ver sección de plagio por API en el script
-`scripts/revision-rapida.py`).
+**Nota:** Este análisis es estrictamente orientativo. Nunca presentes
+una conclusión de plagio como definitiva basándote solo en señales de estilo
+o heurísticas. Clasifica estos casos como "sospecha", cita la ubicación exacta
+del fragmento y recomienda verificación con herramienta especializada
+(Copyleaks, Turnitin) y revisión humana. La detección definitiva requiere
+herramientas externas (ver `scripts/revision-rapida.py` con token en `.env`).
 
 ---
 

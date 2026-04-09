@@ -176,7 +176,11 @@ de los datos \parencite{lecun2015}.
   una reseña externa.
 - Afirmaciones muy generales que no se corresponden con el trabajo concreto.
 
-**Nota:** Este análisis es orientativo. Para verificación definitiva,
+**Nota:** Este análisis es estrictamente orientativo. Nunca presentes
+una conclusión de plagio como definitiva basándote solo en señales de estilo
+o heurísticas. Clasifica estos casos como "sospecha", cita la ubicación exacta
+del fragmento y recomienda verificación con herramienta especializada
+(Copyleaks, Turnitin) y revisión humana. Para verificación definitiva,
 usar `scripts/revision-rapida.py` con token de API configurado en `.env`.
 
 ---
