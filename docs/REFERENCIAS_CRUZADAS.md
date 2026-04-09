@@ -94,6 +94,7 @@ Las referencias cruzadas permiten:
 ```
 
 La etiqueta debe colocarse **después** del elemento que numera:
+
 - Secciones: después de `\section{}`
 - Figuras/Tablas: después de `\caption{}`
 - Ecuaciones: dentro del entorno
@@ -540,6 +541,7 @@ Figura \ref{fig:a}      % ❌ Puede separarse
 **Causa**: La etiqueta no existe o hay error tipográfico.
 
 **Solución**:
+
 1. Verificar que `\label{}` existe
 2. Comprobar ortografía exacta
 3. Compilar dos veces
@@ -555,6 +557,7 @@ Figura \ref{fig:a}      % ❌ Puede separarse
 **Causa**: Falta compilar una segunda vez.
 
 **Solución**:
+
 ```bash
 lualatex main
 lualatex main  # Segunda compilación necesaria
@@ -571,6 +574,7 @@ lualatex main  # Segunda compilación necesaria
 **Causa**: `hyperref` debe cargarse casi al final.
 
 **Solución**:
+
 ```latex
 % Cargar hyperref después de casi todos los paquetes
 % pero antes de cleveref
@@ -584,6 +588,7 @@ lualatex main  # Segunda compilación necesaria
 **Causa**: Dos elementos con la misma etiqueta.
 
 **Solución**:
+
 ```bash
 # Buscar advertencias en el log
 grep "Label.*multiply defined" main.log
@@ -600,6 +605,7 @@ grep "Label.*multiply defined" main.log
 **Causa**: Puede ser problema del visor PDF o configuración.
 
 **Solución**:
+
 ```latex
 % Verificar configuración de hyperref
 \usepackage[

@@ -11,6 +11,7 @@ Este archivo contiene la clase LaTeX principal de la plantilla TFG/TFM.
 ### Descripción del archivo
 
 `eps-tfg.cls` es una clase LaTeX3 que:
+
 - Define la estructura del documento TFG/TFM
 - Configura todas las opciones mediante `\EPSsetup{}`
 - Gestiona 21 titulaciones con sus colores y logos
@@ -27,7 +28,7 @@ Este archivo contiene la clase LaTeX principal de la plantilla TFG/TFM.
 
 ### Estructura del archivo
 
-```
+```text
 eps-tfg.cls
 ├── CONFIGURACIÓN EXPL3
 │   └── Variables \tl_new:N, \bool_new:N
@@ -125,13 +126,13 @@ Cada titulación se define con:
   {Negro}
 ```
 
-2. Definir el color en la sección de colores:
+1. Definir el color en la sección de colores:
 
 ```latex
 \definecolor{nueva-color}{HTML}{RRGGBB}
 ```
 
-3. Añadir los logos en `recursos/logos/titulaciones/`:
+1. Añadir los logos en `recursos/logos/titulaciones/`:
    - `nueva-titulacion_Blanco.pdf`
    - `nueva-titulacion_Negro.pdf`
 

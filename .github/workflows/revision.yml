@@ -1,0 +1,108 @@
+name: Revisión estática del documento
+
+run-name: "📋 Revisión — ${{ github.ref_name }}"
+
+on:
+  push:
+    paths:
+      - 'contenido/**/*.tex'
+      - 'referencias.bib'
+      - 'main.tex'
+      - 'configuracion.tex'
+  pull_request:
+    paths:
+      - 'contenido/**/*.tex'
+      - 'referencias.bib'
+      - 'main.tex'
+      - 'configuracion.tex'
+  workflow_dispatch:
+
+jobs:
+  revision:
+    name: Análisis estático
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Ejecutar revisión estática
+        id: revision
+        continue-on-error: true
+        run: |
+          python3 scripts/revision-rapida.py
+          echo "informe_existe=$(test -f informe-revision.md && echo true || echo false)" >> $GITHUB_OUTPUT
+
+      - name: Subir informe como artefacto
+        if: steps.revision.outputs.informe_existe == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: informe-revision
+          path: informe-revision.md
+          retention-days: 30
+
+      - name: Comentar en PR con resumen
+        if: github.event_name == 'pull_request' && steps.revision.outputs.informe_existe == 'true'
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const informe = fs.readFileSync('informe-revision.md', 'utf8');
+
+            // Marcador único para identificar el comentario del bot
+            const marker = '<!-- revision-rapida-bot -->';
+
+            // Extraer bloque "## Resumen" hasta la siguiente cabecera "## ..."
+            const lineas = informe.split('\n');
+            const inicioResumen = lineas.findIndex(l => l.trim() === '## Resumen');
+            const finResumen = inicioResumen >= 0
+              ? lineas.findIndex((l, i) => i > inicioResumen && l.startsWith('## '))
+              : -1;
+            const resumen = inicioResumen >= 0
+              ? lineas.slice(inicioResumen, finResumen > inicioResumen ? finResumen : undefined).join('\n')
+              : lineas.slice(0, 20).join('\n');
+
+            const cuerpo = `${marker}\n## 📋 Revisión estática del documento\n\n${resumen}\n\n` +
+              `> Ver el informe completo en los artefactos del workflow.\n` +
+              `> Para una revisión semántica completa, usar el agente revisor en Copilot Chat o Claude.`;
+
+            // Buscar comentario anterior del bot para actualizarlo
+            const comentarios = await github.paginate(
+              github.rest.issues.listComments,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                per_page: 100,
+              }
+            );
+
+            const comentarioBot = comentarios.find(c =>
+              c.user?.login === 'github-actions[bot]' && c.body?.includes(marker)
+            );
+
+            if (comentarioBot) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: comentarioBot.id,
+                body: cuerpo,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: cuerpo,
+              });
+            }

@@ -15,7 +15,7 @@ Esta carpeta está destinada a almacenar todas las imágenes y gráficos del doc
 
 Se recomienda organizar las figuras en subcarpetas según el capítulo o temática:
 
-```
+```text
 figuras/
 ├── capitulo1/
 │   ├── diagrama-arquitectura.pdf

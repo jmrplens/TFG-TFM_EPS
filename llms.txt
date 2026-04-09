@@ -1,49 +1,61 @@
-# Contexto para LLMs (Large Language Models)
+# Plantilla TFG/TFM EPS — Universidad de Alicante
 
-Esta plantilla LaTeX para TFG/TFM de la Universidad de Alicante contiene una extensa documentación técnica.
-Para entender mejor la estructura y reglas, consulta los siguientes archivos:
+> Plantilla LaTeX para Trabajos de Fin de Grado (TFG) y Máster (TFM) de la
+> Escuela Politécnica Superior (EPS) de la Universidad de Alicante.
+> Versión 2.1.0 (2026). Motor: LuaLaTeX. Bibliografía: BibLaTeX + Biber (APA 7).
 
-- **Estructura y Reglas Técnicas:** `docs/AI_CONTEXT.md` (La fuente más completa)
-- **Prompt Maestro:** `AGENTS.md` (Resumen ejecutivo para iniciar chats)
-- **Reglas Copilot:** `.github/copilot-instructions.md`
-- **Componentes:** `docs/COMPONENTES.md` (Lista de entornos disponibles)
+## Instrucciones para agentes de IA
 
-## Resumen Rápido
+- [AGENTS.md](AGENTS.md): Instrucciones para agentes de código autónomos (Codex, Devin, OpenHands, etc.). Incluye reglas de edición, comandos de compilación, antipatrones y diagnóstico de errores.
+- [CLAUDE.md](CLAUDE.md): Instrucciones específicas para Claude. Incluye ejemplos de código LaTeX, entornos disponibles, flujo de trabajo y diagnóstico de errores.
+- [.github/copilot-instructions.md](.github/copilot-instructions.md): Instrucciones para GitHub Copilot. Incluye ejemplos de todos los entornos, tablas, figuras, ecuaciones y bibliografía.
 
-- **Motor:** LuaLaTeX (Obligatorio).
-- **Bibliografía:** BibLaTeX con Biber (estilo APA 7).
-- **Código:** Minted 3.x (requiere Python y Pygments).
+## Agentes especializados
 
-## Mapa de Edición (¿Dónde escribo qué?)
+- [.github/agents/redaccion.md](.github/agents/redaccion.md): Agente de redacción para GitHub Copilot. Genera capítulos y secciones completas en LaTeX respetando las convenciones de la plantilla. Cubre 6 flujos: capítulo desde cero, expandir esquema, mejorar fragmento, resumen/abstract, conclusiones, introducción.
+- [.github/agents/revisor.md](.github/agents/revisor.md): Agente revisor tipo tribunal para GitHub Copilot. Evalúa el documento en 8 dimensiones: estructura, coherencia, bibliografía, lenguaje, formato LaTeX, figuras/tablas, plagio semántico y normativa EPS UA.
+- [docs/agents/redaccion-claude.md](docs/agents/redaccion-claude.md): Versión del agente de redacción para Claude, con ejemplos de código LaTeX completos para cada flujo de trabajo.
+- [docs/agents/revisor-claude.md](docs/agents/revisor-claude.md): Versión del agente revisor para Claude, con criterios de puntuación detallados por dimensión.
+- [docs/agents/prompts-redaccion.md](docs/agents/prompts-redaccion.md): 12 prompts reutilizables de redacción listos para copiar en Copilot Chat o Claude.
+- [docs/agents/prompts-revisor.md](docs/agents/prompts-revisor.md): 12 prompts reutilizables de revisión, incluyendo revisión completa, por dimensión y por sección específica.
 
-1. **Configuración Global** (`configuracion.tex`):
-   - Define aquí: Título, Autor, Tutor, Grado, Idioma, fecha.
-   - Usa `\EPSsetup{idioma = espanol}` para cambiar idioma (espanol/valenciano/ingles).
-   - NO definas aquí comandos de estructura.
+## Referencia técnica
 
-2. **Metadatos PDF** (`cls/eps-metadata.tex`):
-   - Si cambias el idioma en `configuracion.tex`, actualiza `lang=` aquí:
-     - `idioma = espanol` → `lang=es-ES`
-     - `idioma = valenciano` → `lang=ca-ES`
-     - `idioma = ingles` → `lang=en-GB`
+- [docs/AI_CONTEXT.md](docs/AI_CONTEXT.md): Referencia técnica completa. Arquitectura de la plantilla, referencia de `\EPSsetup{}`, entornos de código, ecuaciones, componentes, bibliografía, glosarios, figuras, tablas, compilación y diagnóstico de errores.
+- [docs/AI_WORKFLOWS.md](docs/AI_WORKFLOWS.md): Flujos de trabajo paso a paso para las tareas más comunes: configurar un TFG/TFM, añadir capítulos, insertar figuras/tablas/código, cambiar idioma, diagnosticar errores.
+- [docs/COMPONENTES.md](docs/COMPONENTES.md): Catálogo visual de todos los componentes especializados disponibles por módulo (software, telecom, arquitectura, química, geología, prevención).
 
-3. **Estructura del Documento** (`main.tex`):
-   - **EDITAR PARA:**
-     - Añadir o quitar capítulos (`\input{contenido/capitulos/...}`).
-     - Añadir o quitar anexos (`\input{contenido/anexos/...}`).
-     - Seleccionar módulos de componentes (`\usepackage[software]{eps-componentes}`).
-   - **NO EDITAR PARA:**
-     - Escribir contenido de texto (hazlo en los archivos de capítulos).
+## Documentación por tema
 
-3. **Contenido** (`contenido/`):
-   - Escribe aquí el texto de tu TFG/TFM.
-   - Crea un archivo `.tex` por capítulo.
+- [docs/CODIGO_FUENTE.md](docs/CODIGO_FUENTE.md): Guía de entornos de código con minted (40+ lenguajes, temas claro/oscuro, opciones avanzadas).
+- [docs/FIGURAS_GRAFICAS.md](docs/FIGURAS_GRAFICAS.md): Gráficas con PGFPlots y TikZ.
+- [docs/IMAGENES_SUBFIGURAS.md](docs/IMAGENES_SUBFIGURAS.md): Imágenes, subfiguras y posicionamiento.
+- [docs/TABLAS.md](docs/TABLAS.md): Tablas profesionales con booktabs, tablas largas, tablas de color.
+- [docs/TEXTO_LISTAS.md](docs/TEXTO_LISTAS.md): Formato de texto, listas, descripciones.
+- [docs/ECUACIONES.md](docs/ECUACIONES.md): Ecuaciones matemáticas con amsmath, teoremas, definiciones.
+- [docs/BIBLIOGRAFIA.md](docs/BIBLIOGRAFIA.md): Gestión de referencias con BibLaTeX, formatos de entrada, comandos de cita.
+- [docs/GLOSARIOS_ACRONIMOS.md](docs/GLOSARIOS_ACRONIMOS.md): Acrónimos, glosarios y símbolos.
+- [docs/REFERENCIAS_CRUZADAS.md](docs/REFERENCIAS_CRUZADAS.md): Etiquetas, referencias cruzadas y hyperref.
+- [docs/ACCESIBILIDAD.md](docs/ACCESIBILIDAD.md): PDFs accesibles (PDF/UA-2) con TeX Live 2025+.
+- [docs/GUIA_PRINCIPIANTES.md](docs/GUIA_PRINCIPIANTES.md): Guía de LaTeX para usuarios sin experiencia previa.
 
-## Componentes Disponibles
-Para activar en `main.tex`:
-- `[software]`: UML, JSON, API, Terminal.
-- `[telecom]`: Circuitos, Tramas de bits, Carta Smith.
-- `[arquitectura]`: Diagramas de Gantt, símbolos Euro.
-- `[quimica]`: Fórmulas químicas, esquemas de reacción.
-- `[geologia]`: Sin dependencias extra por ahora.
-- `[prevencion]`: Sin dependencias extra por ahora.
+## Herramientas de revisión automática
+
+- [scripts/revision-rapida.py](scripts/revision-rapida.py): Script Python de análisis estático. Detecta referencias rotas, figuras sin caption, citas sin entrada .bib, comandos prohibidos y registro informal. Genera `informe-revision.md`. Acepta token de API de plagio en `.env`.
+
+## Archivos clave del proyecto
+
+- [main.tex](main.tex): Archivo raíz. Solo estructura (inputs, usepackage, addbibresource). No contiene texto de contenido.
+- [configuracion.tex](configuracion.tex): Configuración del usuario mediante `\EPSsetup{...}`. Título, autor, tutor, titulación, idioma.
+- [referencias.bib](referencias.bib): Base de datos bibliográfica en formato BibLaTeX.
+- [cls/eps-metadata.tex](cls/eps-metadata.tex): Metadatos PDF/UA-2. El valor `lang=` debe coincidir con `idioma` en `configuracion.tex`.
+
+## Resumen de reglas para IA
+
+Motor: **LuaLaTeX** (nunca pdfLaTeX). Bibliografía: **BibLaTeX + Biber**. Código: **minted 3.x**.
+
+Regla de idioma: si `idioma = espanol` → `lang=es-ES`; si `idioma = valenciano` → `lang=ca-ES`; si `idioma = ingles` → `lang=en-GB`.
+
+Compilación: `make` (completo) o `make quick` (una pasada). Limpiar: `make clean`.
+
+Nunca usar: `pdflatex`, `inputenc`, `subfigure`, `verbatim`/`lstlisting` para código, `\hline` en tablas, `\bibliography{}` + `\bibliographystyle{}`.

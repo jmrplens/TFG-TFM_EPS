@@ -56,12 +56,14 @@ Esta versión representa una reescritura completa de la plantilla con tecnologí
 ### Cambiado
 
 - **Estructura de carpetas** reorganizada:
-  ```
+
+  ```text
   cls/          → Clase principal
   sty/          → Paquetes auxiliares  
   contenido/    → Capítulos, anexos, frontmatter
   recursos/     → Logos, figuras, fuentes, ejemplos
   ```
+
 - **Logos** convertidos de EPS a PDF para mejor compatibilidad
 - **Bibliografía**: Migración de BibTeX a Biblatex + Biber (estilo APA)
 - **Configuración** centralizada en `configuracion.tex` con sintaxis simple
@@ -104,6 +106,7 @@ Esta versión representa una reescritura completa de la plantilla con tecnologí
 ### De 1.x a 2.0
 
 1. **Instalar LuaLaTeX** si no está disponible:
+
    ```bash
    # Ubuntu/Debian
    sudo apt install texlive-luatex
@@ -113,6 +116,7 @@ Esta versión representa una reescritura completa de la plantilla con tecnologí
    ```
 
 2. **Cambiar comando de compilación**:
+
    ```bash
    # Antes
    pdflatex documento.tex
@@ -124,6 +128,7 @@ Esta versión representa una reescritura completa de la plantilla con tecnologí
    ```
 
 3. **Actualizar configuración**: Mover datos de `include/configuracioninicial.tex` a `configuracion.tex` usando la nueva sintaxis:
+
    ```latex
    \EPSsetup{
      titulacion = informatica,

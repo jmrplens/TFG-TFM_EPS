@@ -139,6 +139,7 @@ Es recomendable crear un archivo separado:
 ```
 
 Y cargarlo en el preámbulo:
+
 ```latex
 \input{glosario}
 ```
@@ -251,6 +252,7 @@ Los \glspl{algoritmo} de ordenación son fundamentales.
 ```
 
 **Resultado**:
+
 - El algoritmo propuesto mejora el rendimiento.
 - Los algoritmos de ordenación son fundamentales.
 - Algoritmo de búsqueda binaria.
@@ -562,6 +564,7 @@ Para proyectos grandes, `bib2gls` ofrece más control:
 **Causa**: Solo aparecen términos usados con `\gls` o similar.
 
 **Solución**:
+
 ```latex
 % Añadir todos los términos aunque no se usen
 \glsaddall
@@ -576,6 +579,7 @@ Para proyectos grandes, `bib2gls` ofrece más control:
 **Causa**: Se resetea entre compilaciones o hay error.
 
 **Solución**:
+
 ```latex
 % Verificar que usas \gls{} no \acrlong{}
 \gls{ia}  % Correcto - gestiona automáticamente
@@ -589,6 +593,7 @@ Para proyectos grandes, `bib2gls` ofrece más control:
 **Causa**: El término no está definido o hay error tipográfico.
 
 **Solución**:
+
 ```latex
 % Verificar que la clave existe
 \newglossaryentry{mi_termino}{...}
@@ -598,10 +603,12 @@ Para proyectos grandes, `bib2gls` ofrece más control:
 ### Glosario vacío
 
 **Causas**:
+
 1. No se ejecutó `makeglossaries`
 2. No hay términos usados en el documento
 
 **Solución**:
+
 ```bash
 # Ejecutar makeglossaries
 makeglossaries main

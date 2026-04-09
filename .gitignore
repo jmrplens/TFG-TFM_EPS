@@ -292,3 +292,9 @@ __pycache__/
 # Archivos temporales de compilación
 .herramientas/tmp/
 .herramientas/*.log
+
+
+# ============================================================================
+# CONFIGURACIÓN LOCAL (credenciales y opciones personales)
+# ============================================================================
+.env

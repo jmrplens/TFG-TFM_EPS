@@ -156,6 +156,27 @@ Esto sí aparece en el PDF  % Esto también es comentario
 
 ## 💻 Instalación paso a paso
 
+### Opción 0: Script de instalación automática ⭐ Recomendado para instalación local
+
+Si vas a trabajar en tu propio ordenador, la forma más sencilla es ejecutar el script de instalación incluido en el proyecto. Se encarga de comprobar qué tienes instalado y guiarte para instalar lo que falta:
+
+```bash
+# Linux / macOS
+python3 scripts/instalar.py
+
+# Windows (desde PowerShell o CMD)
+python scripts/instalar.py
+```
+
+> **¿No tienes Python todavía?** Descárgalo desde [python.org](https://www.python.org/downloads/) y asegúrate de marcar **"Add Python to PATH"** durante la instalación. Luego vuelve a ejecutar el script.
+
+Si prefieres que una IA te guíe paso a paso, usa el **agente de instalación**:
+
+- En GitHub Copilot Chat: carga [`.github/agents/instalacion.md`](../.github/agents/instalacion.md) y pide ayuda
+- En Claude: consulta [agents/instalacion-claude.md](agents/instalacion-claude.md) o usa los [prompts listos](agents/prompts-instalacion.md)
+
+Si prefieres instalar manualmente, sigue las opciones a continuación.
+
 ### Opción 1: Overleaf (sin instalar nada) ⭐ Recomendado para empezar
 
 [Overleaf](https://www.overleaf.com) es un editor LaTeX online. No necesitas instalar nada.
@@ -173,7 +194,7 @@ Esto sí aparece en el PDF  % Esto también es comentario
 
 #### Paso 1: Instalar MiKTeX
 
-1. Descarga [MiKTeX](https://miktex.org/download) 
+1. Descarga [MiKTeX](https://miktex.org/download)
 2. Ejecuta el instalador
 3. **Importante:** Selecciona "Install missing packages on-the-fly: Yes"
 4. Completa la instalación (puede tardar 15-30 minutos)
@@ -183,7 +204,8 @@ Esto sí aparece en el PDF  % Esto también es comentario
 1. Descarga [Python](https://www.python.org/downloads/)
 2. **Importante:** Marca ✅ "Add Python to PATH" durante la instalación
 3. Abre PowerShell o CMD y ejecuta:
-   ```
+
+   ```bash
    pip install latexminted
    ```
 
@@ -227,7 +249,7 @@ pip3 install latexminted
 
 **Visual Studio Code** es un editor moderno y gratuito. Con la extensión **LaTeX Workshop** se convierte en un excelente entorno para LaTeX.
 
-#### Instalación:
+#### Instalación
 
 1. Descarga [VS Code](https://code.visualstudio.com/)
 2. Abre VS Code
@@ -235,7 +257,8 @@ pip3 install latexminted
 4. Busca "LaTeX Workshop" e instálala
 5. Abre la carpeta de la plantilla (File → Open Folder)
 
-#### Ventajas:
+#### Ventajas
+
 - Previsualización del PDF integrada
 - Autocompletado inteligente
 - Detección de errores en tiempo real
@@ -245,12 +268,14 @@ pip3 install latexminted
 
 [TeXstudio](https://www.texstudio.org/) es un editor dedicado exclusivamente a LaTeX.
 
-#### Ventajas:
+#### Ventajas
+
 - Diseñado específicamente para LaTeX
 - Muy completo "out of the box"
 - Vista de estructura del documento
 
-#### Configuración inicial:
+#### Configuración inicial
+
 1. Descarga e instala TeXstudio
 2. Ve a Options → Configure TeXstudio
 3. En "Build", cambia:
@@ -305,6 +330,7 @@ lualatex -shell-escape main.tex
 ### ¿Por qué hay que compilar varias veces?
 
 LaTeX necesita múltiples pasadas para:
+
 1. **Primera pasada**: Procesa el documento, crea archivos auxiliares
 2. **Biber**: Procesa la bibliografía
 3. **Segunda pasada**: Resuelve citas bibliográficas
@@ -401,6 +427,7 @@ El Código~\ref{cod:ejemplo} muestra un ejemplo básico.
 ### Citar bibliografía
 
 1. Añade la referencia en `referencias.bib`:
+
 ```bibtex
 @article{garcia2024,
   author  = {García, Juan},
@@ -412,7 +439,8 @@ El Código~\ref{cod:ejemplo} muestra un ejemplo básico.
 }
 ```
 
-2. Cita en el texto:
+1. Cita en el texto:
+
 ```latex
 Según García \cite{garcia2024}, el resultado es...
 ```
@@ -460,8 +488,22 @@ Según García \cite{garcia2024}, el resultado es...
 
 Si utilizas herramientas como ChatGPT, Claude o GitHub Copilot para redactar o solucionar problemas con tu TFG, te recomendamos lo siguiente:
 
+### Agentes especializados
+
+El proyecto incluye agentes preconfigurados para las tareas más comunes:
+
+| Tarea | GitHub Copilot | Claude |
+|-------|---------------|--------|
+| Instalar el entorno | [instalacion.md](../.github/agents/instalacion.md) | [instalacion-claude.md](agents/instalacion-claude.md) |
+| Redactar capítulos | [redaccion.md](../.github/agents/redaccion.md) | [redaccion-claude.md](agents/redaccion-claude.md) |
+| Revisar antes de la defensa | [revisor.md](../.github/agents/revisor.md) | [revisor-claude.md](agents/revisor-claude.md) |
+
+Cada agente tiene también una carpeta de **prompts listos para copiar y pegar** en `docs/agents/prompts-*.md`. Úsalos si no tienes integración directa con la IA.
+
 ### Proporcionar contexto
-Las IAs funcionan mejor si saben cómo está configurado tu proyecto. 
+
+Las IAs funcionan mejor si saben cómo está configurado tu proyecto.
+
 1. Abre el archivo **`AGENTS.md`** (en la raíz del proyecto).
 2. Copia todo su contenido.
 3. Pégalo al inicio de tu conversación con la IA.
@@ -469,6 +511,8 @@ Las IAs funcionan mejor si saben cómo está configurado tu proyecto.
 Esto le enseñará a la IA qué paquetes usamos, cómo se hacen las portadas y las reglas específicas de la Universidad de Alicante.
 
 ### Qué puedes pedirles
+
+- **Instalar el entorno:** "Necesito instalar todo para usar la plantilla en Windows 11"
 - **Generar tablas:** "Hazme una tabla LaTeX con 3 columnas (Concepto, Descripción, Valor) para..."
 - **Corregir errores:** Pega el error de la consola y la IA te dirá qué falla.
 - **Escribir fórmulas:** "Escribe la fórmula de la Entropía de Shannon en LaTeX".
@@ -482,7 +526,8 @@ Esto le enseñará a la IA qué paquetes usamos, cómo se hacen las portadas y l
 
 **Causa:** LaTeX no encuentra un archivo que intentas incluir.
 
-**Solución:** 
+**Solución:**
+
 - Verifica que la ruta es correcta
 - No incluyas la extensión `.tex` en `\input{}`
 - Usa rutas relativas desde `main.tex`
@@ -492,6 +537,7 @@ Esto le enseñará a la IA qué paquetes usamos, cómo se hacen las portadas y l
 **Causa:** Usas un comando que LaTeX no conoce.
 
 **Solución:**
+
 - Revisa que no haya errores tipográficos
 - Asegúrate de que el paquete necesario está cargado
 
@@ -500,12 +546,14 @@ Esto le enseñará a la IA qué paquetes usamos, cómo se hacen las portadas y l
 **Causa:** Hay contenido matemático fuera del modo matemático.
 
 **Solución:**
+
 - Encierra las fórmulas entre `$...$` (inline) o `\[...\]` (display)
 - Caracteres como `_` y `^` necesitan modo matemático
 
 ### La bibliografía no aparece
 
 **Solución:**
+
 1. Asegúrate de que has citado algo con `\cite{}`
 2. Compila varias veces o usa `make`
 3. Verifica que `referencias.bib` no tiene errores de sintaxis
@@ -513,12 +561,14 @@ Esto le enseñará a la IA qué paquetes usamos, cómo se hacen las portadas y l
 ### El código no tiene colores
 
 **Solución:**
+
 - Instala latexminted: `pip install latexminted`
 - Verifica con: `latexminted --version`
 
 ### Compilación muy lenta
 
 **Solución:**
+
 - La primera compilación siempre es lenta
 - Activa `optimizar-tikz = true` en `configuracion.tex`
 - Las siguientes compilaciones serán más rápidas
@@ -526,6 +576,7 @@ Esto le enseñará a la IA qué paquetes usamos, cómo se hacen las portadas y l
 ### "You must invoke LaTeX with -shell-escape"
 
 **Solución:**
+
 - Usa `make` que ya incluye esta opción
 - O configura tu editor para añadir `-shell-escape`
 
