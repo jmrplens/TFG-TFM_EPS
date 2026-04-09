@@ -23,6 +23,7 @@ import argparse
 from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
+from typing import ClassVar
 
 # ---------------------------------------------------------------------------
 # Configuración
@@ -93,18 +94,24 @@ def eliminar_comentarios(texto: str) -> str:
     """Elimina comentarios LaTeX (líneas que empiezan con %)."""
     lineas = []
     for linea in texto.splitlines():
-        # Eliminar comentarios inline (% no escapado)
-        linea_limpia = re.sub(r"(?<!\\)%.*$", "", linea)
+        # Eliminar comentarios inline: % precedido de número par de backslashes
+        # (?<!\\)   → no precedido por un \ solitario (evita \%)
+        # (?:\\\\)* → permite cero o más pares \\  (p.ej. \\ seguido de %)
+        linea_limpia = re.sub(r"((?<!\\)(?:\\\\)*)%.*$", r"\1", linea)
         lineas.append(linea_limpia)
     return "\n".join(lineas)
 
 
 def contar_palabras(texto: str) -> int:
     """Cuenta palabras aproximadas en texto LaTeX."""
-    # Eliminar comandos LaTeX
-    texto = re.sub(r"\\[a-zA-Z]+\*?\{[^}]*\}", " ", texto)
+    # Eliminar comandos con argumento de forma iterativa para manejar
+    # llaves anidadas (p.ej. \caption{texto \ref{fig:x}})
+    prev = None
+    while prev != texto:
+        prev = texto
+        texto = re.sub(r"\\[a-zA-Z]+\*?\{[^{}]*\}", " ", texto)
     texto = re.sub(r"\\[a-zA-Z]+\*?", " ", texto)
-    texto = re.sub(r"\{|\}", " ", texto)
+    texto = re.sub(r"[{}]", " ", texto)
     texto = re.sub(r"\$[^$]*\$", " ", texto)
     return len(texto.split())
 
@@ -114,7 +121,7 @@ def contar_palabras(texto: str) -> int:
 # ---------------------------------------------------------------------------
 
 class Problema:
-    SEVERIDAD = {"error": "❌", "advertencia": "⚠️", "info": "ℹ️"}
+    SEVERIDAD: ClassVar[dict[str, str]] = {"error": "❌", "advertencia": "⚠️", "info": "ℹ️"}
 
     def __init__(self, archivo, linea, severidad, categoria, mensaje, sugerencia=""):
         self.archivo = archivo
@@ -384,27 +391,36 @@ def analizar_estructura_global(archivos_tex: list) -> list:
 # ---------------------------------------------------------------------------
 
 def verificar_plagio_copyleaks(texto: str, api_key: str) -> list:
-    """Verificación de plagio con Copyleaks API (stub)."""
-    try:
-        import urllib.request
-        import json
-        # Implementación básica — el alumno puede ampliarla
-        # Ver documentación: https://api.copyleaks.com/documentation/v3
-        return [{
-            "tipo": "info",
-            "mensaje": "Verificación Copyleaks configurada. "
-                       "Implementar llamada completa a la API según documentación.",
-        }]
-    except Exception as e:
-        return [{"tipo": "error", "mensaje": f"Error al conectar con Copyleaks: {e}"}]
+    """
+    Esqueleto para integración con Copyleaks API (opt-in).
+
+    Esta función es un stub intencionado. Para activar la verificación real,
+    implementar la llamada a la API siguiendo:
+    https://api.copyleaks.com/documentation/v3
+
+    La clave se carga desde COPYLEAKS_API_KEY en el archivo .env (no se sube
+    al repositorio). Mientras no se implemente, devuelve un aviso informativo.
+    """
+    return [{
+        "tipo": "info",
+        "mensaje": "Verificación Copyleaks configurada (stub). "
+                   "Implementar la llamada a la API en scripts/revision-rapida.py "
+                   "siguiendo https://api.copyleaks.com/documentation/v3",
+    }]
 
 
 def verificar_plagio_turnitin(texto: str, api_key: str) -> list:
-    """Verificación de plagio con Turnitin API (stub)."""
+    """
+    Esqueleto para integración con Turnitin API (opt-in).
+
+    Esta función es un stub intencionado. Para activar la verificación real,
+    implementar la llamada a la API siguiendo la documentación oficial de
+    Turnitin. La clave se carga desde TURNITIN_API_KEY en el archivo .env.
+    """
     return [{
         "tipo": "info",
-        "mensaje": "Verificación Turnitin configurada. "
-                   "Implementar llamada completa a la API según documentación.",
+        "mensaje": "Verificación Turnitin configurada (stub). "
+                   "Implementar la llamada a la API en scripts/revision-rapida.py.",
     }]
 
 
