@@ -146,7 +146,7 @@ def comprobar_paquete_python(nombre: str) -> tuple[bool, str]:
     return False, ""
 
 
-def comprobar_comando(cmd: str, args: list = None) -> tuple[bool, str]:
+def comprobar_comando(cmd: str, args: list | None = None) -> tuple[bool, str]:
     """Verifica si un comando del sistema está disponible y responde."""
     if args is None:
         args = ["--version"]

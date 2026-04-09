@@ -20,7 +20,10 @@ Sustituir los valores entre `[corchetes]` por los datos reales.
 
 **Alternativa automática (sin IA):**
 ```bash
+# Linux / macOS
 python3 scripts/instalar.py
+# Windows
+python scripts/instalar.py
 ```
 El script comprueba las dependencias e instala lo que puede automáticamente.
 Para no-desarrolladores: simplemente ejecútalo y sigue las instrucciones.
@@ -42,7 +45,8 @@ Por favor, guíame paso a paso para instalar:
 3. El paquete latexminted
 4. Las herramientas de compilación (make o equivalente)
 
-Al final, quiero poder ejecutar 'make quick' y obtener un PDF.
+Al final, quiero poder compilar y obtener un PDF
+(`make quick` en Linux/macOS, o compilación manual si no tengo `make` en Windows).
 ```
 
 ---
@@ -120,7 +124,8 @@ Guíame para:
 1. Crear y configurar el archivo .env a partir de .env.example
 2. Obtener las credenciales necesarias
 3. Verificar que la integración funciona ejecutando:
-       python3 scripts/revision-rapida.py
+       python3 scripts/revision-rapida.py   (Linux/macOS)
+       python  scripts/revision-rapida.py   (Windows)
 ```
 
 ---

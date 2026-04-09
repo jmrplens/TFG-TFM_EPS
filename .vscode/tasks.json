@@ -48,7 +48,12 @@
         {
             "label": "Revisión rápida del documento",
             "type": "shell",
-            "command": "python3 scripts/revision-rapida.py",
+            "command": "python3",
+            "args": ["scripts/revision-rapida.py"],
+            "windows": {
+                "command": "python",
+                "args": ["scripts/revision-rapida.py"]
+            },
             "group": "test",
             "presentation": {
                 "reveal": "always",
@@ -60,7 +65,12 @@
         {
             "label": "Actualizar previews de documentación",
             "type": "shell",
-            "command": "python3 .herramientas/actualizar_previews.py",
+            "command": "python3",
+            "args": [".herramientas/actualizar_previews.py"],
+            "windows": {
+                "command": "python",
+                "args": [".herramientas/actualizar_previews.py"]
+            },
             "group": "none",
             "presentation": {
                 "reveal": "always",

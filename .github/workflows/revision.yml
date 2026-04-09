@@ -77,11 +77,15 @@ jobs:
               `> Para una revisión semántica completa, usar el agente revisor en Copilot Chat o Claude.`;
 
             // Buscar comentario anterior del bot para actualizarlo
-            const { data: comentarios } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            });
+            const comentarios = await github.paginate(
+              github.rest.issues.listComments,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                per_page: 100,
+              }
+            );
 
             const comentarioBot = comentarios.find(c =>
               c.user?.login === 'github-actions[bot]' && c.body?.includes(marker)

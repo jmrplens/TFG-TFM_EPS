@@ -181,7 +181,8 @@ Si el alumno quiere activar la detección de plagio con Copyleaks o Turnitin:
 3. Consultar `.env.example` para instrucciones sobre cómo obtener las claves
 4. Ejecutar el revisor estático para comprobar:
    ```bash
-   python3 scripts/revision-rapida.py
+   python3 scripts/revision-rapida.py   # Linux / macOS
+   python  scripts/revision-rapida.py   # Windows
    ```
 
 ---
