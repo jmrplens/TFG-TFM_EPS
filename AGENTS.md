@@ -56,7 +56,7 @@ Escuela Politécnica Superior (EPS) de la Universidad de Alicante (UA).
 Si se cambia `idioma` en `configuracion.tex`, **siempre** actualizar también
 `cls/eps-metadata.tex`:
 
-```
+```text
 idioma = espanol    →  lang=es-ES
 idioma = valenciano →  lang=ca-ES
 idioma = ingles     →  lang=en-GB

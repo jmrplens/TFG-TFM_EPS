@@ -219,7 +219,7 @@ escritos.
 ## Plantillas de estructura por tipo de capítulo
 
 ### Marco teórico / Estado del arte
-```
+```latex
 \chapter{Marco Teórico}
 \label{chap:marco-teorico}
 
@@ -239,7 +239,7 @@ Párrafo introductorio del capítulo.
 ```
 
 ### Metodología
-```
+```latex
 \chapter{Metodología}
 \label{chap:metodologia}
 
@@ -257,7 +257,7 @@ Párrafo introductorio del capítulo.
 ```
 
 ### Resultados
-```
+```latex
 \chapter{Resultados}
 \label{chap:resultados}
 
