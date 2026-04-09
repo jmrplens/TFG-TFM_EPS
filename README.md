@@ -61,7 +61,8 @@ Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG
 | 📓 [Glosarios y Acrónimos](docs/GLOSARIOS_ACRONIMOS.md) | Términos, siglas y símbolos |
 | 🔗 [Referencias Cruzadas](docs/REFERENCIAS_CRUZADAS.md) | Etiquetas, referencias y hyperref |
 | ♿ [Accesibilidad PDF](docs/ACCESIBILIDAD.md) | PDFs accesibles (PDF/UA-2) |
-| 🤖 [Contexto IA](docs/AI_CONTEXT.md) | Información para asistentes de IA |
+| 🤖 [Contexto IA](docs/AI_CONTEXT.md) | Referencia técnica completa para asistentes de IA |
+| 🔄 [Flujos de trabajo IA](docs/AI_WORKFLOWS.md) | Guías paso a paso para tareas comunes |
 
 </details>
 
@@ -73,11 +74,22 @@ Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG
 
 | Archivo | Propósito |
 |---------|----------|
-| [AGENTS.md](AGENTS.md) | Guía general para cualquier IA |
+| [AGENTS.md](AGENTS.md) | Instrucciones para agentes de código autónomos (Codex, Devin, etc.) |
 | [CLAUDE.md](CLAUDE.md) | Instrucciones específicas para Claude |
-| [docs/AI_CONTEXT.md](docs/AI_CONTEXT.md) | Referencia técnica detallada |
+| [.github/copilot-instructions.md](.github/copilot-instructions.md) | Instrucciones para GitHub Copilot |
+| [docs/AI_CONTEXT.md](docs/AI_CONTEXT.md) | Referencia técnica completa |
+| [docs/AI_WORKFLOWS.md](docs/AI_WORKFLOWS.md) | Flujos de trabajo paso a paso para tareas comunes |
 
-**Tip:** Copia el contenido de `AGENTS.md` en tu chat con la IA para obtener respuestas más precisas sobre esta plantilla.
+### Agentes especializados
+
+| Agente | Para Copilot | Para Claude | Prompts |
+|---|---|---|---|
+| Redacción de capítulos | [.github/agents/redaccion.md](.github/agents/redaccion.md) | [docs/agents/redaccion-claude.md](docs/agents/redaccion-claude.md) | [docs/agents/prompts-redaccion.md](docs/agents/prompts-redaccion.md) |
+| Revisor tipo tribunal | [.github/agents/revisor.md](.github/agents/revisor.md) | [docs/agents/revisor-claude.md](docs/agents/revisor-claude.md) | [docs/agents/prompts-revisor.md](docs/agents/prompts-revisor.md) |
+
+**Revisión automática:** `python3 scripts/revision-rapida.py` genera un informe estático sin necesidad de IA.
+
+**Tip:** Si usas ChatGPT, Gemini u otra IA sin integración directa, copia el contenido de `docs/AI_CONTEXT.md` en el chat para obtener respuestas precisas sobre esta plantilla.
 
 ---
 
