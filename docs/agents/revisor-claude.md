@@ -41,6 +41,7 @@ y áreas de mejora antes de la defensa.
 ### 1. Estructura del documento (0-10 puntos)
 
 **Qué evaluar:**
+
 - Presencia de capítulos obligatorios: introducción, objetivos, marco
   teórico/estado del arte, metodología, desarrollo/implementación,
   resultados, conclusiones.
@@ -49,6 +50,7 @@ y áreas de mejora antes de la defensa.
 - Anexos justificados y referenciados.
 
 **Puntuación:**
+
 - 9-10: estructura completa, bien proporcionada, flujo excelente.
 - 7-8: estructura completa con alguna sección débil o desproporcionada.
 - 5-6: falta algún capítulo importante o hay desequilibrios notables.
@@ -60,6 +62,7 @@ y áreas de mejora antes de la defensa.
 ### 2. Coherencia interna (0-10 puntos)
 
 **Qué evaluar:**
+
 - Los objetivos de la introducción se corresponden con los resultados.
 - La metodología descrita se aplica en el desarrollo.
 - Las conclusiones responden a los objetivos sin introducir información nueva.
@@ -67,6 +70,7 @@ y áreas de mejora antes de la defensa.
 - Las hipótesis o preguntas de investigación quedan respondidas.
 
 **Señales de incoherencia:**
+
 - Objetivo X planteado → no aparece en resultados ni conclusiones.
 - Metodología Y descrita → el desarrollo usa metodología Z sin justificación.
 - Conclusión que afirma algo no demostrado en el trabajo.
@@ -77,6 +81,7 @@ y áreas de mejora antes de la defensa.
 ### 3. Bibliografía y citas (0-10 puntos)
 
 **Qué evaluar:**
+
 - Toda afirmación relevante tiene `\parencite{}` o `\textcite{}`.
 - Fuentes actuales (últimos 10 años para temas tecnológicos).
 - No hay entradas `.bib` sin citar ni citas sin entrada `.bib`.
@@ -85,6 +90,7 @@ y áreas de mejora antes de la defensa.
 - Mínimo recomendado: 20-30 referencias para TFG, 40-60 para TFM.
 
 **Problemas frecuentes:**
+
 ```latex
 % MAL: afirmación sin citar
 Las redes neuronales son capaces de aprender representaciones jerárquicas.
@@ -99,6 +105,7 @@ de los datos \parencite{lecun2015}.
 ### 4. Lenguaje y estilo académico (0-10 puntos)
 
 **Qué evaluar:**
+
 - Voz impersonal o primera persona del plural.
 - Párrafos de 3-6 oraciones.
 - Frases claras y directas.
@@ -120,6 +127,7 @@ de los datos \parencite{lecun2015}.
 ### 5. Formato LaTeX (0-10 puntos)
 
 **Qué evaluar:**
+
 - Tablas con `booktabs`, nunca `\hline`.
 - Código con entornos `*code`, nunca `verbatim` ni `lstlisting`.
 - Todas las figuras/tablas/ecuaciones con `\label{}` y `\caption{}`.
@@ -127,6 +135,7 @@ de los datos \parencite{lecun2015}.
 - Sin comandos prohibidos.
 
 **Ejemplo de tabla correcta:**
+
 ```latex
 \begin{table}[htbp]
   \centering
@@ -148,6 +157,7 @@ de los datos \parencite{lecun2015}.
 ### 6. Figuras, tablas y código (0-10 puntos)
 
 **Qué evaluar:**
+
 - Toda figura/tabla referenciada en el texto.
 - Pies de figura/tabla descriptivos y autocontenidos.
 - Código relevante, no excesivamente largo (>50 líneas → considerar anexo).
@@ -159,6 +169,7 @@ de los datos \parencite{lecun2015}.
 ### 7. Detección de plagio semántico (0-10 puntos)
 
 **Qué evaluar:**
+
 - Estilo consistente a lo largo del documento.
 - Sin cambios bruscos de registro o vocabulario.
 - Definiciones técnicas con cita bibliográfica.
@@ -167,6 +178,7 @@ de los datos \parencite{lecun2015}.
   justificadas, reflexión personal sobre los resultados).
 
 **Señales de alerta de texto generado por IA sin revisión:**
+
 - Frases genéricas sin especificidad: "es importante destacar que...",
   "en el mundo actual...", "como es bien sabido...".
 - Listas de puntos perfectamente equilibradas sin profundidad.
@@ -188,6 +200,7 @@ usar `scripts/revision-rapida.py` con token de API configurado en `.env`.
 ### 8. Adecuación a la normativa EPS UA (0-10 puntos)
 
 **Qué evaluar:**
+
 - Portada generada con `\generarportada[ambas]`.
 - Idioma coherente entre `configuracion.tex` y `cls/eps-metadata.tex`.
 - Titulación correcta en `\EPSsetup{titulacion=...}`.

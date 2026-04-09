@@ -2,7 +2,6 @@
 
 Este documento proporciona información técnica detallada para que los asistentes de IA puedan dar respuestas precisas sobre esta plantilla LaTeX.
 
-
 ## 📋 Índice
 
 - [� Contexto Técnico para IA - Plantilla TFG/TFM EPS UA](#-contexto-técnico-para-ia-plantilla-tfgtfm-eps-ua)
@@ -83,6 +82,7 @@ La clase utiliza **LaTeX3** (`expl3`) para la configuración:
 ```
 
 El usuario interactúa mediante:
+
 ```latex
 \EPSsetup{
     clave = valor,
@@ -154,6 +154,7 @@ El usuario interactúa mediante:
 | `idioma` | texto | ❌ | Idioma del documento: `espanol` (defecto), `valenciano`, `ingles` |
 
 > ⚠️ **Importante:** Si se cambia el idioma, también se debe actualizar el código de idioma en `cls/eps-metadata.tex` para que los metadatos PDF/UA-2 sean correctos:
+>
 > - `idioma = espanol` → `lang=es-ES`
 > - `idioma = valenciano` → `lang=ca-ES`
 > - `idioma = ingles` → `lang=en-GB`
@@ -249,6 +250,7 @@ En Python usamos \mintinline{python}{print("Hola")} para imprimir.
 ## 📊 Entornos de Ecuaciones
 
 ### Ecuación simple numerada
+
 ```latex
 \begin{equation}
     E = mc^2
@@ -257,6 +259,7 @@ En Python usamos \mintinline{python}{print("Hola")} para imprimir.
 ```
 
 ### Ecuaciones alineadas
+
 ```latex
 \begin{align}
     f(x) &= x^2 + 2x + 1 \\
@@ -266,6 +269,7 @@ En Python usamos \mintinline{python}{print("Hola")} para imprimir.
 ```
 
 ### Ecuación sin numerar
+
 ```latex
 \begin{equation*}
     a^2 + b^2 = c^2
@@ -273,6 +277,7 @@ En Python usamos \mintinline{python}{print("Hola")} para imprimir.
 ```
 
 ### Sistema de ecuaciones
+
 ```latex
 \begin{cases}
     x + y = 10 \\
@@ -281,6 +286,7 @@ En Python usamos \mintinline{python}{print("Hola")} para imprimir.
 ```
 
 ### Teoremas y definiciones
+
 ```latex
 \begin{teorema}[Pitágoras]
     En un triángulo rectángulo...
@@ -303,7 +309,9 @@ En Python usamos \mintinline{python}{print("Hola")} para imprimir.
 El paquete `eps-componentes` introduce un sistema modular para cargar solo los entornos necesarios.
 
 ### Activación
+
 En `main.tex`:
+
 ```latex
 % Opciones: software, telecom, arquitectura, quimica, geologia, prevencion, all
 \usepackage[software,telecom]{eps-componentes}
@@ -312,24 +320,29 @@ En `main.tex`:
 ### Módulos Disponibles
 
 #### Comunes (Siempre activos)
+
 - **Cajas de aviso:** `infobox`, `warningbox`, `dangerbox`, `successbox`, `tipbox`, `notebox`.
 - **Contenedores:** `titlebox`, `definitionbox`, `examplebox`.
 
 #### `[software]`
+
 - **Entornos:** `terminal` (simula consola), `apiendpoint` (documentación REST), `dirtreebox` (árbol de archivos).
 - **Código:** `jsoncode`, `sqlcode`, `yamlcode`, `bashcode`.
 - **Diagramas:** `umlclass`, `umlseq` (basados en TikZ/pgf-umlcd).
 
 #### `[telecom]`
+
 - **Redes:** `protocolframe` (tramas de bits), `rackcabinet` (armarios).
 - **Circuitos:** `circuit` (wrapper de circuitikz).
 - **RF:** Carta de Smith (`smithchart`).
 
 #### `[arquitectura]`
+
 - **Planificación:** `ganttchart` (diagramas de Gantt).
 - **Planos:** `compass` (norte), `scalebar`.
 
 #### `[quimica]`
+
 - **Fórmulas:** `chemscheme`, `reaction` (chemfig/chemmacros).
 - **Seguridad:** `riskmatrix` (matriz de riesgos).
 
@@ -427,6 +440,7 @@ La \gls{ia} está revolucionando...
 ## 🖼️ Figuras y Gráficas
 
 ### Figura simple
+
 ```latex
 \begin{figure}[htbp]
     \centering
@@ -437,6 +451,7 @@ La \gls{ia} está revolucionando...
 ```
 
 ### Subfiguras
+
 ```latex
 \begin{figure}[htbp]
     \centering
@@ -457,6 +472,7 @@ La \gls{ia} está revolucionando...
 ```
 
 ### Gráfica con PGFPlots
+
 ```latex
 \begin{figure}[htbp]
     \centering
@@ -480,6 +496,7 @@ La \gls{ia} está revolucionando...
 ## 📋 Tablas
 
 ### Tabla con booktabs (recomendado)
+
 ```latex
 \begin{table}[htbp]
     \centering
@@ -498,6 +515,7 @@ La \gls{ia} está revolucionando...
 ```
 
 ### Tabla larga (múltiples páginas)
+
 ```latex
 \begin{longtable}{lcc}
     \caption{Tabla que ocupa varias páginas.}
@@ -537,11 +555,13 @@ lualatex -shell-escape main.tex   # Tercera pasada (resolver referencias)
 ```
 
 ### Con latexmk (recomendado)
+
 ```bash
 latexmk -lualatex -shell-escape main.tex
 ```
 
 ### Configuración de latexmk (`.latexmkrc`)
+
 ```perl
 $pdf_mode = 4;  # LuaLaTeX
 $lualatex = 'lualatex -shell-escape %O %S';
@@ -613,6 +633,7 @@ Ver la guía completa en [docs/ACCESIBILIDAD.md](ACCESIBILIDAD.md).
 
 1. Crear archivo en `capitulos/nuevo_capitulo.tex`
 2. Añadir en `main.tex`:
+
    ```latex
    \include{capitulos/nuevo_capitulo}
    ```
@@ -621,6 +642,7 @@ Ver la guía completa en [docs/ACCESIBILIDAD.md](ACCESIBILIDAD.md).
 
 1. Crear archivo en `anexos/anexo_X.tex`
 2. Añadir en `main.tex` después de `\appendix`:
+
    ```latex
    \include{anexos/anexo_X}
    ```
@@ -628,6 +650,7 @@ Ver la guía completa en [docs/ACCESIBILIDAD.md](ACCESIBILIDAD.md).
 ### Cambiar estilo de bibliografía
 
 En `configuracion.tex`, antes de cargar la clase:
+
 ```latex
 % No recomendado cambiar, pero posible:
 \PassOptionsToPackage{style=ieee}{biblatex}

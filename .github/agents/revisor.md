@@ -32,6 +32,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 ### 1. Estructura del documento
 
 **Criterios:**
+
 - Presencia de todos los capítulos obligatorios: introducción, objetivos,
   marco teórico o estado del arte, metodología, desarrollo o implementación,
   resultados, conclusiones.
@@ -41,6 +42,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 - Los anexos están justificados y referenciados desde el texto principal.
 
 **Problemas típicos:**
+
 - Falta el capítulo de objetivos o está integrado en la introducción sin
   claridad.
 - Las conclusiones son demasiado breves (menos de media página).
@@ -52,6 +54,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 ### 2. Coherencia interna
 
 **Criterios:**
+
 - Los objetivos planteados en la introducción se corresponden con los
   resultados y las conclusiones.
 - La metodología descrita se aplica realmente en el desarrollo.
@@ -59,6 +62,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 - Las hipótesis o preguntas de investigación (si las hay) quedan respondidas.
 
 **Problemas típicos:**
+
 - Objetivos planteados que no aparecen en los resultados.
 - Conclusiones que afirman cosas no demostradas en el trabajo.
 - Metodología descrita pero no aplicada en el desarrollo.
@@ -69,6 +73,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 ### 3. Bibliografía y citas
 
 **Criterios:**
+
 - Toda afirmación relevante tiene cita bibliográfica.
 - Las citas usan `\parencite{}` o `\textcite{}`, nunca `\cite{}` directo.
 - Las fuentes son actuales (preferiblemente de los últimos 10 años, salvo
@@ -79,6 +84,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 - Se citan fuentes primarias, no solo fuentes secundarias o Wikipedia.
 
 **Problemas típicos:**
+
 - Párrafos enteros sin ninguna cita.
 - Citas de Wikipedia o blogs sin rigor académico.
 - Bibliografía desactualizada (fuentes de hace más de 15 años para temas
@@ -90,6 +96,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 ### 4. Lenguaje y estilo académico
 
 **Criterios:**
+
 - Registro formal e impersonal: "se ha desarrollado", "en este trabajo se
   propone", "los resultados muestran".
 - Sin primera persona del singular: no "yo he hecho", "mi aplicación".
@@ -100,6 +107,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 - Sin errores ortográficos ni gramaticales evidentes.
 
 **Problemas típicos:**
+
 - Mezcla de primera persona y voz impersonal.
 - Términos técnicos en inglés sin cursiva ni justificación.
 - Acrónimos usados sin definir.
@@ -110,6 +118,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 ### 5. Formato LaTeX
 
 **Criterios:**
+
 - Uso correcto de los entornos de la plantilla EPS UA.
 - Tablas con `booktabs` (`\toprule`, `\midrule`, `\bottomrule`), nunca `\hline`.
 - Código fuente con entornos `*code` de minted, nunca `verbatim` ni `lstlisting`.
@@ -118,6 +127,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 - No se usan comandos prohibidos por la plantilla.
 
 **Problemas típicos:**
+
 - Tablas con `\hline`.
 - Código en `verbatim` en lugar de `pythoncode`, `jscode`, etc.
 - Figuras sin `\caption{}` o sin `\label{}`.
@@ -128,6 +138,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 ### 6. Figuras, tablas y código
 
 **Criterios:**
+
 - Toda figura y tabla está referenciada en el texto ("como se muestra en la
   Figura~\ref{fig:nombre}").
 - Los pies de figura/tabla son descriptivos y autocontenidos.
@@ -137,6 +148,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 - No hay figuras o tablas "flotantes" que aparecen sin contexto.
 
 **Problemas típicos:**
+
 - Figuras que aparecen sin ser mencionadas en el texto.
 - Pies de figura demasiado genéricos ("Figura del sistema").
 - Tablas sin encabezados o con columnas sin unidades.
@@ -147,6 +159,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 ### 7. Detección de plagio semántico (análisis por IA)
 
 **Criterios:**
+
 - El texto tiene un estilo consistente a lo largo del documento.
 - No hay cambios bruscos de registro o vocabulario entre párrafos.
 - Las definiciones y explicaciones técnicas tienen cita bibliográfica.
@@ -155,6 +168,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
   (frases genéricas, falta de especificidad, ausencia de datos propios).
 
 **Señales de alerta:**
+
 - Párrafos con vocabulario muy diferente al resto del documento.
 - Definiciones técnicas sin cita que coinciden con definiciones estándar.
 - Secciones donde el nivel de detalle es inconsistente con el resto.
@@ -174,6 +188,7 @@ herramientas externas (ver `scripts/revision-rapida.py` con token en `.env`).
 ### 8. Adecuación a la normativa EPS UA
 
 **Criterios:**
+
 - La portada se genera con `\generarportada[ambas]`, no manualmente.
 - El idioma del documento coincide entre `configuracion.tex` y
   `cls/eps-metadata.tex`.

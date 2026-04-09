@@ -284,7 +284,6 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 
 [📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_005.pdf)
 
-
 ### Gráfica de barras agrupadas
 
 ```latex <!-- preview -->
@@ -1191,6 +1190,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 ### La gráfica es muy pequeña/grande
 
 **Solución**: Ajusta `width` y `height`:
+
 ```latex
 \begin{axis}[
     width=0.9\textwidth,
@@ -1201,6 +1201,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 ### Los números se superponen
 
 **Solución**: Rota las etiquetas o reduce el tamaño:
+
 ```latex
 \begin{axis}[
     xticklabel style={rotate=45, anchor=east, font=\small},
@@ -1210,6 +1211,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 ### La leyenda tapa la gráfica
 
 **Solución**: Mueve la leyenda fuera:
+
 ```latex
 \begin{axis}[
     legend style={
@@ -1223,6 +1225,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 ### Compilación muy lenta
 
 **Solución**: Reduce el número de muestras o usa externalización:
+
 ```latex
 % Menos muestras
 \addplot[domain=-5:5, samples=50] {sin(deg(x))};
@@ -1237,6 +1240,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 **Causa**: Valores muy grandes o muy pequeños.
 
 **Solución**: Usa escala logarítmica o ajusta los datos:
+
 ```latex
 \begin{axis}[
     ymode=log,  % Escala logarítmica en Y

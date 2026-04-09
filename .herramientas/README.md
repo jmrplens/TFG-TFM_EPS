@@ -16,6 +16,7 @@ Esta carpeta contiene herramientas internas para el mantenimiento de la plantill
 Herramienta unificada que extrae, compila e inserta previews de snippets LaTeX en los archivos de documentación.
 
 **Características:**
+
 - Compilación paralela usando todos los núcleos disponibles (máximo 8)
 - Caché inteligente: solo recompila snippets modificados (manifest.json)
 - Usa los paquetes EPS de la plantilla (`eps-componentes`) como preámbulo
@@ -42,7 +43,8 @@ La ecuación~\ref{eq:ejemplo} muestra...
 ```latex <!-- preview:3 mi_nombre_custom -->
 % 3 pasadas + nombre personalizado para el archivo
 ```
-```
+
+```text
 
 ### Uso
 
@@ -86,7 +88,7 @@ brew install poppler webp
 
 ### Estructura generada
 
-```
+```text
 docs/
 └── assets/
     └── previews/
@@ -135,13 +137,16 @@ make -f .herramientas/Makefile portadas     # Generar portadas
 ## 📝 Workflow recomendado
 
 1. **Marcar snippets en los archivos `.md`**:
+
    ```markdown
    ```latex <!-- preview -->
    \begin{equation}...
    ```
-   ```
+
+   ```text
 
 2. **Generar e insertar previews**:
+
    ```bash
    python3 .herramientas/actualizar_previews.py
    ```

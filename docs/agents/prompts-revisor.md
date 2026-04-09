@@ -8,19 +8,23 @@ Sustituir los valores entre `[corchetes]` por los datos reales del trabajo.
 ## Cómo usar estos prompts
 
 **En GitHub Copilot Chat:**
+
 1. Abrir Copilot Chat (`Ctrl+Alt+I`)
 2. Escribir `@workspace` para dar contexto del repositorio completo
 3. Pegar el prompt
 
 **En Claude:**
+
 1. Adjuntar los archivos `.tex` relevantes al chat
 2. Adjuntar `configuracion.tex` y `referencias.bib`
 3. Pegar el prompt
 
 **Alternativa automática (sin IA):**
+
 ```bash
 python3 scripts/revision-rapida.py
 ```
+
 Genera `informe-revision.md` con análisis estático (referencias rotas,
 comandos prohibidos, citas sin entrada `.bib`, etc.).
 

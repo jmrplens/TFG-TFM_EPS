@@ -118,7 +118,7 @@ La plantilla define estos tipos de columna adicionales:
 | `p{ancho}` | Párrafo con ancho fijo (alineado arriba) |
 | `m{ancho}` | Párrafo centrado verticalmente |
 | `b{ancho}` | Párrafo alineado abajo |
-| `|` | Línea vertical |
+| `\|` | Línea vertical |
 | `@{texto}` | Insertar texto entre columnas |
 | `*{n}{esp}` | Repetir especificador n veces |
 

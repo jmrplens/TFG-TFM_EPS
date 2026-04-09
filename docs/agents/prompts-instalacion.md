@@ -10,21 +10,25 @@ Sustituir los valores entre `[corchetes]` por los datos reales.
 ## Cómo usar estos prompts
 
 **En GitHub Copilot Chat:**
+
 1. Abrir Copilot Chat (`Ctrl+Alt+I` en VS Code)
 2. Escribir `@workspace` al inicio
 3. Pegar el prompt
 
 **En Claude:**
+
 1. Adjuntar la salida del script de instalación (si ya lo has ejecutado)
 2. Pegar el prompt
 
 **Alternativa automática (sin IA):**
+
 ```bash
 # Linux / macOS
 python3 scripts/instalar.py
 # Windows
 python scripts/instalar.py
 ```
+
 El script comprueba las dependencias e instala lo que puede automáticamente.
 Para no-desarrolladores: simplemente ejecútalo y sigue las instrucciones.
 

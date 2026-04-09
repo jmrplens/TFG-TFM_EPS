@@ -25,6 +25,7 @@ todos los scripts del proyecto antes de empezar a escribir.
 ### Paso 1 — Detectar el sistema operativo
 
 Pregunta al alumno qué sistema usa si no lo sabes ya:
+
 - Windows (10, 11)
 - macOS (versión)
 - Linux (distribución: Ubuntu, Fedora, Arch, etc.)
@@ -34,11 +35,13 @@ Pregunta al alumno qué sistema usa si no lo sabes ya:
 Pide al alumno que ejecute:
 
 **Linux / macOS:**
+
 ```bash
 python3 scripts/instalar.py
 ```
 
 **Windows:**
+
 ```bash
 python scripts/instalar.py
 ```
@@ -63,6 +66,7 @@ make quick
 ```
 
 Si `make quick` produce errores:
+
 1. Pide las últimas 30 líneas del archivo `main.log`
 2. Identifica el error y propón la solución concreta
 
@@ -73,16 +77,19 @@ Si `make quick` produce errores:
 ### Python 3
 
 **Windows:**
-1. Descargar el instalador desde https://www.python.org/downloads/
+
+1. Descargar el instalador desde <https://www.python.org/downloads/>
 2. Ejecutar el instalador y marcar **"Add Python to PATH"** (imprescindible)
 3. Cerrar y abrir de nuevo el terminal
 4. Verificar con: `python --version`
 
 **macOS:**
+
 - Si tiene Homebrew: `brew install python3`
-- Si no: descargar desde https://www.python.org/downloads/
+- Si no: descargar desde <https://www.python.org/downloads/>
 
 **Ubuntu/Debian:**
+
 ```bash
 sudo apt-get install python3 python3-pip
 ```
@@ -105,34 +112,43 @@ El script `instalar.py` ofrece instalarlo automáticamente al ejecutarlo.
 ### LaTeX (LuaLaTeX + Biber + latexmk)
 
 #### Ubuntu / Debian / Mint
+
 ```bash
 sudo apt-get update
 sudo apt-get install texlive-full latexmk biber
 ```
+
 Nota: `texlive-full` ocupa ~4-6 GB. Si el espacio es limitado, usar
 `texlive-luatex` e instalar paquetes adicionales con `tlmgr`.
 
 #### macOS
+
 Opción recomendada — MacTeX (instalador .pkg, ~5 GB):
-- https://www.tug.org/mactex/
+
+- <https://www.tug.org/mactex/>
 
 Con Homebrew:
+
 ```bash
 brew install --cask mactex
 ```
 
 #### Windows
+
 Opción recomendada — MiKTeX:
-1. Descargar desde https://miktex.org/download
+
+1. Descargar desde <https://miktex.org/download>
 2. Instalar seleccionando **"Instalar paquetes faltantes automáticamente"**
 3. Abrir MiKTeX Console y actualizar todos los paquetes
 
 #### Fedora / RHEL / CentOS
+
 ```bash
 sudo dnf install texlive-scheme-full latexmk
 ```
 
 #### Arch Linux / Manjaro
+
 ```bash
 sudo pacman -S texlive-most texlive-lang biber
 ```
@@ -142,23 +158,29 @@ sudo pacman -S texlive-most texlive-lang biber
 ### make (solo necesario para los atajos del Makefile)
 
 **Linux:** normalmente ya está instalado. Si no:
+
 ```bash
 sudo apt-get install make       # Debian/Ubuntu
 sudo dnf install make           # Fedora
 ```
 
 **macOS:**
+
 ```bash
 xcode-select --install
 ```
 
 **Windows:** `make` no está disponible por defecto. Opciones:
-- Instalar **Git for Windows** (https://git-scm.com) y usar Git Bash
+
+- Instalar **Git for Windows** (<https://git-scm.com>) y usar Git Bash
 - Usar **WSL** (Windows Subsystem for Linux):
+
   ```powershell
   wsl --install
   ```
+
 - Compilar manualmente (sin `make`):
+
   ```bash
   lualatex -shell-escape -interaction=nonstopmode main.tex
   biber main
@@ -173,13 +195,16 @@ xcode-select --install
 Si el alumno quiere activar la detección de plagio con Copyleaks o Turnitin:
 
 1. Copiar el archivo `.env.example` y renombrarlo `.env`:
+
    ```bash
    cp .env.example .env        # Linux / macOS
    copy .env.example .env      # Windows
    ```
+
 2. Abrir `.env` con cualquier editor de texto y rellenar las claves
 3. Consultar `.env.example` para instrucciones sobre cómo obtener las claves
 4. Ejecutar el revisor estático para comprobar:
+
    ```bash
    python3 scripts/revision-rapida.py   # Linux / macOS
    python  scripts/revision-rapida.py   # Windows

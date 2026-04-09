@@ -15,6 +15,7 @@
 ## 📜 Código de Conducta
 
 Este proyecto sigue un código de conducta basado en el respeto mutuo. Por favor:
+
 - Sé respetuoso y constructivo en tus comentarios
 - Acepta críticas constructivas con mentalidad abierta
 - Enfócate en lo que es mejor para la comunidad
@@ -130,7 +131,7 @@ make
 
 ### Estructura de archivos
 
-```
+```text
 cls/          → Clases de documento
 sty/          → Paquetes auxiliares
 contenido/    → Contenido del documento

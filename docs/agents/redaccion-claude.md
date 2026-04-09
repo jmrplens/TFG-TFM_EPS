@@ -18,6 +18,7 @@ Universidad de Alicante (UA). Versión de plantilla: 2.1.0 (2026).
 | Módulos | `\usepackage[...]{eps-componentes}` en `main.tex` |
 
 **Siempre leer antes de generar:**
+
 1. `configuracion.tex` → idioma, titulación, nombre del autor, género
 2. `main.tex` → módulos de componentes activos (`[software]`, `[telecom]`, etc.)
 3. El archivo `.tex` existente si se pide mejorar o expandir
@@ -324,12 +325,14 @@ $ python main.py --config config.yaml
 **Cuándo usar:** el alumno quiere generar un capítulo entero.
 
 **Información necesaria:**
+
 - Título del capítulo
 - Descripción de 2-5 líneas del contenido
 - Titulación (para adaptar el vocabulario técnico)
 - Módulos activos (para saber qué entornos usar)
 
 **Proceso:**
+
 1. Proponer esquema de secciones con una línea de descripción cada una.
 2. Esperar confirmación o ajustes del alumno.
 3. Generar el capítulo completo:
@@ -373,6 +376,7 @@ infieren patrones estadísticos a partir de ejemplos de entrenamiento
 convertirlo en texto académico.
 
 **Ejemplo de entrada:**
+
 ```text
 - Definición de red neuronal convolucional
 - Capas: convolución, pooling, fully connected
@@ -410,6 +414,7 @@ producir la clasificación final.
 **Cuándo usar:** el alumno tiene texto escrito y quiere mejorarlo.
 
 **Proceso:**
+
 1. Identificar problemas concretos (listar antes de reescribir):
    - Registro informal o coloquial
    - Afirmaciones sin citar
@@ -424,6 +429,7 @@ producir la clasificación final.
 ### Flujo 4: Resumen y abstract
 
 **Estructura obligatoria (200-300 palabras cada uno):**
+
 1. Contexto y motivación (1-2 oraciones)
 2. Problema que se aborda (1-2 oraciones)
 3. Metodología empleada (2-3 oraciones)
@@ -431,6 +437,7 @@ producir la clasificación final.
 5. Conclusión e impacto (1-2 oraciones)
 
 **Idiomas:**
+
 - Resumen: en el idioma de `\EPSsetup{idioma=...}` en `configuracion.tex`
 - Abstract: siempre en inglés, independientemente del idioma del documento
 
@@ -439,6 +446,7 @@ producir la clasificación final.
 ### Flujo 5: Conclusiones
 
 **Estructura obligatoria:**
+
 1. **Recapitulación de objetivos** (verificar que se han cumplido los
    objetivos planteados en la introducción)
 2. **Principales aportaciones** (qué aporta este trabajo al estado del arte)
@@ -452,6 +460,7 @@ producir la clasificación final.
 ### Flujo 6: Introducción (escribir al final)
 
 **Estructura obligatoria:**
+
 1. **Motivación y contexto** (por qué es relevante este trabajo)
 2. **Planteamiento del problema** (qué problema concreto se resuelve)
 3. **Objetivos** (lista numerada de objetivos específicos)

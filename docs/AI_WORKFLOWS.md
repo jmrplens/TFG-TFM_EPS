@@ -50,9 +50,9 @@ la referencia técnica de `AI_CONTEXT.md`.
 }
 ```
 
-3. Si el idioma no es `espanol`, actualizar también `cls/eps-metadata.tex`
+1. Si el idioma no es `espanol`, actualizar también `cls/eps-metadata.tex`
    (ver flujo 7).
-4. Verificar con `make quick`.
+2. Verificar con `make quick`.
 
 **Titulaciones más comunes:**
 
@@ -90,7 +90,7 @@ Texto introductorio del capítulo.
 Contenido de la sección.
 ```
 
-2. Registrar el capítulo en `main.tex`, dentro del bloque `\mainmatter`,
+1. Registrar el capítulo en `main.tex`, dentro del bloque `\mainmatter`,
    en el orden deseado:
 
 ```latex
@@ -100,7 +100,7 @@ Contenido de la sección.
 \input{contenido/capitulos/metodologia}
 ```
 
-3. Verificar con `make quick`.
+1. Verificar con `make quick`.
 
 **Nota:** Usar `\input{}` en lugar de `\include{}` para evitar saltos de
 página forzados entre capítulos si no se desean.
@@ -158,14 +158,14 @@ página forzados entre capítulos si no se desean.
 }
 ```
 
-2. Citar en el texto del capítulo:
+1. Citar en el texto del capítulo:
 
 ```latex
 Según \textcite{apellido2024titulo}, los resultados muestran...
 Este enfoque ha sido estudiado previamente \parencite{autor2023libro}.
 ```
 
-3. Compilar con `make` completo (necesario para que Biber procese la nueva
+1. Compilar con `make` completo (necesario para que Biber procese la nueva
    entrada).
 
 **Clave de la entrada:** usar el formato `apellido+año+palabra` para evitar
@@ -193,7 +193,7 @@ colisiones (ej: `garcia2024redes`).
 \end{figure}
 ```
 
-3. Referenciar en el texto:
+1. Referenciar en el texto:
 
 ```latex
 Como se muestra en la Figura~\ref{fig:nombre-imagen}, el sistema...
@@ -253,7 +253,7 @@ Como se muestra en la Figura~\ref{fig:nombre-imagen}, el sistema...
 \end{table}
 ```
 
-2. Referenciar en el texto:
+1. Referenciar en el texto:
 
 ```latex
 Los resultados se muestran en la Tabla~\ref{tab:nombre-tabla}.
@@ -308,7 +308,7 @@ print(f"Precisión: {accuracy:.2%}")
 \end{pythoncode}
 ```
 
-3. Para referenciar el bloque en el texto:
+1. Para referenciar el bloque en el texto:
 
 ```latex
 El Código~\ref{cod:clasificador} muestra la implementación del clasificador.
@@ -358,7 +358,7 @@ Añadir `Dark` al nombre para tema oscuro: `pythoncodeDark`, `jscodeDark`.
 }
 ```
 
-2. En `cls/eps-metadata.tex`, actualizar el valor de `lang=`:
+1. En `cls/eps-metadata.tex`, actualizar el valor de `lang=`:
 
 ```latex
 \DocumentMetadata{
@@ -377,9 +377,10 @@ Añadir `Dark` al nombre para tema oscuro: `pythoncodeDark`, `jscodeDark`.
    | `valenciano` | `ca-ES` |
    | `ingles` | `en-GB` |
 
-3. Compilar con `make` completo.
+1. Compilar con `make` completo.
 
 **Qué cambia con el idioma:**
+
 - Títulos automáticos: "Tabla" / "Taula" / "Table", "Figura" / "Figura" / "Figure", etc.
 - Formato de fechas en bibliografía.
 - Metadatos del PDF (accesibilidad).
@@ -419,7 +420,7 @@ Añadir `Dark` al nombre para tema oscuro: `pythoncodeDark`, `jscodeDark`.
 
 Se pueden combinar: `\usepackage[software,telecom]{eps-componentes}`
 
-3. Verificar con `make quick`.
+1. Verificar con `make quick`.
 
 ---
 
@@ -447,7 +448,7 @@ Se pueden combinar: `\usepackage[software,telecom]{eps-componentes}`
 }
 ```
 
-2. Usar en el texto del capítulo:
+1. Usar en el texto del capítulo:
 
 ```latex
 \gls{cnn}       % Primera vez: "Convolutional Neural Network (CNN)"; resto: "CNN"
@@ -457,7 +458,7 @@ Se pueden combinar: `\usepackage[software,telecom]{eps-componentes}`
 \gls{id}        % Término del glosario (enlazado)
 ```
 
-3. Compilar con `make` completo (necesario para que `makeglossaries` procese
+1. Compilar con `make` completo (necesario para que `makeglossaries` procese
    las nuevas entradas).
 
 ---
@@ -472,14 +473,14 @@ Se pueden combinar: `\usepackage[software,telecom]{eps-componentes}`
 make quick 2>&1 | tail -40
 ```
 
-2. Si el error no es claro, leer el archivo de log:
+1. Si el error no es claro, leer el archivo de log:
 
 ```bash
 grep -n "^!" main.log | head -20
 grep -n "Error\|error\|Warning" main.log | grep -v "^#" | head -30
 ```
 
-3. Identificar el tipo de error:
+1. Identificar el tipo de error:
 
 | Síntoma | Causa | Solución |
 |---|---|---|
@@ -494,7 +495,7 @@ grep -n "Error\|error\|Warning" main.log | grep -v "^#" | head -30
 | `Package babel Error` | Conflicto de idioma | Verificar que `idioma` y `lang=` coinciden |
 | `Runaway argument` | Llave `{` o `}` sin cerrar | Revisar el bloque indicado en el log |
 
-4. Si el error persiste, buscar la línea exacta en el log:
+1. Si el error persiste, buscar la línea exacta en el log:
 
 ```bash
 grep -n "l\.[0-9]" main.log | head -10
@@ -523,7 +524,7 @@ Contenido del anexo.
 Pasos de instalación...
 ```
 
-2. Registrar en `main.tex`, dentro del bloque `\appendix`:
+1. Registrar en `main.tex`, dentro del bloque `\appendix`:
 
 ```latex
 \appendix
@@ -531,7 +532,7 @@ Pasos de instalación...
 \input{contenido/anexos/anexo-manual-usuario}   % ← añadir aquí
 ```
 
-3. Verificar con `make quick`.
+1. Verificar con `make quick`.
 
 ---
 
@@ -572,7 +573,7 @@ Pasos de instalación...
 \end{figure}
 ```
 
-2. Para gráficas de barras:
+1. Para gráficas de barras:
 
 ```latex
 \begin{axis}[
@@ -587,7 +588,7 @@ Pasos de instalación...
 \end{axis}
 ```
 
-3. Si la gráfica tarda en compilar, activar la caché de TikZ en
+1. Si la gráfica tarda en compilar, activar la caché de TikZ en
    `configuracion.tex`:
 
 ```latex

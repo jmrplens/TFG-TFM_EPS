@@ -20,6 +20,7 @@ el estilo académico de la EPS UA.
 - **Módulos activos:** ver línea `\usepackage[...]{eps-componentes}` en `main.tex`
 
 **Antes de generar contenido, leer:**
+
 1. `configuracion.tex` → idioma, titulación, nombre del autor
 2. `main.tex` → módulos de componentes activos
 3. El capítulo o sección existente si se pide mejorar/expandir
@@ -29,6 +30,7 @@ el estilo académico de la EPS UA.
 ## Reglas de generación de LaTeX
 
 ### Estructura
+
 - Usar `\chapter{}` para capítulos, `\section{}`, `\subsection{}`,
   `\subsubsection{}` para secciones.
 - Añadir `\label{chap:nombre}`, `\label{sec:nombre}` en todos los elementos.
@@ -36,12 +38,14 @@ el estilo académico de la EPS UA.
   `teo:`, `def:`, `anexo:`.
 
 ### Citas bibliográficas
+
 - Usar `\parencite{clave}` para citas entre paréntesis: (Autor, 2024)
 - Usar `\textcite{clave}` para citas en el texto: Autor (2024)
 - Usar `\parencite[p.~50]{clave}` para citas con página
 - **Nunca** usar `\cite{}` directo
 
 ### Figuras
+
 ```latex
 \begin{figure}[htbp]
   \centering
@@ -52,6 +56,7 @@ el estilo académico de la EPS UA.
 ```
 
 ### Tablas (siempre con booktabs)
+
 ```latex
 \begin{table}[htbp]
   \centering
@@ -68,6 +73,7 @@ el estilo académico de la EPS UA.
 ```
 
 ### Ecuaciones
+
 ```latex
 \begin{equation}
   f(x) = \sum_{i=0}^{n} a_i x^i
@@ -76,17 +82,20 @@ el estilo académico de la EPS UA.
 ```
 
 ### Código fuente
+
 ```latex
 \begin{pythoncode}[title={nombre.py}]
 def funcion(parametro):
     return parametro * 2
 \end{pythoncode}
 ```
+
 Lenguajes: `pythoncode`, `jscode`, `cppcode`, `javacode`, `matlabcode`,
 `bashcode`, `sqlcode`, `jsoncode`, `yamlcode`, `htmlcode`, `csscode`,
 `rcode`, `rustcode`, `gocode`, `phpcode`.
 
 ### Cajas de aviso (módulo comunes)
+
 ```latex
 \begin{infobox}{Título}    Texto.  \end{infobox}
 \begin{warningbox}{Título} Texto.  \end{warningbox}
@@ -99,6 +108,7 @@ Lenguajes: `pythoncode`, `jscode`, `cppcode`, `javacode`, `matlabcode`,
 ```
 
 ### Módulo [software]
+
 ```latex
 \begin{terminal}[title={bash}]
 $ comando --opcion valor
@@ -134,6 +144,7 @@ $ comando --opcion valor
 qué debe contener.
 
 **Proceso:**
+
 1. Proponer estructura de secciones (esquema) y pedir confirmación.
 2. Una vez confirmado, generar el capítulo completo con:
    - Párrafo introductorio del capítulo
@@ -151,6 +162,7 @@ qué debe contener.
 contener la sección.
 
 **Proceso:**
+
 1. Convertir cada bullet en uno o más párrafos académicos.
 2. Añadir transiciones entre párrafos.
 3. Sugerir dónde añadir figuras, tablas o código.
@@ -164,6 +176,7 @@ contener la sección.
 **Entrada del usuario:** fragmento `.tex` actual.
 
 **Proceso:**
+
 1. Identificar problemas: registro informal, frases largas, falta de citas,
    uso incorrecto de entornos LaTeX.
 2. Reescribir manteniendo el significado original.
@@ -176,6 +189,7 @@ contener la sección.
 **Entrada del usuario:** descripción del trabajo o capítulos existentes.
 
 **Proceso:**
+
 1. Generar el resumen en el idioma configurado (`idioma` en `configuracion.tex`).
 2. Generar el abstract en inglés (siempre, independientemente del idioma).
 3. Longitud: 200-300 palabras cada uno.
@@ -190,6 +204,7 @@ contener la sección.
 de los logros del trabajo.
 
 **Proceso:**
+
 1. Redactar conclusiones estructuradas:
    - Recapitulación de objetivos cumplidos
    - Principales aportaciones
@@ -206,6 +221,7 @@ de los logros del trabajo.
 escritos.
 
 **Proceso:**
+
 1. Redactar la introducción con la estructura estándar de la EPS UA:
    - Motivación y contexto
    - Planteamiento del problema
@@ -219,6 +235,7 @@ escritos.
 ## Plantillas de estructura por tipo de capítulo
 
 ### Marco teórico / Estado del arte
+
 ```latex
 \chapter{Marco Teórico}
 \label{chap:marco-teorico}
@@ -239,6 +256,7 @@ Párrafo introductorio del capítulo.
 ```
 
 ### Metodología
+
 ```latex
 \chapter{Metodología}
 \label{chap:metodologia}
@@ -257,6 +275,7 @@ Párrafo introductorio del capítulo.
 ```
 
 ### Resultados
+
 ```latex
 \chapter{Resultados}
 \label{chap:resultados}

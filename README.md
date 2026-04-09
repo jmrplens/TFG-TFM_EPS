@@ -31,6 +31,7 @@ Si nunca has usado LaTeX, no te preocupes. Hemos preparado una guía completa pa
 **📖 [Guía de LaTeX para Principiantes](docs/GUIA_PRINCIPIANTES.md)**
 
 Incluye:
+
 - Qué es LaTeX y por qué usarlo
 - Instalación paso a paso (Windows, macOS, Linux)
 - Elegir un editor
@@ -111,6 +112,7 @@ python scripts/instalar.py
 El script detecta qué falta, ofrece instalarlo automáticamente cuando es posible y guía paso a paso cuando requiere intervención manual. Si Python no está instalado aún, consulta la [Guía para Principiantes](docs/GUIA_PRINCIPIANTES.md#-instalación-paso-a-paso).
 
 Para ayuda interactiva, usa el **agente de instalación**:
+
 - GitHub Copilot: carga [`.github/agents/instalacion.md`](.github/agents/instalacion.md) en Copilot Chat
 - Claude: consulta [docs/agents/instalacion-claude.md](docs/agents/instalacion-claude.md) o usa los [prompts listos](docs/agents/prompts-instalacion.md)
 
@@ -159,7 +161,7 @@ lualatex -shell-escape main.tex
 
 ## 📁 Estructura del Proyecto
 
-```
+```text
 TFG-TFM_EPS/
 ├── main.tex                    # Documento principal
 ├── configuracion.tex           # Configuración del usuario
@@ -465,7 +467,7 @@ main = putStrLn "Hola Haskell"
 
 ### Resumen de Sufijos
 
-```
+```text
 entorno          → Light + números de línea
 entornoNN        → Light + sin números
 entornoDark      → Dark + números de línea  
@@ -597,6 +599,7 @@ Si tienes un documento con la versión anterior:
 ### Error: "File 'minted.sty' not found"
 
 Instalar el paquete de Python latexminted:
+
 ```bash
 pip3 install latexminted
 ```
@@ -604,6 +607,7 @@ pip3 install latexminted
 ### Error: "You must invoke LaTeX with -shell-escape"
 
 Asegúrate de usar la opción `-shell-escape`:
+
 ```bash
 lualatex -shell-escape main.tex
 # O simplemente usa:
@@ -613,12 +617,14 @@ make
 ### Error: "Font not found"
 
 La plantilla usa fuentes del sistema con fallbacks. Si aparecen warnings sobre fuentes:
+
 1. El documento compilará con fuentes alternativas (DejaVu Sans)
 2. Para mejores resultados, instala las fuentes del sistema
 
 ### La bibliografía no aparece
 
 Ejecuta Biber entre compilaciones:
+
 ```bash
 lualatex -shell-escape main.tex
 biber main
@@ -628,6 +634,7 @@ lualatex -shell-escape main.tex
 ### El código fuente no tiene colores
 
 Verifica que latexminted esté instalado:
+
 ```bash
 latexminted --version
 # Si no está: pip3 install latexminted
@@ -636,6 +643,7 @@ latexminted --version
 ### Compilación muy lenta
 
 Activa la caché de figuras TikZ en `configuracion.tex`:
+
 ```latex
 \EPSsetup{
   optimizar-tikz = true,
@@ -711,11 +719,13 @@ La revisión estática también se ejecuta automáticamente en cada push/PR medi
 Este proyecto está bajo la licencia [GNU General Public License v3.0](LICENSE).
 
 Puedes:
+
 - ✅ Usar la plantilla para tu TFG/TFM
 - ✅ Modificar y adaptar a tus necesidades
 - ✅ Compartir con otros estudiantes
 
 Debes:
+
 - 📝 Mantener la atribución al autor original
 - 🔄 Compartir modificaciones bajo la misma licencia
 

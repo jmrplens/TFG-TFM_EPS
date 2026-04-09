@@ -8,11 +8,13 @@ Sustituir los valores entre `[corchetes]` por los datos reales del trabajo.
 ## Cómo usar estos prompts
 
 **En GitHub Copilot Chat:**
+
 1. Abrir Copilot Chat (`Ctrl+Alt+I`)
 2. Escribir `@workspace` al inicio para dar contexto del repositorio
 3. Pegar el prompt y ajustar los valores entre corchetes
 
 **En Claude:**
+
 1. Adjuntar los archivos relevantes (p. ej. `configuracion.tex`, el capítulo
    existente si se quiere mejorar)
 2. Pegar el prompt

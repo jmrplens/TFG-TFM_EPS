@@ -53,20 +53,23 @@ Cuando ayudes con la instalación de esta plantilla, ten en cuenta:
 ### Instalación rápida por SO
 
 **Ubuntu / Debian:**
+
 ```bash
 sudo apt-get install texlive-full latexmk biber python3 python3-pip make
 pip3 install latexminted
 ```
 
 **macOS:**
+
 ```bash
 brew install --cask mactex
 pip3 install latexminted
 ```
 
 **Windows:**
-- TeX Live: https://www.tug.org/texlive/ o MiKTeX: https://miktex.org/
-- Python: https://www.python.org/downloads/ (marcar "Add to PATH")
+
+- TeX Live: <https://www.tug.org/texlive/> o MiKTeX: <https://miktex.org/>
+- Python: <https://www.python.org/downloads/> (marcar "Add to PATH")
 - Tras instalar: `pip install latexminted`
 
 ### Compilación manual (sin make)

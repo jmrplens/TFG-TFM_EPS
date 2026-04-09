@@ -20,6 +20,7 @@ Esta carpeta contiene los paquetes auxiliares de la plantilla.
 ### eps-portadas.sty
 
 #### Descripción
+
 Genera las portadas oficiales del TFG/TFM usando TikZ para el diseño gráfico.
 
 #### Tecnologías
@@ -34,7 +35,7 @@ Genera las portadas oficiales del TFG/TFM usando TikZ para el diseño gráfico.
 
 #### Estructura
 
-```
+```text
 eps-portadas.sty
 ├── VARIABLES DE TAMAÑO
 │   ├── \eps@FuenteTamano (tamaño título)
@@ -81,7 +82,7 @@ eps-portadas.sty
 
 #### Medidas clave de la portada
 
-```
+```text
 ┌─────────────────────────────────────┐
 │  [Logo facultad]      [Logo UA]     │  ← 1.5cm del borde
 │                                     │
@@ -106,6 +107,7 @@ eps-portadas.sty
 ### eps-codigo.sty
 
 #### Descripción
+
 Define estilos para bloques de código fuente que imitan la apariencia de VS Code.
 
 #### Tecnologías
@@ -118,7 +120,7 @@ Define estilos para bloques de código fuente que imitan la apariencia de VS Cod
 
 #### Estructura
 
-```
+```text
 eps-codigo.sty
 ├── COLORES VS CODE
 │   ├── Light: vscode-bg, vscode-border, vscode-titlebar...

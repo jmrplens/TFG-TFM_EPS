@@ -5,6 +5,7 @@ Este archivo define las reglas de trabajo para agentes de código autónomos
 opere sobre este repositorio.
 
 > Para instrucciones específicas por herramienta:
+>
 > - **Claude / claude.ai**: ver `CLAUDE.md`
 > - **GitHub Copilot**: ver `.github/copilot-instructions.md`
 > - **Referencia técnica completa**: ver `docs/AI_CONTEXT.md`
@@ -87,7 +88,7 @@ Si hay errores de bibliografía o referencias cruzadas, usar `make` completo.
 
 ## Estructura del proyecto
 
-```
+```text
 TFG-TFM_EPS/
 ├── main.tex                    # Archivo raíz (no escribir contenido aquí)
 ├── configuracion.tex           # Variables del usuario
@@ -361,18 +362,22 @@ figuras/tablas, plagio semántico, normativa EPS UA.
 ### Herramientas de diagnóstico e instalación (sin IA)
 
 **Comprobación e instalación del entorno:**
+
 ```bash
 python3 scripts/instalar.py   # Linux / macOS
 python  scripts/instalar.py   # Windows
 ```
+
 Detecta dependencias faltantes (LaTeX, Python, latexminted, make) y ofrece
 instalarlas automáticamente. Acepta `--auto` para ejecución no interactiva.
 
 **Revisión estática del documento:**
+
 ```bash
 python3 scripts/revision-rapida.py   # Linux / macOS
 python  scripts/revision-rapida.py   # Windows
 ```
+
 Análisis estático que detecta referencias rotas, comandos prohibidos, citas
 sin entrada `.bib` y más. Genera `informe-revision.md`. También se ejecuta
 automáticamente como GitHub Action en cada push/PR que modifique archivos `.tex`.

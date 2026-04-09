@@ -95,7 +95,7 @@ Con LuaLaTeX (usado por esta plantilla) puedes incluir:
 
 ### Dónde guardar las imágenes
 
-```
+```text
 recursos/
 ├── imagenes/        ← Imágenes generales
 │   ├── foto1.jpg
@@ -200,6 +200,7 @@ recursos/
 ## Entorno figure
 
 El entorno `figure` permite:
+
 - Añadir un título (caption)
 - Numerar automáticamente
 - Crear una etiqueta para referencias

@@ -66,6 +66,7 @@ Esta plantilla incluye el paquete `eps-codigo.sty` que proporciona entornos pred
 - **Simple** (borde negro, sin colores de fondo) - Usando el entorno `codigosimple`
 
 Cada lenguaje tiene dos variantes:
+
 - **Con números de línea** - Por defecto
 - **Sin números de línea** - Añadiendo `NN` al final
 
@@ -595,11 +596,13 @@ def factorial(n):
 **Causa**: minted necesita ejecutar latexminted externamente.
 
 **Solución**: Compila con la opción `-shell-escape`:
+
 ```bash
 lualatex -shell-escape main.tex
 ```
 
 O en VS Code, asegúrate de que el archivo `.vscode/settings.json` tenga:
+
 ```json
 "latex-workshop.latex.tools": [
     {
@@ -620,6 +623,7 @@ O en VS Code, asegúrate de que el archivo `.vscode/settings.json` tenga:
 **Causa**: Python o latexminted no están instalados.
 
 **Solución**:
+
 ```bash
 # Linux/Mac
 pip install latexminted
@@ -636,6 +640,7 @@ latexminted --version
 **Causa**: El lenguaje especificado no existe en Pygments.
 
 **Solución**: Usa uno de los lenguajes soportados. Lista completa:
+
 ```bash
 python -c "from pygments.lexers import get_all_lexers; print([l[1][0] for l in get_all_lexers()])"
 ```
@@ -645,10 +650,12 @@ O consulta la [documentación de Pygments](https://pygments.org/docs/lexers/).
 ### El código no se muestra correctamente
 
 **Causas posibles**:
+
 1. Caracteres especiales en LaTeX (`%`, `#`, `$`, `&`, `\`)
 2. Indentación incorrecta
 
 **Solución**: El entorno minted escapa automáticamente estos caracteres, pero si hay problemas:
+
 ```latex
 \begin{pythoncode}
 # Los caracteres especiales funcionan normalmente

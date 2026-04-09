@@ -3,7 +3,6 @@
 
 Este sistema proporciona componentes visuales especializados para diferentes disciplinas académicas de la EPS UA.
 
-
 ## 📋 Índice
 
 - [📋 Índice](#-índice)

@@ -116,11 +116,13 @@ O usa la receta "🚀 Compilación completa (latexmk)" en VS Code, que hace esto
 ### Ubicación
 
 El archivo de bibliografía está en:
-```
+
+```text
 referencias.bib
 ```
 
 Y se carga en `main.tex` con:
+
 ```latex
 \addbibresource{referencias.bib}
 ```
@@ -636,6 +638,7 @@ Como indica García (\citeyear{garcia2024}), el método...
 **Causa**: Biber no se ha ejecutado o hay error en el .bib.
 
 **Solución**:
+
 ```bash
 # Verificar que biber se ejecuta
 lualatex main
@@ -648,6 +651,7 @@ lualatex main
 **Causa**: Ruta incorrecta o archivo no existe.
 
 **Solución**:
+
 ```latex
 % Verificar que el archivo existe y la ruta es correcta
 \addbibresource{referencias.bib}  % Relativo a main.tex
@@ -656,6 +660,7 @@ lualatex main
 ### Caracteres especiales en el .bib
 
 **Solución**: Usar llaves o comandos LaTeX:
+
 ```bibtex
 title = {Análisis de señales},           % UTF-8 directo
 title = {An{\'a}lisis de se{\~n}ales},   % Comandos LaTeX
@@ -666,11 +671,13 @@ author = {M{\"u}ller, Hans},             % Diéresis
 ### La bibliografía no aparece
 
 **Causas posibles**:
+
 1. Falta `\printbibliography`
 2. No hay citas en el documento
 3. Biber no se ha ejecutado
 
 **Solución**:
+
 ```latex
 % Asegúrate de tener al final del documento
 \printbibliography
@@ -705,21 +712,21 @@ biber --validate-datamodel main
 
 ### Gestores de referencias
 
-- **Zotero** (gratuito): https://www.zotero.org/
-- **Mendeley** (gratuito): https://www.mendeley.com/
-- **JabRef** (gratuito, específico BibTeX): https://www.jabref.org/
+- **Zotero** (gratuito): <https://www.zotero.org/>
+- **Mendeley** (gratuito): <https://www.mendeley.com/>
+- **JabRef** (gratuito, específico BibTeX): <https://www.jabref.org/>
 - **EndNote** (comercial)
 
 ### Obtener entradas BibTeX
 
 - **Google Scholar**: Clic en "Citar" → BibTeX
-- **DOI**: https://doi2bib.org/
-- **ISBN**: https://www.ottobib.com/
+- **DOI**: <https://doi2bib.org/>
+- **ISBN**: <https://www.ottobib.com/>
 - **arXiv**: Cada artículo tiene enlace BibTeX
 
 ### Validar y formatear .bib
 
-- **BibTeX Tidy**: https://flamingtempura.github.io/bibtex-tidy/
+- **BibTeX Tidy**: <https://flamingtempura.github.io/bibtex-tidy/>
 
 ---
 
