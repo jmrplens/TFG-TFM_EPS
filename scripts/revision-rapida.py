@@ -101,6 +101,7 @@ def eliminar_bloques_codigo(texto: str) -> str:
         "verbatim", "lstlisting", "minted",
         "codigosimple", "codigosimpleNN",
         "latexcode",
+        "codigo", "codigoNN", "codigoDark", "codigoDarkNN",
         "pythoncode", "pythoncodeNN", "pythoncodeDark",
         "jscode", "jscodeNN", "cppcode", "cppcodeNN",
         "javacode", "javacodeNN", "bashcode", "bashcodeNN",
