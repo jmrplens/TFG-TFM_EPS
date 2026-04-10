@@ -314,7 +314,7 @@ También es posible exportar gráficas desde otras herramientas:
   \item \textbf{GeoGebra:} Exportar directamente a TikZ
 \end{itemize}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 % En MATLAB:
 plot(x, y);
 matlab2tikz('figura.tex');
@@ -325,7 +325,7 @@ matlab2tikz('figura.tex');
   \input{figuras/figura.tex}
   \caption{Gráfica importada de MATLAB}
 \end{figure}
-\end{verbatim}
+\end{codigosimple}
 
 \section{Gráficas con marcadores y anotaciones}
 \label{sec:graficas-marcadores}
@@ -627,7 +627,7 @@ TikZ permite superponer elementos gráficos (flechas, círculos, etiquetas) sobr
 
 El método consiste en colocar la imagen dentro de un nodo TikZ y luego usar las coordenadas relativas para posicionar las anotaciones:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{tikzpicture}
   % Imagen como nodo base
   \node[inner sep=0] (img)
@@ -637,7 +637,7 @@ El método consiste en colocar la imagen dentro de un nodo TikZ y luego usar las
   \draw[red, thick, ->] (img.center) -- ++(1,1)
     node[above] {Etiqueta};
 \end{tikzpicture}
-\end{verbatim}
+\end{codigosimple}
 
 \subsection{Ejemplo de imagen con anotaciones}
 \label{subsec:ejemplo-anotaciones}

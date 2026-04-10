@@ -13,7 +13,7 @@ Este capítulo presenta las conclusiones del trabajo y demuestra las capacidades
 
 Existen dos modos de escribir matemáticas:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 % Modo inline (en línea con el texto)
 La ecuación $E = mc^2$ es famosa.
 
@@ -22,7 +22,7 @@ La ecuación $E = mc^2$ es famosa.
 
 % También con doble dólar (no recomendado)
 $$ E = mc^2 $$
-\end{verbatim}
+\end{codigosimple}
 
 \begin{infobox}{Recomendación}
 Usa \verb|$...$| para fórmulas en línea y \verb|\[...\]| o el entorno \texttt{equation} para fórmulas en modo display. Evita \verb|$$...$$| ya que puede causar problemas de espaciado.
@@ -33,14 +33,14 @@ Usa \verb|$...$| para fórmulas en línea y \verb|\[...\]| o el entorno \texttt{
 
 Para mostrar una ecuación numerada se usa el entorno \texttt{equation}:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{equation}
   E = mc^2
   \label{eq:einstein}
 \end{equation}
 
 Referencia: como se ve en la Ecuación \ref{eq:einstein}...
-\end{verbatim}
+\end{codigosimple}
 
 \begin{equation}
   E = mc^2
@@ -52,7 +52,7 @@ La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energ�
 \subsection{Fracciones y raíces}
 \label{subsec:fracciones-raices}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 % Fracciones
 \frac{numerador}{denominador}
 \dfrac{a}{b}  % Fuerza tamaño display
@@ -62,7 +62,7 @@ La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energ�
 \sqrt{x}      % Raíz cuadrada
 \sqrt[3]{x}   % Raíz cúbica
 \sqrt[n]{x}   % Raíz n-ésima
-\end{verbatim}
+\end{codigosimple}
 
 \begin{equation}
   x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
@@ -77,7 +77,7 @@ La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energ�
 \subsection{Sumas, integrales y límites}
 \label{subsec:sumas-integrales}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 % Sumatorios
 \sum_{i=1}^{n} a_i         % Suma de i=1 a n
 \prod_{i=1}^{n} a_i        % Productorio
@@ -89,7 +89,7 @@ La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energ�
 
 % Límites
 \lim_{x \to \infty} f(x)   % Límite
-\end{verbatim}
+\end{codigosimple}
 
 \begin{equation}
   \int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}
@@ -109,7 +109,7 @@ La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energ�
 \subsection{Operadores diferenciales}
 \label{subsec:operadores-diferenciales}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 % Derivadas
 \frac{dy}{dx}              % Derivada
 \frac{\partial f}{\partial x}  % Derivada parcial
@@ -119,7 +119,7 @@ La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energ�
 \nabla f                   % Gradiente
 \nabla \cdot \mathbf{F}    % Divergencia
 \nabla \times \mathbf{F}   % Rotacional
-\end{verbatim}
+\end{codigosimple}
 
 \begin{equation}
   \nabla \times \mathbf{H} = \left[ \frac{1}{r} \frac{\partial}{\partial r}(r H_\theta) - \frac{1}{r} \frac{\partial H_r}{\partial \theta} \right] \hat{\mathbf{z}}
@@ -129,7 +129,7 @@ La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energ�
 \subsection{Sistemas de ecuaciones}
 \label{subsec:sistemas-ecuaciones}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{equation}
   \begin{cases}
     x + y + z = 6 \\
@@ -137,7 +137,7 @@ La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energ�
     x + 2y - z = 2
   \end{cases}
 \end{equation}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{equation}
   \begin{cases}
@@ -153,7 +153,7 @@ La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energ�
 
 El entorno \texttt{align} permite alinear múltiples ecuaciones por el símbolo \texttt{\&}:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{align}
   (a+b)^2 &= a^2 + 2ab + b^2 \\
   (a-b)^2 &= a^2 - 2ab + b^2 \\
@@ -164,7 +164,7 @@ El entorno \texttt{align} permite alinear múltiples ecuaciones por el símbolo 
 \begin{align*}
   ...
 \end{align*}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{align}
   (a+b)^2 &= a^2 + 2ab + b^2 \\
@@ -177,14 +177,14 @@ El entorno \texttt{align} permite alinear múltiples ecuaciones por el símbolo 
 
 Para numerar ecuaciones como (1a), (1b), usa \texttt{subequations}:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{subequations}
   \begin{align}
     \mathbf{E} &= E_z \hat{\mathbf{z}} \label{eq:campo-E} \\
     \mathbf{H} &= H_r \hat{\mathbf{r}} \label{eq:campo-H}
   \end{align}
 \end{subequations}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{subequations}
   \begin{align}
@@ -198,7 +198,7 @@ Las ecuaciones (\ref{eq:E}) y (\ref{eq:H}) describen los campos electromagnétic
 \subsection{Matrices}
 \label{subsec:matrices}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 % Tipos de delimitadores
 \begin{pmatrix} ... \end{pmatrix}  % Paréntesis ( )
 \begin{bmatrix} ... \end{bmatrix}  % Corchetes [ ]
@@ -210,7 +210,7 @@ Las ecuaciones (\ref{eq:E}) y (\ref{eq:H}) describen los campos electromagnétic
   a & b \\
   c & d
 \end{pmatrix}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{equation}
   \mathbf{A} = \begin{pmatrix}
@@ -232,7 +232,7 @@ Las ecuaciones (\ref{eq:E}) y (\ref{eq:H}) describen los campos electromagnétic
 \subsection{Símbolos griegos y especiales}
 \label{subsec:simbolos-griegos}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 % Letras griegas minúsculas
 \alpha \beta \gamma \delta \epsilon \zeta \eta \theta
 \iota \kappa \lambda \mu \nu \xi \pi \rho
@@ -246,7 +246,7 @@ Las ecuaciones (\ref{eq:E}) y (\ref{eq:H}) describen los campos electromagnétic
 
 % Operadores
 \times \div \pm \mp \cdot \cap \cup \wedge \vee
-\end{verbatim}
+\end{codigosimple}
 
 Ejemplo: $\alpha + \beta = \gamma$, $\forall x \in \mathbb{R}: x^2 \geq 0$
 
@@ -271,7 +271,7 @@ La función \texttt{condiciones} de la plantilla permite documentar las variable
 
 La plantilla incluye entornos para teoremas, demostraciones y definiciones:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{theorem}[Nombre del teorema]
   Enunciado del teorema...
 \end{theorem}
@@ -283,7 +283,7 @@ La plantilla incluye entornos para teoremas, demostraciones y definiciones:
 \begin{definition}[Nombre]
   Definición formal...
 \end{definition}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{theorem}[Teorema de Pitágoras]
   En un triángulo rectángulo, el cuadrado de la hipotenusa es igual a la suma de los cuadrados de los catetos:

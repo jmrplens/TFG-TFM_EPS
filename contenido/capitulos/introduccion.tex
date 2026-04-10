@@ -54,13 +54,13 @@ En \LaTeX{} existen diferentes niveles de organización del contenido.
 Cada nivel tiene una numeración automática y aparece en el índice según
 su jerarquía.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \chapter{Capítulo}           % Nivel 0
 \section{Sección}            % Nivel 1
 \subsection{Subsección}      % Nivel 2
 \subsubsection{Subsubsección}% Nivel 3
 \paragraph{Párrafo}          % Nivel 4
-\end{verbatim}
+\end{codigosimple}
 
 \subsection{Ejemplo de subsección}
 
@@ -85,28 +85,28 @@ se almacenan en el archivo \texttt{referencias.bib}.
 
 BibLaTeX ofrece varios comandos para citar según el contexto:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 % Cita textual: Autor (año)
-\textcite{clave}
+\textcite{latex2024}
 
 % Cita entre paréntesis: (Autor, año)
-\parencite{clave}
+\parencite{latex2024}
 
 % Solo autor: Autor
-\citeauthor{clave}
+\citeauthor{latex2024}
 
 % Solo año: (año)
-\citeyear{clave}
+\citeyear{latex2024}
 
 % Cita con página específica
-\parencite[p.~25]{clave}
+\parencite[p.~25]{latex2024}
 
 % Múltiples citas
-\parencite{clave1,clave2,clave3}
+\parencite{latex2024,garcia2024,bishop2023}
 
 % Cita completa en nota al pie
-\footcite{clave}
-\end{verbatim}
+\footcite{latex2024}
+\end{codigosimple}
 
 Ejemplos de uso:
 \begin{itemize}
@@ -123,7 +123,7 @@ se muestran los más comunes con su estructura:
 
 \subsubsection{Libro (@book)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 @book{knuth1984texbook,
   author    = {Knuth, Donald E.},
   title     = {The TeXbook},
@@ -132,11 +132,11 @@ se muestran los más comunes con su estructura:
   address   = {Reading, MA},
   isbn      = {0-201-13447-0}
 }
-\end{verbatim}
+\end{codigosimple}
 
 \subsubsection{Artículo de revista (@article)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 @article{shannon1948mathematical,
   author  = {Shannon, Claude E.},
   title   = {A Mathematical Theory of Communication},
@@ -147,11 +147,11 @@ se muestran los más comunes con su estructura:
   pages   = {379--423},
   doi     = {10.1002/j.1538-7305.1948.tb01338.x}
 }
-\end{verbatim}
+\end{codigosimple}
 
 \subsubsection{Conferencia (@inproceedings)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 @inproceedings{krizhevsky2012imagenet,
   author    = {Krizhevsky, Alex and Sutskever, Ilya
                and Hinton, Geoffrey E.},
@@ -163,11 +163,11 @@ se muestran los más comunes con su estructura:
   pages     = {1097--1105},
   publisher = {Curran Associates}
 }
-\end{verbatim}
+\end{codigosimple}
 
 \subsubsection{Recurso en línea (@online)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 @online{overleaf2024,
   author  = {{Overleaf}},
   title   = {Documentation},
@@ -175,11 +175,11 @@ se muestran los más comunes con su estructura:
   urldate = {2024-01-15},
   year    = {2024}
 }
-\end{verbatim}
+\end{codigosimple}
 
 \subsubsection{Tesis (@thesis)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 @thesis{garcia2023sistema,
   author      = {García López, María},
   title       = {Sistema de gestión inteligente},
@@ -187,11 +187,11 @@ se muestran los más comunes con su estructura:
   institution = {Universidad de Alicante},
   year        = {2023}
 }
-\end{verbatim}
+\end{codigosimple}
 
 \subsubsection{Manual o documentación técnica (@manual)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 @manual{latex2024,
   author       = {{LaTeX Project}},
   title        = {LaTeX2e: An unofficial reference manual},
@@ -199,7 +199,7 @@ se muestran los más comunes con su estructura:
   organization = {LaTeX Project},
   url          = {https://latexref.xyz/}
 }
-\end{verbatim}
+\end{codigosimple}
 
 \subsection{Campos comunes en BibLaTeX}
 \label{subsec:campos-biblatex}
@@ -246,12 +246,12 @@ se muestran los más comunes con su estructura:
 Para procesar la bibliografía correctamente, se requiere ejecutar Biber
 entre compilaciones de \LaTeX{}:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 lualatex main.tex    % Primera pasada
 biber main           % Procesa bibliografía
 lualatex main.tex    % Segunda pasada (resuelve citas)
 lualatex main.tex    % Tercera pasada (actualiza índices)
-\end{verbatim}
+\end{codigosimple}
 
 \begin{infobox}{Usando latexmk}
   El comando \texttt{latexmk -lualatex -shell-escape main.tex} ejecuta
@@ -266,9 +266,9 @@ Las notas al pie permiten añadir información adicional sin interrumpir
 el flujo del texto principal. Son útiles para aclaraciones, definiciones
 o referencias complementarias.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 Texto principal\footnote{Contenido de la nota al pie.}
-\end{verbatim}
+\end{codigosimple}
 
 La plantilla utiliza LuaLaTeX\footnote{LuaLaTeX es un motor de composición tipográfica que combina \LaTeX{} con el lenguaje de programación Lua, permitiendo mayor flexibilidad en el procesamiento de documentos.} como motor de compilación por sus capacidades avanzadas de manejo de fuentes\footnote{Permite usar cualquier fuente OpenType o TrueType instalada en el sistema sin necesidad de configuración adicional.}.
 
@@ -279,7 +279,7 @@ La plantilla utiliza LuaLaTeX\footnote{LuaLaTeX es un motor de composición tipo
 \LaTeX{} ofrece múltiples estilos de texto para dar énfasis o formato
 especial a determinadas palabras o frases.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \textit{Texto en cursiva}
 \textbf{Texto en negrita}
 \texttt{Texto monoespacio}
@@ -288,7 +288,7 @@ especial a determinadas palabras o frases.
 \textbf{\textit{Combinación de estilos}}
 {\small Texto pequeño}
 {\large Texto grande}
-\end{verbatim}
+\end{codigosimple}
 
 Resultado de cada estilo:
 
@@ -316,7 +316,7 @@ paquete \texttt{glossaries}. Ambos se definen en \texttt{contenido/anexos/acroni
 La primera vez que aparece un acrónimo se muestra su forma completa, y en
 las siguientes apariciones solo la abreviatura:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 % Primera aparición: "Institute of Electrical
 % and Electronics Engineers (IEEE)"
 El \gls{ieee} es una institución importante.
@@ -327,7 +327,7 @@ El \gls{ieee} establece estándares.
 % Forzar forma larga o corta
 \acrlong{ieee}   % Institute of Electrical...
 \acrshort{ieee}  % IEEE
-\end{verbatim}
+\end{codigosimple}
 
 Ejemplo: El \gls{ieee} es una institución importante. El \gls{ieee} establece estándares. Otras organizaciones incluyen la \gls{iso} y el \gls{w3c}.
 
@@ -337,7 +337,7 @@ Ejemplo: El \gls{ieee} es una institución importante. El \gls{ieee} establece e
 Los términos del glosario funcionan igual que los acrónimos pero para
 conceptos que requieren definición:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 % Usar un término (singular)
 Un \gls{algoritmo} es la base de la programación.
 
@@ -346,18 +346,18 @@ Los \glspl{framework} facilitan el desarrollo.
 
 % Forzar primera letra mayúscula
 \Gls{backend} y \gls{frontend} trabajan juntos.
-\end{verbatim}
+\end{codigosimple}
 
 Ejemplo: Un \gls{algoritmo} bien diseñado mejora el rendimiento. Los \glspl{microservicio} permiten \gls{escalabilidad}. El \gls{backend} procesa las peticiones del \gls{frontend}.
 
 \begin{tipbox}{Definir nuevos términos}
-  \begin{verbatim}
+  \begin{codigosimple}{latex}{Ejemplo}
 \newglossaryentry{etiqueta}{
   name={término visible},
   plural={términos visibles},
   description={Definición del término}
 }
-  \end{verbatim}
+  \end{codigosimple}
 \end{tipbox}
 
 %% =============================================================================
@@ -368,7 +368,7 @@ Durante la redacción es útil marcar partes que requieren revisión.
 El paquete \texttt{todonotes} permite añadir notas visuales que son fáciles
 de localizar y eliminar antes de la entrega final.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 % Nota al margen
 \todo{Texto de la nota}
 
@@ -377,7 +377,7 @@ de localizar y eliminar antes de la entrega final.
 
 % Figura pendiente
 \missingfigure{Descripción de la figura}
-\end{verbatim}
+\end{codigosimple}
 
 \todo{Esta es una nota al margen para recordar algo}
 
@@ -397,14 +397,14 @@ Esta plantilla proporciona comandos para acceder a la información configurada
 en \texttt{configuracion.tex}. Son útiles para incluir datos del trabajo
 dinámicamente en el documento.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \EPStitulo      % Título del trabajo
 \EPSautor       % Nombre del autor
 \EPStutor       % Nombre del tutor
 \EPSfecha       % Fecha de presentación
 \EPStipoTrabajo % TFG o TFM
 \EPStitulacion  % Nombre de la titulación
-\end{verbatim}
+\end{codigosimple}
 
 Resultado de cada comando:
 
@@ -426,7 +426,7 @@ Ejemplo de uso en el texto: Este documento es un \EPStipoTrabajo{} presentado en
 Para incluir enlaces web se utilizan comandos del paquete \texttt{hyperref},
 que ya viene configurado en esta plantilla.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 % URL con formato automático (monoespacio)
 \url{https://eps.ua.es}
 
@@ -435,7 +435,7 @@ que ya viene configurado en esta plantilla.
 
 % Referencia a email
 \href{mailto:autor@ejemplo.com}{autor@ejemplo.com}
-\end{verbatim}
+\end{codigosimple}
 
 Ejemplos:
 
@@ -457,13 +457,13 @@ Cada tipo tiene un propósito específico y un formato visual diferente.
 
 Para elementos sin orden específico.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{itemize}
   \item Primer elemento
   \item Segundo elemento
   \item Tercer elemento
 \end{itemize}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{itemize}
   \item Primer elemento de la lista
@@ -475,13 +475,13 @@ Para elementos sin orden específico.
 
 Para elementos con orden secuencial.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{enumerate}
   \item Paso uno
   \item Paso dos
   \item Paso tres
 \end{enumerate}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{enumerate}
   \item Preparar el entorno de desarrollo
@@ -493,12 +493,12 @@ Para elementos con orden secuencial.
 
 Para términos con sus definiciones.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{description}
   \item[Término 1] Definición del primer término.
   \item[Término 2] Definición del segundo término.
 \end{description}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{description}
   \item[LuaLaTeX] Motor de compilación que combina \LaTeX{} con Lua.
@@ -510,7 +510,7 @@ Para términos con sus definiciones.
 
 Las listas pueden anidarse hasta tres niveles de profundidad.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{itemize}
   \item Elemento principal
   \begin{itemize}
@@ -520,7 +520,7 @@ Las listas pueden anidarse hasta tres niveles de profundidad.
     \end{itemize}
   \end{itemize}
 \end{itemize}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{itemize}
   \item Requisitos funcionales
@@ -548,16 +548,16 @@ Las referencias cruzadas permiten enlazar elementos del documento
 (capítulos, secciones, figuras, tablas, ecuaciones) de forma que
 los números se actualicen automáticamente si cambia la estructura.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 % Crear etiqueta (después de \chapter, \section, \caption, etc.)
 \label{tipo:nombre}
 
 % Referenciar la etiqueta
 En la Sección~\ref{sec:listas} se explican las listas.
-En la Figura~\ref{fig:ejemplo} se muestra...
-En la Tabla~\ref{tab:datos} aparecen...
+En la Figura~\ref{fig:etiqueta} se muestra...
+En la Tabla~\ref{tab:simple-ejemplo} aparecen...
 En la página~\pageref{sec:listas} comienza...
-\end{verbatim}
+\end{codigosimple}
 
 \minisec{Prefijos recomendados para etiquetas}
 
@@ -584,7 +584,7 @@ Para mantener el código organizado, usa prefijos consistentes:
 \begin{tipbox}
   Usa siempre \verb|~| (espacio insecable) entre el tipo de elemento y
   \verb|\ref{}| para evitar que el número quede separado del texto en
-  un salto de línea: \verb|Figura~\ref{fig:ejemplo}|.
+  un salto de línea: \verb|Figura~\ref{fig:etiqueta}|.
 \end{tipbox}
 
 %% =============================================================================
@@ -615,8 +615,8 @@ A continuación se presentan algunas recomendaciones para la redacción del \gls
 
 \begin{itemize}
   \item Cita siempre las fuentes de información que no sean tuyas
-  \item Usa \verb|\parencite{clave}| para citas entre paréntesis: \parencite{knuth1984texbook}
-  \item Usa \verb|\textcite{clave}| para citas narrativas: \textcite{lamport1994latex}
+  \item Usa \verb|\parencite{latex2024}| para citas entre paréntesis: \parencite{knuth1984texbook}
+  \item Usa \verb|\textcite{latex2024}| para citas narrativas: \textcite{lamport1994latex}
   \item Evita el exceso de citas; selecciona las más relevantes
   \item Verifica que todas las referencias del archivo \texttt{.bib} estén citadas
 \end{itemize}

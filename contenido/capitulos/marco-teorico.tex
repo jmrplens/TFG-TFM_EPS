@@ -11,11 +11,11 @@ en el \gls{preambulo} para optimizar el tiempo de compilación.
 
 Para usar los componentes, añade en el \gls{preambulo} del documento:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \usepackage[all]{eps-componentes}  % Todos los componentes
 % o bien, solo los que necesites:
 \usepackage[software,telecom]{eps-componentes}
-\end{verbatim}
+\end{codigosimple}
 
 %% =============================================================================
 \section{Componentes Comunes}
@@ -35,11 +35,11 @@ color y un icono predefinido que transmite el propósito del contenido.
 \minisec{Caja de información (infobox)}
 Para notas informativas generales.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{infobox}
   Contenido de la nota informativa.
 \end{infobox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{infobox}
   Esta es una caja de información general. Úsala para notas importantes
@@ -49,11 +49,11 @@ Para notas informativas generales.
 \minisec{Caja de éxito (successbox)}
 Para indicar que algo se ha completado correctamente o mostrar buenas prácticas.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{successbox}
   Operación completada correctamente.
 \end{successbox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{successbox}
   Esta es una caja de éxito. Indica que algo se ha completado correctamente
@@ -63,11 +63,11 @@ Para indicar que algo se ha completado correctamente o mostrar buenas prácticas
 \minisec{Caja de advertencia (warningbox)}
 Para alertar sobre algo que requiere atención pero no es crítico.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{warningbox}
   Precaución: revisa este apartado antes de continuar.
 \end{warningbox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{warningbox}
   Esta es una caja de advertencia. Alerta sobre algo que requiere atención
@@ -77,11 +77,11 @@ Para alertar sobre algo que requiere atención pero no es crítico.
 \minisec{Caja de peligro (dangerbox)}
 Para indicar errores críticos o prácticas que deben evitarse.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{dangerbox}
   ¡Peligro! Esta acción es irreversible.
 \end{dangerbox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{dangerbox}
   Esta es una caja de peligro. Indica un error crítico o algo que debe
@@ -91,11 +91,11 @@ Para indicar errores críticos o prácticas que deben evitarse.
 \minisec{Caja de consejo (tipbox)}
 Para ofrecer sugerencias útiles o trucos.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{tipbox}
   Consejo: usa atajos de teclado para ser más eficiente.
 \end{tipbox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{tipbox}
   Esta es una caja de consejo. Ofrece sugerencias útiles o trucos
@@ -105,11 +105,11 @@ Para ofrecer sugerencias útiles o trucos.
 \minisec{Caja de nota (notebox)}
 Para información adicional o comentarios secundarios.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{notebox}
   Nota: este comportamiento puede variar según la configuración.
 \end{notebox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{notebox}
   Esta es una caja de nota. Para información adicional o comentarios
@@ -125,11 +125,11 @@ Cajas que permiten definir un encabezado personalizado para el contenido.
 \minisec{Caja con título personalizado (titlebox)}
 Caja genérica con título configurable.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{titlebox}{Mi Título}
   Contenido de la caja con título personalizado.
 \end{titlebox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{titlebox}{Título Personalizado}
   Esta caja permite definir un título personalizado para el contenido.
@@ -139,11 +139,11 @@ Caja genérica con título configurable.
 \minisec{Caja de definición (definitionbox)}
 Para definiciones formales de términos o conceptos.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{definitionbox}{Término}
   Definición del término o concepto.
 \end{definitionbox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{definitionbox}{Algoritmo}
   Conjunto ordenado y finito de operaciones que permite hallar la
@@ -153,11 +153,11 @@ Para definiciones formales de términos o conceptos.
 \minisec{Caja de ejemplo (examplebox)}
 Para mostrar ejemplos prácticos. El título es opcional.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{examplebox}[Título opcional]
   Descripción del ejemplo práctico.
 \end{examplebox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{examplebox}[Ejemplo de uso]
   Aquí se muestra cómo aplicar el concepto explicado anteriormente
@@ -167,11 +167,11 @@ Para mostrar ejemplos prácticos. El título es opcional.
 \minisec{Caja de contenido importante (importantbox)}
 Para destacar contenido que no debe pasarse por alto.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{importantbox}
   Contenido especialmente importante.
 \end{importantbox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{importantbox}
   Este contenido es especialmente importante y no debe pasarse por alto
@@ -187,13 +187,13 @@ Listas personalizadas para diferentes casos de uso: tareas, pros/contras y pasos
 \minisec{Lista de verificación (checklist)}
 Para tareas o puntos de control con estados: completado, parcial o pendiente.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{checklist}
   \item[\checked] Tarea completada
   \item[\partialchecked] Parcialmente completada
   \item[\unchecked] Tarea pendiente
 \end{checklist}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{checklist}
   \item[\checked] Revisar documentación
@@ -205,13 +205,13 @@ Para tareas o puntos de control con estados: completado, parcial o pendiente.
 \minisec{Lista de pros y contras (proscons)}
 Para comparar ventajas e inconvenientes.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{proscons}
   \pro Ventaja 1
   \pro Ventaja 2
   \con Desventaja 1
 \end{proscons}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{proscons}
   \pro Fácil de implementar
@@ -224,13 +224,13 @@ Para comparar ventajas e inconvenientes.
 \minisec{Lista de pasos (steplist)}
 Para secuencias de acciones numeradas.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{steplist}
   \step Primer paso
   \step Segundo paso
   \step Tercer paso
 \end{steplist}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{steplist}
   \step Descargar el código fuente del repositorio
@@ -250,10 +250,10 @@ Etiquetas visuales para marcar estados, versiones y métricas de progreso.
 Etiqueta con texto y color personalizables. Colores disponibles: \texttt{eps-primary},
 \texttt{eps-success}, \texttt{eps-warning}, \texttt{eps-danger}, \texttt{eps-secondary}.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \badge{Texto}                    % Color por defecto
 \badge[eps-success]{Completado}  % Color específico
-\end{verbatim}
+\end{codigosimple}
 
 \noindent
 \badge{Estable} \quad
@@ -265,10 +265,10 @@ Etiqueta con texto y color personalizables. Colores disponibles: \texttt{eps-pri
 \minisec{Badges predefinidos}
 Atajos para estados comunes de desarrollo.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \badgenew \badgewip \badgedeprecated
 \badgebeta \badgerequired \badgeoptional
-\end{verbatim}
+\end{codigosimple}
 
 \noindent
 \badgenew \quad \badgewip \quad \badgedeprecated \quad
@@ -277,9 +277,9 @@ Atajos para estados comunes de desarrollo.
 \minisec{Indicador de versión}
 Para mostrar números de versión con formato consistente.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \version{1.0.0} \version{2.1.0-beta}
-\end{verbatim}
+\end{codigosimple}
 
 \noindent
 \version{1.0.0} \quad \version{2.1.0} \quad \version{3.0.0-beta}
@@ -287,9 +287,9 @@ Para mostrar números de versión con formato consistente.
 \minisec{Barra de progreso}
 Indicador visual de porcentaje de completado (0-100).
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \progressbar{25} \progressbar{75}
-\end{verbatim}
+\end{codigosimple}
 
 \noindent
 \progressbar{25} \quad \progressbar{50} \quad \progressbar{75} \quad \progressbar{100}
@@ -297,9 +297,9 @@ Indicador visual de porcentaje de completado (0-100).
 \minisec{Rating con estrellas}
 Para valoraciones sobre un máximo.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \rating{3}{5}  % 3 de 5 estrellas
-\end{verbatim}
+\end{codigosimple}
 
 \noindent
 \rating{3}{5} \quad \rating{4}{5} \quad \rating{5}{5}
@@ -307,9 +307,9 @@ Para valoraciones sobre un máximo.
 \minisec{Indicador de nivel}
 Barras horizontales para representar niveles.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \levelbar{2}{5}  % Nivel 2 de 5
-\end{verbatim}
+\end{codigosimple}
 
 \noindent
 \levelbar{2}{5} \quad \levelbar{4}{5} \quad \levelbar{5}{5}
@@ -323,9 +323,9 @@ Tarjetas compactas para mostrar información de personas o estadísticas.
 \minisec{Tarjeta de persona (personcard)}
 Para presentar miembros del equipo o colaboradores.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \personcard{Nombre}{Cargo}{Descripción breve}
-\end{verbatim}
+\end{codigosimple}
 
 \noindent
 \personcard{Juan García}{Desarrollador Senior}{%
@@ -339,9 +339,9 @@ Para presentar miembros del equipo o colaboradores.
 \minisec{Tarjeta de estadística (statcard)}
 Para métricas clave con icono y color. Requiere FontAwesome (\verb|\faIcono|).
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \statcard{Valor}{Etiqueta}{\faIcono}{color}
-\end{verbatim}
+\end{codigosimple}
 
 \vspace{1em}
 \noindent
@@ -359,12 +359,12 @@ Para métricas clave con icono y color. Requiere FontAwesome (\verb|\faIcono|).
 
 Línea temporal para representar secuencias de eventos cronológicos.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{timeline}
   \timeitem{Fecha 1}{Descripción del evento 1}
   \timeitem{Fecha 2}{Descripción del evento 2}
 \end{timeline}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{timeline}
   \timeitem{Ene 2024}{Inicio del proyecto y definición de requisitos}
@@ -380,12 +380,12 @@ Línea temporal para representar secuencias de eventos cronológicos.
 
 Tabla para comparar dos opciones lado a lado.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{comparison}{Opción A}{Opción B}
   \comprow{Criterio 1}{Valor A}{Valor B}
   \comprow{Criterio 2}{Valor A}{Valor B}
 \end{comparison}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{comparison}{Opción A}{Opción B}
   \comprow{Rendimiento}{Alto}{Medio}
@@ -400,11 +400,11 @@ Tabla para comparar dos opciones lado a lado.
 
 Bloque de cita con estilo visual destacado y atribución opcional.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{quotebox}[Autor]
   Texto de la cita.
 \end{quotebox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{quotebox}[Albert Einstein]
   La imaginación es más importante que el conocimiento. El conocimiento
@@ -420,9 +420,9 @@ Componentes específicos para informática e ingeniería de software. Incluyen
 documentación de APIs, terminales, estructuras de datos, diagramas UML y
 control de versiones.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \usepackage[software]{eps-componentes}
-\end{verbatim}
+\end{codigosimple}
 
 %% -----------------------------------------------------------------------------
 \subsection{API REST Endpoints}
@@ -431,14 +431,14 @@ control de versiones.
 Documentación visual de endpoints de APIs REST con soporte para cuerpo de
 petición y múltiples respuestas.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{apiendpoint}{MÉTODO}{/ruta}
   Descripción del endpoint.
 
   \apibody{content-type}{cuerpo JSON}
   \apiresponse{código}{respuesta JSON}
 \end{apiendpoint}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{apiendpoint}{GET}{/api/users}
   Obtiene la lista de todos los usuarios registrados en el sistema.
@@ -477,9 +477,9 @@ petición y múltiples respuestas.
 \minisec{Badges de métodos HTTP}
 Etiquetas coloreadas para identificar métodos HTTP.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \httpget \httppost \httpput \httppatch \httpdelete
-\end{verbatim}
+\end{codigosimple}
 
 \noindent
 \httpget \quad \httppost \quad \httpput \quad \httppatch \quad \httpdelete
@@ -490,12 +490,12 @@ Etiquetas coloreadas para identificar métodos HTTP.
 
 Simula una ventana de terminal con comandos de usuario normal y de root.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{terminal}[Título opcional]
   \prompt comando de usuario
   \promptroot comando como root
 \end{terminal}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{terminal}[Instalación de dependencias]
   \prompt npm install
@@ -511,12 +511,12 @@ Simula una ventana de terminal con comandos de usuario normal y de root.
 
 Representa la estructura de carpetas y archivos de un proyecto.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{dirtreebox}[Título]
   \dirtreeitem[nivel]{nombre/}  % Carpeta
   \dirtreeitem[nivel]{archivo}  % Archivo
 \end{dirtreebox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{dirtreebox}[Estructura del Proyecto]
   \dirtreeitem[1]{src/}
@@ -541,13 +541,13 @@ Diagramas de clases e interfaces con notación UML estándar.
 Define una clase con atributos y métodos. Usa \verb|\visibility{}| para indicar
 visibilidad: \texttt{+} público, \texttt{-} privado, \texttt{\#} protegido.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \umlclass{NombreClase}{
   \visibility{-} atributo: tipo \\
 }{
   \visibility{+} método(): tipo \\
 }
-\end{verbatim}
+\end{codigosimple}
 
 \umlclass{Usuario}{
   \visibility{-} id: int \\
@@ -563,11 +563,11 @@ visibilidad: \texttt{+} público, \texttt{-} privado, \texttt{\#} protegido.
 \minisec{Interfaz}
 Define una interfaz con sus métodos.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \umlinterface{NombreInterfaz}{
   \visibility{+} método(): tipo \\
 }
-\end{verbatim}
+\end{codigosimple}
 
 \umlinterface{IAutenticable}{
   \visibility{+} login(user: string, pass: string): boolean \\
@@ -581,11 +581,11 @@ Define una interfaz con sus métodos.
 
 Tabla para gestión de requisitos funcionales y no funcionales con prioridad y estado.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{requirements}
   \requirement{ID}{Prioridad}{Estado}{Descripción}
 \end{requirements}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{requirements}
   \requirement{RF-001}{Alta}{Completado}{El sistema debe permitir el registro de usuarios}
@@ -601,12 +601,12 @@ Tabla para gestión de requisitos funcionales y no funcionales con prioridad y e
 
 Documentación de tablas con claves primarias (\verb|\pkicon|) y foráneas (\verb|\fkicon|).
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{dbtable}{nombre_tabla}
   \pkicon & columna & TIPO & restricción \\
   \fkicon & columna & TIPO & FK -> tabla.columna \\
 \end{dbtable}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{dbtable}{usuarios}
   \pkicon & id & INT & AUTO\_INCREMENT \\
@@ -631,9 +631,9 @@ Elementos para documentar commits, ramas y etiquetas de Git.
 \minisec{Commits}
 Muestra un commit con hash, mensaje, autor y fecha.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \gitcommit{hash}{mensaje}{autor}{fecha}
-\end{verbatim}
+\end{codigosimple}
 
 \gitcommit{a1b2c3d}{feat: Añadir sistema de autenticación}{Juan}{2024-01-15}
 \gitcommit{e4f5g6h}{fix: Corregir error en validación de email}{María}{2024-01-20}
@@ -642,9 +642,9 @@ Muestra un commit con hash, mensaje, autor y fecha.
 \minisec{Ramas y etiquetas}
 Badges para indicar ramas y versiones.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \gitbranch{nombre}  \gittag{versión}
-\end{verbatim}
+\end{codigosimple}
 
 \noindent
 \textbf{Ramas:} \gitbranch{main} \quad \gitbranch{develop} \quad \gitbranch{feature/login}
@@ -662,11 +662,11 @@ Componentes para mostrar registros de eventos y métricas de rendimiento.
 \minisec{Caja de logs (logbox)}
 Muestra entradas de log con nivel, fecha y mensaje.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{logbox}[Título]
   \logentry{NIVEL}{fecha hora}{mensaje}
 \end{logbox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{logbox}[Logs del servidor]
   \logentry{INFO}{2024-01-15 10:30:00}{Servidor iniciado en puerto 3000}
@@ -678,9 +678,9 @@ Muestra entradas de log con nivel, fecha y mensaje.
 \minisec{Tarjeta de métrica (metricbox)}
 Muestra un valor con etiqueta, unidad y color indicador.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \metricbox{Etiqueta}{valor}{unidad}{color}
-\end{verbatim}
+\end{codigosimple}
 
 \vspace{1em}
 \noindent
@@ -698,9 +698,9 @@ Muestra un valor con etiqueta, unidad y color indicador.
 Componentes para telecomunicaciones, electrónica y sistemas de comunicación.
 Incluyen diagramas de RF, tramas de protocolo, máquinas de estados y señales.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \usepackage[telecom]{eps-componentes}
-\end{verbatim}
+\end{codigosimple}
 
 %% -----------------------------------------------------------------------------
 \subsection{Carta de Smith}
@@ -709,12 +709,12 @@ Incluyen diagramas de RF, tramas de protocolo, máquinas de estados y señales.
 Herramienta gráfica para resolver problemas de adaptación de impedancias en
 líneas de transmisión. Permite añadir trazados y puntos marcados.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{smithchartbox}[Título]
   \addplot [...] coordinates {(r1,x1) (r2,x2)};
   \smithpoint{r}{x}{etiqueta}
 \end{smithchartbox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{smithchartbox}[Adaptación de Impedancias]
   \addplot [mark=none, eps-primary, thick] coordinates {(0.5,0.2) (0.2,0) (0.5,-0.2) (1,0)};
@@ -728,11 +728,11 @@ líneas de transmisión. Permite añadir trazados y puntos marcados.
 
 Representación gráfica de esquemas de modulación digital (QPSK, QAM, etc.).
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{constellationbox}[Título]
   \constpoint{I}{Q}{símbolo}
 \end{constellationbox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{constellationbox}[Constelación QPSK]
   \constpoint{1}{1}{00}
@@ -747,12 +747,12 @@ Representación gráfica de esquemas de modulación digital (QPSK, QAM, etc.).
 
 Diagramas FSM para representar autómatas y protocolos de comunicación.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{fsmdiagram}
   \fsmstate{id}{x,y}{etiqueta}{opciones}  % opciones: initial
   \fsmtrans{origen}{destino}{etiqueta}
 \end{fsmdiagram}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{fsmdiagram}
   \fsmstate{s0}{0,0}{IDLE}{initial}
@@ -773,13 +773,13 @@ fuera del campo. Este umbral es configurable con \verb|\def\framenarrowthreshold
 
 \minisec{Sintaxis básica}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{protocolframe}[bits por fila]
   \framefield{bits}{etiqueta}      % Campo normal
   \framefieldvar[bits]{etiqueta}   % Campo de tamaño variable
   \framebreak                       % Salto de fila
 \end{protocolframe}
-\end{verbatim}
+\end{codigosimple}
 
 \minisec{Trama Ethernet IEEE 802.3}
 
@@ -817,9 +817,9 @@ fuera del campo. Este umbral es configurable con \verb|\def\framenarrowthreshold
 \minisec{Campo multi-fila}
 Para datos que ocupan varias filas consecutivas.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \framefieldmulti{filas}{bits}{etiqueta}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{protocolframe}[16]
   \framefield{4}{Version}
@@ -834,10 +834,10 @@ Para datos que ocupan varias filas consecutivas.
 \minisec{Campos con continuación}
 Para campos que se dividen entre filas.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \framefieldstart{bits}{etiqueta}
 \framefieldend{bits}{}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{protocolframe}[8]
   \framefield{4}{Ctrl}
@@ -852,9 +852,9 @@ Para campos que se dividen entre filas.
 \minisec{Etiqueta externa forzada}
 Fuerza la etiqueta fuera del campo, útil para campos estrechos.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \framefieldext{bits}{etiqueta}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{protocolframe}[16]
   \framefield{6}{Control}
@@ -867,12 +867,12 @@ Fuerza la etiqueta fuera del campo, útil para campos estrechos.
 \minisec{Campos reservados y agrupación}
 Campos reservados con patrón rayado y llaves para agrupar filas.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \framefieldreserved{bits}          % Reservado
 \framefieldreserved[texto]{bits}   % Con texto personalizado
 \framefieldhighlight{bits}{texto}  % Campo destacado
 \framewordgroup{fila_ini}{fila_fin}{etiqueta}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{protocolframe}[16]
   \framefield{4}{Ver}
@@ -890,11 +890,11 @@ Campos reservados con patrón rayado y llaves para agrupar filas.
 
 Tabla para especificaciones de parámetros de dispersión (S-parameters) en RF.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{rfspecs}[Título]
   \rfspec{parámetro}{valor}{unidad}{descripción}
 \end{rfspecs}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{rfspecs}[Parámetros S]
   \rfspec{$S_{11}$}{-18.5}{dB}{Pérdidas de retorno entrada}
@@ -909,12 +909,12 @@ Tabla para especificaciones de parámetros de dispersión (S-parameters) en RF.
 
 Diagramas de bloques para sistemas de RF, procesamiento de señales, etc.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{blockdiagram}
   \sysblock{id}{x,y}{etiqueta}
   \sysarrow{origen}{destino}
 \end{blockdiagram}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{blockdiagram}
   \sysblock{ant}{0,0}{Antena}
@@ -932,11 +932,11 @@ Diagramas de bloques para sistemas de RF, procesamiento de señales, etc.
 
 Macros para dibujar diagramas de temporización de señales digitales.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \timingclock{x}{y}{ciclos}   % Señal de reloj
 \timinglow{x}{y}{duración}   % Señal en bajo
 \timinghigh{x}{y}{duración}  % Señal en alto
-\end{verbatim}
+\end{codigosimple}
 
 \begin{center}
 \begin{tikzpicture}
@@ -968,9 +968,9 @@ Macros para dibujar diagramas de temporización de señales digitales.
 Componentes para arquitectura, ingeniería civil y construcción. Incluyen
 planificación, fichas técnicas, presupuestos, normativa y certificaciones.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \usepackage[arquitectura]{eps-componentes}
-\end{verbatim}
+\end{codigosimple}
 
 %% -----------------------------------------------------------------------------
 \subsection{Diagrama de Gantt}
@@ -979,7 +979,7 @@ planificación, fichas técnicas, presupuestos, normativa y certificaciones.
 Planificación temporal de proyectos con dependencias entre tareas.
 Usa el paquete \texttt{pgfgantt} con estilo personalizado \texttt{eps gantt}.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{ganttbox}[Título]
   \begin{ganttchart}[eps gantt, ...]{inicio}{fin}
     \gantttitle{Año}{meses} \\
@@ -987,7 +987,7 @@ Usa el paquete \texttt{pgfgantt} con estilo personalizado \texttt{eps gantt}.
     \ganttlink{elem0}{elem1}
   \end{ganttchart}
 \end{ganttbox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{ganttbox}[Planificación de obra - Fase 1]
   \begin{ganttchart}[eps gantt, time slot format=simple, x unit=1.0cm]{1}{12}
@@ -1024,11 +1024,11 @@ Documentación de especificaciones técnicas de materiales de construcción.
 
 \minisec{Ficha técnica completa (techsheet)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{techsheet}{Nombre del material}
   \techprop{Propiedad}{Valor}
 \end{techsheet}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{techsheet}{Hormigón HA-25/B/20/IIa}
   \techprop{Resistencia característica}{25 MPa}
@@ -1042,9 +1042,9 @@ Documentación de especificaciones técnicas de materiales de construcción.
 
 \minisec{Tarjeta compacta (materialcard)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \materialcard{Nombre}{propiedades con \techprop{}{}}
-\end{verbatim}
+\end{codigosimple}
 
 \vspace{1em}
 \noindent
@@ -1064,13 +1064,13 @@ Documentación de especificaciones técnicas de materiales de construcción.
 
 Tabla de presupuesto con capítulos, partidas y cálculo automático de totales.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{presupuesto}
   \capitulo{número}{NOMBRE}
   \partida{código}{descripción}{ud}{cantidad}{precio}
   \totalpresupuesto{importe}
 \end{presupuesto}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{presupuesto}
   \capitulo{1}{MOVIMIENTO DE TIERRAS}
@@ -1092,11 +1092,11 @@ Tabla de presupuesto con capítulos, partidas y cálculo automático de totales.
 
 Lista de normativa técnica aplicable al proyecto.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{normativa}
   \norma{código}{descripción}{año}
 \end{normativa}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{normativa}
   \norma{CTE DB-SE}{Seguridad Estructural - Bases de cálculo}{2019}
@@ -1113,11 +1113,11 @@ Lista de normativa técnica aplicable al proyecto.
 
 Tabla de resultados de ensayos con estado de conformidad (OK, PEND, NO).
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{controlcalidad}
   \controlitem{ensayo}{resultado}{especificación}{estado}
 \end{controlcalidad}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{controlcalidad}
   \controlitem{\textbf{Hormigón HA-25}: Resistencia compresión}{28,5 MPa}{$\geq$ 25 MPa}{OK}
@@ -1132,9 +1132,9 @@ Tabla de resultados de ensayos con estado de conformidad (OK, PEND, NO).
 
 Etiquetas de calificación energética de edificios (A-G).
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \etiquetaenergetica{letra}
-\end{verbatim}
+\end{codigosimple}
 
 \noindent
 \etiquetaenergetica{A} \quad
@@ -1151,11 +1151,11 @@ Etiquetas de calificación energética de edificios (A-G).
 
 Sellos de certificaciones ISO, marcado CE y normas UNE.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \certiso{número}    % ISO 9001, 14001, 45001...
 \certce             % Marcado CE
 \certune{número}    % Norma UNE
-\end{verbatim}
+\end{codigosimple}
 
 \noindent
 \certiso{9001} \quad \certiso{14001} \quad \certiso{45001}
@@ -1172,9 +1172,9 @@ Sellos de certificaciones ISO, marcado CE y normas UNE.
 Componentes para química, ciencia de materiales e ingeniería química.
 Incluyen reacciones, fichas de compuestos, protocolos y resultados analíticos.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \usepackage[quimica]{eps-componentes}
-\end{verbatim}
+\end{codigosimple}
 
 %% -----------------------------------------------------------------------------
 \subsection{Reacciones Químicas}
@@ -1185,12 +1185,12 @@ Usa el paquete \texttt{chemformula} para las fórmulas (\verb|\ch{}|).
 
 \minisec{Caja de reacción (reactionbox)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{reactionbox}[Título]
   \ch{reactivos -> productos}
   \reactionconditions{temp}{presión}{catalizador}
 \end{reactionbox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{reactionbox}[Combustión completa del metano]
   \ch{CH4 + 2 O2 -> CO2 + 2 H2O}
@@ -1200,12 +1200,12 @@ Usa el paquete \texttt{chemformula} para las fórmulas (\verb|\ch{}|).
 
 \minisec{Caja de mecanismo (mechanismbox)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{mechanismbox}[Título]
   Descripción del mecanismo.
   \ch{ecuación}
 \end{mechanismbox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{mechanismbox}[Sustitución nucleofílica SN2]
   El mecanismo SN2 ocurre en un solo paso concertado donde el nucleófilo
@@ -1222,11 +1222,11 @@ Documentación de propiedades físico-químicas de compuestos.
 
 \minisec{Ficha completa (compoundsheet)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{compoundsheet}{Nombre}{Fórmula}
   \compprop{propiedad}{valor}{unidad}
 \end{compoundsheet}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{compoundsheet}{Ácido Sulfúrico}{H2SO4}
   \compprop{Masa molar}{98,079}{g/mol}
@@ -1239,9 +1239,9 @@ Documentación de propiedades físico-químicas de compuestos.
 
 \minisec{Tarjeta compacta (compoundcard)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \compoundcard{fórmula}{nombre}{masa molar}{descripción}
-\end{verbatim}
+\end{codigosimple}
 
 \vspace{1em}
 \noindent
@@ -1255,12 +1255,12 @@ Documentación de propiedades físico-químicas de compuestos.
 
 Procedimientos de laboratorio con pasos numerados y advertencias.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{protocol}[Título]
   \protocolstep{Paso a realizar}
   \protocolwarning{Advertencia de seguridad}
 \end{protocol}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{protocol}[Titulación ácido-base]
   \protocolstep{Lavar y enjuagar la bureta con la solución valorante (\ch{NaOH} 0,1 M)}
@@ -1278,11 +1278,11 @@ Procedimientos de laboratorio con pasos numerados y advertencias.
 
 Tabla de resultados analíticos con incertidumbre y código de color.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{analyticalresults}
   \analyte{nombre}{valor}{incert}{unidad}{color}
 \end{analyticalresults}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{analyticalresults}
   \analyte{Plomo (Pb)}{0,015}{0,001}{mg/L}{eps-danger}
@@ -1301,11 +1301,11 @@ Listas de equipos e inventario de reactivos para documentar el material usado.
 
 \minisec{Lista de equipos (equipmentlist)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{equipmentlist}
   \item Nombre del equipo (modelo)
 \end{equipmentlist}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{equipmentlist}
   \item Espectrofotómetro UV-Vis (Shimadzu UV-1800)
@@ -1317,11 +1317,11 @@ Listas de equipos e inventario de reactivos para documentar el material usado.
 
 \minisec{Lista de reactivos (reagentlist)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{reagentlist}
   \reagent{nombre}{concentración}{cantidad}{proveedor}
 \end{reagentlist}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{reagentlist}
   \reagent{NaOH}{0,1 M}{500 mL}{Panreac}
@@ -1338,9 +1338,9 @@ Listas de equipos e inventario de reactivos para documentar el material usado.
 Componentes para geología, geotecnia e ingeniería geológica. Incluyen
 columnas estratigráficas, tablas de minerales, datos geotécnicos y simbología.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \usepackage[geologia]{eps-componentes}
-\end{verbatim}
+\end{codigosimple}
 
 %% -----------------------------------------------------------------------------
 \subsection{Columna Estratigráfica}
@@ -1348,13 +1348,13 @@ columnas estratigráficas, tablas de minerales, datos geotécnicos y simbología
 
 Representación gráfica de secuencias de capas geológicas.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{stratigraphybox}[Título]
   \begin{stratcolumn}
     \stratlayer{espesor}{patrón}{nombre}{edad}
   \end{stratcolumn}
 \end{stratigraphybox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{stratigraphybox}[Sección estratigráfica A-A']
     \begin{stratcolumn}
@@ -1373,11 +1373,11 @@ Tablas y tarjetas para documentar propiedades mineralógicas.
 
 \minisec{Tabla de minerales (mineraltable)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{mineraltable}
   \mineralrow{nombre}{dureza}{densidad}{-}{-}{fórmula}
 \end{mineraltable}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{mineraltable}
   \mineralrow{Cuarzo}{7}{2,65}{--}{--}{SiO2}
@@ -1389,9 +1389,9 @@ Tablas y tarjetas para documentar propiedades mineralógicas.
 
 \minisec{Tarjeta de mineral (mineralcard)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \mineralcard{nombre}{fórmula}{sistema}{dureza}{uso}
-\end{verbatim}
+\end{codigosimple}
 
 \vspace{1em}
 \noindent
@@ -1407,11 +1407,11 @@ Tablas de ensayos geotécnicos y comandos para valores característicos.
 
 \minisec{Tabla de ensayos (geotechdata)}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{geotechdata}
   \geotechtest{ensayo}{símbolo}{valor}{unidad}{norma}
 \end{geotechdata}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{geotechdata}
   \geotechtest{Límite líquido}{LL}{45,2}{\%}{--}
@@ -1423,9 +1423,9 @@ Tablas de ensayos geotécnicos y comandos para valores característicos.
 
 \minisec{Valores característicos}
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \sptvalue{golpes}   \cohesion{kPa}   \friction{grados}
-\end{verbatim}
+\end{codigosimple}
 
 \vspace{0.5em}
 \noindent
@@ -1439,10 +1439,10 @@ Cohesión: \cohesion{25} \quad
 
 Etiquetas USCS y clasificación RMR de macizos rocosos.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \uscsclass{código}          % USCS (CL, SM, GP, etc.)
 \rmrclass{puntos}{clase}    % RMR (I-V)
-\end{verbatim}
+\end{codigosimple}
 
 \noindent
 Según el Sistema Unificado de Clasificación de Suelos (USCS):
@@ -1466,9 +1466,9 @@ Clasificación RMR del macizo rocoso: \rmrclass{50}{III}
 
 Etiquetas para indicar periodos geológicos.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \geoera{nombre}
-\end{verbatim}
+\end{codigosimple}
 
 \noindent
 \geoera{Cuaternario} \quad
@@ -1483,10 +1483,10 @@ Etiquetas para indicar periodos geológicos.
 
 Indicadores de riesgos geológicos con nivel y descripción.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \georisk{nivel}{descripción}{color}
 \risklandslide  \riskflood  \riskseismic
-\end{verbatim}
+\end{codigosimple}
 
 \georisk{Riesgo Nivel 4}{Deslizamientos activos en ladera norte}{eps-danger}
 \georisk{Riesgo Nivel 2}{Riesgo moderado de subsidencia}{eps-warning}
@@ -1501,10 +1501,10 @@ Indicadores de riesgos geológicos con nivel y descripción.
 
 Símbolos estándar para mapas y cortes geológicos.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \faultline      \anticline   \syncline        \strikeanddip
 \verticalbeds   \horizontalbeds
-\end{verbatim}
+\end{codigosimple}
 
 \begin{center}
 \begin{tabular}{c c c c}
@@ -1523,9 +1523,9 @@ Símbolos estándar para mapas y cortes geológicos.
 Componentes para prevención de riesgos laborales y seguridad. Incluyen
 matrices de riesgo, evaluaciones, señalización, EPIs y documentación.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \usepackage[prevencion]{eps-componentes}
-\end{verbatim}
+\end{codigosimple}
 
 %% -----------------------------------------------------------------------------
 \subsection{Matriz de Riesgos}
@@ -1533,11 +1533,11 @@ matrices de riesgo, evaluaciones, señalización, EPIs y documentación.
 
 Matriz 5×5 de probabilidad vs severidad para evaluación de riesgos.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{riskmatrixbox}[Título]
   \riskmatrix
 \end{riskmatrixbox}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{riskmatrixbox}[Matriz de evaluación 5×5]
   \riskmatrix
@@ -1549,11 +1549,11 @@ Matriz 5×5 de probabilidad vs severidad para evaluación de riesgos.
 
 Tabla para documentar riesgos identificados con probabilidad, severidad y medidas.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{riskassessment}
   \riskentry{ID}{descripción}{prob}{sev}{}{medidas}
 \end{riskassessment}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{riskassessment}
   \riskentry{R-001}{Caída a distinto nivel (andamios)}{4}{4}{}{Instalación de barandillas, redes de seguridad}
@@ -1569,13 +1569,13 @@ Tabla para documentar riesgos identificados con probabilidad, severidad y medida
 
 Lista de verificación con estados: completado, pendiente o no aplica.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{safetychecklist}[Título]
   \checkitem{Punto verificado}
   \uncheckitem{Punto pendiente}
   \naitem{No aplica}
 \end{safetychecklist}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{safetychecklist}[Verificación diaria de obra]
   \checkitem{EPIs disponibles y en buen estado}
@@ -1592,13 +1592,13 @@ Lista de verificación con estados: completado, pendiente o no aplica.
 
 Señales de seguridad según normativa: advertencia, prohibición, obligación y emergencia.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \signwarning{texto}     % Advertencia (amarillo)
 \signprohibition{texto} % Prohibición (rojo)
 \signmandatory{texto}   % Obligación (azul)
 \signemergency{texto}   % Emergencia (verde)
 \signfire{texto}        % Extinción (rojo)
-\end{verbatim}
+\end{codigosimple}
 
 \minisec{Señales de advertencia}
 \signwarning{Riesgo de caída a distinto nivel}
@@ -1622,7 +1622,7 @@ Señales de seguridad según normativa: advertencia, prohibición, obligación y
 
 Iconos de EPIs para listas de equipamiento obligatorio.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{epilist}
   \item \epihardhat      % Casco
   \item \epigloves       % Guantes
@@ -1633,7 +1633,7 @@ Iconos de EPIs para listas de equipamiento obligatorio.
   \item \epivest         % Chaleco
   \item \epiharness      % Arnés
 \end{epilist}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{epilist}
   \item \epihardhat
@@ -1652,12 +1652,12 @@ Iconos de EPIs para listas de equipamiento obligatorio.
 
 Índices de siniestralidad y contador de días sin accidentes.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \indicatorIF{valor}       % Índice de frecuencia
 \indicatorIG{valor}       % Índice de gravedad
 \indicatorII{valor}       % Índice de incidencia
 \indicatorDaysSafe{días}  % Días sin accidentes
-\end{verbatim}
+\end{codigosimple}
 
 \noindent
 \indicatorIF{12,5}
@@ -1674,12 +1674,12 @@ Iconos de EPIs para listas de equipamiento obligatorio.
 
 Protocolo de actuación con pasos y teléfonos de emergencia.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{emergencyprocedure}[Título]
   % Contenido (puede usar steplist)
   \emergencyphone{nombre}{teléfono}
 \end{emergencyprocedure}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{emergencyprocedure}[En caso de accidente grave]
   \begin{steplist}
@@ -1702,12 +1702,12 @@ Protocolo de actuación con pasos y teléfonos de emergencia.
 
 Registro de formación en prevención con estado de vigencia.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{trainingrecord}
   \trainingentry{curso}{horas}{fecha}{caducidad}{estado}
   % estado: vigente, proximo, caducado
 \end{trainingrecord}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{trainingrecord}
   \trainingentry{PRL Básico (60h)}{60}{01/2024}{01/2029}{vigente}
@@ -1722,12 +1722,12 @@ Registro de formación en prevención con estado de vigencia.
 
 Formulario estructurado para documentar accidentes laborales.
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Ejemplo}
 \begin{accidentreport}[Título]
   \reportfield{Campo}{Valor}
   \reportfield{Gravedad}{\accidenttype{leve|grave|muy grave}}
 \end{accidentreport}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{accidentreport}[Informe de accidente laboral]
   \reportfield{Fecha}{15 de enero de 2024}

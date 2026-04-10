@@ -95,6 +95,32 @@ def leer_tex(ruta: Path) -> str:
         return ""
 
 
+def eliminar_bloques_codigo(texto: str) -> str:
+    """Elimina el contenido de entornos de código para evitar falsos positivos."""
+    entornos = [
+        "verbatim", "lstlisting", "minted",
+        "codigosimple", "codigosimpleNN",
+        "pythoncode", "pythoncodeNN", "pythoncodeDark",
+        "jscode", "jscodeNN", "cppcode", "cppcodeNN",
+        "javacode", "javacodeNN", "bashcode", "bashcodeNN",
+        "sqlcode", "sqlcodeNN", "jsoncode", "jsoncodeNN",
+        "yamlcode", "yamlcodeNN", "htmlcode", "htmlcodeNN",
+        "csscode", "csscodeNN", "rcode", "rcodeNN",
+        "rustcode", "rustcodeNN", "gocode", "gocodeNN",
+        "phpcode", "phpcodeNN", "terminal",
+    ]
+    for entorno in entornos:
+        # Reemplaza el CONTENIDO del entorno por una línea vacía,
+        # manteniendo \begin y \end para no desplazar números de línea en exceso.
+        texto = re.sub(
+            r"(\\begin\{" + re.escape(entorno) + r"\}(?:\[[^\]]*\])?(?:\{[^}]*\})*(?:\{[^}]*\})*)(.*?)(\\end\{" + re.escape(entorno) + r"\})",
+            r"\1\n\3",
+            texto,
+            flags=re.DOTALL,
+        )
+    return texto
+
+
 def eliminar_comentarios(texto: str) -> str:
     """Elimina comentarios LaTeX (líneas que empiezan con %)."""
     lineas = []
@@ -171,7 +197,7 @@ class Problema:
 def analizar_comandos_prohibidos(ruta: Path, texto: str) -> list:
     """Detecta uso de comandos prohibidos por la plantilla."""
     problemas = []
-    texto_sin_comentarios = eliminar_comentarios(texto)
+    texto_sin_comentarios = eliminar_bloques_codigo(eliminar_comentarios(texto))
     for patron, sugerencia in COMANDOS_PROHIBIDOS:
         for m in re.finditer(patron, texto_sin_comentarios):
             linea = texto_sin_comentarios[:m.start()].count("\n") + 1
@@ -189,7 +215,7 @@ def analizar_comandos_prohibidos(ruta: Path, texto: str) -> list:
 def analizar_etiquetas(ruta: Path, texto: str) -> list:
     r"""Detecta figuras, tablas y ecuaciones sin \label{}."""
     problemas = []
-    texto_sin_comentarios = eliminar_comentarios(texto)
+    texto_sin_comentarios = eliminar_bloques_codigo(eliminar_comentarios(texto))
 
     # Entornos que deben tener \label
     entornos_con_label = ["figure", "table", "equation", "align", "lstlisting"]
@@ -214,7 +240,7 @@ def analizar_etiquetas(ruta: Path, texto: str) -> list:
 def analizar_captions(ruta: Path, texto: str) -> list:
     r"""Detecta figuras y tablas sin \caption{}."""
     problemas = []
-    texto_sin_comentarios = eliminar_comentarios(texto)
+    texto_sin_comentarios = eliminar_bloques_codigo(eliminar_comentarios(texto))
 
     for entorno in ["figure", "table"]:
         patron = rf"\\begin\{{{entorno}\*?\}}(.*?)\\end\{{{entorno}\*?\}}"
@@ -241,9 +267,12 @@ def analizar_referencias_cruzadas(archivos_tex: list) -> list:
     refs_usadas = []  # (archivo, linea, clave)
 
     for ruta in archivos_tex:
-        texto = eliminar_comentarios(leer_tex(ruta))
-        for m in re.finditer(r"\\label\{([^}]+)\}", texto):
+        texto_raw = eliminar_comentarios(leer_tex(ruta))
+        # Labels se recogen del texto completo (pueden definirse dentro de entornos)
+        for m in re.finditer(r"\\label\{([^}]+)\}", texto_raw):
             labels_definidos.add(m.group(1))
+        # Referencias se buscan solo fuera de bloques de código
+        texto = eliminar_bloques_codigo(texto_raw)
         for m in re.finditer(r"\\(?:ref|pageref|cref|Cref)\{([^}]+)\}", texto):
             linea = texto[:m.start()].count("\n") + 1
             refs_usadas.append((str(ruta.relative_to(RAIZ)), linea, m.group(1)))
@@ -284,7 +313,7 @@ def analizar_bibliografia(archivos_tex: list) -> list:
     claves_citadas = set()
     citas_por_archivo = []
     for ruta in archivos_tex:
-        texto = eliminar_comentarios(leer_tex(ruta))
+        texto = eliminar_bloques_codigo(eliminar_comentarios(leer_tex(ruta)))
         for m in re.finditer(
             r"\\(?:parencite|textcite|cite|citeauthor|citeyear|citetitle)"
             r"(?:\[[^\]]*\]){0,2}\{([^}]+)\}",
