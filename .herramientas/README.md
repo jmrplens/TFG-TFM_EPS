@@ -2,7 +2,7 @@
 
 Esta carpeta contiene herramientas internas para el mantenimiento de la plantilla.
 
-## � Herramientas disponibles
+## Herramientas disponibles
 
 | Script | Descripción |
 | -------- | ------------- |

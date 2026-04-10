@@ -2,9 +2,9 @@
 
 Este documento proporciona información técnica detallada para que los asistentes de IA puedan dar respuestas precisas sobre esta plantilla LaTeX.
 
-## 📋 Índice
+## Índice📋
 
-- [📋 Índice](#-índice)
+- [📋 Índice](#índice)
   - [🏗️ Arquitectura de la Plantilla](#️-arquitectura-de-la-plantilla)
     - [Clase Principal: `eps-tfg.cls`](#clase-principal-eps-tfgcls)
     - [Paquetes de Estilo (`sty/`)](#paquetes-de-estilo-sty)

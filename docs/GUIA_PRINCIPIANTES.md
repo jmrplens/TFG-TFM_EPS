@@ -52,8 +52,7 @@ Si vienes de Word, Google Docs o similar, LaTeX puede parecer intimidante al pri
 - [❗ Errores comunes y soluciones](#-errores-comunes-y-soluciones)
   - ["File not found" / "Archivo no encontrado"](#file-not-found--archivo-no-encontrado)
   - ["Undefined control sequence"](#undefined-control-sequence)
-  <!-- markdownlint-disable-next-line MD051 -->
-  - ["Missing $ inserted" / "Falta $"](#missing-inserted-falta-)
+  - [Missing dollar sign inserted](#missing-dollar-sign-inserted)
   - [La bibliografía no aparece](#la-bibliografía-no-aparece)
   - [El código no tiene colores](#el-código-no-tiene-colores)
   - [Compilación muy lenta](#compilación-muy-lenta)
@@ -542,7 +541,7 @@ Esto le enseñará a la IA qué paquetes usamos, cómo se hacen las portadas y l
 - Revisa que no haya errores tipográficos
 - Asegúrate de que el paquete necesario está cargado
 
-### "Missing $ inserted" / "Falta $"
+### Missing dollar sign inserted
 
 **Causa:** Hay contenido matemático fuera del modo matemático.
 
