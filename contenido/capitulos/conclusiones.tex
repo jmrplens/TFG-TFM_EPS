@@ -13,7 +13,7 @@ Este capítulo presenta las conclusiones del trabajo y demuestra las capacidades
 
 Existen dos modos de escribir matemáticas:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Modos matemáticos}
 % Modo inline (en línea con el texto)
 La ecuación $E = mc^2$ es famosa.
 
@@ -33,7 +33,7 @@ Usa \verb|$...$| para fórmulas en línea y \verb|\[...\]| o el entorno \texttt{
 
 Para mostrar una ecuación numerada se usa el entorno \texttt{equation}:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Ecuaciones numeradas}
 \begin{equation}
   E = mc^2
   \label{eq:einstein}
@@ -52,7 +52,7 @@ La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energ�
 \subsection{Fracciones y raíces}
 \label{subsec:fracciones-raices}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Fracciones y raíces}
 % Fracciones
 \frac{numerador}{denominador}
 \dfrac{a}{b}  % Fuerza tamaño display
@@ -77,7 +77,7 @@ La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energ�
 \subsection{Sumas, integrales y límites}
 \label{subsec:sumas-integrales}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Sumas, integrales y límites}
 % Sumatorios
 \sum_{i=1}^{n} a_i         % Suma de i=1 a n
 \prod_{i=1}^{n} a_i        % Productorio
@@ -109,7 +109,7 @@ La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energ�
 \subsection{Operadores diferenciales}
 \label{subsec:operadores-diferenciales}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Operadores diferenciales}
 % Derivadas
 \frac{dy}{dx}              % Derivada
 \frac{\partial f}{\partial x}  % Derivada parcial
@@ -129,7 +129,7 @@ La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energ�
 \subsection{Sistemas de ecuaciones}
 \label{subsec:sistemas-ecuaciones}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Sistemas de ecuaciones}
 \begin{equation}
   \begin{cases}
     x + y + z = 6 \\
@@ -153,7 +153,7 @@ La famosa ecuación de Einstein (\ref{eq:einstein-demo}) relaciona masa y energ�
 
 El entorno \texttt{align} permite alinear múltiples ecuaciones por el símbolo \texttt{\&}:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Ecuaciones alineadas}
 \begin{align}
   (a+b)^2 &= a^2 + 2ab + b^2 \\
   (a-b)^2 &= a^2 - 2ab + b^2 \\
@@ -177,7 +177,7 @@ El entorno \texttt{align} permite alinear múltiples ecuaciones por el símbolo 
 
 Para numerar ecuaciones como (1a), (1b), usa \texttt{subequations}:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Subecuaciones}
 \begin{subequations}
   \begin{align}
     \mathbf{E} &= E_z \hat{\mathbf{z}} \label{eq:campo-E} \\
@@ -198,7 +198,7 @@ Las ecuaciones (\ref{eq:E}) y (\ref{eq:H}) describen los campos electromagnétic
 \subsection{Matrices}
 \label{subsec:matrices}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Matrices}
 % Tipos de delimitadores
 \begin{pmatrix} ... \end{pmatrix}  % Paréntesis ( )
 \begin{bmatrix} ... \end{bmatrix}  % Corchetes [ ]
@@ -232,7 +232,7 @@ Las ecuaciones (\ref{eq:E}) y (\ref{eq:H}) describen los campos electromagnétic
 \subsection{Símbolos griegos y especiales}
 \label{subsec:simbolos-griegos}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Símbolos griegos y especiales}
 % Letras griegas minúsculas
 \alpha \beta \gamma \delta \epsilon \zeta \eta \theta
 \iota \kappa \lambda \mu \nu \xi \pi \rho
@@ -271,7 +271,7 @@ La función \texttt{condiciones} de la plantilla permite documentar las variable
 
 La plantilla incluye entornos para teoremas, demostraciones y definiciones:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Teoremas y demostraciones}
 \begin{theorem}[Nombre del teorema]
   Enunciado del teorema...
 \end{theorem}

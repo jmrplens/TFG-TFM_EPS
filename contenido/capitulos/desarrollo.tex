@@ -21,7 +21,7 @@ Todos los entornos aceptan el contenido directamente entre \texttt{\textbackslas
 
 Entorno para código Python con icono \faIcon{python} y números de línea.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Python}
 \begin{pythoncode}
   ... código Python ...
 \end{pythoncode}
@@ -42,7 +42,7 @@ for i in range(10):
 Todos los entornos tienen variante \texttt{NN} (No Numbers) que elimina la numeración.
 Útil para fragmentos cortos o pseudocódigo.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Sin numeración de líneas}
 \begin{pythoncodeNN}
   ... código sin números ...
 \end{pythoncodeNN}
@@ -57,7 +57,7 @@ print(mensaje)
 
 Entorno para JavaScript con icono \faIcon{js-square}.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: JavaScript}
 \begin{jscode}
   ... código JavaScript ...
 \end{jscode}
@@ -79,7 +79,7 @@ async function fetchData(url) {
 
 Entorno para Java con icono \faIcon{java}.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Java}
 \begin{javacode}
   ... código Java ...
 \end{javacode}
@@ -104,7 +104,7 @@ Todos los entornos Light tienen su versión Dark añadiendo el sufijo \texttt{Da
 
 Versión oscura del entorno Python. Combina con fondos oscuros o diapositivas.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Python Dark}
 \begin{pythoncodeDark}
   ... código Python ...
 \end{pythoncodeDark}
@@ -125,7 +125,7 @@ result = matrix_multiply(A, B)
 
 Versión oscura del entorno JavaScript.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: JavaScript Dark}
 \begin{jscodeDark}
   ... código JavaScript ...
 \end{jscodeDark}
@@ -153,7 +153,7 @@ Entornos especializados para desarrollo web frontend.
 
 Entorno para HTML con icono \faIcon{html5}.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: HTML}
 \begin{htmlcode}
   ... código HTML ...
 \end{htmlcode}
@@ -176,7 +176,7 @@ Entorno para HTML con icono \faIcon{html5}.
 
 Entorno para CSS con icono \faIcon{css3-alt}.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: CSS}
 \begin{csscode}
   ... código CSS ...
 \end{csscode}
@@ -204,7 +204,7 @@ Entorno para CSS con icono \faIcon{css3-alt}.
 
 Entorno para consultas SQL con icono \faIcon{database}.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: SQL}
 \begin{sqlcode}
   ... consulta SQL ...
 \end{sqlcode}
@@ -231,18 +231,18 @@ Entornos para lenguajes de sistemas y bajo nivel.
 
 Entorno para C++ con icono \faIcon{copyright}.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: C++}
 \begin{cppcode}
   ... código C++ ...
 \end{cppcode}
 \end{codigosimple}
 
 \begin{cppcode}
-\#include <iostream>
-\#include <vector>
+// Cabeceras necesarias: <iostream> y <vector>
 
 int main() {
     std::vector<int> nums = {5, 2, 8, 1, 9};
+    std::sort(nums.begin(), nums.end());
     for (const auto& n : nums) {
         std::cout << n << " ";
     }
@@ -254,7 +254,7 @@ int main() {
 
 Entorno para Rust con icono \faIcon{rust}.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Rust}
 \begin{rustcode}
   ... código Rust ...
 \end{rustcode}
@@ -276,7 +276,7 @@ fn main() {
 
 Entorno para Go con icono \faIcon{google}.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Go}
 \begin{gocode}
   ... código Go ...
 \end{gocode}
@@ -307,7 +307,7 @@ Entornos para otros lenguajes de programación populares.
 
 Entorno para PHP con icono \faIcon{php}.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: PHP}
 \begin{phpcode}
   ... código PHP ...
 \end{phpcode}
@@ -336,7 +336,7 @@ echo $usuario->saludar();
 
 Entorno para Ruby con icono \faIcon{gem}.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Ruby}
 \begin{rubycode}
   ... código Ruby ...
 \end{rubycode}
@@ -370,7 +370,7 @@ Entornos para archivos de configuración y DevOps.
 
 Entorno para Dockerfiles con icono \faIcon{docker}.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Docker}
 \begin{dockercode}
   ... Dockerfile ...
 \end{dockercode}
@@ -398,7 +398,7 @@ CMD ["node", "server.js"]
 El entorno \texttt{codigo\{lenguaje\}} permite usar cualquier lenguaje soportado
 por Pygments. Útil para lenguajes menos comunes que no tienen entorno predefinido.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Entorno Genérico}
 \begin{codigo}{lenguaje}
   ... código ...
 \end{codigo}
@@ -426,7 +426,7 @@ print(persona.saludar())
 
 El entorno genérico también tiene versión oscura.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Versión Dark del Genérico}
 \begin{codigoDark}{lenguaje}
   ... código ...
 \end{codigoDark}
@@ -475,7 +475,7 @@ print(saludar("Mundo"))
 
 Variante sin números de línea usando el sufijo \texttt{NN}.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Código Simple sin Numeración}
 \begin{codigosimpleNN}{lenguaje}{Título}
   ... código ...
 \end{codigosimpleNN}

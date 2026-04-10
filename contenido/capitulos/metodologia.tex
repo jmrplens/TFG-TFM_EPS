@@ -27,7 +27,7 @@ Las figuras en \LaTeX{} son elementos \glspl{flotante}. Esto significa que \LaTe
 
 La estructura básica para insertar una figura es:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Figura simple}
 \begin{figure}[posición]
   \centering
   \includegraphics[opciones]{ruta/imagen}
@@ -62,7 +62,7 @@ Para referenciar la figura en el texto: ``como se muestra en la Figura~\ref{fig:
 
 El comando \verb|\includegraphics| acepta múltiples opciones:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Opciones de includegraphics}
 % Ancho relativo al texto
 \includegraphics[width=0.8\textwidth]{imagen}
 
@@ -102,7 +102,7 @@ Usa PDF para gráficas vectoriales (exportadas desde Inkscape, MATLAB, Python) y
 
 Cuando necesitas mostrar varias imágenes relacionadas, usa el entorno \texttt{subfigure} del paquete \texttt{subcaption}:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Subfiguras}
 \begin{figure}[H]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
@@ -155,7 +155,7 @@ Puedes referenciar subfiguras individuales: Figura~\ref{fig:sub-a} y Figura~\ref
 
 Para apilar subfiguras verticalmente, usa saltos de línea:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Subfiguras verticales}
 \begin{figure}[H]
   \centering
   \begin{subfigure}[b]{0.8\textwidth}
@@ -178,7 +178,7 @@ Para apilar subfiguras verticalmente, usa saltos de línea:
 
 Para organizar varias imágenes en una cuadrícula, puedes usar un entorno \texttt{tabular} dentro de la figura:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Múltiples imágenes en cuadrícula}
 \begin{figure}[H]
   \centering
   \begin{tabular}{ccc}
@@ -230,7 +230,7 @@ Para organizar varias imágenes en una cuadrícula, puedes usar un entorno \text
 
 Para figuras que ocupen todo el ancho de la página (incluyendo márgenes), usa el entorno \texttt{figure*} en documentos de dos columnas, o ajusta el ancho:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Figuras a ancho completo}
 % Figura que ocupa todo el ancho del texto
 \begin{figure}[H]
   \centering
@@ -368,7 +368,7 @@ Usa prefijos consistentes para las etiquetas: \texttt{fig:} para figuras, \textt
 
 Se recomienda organizar las imágenes en carpetas dentro de \texttt{recursos/}:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Organización de archivos}
 recursos/
 ├── imagenes/
 │   ├── capturas/       % Capturas de pantalla
@@ -435,7 +435,7 @@ Para la gestión del proyecto se han utilizado las siguientes herramientas:
 
 A modo de referencia rápida, estos son los comandos más utilizados:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Resumen de comandos para figuras}
 % Figura básica
 \begin{figure}[H]
   \centering

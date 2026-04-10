@@ -29,7 +29,7 @@ Las tablas son elementos flotantes en \LaTeX{}, al igual que las figuras. A cont
 
 La estructura básica de una tabla en \LaTeX{} es:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Estructura básica de una tabla}
 \begin{table}[posición]
   \centering
   \caption{Título de la tabla}
@@ -52,7 +52,7 @@ Donde la especificación de columnas puede ser:
 \subsection{Tabla simple}
 \label{subsec:tabla-simple}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Tabla simple}
 \begin{table}[H]
   \centering
   \begin{tabular}{lcc}
@@ -87,7 +87,7 @@ Donde la especificación de columnas puede ser:
 
 El paquete \texttt{booktabs} proporciona líneas horizontales más elegantes y profesionales. Esta plantilla ya lo incluye.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: recomendado}
 \begin{table}[H]
   \centering
   \caption{Tabla con estilo booktabs}
@@ -127,7 +127,7 @@ Usa siempre \texttt{booktabs} para tablas profesionales. Evita líneas verticale
 
 Puedes especificar el ancho de las columnas usando \texttt{p\{ancho\}}:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Tabla con columnas de ancho fijo}
 % Columnas de ancho fijo con alineación
 p{5cm}  % Justificado, ancho 5cm
 m{5cm}  % Centrado verticalmente
@@ -156,7 +156,7 @@ b{5cm}  % Alineado abajo
 
 Para combinar celdas se recomienda usar el paquete moderno \texttt{tabularray} que evita conflictos con otros paquetes:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Tabla con multicolumna y multifila}
 % Sintaxis tabularray para combinar celdas
 \begin{tblr}{
   colspec = {llccc},
@@ -198,7 +198,7 @@ Para combinar celdas se recomienda usar el paquete moderno \texttt{tabularray} q
 
 Usando el paquete \texttt{xcolor} con la opción \texttt{table}:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Tabla con colores alternados}
 % Activar colores alternados
 \rowcolors{2}{gray!15}{white}
 \begin{tabular}{...}
@@ -246,7 +246,7 @@ Crea la estructura básica con un generador online, luego ajusta manualmente el 
 
 Para forzar que una tabla aparezca en un lugar específico:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Forzar posición de tablas}
 % Opción 1: Usar el especificador H
 \begin{table}[H]  % Requiere paquete float
   ...
@@ -264,7 +264,7 @@ Para forzar que una tabla aparezca en un lugar específico:
 
 Para añadir notas al pie dentro de una tabla, se usa el paquete \texttt{threeparttable}:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Tablas con notas al pie}
 \begin{threeparttable}
   \begin{tabular}{...}
     ... Texto\tnote{a} ...
@@ -303,7 +303,7 @@ Para añadir notas al pie dentro de una tabla, se usa el paquete \texttt{threepa
 
 Se pueden colorear celdas individuales usando \verb|\cellcolor{color}|:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Tabla con celdas de colores personalizados}
 % Celda coloreada
 \cellcolor{red!50} Texto con fondo rojo
 
@@ -340,7 +340,7 @@ Se pueden colorear celdas individuales usando \verb|\cellcolor{color}|:
 
 Para que una tabla ocupe todo el ancho disponible, se usa \texttt{tabularx}:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Tabla de ancho completo}
 \begin{tabularx}{\textwidth}{@{}lXcc@{}}
   % X = columna que se expande
   % l, c, r = columnas normales
@@ -369,7 +369,7 @@ Para que una tabla ocupe todo el ancho disponible, se usa \texttt{tabularx}:
 
 A modo de referencia rápida:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Resumen de comandos para tablas}
 % Estructura básica
 \begin{table}[H]
   \centering

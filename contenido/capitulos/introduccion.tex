@@ -54,7 +54,7 @@ En \LaTeX{} existen diferentes niveles de organización del contenido.
 Cada nivel tiene una numeración automática y aparece en el índice según
 su jerarquía.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Secciones y subsecciones}
 \chapter{Capítulo}           % Nivel 0
 \section{Sección}            % Nivel 1
 \subsection{Subsección}      % Nivel 2
@@ -85,7 +85,7 @@ se almacenan en el archivo \texttt{referencias.bib}.
 
 BibLaTeX ofrece varios comandos para citar según el contexto:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Comandos de citación}
 % Cita textual: Autor (año)
 \textcite{latex2024}
 
@@ -123,7 +123,7 @@ se muestran los más comunes con su estructura:
 
 \subsubsection{Libro (@book)}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: @book}
 @book{knuth1984texbook,
   author    = {Knuth, Donald E.},
   title     = {The TeXbook},
@@ -136,7 +136,7 @@ se muestran los más comunes con su estructura:
 
 \subsubsection{Artículo de revista (@article)}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: @article}
 @article{shannon1948mathematical,
   author  = {Shannon, Claude E.},
   title   = {A Mathematical Theory of Communication},
@@ -151,7 +151,7 @@ se muestran los más comunes con su estructura:
 
 \subsubsection{Conferencia (@inproceedings)}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: @inproceedings}
 @inproceedings{krizhevsky2012imagenet,
   author    = {Krizhevsky, Alex and Sutskever, Ilya
                and Hinton, Geoffrey E.},
@@ -167,39 +167,100 @@ se muestran los más comunes con su estructura:
 
 \subsubsection{Recurso en línea (@online)}
 
-\begin{codigosimple}{latex}{Ejemplo}
-@online{overleaf2024,
-  author  = {{Overleaf}},
-  title   = {Documentation},
-  url     = {https://www.overleaf.com/learn},
-  urldate = {2024-01-15},
-  year    = {2024}
+La entrada \texttt{@online} es el tipo correcto para páginas web, documentación
+en línea y cualquier recurso con URL. Siempre debe incluir \texttt{urldate}
+(fecha de acceso en formato YYYY-MM-DD).
+
+\begin{codigosimple}{latex}{Sintaxis: @online (organización)}
+@online{europarl2023,
+  author  = {{Parlamento Europeo}},
+  title   = {Reglamento de Inteligencia Artificial de la UE},
+  year    = {2023},
+  url     = {https://www.europarl.europa.eu/topics/es/...},
+  urldate = {2024-03-10},
+  langid  = {spanish}
 }
 \end{codigosimple}
 
-\subsubsection{Tesis (@thesis)}
+\begin{codigosimple}{latex}{Sintaxis: @online (autor individual)}
+@online{fowler2023microservices,
+  author  = {Fowler, Martin},
+  title   = {Microservices},
+  year    = {2023},
+  url     = {https://martinfowler.com/articles/microservices.html},
+  urldate = {2024-05-22},
+  langid  = {english}
+}
+\end{codigosimple}
 
-\begin{codigosimple}{latex}{Ejemplo}
-@thesis{garcia2023sistema,
-  author      = {García López, María},
-  title       = {Sistema de gestión inteligente},
-  type        = {Trabajo Fin de Grado},
-  institution = {Universidad de Alicante},
-  year        = {2023}
+\begin{warningbox}{Citar Wikipedia}
+Wikipedia solo debería citarse como fuente primaria en casos excepcionales.
+Cuando sea necesario, usa \texttt{@online} con \texttt{note={Wikipedia,
+La enciclopedia libre}} y, siempre que sea posible, cita la fuente
+primaria que Wikipedia referencia.
+\end{warningbox}
+
+\subsubsection{Software y herramientas (@software)}
+
+Para citar software, bibliotecas y herramientas de desarrollo:
+
+\begin{codigosimple}{latex}{Sintaxis: @software}
+@software{python2024,
+  author  = {{Python Software Foundation}},
+  title   = {Python 3.12},
+  version = {3.12.0},
+  year    = {2024},
+  url     = {https://www.python.org/}
+}
+\end{codigosimple}
+
+\subsubsection{Preprints y arXiv (@misc)}
+
+Para artículos en repositorios de preprints como arXiv:
+
+\begin{codigosimple}{latex}{Sintaxis: @misc (arXiv)}
+@misc{doe2024llm,
+  author        = {Doe, Jane and Smith, Bob},
+  title         = {A Survey on Large Language Models},
+  year          = {2024},
+  eprint        = {2401.12345},
+  archiveprefix = {arXiv},
+  primaryclass  = {cs.CL}
+}
+\end{codigosimple}
+
+\subsubsection{Tesis (@mastersthesis, @phdthesis)}
+
+\begin{codigosimple}{latex}{Sintaxis: @mastersthesis}
+@mastersthesis{garcia2023sistema,
+  author  = {García López, María},
+  title   = {Sistema de gestión inteligente},
+  type    = {Trabajo Fin de Máster},
+  school  = {Universidad de Alicante},
+  year    = {2023},
+  address = {Alicante, España}
 }
 \end{codigosimple}
 
 \subsubsection{Manual o documentación técnica (@manual)}
 
-\begin{codigosimple}{latex}{Ejemplo}
-@manual{latex2024,
-  author       = {{LaTeX Project}},
-  title        = {LaTeX2e: An unofficial reference manual},
+\begin{codigosimple}{latex}{Sintaxis: @manual}
+@manual{intel2024,
+  author       = {{Intel Corporation}},
+  title        = {Intel 64 and IA-32 Developer's Manual},
   year         = {2024},
-  organization = {LaTeX Project},
-  url          = {https://latexref.xyz/}
+  organization = {Intel Corporation}
 }
 \end{codigosimple}
+
+Ejemplos de citas con distintos tipos de fuentes en el texto:
+\begin{itemize}
+  \item Web institucional: el marco regulatorio vigente \parencite{europarl2023}
+    establece los requisitos de transparencia.
+  \item Artículo técnico: la arquitectura de microservicios fue popularizada
+    por \textcite{fowler2023microservices}.
+  \item Software: el sistema fue implementado con Python \parencite{python2024}.
+\end{itemize}
 
 \subsection{Campos comunes en BibLaTeX}
 \label{subsec:campos-biblatex}
@@ -246,7 +307,7 @@ se muestran los más comunes con su estructura:
 Para procesar la bibliografía correctamente, se requiere ejecutar Biber
 entre compilaciones de \LaTeX{}:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Compilación con Biber}
 lualatex main.tex    % Primera pasada
 biber main           % Procesa bibliografía
 lualatex main.tex    % Segunda pasada (resuelve citas)
@@ -266,7 +327,7 @@ Las notas al pie permiten añadir información adicional sin interrumpir
 el flujo del texto principal. Son útiles para aclaraciones, definiciones
 o referencias complementarias.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Notas al pie de página}
 Texto principal\footnote{Contenido de la nota al pie.}
 \end{codigosimple}
 
@@ -279,7 +340,7 @@ La plantilla utiliza LuaLaTeX\footnote{LuaLaTeX es un motor de composición tipo
 \LaTeX{} ofrece múltiples estilos de texto para dar énfasis o formato
 especial a determinadas palabras o frases.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Estilos de texto}
 \textit{Texto en cursiva}
 \textbf{Texto en negrita}
 \texttt{Texto monoespacio}
@@ -316,7 +377,7 @@ paquete \texttt{glossaries}. Ambos se definen en \texttt{contenido/anexos/acroni
 La primera vez que aparece un acrónimo se muestra su forma completa, y en
 las siguientes apariciones solo la abreviatura:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Uso de acrónimos}
 % Primera aparición: "Institute of Electrical
 % and Electronics Engineers (IEEE)"
 El \gls{ieee} es una institución importante.
@@ -337,7 +398,7 @@ Ejemplo: El \gls{ieee} es una institución importante. El \gls{ieee} establece e
 Los términos del glosario funcionan igual que los acrónimos pero para
 conceptos que requieren definición:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Uso del glosario de términos}
 % Usar un término (singular)
 Un \gls{algoritmo} es la base de la programación.
 
@@ -351,7 +412,7 @@ Los \glspl{framework} facilitan el desarrollo.
 Ejemplo: Un \gls{algoritmo} bien diseñado mejora el rendimiento. Los \glspl{microservicio} permiten \gls{escalabilidad}. El \gls{backend} procesa las peticiones del \gls{frontend}.
 
 \begin{tipbox}{Definir nuevos términos}
-  \begin{codigosimple}{latex}{Ejemplo}
+  \begin{codigosimple}{latex}{Sintaxis: Uso del glosario de términos (2)}
 \newglossaryentry{etiqueta}{
   name={término visible},
   plural={términos visibles},
@@ -368,7 +429,7 @@ Durante la redacción es útil marcar partes que requieren revisión.
 El paquete \texttt{todonotes} permite añadir notas visuales que son fáciles
 de localizar y eliminar antes de la entrega final.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Tareas pendientes y notas}
 % Nota al margen
 \todo{Texto de la nota}
 
@@ -397,7 +458,7 @@ Esta plantilla proporciona comandos para acceder a la información configurada
 en \texttt{configuracion.tex}. Son útiles para incluir datos del trabajo
 dinámicamente en el documento.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Comandos personalizados de la plantilla}
 \EPStitulo      % Título del trabajo
 \EPSautor       % Nombre del autor
 \EPStutor       % Nombre del tutor
@@ -426,7 +487,7 @@ Ejemplo de uso en el texto: Este documento es un \EPStipoTrabajo{} presentado en
 Para incluir enlaces web se utilizan comandos del paquete \texttt{hyperref},
 que ya viene configurado en esta plantilla.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Hipervínculos y URLs}
 % URL con formato automático (monoespacio)
 \url{https://eps.ua.es}
 
@@ -457,7 +518,7 @@ Cada tipo tiene un propósito específico y un formato visual diferente.
 
 Para elementos sin orden específico.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: itemize}
 \begin{itemize}
   \item Primer elemento
   \item Segundo elemento
@@ -475,7 +536,7 @@ Para elementos sin orden específico.
 
 Para elementos con orden secuencial.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: enumerate}
 \begin{enumerate}
   \item Paso uno
   \item Paso dos
@@ -493,7 +554,7 @@ Para elementos con orden secuencial.
 
 Para términos con sus definiciones.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: description}
 \begin{description}
   \item[Término 1] Definición del primer término.
   \item[Término 2] Definición del segundo término.
@@ -510,7 +571,7 @@ Para términos con sus definiciones.
 
 Las listas pueden anidarse hasta tres niveles de profundidad.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Listas anidadas}
 \begin{itemize}
   \item Elemento principal
   \begin{itemize}
@@ -548,7 +609,7 @@ Las referencias cruzadas permiten enlazar elementos del documento
 (capítulos, secciones, figuras, tablas, ecuaciones) de forma que
 los números se actualicen automáticamente si cambia la estructura.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Referencias cruzadas}
 % Crear etiqueta (después de \chapter, \section, \caption, etc.)
 \label{tipo:nombre}
 

@@ -11,7 +11,7 @@ en el \gls{preambulo} para optimizar el tiempo de compilación.
 
 Para usar los componentes, añade en el \gls{preambulo} del documento:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Marco Teórico}
 \usepackage[all]{eps-componentes}  % Todos los componentes
 % o bien, solo los que necesites:
 \usepackage[software,telecom]{eps-componentes}
@@ -35,7 +35,7 @@ color y un icono predefinido que transmite el propósito del contenido.
 \minisec{Caja de información (infobox)}
 Para notas informativas generales.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: infobox}
 \begin{infobox}
   Contenido de la nota informativa.
 \end{infobox}
@@ -49,7 +49,7 @@ Para notas informativas generales.
 \minisec{Caja de éxito (successbox)}
 Para indicar que algo se ha completado correctamente o mostrar buenas prácticas.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: successbox}
 \begin{successbox}
   Operación completada correctamente.
 \end{successbox}
@@ -63,7 +63,7 @@ Para indicar que algo se ha completado correctamente o mostrar buenas prácticas
 \minisec{Caja de advertencia (warningbox)}
 Para alertar sobre algo que requiere atención pero no es crítico.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: warningbox}
 \begin{warningbox}
   Precaución: revisa este apartado antes de continuar.
 \end{warningbox}
@@ -77,7 +77,7 @@ Para alertar sobre algo que requiere atención pero no es crítico.
 \minisec{Caja de peligro (dangerbox)}
 Para indicar errores críticos o prácticas que deben evitarse.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: dangerbox}
 \begin{dangerbox}
   ¡Peligro! Esta acción es irreversible.
 \end{dangerbox}
@@ -91,7 +91,7 @@ Para indicar errores críticos o prácticas que deben evitarse.
 \minisec{Caja de consejo (tipbox)}
 Para ofrecer sugerencias útiles o trucos.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: tipbox}
 \begin{tipbox}
   Consejo: usa atajos de teclado para ser más eficiente.
 \end{tipbox}
@@ -105,7 +105,7 @@ Para ofrecer sugerencias útiles o trucos.
 \minisec{Caja de nota (notebox)}
 Para información adicional o comentarios secundarios.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: notebox}
 \begin{notebox}
   Nota: este comportamiento puede variar según la configuración.
 \end{notebox}
@@ -125,7 +125,7 @@ Cajas que permiten definir un encabezado personalizado para el contenido.
 \minisec{Caja con título personalizado (titlebox)}
 Caja genérica con título configurable.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: titlebox}
 \begin{titlebox}{Mi Título}
   Contenido de la caja con título personalizado.
 \end{titlebox}
@@ -139,7 +139,7 @@ Caja genérica con título configurable.
 \minisec{Caja de definición (definitionbox)}
 Para definiciones formales de términos o conceptos.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: definitionbox}
 \begin{definitionbox}{Término}
   Definición del término o concepto.
 \end{definitionbox}
@@ -153,7 +153,7 @@ Para definiciones formales de términos o conceptos.
 \minisec{Caja de ejemplo (examplebox)}
 Para mostrar ejemplos prácticos. El título es opcional.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: examplebox}
 \begin{examplebox}[Título opcional]
   Descripción del ejemplo práctico.
 \end{examplebox}
@@ -167,7 +167,7 @@ Para mostrar ejemplos prácticos. El título es opcional.
 \minisec{Caja de contenido importante (importantbox)}
 Para destacar contenido que no debe pasarse por alto.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: importantbox}
 \begin{importantbox}
   Contenido especialmente importante.
 \end{importantbox}
@@ -187,7 +187,7 @@ Listas personalizadas para diferentes casos de uso: tareas, pros/contras y pasos
 \minisec{Lista de verificación (checklist)}
 Para tareas o puntos de control con estados: completado, parcial o pendiente.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: checklist}
 \begin{checklist}
   \item[\checked] Tarea completada
   \item[\partialchecked] Parcialmente completada
@@ -205,7 +205,7 @@ Para tareas o puntos de control con estados: completado, parcial o pendiente.
 \minisec{Lista de pros y contras (proscons)}
 Para comparar ventajas e inconvenientes.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: proscons}
 \begin{proscons}
   \pro Ventaja 1
   \pro Ventaja 2
@@ -224,7 +224,7 @@ Para comparar ventajas e inconvenientes.
 \minisec{Lista de pasos (steplist)}
 Para secuencias de acciones numeradas.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: steplist}
 \begin{steplist}
   \step Primer paso
   \step Segundo paso
@@ -250,7 +250,7 @@ Etiquetas visuales para marcar estados, versiones y métricas de progreso.
 Etiqueta con texto y color personalizables. Colores disponibles: \texttt{eps-primary},
 \texttt{eps-success}, \texttt{eps-warning}, \texttt{eps-danger}, \texttt{eps-secondary}.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Badge personalizado}
 \badge{Texto}                    % Color por defecto
 \badge[eps-success]{Completado}  % Color específico
 \end{codigosimple}
@@ -265,7 +265,7 @@ Etiqueta con texto y color personalizables. Colores disponibles: \texttt{eps-pri
 \minisec{Badges predefinidos}
 Atajos para estados comunes de desarrollo.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Badges predefinidos}
 \badgenew \badgewip \badgedeprecated
 \badgebeta \badgerequired \badgeoptional
 \end{codigosimple}
@@ -277,7 +277,7 @@ Atajos para estados comunes de desarrollo.
 \minisec{Indicador de versión}
 Para mostrar números de versión con formato consistente.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Indicador de versión}
 \version{1.0.0} \version{2.1.0-beta}
 \end{codigosimple}
 
@@ -287,7 +287,7 @@ Para mostrar números de versión con formato consistente.
 \minisec{Barra de progreso}
 Indicador visual de porcentaje de completado (0-100).
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Barra de progreso}
 \progressbar{25} \progressbar{75}
 \end{codigosimple}
 
@@ -297,7 +297,7 @@ Indicador visual de porcentaje de completado (0-100).
 \minisec{Rating con estrellas}
 Para valoraciones sobre un máximo.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Rating con estrellas}
 \rating{3}{5}  % 3 de 5 estrellas
 \end{codigosimple}
 
@@ -307,7 +307,7 @@ Para valoraciones sobre un máximo.
 \minisec{Indicador de nivel}
 Barras horizontales para representar niveles.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Indicador de nivel}
 \levelbar{2}{5}  % Nivel 2 de 5
 \end{codigosimple}
 
@@ -323,7 +323,7 @@ Tarjetas compactas para mostrar información de personas o estadísticas.
 \minisec{Tarjeta de persona (personcard)}
 Para presentar miembros del equipo o colaboradores.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: personcard}
 \personcard{Nombre}{Cargo}{Descripción breve}
 \end{codigosimple}
 
@@ -339,7 +339,7 @@ Para presentar miembros del equipo o colaboradores.
 \minisec{Tarjeta de estadística (statcard)}
 Para métricas clave con icono y color. Requiere FontAwesome (\verb|\faIcono|).
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: statcard}
 \statcard{Valor}{Etiqueta}{\faIcono}{color}
 \end{codigosimple}
 
@@ -359,7 +359,7 @@ Para métricas clave con icono y color. Requiere FontAwesome (\verb|\faIcono|).
 
 Línea temporal para representar secuencias de eventos cronológicos.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Timeline}
 \begin{timeline}
   \timeitem{Fecha 1}{Descripción del evento 1}
   \timeitem{Fecha 2}{Descripción del evento 2}
@@ -380,7 +380,7 @@ Línea temporal para representar secuencias de eventos cronológicos.
 
 Tabla para comparar dos opciones lado a lado.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Comparativas}
 \begin{comparison}{Opción A}{Opción B}
   \comprow{Criterio 1}{Valor A}{Valor B}
   \comprow{Criterio 2}{Valor A}{Valor B}
@@ -400,7 +400,7 @@ Tabla para comparar dos opciones lado a lado.
 
 Bloque de cita con estilo visual destacado y atribución opcional.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Citas Destacadas}
 \begin{quotebox}[Autor]
   Texto de la cita.
 \end{quotebox}
@@ -420,7 +420,7 @@ Componentes específicos para informática e ingeniería de software. Incluyen
 documentación de APIs, terminales, estructuras de datos, diagramas UML y
 control de versiones.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Componentes de Software}
 \usepackage[software]{eps-componentes}
 \end{codigosimple}
 
@@ -431,7 +431,7 @@ control de versiones.
 Documentación visual de endpoints de APIs REST con soporte para cuerpo de
 petición y múltiples respuestas.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: API REST Endpoints}
 \begin{apiendpoint}{MÉTODO}{/ruta}
   Descripción del endpoint.
 
@@ -477,7 +477,7 @@ petición y múltiples respuestas.
 \minisec{Badges de métodos HTTP}
 Etiquetas coloreadas para identificar métodos HTTP.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Badges de métodos HTTP}
 \httpget \httppost \httpput \httppatch \httpdelete
 \end{codigosimple}
 
@@ -490,7 +490,7 @@ Etiquetas coloreadas para identificar métodos HTTP.
 
 Simula una ventana de terminal con comandos de usuario normal y de root.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Terminal y Consola}
 \begin{terminal}[Título opcional]
   \prompt comando de usuario
   \promptroot comando como root
@@ -511,7 +511,7 @@ Simula una ventana de terminal con comandos de usuario normal y de root.
 
 Representa la estructura de carpetas y archivos de un proyecto.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Árbol de Directorios}
 \begin{dirtreebox}[Título]
   \dirtreeitem[nivel]{nombre/}  % Carpeta
   \dirtreeitem[nivel]{archivo}  % Archivo
@@ -541,7 +541,7 @@ Diagramas de clases e interfaces con notación UML estándar.
 Define una clase con atributos y métodos. Usa \verb|\visibility{}| para indicar
 visibilidad: \texttt{+} público, \texttt{-} privado, \texttt{\#} protegido.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Clase}
 \umlclass{NombreClase}{
   \visibility{-} atributo: tipo \\
 }{
@@ -563,7 +563,7 @@ visibilidad: \texttt{+} público, \texttt{-} privado, \texttt{\#} protegido.
 \minisec{Interfaz}
 Define una interfaz con sus métodos.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Interfaz}
 \umlinterface{NombreInterfaz}{
   \visibility{+} método(): tipo \\
 }
@@ -581,7 +581,7 @@ Define una interfaz con sus métodos.
 
 Tabla para gestión de requisitos funcionales y no funcionales con prioridad y estado.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Tabla de Requisitos}
 \begin{requirements}
   \requirement{ID}{Prioridad}{Estado}{Descripción}
 \end{requirements}
@@ -601,7 +601,7 @@ Tabla para gestión de requisitos funcionales y no funcionales con prioridad y e
 
 Documentación de tablas con claves primarias (\verb|\pkicon|) y foráneas (\verb|\fkicon|).
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Esquema de Base de Datos}
 \begin{dbtable}{nombre_tabla}
   \pkicon & columna & TIPO & restricción \\
   \fkicon & columna & TIPO & FK -> tabla.columna \\
@@ -631,7 +631,7 @@ Elementos para documentar commits, ramas y etiquetas de Git.
 \minisec{Commits}
 Muestra un commit con hash, mensaje, autor y fecha.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Commits}
 \gitcommit{hash}{mensaje}{autor}{fecha}
 \end{codigosimple}
 
@@ -642,7 +642,7 @@ Muestra un commit con hash, mensaje, autor y fecha.
 \minisec{Ramas y etiquetas}
 Badges para indicar ramas y versiones.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Ramas y etiquetas}
 \gitbranch{nombre}  \gittag{versión}
 \end{codigosimple}
 
@@ -662,7 +662,7 @@ Componentes para mostrar registros de eventos y métricas de rendimiento.
 \minisec{Caja de logs (logbox)}
 Muestra entradas de log con nivel, fecha y mensaje.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: logbox}
 \begin{logbox}[Título]
   \logentry{NIVEL}{fecha hora}{mensaje}
 \end{logbox}
@@ -678,7 +678,7 @@ Muestra entradas de log con nivel, fecha y mensaje.
 \minisec{Tarjeta de métrica (metricbox)}
 Muestra un valor con etiqueta, unidad y color indicador.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: metricbox}
 \metricbox{Etiqueta}{valor}{unidad}{color}
 \end{codigosimple}
 
@@ -698,7 +698,7 @@ Muestra un valor con etiqueta, unidad y color indicador.
 Componentes para telecomunicaciones, electrónica y sistemas de comunicación.
 Incluyen diagramas de RF, tramas de protocolo, máquinas de estados y señales.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Componentes de Telecomunicaciones}
 \usepackage[telecom]{eps-componentes}
 \end{codigosimple}
 
@@ -709,7 +709,7 @@ Incluyen diagramas de RF, tramas de protocolo, máquinas de estados y señales.
 Herramienta gráfica para resolver problemas de adaptación de impedancias en
 líneas de transmisión. Permite añadir trazados y puntos marcados.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Carta de Smith}
 \begin{smithchartbox}[Título]
   \addplot [...] coordinates {(r1,x1) (r2,x2)};
   \smithpoint{r}{x}{etiqueta}
@@ -728,7 +728,7 @@ líneas de transmisión. Permite añadir trazados y puntos marcados.
 
 Representación gráfica de esquemas de modulación digital (QPSK, QAM, etc.).
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Diagrama de Constelación}
 \begin{constellationbox}[Título]
   \constpoint{I}{Q}{símbolo}
 \end{constellationbox}
@@ -747,7 +747,7 @@ Representación gráfica de esquemas de modulación digital (QPSK, QAM, etc.).
 
 Diagramas FSM para representar autómatas y protocolos de comunicación.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Máquina de Estados Finitos}
 \begin{fsmdiagram}
   \fsmstate{id}{x,y}{etiqueta}{opciones}  % opciones: initial
   \fsmtrans{origen}{destino}{etiqueta}
@@ -773,7 +773,7 @@ fuera del campo. Este umbral es configurable con \verb|\def\framenarrowthreshold
 
 \minisec{Sintaxis básica}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Sintaxis básica}
 \begin{protocolframe}[bits por fila]
   \framefield{bits}{etiqueta}      % Campo normal
   \framefieldvar[bits]{etiqueta}   % Campo de tamaño variable
@@ -817,7 +817,7 @@ fuera del campo. Este umbral es configurable con \verb|\def\framenarrowthreshold
 \minisec{Campo multi-fila}
 Para datos que ocupan varias filas consecutivas.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Campo multi-fila}
 \framefieldmulti{filas}{bits}{etiqueta}
 \end{codigosimple}
 
@@ -834,7 +834,7 @@ Para datos que ocupan varias filas consecutivas.
 \minisec{Campos con continuación}
 Para campos que se dividen entre filas.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Campos con continuación}
 \framefieldstart{bits}{etiqueta}
 \framefieldend{bits}{}
 \end{codigosimple}
@@ -852,7 +852,7 @@ Para campos que se dividen entre filas.
 \minisec{Etiqueta externa forzada}
 Fuerza la etiqueta fuera del campo, útil para campos estrechos.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Etiqueta externa forzada}
 \framefieldext{bits}{etiqueta}
 \end{codigosimple}
 
@@ -867,7 +867,7 @@ Fuerza la etiqueta fuera del campo, útil para campos estrechos.
 \minisec{Campos reservados y agrupación}
 Campos reservados con patrón rayado y llaves para agrupar filas.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Campos reservados y agrupación}
 \framefieldreserved{bits}          % Reservado
 \framefieldreserved[texto]{bits}   % Con texto personalizado
 \framefieldhighlight{bits}{texto}  % Campo destacado
@@ -890,7 +890,7 @@ Campos reservados con patrón rayado y llaves para agrupar filas.
 
 Tabla para especificaciones de parámetros de dispersión (S-parameters) en RF.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Parámetros S}
 \begin{rfspecs}[Título]
   \rfspec{parámetro}{valor}{unidad}{descripción}
 \end{rfspecs}
@@ -909,7 +909,7 @@ Tabla para especificaciones de parámetros de dispersión (S-parameters) en RF.
 
 Diagramas de bloques para sistemas de RF, procesamiento de señales, etc.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Diagramas de Bloques}
 \begin{blockdiagram}
   \sysblock{id}{x,y}{etiqueta}
   \sysarrow{origen}{destino}
@@ -932,7 +932,7 @@ Diagramas de bloques para sistemas de RF, procesamiento de señales, etc.
 
 Macros para dibujar diagramas de temporización de señales digitales.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Diagramas de Temporización}
 \timingclock{x}{y}{ciclos}   % Señal de reloj
 \timinglow{x}{y}{duración}   % Señal en bajo
 \timinghigh{x}{y}{duración}  % Señal en alto
@@ -968,7 +968,7 @@ Macros para dibujar diagramas de temporización de señales digitales.
 Componentes para arquitectura, ingeniería civil y construcción. Incluyen
 planificación, fichas técnicas, presupuestos, normativa y certificaciones.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Componentes de Arquitectura}
 \usepackage[arquitectura]{eps-componentes}
 \end{codigosimple}
 
@@ -979,7 +979,7 @@ planificación, fichas técnicas, presupuestos, normativa y certificaciones.
 Planificación temporal de proyectos con dependencias entre tareas.
 Usa el paquete \texttt{pgfgantt} con estilo personalizado \texttt{eps gantt}.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Diagrama de Gantt}
 \begin{ganttbox}[Título]
   \begin{ganttchart}[eps gantt, ...]{inicio}{fin}
     \gantttitle{Año}{meses} \\
@@ -1024,7 +1024,7 @@ Documentación de especificaciones técnicas de materiales de construcción.
 
 \minisec{Ficha técnica completa (techsheet)}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: techsheet}
 \begin{techsheet}{Nombre del material}
   \techprop{Propiedad}{Valor}
 \end{techsheet}
@@ -1042,7 +1042,7 @@ Documentación de especificaciones técnicas de materiales de construcción.
 
 \minisec{Tarjeta compacta (materialcard)}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: materialcard}
 \materialcard{Nombre}{propiedades con \techprop{}{}}
 \end{codigosimple}
 
@@ -1064,7 +1064,7 @@ Documentación de especificaciones técnicas de materiales de construcción.
 
 Tabla de presupuesto con capítulos, partidas y cálculo automático de totales.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Presupuestos}
 \begin{presupuesto}
   \capitulo{número}{NOMBRE}
   \partida{código}{descripción}{ud}{cantidad}{precio}
@@ -1092,7 +1092,7 @@ Tabla de presupuesto con capítulos, partidas y cálculo automático de totales.
 
 Lista de normativa técnica aplicable al proyecto.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Normativa Aplicable}
 \begin{normativa}
   \norma{código}{descripción}{año}
 \end{normativa}
@@ -1113,7 +1113,7 @@ Lista de normativa técnica aplicable al proyecto.
 
 Tabla de resultados de ensayos con estado de conformidad (OK, PEND, NO).
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Control de Calidad}
 \begin{controlcalidad}
   \controlitem{ensayo}{resultado}{especificación}{estado}
 \end{controlcalidad}
@@ -1132,7 +1132,7 @@ Tabla de resultados de ensayos con estado de conformidad (OK, PEND, NO).
 
 Etiquetas de calificación energética de edificios (A-G).
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Etiquetas Energéticas}
 \etiquetaenergetica{letra}
 \end{codigosimple}
 
@@ -1151,7 +1151,7 @@ Etiquetas de calificación energética de edificios (A-G).
 
 Sellos de certificaciones ISO, marcado CE y normas UNE.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Certificaciones}
 \certiso{número}    % ISO 9001, 14001, 45001...
 \certce             % Marcado CE
 \certune{número}    % Norma UNE
@@ -1172,7 +1172,7 @@ Sellos de certificaciones ISO, marcado CE y normas UNE.
 Componentes para química, ciencia de materiales e ingeniería química.
 Incluyen reacciones, fichas de compuestos, protocolos y resultados analíticos.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Componentes de Química}
 \usepackage[quimica]{eps-componentes}
 \end{codigosimple}
 
@@ -1185,7 +1185,7 @@ Usa el paquete \texttt{chemformula} para las fórmulas (\verb|\ch{}|).
 
 \minisec{Caja de reacción (reactionbox)}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: reactionbox}
 \begin{reactionbox}[Título]
   \ch{reactivos -> productos}
   \reactionconditions{temp}{presión}{catalizador}
@@ -1200,7 +1200,7 @@ Usa el paquete \texttt{chemformula} para las fórmulas (\verb|\ch{}|).
 
 \minisec{Caja de mecanismo (mechanismbox)}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: mechanismbox}
 \begin{mechanismbox}[Título]
   Descripción del mecanismo.
   \ch{ecuación}
@@ -1222,7 +1222,7 @@ Documentación de propiedades físico-químicas de compuestos.
 
 \minisec{Ficha completa (compoundsheet)}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: compoundsheet}
 \begin{compoundsheet}{Nombre}{Fórmula}
   \compprop{propiedad}{valor}{unidad}
 \end{compoundsheet}
@@ -1239,7 +1239,7 @@ Documentación de propiedades físico-químicas de compuestos.
 
 \minisec{Tarjeta compacta (compoundcard)}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: compoundcard}
 \compoundcard{fórmula}{nombre}{masa molar}{descripción}
 \end{codigosimple}
 
@@ -1255,7 +1255,7 @@ Documentación de propiedades físico-químicas de compuestos.
 
 Procedimientos de laboratorio con pasos numerados y advertencias.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Protocolos de Laboratorio}
 \begin{protocol}[Título]
   \protocolstep{Paso a realizar}
   \protocolwarning{Advertencia de seguridad}
@@ -1278,7 +1278,7 @@ Procedimientos de laboratorio con pasos numerados y advertencias.
 
 Tabla de resultados analíticos con incertidumbre y código de color.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Resultados Analíticos}
 \begin{analyticalresults}
   \analyte{nombre}{valor}{incert}{unidad}{color}
 \end{analyticalresults}
@@ -1301,7 +1301,7 @@ Listas de equipos e inventario de reactivos para documentar el material usado.
 
 \minisec{Lista de equipos (equipmentlist)}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: equipmentlist}
 \begin{equipmentlist}
   \item Nombre del equipo (modelo)
 \end{equipmentlist}
@@ -1317,7 +1317,7 @@ Listas de equipos e inventario de reactivos para documentar el material usado.
 
 \minisec{Lista de reactivos (reagentlist)}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: reagentlist}
 \begin{reagentlist}
   \reagent{nombre}{concentración}{cantidad}{proveedor}
 \end{reagentlist}
@@ -1338,7 +1338,7 @@ Listas de equipos e inventario de reactivos para documentar el material usado.
 Componentes para geología, geotecnia e ingeniería geológica. Incluyen
 columnas estratigráficas, tablas de minerales, datos geotécnicos y simbología.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Componentes de Geología}
 \usepackage[geologia]{eps-componentes}
 \end{codigosimple}
 
@@ -1348,7 +1348,7 @@ columnas estratigráficas, tablas de minerales, datos geotécnicos y simbología
 
 Representación gráfica de secuencias de capas geológicas.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Columna Estratigráfica}
 \begin{stratigraphybox}[Título]
   \begin{stratcolumn}
     \stratlayer{espesor}{patrón}{nombre}{edad}
@@ -1373,7 +1373,7 @@ Tablas y tarjetas para documentar propiedades mineralógicas.
 
 \minisec{Tabla de minerales (mineraltable)}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: mineraltable}
 \begin{mineraltable}
   \mineralrow{nombre}{dureza}{densidad}{-}{-}{fórmula}
 \end{mineraltable}
@@ -1389,7 +1389,7 @@ Tablas y tarjetas para documentar propiedades mineralógicas.
 
 \minisec{Tarjeta de mineral (mineralcard)}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: mineralcard}
 \mineralcard{nombre}{fórmula}{sistema}{dureza}{uso}
 \end{codigosimple}
 
@@ -1407,7 +1407,7 @@ Tablas de ensayos geotécnicos y comandos para valores característicos.
 
 \minisec{Tabla de ensayos (geotechdata)}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: geotechdata}
 \begin{geotechdata}
   \geotechtest{ensayo}{símbolo}{valor}{unidad}{norma}
 \end{geotechdata}
@@ -1423,7 +1423,7 @@ Tablas de ensayos geotécnicos y comandos para valores característicos.
 
 \minisec{Valores característicos}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Valores característicos}
 \sptvalue{golpes}   \cohesion{kPa}   \friction{grados}
 \end{codigosimple}
 
@@ -1439,7 +1439,7 @@ Cohesión: \cohesion{25} \quad
 
 Etiquetas USCS y clasificación RMR de macizos rocosos.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Clasificación de Suelos}
 \uscsclass{código}          % USCS (CL, SM, GP, etc.)
 \rmrclass{puntos}{clase}    % RMR (I-V)
 \end{codigosimple}
@@ -1466,7 +1466,7 @@ Clasificación RMR del macizo rocoso: \rmrclass{50}{III}
 
 Etiquetas para indicar periodos geológicos.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Eras Geológicas}
 \geoera{nombre}
 \end{codigosimple}
 
@@ -1483,7 +1483,7 @@ Etiquetas para indicar periodos geológicos.
 
 Indicadores de riesgos geológicos con nivel y descripción.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Riesgos Geológicos}
 \georisk{nivel}{descripción}{color}
 \risklandslide  \riskflood  \riskseismic
 \end{codigosimple}
@@ -1501,7 +1501,7 @@ Indicadores de riesgos geológicos con nivel y descripción.
 
 Símbolos estándar para mapas y cortes geológicos.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Símbolos Geológicos}
 \faultline      \anticline   \syncline        \strikeanddip
 \verticalbeds   \horizontalbeds
 \end{codigosimple}
@@ -1523,7 +1523,7 @@ Símbolos estándar para mapas y cortes geológicos.
 Componentes para prevención de riesgos laborales y seguridad. Incluyen
 matrices de riesgo, evaluaciones, señalización, EPIs y documentación.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Componentes de Prevención}
 \usepackage[prevencion]{eps-componentes}
 \end{codigosimple}
 
@@ -1533,7 +1533,7 @@ matrices de riesgo, evaluaciones, señalización, EPIs y documentación.
 
 Matriz 5×5 de probabilidad vs severidad para evaluación de riesgos.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Matriz de Riesgos}
 \begin{riskmatrixbox}[Título]
   \riskmatrix
 \end{riskmatrixbox}
@@ -1549,7 +1549,7 @@ Matriz 5×5 de probabilidad vs severidad para evaluación de riesgos.
 
 Tabla para documentar riesgos identificados con probabilidad, severidad y medidas.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Evaluación de Riesgos}
 \begin{riskassessment}
   \riskentry{ID}{descripción}{prob}{sev}{}{medidas}
 \end{riskassessment}
@@ -1569,7 +1569,7 @@ Tabla para documentar riesgos identificados con probabilidad, severidad y medida
 
 Lista de verificación con estados: completado, pendiente o no aplica.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Checklist de Seguridad}
 \begin{safetychecklist}[Título]
   \checkitem{Punto verificado}
   \uncheckitem{Punto pendiente}
@@ -1592,7 +1592,7 @@ Lista de verificación con estados: completado, pendiente o no aplica.
 
 Señales de seguridad según normativa: advertencia, prohibición, obligación y emergencia.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Señalización de Seguridad}
 \signwarning{texto}     % Advertencia (amarillo)
 \signprohibition{texto} % Prohibición (rojo)
 \signmandatory{texto}   % Obligación (azul)
@@ -1622,7 +1622,7 @@ Señales de seguridad según normativa: advertencia, prohibición, obligación y
 
 Iconos de EPIs para listas de equipamiento obligatorio.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Equipos de Protección Individual}
 \begin{epilist}
   \item \epihardhat      % Casco
   \item \epigloves       % Guantes
@@ -1652,7 +1652,7 @@ Iconos de EPIs para listas de equipamiento obligatorio.
 
 Índices de siniestralidad y contador de días sin accidentes.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Indicadores de Seguridad}
 \indicatorIF{valor}       % Índice de frecuencia
 \indicatorIG{valor}       % Índice de gravedad
 \indicatorII{valor}       % Índice de incidencia
@@ -1674,7 +1674,7 @@ Iconos de EPIs para listas de equipamiento obligatorio.
 
 Protocolo de actuación con pasos y teléfonos de emergencia.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Procedimiento de Emergencia}
 \begin{emergencyprocedure}[Título]
   % Contenido (puede usar steplist)
   \emergencyphone{nombre}{teléfono}
@@ -1702,7 +1702,7 @@ Protocolo de actuación con pasos y teléfonos de emergencia.
 
 Registro de formación en prevención con estado de vigencia.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Registro de Formación}
 \begin{trainingrecord}
   \trainingentry{curso}{horas}{fecha}{caducidad}{estado}
   % estado: vigente, proximo, caducado
@@ -1722,7 +1722,7 @@ Registro de formación en prevención con estado de vigencia.
 
 Formulario estructurado para documentar accidentes laborales.
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Informe de Accidente}
 \begin{accidentreport}[Título]
   \reportfield{Campo}{Valor}
   \reportfield{Gravedad}{\accidenttype{leve|grave|muy grave}}

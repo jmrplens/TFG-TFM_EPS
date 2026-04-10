@@ -145,7 +145,8 @@
 \newenvironment{mineraltable}[1][Identificación de minerales]{%
   \begingroup
   \small
-  \subsection*{#1}
+  \captionof{table}{#1}%
+  \vspace{4pt}%
   \begin{tabular}{@{}p{2.5cm}ccp{2cm}p{2cm}l@{}}
     \toprule
     \textbf{Mineral} & \textbf{Dureza} & \textbf{Densidad} & \textbf{Color} & \textbf{Brillo} & \textbf{Composición} \\
@@ -264,7 +265,8 @@
 \newenvironment{geotechdata}[1][Ensayos geotécnicos]{%
   \begingroup
   \small
-  \subsection*{#1}
+  \captionof{table}{#1}%
+  \vspace{4pt}%
   \begin{tabular}{@{}p{3.5cm}crlp{4cm}@{}}
     \toprule
     \textbf{Ensayo} & \textbf{Norma} & \textbf{Valor} & \textbf{Unidad} & \textbf{Clasificación} \\

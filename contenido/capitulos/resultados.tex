@@ -314,7 +314,7 @@ También es posible exportar gráficas desde otras herramientas:
   \item \textbf{GeoGebra:} Exportar directamente a TikZ
 \end{itemize}
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Exportar gráficas desde herramientas externas}
 % En MATLAB:
 plot(x, y);
 matlab2tikz('figura.tex');
@@ -577,10 +577,10 @@ Para mostrar cronogramas de proyecto:
       ytick={1,2,3,4,5,6},
       yticklabels={Despliegue,Testing,Frontend,Backend,Diseño,Análisis},
       xmin=0, xmax=16,
-      bar width=0.6cm,
+      bar width=0.4cm,
       nodes near coords,
       nodes near coords align={horizontal},
-      enlarge y limits=0.15,
+      enlarge y limits=0.2,
     ]
     % Duración de cada tarea (inicio implícito desde 0 para simplificar)
     \addplot[fill=blue!60] coordinates {(2,6) (3,5) (6,4) (6,3) (3,2) (2,1)};
@@ -627,7 +627,7 @@ TikZ permite superponer elementos gráficos (flechas, círculos, etiquetas) sobr
 
 El método consiste en colocar la imagen dentro de un nodo TikZ y luego usar las coordenadas relativas para posicionar las anotaciones:
 
-\begin{codigosimple}{latex}{Ejemplo}
+\begin{codigosimple}{latex}{Sintaxis: Técnica básica de superposición}
 \begin{tikzpicture}
   % Imagen como nodo base
   \node[inner sep=0] (img)

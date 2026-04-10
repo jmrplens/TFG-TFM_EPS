@@ -157,6 +157,8 @@
   \small
   \setcounter{partidanum}{0}
   \subsection*{#1}
+  % Suspender tagging PDF/UA-2 para evitar artefactos con longtable+multicolumn
+  \SuspendTagging{presupuesto-longtable}%
   % Columnas con ancho fijo para asegurar alineación correcta y evitar desborde
   % p{1.5cm}: Código
   % p{desc}: Descripción (calculada)
@@ -166,7 +168,7 @@
   % p{2.5cm}: Importe (derecha)
   \begin{longtable}{@{} p{1.5cm} p{\dimexpr\linewidth-12cm\relax} >{\centering\arraybackslash}p{1.2cm} >{\raggedleft\arraybackslash}p{2.0cm} >{\raggedleft\arraybackslash}p{2.2cm} >{\raggedleft\arraybackslash}p{2.5cm} @{}}
     \toprule
-    \textbf{Código} & \textbf{Descripción} & \textbf{Ud.} & 
+    \textbf{Código} & \textbf{Descripción} & \textbf{Ud.} &
     \textbf{Medición} & \textbf{P.U.} & \textbf{Importe} \\
     \midrule
     \endhead
@@ -177,6 +179,7 @@
     \endlastfoot
 }{%
   \end{longtable}
+  \ResumeTagging{presupuesto-longtable}%
   \endgroup
 }
 

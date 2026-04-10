@@ -313,23 +313,45 @@ title = {The {LaTeX} Companion},
 
 ### @online - Recurso web
 
+La entrada `@online` es el tipo estándar para páginas web, documentación en
+línea y cualquier recurso con URL. El campo `urldate` (fecha de acceso en
+formato `YYYY-MM-DD`) es **obligatorio** para este tipo.
+
 ```bibtex
+% Organización institucional como autor (dobles llaves obligatorias)
 @online{mozilla2024,
     author  = {{Mozilla Developer Network}},
     title   = {JavaScript Guide},
     year    = {2024},
     url     = {https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide},
-    urldate = {2024-01-15}
+    urldate = {2024-01-15},
+    langid  = {english}
 }
 
+% Autor individual
+@online{fowler2023microservices,
+    author  = {Fowler, Martin},
+    title   = {Microservices},
+    year    = {2023},
+    url     = {https://martinfowler.com/articles/microservices.html},
+    urldate = {2024-05-22},
+    langid  = {english}
+}
+
+% Repositorio de código (también válido para citar código abierto)
 @online{github2024,
     author  = {Requena Plens, José Manuel},
     title   = {Plantilla {TFG/TFM} {EPS} {UA}},
     year    = {2024},
     url     = {https://github.com/jmrplens/TFG-TFM_EPS},
-    urldate = {2024-02-01}
+    urldate = {2024-02-01},
+    langid  = {spanish}
 }
 ```
+
+> **Nota sobre Wikipedia:** Solo citar como último recurso. Usa
+> `note = {Wikipedia, La enciclopedia libre}` y, siempre que sea posible,
+> cita la fuente primaria que Wikipedia referencia.
 
 ### @manual - Manual técnico
 
