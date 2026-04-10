@@ -215,7 +215,7 @@ Si el alumno quiere activar la detección de plagio con Copyleaks o Turnitin:
 ## Errores frecuentes y soluciones
 
 | Error | Causa | Solución |
-|---|---|---|
+| --- | --- | --- |
 | `python3: command not found` | Python no instalado | Instalar Python y añadir al PATH |
 | `pip: command not found` | pip no en PATH | Usar `python3 -m pip install ...` |
 | `lualatex: command not found` | LaTeX no instalado | Instalar TeX Live / MiKTeX |

@@ -1224,7 +1224,7 @@ Las ecuaciones de Maxwell en forma diferencial son:
 ### Documentación oficial
 
 | Paquete | Descripción |
-|---------|-------------|
+| --------- | ------------- |
 | [amsmath](https://ctan.org/pkg/amsmath) | Entornos de ecuaciones estándar |
 | [mathtools](https://ctan.org/pkg/mathtools) | Extensiones de amsmath |
 | [unicode-math](https://ctan.org/pkg/unicode-math) | Fuentes matemáticas Unicode (LuaLaTeX) |
@@ -1234,7 +1234,7 @@ Las ecuaciones de Maxwell en forma diferencial son:
 ### Herramientas y referencias
 
 | Recurso | Descripción |
-|---------|-------------|
+| --------- | ------------- |
 | [Detexify](https://detexify.kirelabs.org/) | Dibuja símbolos para encontrar su código |
 | [LaTeX Math Symbols](https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols) | Lista completa de símbolos |
 | [Mathpix](https://mathpix.com/) | Convierte imágenes de ecuaciones a LaTeX |

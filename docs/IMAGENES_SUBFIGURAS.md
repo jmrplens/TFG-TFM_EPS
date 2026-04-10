@@ -86,7 +86,7 @@ Esta plantilla utiliza los siguientes paquetes para manejo de imágenes:
 Con LuaLaTeX (usado por esta plantilla) puedes incluir:
 
 | Formato | Extensión | Notas |
-|---------|-----------|-------|
+| --------- | ----------- | ------- |
 | PDF | `.pdf` | **Recomendado** para diagramas vectoriales |
 | PNG | `.png` | Bueno para capturas, diagramas |
 | JPG/JPEG | `.jpg`, `.jpeg` | Bueno para fotografías |
@@ -151,7 +151,7 @@ recursos/
 ### Todas las opciones disponibles
 
 | Opción | Descripción | Ejemplo |
-|--------|-------------|---------|
+| -------- | ------------- | --------- |
 | `width` | Ancho de la imagen | `5cm`, `0.8\textwidth` |
 | `height` | Alto de la imagen | `4cm`, `0.5\textheight` |
 | `scale` | Escala proporcional | `0.5`, `1.2` |
@@ -277,7 +277,7 @@ La \autoref{fig:mi-figura} ilustra el proceso.
 ### Opciones de captionsetup
 
 | Opción | Descripción | Valores |
-|--------|-------------|---------|
+| -------- | ------------- | --------- |
 | `font` | Fuente del texto | `small`, `footnotesize`, `sf` |
 | `labelfont` | Fuente de etiqueta | `bf`, `it`, `sf`, `sc` |
 | `textfont` | Fuente del texto | `it`, `sl`, `sf` |
@@ -469,7 +469,7 @@ Ver Figuras~\ref{fig:antes} y \ref{fig:despues}.
 ### Especificadores de posición
 
 | Especificador | Significado |
-|--------------|-------------|
+| -------------- | ------------- |
 | `h` | Here - Aquí, si hay espacio |
 | `t` | Top - Arriba de la página |
 | `b` | Bottom - Abajo de la página |
@@ -605,7 +605,7 @@ una vez que pase la imagen.
 ### Opciones de wrapfigure
 
 | Posición | Significado |
-|----------|-------------|
+| ---------- | ------------- |
 | `r` / `R` | Derecha |
 | `l` / `L` | Izquierda |
 | `i` / `I` | Interior (encuadernación) |

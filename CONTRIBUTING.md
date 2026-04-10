@@ -12,7 +12,7 @@
 - [Reportar bugs](#reportar-bugs)
 - [Proponer mejoras](#proponer-mejoras)
 
-## 📜 Código de Conducta
+## Código de Conducta📜
 
 Este proyecto sigue un código de conducta basado en el respeto mutuo. Por favor:
 
@@ -20,7 +20,7 @@ Este proyecto sigue un código de conducta basado en el respeto mutuo. Por favor
 - Acepta críticas constructivas con mentalidad abierta
 - Enfócate en lo que es mejor para la comunidad
 
-## 🤝 ¿Cómo puedo contribuir?
+## ¿Cómo puedo contribuir?🤝
 
 ### Formas de contribuir
 
@@ -49,7 +49,7 @@ Si usas ChatGPT, Claude, Copilot u otro asistente de IA para contribuir, el proy
 - `.github/copilot-instructions.md` - Contexto para GitHub Copilot
 - `docs/AI_CONTEXT.md` - Referencia técnica detallada
 
-## 🛠️ Configuración del entorno
+## Configuración del entorno🛠
 
 ### Requisitos
 
@@ -80,7 +80,7 @@ lualatex -shell-escape main.tex
 lualatex -shell-escape main.tex
 ```
 
-## 📝 Proceso de desarrollo
+## Proceso de desarrollo📝
 
 ### 1. Crear una rama
 
@@ -120,7 +120,7 @@ make
 3. Añade una entrada al `CHANGELOG.md` si corresponde
 4. Crea el Pull Request con una descripción clara
 
-## 📐 Guía de estilo
+## Guía de estilo📐
 
 ### LaTeX
 
@@ -151,7 +151,7 @@ recursos/     → Recursos estáticos
 - Incluye ejemplos de uso
 - Mantén el README actualizado
 
-## 🐛 Reportar bugs
+## Reportar bugs🐛
 
 Al reportar un bug, incluye:
 
@@ -188,7 +188,7 @@ Al reportar un bug, incluye:
 [Adjunta logs o MWE si es posible]
 ```
 
-## 💡 Proponer mejoras
+## Proponer mejoras💡
 
 Para proponer una mejora:
 

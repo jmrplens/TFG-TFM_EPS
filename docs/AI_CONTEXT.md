@@ -2,10 +2,9 @@
 
 Este documento proporciona información técnica detallada para que los asistentes de IA puedan dar respuestas precisas sobre esta plantilla LaTeX.
 
-## 📋 Índice
+## Índice📋
 
-- [� Contexto Técnico para IA - Plantilla TFG/TFM EPS UA](#-contexto-técnico-para-ia-plantilla-tfgtfm-eps-ua)
-  - [📋 Índice](#-índice)
+- [📋 Índice](#índice)
   - [🏗️ Arquitectura de la Plantilla](#️-arquitectura-de-la-plantilla)
     - [Clase Principal: `eps-tfg.cls`](#clase-principal-eps-tfgcls)
     - [Paquetes de Estilo (`sty/`)](#paquetes-de-estilo-sty)
@@ -93,7 +92,7 @@ El usuario interactúa mediante:
 ### Paquetes de Estilo (`sty/`)
 
 | Archivo | Función |
-|---------|---------|
+| --------- | --------- |
 | `eps-portadas.sty` | Generación de portadas con TikZ |
 | `eps-fuentes.sty` | Configuración de tipografía |
 | `eps-colores.sty` | Paleta de colores por titulación |
@@ -108,7 +107,7 @@ El usuario interactúa mediante:
 ### Información del Documento
 
 | Clave | Tipo | Obligatorio | Descripción |
-|-------|------|-------------|-------------|
+| ------- | ------ | ------------- | ------------- |
 | `titulo` | texto | ✅ | Título principal del trabajo |
 | `subtitulo` | texto | ❌ | Subtítulo opcional |
 | `fecha` | texto | ✅ | Fecha de presentación (ej: "Junio 2026") |
@@ -117,7 +116,7 @@ El usuario interactúa mediante:
 ### Información del Autor
 
 | Clave | Tipo | Obligatorio | Descripción |
-|-------|------|-------------|-------------|
+| ------- | ------ | ------------- | ------------- |
 | `autor` | texto | ✅ | Nombre completo del autor |
 | `genero` | m/f/n | ❌ | Género para etiquetas (default: m) |
 | `email` | texto | ❌ | Email institucional |
@@ -125,7 +124,7 @@ El usuario interactúa mediante:
 ### Información del Tutor
 
 | Clave | Tipo | Obligatorio | Descripción |
-|-------|------|-------------|-------------|
+| ------- | ------ | ------------- | ------------- |
 | `tutor` | texto | ✅ | Nombre completo del tutor |
 | `tutor-genero` | m/f/n | ❌ | Género del tutor (default: m) |
 | `tutor-departamento` | texto | ✅ | Departamento del tutor |
@@ -134,7 +133,7 @@ El usuario interactúa mediante:
 ### Información del Cotutor (opcional)
 
 | Clave | Tipo | Obligatorio | Descripción |
-|-------|------|-------------|-------------|
+| ------- | ------ | ------------- | ------------- |
 | `cotutor` | texto | ❌ | Nombre completo del cotutor |
 | `cotutor-genero` | m/f/n | ❌ | Género del cotutor (default: m) |
 | `cotutor-departamento` | texto | ❌ | Departamento del cotutor |
@@ -143,14 +142,14 @@ El usuario interactúa mediante:
 ### Metadatos
 
 | Clave | Tipo | Obligatorio | Descripción |
-|-------|------|-------------|-------------|
+| ------- | ------ | ------------- | ------------- |
 | `palabras-clave` | lista | ❌ | Palabras clave en español |
 | `keywords` | lista | ❌ | Keywords en inglés |
 
 ### Idioma
 
 | Clave | Tipo | Obligatorio | Descripción |
-|-------|------|-------------|-------------|
+| ------- | ------ | ------------- | ------------- |
 | `idioma` | texto | ❌ | Idioma del documento: `espanol` (defecto), `valenciano`, `ingles` |
 
 > ⚠️ **Importante:** Si se cambia el idioma, también se debe actualizar el código de idioma en `cls/eps-metadata.tex` para que los metadatos PDF/UA-2 sean correctos:
@@ -166,7 +165,7 @@ El usuario interactúa mediante:
 ### Grados (TFG)
 
 | ID | Nombre Completo | Color Principal |
-|----|-----------------|-----------------|
+| ---- | ----------------- | ----------------- |
 | `arquitectura` | Grado en Fundamentos de la Arquitectura | #B5121B |
 | `arquitectura-tecnica` | Grado en Arquitectura Técnica | #BA6831 |
 | `civil` | Grado en Ingeniería Civil | #6E9B3A |
@@ -179,7 +178,7 @@ El usuario interactúa mediante:
 ### Másteres (TFM)
 
 | ID | Nombre Completo |
-|----|-----------------|
+| ---- | ----------------- |
 | `master-agua` | Máster en Gestión Sostenible del Agua |
 | `master-caminos` | Máster en Ingeniería de Caminos, Canales y Puertos |
 | `master-ciberseguridad` | Máster en Ciberseguridad |
@@ -391,7 +390,7 @@ En `main.tex`:
 ### Comandos de cita
 
 | Comando | Resultado | Uso |
-|---------|-----------|-----|
+| --------- | ----------- | ----- |
 | `\parencite{key}` | (Autor, 2024) | Cita parentética |
 | `\textcite{key}` | Autor (2024) | Cita textual |
 | `\cite{key}` | [1] | Cita numérica |
@@ -574,7 +573,7 @@ $lualatex = 'lualatex -shell-escape %O %S';
 ### Errores de compilación
 
 | Error | Causa probable | Solución |
-|-------|---------------|----------|
+| ------- | --------------- | ---------- |
 | `Undefined control sequence` | Comando no definido | Verificar paquete cargado |
 | `Missing $ inserted` | Símbolo matemático fuera de math mode | Añadir `$...$` |
 | `File not found` | Ruta incorrecta | Verificar nombre y ubicación |
@@ -584,7 +583,7 @@ $lualatex = 'lualatex -shell-escape %O %S';
 ### Errores de minted
 
 | Error | Solución |
-|-------|----------|
+| ------- | ---------- |
 | `You must invoke LaTeX with -shell-escape` | Añadir `-shell-escape` al comando |
 | `Pygments not found` | Instalar: `pip install latexminted` |
 | `Cannot find ... lexer` | Verificar nombre del lenguaje |
@@ -592,7 +591,7 @@ $lualatex = 'lualatex -shell-escape %O %S';
 ### Errores de bibliografía
 
 | Error | Solución |
-|-------|----------|
+| ------- | ---------- |
 | `Citation undefined` | Ejecutar `biber main` |
 | `I couldn't open file` | Verificar nombre del archivo .bib |
 | `Biber error` | Revisar sintaxis del archivo .bib |
@@ -616,7 +615,7 @@ Para generar PDFs que cumplan con PDF/UA-2, añadir antes de `\documentclass`:
 ### Requisitos
 
 | Requisito | Descripción |
-|-----------|-------------|
+| ----------- | ------------- |
 | LuaLaTeX | Obligatorio para MathML automático |
 | TeX Live 2025+ | Soporte completo del LaTeX Tagging Project |
 | Texto alternativo | Usar `alt={...}` en `\includegraphics` |

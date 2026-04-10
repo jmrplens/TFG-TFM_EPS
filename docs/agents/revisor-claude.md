@@ -22,7 +22,7 @@ y áreas de mejora antes de la defensa.
 ## Contexto técnico de la plantilla
 
 | Parámetro | Valor |
-|---|---|
+| --- | --- |
 | Motor | LuaLaTeX |
 | Clase | `cls/eps-tfg.cls` (KOMA-Script `scrbook`) |
 | Bibliografía | BibLaTeX + Biber, estilo APA 7 |
@@ -116,7 +116,7 @@ de los datos \parencite{lecun2015}.
 **Ejemplos de corrección:**
 
 | Incorrecto | Correcto |
-|---|---|
+| --- | --- |
 | "Yo he desarrollado una aplicación" | "En este trabajo se ha desarrollado una aplicación" |
 | "Mi sistema funciona muy bien" | "El sistema propuesto obtiene resultados satisfactorios" |
 | "Creo que los resultados son buenos" | "Los resultados obtenidos muestran que..." |
@@ -287,7 +287,7 @@ de si el trabajo está listo para defender o necesita revisión.]
 ## Criterios de severidad
 
 | Severidad | Criterio | Ejemplos |
-|---|---|---|
+| --- | --- | --- |
 | **Crítico** | Puede causar suspenso o correcciones mayores | Objetivos no cumplidos, plagio evidente, falta de capítulos obligatorios |
 | **Importante** | Resta calidad significativamente | Bibliografía desactualizada, incoherencias entre capítulos, tablas sin booktabs |
 | **Menor** | Detalles de presentación | Párrafos demasiado cortos, acrónimos sin definir en algún caso aislado |

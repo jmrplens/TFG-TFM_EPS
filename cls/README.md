@@ -20,7 +20,7 @@ Este archivo contiene la clase LaTeX principal de la plantilla TFG/TFM.
 ### Tecnologías utilizadas
 
 | Tecnología | Uso |
-|------------|-----|
+| ------------ | ----- |
 | **expl3** | Programación LaTeX3 moderna |
 | **xparse** | Definición de comandos con sintaxis avanzada |
 | **l3keys2e** | Sistema de claves key=value |
@@ -67,7 +67,7 @@ eps-tfg.cls
 ### Variables principales
 
 | Variable | Tipo | Descripción |
-|----------|------|-------------|
+| ---------- | ------ | ------------- |
 | `\g__eps_titulo_tl` | token list | Título del trabajo |
 | `\g__eps_autor_tl` | token list | Nombre del autor |
 | `\g__eps_titulacion_tl` | token list | ID de titulación |
@@ -171,7 +171,7 @@ Cada titulación se define con:
 ## 🔗 Archivos relacionados
 
 | Archivo | Relación |
-|---------|----------|
+| --------- | ---------- |
 | `sty/eps-portadas.sty` | Define `\portadacolor` y `\portadabn` |
 | `sty/eps-codigo.sty` | Estilos para bloques de código |
 | `configuracion.tex` | Usuario llama a `\EPSsetup{}` |

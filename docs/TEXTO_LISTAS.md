@@ -78,7 +78,7 @@ Esta guía explica todas las opciones de formato de texto, listas, y estructurac
 ### Estilos de texto
 
 | Comando | Resultado | Descripción |
-|---------|-----------|-------------|
+| --------- | ----------- | ------------- |
 | `\textbf{texto}` | **texto** | Negrita |
 | `\textit{texto}` | *texto* | Cursiva |
 | `\underline{texto}` | <u>texto</u> | Subrayado |
@@ -884,7 +884,7 @@ Los caracteres especiales % $ & _ también.
 ### Caracteres reservados en LaTeX
 
 | Carácter | Cómo escribirlo |
-|----------|-----------------|
+| ---------- | ----------------- |
 | `#` | `\#` |
 | `$` | `\$` |
 | `%` | `\%` |

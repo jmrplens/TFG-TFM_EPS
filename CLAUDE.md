@@ -86,7 +86,7 @@ Cuando se cambia `idioma` en `configuracion.tex`, **también** hay que editar
 `cls/eps-metadata.tex` y cambiar el valor de `lang=`:
 
 | `idioma` en `\EPSsetup` | `lang=` en `eps-metadata.tex` |
-|---|---|
+| --- | --- |
 | `espanol` | `es-ES` |
 | `valenciano` | `ca-ES` |
 | `ingles` | `en-GB` |
@@ -407,7 +407,7 @@ Usar en el texto:
 Prefijos de etiquetas:
 
 | Prefijo | Elemento |
-|---|---|
+| --- | --- |
 | `chap:` | Capítulo |
 | `sec:` | Sección o subsección |
 | `fig:` | Figura |
@@ -475,7 +475,7 @@ Ver `docs/ACCESIBILIDAD.md` para la guía completa.
 Si el usuario reporta un error, pedir las últimas 30 líneas de `main.log`.
 
 | Error | Causa probable | Solución |
-|---|---|---|
+| --- | --- | --- |
 | `Undefined control sequence` | Comando no definido o paquete no cargado | Verificar módulo de componentes activo |
 | `You must invoke LaTeX with -shell-escape` | Falta flag | Usar `make` o añadir `-shell-escape` |
 | `Pygments not found` | Python/minted no instalado | `pip install latexminted` |

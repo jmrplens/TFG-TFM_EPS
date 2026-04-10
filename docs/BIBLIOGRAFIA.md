@@ -153,7 +153,7 @@ Y se carga en `main.tex` con:
 ### Campos comunes
 
 | Campo | Descripción | Ejemplo |
-|-------|-------------|---------|
+| ------- | ------------- | --------- |
 | `author` | Autor(es) | `{García, Juan and López, María}` |
 | `title` | Título | `{Título del trabajo}` |
 | `year` | Año | `{2024}` |
@@ -509,7 +509,7 @@ Como indica García (\citeyear{garcia2024}), el método...
 ### Estilos disponibles
 
 | Estilo | Descripción | Ejemplo de cita |
-|--------|-------------|-----------------|
+| -------- | ------------- | ----------------- |
 | `apa` | American Psychological Association | (García, 2024) |
 | `ieee` | IEEE (numérico) | [1] |
 | `chicago-authordate` | Chicago autor-fecha | (García 2024) |
@@ -879,7 +879,7 @@ Como se indica en \parencite[p.~45]{pressman2020}, el proceso de desarrollo debe
 ### Documentación oficial
 
 | Recurso | Descripción |
-|---------|-------------|
+| --------- | ------------- |
 | [BibLaTeX en CTAN](https://ctan.org/pkg/biblatex) | Documentación completa del paquete |
 | [Biber en CTAN](https://ctan.org/pkg/biber) | Documentación del procesador de bibliografía |
 | [biblatex-apa](https://ctan.org/pkg/biblatex-apa) | Estilo APA 7ª edición |
@@ -893,7 +893,7 @@ Como se indica en \parencite[p.~45]{pressman2020}, el proceso de desarrollo debe
 ### Herramientas de gestión bibliográfica
 
 | Herramienta | Descripción |
-|-------------|-------------|
+| ------------- | ------------- |
 | [JabRef](https://www.jabref.org/) | Gestor de referencias gratuito para BibLaTeX |
 | [Zotero](https://www.zotero.org/) + [Better BibTeX](https://retorque.re/zotero-better-bibtex/) | Gestor con exportación mejorada |
 | [doi2bib](https://www.doi2bib.org/) | Genera entrada BibTeX desde DOI |
@@ -907,7 +907,7 @@ Como se indica en \parencite[p.~45]{pressman2020}, el proceso de desarrollo debe
 ### Versiones actuales (TeX Live 2025)
 
 | Componente | Versión | Fecha |
-|------------|---------|-------|
+| ------------ | --------- | ------- |
 | BibLaTeX | 3.21 | Julio 2025 |
 | Biber | 2.21 | Julio 2025 |
 

@@ -17,7 +17,7 @@ Este sistema proporciona componentes visuales especializados para diferentes dis
   - [Otros componentes comunes](#otros-componentes-comunes)
 - [Componentes de Software (`eps-software.sty`)](#componentes-de-software-eps-softwaresty)
   - [API REST Endpoints](#api-rest-endpoints)
-  - [Terminal / CLI](#terminal-cli)
+  - [Terminal CLI](#terminal-cli)
   - [Base de datos](#base-de-datos)
   - [UML](#uml)
   - [Git y control de versiones](#git-y-control-de-versiones)
@@ -540,7 +540,7 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 
 ---
 
-### Terminal / CLI
+### Terminal CLI
 
 #### `terminal` - Bloque de terminal
 
@@ -1430,7 +1430,7 @@ Tabla estilo booktabs con cálculo automático de nivel de riesgo y soporte para
 Todos los componentes usan una paleta unificada:
 
 | Color | Código | Uso | Muestra |
-|-------|--------|-----|---------|
+| ------- | -------- | ----- | --------- |
 | `eps-primary` | `#2563EB` | Azul principal | 🔵 |
 | `eps-secondary` | `#7C3AED` | Violeta | 🟣 |
 | `eps-success` | `#059669` | Verde éxito | 🟢 |

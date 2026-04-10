@@ -41,7 +41,7 @@ Cuando ayudes con la instalación de esta plantilla, ten en cuenta:
 ### Dependencias obligatorias
 
 | Herramienta | Para qué sirve | Forma de verificar |
-|---|---|---|
+| --- | --- | --- |
 | Python 3.8+ | Ejecutar scripts y minted | `python3 --version` |
 | pip | Instalar paquetes Python | `pip --version` |
 | latexminted | Resaltado de código en PDF | `pip show latexminted` |
@@ -84,7 +84,7 @@ lualatex -shell-escape -interaction=nonstopmode main.tex
 ### Tabla de errores frecuentes
 
 | Mensaje de error | Causa | Solución |
-|---|---|---|
+| --- | --- | --- |
 | `command not found: lualatex` | LaTeX no instalado o no en PATH | Instalar TeX Live / MiKTeX |
 | `You must invoke LaTeX with -shell-escape` | Falta el flag | Usar `make` o añadir `-shell-escape` |
 | `Pygments not found` / `latexminted not found` | Paquete Python no instalado | `pip install latexminted` |

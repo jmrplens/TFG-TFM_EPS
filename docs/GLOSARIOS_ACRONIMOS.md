@@ -110,7 +110,7 @@ El paquete `glossaries` permite:
 ### Opciones del paquete
 
 | Opción | Descripción |
-|--------|-------------|
+| -------- | ------------- |
 | `acronym` | Crear lista separada de acrónimos |
 | `symbols` | Crear lista separada de símbolos |
 | `toc` | Incluir glosarios en el índice |
@@ -193,7 +193,7 @@ Y cargarlo en el preámbulo:
 ### Campos disponibles
 
 | Campo | Descripción |
-|-------|-------------|
+| ------- | ------------- |
 | `name` | Nombre del término (obligatorio) |
 | `description` | Definición (obligatorio) |
 | `plural` | Forma plural |
@@ -459,7 +459,7 @@ La velocidad \gls{sym:velocidad} se mide en m/s.
 ```
 
 | Estilo | Descripción |
-|--------|-------------|
+| -------- | ------------- |
 | `list` | Lista simple |
 | `listgroup` | Lista con grupos por letra |
 | `long` | Tabla con dos columnas |

@@ -86,7 +86,7 @@ pip install latexminted
 ### Lenguajes de programación
 
 | Lenguaje | Light | Light (sin líneas) | Dark | Dark (sin líneas) |
-|----------|-------|-------------------|------|-------------------|
+| ---------- | ------- | ------------------- | ------ | ------------------- |
 | Python | `pythoncode` | `pythoncodeNN` | `pythoncodeDark` | `pythoncodeDarkNN` |
 | JavaScript | `jscode` | `jscodeNN` | `jscodeDark` | `jscodeDarkNN` |
 | TypeScript | `tscode` | `tscodeNN` | `tscodeDark` | `tscodeDarkNN` |
@@ -112,7 +112,7 @@ pip install latexminted
 ### Web y markup
 
 | Lenguaje | Light | Light (sin líneas) | Dark | Dark (sin líneas) |
-|----------|-------|-------------------|------|-------------------|
+| ---------- | ------- | ------------------- | ------ | ------------------- |
 | HTML | `htmlcode` | `htmlcodeNN` | `htmlcodeDark` | `htmlcodeDarkNN` |
 | CSS | `csscode` | `csscodeNN` | `csscodeDark` | `csscodeDarkNN` |
 | SASS | `sasscode` | `sasscodeNN` | - | - |
@@ -126,7 +126,7 @@ pip install latexminted
 ### Shell y sistema
 
 | Lenguaje | Light | Light (sin líneas) | Dark | Dark (sin líneas) |
-|----------|-------|-------------------|------|-------------------|
+| ---------- | ------- | ------------------- | ------ | ------------------- |
 | Bash | `bashcode` | `bashcodeNN` | `bashcodeDark` | `bashcodeDarkNN` |
 | PowerShell | `pscode` | `pscodeNN` | - | - |
 | Makefile | `makecode` | `makecodeNN` | - | - |
@@ -139,7 +139,7 @@ pip install latexminted
 ### Bases de datos y redes
 
 | Lenguaje | Light | Light (sin líneas) | Dark | Dark (sin líneas) |
-|----------|-------|-------------------|------|-------------------|
+| ---------- | ------- | ------------------- | ------ | ------------------- |
 | SQL | `sqlcode` | `sqlcodeNN` | `sqlcodeDark` | `sqlcodeDarkNN` |
 | Nginx | `nginxcode` | `nginxcodeNN` | `nginxcodeDark` | `nginxcodeDarkNN` |
 | Apache | `apachecode` | `apachecodeNN` | `apachecodeDark` | `apachecodeDarkNN` |
@@ -148,7 +148,7 @@ pip install latexminted
 ### Hardware y bajo nivel
 
 | Lenguaje | Light | Light (sin líneas) | Dark | Dark (sin líneas) |
-|----------|-------|-------------------|------|-------------------|
+| ---------- | ------- | ------------------- | ------ | ------------------- |
 | Assembly | `asmcode` | `asmcodeNN` | `asmcodeDark` | `asmcodeDarkNN` |
 | VHDL | `vhdlcode` | `vhdlcodeNN` | `vhdlcodeDark` | `vhdlcodeDarkNN` |
 | Verilog | `verilogcode` | `verilogcodeNN` | `verilogcodeDark` | `verilogcodeDarkNN` |
@@ -156,7 +156,7 @@ pip install latexminted
 ### Genéricos (cualquier lenguaje)
 
 | Variante | Entorno |
-|----------|---------|
+| ---------- | --------- |
 | Light con líneas | `\begin{codigo}{lenguaje}...\end{codigo}` |
 | Light sin líneas | `\begin{codigoNN}{lenguaje}...\end{codigoNN}` |
 | Dark con líneas | `\begin{codigoDark}{lenguaje}...\end{codigoDark}` |
@@ -324,7 +324,7 @@ def ejemplo():
 ### Todas las opciones de minted disponibles
 
 | Opción | Descripción | Ejemplo |
-|--------|-------------|---------|
+| -------- | ------------- | --------- |
 | `fontsize` | Tamaño de fuente | `\small`, `\footnotesize`, `\scriptsize` |
 | `linenos` | Mostrar números de línea | `true`, `false` |
 | `firstnumber` | Número de la primera línea | `100` |
@@ -345,7 +345,7 @@ def ejemplo():
 ### Opciones de tcolorbox
 
 | Opción | Descripción | Ejemplo |
-|--------|-------------|---------|
+| -------- | ------------- | --------- |
 | `title` | Título del bloque | `Mi código` |
 | `label` | Etiqueta para referencias | `cod:mi-codigo` |
 | `colback` | Color de fondo | `white` |
@@ -815,7 +815,7 @@ DIJKSTRA(G, origen):
 ### Documentación oficial
 
 | Recurso | Descripción |
-|---------|-------------|
+| --------- | ------------- |
 | [minted en CTAN](https://ctan.org/pkg/minted) | Documentación oficial del paquete |
 | [latexminted en PyPI](https://pypi.org/project/latexminted/) | Ejecutable Python para minted 3.x |
 | [tcolorbox en CTAN](https://ctan.org/pkg/tcolorbox) | Documentación de cajas personalizadas |
@@ -823,7 +823,7 @@ DIJKSTRA(G, origen):
 ### Pygments
 
 | Recurso | Descripción |
-|---------|-------------|
+| --------- | ------------- |
 | [Pygments Home](https://pygments.org/) | Sitio oficial |
 | [Lista de Lexers](https://pygments.org/docs/lexers/) | Lenguajes soportados |
 | [Estilos disponibles](https://pygments.org/styles/) | Temas de resaltado |
@@ -831,7 +831,7 @@ DIJKSTRA(G, origen):
 ### Compatibilidad con plataformas
 
 | Plataforma | Soporte minted 3.x | Notas |
-|------------|---------------------|-------|
+| ------------ | --------------------- | ------- |
 | **TeX Live 2025** | ✅ Completo | `-shell-escape` opcional en TL2024+ |
 | **Overleaf** | ✅ Completo | Funciona automáticamente |
 | **arXiv** | ✅ Desde sept. 2025 | Ver [arXiv TeX Live 2025](https://info.arxiv.org/help/faq/texlive.html) |
