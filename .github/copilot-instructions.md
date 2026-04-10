@@ -78,7 +78,7 @@ Al cambiar `idioma` en `configuracion.tex`, actualizar también `lang=` en
 `cls/eps-metadata.tex`:
 
 | `idioma` | `lang=` |
-|---|---|
+| --- | --- |
 | `espanol` | `es-ES` |
 | `valenciano` | `ca-ES` |
 | `ingles` | `en-GB` |
@@ -361,7 +361,7 @@ services:
 Prefijos de etiquetas:
 
 | Prefijo | Elemento |
-|---|---|
+| --- | --- |
 | `chap:` | Capítulo |
 | `sec:` | Sección |
 | `fig:` | Figura |
@@ -433,7 +433,7 @@ make clean    # Limpiar auxiliares
 Pedir siempre las últimas 30 líneas de `main.log`.
 
 | Error | Solución |
-|---|---|
+| --- | --- |
 | `You must invoke LaTeX with -shell-escape` | Usar `make` o añadir `-shell-escape` |
 | `Pygments not found` | `pip install latexminted` |
 | `Citation 'X' undefined` | Ejecutar `make` completo (biber) |

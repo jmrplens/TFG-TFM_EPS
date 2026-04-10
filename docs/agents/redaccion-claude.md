@@ -9,7 +9,7 @@ Universidad de Alicante (UA). Versión de plantilla: 2.1.0 (2026).
 ## Contexto técnico
 
 | Parámetro | Valor |
-|---|---|
+| --- | --- |
 | Motor | LuaLaTeX (nunca pdfLaTeX ni XeLaTeX) |
 | Clase | `cls/eps-tfg.cls` (KOMA-Script `scrbook`) |
 | Bibliografía | BibLaTeX + Biber, estilo APA 7 |
@@ -53,7 +53,7 @@ Contenido de la subsección.
 ### Prefijos de etiquetas (obligatorios)
 
 | Prefijo | Elemento |
-|---|---|
+| --- | --- |
 | `chap:` | Capítulo |
 | `sec:` | Sección / subsección |
 | `fig:` | Figura |

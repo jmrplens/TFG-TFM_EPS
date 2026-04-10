@@ -317,7 +317,7 @@ En particular, la Figura~\ref{fig:sub_a} presenta...
 ### Opciones principales
 
 | Opción | Descripción |
-|--------|-------------|
+| -------- | ------------- |
 | `colorlinks` | Enlaces en color (sin recuadro) |
 | `linkcolor` | Color de enlaces internos |
 | `citecolor` | Color de citas bibliográficas |
@@ -473,7 +473,7 @@ La \figref{fig:diagrama} muestra...
 ### Convención de nombres para etiquetas
 
 | Prefijo | Uso | Ejemplo |
-|---------|-----|---------|
+| --------- | ----- | --------- |
 | `cap:` | Capítulos | `\label{cap:introduccion}` |
 | `sec:` | Secciones | `\label{sec:metodologia}` |
 | `subsec:` | Subsecciones | `\label{subsec:datos}` |

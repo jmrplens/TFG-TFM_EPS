@@ -14,7 +14,7 @@ Guía a un estudiante sin experiencia para instalar y configurar el entorno
 completo (LaTeX, Python, latexminted, make) en Windows, macOS o Linux.
 
 | Archivo | Descripción |
-|---------|-------------|
+| --------- | ------------- |
 | [../../.github/agents/instalacion.md](../../.github/agents/instalacion.md) | Versión para GitHub Copilot |
 | [instalacion-claude.md](instalacion-claude.md) | Versión para Claude |
 | [prompts-instalacion.md](prompts-instalacion.md) | Prompts listos (I01–I08) |
@@ -27,7 +27,7 @@ Ayuda a redactar secciones y capítulos completos en LaTeX respetando las
 convenciones de la plantilla EPS UA.
 
 | Archivo | Descripción |
-|---------|-------------|
+| --------- | ------------- |
 | [../../.github/agents/redaccion.md](../../.github/agents/redaccion.md) | Versión para GitHub Copilot |
 | [redaccion-claude.md](redaccion-claude.md) | Versión para Claude |
 | [prompts-redaccion.md](prompts-redaccion.md) | Prompts listos |
@@ -40,7 +40,7 @@ Evalúa el documento completo en 8 dimensiones antes de la defensa y genera
 un informe estructurado de mejora.
 
 | Archivo | Descripción |
-|---------|-------------|
+| --------- | ------------- |
 | [../../.github/agents/revisor.md](../../.github/agents/revisor.md) | Versión para GitHub Copilot |
 | [revisor-claude.md](revisor-claude.md) | Versión para Claude |
 | [prompts-revisor.md](prompts-revisor.md) | Prompts listos |

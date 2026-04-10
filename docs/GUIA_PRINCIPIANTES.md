@@ -20,12 +20,12 @@ Si vienes de Word, Google Docs o similar, LaTeX puede parecer intimidante al pri
   - [Entornos](#entornos)
   - [Comentarios](#comentarios)
 - [💻 Instalación paso a paso](#-instalación-paso-a-paso)
-  - [Opción 1: Overleaf (sin instalar nada) ⭐ Recomendado para empezar](#opción-1-overleaf-sin-instalar-nada-recomendado-para-empezar)
+  - [Opción 1: Overleaf (sin instalar nada) Recomendado para empezar ⭐](#opción-1-overleaf-sin-instalar-nada-recomendado-para-empezar)
   - [Opción 2: Instalación local en Windows](#opción-2-instalación-local-en-windows)
   - [Opción 3: Instalación local en macOS](#opción-3-instalación-local-en-macos)
   - [Opción 4: Instalación local en Linux (Ubuntu/Debian)](#opción-4-instalación-local-en-linux-ubuntudebian)
-- [✍️ Eligiendo un editor](#-eligiendo-un-editor)
-  - [VS Code + LaTeX Workshop ⭐ Recomendado](#vs-code-latex-workshop-recomendado)
+- [✍️ Eligiendo un editor](#eligiendo-un-editor)
+  - [VS Code + LaTeX Workshop Recomendado ⭐](#vs-code--latex-workshop-recomendado)
   - [TeXstudio - Alternativa popular](#texstudio---alternativa-popular)
   - [Texmaker - Similar a TeXstudio](#texmaker---similar-a-texstudio)
   - [Comparativa rápida](#comparativa-rápida)
@@ -34,7 +34,7 @@ Si vienes de Word, Google Docs o similar, LaTeX puede parecer intimidante al pri
   - [Con TeXstudio/Texmaker](#con-texstudiotexmaker)
   - [Desde terminal](#desde-terminal)
   - [¿Por qué hay que compilar varias veces?](#por-qué-hay-que-compilar-varias-veces)
-- [✏️ Escribiendo contenido](#-escribiendo-contenido)
+- [✏️ Escribiendo contenido](#escribiendo-contenido)
   - [Lo que debes editar](#lo-que-debes-editar)
   - [Ejemplo: Escribir un capítulo](#ejemplo-escribir-un-capítulo)
   - [Añadir figuras](#añadir-figuras)
@@ -50,8 +50,9 @@ Si vienes de Word, Google Docs o similar, LaTeX puede parecer intimidante al pri
   - [Proporcionar contexto](#proporcionar-contexto)
   - [Qué puedes pedirles](#qué-puedes-pedirles)
 - [❗ Errores comunes y soluciones](#-errores-comunes-y-soluciones)
-  - ["File not found" / "Archivo no encontrado"](#file-not-found-archivo-no-encontrado)
+  - ["File not found" / "Archivo no encontrado"](#file-not-found--archivo-no-encontrado)
   - ["Undefined control sequence"](#undefined-control-sequence)
+  <!-- markdownlint-disable-next-line MD051 -->
   - ["Missing $ inserted" / "Falta $"](#missing-inserted-falta-)
   - [La bibliografía no aparece](#la-bibliografía-no-aparece)
   - [El código no tiene colores](#el-código-no-tiene-colores)
@@ -76,7 +77,7 @@ Este es un párrafo de ejemplo con una ecuación: $E = mc^2$
 ### ¿Por qué usarlo para el TFG/TFM?
 
 | Ventaja | Descripción |
-|---------|-------------|
+| --------- | ------------- |
 | 📐 **Formato profesional** | Genera documentos con tipografía y maquetación de calidad editorial |
 | 🔢 **Ecuaciones** | El mejor sistema para escribir fórmulas matemáticas |
 | 📚 **Bibliografía** | Gestión automática de citas y referencias |
@@ -96,7 +97,7 @@ Hay una **curva de aprendizaje inicial**. Necesitas aprender algunos comandos b�
 ### Archivos y extensiones
 
 | Extensión | Qué es |
-|-----------|--------|
+| ----------- | -------- |
 | `.tex` | Archivo de código LaTeX (tu contenido) |
 | `.pdf` | El documento final generado |
 | `.bib` | Base de datos de bibliografía |
@@ -177,7 +178,7 @@ Si prefieres que una IA te guíe paso a paso, usa el **agente de instalación**:
 
 Si prefieres instalar manualmente, sigue las opciones a continuación.
 
-### Opción 1: Overleaf (sin instalar nada) ⭐ Recomendado para empezar
+### Opción 1: Overleaf (sin instalar nada) Recomendado para empezar⭐
 
 [Overleaf](https://www.overleaf.com) es un editor LaTeX online. No necesitas instalar nada.
 
@@ -243,9 +244,9 @@ pip3 install latexminted
 
 ---
 
-## ✍️ Eligiendo un editor
+## Eligiendo un editor✍
 
-### VS Code + LaTeX Workshop ⭐ Recomendado
+### VS Code + LaTeX Workshop Recomendado⭐
 
 **Visual Studio Code** es un editor moderno y gratuito. Con la extensión **LaTeX Workshop** se convierte en un excelente entorno para LaTeX.
 
@@ -290,7 +291,7 @@ pip3 install latexminted
 ### Comparativa rápida
 
 | Editor | Facilidad | Características | Para quién |
-|--------|-----------|-----------------|------------|
+| -------- | ----------- | ----------------- | ------------ |
 | **Overleaf** | ⭐⭐⭐⭐⭐ | Online, colaborativo | Principiantes, equipos |
 | **VS Code** | ⭐⭐⭐⭐ | Muy extensible | Programadores, avanzados |
 | **TeXstudio** | ⭐⭐⭐⭐ | Todo incluido | Uso general |
@@ -340,12 +341,12 @@ LaTeX necesita múltiples pasadas para:
 
 ---
 
-## ✏️ Escribiendo contenido
+## Escribiendo contenido✏
 
 ### Lo que debes editar
 
 | Archivo | Qué contiene |
-|---------|--------------|
+| --------- | -------------- |
 | `configuracion.tex` | Tu nombre, título, titulación, tutor... |
 | `contenido/capitulos/*.tex` | El texto de cada capítulo |
 | `contenido/anexos/*.tex` | Anexos |
@@ -452,7 +453,7 @@ Según García \cite{garcia2024}, el resultado es...
 ### Tutoriales recomendados
 
 | Recurso | Idioma | Descripción |
-|---------|--------|-------------|
+| --------- | -------- | ------------- |
 | [Overleaf Learn](https://www.overleaf.com/learn) | EN/ES | Tutorial completo y ejemplos |
 | [LaTeX en 30 minutos](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes) | EN | Introducción rápida |
 | [LaTeX Project](https://www.latex-project.org/help/documentation/) | EN | Documentación oficial |
@@ -474,7 +475,7 @@ Según García \cite{garcia2024}, el resultado es...
 ### Herramientas útiles
 
 | Herramienta | Para qué sirve |
-|-------------|----------------|
+| ------------- | ---------------- |
 | [Overleaf Learn](https://www.overleaf.com/learn) | Documentación excelente (aunque uses editor local) |
 | [Detexify](https://detexify.kirelabs.org/) | Dibuja un símbolo y te dice el comando |
 | [Tables Generator](https://www.tablesgenerator.com/) | Crea tablas visualmente |
@@ -493,7 +494,7 @@ Si utilizas herramientas como ChatGPT, Claude o GitHub Copilot para redactar o s
 El proyecto incluye agentes preconfigurados para las tareas más comunes:
 
 | Tarea | GitHub Copilot | Claude |
-|-------|---------------|--------|
+| ------- | --------------- | -------- |
 | Instalar el entorno | [instalacion.md](../.github/agents/instalacion.md) | [instalacion-claude.md](agents/instalacion-claude.md) |
 | Redactar capítulos | [redaccion.md](../.github/agents/redaccion.md) | [redaccion-claude.md](agents/redaccion-claude.md) |
 | Revisar antes de la defensa | [revisor.md](../.github/agents/revisor.md) | [revisor-claude.md](agents/revisor-claude.md) |

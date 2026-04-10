@@ -5,7 +5,7 @@ Esta carpeta contiene herramientas internas para el mantenimiento de la plantill
 ## � Herramientas disponibles
 
 | Script | Descripción |
-|--------|-------------|
+| -------- | ------------- |
 | `actualizar_previews.py` | Genera e inserta previews de snippets LaTeX en la documentación |
 | `generar_portadas.py` | Genera las imágenes de portadas para el README principal |
 

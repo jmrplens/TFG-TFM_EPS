@@ -57,7 +57,7 @@ la referencia técnica de `AI_CONTEXT.md`.
 **Titulaciones más comunes:**
 
 | Titulación | ID |
-|---|---|
+| --- | --- |
 | Ingeniería Informática | `informatica` |
 | Ingeniería en Sonido e Imagen | `teleco` |
 | Ingeniería Civil | `civil` |
@@ -323,7 +323,7 @@ El Código~\ref{cod:clasificador} muestra la implementación del clasificador.
 **Lenguajes disponibles:**
 
 | Entorno | Lenguaje |
-|---|---|
+| --- | --- |
 | `pythoncode` | Python |
 | `jscode` | JavaScript |
 | `cppcode` | C++ |
@@ -372,7 +372,7 @@ Añadir `Dark` al nombre para tema oscuro: `pythoncodeDark`, `jscodeDark`.
    Tabla de correspondencia:
 
    | `idioma` | `lang=` |
-   |---|---|
+   | --- | --- |
    | `espanol` | `es-ES` |
    | `valenciano` | `ca-ES` |
    | `ingles` | `en-GB` |
@@ -408,7 +408,7 @@ Añadir `Dark` al nombre para tema oscuro: `pythoncodeDark`, `jscodeDark`.
 **Opciones disponibles:**
 
 | Opción | Módulos incluidos | Para titulaciones |
-|---|---|---|
+| --- | --- | --- |
 | *(sin opción)* | Solo comunes | Cualquiera |
 | `[software]` | Comunes + Software | Informática, Multimedia, Robótica |
 | `[telecom]` | Comunes + Telecom | Telecomunicaciones |
@@ -483,7 +483,7 @@ grep -n "Error\|error\|Warning" main.log | grep -v "^#" | head -30
 1. Identificar el tipo de error:
 
 | Síntoma | Causa | Solución |
-|---|---|---|
+| --- | --- | --- |
 | `Undefined control sequence \nombre` | Comando no definido | Verificar que el módulo de componentes está activo; revisar ortografía |
 | `You must invoke LaTeX with -shell-escape` | Falta flag | Usar `make` en lugar de `lualatex` directo |
 | `Pygments not found` / `latexminted` | Python no instalado | `pip install latexminted` |

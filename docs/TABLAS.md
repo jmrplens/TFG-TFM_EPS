@@ -111,7 +111,7 @@ La plantilla define estos tipos de columna adicionales:
 ### Especificadores de columna básicos
 
 | Especificador | Alineación |
-|---------------|------------|
+| --------------- | ------------ |
 | `l` | Izquierda |
 | `c` | Centro |
 | `r` | Derecha |
@@ -156,7 +156,7 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 ### Comandos de booktabs
 
 | Comando | Uso |
-|---------|-----|
+| --------- | ----- |
 | `\toprule` | Línea superior (gruesa) |
 | `\midrule` | Línea media (normal) |
 | `\bottomrule` | Línea inferior (gruesa) |
@@ -339,7 +339,7 @@ El paquete `booktabs` proporciona líneas horizontales más elegantes. **Regla d
 ### Especificador X
 
 | Tipo | Comportamiento |
-|------|----------------|
+| ------ | ---------------- |
 | `X` | Expansión automática, justificado |
 | `>{\raggedright\arraybackslash}X` | Expansión, alineado izquierda |
 | `>{\centering\arraybackslash}X` | Expansión, centrado |
@@ -434,7 +434,7 @@ Para tablas que ocupan múltiples páginas:
 ### Estructura de longtable
 
 | Comando | Uso |
-|---------|-----|
+| --------- | ----- |
 | `\endfirsthead` | Fin de cabecera primera página |
 | `\endhead` | Fin de cabecera páginas siguientes |
 | `\endfoot` | Fin de pie páginas intermedias |
@@ -982,7 +982,7 @@ donde observamos que...
 ### Documentación oficial
 
 | Paquete | Descripción |
-|---------|-------------|
+| --------- | ------------- |
 | [booktabs](https://ctan.org/pkg/booktabs) | Líneas profesionales para tablas |
 | [longtable](https://ctan.org/pkg/longtable) | Tablas multipágina |
 | [tabularx](https://ctan.org/pkg/tabularx) | Ancho automático de columnas |

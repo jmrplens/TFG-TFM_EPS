@@ -5,7 +5,7 @@ Esta carpeta está destinada a almacenar todas las imágenes y gráficos del doc
 ## 📋 Formatos Recomendados
 
 | Formato | Uso Recomendado | Ventajas |
-|---------|-----------------|----------|
+| --------- | ----------------- | ---------- |
 | **PDF** | Gráficos vectoriales, diagramas | Escalable sin pérdida de calidad |
 | **PNG** | Capturas de pantalla, interfaces | Buena calidad, soporta transparencia |
 | **JPG** | Fotografías | Menor tamaño de archivo |

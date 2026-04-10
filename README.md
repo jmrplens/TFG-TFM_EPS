@@ -1,6 +1,6 @@
 # 📚 Plantilla TFG/TFM - Escuela Politécnica Superior
 
-**Universidad de Alicante**
+Universidad de Alicante
 
 [![LaTeX](https://img.shields.io/badge/LaTeX-LuaLaTeX-008080?logo=latex)](https://www.latex-project.org/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -51,7 +51,7 @@ Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG
 <summary><b>Ver lista de guías disponibles</b></summary>
 
 | Guía | Descripción |
-|------|-------------|
+| ------ | ------------- |
 | 📝 [Código Fuente](docs/CODIGO_FUENTE.md) | Insertar y resaltar código con minted (40+ lenguajes) |
 | 📊 [Figuras y Gráficas](docs/FIGURAS_GRAFICAS.md) | Crear gráficos con pgfplots y TikZ |
 | 🖼️ [Imágenes y Subfiguras](docs/IMAGENES_SUBFIGURAS.md) | Incluir imágenes, subfiguras y posicionamiento |
@@ -74,7 +74,7 @@ Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG
 ¿Usas ChatGPT, Claude, Copilot u otro asistente de IA? Este proyecto incluye archivos de contexto para que las IAs te ayuden mejor:
 
 | Archivo | Propósito |
-|---------|----------|
+| --------- | ---------- |
 | [AGENTS.md](AGENTS.md) | Instrucciones para agentes de código autónomos (Codex, Devin, etc.) |
 | [CLAUDE.md](CLAUDE.md) | Instrucciones específicas para Claude |
 | [.github/copilot-instructions.md](.github/copilot-instructions.md) | Instrucciones para GitHub Copilot |
@@ -84,7 +84,7 @@ Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG
 ### Agentes especializados
 
 | Agente | Para Copilot | Para Claude | Prompts |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Instalación guiada | [.github/agents/instalacion.md](.github/agents/instalacion.md) | [docs/agents/instalacion-claude.md](docs/agents/instalacion-claude.md) | [docs/agents/prompts-instalacion.md](docs/agents/prompts-instalacion.md) |
 | Redacción de capítulos | [.github/agents/redaccion.md](.github/agents/redaccion.md) | [docs/agents/redaccion-claude.md](docs/agents/redaccion-claude.md) | [docs/agents/prompts-redaccion.md](docs/agents/prompts-redaccion.md) |
 | Revisor tipo tribunal | [.github/agents/revisor.md](.github/agents/revisor.md) | [docs/agents/revisor-claude.md](docs/agents/revisor-claude.md) | [docs/agents/prompts-revisor.md](docs/agents/prompts-revisor.md) |
@@ -261,7 +261,7 @@ Toda la configuración se realiza en el archivo `configuracion.tex`:
 #### Grados
 
 | ID | Titulación |
-|----|------------|
+| ---- | ------------ |
 | `teleco` | Ingeniería en Sonido e Imagen en Telecomunicación |
 | `civil` | Ingeniería Civil |
 | `quimica` | Ingeniería Química |
@@ -274,7 +274,7 @@ Toda la configuración se realiza en el archivo `configuracion.tex`:
 #### Másteres
 
 | ID | Titulación |
-|----|------------|
+| ---- | ------------ |
 | `master-teleco` | Ingeniería de Telecomunicación |
 | `master-caminos` | Caminos, Canales y Puertos |
 | `master-edificacion` | Gestión de la Edificación |
@@ -302,39 +302,39 @@ Cada titulación tiene su propio diseño con colores y logotipos oficiales:
 #### Grados
 
 <p align="center">
-<img src=".github/images/portadas/portada_arquitectura_color.webp" width="12%" title="Grado en Arquitectura"></img>
-<img src=".github/images/portadas/portada_arquitectura-tecnica_color.webp" width="12%" title="Grado en Arquitectura Técnica"></img>
-<img src=".github/images/portadas/portada_civil_color.webp" width="12%" title="Grado en Ingeniería Civil"></img>
-<img src=".github/images/portadas/portada_informatica_color.webp" width="12%" title="Grado en Ingeniería Informática"></img>
-<img src=".github/images/portadas/portada_multimedia_color.webp" width="12%" title="Grado en Ingeniería Multimedia"></img>
-<img src=".github/images/portadas/portada_quimica_color.webp" width="12%" title="Grado en Ingeniería Química"></img>
-<img src=".github/images/portadas/portada_robotica_color.webp" width="12%" title="Grado en Ingeniería Robótica"></img>
-<img src=".github/images/portadas/portada_teleco_color.webp" width="12%" title="Grado en Ingeniería en Sonido e Imagen en Telecomunicación"></img>
+<img src=".github/images/portadas/portada_arquitectura_color.webp" width="12%" alt="Grado en Arquitectura" title="Grado en Arquitectura"></img>
+<img src=".github/images/portadas/portada_arquitectura-tecnica_color.webp" width="12%" alt="Grado en Arquitectura Técnica" title="Grado en Arquitectura Técnica"></img>
+<img src=".github/images/portadas/portada_civil_color.webp" width="12%" alt="Grado en Ingeniería Civil" title="Grado en Ingeniería Civil"></img>
+<img src=".github/images/portadas/portada_informatica_color.webp" width="12%" alt="Grado en Ingeniería Informática" title="Grado en Ingeniería Informática"></img>
+<img src=".github/images/portadas/portada_multimedia_color.webp" width="12%" alt="Grado en Ingeniería Multimedia" title="Grado en Ingeniería Multimedia"></img>
+<img src=".github/images/portadas/portada_quimica_color.webp" width="12%" alt="Grado en Ingeniería Química" title="Grado en Ingeniería Química"></img>
+<img src=".github/images/portadas/portada_robotica_color.webp" width="12%" alt="Grado en Ingeniería Robótica" title="Grado en Ingeniería Robótica"></img>
+<img src=".github/images/portadas/portada_teleco_color.webp" width="12%" alt="Grado en Ingeniería en Sonido e Imagen en Telecomunicación" title="Grado en Ingeniería en Sonido e Imagen en Telecomunicación"></img>
 </p>
 
 #### Másteres
 
 <p align="center">
-<img src=".github/images/portadas/portada_master-agua_color.webp" width="12%" title="Máster Universitario en Gestión Sostenible y Tecnologías del Agua"></img>
-<img src=".github/images/portadas/portada_master-caminos_color.webp" width="12%" title="Máster Universitario en Ingeniería de Caminos, Canales y Puertos"></img>
-<img src=".github/images/portadas/portada_master-ciberseguridad_color.webp" width="12%" title="Máster Universitario en Ciberseguridad"></img>
-<img src=".github/images/portadas/portada_master-edificacion_color.webp" width="12%" title="Máster Universitario en Gestión de la Edificación"></img>
-<img src=".github/images/portadas/portada_master-geologica_color.webp" width="12%" title="Máster Universitario en Ingeniería Geológica"></img>
-<img src=".github/images/portadas/portada_master-informatica_color.webp" width="12%" title="Máster Universitario en Ingeniería Informática"></img>
-<img src=".github/images/portadas/portada_master-materiales_color.webp" width="12%" title="Máster Universitario en Ingeniería de los Materiales, del Agua y del Terreno"></img>
-<img src=".github/images/portadas/portada_master-moviles_color.webp" width="12%" title="Máster Universitario en Desarrollo de Software para Dispositivos Móviles"></img>
-<img src=".github/images/portadas/portada_master-prevencion_color.webp" width="12%" title="Máster Universitario en Prevención de Riesgos Laborales"></img>
-<img src=".github/images/portadas/portada_master-quimica_color.webp" width="12%" title="Máster Universitario en Ingeniería Química"></img>
-<img src=".github/images/portadas/portada_master-robotica_color.webp" width="12%" title="Máster Universitario en Automática y Robótica"></img>
-<img src=".github/images/portadas/portada_master-teleco_color.webp" width="12%" title="Máster Universitario en Ingeniería de Telecomunicación"></img>
-<img src=".github/images/portadas/portada_master-web_color.webp" width="12%" title="Máster Universitario en Desarrollo de Aplicaciones y Servicios Web"></img>
+<img src=".github/images/portadas/portada_master-agua_color.webp" width="12%" alt="Máster Universitario en Gestión Sostenible y Tecnologías del Agua" title="Máster Universitario en Gestión Sostenible y Tecnologías del Agua"></img>
+<img src=".github/images/portadas/portada_master-caminos_color.webp" width="12%" alt="Máster Universitario en Ingeniería de Caminos, Canales y Puertos" title="Máster Universitario en Ingeniería de Caminos, Canales y Puertos"></img>
+<img src=".github/images/portadas/portada_master-ciberseguridad_color.webp" width="12%" alt="Máster Universitario en Ciberseguridad" title="Máster Universitario en Ciberseguridad"></img>
+<img src=".github/images/portadas/portada_master-edificacion_color.webp" width="12%" alt="Máster Universitario en Gestión de la Edificación" title="Máster Universitario en Gestión de la Edificación"></img>
+<img src=".github/images/portadas/portada_master-geologica_color.webp" width="12%" alt="Máster Universitario en Ingeniería Geológica" title="Máster Universitario en Ingeniería Geológica"></img>
+<img src=".github/images/portadas/portada_master-informatica_color.webp" width="12%" alt="Máster Universitario en Ingeniería Informática" title="Máster Universitario en Ingeniería Informática"></img>
+<img src=".github/images/portadas/portada_master-materiales_color.webp" width="12%" alt="Máster Universitario en Ingeniería de los Materiales, del Agua y del Terreno" title="Máster Universitario en Ingeniería de los Materiales, del Agua y del Terreno"></img>
+<img src=".github/images/portadas/portada_master-moviles_color.webp" width="12%" alt="Máster Universitario en Desarrollo de Software para Dispositivos Móviles" title="Máster Universitario en Desarrollo de Software para Dispositivos Móviles"></img>
+<img src=".github/images/portadas/portada_master-prevencion_color.webp" width="12%" alt="Máster Universitario en Prevención de Riesgos Laborales" title="Máster Universitario en Prevención de Riesgos Laborales"></img>
+<img src=".github/images/portadas/portada_master-quimica_color.webp" width="12%" alt="Máster Universitario en Ingeniería Química" title="Máster Universitario en Ingeniería Química"></img>
+<img src=".github/images/portadas/portada_master-robotica_color.webp" width="12%" alt="Máster Universitario en Automática y Robótica" title="Máster Universitario en Automática y Robótica"></img>
+<img src=".github/images/portadas/portada_master-teleco_color.webp" width="12%" alt="Máster Universitario en Ingeniería de Telecomunicación" title="Máster Universitario en Ingeniería de Telecomunicación"></img>
+<img src=".github/images/portadas/portada_master-web_color.webp" width="12%" alt="Máster Universitario en Desarrollo de Aplicaciones y Servicios Web" title="Máster Universitario en Desarrollo de Aplicaciones y Servicios Web"></img>
 </p>
 
 ### Ejemplo: Portada a color y B/N
 
 <p align="center">
-<img src=".github/images/portadas/portada_teleco_color.webp" width="30%"></img>
-<img src=".github/images/portadas/portada_teleco_bn.webp" width="30%"></img>
+<img src=".github/images/portadas/portada_teleco_color.webp" width="30%" alt="Portada a color - Grado en Ingeniería en Sonido e Imagen en Telecomunicación"></img>
+<img src=".github/images/portadas/portada_teleco_bn.webp" width="30%" alt="Portada en blanco y negro - Grado en Ingeniería en Sonido e Imagen en Telecomunicación"></img>
 </p>
 ### Comandos de Portada
 
@@ -362,21 +362,21 @@ La plantilla incluye estilos de código basados en **Visual Studio Code** con te
 ### Temas Disponibles
 
 | Tema | Descripción | Sufijo |
-|------|-------------|--------|
+| ------ | ------------- | -------- |
 | **VS Code Light** | Fondo blanco, ideal para impresión | (ninguno) |
 | **VS Code Dark** | Fondo oscuro, ideal para presentaciones | `Dark` |
 
 ### Variantes de Numeración
 
 | Variante | Descripción | Sufijo |
-|----------|-------------|--------|
+| ---------- | ------------- | -------- |
 | Con números | Muestra números de línea | (ninguno) |
 | Sin números | Oculta números de línea | `NN` |
 
 ### Lenguajes con Entornos Predefinidos
 
 | Lenguaje | Entorno Light | Entorno Dark | Icono |
-|----------|---------------|--------------|-------|
+| ---------- | --------------- | -------------- | ------- |
 | Python | `pythoncode` | `pythoncodeDark` | 🐍 |
 | JavaScript | `jscode` | `jscodeDark` | 📜 |
 | TypeScript | `tscode` | `tscodeDark` | 📜 |
@@ -671,7 +671,7 @@ Consulta la [Guía de Contribución](CONTRIBUTING.md) para más detalles.
 ### Herramientas incluidas en el proyecto
 
 | Herramienta | Cómo ejecutar | Para qué sirve |
-|-------------|---------------|----------------|
+| ------------- | --------------- | ---------------- |
 | `scripts/instalar.py` | `python3 scripts/instalar.py` | Comprueba e instala dependencias del entorno |
 | `scripts/revision-rapida.py` | `python3 scripts/revision-rapida.py` | Análisis estático del documento; genera `informe-revision.md` |
 | `.env.example` | Copiar a `.env` y rellenar | Credenciales para Copyleaks y Turnitin (opcional) |
@@ -681,7 +681,7 @@ La revisión estática también se ejecuta automáticamente en cada push/PR medi
 ### Editores recomendados
 
 | Editor | Plataforma | Descripción |
-|--------|------------|-------------|
+| -------- | ------------ | ------------- |
 | [VS Code](https://code.visualstudio.com/) + [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop) | Win/Mac/Linux | Editor moderno con excelente soporte LaTeX |
 | [TeXstudio](https://www.texstudio.org/) | Win/Mac/Linux | Editor dedicado a LaTeX, muy completo |
 | [Texmaker](https://www.xm1math.net/texmaker/) | Win/Mac/Linux | Similar a TeXstudio, más sencillo |
@@ -690,7 +690,7 @@ La revisión estática también se ejecuta automáticamente en cada push/PR medi
 ### Herramientas útiles
 
 | Herramienta | Para qué sirve |
-|-------------|----------------|
+| ------------- | ---------------- |
 | [Detexify](https://detexify.kirelabs.org/) | Dibuja un símbolo → obtén el comando LaTeX |
 | [Tables Generator](https://www.tablesgenerator.com/) | Crea tablas visualmente |
 | [Mathpix](https://mathpix.com/) | Convierte imágenes de ecuaciones a LaTeX |
@@ -702,7 +702,7 @@ La revisión estática también se ejecuta automáticamente en cada push/PR medi
 ### Documentación y tutoriales
 
 | Recurso | Descripción |
-|---------|-------------|
+| --------- | ------------- |
 | [Overleaf Learn](https://www.overleaf.com/learn) | Tutoriales completos (EN/ES) |
 | [LaTeX Wikibook](https://en.wikibooks.org/wiki/LaTeX) | Referencia exhaustiva |
 | [TeX StackExchange](https://tex.stackexchange.com/) | Preguntas y respuestas |

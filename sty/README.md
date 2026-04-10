@@ -9,7 +9,7 @@ Esta carpeta contiene los paquetes auxiliares de la plantilla.
 ## 📁 Archivos
 
 | Archivo | Descripción |
-|---------|-------------|
+| --------- | ------------- |
 | `eps-portadas.sty` | Genera las portadas oficiales (color y B/N) |
 | `eps-codigo.sty` | Estilos de código fuente tipo VS Code |
 
@@ -26,7 +26,7 @@ Genera las portadas oficiales del TFG/TFM usando TikZ para el diseño gráfico.
 #### Tecnologías
 
 | Paquete | Uso |
-|---------|-----|
+| --------- | ----- |
 | **tikz** | Dibujo de fondos, franjas y posicionamiento de logos |
 | **tikzpagenodes** | Referencia a coordenadas de la página |
 | **textpos** | Posicionamiento absoluto de bloques de texto |
@@ -113,7 +113,7 @@ Define estilos para bloques de código fuente que imitan la apariencia de VS Cod
 #### Tecnologías
 
 | Paquete | Uso |
-|---------|-----|
+| --------- | ----- |
 | **minted** | Resaltado de sintaxis con latexminted/Pygments |
 | **tcolorbox** | Cajas con estilo (bordes redondeados, títulos) |
 | **fontawesome5** | Iconos para los títulos de los bloques |
@@ -157,7 +157,7 @@ eps-codigo.sty
 #### Entornos de código disponibles
 
 | Entorno | Lenguaje | Con líneas | Sin líneas |
-|---------|----------|------------|------------|
+| --------- | ---------- | ------------ | ------------ |
 | Python | python | `pythoncode` | `pythoncode*` |
 | Java | java | `javacode` | `javacode*` |
 | C++ | cpp | `cppcode` | `cppcode*` |
@@ -248,7 +248,7 @@ Cambiar los estilos base para usar `vscode-dark-*` en lugar de `vscode-light-*`.
 ## 🔗 Archivos relacionados
 
 | Archivo | Relación |
-|---------|----------|
+| --------- | ---------- |
 | `cls/eps-tfg.cls` | Clase principal que carga estos paquetes |
 | `recursos/logos/` | Logos usados por eps-portadas.sty |
 | `docs/CODIGO_FUENTE.md` | Documentación para usuarios |

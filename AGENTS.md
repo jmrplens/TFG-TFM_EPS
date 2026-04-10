@@ -32,7 +32,7 @@ Escuela Politécnica Superior (EPS) de la Universidad de Alicante (UA).
 ### Archivos que el agente PUEDE editar libremente
 
 | Archivo / Directorio | Propósito |
-|---|---|
+| --- | --- |
 | `configuracion.tex` | Datos del autor, título, titulación, idioma |
 | `contenido/capitulos/*.tex` | Contenido de cada capítulo |
 | `contenido/anexos/*.tex` | Anexos (excepto `acronimos.tex` con cuidado) |
@@ -43,7 +43,7 @@ Escuela Politécnica Superior (EPS) de la Universidad de Alicante (UA).
 ### Archivos que el agente NO debe modificar sin instrucción explícita
 
 | Archivo | Razón |
-|---|---|
+| --- | --- |
 | `cls/eps-tfg.cls` | Clase principal; cambios rompen toda la plantilla |
 | `sty/*.sty` | Paquetes de estilo; requieren conocimiento profundo |
 | `sty/componentes/*.sty` | Módulos especializados |
@@ -249,7 +249,7 @@ Sufijo `Dark` para tema oscuro: `pythoncodeDark`, `jscodeDark`, etc.
 Prefijos de etiquetas a respetar:
 
 | Prefijo | Tipo de elemento |
-|---|---|
+| --- | --- |
 | `chap:` | Capítulo |
 | `sec:` | Sección |
 | `fig:` | Figura |
@@ -307,7 +307,7 @@ Formato de entrada en `referencias.bib`:
 ## Diagnóstico de errores frecuentes
 
 | Error en `.log` | Causa | Solución |
-|---|---|---|
+| --- | --- | --- |
 | `Undefined control sequence \EPSsetup` | `configuracion.tex` cargado antes de la clase | Verificar orden en `main.tex` |
 | `You must invoke LaTeX with -shell-escape` | Falta flag en compilación | Usar `make` o añadir `-shell-escape` |
 | `Pygments not found` | `latexminted` no instalado | `pip install latexminted` |

@@ -543,7 +543,7 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 ### Opciones del eje (axis)
 
 | Opción | Descripción | Valores |
-|--------|-------------|---------|
+| -------- | ------------- | --------- |
 | `width` | Ancho de la gráfica | `10cm`, `0.8\textwidth` |
 | `height` | Alto de la gráfica | `6cm`, `0.5\textwidth` |
 | `xlabel` | Etiqueta eje X | Texto o matemáticas `{$x$}` |
@@ -561,7 +561,7 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 ### Opciones de plot (addplot)
 
 | Opción | Descripción | Valores |
-|--------|-------------|---------|
+| -------- | ------------- | --------- |
 | `color` | Color de la línea | `blue`, `red`, `rgb,255:red,100;green,50;blue,0` |
 | `thick` | Grosor de línea | `ultra thin`, `thin`, `thick`, `ultra thick` |
 | `line width` | Grosor específico | `1pt`, `2mm` |
@@ -827,7 +827,7 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 ### Opciones de lectura de tabla
 
 | Opción | Descripción | Ejemplo |
-|--------|-------------|---------|
+| -------- | ------------- | --------- |
 | `col sep` | Separador de columnas | `comma`, `space`, `tab`, `semicolon` |
 | `x` | Columna para X | `tiempo` |
 | `y` | Columna para Y | `valor` |
@@ -1040,7 +1040,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 ### Opciones de pgf-pie
 
 | Opción | Descripción | Valores |
-|--------|-------------|---------|
+| -------- | ------------- | --------- |
 | `text` | Posición del texto | `label`, `pin`, `legend`, `inside` |
 | `radius` | Radio del círculo | `2`, `3cm` |
 | `explode` | Separación de sectores | `0.1` |
@@ -1301,7 +1301,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 ### Documentación oficial
 
 | Recurso | Descripción |
-|---------|-------------|
+| --------- | ------------- |
 | [PGFPlots Manual](https://ctan.org/pkg/pgfplots) | Documentación completa |
 | [TikZ & PGF Manual](https://tikz.dev/) | Documentación oficial interactiva |
 | [TikZ en CTAN](https://ctan.org/pkg/pgf) | Paquete base |
@@ -1311,7 +1311,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 ### Galerías y ejemplos
 
 | Recurso | Descripción |
-|---------|-------------|
+| --------- | ------------- |
 | [TeXample.net TikZ](https://texample.net/tikz/examples/) | Galería de ejemplos TikZ |
 | [pgfplots.net](http://pgfplots.net/) | Ejemplos de PGFPlots |
 | [Overleaf: TikZ](https://www.overleaf.com/learn/latex/TikZ_package) | Tutorial completo |
@@ -1320,7 +1320,7 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 ### Versiones actuales (TeX Live 2025)
 
 | Componente | Versión |
-|------------|----------|
+| ------------ | ---------- |
 | TikZ/PGF | 3.1.11a |
 | PGFPlots | 1.18.2 |
 

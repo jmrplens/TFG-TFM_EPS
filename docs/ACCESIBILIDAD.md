@@ -30,7 +30,7 @@ La accesibilidad en documentos PDF permite que personas con discapacidades visua
 ### Estándares relevantes
 
 | Estándar | Descripción |
-|----------|-------------|
+| ---------- | ------------- |
 | **PDF/UA-1** | ISO 14289-1:2014 - Accesibilidad universal para PDF |
 | **PDF/UA-2** | ISO 14289-2:2024 - Versión actualizada del estándar |
 | **WCAG 2.1** | Web Content Accessibility Guidelines (aplicable a PDFs) |
@@ -85,7 +85,7 @@ Para activar el etiquetado PDF/UA-2, añade el siguiente código **antes** de `\
 ### Opciones de idioma
 
 | Valor | Idioma |
-|-------|--------|
+| ------- | -------- |
 | `es-ES` | Español (España) |
 | `ca-ES` | Valenciano/Catalán |
 | `en-GB` | Inglés británico |
@@ -123,7 +123,7 @@ Las imágenes puramente decorativas deben marcarse como artefactos:
 ### Buenas prácticas para texto alternativo
 
 | ✅ Hacer | ❌ Evitar |
-|---------|----------|
+| --------- | ---------- |
 | Describir el **significado** de la imagen | Describir la apariencia visual |
 | Ser conciso pero completo | Texto excesivamente largo |
 | Incluir datos clave de gráficas | "Gráfica mostrando datos" |
@@ -192,7 +192,7 @@ Con LuaLaTeX y `unicode-math`, las ecuaciones se etiquetan automáticamente como
 ### Herramientas de validación
 
 | Herramienta | Descripción | Enlace |
-|-------------|-------------|--------|
+| ------------- | ------------- | -------- |
 | **Adobe Acrobat Pro** | Comprobador de accesibilidad integrado | [adobe.com](https://www.adobe.com/acrobat) |
 | **PAC 2024** | Verificador PDF/UA gratuito | [pdfua.foundation](https://pdfua.foundation/en/pac-download) |
 | **PAVE** | Validador online gratuito | [pave-pdf.org](https://pave-pdf.org/) |
@@ -214,7 +214,7 @@ Con LuaLaTeX y `unicode-math`, las ecuaciones se etiquetan automáticamente como
 ### Documentación oficial
 
 | Recurso | URL |
-|---------|-----|
+| --------- | ----- |
 | LaTeX Tagging Project | [latex3.github.io/tagging-project](https://latex3.github.io/tagging-project/documentation/usage-instructions) |
 | Overleaf - PDFs accesibles | [overleaf.com/learn](https://www.overleaf.com/learn/latex/Accessibility) |
 | PDF/UA Foundation | [pdfua.foundation](https://pdfua.foundation/) |
