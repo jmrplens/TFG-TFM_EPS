@@ -155,9 +155,9 @@ El entorno \texttt{align} permite alinear múltiples ecuaciones por el símbolo 
 
 \begin{codigosimple}{latex}{Sintaxis: Ecuaciones alineadas}
 \begin{align}
-  (a+b)^2 &= a^2 + 2ab + b^2 \\
-  (a-b)^2 &= a^2 - 2ab + b^2 \\
-  (a+b)(a-b) &= a^2 - b^2
+  (a+b)^2 &= a^2 + 2ab + b^2 \label{eq:binomio-suma} \\
+  (a-b)^2 &= a^2 - 2ab + b^2 \label{eq:binomio-resta} \\
+  (a+b)(a-b) &= a^2 - b^2    \label{eq:diferencia-cuadrados}
 \end{align}
 
 % Sin números: usar align*
@@ -167,9 +167,9 @@ El entorno \texttt{align} permite alinear múltiples ecuaciones por el símbolo 
 \end{codigosimple}
 
 \begin{align}
-  (a+b)^2 &= a^2 + 2ab + b^2 \\
-  (a-b)^2 &= a^2 - 2ab + b^2 \\
-  (a+b)(a-b) &= a^2 - b^2
+  (a+b)^2 &= a^2 + 2ab + b^2    \label{eq:binomio-suma-demo} \\
+  (a-b)^2 &= a^2 - 2ab + b^2    \label{eq:binomio-resta-demo} \\
+  (a+b)(a-b) &= a^2 - b^2       \label{eq:diferencia-cuadrados-demo}
 \end{align}
 
 \subsection{Subecuaciones}
@@ -187,6 +187,7 @@ Para numerar ecuaciones como (1a), (1b), usa \texttt{subequations}:
 \end{codigosimple}
 
 \begin{subequations}
+  \label{eq:campos-EM}
   \begin{align}
     \mathbf{E} &= E_z(r,\theta) \hat{\mathbf{z}} \label{eq:E} \\
     \mathbf{H} &= H_r(r,\theta) \hat{\mathbf{r}} + H_\theta(r,\theta) \hat{\theta} \label{eq:H}
@@ -289,6 +290,7 @@ La plantilla incluye entornos para teoremas, demostraciones y definiciones:
   En un triángulo rectángulo, el cuadrado de la hipotenusa es igual a la suma de los cuadrados de los catetos:
   \begin{equation}
     c^2 = a^2 + b^2
+    \label{eq:pitagoras}
   \end{equation}
 \end{theorem}
 
@@ -302,6 +304,7 @@ La plantilla incluye entornos para teoremas, demostraciones y definiciones:
   Sea $f: D \to \mathbb{R}$ una función y $a$ un punto de acumulación de $D$. Decimos que $L$ es el límite de $f$ en $a$ si:
   \begin{equation}
     \forall \varepsilon > 0, \exists \delta > 0 : 0 < |x-a| < \delta \Rightarrow |f(x) - L| < \varepsilon
+    \label{eq:limite-def}
   \end{equation}
 \end{definition}
 

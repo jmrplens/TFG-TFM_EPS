@@ -262,6 +262,80 @@ Ejemplos de citas con distintos tipos de fuentes en el texto:
   \item Software: el sistema fue implementado con Python \parencite{python2024}.
 \end{itemize}
 
+\subsection{Ejemplos de formatos de cita}
+\label{subsec:ejemplos-formatos-cita}
+
+A continuación se muestran todos los formatos de cita disponibles en BibLaTeX
+con el estilo APA 7, y cómo se renderizan en el texto:
+
+\begin{itemize}
+  \item \verb|\textcite{}| --- cita narrativa (autor integrado en el texto):
+    \textcite{pressman2020} propone un enfoque iterativo para el desarrollo de software.
+  \item \verb|\parencite{}| --- cita parentética al final de la frase:
+    El diseño limpio facilita el mantenimiento del código \parencite{martin2019}.
+  \item \verb|\parencite[p.~X]{clave}| --- cita con página específica:
+    Los patrones de diseño se clasifican en creacionales, estructurales y de comportamiento
+    \parencite[p.~10]{gamma1994}.
+  \item \verb|\parencite[véase][cap.~2]{clave}| --- cita con prefijo y sufijo:
+    Para más detalle sobre complejidad algorítmica \parencite[véase][cap.~2]{cormen2022}.
+  \item \verb|\citeauthor{}| --- solo el autor, sin año:
+    \citeauthor{knuth1997} es considerado el padre de la tipografía digital.
+  \item \verb|\citeyear{}| --- solo el año, sin autor:
+    El algoritmo fue publicado en \citeyear{knuth1997}.
+  \item \verb|\parencite{c1,c2}| --- múltiples fuentes en una sola cita:
+    Existen diversos enfoques para la gestión de bibliografía en \LaTeX{}
+    \parencite{knuth1984texbook,lamport1994latex}.
+  \item \verb|\footcite{}| --- cita completa en nota al pie:\footcite{chen2023}
+    Los modelos de lenguaje han experimentado un crecimiento acelerado en los últimos años.
+\end{itemize}
+
+\begin{codigosimple}{latex}{Sintaxis: Todos los formatos de cita}
+% Cita narrativa: "Autor (año) texto"
+\textcite{pressman2020} propone un enfoque iterativo.
+
+% Cita parentética: "texto (Autor, año)"
+El diseño limpio mejora el mantenimiento \parencite{martin2019}.
+
+% Con página específica
+\parencite[p.~10]{gamma1994}
+
+% Con prefijo (texto antes del año)
+\parencite[véase][]{cormen2022}
+
+% Solo autor / solo año
+\citeauthor{knuth1997} publicó esto en \citeyear{knuth1997}.
+
+% Múltiples fuentes en una cita
+\parencite{knuth1984texbook,lamport1994latex}
+
+% En nota al pie (cita completa)
+\footcite{chen2023}
+\end{codigosimple}
+
+\subsubsection{Citas de tipos específicos}
+
+Cada tipo de fuente se formatea automáticamente según APA 7:
+
+\begin{itemize}
+  \item \textbf{Artículo de revista}: Los algoritmos de aprendizaje profundo para PLN
+    han sido revisados exhaustivamente \parencite{chen2023}.
+  \item \textbf{Actas de conferencia}: La orquestación de contenedores en edge computing
+    fue analizada por \textcite{liu2024}.
+  \item \textbf{Tesis doctoral}: Los avances en consenso distribuido aplicado a blockchain
+    fueron objeto de estudio \parencite{wilson2024}.
+  \item \textbf{Tesis de máster}: La implementación de sistemas de recomendación con deep
+    learning fue abordada por \textcite{fernandez2023}.
+  \item \textbf{Informe técnico}: La norma de calidad del software es \parencite{iso25010}.
+  \item \textbf{Estándar RFC}: El protocolo HTTP está definido en \parencite{rfc9110}.
+  \item \textbf{Preprint arXiv}: Los modelos de lenguaje de gran escala han sido
+    objeto de numerosas revisiones \parencite{arxiv2024}.
+  \item \textbf{Software}: El sistema de base de datos empleado fue
+    \textcite{postgresql2024}, mientras que el entorno de desarrollo fue
+    \textcite{vscode2024}.
+  \item \textbf{Capítulo de libro}: La arquitectura de redes neuronales profundas
+    se explica en detalle por \textcite{bishop2023}.
+\end{itemize}
+
 \subsection{Campos comunes en BibLaTeX}
 \label{subsec:campos-biblatex}
 

@@ -100,6 +100,7 @@ def eliminar_bloques_codigo(texto: str) -> str:
     entornos = [
         "verbatim", "lstlisting", "minted",
         "codigosimple", "codigosimpleNN",
+        "latexcode",
         "pythoncode", "pythoncodeNN", "pythoncodeDark",
         "jscode", "jscodeNN", "cppcode", "cppcodeNN",
         "javacode", "javacodeNN", "bashcode", "bashcodeNN",
@@ -118,6 +119,8 @@ def eliminar_bloques_codigo(texto: str) -> str:
             texto,
             flags=re.DOTALL,
         )
+    # Eliminar contenido de \verb|...|, \verb!...!, \verb+...+ (verbatim inline)
+    texto = re.sub(r"\\verb([^a-zA-Z*])(.*?)\1", r"\\verb\1VERBATIM\1", texto)
     return texto
 
 
