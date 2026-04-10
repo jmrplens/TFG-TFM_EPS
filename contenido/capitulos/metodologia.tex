@@ -27,14 +27,14 @@ Las figuras en \LaTeX{} son elementos \glspl{flotante}. Esto significa que \LaTe
 
 La estructura básica para insertar una figura es:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Sintaxis: Figura simple}
 \begin{figure}[posición]
   \centering
   \includegraphics[opciones]{ruta/imagen}
   \caption{Descripción de la figura}
   \label{fig:etiqueta}
 \end{figure}
-\end{verbatim}
+\end{codigosimple}
 
 Donde las opciones de posición más comunes son:
 \begin{itemize}
@@ -62,7 +62,7 @@ Para referenciar la figura en el texto: ``como se muestra en la Figura~\ref{fig:
 
 El comando \verb|\includegraphics| acepta múltiples opciones:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Sintaxis: Opciones de includegraphics}
 % Ancho relativo al texto
 \includegraphics[width=0.8\textwidth]{imagen}
 
@@ -80,7 +80,7 @@ El comando \verb|\includegraphics| acepta múltiples opciones:
 
 % Combinaciones
 \includegraphics[width=0.6\textwidth, angle=45]{imagen}
-\end{verbatim}
+\end{codigosimple}
 
 \subsection{Formatos de imagen soportados}
 \label{subsec:formatos-imagen}
@@ -102,7 +102,7 @@ Usa PDF para gráficas vectoriales (exportadas desde Inkscape, MATLAB, Python) y
 
 Cuando necesitas mostrar varias imágenes relacionadas, usa el entorno \texttt{subfigure} del paquete \texttt{subcaption}:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Sintaxis: Subfiguras}
 \begin{figure}[H]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
@@ -121,7 +121,7 @@ Cuando necesitas mostrar varias imágenes relacionadas, usa el entorno \texttt{s
   \caption{Título general de la figura}
   \label{fig:conjunto}
 \end{figure}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{figure}[H]
   \centering
@@ -155,7 +155,7 @@ Puedes referenciar subfiguras individuales: Figura~\ref{fig:sub-a} y Figura~\ref
 
 Para apilar subfiguras verticalmente, usa saltos de línea:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Sintaxis: Subfiguras verticales}
 \begin{figure}[H]
   \centering
   \begin{subfigure}[b]{0.8\textwidth}
@@ -171,14 +171,14 @@ Para apilar subfiguras verticalmente, usa saltos de línea:
   \end{subfigure}
   \caption{Subfiguras apiladas verticalmente}
 \end{figure}
-\end{verbatim}
+\end{codigosimple}
 
 \subsection{Múltiples imágenes en cuadrícula}
 \label{subsec:imagenes-cuadricula}
 
 Para organizar varias imágenes en una cuadrícula, puedes usar un entorno \texttt{tabular} dentro de la figura:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Sintaxis: Múltiples imágenes en cuadrícula}
 \begin{figure}[H]
   \centering
   \begin{tabular}{ccc}
@@ -189,7 +189,7 @@ Para organizar varias imágenes en una cuadrícula, puedes usar un entorno \text
   \end{tabular}
   \caption{Cuadrícula de imágenes}
 \end{figure}
-\end{verbatim}
+\end{codigosimple}
 
 \begin{figure}[H]
   \centering
@@ -230,7 +230,7 @@ Para organizar varias imágenes en una cuadrícula, puedes usar un entorno \text
 
 Para figuras que ocupen todo el ancho de la página (incluyendo márgenes), usa el entorno \texttt{figure*} en documentos de dos columnas, o ajusta el ancho:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Sintaxis: Figuras a ancho completo}
 % Figura que ocupa todo el ancho del texto
 \begin{figure}[H]
   \centering
@@ -246,7 +246,7 @@ Para figuras que ocupen todo el ancho de la página (incluyendo márgenes), usa 
   }
   \caption{Imagen extra ancha}
 \end{figure}
-\end{verbatim}
+\end{codigosimple}
 
 \section{Planificación temporal}
 \label{sec:planificacion-temporal}
@@ -368,7 +368,7 @@ Usa prefijos consistentes para las etiquetas: \texttt{fig:} para figuras, \textt
 
 Se recomienda organizar las imágenes en carpetas dentro de \texttt{recursos/}:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Sintaxis: Organización de archivos}
 recursos/
 ├── imagenes/
 │   ├── capturas/       % Capturas de pantalla
@@ -376,7 +376,7 @@ recursos/
 │   ├── fotografias/    % Fotos del proyecto
 │   └── graficas/       % Gráficas de datos
 └── logos/              % Logotipos institucionales
-\end{verbatim}
+\end{codigosimple}
 
 \subsection{Calidad de las imágenes}
 \label{subsec:calidad-imagenes}
@@ -435,7 +435,7 @@ Para la gestión del proyecto se han utilizado las siguientes herramientas:
 
 A modo de referencia rápida, estos son los comandos más utilizados:
 
-\begin{verbatim}
+\begin{codigosimple}{latex}{Sintaxis: Resumen de comandos para figuras}
 % Figura básica
 \begin{figure}[H]
   \centering
@@ -459,4 +459,4 @@ scale=      % Escala (ej: 0.5)
 angle=      % Rotación en grados
 trim=       % Recorte: izq abajo der arriba
 clip        % Activar recorte
-\end{verbatim}
+\end{codigosimple}

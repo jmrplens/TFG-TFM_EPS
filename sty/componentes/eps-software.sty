@@ -110,10 +110,10 @@
   \end{tabularx}\par\vspace{8pt}
 }
 
-% Request body 
+% Request body
 \newcommand{\apibody}[2]{%
   \par\textbf{Body} (\texttt{#1}):\par
-  \begin{tcolorbox}[colback=eps-light!10, colframe=eps-gray!20, boxrule=0.5pt, left=4pt, right=4pt, top=4pt, bottom=4pt, arc=2pt]
+  \begin{tcolorbox}[colback=eps-code-bg, colframe=eps-code-bg!80, boxrule=0.5pt, left=6pt, right=6pt, top=4pt, bottom=4pt, arc=2pt]
     \ttfamily\footnotesize\textcolor{eps-code-fg}{#2}
   \end{tcolorbox}\vspace{4pt}
 }
@@ -125,8 +125,8 @@
     \ifnum#1<300 eps-success\else%
     \ifnum#1<400 eps-warning\else%
     eps-danger\fi\fi]{#1}:\par
-  \begin{tcolorbox}[colback=eps-light!20, colframe=eps-gray!30, boxrule=0.5pt, left=4pt, right=4pt, top=4pt, bottom=4pt, arc=2pt]
-    \ttfamily\footnotesize\textcolor{eps-code-bg}{#2}
+  \begin{tcolorbox}[colback=eps-code-bg, colframe=eps-code-bg!80, boxrule=0.5pt, left=6pt, right=6pt, top=4pt, bottom=4pt, arc=2pt]
+    \ttfamily\footnotesize\textcolor{eps-code-fg}{#2}
   \end{tcolorbox}
 }
 

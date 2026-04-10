@@ -95,6 +95,40 @@ def leer_tex(ruta: Path) -> str:
         return ""
 
 
+def eliminar_bloques_codigo(texto: str) -> str:
+    """Elimina el contenido de entornos de código para evitar falsos positivos."""
+    entornos = [
+        "verbatim", "lstlisting", "minted",
+        "codigosimple", "codigosimpleNN",
+        "latexcode",
+        "codigo", "codigoNN", "codigoDark", "codigoDarkNN",
+        "pythoncode", "pythoncodeNN", "pythoncodeDark",
+        "jscode", "jscodeNN", "cppcode", "cppcodeNN",
+        "javacode", "javacodeNN", "bashcode", "bashcodeNN",
+        "sqlcode", "sqlcodeNN", "jsoncode", "jsoncodeNN",
+        "yamlcode", "yamlcodeNN", "htmlcode", "htmlcodeNN",
+        "csscode", "csscodeNN", "rcode", "rcodeNN",
+        "rustcode", "rustcodeNN", "gocode", "gocodeNN",
+        "phpcode", "phpcodeNN", "terminal",
+    ]
+    for entorno in entornos:
+        # Reemplaza el CONTENIDO del entorno preservando el número de líneas,
+        # para que los números de línea de los diagnósticos posteriores sean correctos.
+        patron = (
+            r"(\\begin\{" + re.escape(entorno) + r"\}(?:\[[^\]]*\])?"
+            r"(?:\{[^}]*\})*(?:\{[^}]*\})*)(.*?)(\\end\{" + re.escape(entorno) + r"\})"
+        )
+
+        def _vaciar_bloque(match):
+            lineas = max(match.group(2).count("\n"), 1)
+            return match.group(1) + ("\n" * lineas) + match.group(3)
+
+        texto = re.sub(patron, _vaciar_bloque, texto, flags=re.DOTALL)
+    # Eliminar contenido de \verb|...|, \verb!...!, \verb+...+ (verbatim inline)
+    texto = re.sub(r"\\verb([^a-zA-Z*])(.*?)\1", r"\\verb\1VERBATIM\1", texto)
+    return texto
+
+
 def eliminar_comentarios(texto: str) -> str:
     """Elimina comentarios LaTeX (líneas que empiezan con %)."""
     lineas = []
@@ -171,7 +205,7 @@ class Problema:
 def analizar_comandos_prohibidos(ruta: Path, texto: str) -> list:
     """Detecta uso de comandos prohibidos por la plantilla."""
     problemas = []
-    texto_sin_comentarios = eliminar_comentarios(texto)
+    texto_sin_comentarios = eliminar_bloques_codigo(eliminar_comentarios(texto))
     for patron, sugerencia in COMANDOS_PROHIBIDOS:
         for m in re.finditer(patron, texto_sin_comentarios):
             linea = texto_sin_comentarios[:m.start()].count("\n") + 1
@@ -189,7 +223,7 @@ def analizar_comandos_prohibidos(ruta: Path, texto: str) -> list:
 def analizar_etiquetas(ruta: Path, texto: str) -> list:
     r"""Detecta figuras, tablas y ecuaciones sin \label{}."""
     problemas = []
-    texto_sin_comentarios = eliminar_comentarios(texto)
+    texto_sin_comentarios = eliminar_bloques_codigo(eliminar_comentarios(texto))
 
     # Entornos que deben tener \label
     entornos_con_label = ["figure", "table", "equation", "align", "lstlisting"]
@@ -214,7 +248,7 @@ def analizar_etiquetas(ruta: Path, texto: str) -> list:
 def analizar_captions(ruta: Path, texto: str) -> list:
     r"""Detecta figuras y tablas sin \caption{}."""
     problemas = []
-    texto_sin_comentarios = eliminar_comentarios(texto)
+    texto_sin_comentarios = eliminar_bloques_codigo(eliminar_comentarios(texto))
 
     for entorno in ["figure", "table"]:
         patron = rf"\\begin\{{{entorno}\*?\}}(.*?)\\end\{{{entorno}\*?\}}"
@@ -241,7 +275,11 @@ def analizar_referencias_cruzadas(archivos_tex: list) -> list:
     refs_usadas = []  # (archivo, linea, clave)
 
     for ruta in archivos_tex:
-        texto = eliminar_comentarios(leer_tex(ruta))
+        texto_raw = eliminar_comentarios(leer_tex(ruta))
+        # Labels y referencias se recogen solo fuera de bloques de código,
+        # para evitar que etiquetas de ejemplo (dentro de codigosimple/latexcode)
+        # se registren como definiciones reales y oculten referencias rotas.
+        texto = eliminar_bloques_codigo(texto_raw)
         for m in re.finditer(r"\\label\{([^}]+)\}", texto):
             labels_definidos.add(m.group(1))
         for m in re.finditer(r"\\(?:ref|pageref|cref|Cref)\{([^}]+)\}", texto):
@@ -284,7 +322,7 @@ def analizar_bibliografia(archivos_tex: list) -> list:
     claves_citadas = set()
     citas_por_archivo = []
     for ruta in archivos_tex:
-        texto = eliminar_comentarios(leer_tex(ruta))
+        texto = eliminar_bloques_codigo(eliminar_comentarios(leer_tex(ruta)))
         for m in re.finditer(
             r"\\(?:parencite|textcite|cite|citeauthor|citeyear|citetitle)"
             r"(?:\[[^\]]*\]){0,2}\{([^}]+)\}",
