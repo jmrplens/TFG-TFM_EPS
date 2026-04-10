@@ -676,19 +676,19 @@ Muestra entradas de log con nivel, fecha y mensaje.
 \end{logbox}
 
 \minisec{Tarjeta de métrica (metricbox)}
-Muestra un valor con etiqueta, unidad y color indicador.
+Muestra un valor con etiqueta, variación y un icono indicador.
 
 \begin{codigosimple}{latex}{Sintaxis: metricbox}
-\metricbox{Etiqueta}{valor}{unidad}{color}
+\metricbox{Etiqueta}{valor}{variación}{\faArrowDown}
 \end{codigosimple}
 
 \vspace{1em}
 \noindent
-\metricbox{Tiempo de respuesta}{45}{ms}{eps-success}
+\metricbox{Tiempo de respuesta}{45 ms}{-12\%}{\faArrowDown}
 \hfill
-\metricbox{Uso de CPU}{78}{\%}{eps-warning}
+\metricbox{Uso de CPU}{78\%}{+5\%}{\faArrowUp}
 \hfill
-\metricbox{Memoria}{2.4}{GB}{eps-info}
+\metricbox{Memoria}{2.4 GB}{-0.3 GB}{\faArrowDown}
 
 
 %% =============================================================================

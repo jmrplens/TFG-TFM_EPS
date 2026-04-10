@@ -112,14 +112,18 @@ def eliminar_bloques_codigo(texto: str) -> str:
         "phpcode", "phpcodeNN", "terminal",
     ]
     for entorno in entornos:
-        # Reemplaza el CONTENIDO del entorno por una línea vacía,
-        # manteniendo \begin y \end para no desplazar números de línea en exceso.
-        texto = re.sub(
-            r"(\\begin\{" + re.escape(entorno) + r"\}(?:\[[^\]]*\])?(?:\{[^}]*\})*(?:\{[^}]*\})*)(.*?)(\\end\{" + re.escape(entorno) + r"\})",
-            r"\1\n\3",
-            texto,
-            flags=re.DOTALL,
+        # Reemplaza el CONTENIDO del entorno preservando el número de líneas,
+        # para que los números de línea de los diagnósticos posteriores sean correctos.
+        patron = (
+            r"(\\begin\{" + re.escape(entorno) + r"\}(?:\[[^\]]*\])?"
+            r"(?:\{[^}]*\})*(?:\{[^}]*\})*)(.*?)(\\end\{" + re.escape(entorno) + r"\})"
         )
+
+        def _vaciar_bloque(match):
+            lineas = max(match.group(2).count("\n"), 1)
+            return match.group(1) + ("\n" * lineas) + match.group(3)
+
+        texto = re.sub(patron, _vaciar_bloque, texto, flags=re.DOTALL)
     # Eliminar contenido de \verb|...|, \verb!...!, \verb+...+ (verbatim inline)
     texto = re.sub(r"\\verb([^a-zA-Z*])(.*?)\1", r"\\verb\1VERBATIM\1", texto)
     return texto
@@ -272,11 +276,12 @@ def analizar_referencias_cruzadas(archivos_tex: list) -> list:
 
     for ruta in archivos_tex:
         texto_raw = eliminar_comentarios(leer_tex(ruta))
-        # Labels se recogen del texto completo (pueden definirse dentro de entornos)
-        for m in re.finditer(r"\\label\{([^}]+)\}", texto_raw):
-            labels_definidos.add(m.group(1))
-        # Referencias se buscan solo fuera de bloques de código
+        # Labels y referencias se recogen solo fuera de bloques de código,
+        # para evitar que etiquetas de ejemplo (dentro de codigosimple/latexcode)
+        # se registren como definiciones reales y oculten referencias rotas.
         texto = eliminar_bloques_codigo(texto_raw)
+        for m in re.finditer(r"\\label\{([^}]+)\}", texto):
+            labels_definidos.add(m.group(1))
         for m in re.finditer(r"\\(?:ref|pageref|cref|Cref)\{([^}]+)\}", texto):
             linea = texto[:m.start()].count("\n") + 1
             refs_usadas.append((str(ruta.relative_to(RAIZ)), linea, m.group(1)))
