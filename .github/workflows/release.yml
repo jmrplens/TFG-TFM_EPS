@@ -24,13 +24,13 @@ jobs:
     name: Crear release
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v6
       with:
         fetch-depth: 0
-      
+
     - name: Compile LaTeX document
       uses: xu-cheng/latex-action@v4
       with:
@@ -44,10 +44,10 @@ jobs:
           # Deshabilitar DocumentMetadata en CI (pdfstandard=ua-2 carga el paquete
           # 'block' experimental que es incompatible con opciones de enumitem).
           sed -i 's/\\input{eps-metadata}/%\\input{eps-metadata}/' main.tex
-        
+
     - name: Rename PDF
       run: mv main.pdf TFG-TFM_EPS_UA.pdf
-      
+
     - name: Get version
       id: version
       run: |
@@ -56,51 +56,51 @@ jobs:
         else
           echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
         fi
-        
+
     - name: Generate release notes
       id: notes
       run: |
         VERSION="${{ steps.version.outputs.VERSION }}"
         cat << EOF > release_notes.md
         ## 📦 Plantilla TFG/TFM - EPS Universidad de Alicante
-        
+
         Esta release **${VERSION}** incluye la plantilla LaTeX actualizada y el documento de ejemplo compilado.
-        
+
         ### 📥 Archivos incluidos
-        
+
         - **TFG-TFM_EPS_UA.pdf** - Documento de ejemplo compilado
         - **Source code** - Código fuente de la plantilla
-        
+
         ### 🚀 Cómo usar
-        
+
         1. Descarga el código fuente (zip o tar.gz)
         2. Extrae los archivos
         3. Abre el proyecto en tu editor LaTeX favorito
         4. Compila con **LuaLaTeX** usando el flag \`-shell-escape\`
-        
+
         ### 📋 Requisitos
-        
+
         - TeX Live ${{ env.TEXLIVE_VERSION }} o superior
         - LuaLaTeX (obligatorio)
         - latexminted para resaltado de código (\`pip install latexminted\`)
-        
+
         ### 📖 Documentación
-        
+
         Consulta la carpeta \`docs/\` para guías detalladas sobre:
         - Ecuaciones matemáticas
         - Tablas y figuras
         - Código fuente
         - Bibliografía
         - Glosarios y acrónimos
-        
+
         ---
         *Escuela Politécnica Superior - Universidad de Alicante*
-        
+
         > Compilado automáticamente con GitHub Actions 🤖
         EOF
-        
+
     - name: Create Release
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
         tag_name: ${{ steps.version.outputs.VERSION }}
         name: Release ${{ steps.version.outputs.VERSION }}

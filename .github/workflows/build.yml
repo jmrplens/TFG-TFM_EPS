@@ -2,8 +2,8 @@ name: Build LaTeX Document
 
 # Run name dinámico para mejor visibilidad en la UI
 run-name: >-
-  ${{ github.event_name == 'pull_request' 
-      && format('PR #{0}: {1}', github.event.pull_request.number, github.event.pull_request.title) 
+  ${{ github.event_name == 'pull_request'
+      && format('PR #{0}: {1}', github.event.pull_request.number, github.event.pull_request.title)
       || format('Build: {0}', github.event.head_commit.message || 'Manual trigger') }}
 
 on:
@@ -52,44 +52,44 @@ jobs:
     if: github.event_name == 'pull_request'
     outputs:
       comment_id: ${{ steps.create-comment.outputs.comment_id }}
-    
+
     steps:
     - name: Create or update initial comment
       id: create-comment
-      uses: actions/github-script@v8
+      uses: actions/github-script@v9
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
           const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
           const sha = context.payload.pull_request.head.sha.substring(0, 7);
-          
+
           const body = `## 📄 Compilación del documento
-          
+
           ⏳ **Compilando...** El documento se está procesando.
-          
+
           | Detalle | Valor |
           |---------|-------|
           | **Commit** | \`${sha}\` |
           | **Estado** | 🔄 En progreso |
-          
+
           👉 **[Ver progreso del workflow](${runUrl})**
-          
+
           ---
           *Generado automáticamente por GitHub Actions* 🤖
           `;
-          
+
           // Buscar comentario existente del bot
           const { data: comments } = await github.rest.issues.listComments({
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: context.issue.number,
           });
-          
-          const botComment = comments.find(comment => 
-            comment.user.type === 'Bot' && 
+
+          const botComment = comments.find(comment =>
+            comment.user.type === 'Bot' &&
             comment.body.includes('📄 Compilación del documento')
           );
-          
+
           let commentId;
           if (botComment) {
             await github.rest.issues.updateComment({
@@ -108,7 +108,7 @@ jobs:
             });
             commentId = newComment.id;
           }
-          
+
           core.setOutput('comment_id', commentId);
 
   # 2. Compilar documento
@@ -118,11 +118,11 @@ jobs:
     timeout-minutes: 30
     # No depender de init-comment para que push y workflow_dispatch funcionen
     if: "!cancelled()"
-    
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v6
-      
+
     - name: Compile LaTeX document
       uses: xu-cheng/latex-action@v4
       with:
@@ -139,7 +139,7 @@ jobs:
           sed -i 's/\\input{eps-metadata}/%\\input{eps-metadata}/' main.tex
           echo "Verificando que eps-metadata está comentado:"
           grep -n "eps-metadata" main.tex
-        
+
     - name: Upload PDF artifact
       uses: actions/upload-artifact@v7
       with:
@@ -163,10 +163,10 @@ jobs:
     runs-on: ubuntu-latest
     if: always() && github.event_name == 'pull_request' && !cancelled()
     needs: [init-comment, build]
-    
-    steps:       
+
+    steps:
     - name: Update PR comment with result
-      uses: actions/github-script@v8
+      uses: actions/github-script@v9
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
@@ -174,59 +174,59 @@ jobs:
           const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
           const prNumber = context.issue.number;
           const sha = context.payload.pull_request.head.sha.substring(0, 7);
-          
+
           const isSuccess = buildResult === 'success';
           const statusEmoji = isSuccess ? '✅' : '❌';
           const statusText = isSuccess ? 'Compilado correctamente' : 'Error de compilación';
-          
+
           let body = `## 📄 Compilación del documento
-          
+
           ${statusEmoji} **${statusText}**
-          
+
           | Detalle | Valor |
           |---------|-------|
           | **Commit** | \`${sha}\` |
           | **PR** | #${prNumber} |
           | **TeX Live** | ${{ env.TEXLIVE_VERSION }} |
           `;
-          
+
           if (isSuccess) {
             body += `
           ### 📥 Descargar PDF
-          
+
           👉 **[Ver workflow y descargar artefactos](${runUrl})**
-          
+
           En la sección "Artifacts" encontrarás el archivo **TFG-TFM_EPS_UA** con el PDF compilado.
-          
+
           > **Nota:** Los artefactos estarán disponibles durante 90 días.
           `;
           } else {
             body += `
           ### ⚠️ Error en la compilación
-          
+
           👉 **[Ver logs del workflow](${runUrl})**
-          
+
           Revisa los logs para identificar el problema.
           `;
           }
-          
+
           body += `
           ---
           *Generado automáticamente por GitHub Actions* 🤖
           `;
-          
+
           // Buscar y actualizar el comentario del bot
           const { data: comments } = await github.rest.issues.listComments({
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: context.issue.number,
           });
-          
-          const botComment = comments.find(comment => 
-            comment.user.type === 'Bot' && 
+
+          const botComment = comments.find(comment =>
+            comment.user.type === 'Bot' &&
             comment.body.includes('📄 Compilación del documento')
           );
-          
+
           if (botComment) {
             await github.rest.issues.updateComment({
               owner: context.repo.owner,
@@ -249,14 +249,14 @@ jobs:
     runs-on: ubuntu-latest
     # Solo ejecutar en workflow_dispatch, PR, o push (el workflow ya tiene path filters)
     if: >-
-      github.event_name == 'workflow_dispatch' || 
+      github.event_name == 'workflow_dispatch' ||
       github.event_name == 'pull_request' ||
       github.event_name == 'push'
-    
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v6
-      
+
     - name: Check README links
       uses: gaurav-nelson/github-action-markdown-link-check@v1
       with:
