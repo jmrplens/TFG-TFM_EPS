@@ -199,7 +199,7 @@ Para proponer una mejora:
 
 ## 📄 Licencia
 
-Al contribuir a este proyecto, aceptas que tus contribuciones se licenciarán bajo la [GNU General Public License v3.0](LICENSE).
+Al contribuir a este proyecto, aceptas que tus contribuciones se licenciarán bajo la [licencia MIT](LICENSE).
 
 ---
 

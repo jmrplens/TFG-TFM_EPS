@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "Si utilizas esta plantilla, por favor cítala como se indica a continuación."
+type: software
+title: "Plantilla LaTeX TFG/TFM — Escuela Politécnica Superior (Universidad de Alicante)"
+version: 2.2.0
+date-released: 2026-04-09
+authors:
+  - family-names: "Requena Plens"
+    given-names: "José Manuel"
+    email: "mail@jmrp.io"
+    orcid: "https://orcid.org/0000-0003-1250-6212"
+repository-code: "https://github.com/jmrplens/TFG-TFM_EPS"
+url: "https://github.com/jmrplens/TFG-TFM_EPS"
+license: MIT
+keywords:
+  - LaTeX
+  - LuaLaTeX
+  - TFG
+  - TFM
+  - template
+  - thesis
+  - Universidad de Alicante
+  - Escuela Politécnica Superior
+# Tras la primera release en Zenodo, añade aquí el DOI de concepto ("all versions"):
+# doi: "10.5281/zenodo.XXXXXXXX"

@@ -1,0 +1,31 @@
+{
+  "title": "Plantilla LaTeX TFG/TFM — Escuela Politécnica Superior (Universidad de Alicante)",
+  "description": "Plantilla LaTeX moderna y profesional para la elaboración de Trabajos de Fin de Grado (TFG) y Trabajos de Fin de Máster (TFM) de la Escuela Politécnica Superior de la Universidad de Alicante. Motor LuaLaTeX, bibliografía BibLaTeX + Biber (APA 7), resaltado de código con minted, 21 titulaciones preconfiguradas (8 grados y 13 másteres), portadas oficiales a color y en blanco/negro, glosarios y acrónimos, y accesibilidad PDF/UA-2.",
+  "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
+  "creators": [
+    {
+      "name": "Requena Plens, José Manuel",
+      "orcid": "0000-0003-1250-6212"
+    }
+  ],
+  "keywords": [
+    "LaTeX",
+    "LuaLaTeX",
+    "TFG",
+    "TFM",
+    "template",
+    "thesis",
+    "Universidad de Alicante",
+    "Escuela Politécnica Superior",
+    "BibLaTeX",
+    "APA 7"
+  ],
+  "related_identifiers": [
+    {
+      "relation": "isSupplementTo",
+      "identifier": "https://github.com/jmrplens/TFG-TFM_EPS"
+    }
+  ]
+}
