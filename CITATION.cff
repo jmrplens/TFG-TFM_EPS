@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "Si utilizas esta plantilla, por favor cítala como se indica a continuación."
 type: software
 title: "Plantilla LaTeX TFG/TFM — Escuela Politécnica Superior (Universidad de Alicante)"
-version: 2.1.0
-date-released: 2026-07-11
+version: 2.2.0
+date-released: 2026-04-09
 authors:
   - family-names: "Requena Plens"
     given-names: "José Manuel"
