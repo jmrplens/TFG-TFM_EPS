@@ -3,8 +3,9 @@
 Universidad de Alicante
 
 [![LaTeX](https://img.shields.io/badge/LaTeX-LuaLaTeX-008080?logo=latex)](https://www.latex-project.org/)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/Versión-2.1.0-blue.svg)](https://github.com/jmrplens/TFG-TFM_EPS/releases)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXXX)
 [![listed on awesome-comunitat-valenciana](https://img.shields.io/badge/listed%20on-awesome--comunitat--valenciana-FFB81C?style=flat&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNCAxNCI+PGcgZmlsbD0iI0ZGQjgxQyI+PHJlY3QgeD0iNiIgeT0iMiIgd2lkdGg9IjIiIGhlaWdodD0iNCIvPjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiLz48cmVjdCB4PSI4IiB5PSI0IiB3aWR0aD0iMiIgaGVpZ2h0PSIyIi8+PHJlY3QgeD0iMiIgeT0iMyIgd2lkdGg9IjIiIGhlaWdodD0iNCIvPjxyZWN0IHg9IjEwIiB5PSIzIiB3aWR0aD0iMiIgaGVpZ2h0PSI0Ii8+PHJlY3QgeD0iMCIgeT0iMiIgd2lkdGg9IjIiIGhlaWdodD0iMyIvPjxyZWN0IHg9IjEyIiB5PSIyIiB3aWR0aD0iMiIgaGVpZ2h0PSIzIi8+PHJlY3QgeD0iNSIgeT0iOCIgd2lkdGg9IjQiIGhlaWdodD0iMiIvPjxyZWN0IHg9IjQiIHk9IjEwIiB3aWR0aD0iNiIgaGVpZ2h0PSIyIi8+PHJlY3QgeD0iNSIgeT0iMTIiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiLz48cmVjdCB4PSI3IiB5PSIxMiIgd2lkdGg9IjIiIGhlaWdodD0iMiIvPjwvZz48L3N2Zz4=&labelColor=0056A0)](https://github.com/GeiserX/awesome-comunitat-valenciana#readme)
 
 Plantilla LaTeX moderna y profesional para la elaboración de **Trabajos de Fin de Grado (TFG)** y **Trabajos de Fin de Máster (TFM)** de la Escuela Politécnica Superior de la Universidad de Alicante.
@@ -717,18 +718,18 @@ La revisión estática también se ejecuta automáticamente en cada push/PR medi
 
 ## 📄 Licencia
 
-Este proyecto está bajo la licencia [GNU General Public License v3.0](LICENSE).
+Este proyecto está bajo la licencia [MIT](LICENSE).
 
 Puedes:
 
 - ✅ Usar la plantilla para tu TFG/TFM
 - ✅ Modificar y adaptar a tus necesidades
 - ✅ Compartir con otros estudiantes
+- ✅ Usarla en proyectos privados o comerciales
 
 Debes:
 
-- 📝 Mantener la atribución al autor original
-- 🔄 Compartir modificaciones bajo la misma licencia
+- 📝 Mantener el aviso de copyright y la licencia en las copias
 
 ---
 
