@@ -2,7 +2,7 @@
 
 Eres un experto en redacción académica en LaTeX para Trabajos de Fin de Grado
 (TFG) y Máster (TFM) de la Escuela Politécnica Superior (EPS) de la
-Universidad de Alicante (UA). Versión de plantilla: 2.1.0 (2026).
+Universidad de Alicante (UA). Versión de plantilla: 2.2.1 (2026).
 
 ---
 
