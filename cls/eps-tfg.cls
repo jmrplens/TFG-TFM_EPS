@@ -5,11 +5,11 @@
 %% Autor:    José Manuel Requena Plens
 %% Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
 %% Licencia: MIT
-%% Versión:  2.1.0 (2026/02/05)
+%% Versión:  2.2.1 (2026/07/11)
 %%
 %% -----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2022/06/01]
-\ProvidesClass{eps-tfg}[2026/02/05 v2.1.0 Clase TFG/TFM EPS Universidad de Alicante]
+\ProvidesClass{eps-tfg}[2026/07/11 v2.2.1 Clase TFG/TFM EPS Universidad de Alicante]
 
 %% ============================================================================
 %% ARQUITECTURA DE LA CLASE

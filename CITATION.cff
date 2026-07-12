@@ -2,8 +2,9 @@ cff-version: 1.2.0
 message: "Si utilizas esta plantilla, por favor cítala como se indica a continuación."
 type: software
 title: "Plantilla LaTeX TFG/TFM — Escuela Politécnica Superior (Universidad de Alicante)"
-version: 2.2.0
-date-released: 2026-04-09
+version: 2.2.1
+date-released: 2026-07-11
+doi: "10.5281/zenodo.21315904"
 authors:
   - family-names: "Requena Plens"
     given-names: "José Manuel"
@@ -21,5 +22,3 @@ keywords:
   - thesis
   - Universidad de Alicante
   - Escuela Politécnica Superior
-# Tras la primera release en Zenodo, añade aquí el DOI de concepto ("all versions"):
-# doi: "10.5281/zenodo.XXXXXXXX"

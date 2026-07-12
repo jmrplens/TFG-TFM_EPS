@@ -1,7 +1,7 @@
 # CLAUDE.md — Instrucciones para Claude
 
 Plantilla LaTeX para TFG/TFM de la Escuela Politécnica Superior (EPS),
-Universidad de Alicante. Versión 2.1.0 (2026).
+Universidad de Alicante. Versión 2.2.1 (2026).
 
 Motor: **LuaLaTeX** (obligatorio). Bibliografía: **BibLaTeX + Biber** (APA 7).
 Código: **minted 3.x** con `latexminted`.

@@ -18,7 +18,7 @@ opere sobre este repositorio.
 Plantilla LaTeX para Trabajos de Fin de Grado (TFG) y Máster (TFM) de la
 Escuela Politécnica Superior (EPS) de la Universidad de Alicante (UA).
 
-- **Versión:** 2.1.0 (2026)
+- **Versión:** 2.2.1 (2026)
 - **Motor de compilación:** LuaLaTeX (obligatorio, nunca pdfLaTeX)
 - **Clase principal:** `cls/eps-tfg.cls` (basada en KOMA-Script `scrbook`)
 - **Bibliografía:** BibLaTeX + Biber, estilo APA 7
