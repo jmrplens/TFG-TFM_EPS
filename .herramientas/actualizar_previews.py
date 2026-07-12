@@ -8,8 +8,8 @@ Herramienta unificada para generar e insertar previews de documentación LaTeX.
 Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
 Autor:    José Manuel Requena Plens
 Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
-Licencia: GNU GPL v3.0
-Versión:  2.1.0
+Licencia: MIT
+Versión:  2.2.1
 --------------------------------------------------------------------------------
 
 Este script:
@@ -31,7 +31,7 @@ Uso:
     python3 actualizar_previews.py --limpiar       # Eliminar previews huérfanos
 
 Autor: Plantilla TFG/TFM EPS UA
-Licencia: GPL-3.0
+Licencia: MIT
 """
 
 import argparse
