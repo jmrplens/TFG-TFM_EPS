@@ -8,7 +8,7 @@ Generador automático de imágenes de portadas para el README.
 Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
 Autor:    José Manuel Requena Plens
 Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
-Licencia: GNU GPL v3.0
+Licencia: MIT
 Versión:  2.2.1
 --------------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@ Este script:
 4. Convierte a WebP y actualiza el README.md
 
 Autor: Plantilla TFG/TFM EPS UA
-Licencia: GPL-3.0
+Licencia: MIT
 """
 
 import os
