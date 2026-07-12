@@ -563,7 +563,7 @@ def verificar_plagio_turnitin(texto: str, api_key: str, tenant_url: str) -> list
     base_headers = {
         "Authorization": f"Bearer {api_key}",
         "X-Turnitin-Integration-Name": "TFG-TFM-EPS-UA",
-        "X-Turnitin-Integration-Version": "2.1.0",
+        "X-Turnitin-Integration-Version": "2.2.1",
     }
 
     def _request(method: str, path: str, body=None, binary: bool = False) -> dict:
