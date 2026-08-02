@@ -5,11 +5,29 @@
 %% Autor:    José Manuel Requena Plens
 %% Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
 %% Licencia: MIT
-%% Versión:  2.2.1 (2026/07/11)
+%% Versión:  2.2.2 (2026/08/02)
 %%
 %% -----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2022/06/01]
-\ProvidesClass{eps-tfg}[2026/07/11 v2.2.1 Clase TFG/TFM EPS Universidad de Alicante]
+\ProvidesClass{eps-tfg}[2026/08/02 v2.2.2 Clase TFG/TFM EPS Universidad de Alicante]
+
+%% ============================================================================
+%% COMPROBACIÓN DEL MOTOR: LuaLaTeX obligatorio
+%% ============================================================================
+%% Con pdfLaTeX o XeLaTeX el documento falla más adelante con errores confusos
+%% (p. ej. «TeX capacity exceeded»). Normalmente esto ya se detecta en
+%% cls/eps-metadata.tex; esta comprobación cubre el caso de cargar la clase sin
+%% ese archivo. Ver docs/OVERLEAF.md.
+\ifdefined\directlua\else
+  \ClassError{eps-tfg}{%
+    Esta plantilla requiere LuaLaTeX\MessageBreak
+    (en Overleaf: Menu -> Compiler -> LuaLaTeX)%
+  }{%
+    Compila con `make' o `lualatex -shell-escape main.tex'.\MessageBreak
+    Mas informacion en docs/OVERLEAF.md%
+  }%
+  \csname @@end\endcsname
+\fi
 
 %% ============================================================================
 %% ARQUITECTURA DE LA CLASE

@@ -18,7 +18,7 @@ opere sobre este repositorio.
 Plantilla LaTeX para Trabajos de Fin de Grado (TFG) y Máster (TFM) de la
 Escuela Politécnica Superior (EPS) de la Universidad de Alicante (UA).
 
-- **Versión:** 2.2.1 (2026)
+- **Versión:** 2.2.2 (2026)
 - **Motor de compilación:** LuaLaTeX (obligatorio, nunca pdfLaTeX)
 - **Clase principal:** `cls/eps-tfg.cls` (basada en KOMA-Script `scrbook`)
 - **Bibliografía:** BibLaTeX + Biber, estilo APA 7
@@ -308,6 +308,7 @@ Formato de entrada en `referencias.bib`:
 
 | Error en `.log` | Causa | Solución |
 | --- | --- | --- |
+| `TeX capacity exceeded [main memory size=5000000]` | Motor incorrecto (XeLaTeX/pdfLaTeX) | Compilar con LuaLaTeX; en Overleaf, Menu → Compiler → LuaLaTeX (`docs/OVERLEAF.md`) |
 | `Undefined control sequence \EPSsetup` | `configuracion.tex` cargado antes de la clase | Verificar orden en `main.tex` |
 | `You must invoke LaTeX with -shell-escape` | Falta flag en compilación | Usar `make` o añadir `-shell-escape` |
 | `Pygments not found` | `latexminted` no instalado | `pip install latexminted` |

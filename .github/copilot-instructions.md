@@ -1,7 +1,7 @@
 # Instrucciones para GitHub Copilot — Plantilla TFG/TFM EPS UA
 
 Plantilla LaTeX para TFG/TFM de la Escuela Politécnica Superior (EPS),
-Universidad de Alicante. Versión 2.2.1 (2026).
+Universidad de Alicante. Versión 2.2.2 (2026).
 
 ---
 
@@ -434,6 +434,7 @@ Pedir siempre las últimas 30 líneas de `main.log`.
 
 | Error | Solución |
 | --- | --- |
+| `TeX capacity exceeded [main memory size=5000000]` | Compilar con LuaLaTeX (Overleaf: Menu → Compiler → LuaLaTeX) |
 | `You must invoke LaTeX with -shell-escape` | Usar `make` o añadir `-shell-escape` |
 | `Pygments not found` | `pip install latexminted` |
 | `Citation 'X' undefined` | Ejecutar `make` completo (biber) |

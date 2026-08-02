@@ -5,6 +5,29 @@
 % Se carga ANTES de \documentclass para asegurar que el motor PDF se
 % inicialice correctamente.
 
+% -----------------------------------------------------------------------------
+% COMPROBACIÓN DEL MOTOR: la plantilla SOLO funciona con LuaLaTeX
+% -----------------------------------------------------------------------------
+% Con pdfLaTeX o XeLaTeX el documento falla más adelante con errores confusos
+% (típicamente «TeX capacity exceeded, sorry [main memory size=5000000]»,
+% porque esos motores tienen memoria fija y el preámbulo de esta plantilla no
+% cabe en ella). Abortamos aquí con un mensaje claro.
+\ifdefined\directlua\else
+  \newlinechar=`\^^J
+  \errmessage{^^J%
+  ============================================================^^J%
+   ESTA PLANTILLA REQUIERE LuaLaTeX (motor actual: no es LuaTeX)^^J%
+  ============================================================^^J%
+   * Overleaf: Menu -> Settings -> Compiler -> LuaLaTeX^^J%
+     (Overleaf ignora la linea magica "!TeX program = lualatex")^^J%
+   * Local:    make    o    lualatex -shell-escape main.tex^^J%
+   * latexmk:  latexmk main.tex   (usa .latexmkrc del proyecto)^^J%
+  ^^J%
+   Mas informacion: docs/OVERLEAF.md^^J%
+  ============================================================^^J}%
+  \csname @@end\endcsname
+\fi
+
 \DocumentMetadata{
   % --- Fase de pruebas de accesibilidad (tagging) ---
   % phase-I:  Etiquetado básico automático.

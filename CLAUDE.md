@@ -1,7 +1,7 @@
 # CLAUDE.md — Instrucciones para Claude
 
 Plantilla LaTeX para TFG/TFM de la Escuela Politécnica Superior (EPS),
-Universidad de Alicante. Versión 2.2.1 (2026).
+Universidad de Alicante. Versión 2.2.2 (2026).
 
 Motor: **LuaLaTeX** (obligatorio). Bibliografía: **BibLaTeX + Biber** (APA 7).
 Código: **minted 3.x** con `latexminted`.
@@ -476,6 +476,8 @@ Si el usuario reporta un error, pedir las últimas 30 líneas de `main.log`.
 
 | Error | Causa probable | Solución |
 | --- | --- | --- |
+| `TeX capacity exceeded [main memory size=5000000]` | Se está compilando con XeLaTeX/pdfLaTeX | Usar LuaLaTeX (en Overleaf: Menu → Compiler → LuaLaTeX). Ver `docs/OVERLEAF.md` |
+| `ESTA PLANTILLA REQUIERE LuaLaTeX` | Guard de motor en `cls/eps-metadata.tex` | Ídem |
 | `Undefined control sequence` | Comando no definido o paquete no cargado | Verificar módulo de componentes activo |
 | `You must invoke LaTeX with -shell-escape` | Falta flag | Usar `make` o añadir `-shell-escape` |
 | `Pygments not found` | Python/minted no instalado | `pip install latexminted` |
