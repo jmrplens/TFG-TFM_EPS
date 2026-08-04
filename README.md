@@ -590,7 +590,7 @@ o hacerlo a mano:
 > porque el preámbulo de la plantilla no cabe en la memoria fija de esos motores.
 > El `.latexmkrc` del proyecto redirige el motor a LuaLaTeX como red de
 > seguridad, pero conviene ajustar el menú igualmente.
-
+>
 > 💡 `shell-escape` (necesario para minted) lo activa Overleaf automáticamente al
 > detectar el paquete; no hay que configurar nada.
 

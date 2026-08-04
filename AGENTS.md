@@ -308,7 +308,8 @@ Formato de entrada en `referencias.bib`:
 
 | Error en `.log` | Causa | Solución |
 | --- | --- | --- |
-| `TeX capacity exceeded [main memory size=5000000]` | Motor incorrecto (XeLaTeX/pdfLaTeX) | Compilar con LuaLaTeX; en Overleaf, Menu → Compiler → LuaLaTeX (`docs/OVERLEAF.md`) |
+| `TeX capacity exceeded [main memory size=5000000]` | Casi siempre, motor incorrecto (XeLaTeX/pdfLaTeX, de memoria fija); si el motor ya es LuaLaTeX, revisar el contexto en `main.log` (macro recursiva, documento enorme) | Compilar con LuaLaTeX; en Overleaf, Menu → Compiler → LuaLaTeX (`docs/OVERLEAF.md`) |
+| `ESTA PLANTILLA REQUIERE LuaLaTeX` | Guard de motor de la plantilla: el motor no es LuaTeX | Compilar con LuaLaTeX (`make`) |
 | `Undefined control sequence \EPSsetup` | `configuracion.tex` cargado antes de la clase | Verificar orden en `main.tex` |
 | `You must invoke LaTeX with -shell-escape` | Falta flag en compilación | Usar `make` o añadir `-shell-escape` |
 | `Pygments not found` | `latexminted` no instalado | `pip install latexminted` |

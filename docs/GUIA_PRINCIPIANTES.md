@@ -249,7 +249,7 @@ pdfLaTeX o XeLaTeX la compilación falla.
 
 **Desventajas:** Necesitas internet y, sobre todo, **esta plantilla es pesada**: entre
 el etiquetado PDF/UA, `minted` y las figuras TikZ, la primera compilación necesita
-varias pasadas y puede agotar el límite de tiempo del plan gratuito (~20 s). En local
+varias pasadas y agota el límite de tiempo del plan gratuito (10 s). En local
 no existe ese límite. Si trabajas en Overleaf, lee antes
 [`OVERLEAF.md`](OVERLEAF.md): explica cómo elegir el compilador y cómo ir compilando
 por partes.

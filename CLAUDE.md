@@ -476,8 +476,8 @@ Si el usuario reporta un error, pedir las últimas 30 líneas de `main.log`.
 
 | Error | Causa probable | Solución |
 | --- | --- | --- |
-| `TeX capacity exceeded [main memory size=5000000]` | Se está compilando con XeLaTeX/pdfLaTeX | Usar LuaLaTeX (en Overleaf: Menu → Compiler → LuaLaTeX). Ver `docs/OVERLEAF.md` |
-| `ESTA PLANTILLA REQUIERE LuaLaTeX` | Guard de motor en `cls/eps-metadata.tex` | Ídem |
+| `TeX capacity exceeded [main memory size=5000000]` | Causa más probable: se está compilando con XeLaTeX/pdfLaTeX (memoria fija). También puede deberse a una macro recursiva o a un documento desmesurado | Comprobar primero el motor: usar LuaLaTeX (en Overleaf: Menu → Compiler → LuaLaTeX). Si ya se usa LuaLaTeX, revisar el contexto del error en `main.log`. Ver `docs/OVERLEAF.md` |
+| `ESTA PLANTILLA REQUIERE LuaLaTeX` | Guard de motor en `cls/eps-metadata.tex`: el motor no es LuaTeX | Compilar con LuaLaTeX (`make`, o en Overleaf Menu → Compiler → LuaLaTeX) |
 | `Undefined control sequence` | Comando no definido o paquete no cargado | Verificar módulo de componentes activo |
 | `You must invoke LaTeX with -shell-escape` | Falta flag | Usar `make` o añadir `-shell-escape` |
 | `Pygments not found` | Python/minted no instalado | `pip install latexminted` |

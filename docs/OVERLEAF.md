@@ -32,6 +32,12 @@ Si prefieres subir el proyecto tú mismo:
 
 ## 1. Importar el proyecto
 
+> ℹ️ **El repositorio de GitHub es la fuente de la verdad.** La plantilla de la
+> galería se corresponde con la última versión publicada allí y se actualiza
+> reenviándola desde Overleaf, así que puede ir por detrás del repositorio
+> durante un tiempo. Si necesitas la última versión exacta, usa el ZIP de
+> GitHub.
+
 | Método | Cómo |
 | --- | --- |
 | **Galería de Overleaf** (recomendado) | [Abrir la plantilla publicada](https://www.overleaf.com/latex/templates/plantilla-latex-2026-tfg-y-tfm-para-la-eps-de-la-universidad-de-alicante-bachelors-slash-masters-thesis-template/qjntjjjpfjvv) → *Open as Template*. El compilador y la versión de TeX Live vienen ya configurados |
@@ -72,7 +78,7 @@ Aunque olvides ese paso, el proyecto trae dos protecciones:
 > *Logs and output files* → **Clear cached files**. Los auxiliares que dejó la
 > compilación fallida (`output.aux`, `output.xdv`, `output.bcf`…) pueden
 > provocar errores extraños en la primera compilación con el motor nuevo.
-
+>
 > 💡 **¿Por qué falla con XeLaTeX/pdfLaTeX?** Esos motores tienen una memoria
 > principal fija (5.000.000 de palabras) que no se puede ampliar en Overleaf. El
 > preámbulo de la plantilla (KOMA + tagging PDF/UA + biblatex + glossaries +
@@ -110,10 +116,13 @@ versión de TeX Live sea 2024 o posterior.
 
 Overleaf corta la compilación al llegar al límite del plan:
 
-| Plan | Límite aproximado |
+| Plan | Límite de compilación |
 | --- | --- |
-| Gratuito | ~20 segundos |
+| Gratuito | 10 segundos |
 | Premium | 240 segundos (4 minutos) |
+
+*(Valores publicados por Overleaf en
+[Plan limits](https://docs.overleaf.com/getting-started/free-and-premium-plans/plan-limits).)*
 
 El proyecto **tal cual se descarga** (más de 130 páginas de contenido de
 ejemplo, todos los módulos de componentes y decenas de bloques `minted`) es
@@ -169,7 +178,7 @@ documentos grandes, y además es cómoda mientras escribes.
 
 > ⚠️ Si en algún momento pulsas **Clear cached files**, la siguiente compilación
 > vuelve a ser «desde cero»: repite el proceso progresivo.
-
+>
 > ℹ️ Desactivar el etiquetado de accesibilidad (comentar `testphase={phase-I}` y
 > `pdfstandard=ua-2` en `cls/eps-metadata.tex`) apenas ahorra tiempo (~5 % en
 > las pruebas realizadas) y sacrifica el PDF/UA-2: **no** es la palanca que
