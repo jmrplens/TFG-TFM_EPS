@@ -23,7 +23,7 @@ Plantilla LaTeX moderna y profesional para la elaboración de **Trabajos de Fin 
 - 📊 **Gráficas y diagramas** con TikZ/PGFPlots
 - 📖 **Glosarios y acrónimos** integrados
 - 🚀 **Optimización TikZ** con caché de figuras
-- 🔧 **Compatible con Overleaf** y editores locales
+- 🔧 **Pensada para trabajar en local** (VS Code, TeXstudio…) y **compatible con Overleaf**
 
 ---
 
