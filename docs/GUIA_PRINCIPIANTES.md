@@ -20,10 +20,11 @@ Si vienes de Word, Google Docs o similar, LaTeX puede parecer intimidante al pri
   - [Entornos](#entornos)
   - [Comentarios](#comentarios)
 - [💻 Instalación paso a paso](#-instalación-paso-a-paso)
-  - [Opción 1: Overleaf (sin instalar nada) Recomendado para empezar ⭐](#opción-1-overleaf-sin-instalar-nada-recomendado-para-empezar)
-  - [Opción 2: Instalación local en Windows](#opción-2-instalación-local-en-windows)
-  - [Opción 3: Instalación local en macOS](#opción-3-instalación-local-en-macos)
-  - [Opción 4: Instalación local en Linux (Ubuntu/Debian)](#opción-4-instalación-local-en-linux-ubuntudebian)
+  - [Opción 0: Script de instalación automática ⭐ Recomendado para instalación local](#opción-0-script-de-instalación-automática--recomendado-para-instalación-local)
+  - [Opción 1: Instalación local en Windows](#opción-1-instalación-local-en-windows)
+  - [Opción 2: Instalación local en macOS](#opción-2-instalación-local-en-macos)
+  - [Opción 3: Instalación local en Linux (Ubuntu/Debian)](#opción-3-instalación-local-en-linux-ubuntudebian)
+  - [Opción 4: Overleaf (alternativa sin instalación)](#opción-4-overleaf-alternativa-sin-instalación)
 - [✍️ Eligiendo un editor](#eligiendo-un-editor)
   - [VS Code + LaTeX Workshop Recomendado ⭐](#vs-code--latex-workshop-recomendado)
   - [TeXstudio - Alternativa popular](#texstudio---alternativa-popular)
@@ -177,20 +178,7 @@ Si prefieres que una IA te guíe paso a paso, usa el **agente de instalación**:
 
 Si prefieres instalar manualmente, sigue las opciones a continuación.
 
-### Opción 1: Overleaf (sin instalar nada) Recomendado para empezar⭐
-
-[Overleaf](https://www.overleaf.com) es un editor LaTeX online. No necesitas instalar nada.
-
-1. Crea una cuenta en [overleaf.com](https://www.overleaf.com)
-2. Sube los archivos de la plantilla (o usa "Upload Project" con el ZIP)
-3. Configura el compilador como **LuaLaTeX** (menú ☰ → Settings)
-4. ¡Listo! Puedes empezar a editar
-
-**Ventajas:** Sin instalación, funciona en cualquier ordenador, colaboración en tiempo real.
-
-**Desventajas:** Necesitas internet, versión gratuita tiene límite de tiempo de compilación.
-
-### Opción 2: Instalación local en Windows
+### Opción 1: Instalación local en Windows
 
 #### Paso 1: Instalar MiKTeX
 
@@ -211,7 +199,7 @@ Si prefieres instalar manualmente, sigue las opciones a continuación.
 
 #### Paso 3: Instalar un editor (ver sección siguiente)
 
-### Opción 3: Instalación local en macOS
+### Opción 2: Instalación local en macOS
 
 #### Paso 1: Instalar MacTeX
 
@@ -225,7 +213,7 @@ Si prefieres instalar manualmente, sigue las opciones a continuación.
 pip3 install latexminted
 ```
 
-### Opción 4: Instalación local en Linux (Ubuntu/Debian)
+### Opción 3: Instalación local en Linux (Ubuntu/Debian)
 
 ```bash
 # Instalar TeX Live completo (recomendado, ~5GB)
@@ -240,6 +228,31 @@ pip3 install latexminted
 ```
 
 > **Nota:** Ubuntu/Debian pueden tener versiones antiguas de TeX Live en sus repositorios. Para obtener TeX Live 2025, considera usar la [instalación oficial de TeX Live](https://www.tug.org/texlive/quickinstall.html) en lugar de los paquetes de la distribución.
+
+### Opción 4: Overleaf (alternativa sin instalación)
+
+[Overleaf](https://www.overleaf.com) es un editor LaTeX online: no necesitas instalar nada.
+Es la **alternativa** recomendada solo si no puedes o no quieres trabajar en local
+(por ejemplo, para colaborar en línea o desde un ordenador que no es tuyo).
+
+1. Crea una cuenta en [overleaf.com](https://www.overleaf.com)
+2. Abre la [plantilla publicada en la galería de Overleaf](https://www.overleaf.com/latex/templates/plantilla-latex-2026-tfg-y-tfm-para-la-eps-de-la-universidad-de-alicante-bachelors-slash-masters-thesis-template/qjntjjjpfjvv)
+   y pulsa **Open as Template**: el proyecto se crea con el compilador correcto
+   ya configurado
+3. ¡Listo! Puedes empezar a editar
+
+Si en vez de eso subes los archivos tú (*Upload Project* con el ZIP), configura
+el compilador como **LuaLaTeX** en menú ☰ → *Compiler*. Es imprescindible: con
+pdfLaTeX o XeLaTeX la compilación falla.
+
+**Ventajas:** Sin instalación, funciona en cualquier ordenador, colaboración en tiempo real.
+
+**Desventajas:** Necesitas internet y, sobre todo, **esta plantilla es pesada**: entre
+el etiquetado PDF/UA, `minted` y las figuras TikZ, la primera compilación necesita
+varias pasadas y agota el límite de tiempo del plan gratuito (10 s). En local
+no existe ese límite. Si trabajas en Overleaf, lee antes
+[`OVERLEAF.md`](OVERLEAF.md): explica cómo elegir el compilador y cómo ir compilando
+por partes.
 
 ---
 
@@ -291,10 +304,10 @@ pip3 install latexminted
 
 | Editor | Facilidad | Características | Para quién |
 | -------- | ----------- | ----------------- | ------------ |
-| **Overleaf** | ⭐⭐⭐⭐⭐ | Online, colaborativo | Principiantes, equipos |
-| **VS Code** | ⭐⭐⭐⭐ | Muy extensible | Programadores, avanzados |
+| **VS Code** ⭐ *recomendado* | ⭐⭐⭐⭐ | Muy extensible, sin límites de compilación | Uso general con esta plantilla |
 | **TeXstudio** | ⭐⭐⭐⭐ | Todo incluido | Uso general |
-| **Texmaker** | ⭐⭐⭐⭐ | Sencillo | Principiantes locales |
+| **Texmaker** | ⭐⭐⭐⭐ | Sencillo | Quien prefiera algo minimalista |
+| **Overleaf** *(alternativa)* | ⭐⭐⭐⭐⭐ | Online, colaborativo, con límite de tiempo de compilación | Trabajo en equipo o sin poder instalar nada |
 
 ---
 

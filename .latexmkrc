@@ -19,6 +19,23 @@ $pdf_mode = 4;  # 4 = lualatex
 # Comando de LuaLaTeX con opciones necesarias
 $lualatex = 'lualatex -shell-escape -interaction=nonstopmode -file-line-error -synctex=1 %O %S';
 
+# ----------------------------------------------------------------------------
+# COMPATIBILIDAD CON OVERLEAF (y con `latexmk -pdf` / `-pdfxe` / `-pdfdvi`)
+# ----------------------------------------------------------------------------
+# Overleaf ignora la línea mágica «% !TeX program = lualatex» y elige el motor
+# desde Menu -> Compiler, pasándolo por línea de órdenes (-pdf, -pdfxe...).
+# Las opciones de la línea de órdenes tienen prioridad sobre $pdf_mode, así que
+# un proyecto importado a Overleaf compilaría con pdfLaTeX o XeLaTeX y fallaría
+# («TeX capacity exceeded», memoria fija de esos motores).
+#
+# Redirigimos esos motores a LuaLaTeX: así el proyecto compila en Overleaf
+# aunque el menú «Compiler» no esté en LuaLaTeX. latexmk detecta que la salida
+# es PDF en vez de XDV/DVI y ajusta la cadena automáticamente.
+# En la compilación normal (pdf_mode = 4) estas variables NO se usan.
+$pdflatex = 'lualatex -shell-escape -interaction=nonstopmode -file-line-error -synctex=1 %O %S';
+$xelatex  = 'lualatex -shell-escape -interaction=nonstopmode -file-line-error -synctex=1 %O %S';
+$latex    = 'lualatex -shell-escape -interaction=nonstopmode -file-line-error -synctex=1 %O %S';
+
 # Máximo número de iteraciones
 $max_repeat = 5;
 

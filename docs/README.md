@@ -5,6 +5,7 @@ Bienvenido a la documentación detallada de la plantilla TFG/TFM EPS Universidad
 ## 🚀 Guías de Inicio
 
 - **[Guía para Principiantes](GUIA_PRINCIPIANTES.md)**: Si es tu primera vez con LaTeX, empieza por aquí.
+- **[Uso en Overleaf](OVERLEAF.md)**: Alternativa al trabajo en local. Plantilla publicada en la galería, selección del compilador (LuaLaTeX), límites de compilación y solución de errores.
 - **[Contexto para IA](AI_CONTEXT.md)**: Referencia técnica completa para asistentes de IA (ChatGPT, Copilot, Claude, etc.).
 - **[Flujos de trabajo para IA](AI_WORKFLOWS.md)**: Guías paso a paso para las tareas más comunes (añadir capítulos, figuras, código, cambiar idioma, diagnosticar errores).
 

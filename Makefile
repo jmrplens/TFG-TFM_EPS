@@ -5,7 +5,7 @@
 # Autor:    José Manuel Requena Plens
 # Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
 # Licencia: MIT
-# Versión:  2.2.1
+# Versión:  2.2.2
 # ==============================================================================
 #
 # Comandos disponibles:

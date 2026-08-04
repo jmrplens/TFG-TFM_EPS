@@ -5,6 +5,30 @@ Todos los cambios notables de este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/),
 y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
+## [2.2.2] - 2026-08-02
+
+### Añadido
+
+- **Guía de Overleaf**: Nueva guía `docs/OVERLEAF.md` (importación, selección de
+  compilador, límites de compilación, avisos normales y errores frecuentes)
+- **Plantilla publicada en la galería de Overleaf**, enlazada desde el README,
+  `docs/OVERLEAF.md`, `docs/README.md`, `docs/GUIA_PRINCIPIANTES.md` y `llms.txt`
+- **Botón «Abrir en Overleaf»** en el README, que crea el proyecto con el motor
+  LuaLaTeX ya seleccionado (`engine=lualatex`)
+- **Comprobación de motor** en `cls/eps-metadata.tex`: si se compila con
+  pdfLaTeX o XeLaTeX, la compilación se detiene con un mensaje explicativo en
+  lugar del error críptico `TeX capacity exceeded, sorry [main memory size=5000000]`
+
+### Corregido
+
+- **Compatibilidad con Overleaf**: `.latexmkrc` redirige los motores `pdflatex`,
+  `xelatex` y `latex` a LuaLaTeX. Overleaf ignora la línea mágica
+  `% !TeX program = lualatex` y pasa el motor por línea de órdenes (prioritaria
+  sobre `$pdf_mode`), por lo que los proyectos importados fallaban al compilar
+  con XeLaTeX/pdfLaTeX
+
+---
+
 ## [2.1.0] - 2026-02-06
 
 ### Añadido
