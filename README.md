@@ -566,8 +566,12 @@ Los colores de las titulaciones se definen en la clase. Para personalizar:
 
 [![Plantilla en Overleaf](https://img.shields.io/badge/Overleaf-Abrir%20plantilla-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/latex/templates/plantilla-latex-2026-tfg-y-tfm-para-la-eps-de-la-universidad-de-alicante-bachelors-slash-masters-thesis-template/qjntjjjpfjvv)
 
-**La forma más rápida:** abre la
-[plantilla publicada en la galería de Overleaf](https://www.overleaf.com/latex/templates/plantilla-latex-2026-tfg-y-tfm-para-la-eps-de-la-universidad-de-alicante-bachelors-slash-masters-thesis-template/qjntjjjpfjvv)
+Overleaf es una **alternativa** al trabajo en local (ver [Inicio
+Rápido](#-inicio-rápido)) para quien no quiera instalar nada o necesite
+colaborar en línea, a cambio de los límites de compilación de la plataforma.
+
+**Dentro de Overleaf, la vía más cómoda:** abre la
+[plantilla publicada en la galería](https://www.overleaf.com/latex/templates/plantilla-latex-2026-tfg-y-tfm-para-la-eps-de-la-universidad-de-alicante-bachelors-slash-masters-thesis-template/qjntjjjpfjvv)
 y pulsa *Open as Template*: el proyecto se crea con el compilador y la versión
 de TeX Live ya configurados.
 

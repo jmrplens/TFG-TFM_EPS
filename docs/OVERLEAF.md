@@ -1,5 +1,12 @@
 # 🌐 Guía de uso en Overleaf
 
+> **Nota:** el flujo de trabajo recomendado para esta plantilla es **en local**
+> (TeX Live + un editor como VS Code con LaTeX Workshop, compilando con `make`);
+> ver [Inicio Rápido](../README.md#-inicio-rápido) y la
+> [Guía para Principiantes](GUIA_PRINCIPIANTES.md). **Overleaf es una
+> alternativa** cuando no quieres instalar nada o necesitas colaborar en línea,
+> a cambio de los límites de compilación de la plataforma.
+
 Esta plantilla funciona en [Overleaf](https://www.overleaf.com), pero **solo con
 LuaLaTeX**. Overleaf compila por defecto con pdfLaTeX (y a veces selecciona
 XeLaTeX al importar proyectos con fuentes OpenType), lo que produce errores
@@ -9,8 +16,8 @@ confusos. Esta guía explica cómo dejar el proyecto compilando a la primera.
 
 ## ⚡ Resumen rápido
 
-**La vía recomendada es la plantilla publicada en la galería de Overleaf**, que
-ya viene configurada con LuaLaTeX:
+Si vas a trabajar en Overleaf, **la vía más cómoda es la plantilla publicada en
+la galería**, que ya viene configurada con LuaLaTeX:
 
 👉 **[Plantilla en la galería de Overleaf](https://www.overleaf.com/latex/templates/plantilla-latex-2026-tfg-y-tfm-para-la-eps-de-la-universidad-de-alicante-bachelors-slash-masters-thesis-template/qjntjjjpfjvv)**
 → *Open as Template*
