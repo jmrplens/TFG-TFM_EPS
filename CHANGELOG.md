@@ -11,6 +11,8 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
 - **Guía de Overleaf**: Nueva guía `docs/OVERLEAF.md` (importación, selección de
   compilador, límites de compilación, avisos normales y errores frecuentes)
+- **Plantilla publicada en la galería de Overleaf**, enlazada desde el README,
+  `docs/OVERLEAF.md`, `docs/README.md`, `docs/GUIA_PRINCIPIANTES.md` y `llms.txt`
 - **Botón «Abrir en Overleaf»** en el README, que crea el proyecto con el motor
   LuaLaTeX ya seleccionado (`engine=lualatex`)
 - **Comprobación de motor** en `cls/eps-metadata.tex`: si se compila con

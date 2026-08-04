@@ -182,13 +182,20 @@ Si prefieres instalar manualmente, sigue las opciones a continuación.
 [Overleaf](https://www.overleaf.com) es un editor LaTeX online. No necesitas instalar nada.
 
 1. Crea una cuenta en [overleaf.com](https://www.overleaf.com)
-2. Sube los archivos de la plantilla (o usa "Upload Project" con el ZIP)
-3. Configura el compilador como **LuaLaTeX** (menú ☰ → Settings)
-4. ¡Listo! Puedes empezar a editar
+2. Abre la [plantilla publicada en la galería de Overleaf](https://www.overleaf.com/latex/templates/plantilla-latex-2026-tfg-y-tfm-para-la-eps-de-la-universidad-de-alicante-bachelors-slash-masters-thesis-template/qjntjjjpfjvv)
+   y pulsa **Open as Template**: el proyecto se crea con el compilador correcto
+   ya configurado
+3. ¡Listo! Puedes empezar a editar
+
+Si en vez de eso subes los archivos tú (*Upload Project* con el ZIP), configura
+el compilador como **LuaLaTeX** en menú ☰ → *Compiler*. Es imprescindible: con
+pdfLaTeX o XeLaTeX la compilación falla.
 
 **Ventajas:** Sin instalación, funciona en cualquier ordenador, colaboración en tiempo real.
 
 **Desventajas:** Necesitas internet, versión gratuita tiene límite de tiempo de compilación.
+
+📖 Guía completa de Overleaf: [`OVERLEAF.md`](OVERLEAF.md)
 
 ### Opción 2: Instalación local en Windows
 

@@ -6,6 +6,7 @@ Universidad de Alicante
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/Versión-2.2.2-blue.svg)](https://github.com/jmrplens/TFG-TFM_EPS/releases)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.21315904-blue?logo=doi&logoColor=white)](https://doi.org/10.5281/zenodo.21315904)
+[![Overleaf](https://img.shields.io/badge/Overleaf-Plantilla%20publicada-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/latex/templates/plantilla-latex-2026-tfg-y-tfm-para-la-eps-de-la-universidad-de-alicante-bachelors-slash-masters-thesis-template/qjntjjjpfjvv)
 [![listed on awesome-comunitat-valenciana](https://img.shields.io/badge/listed%20on-awesome--comunitat--valenciana-FFB81C?style=flat&logo=data:image/svg%2bxml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNCAxNCI+PGcgZmlsbD0iI0ZGQjgxQyI+PHJlY3QgeD0iNiIgeT0iMiIgd2lkdGg9IjIiIGhlaWdodD0iNCIvPjxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiLz48cmVjdCB4PSI4IiB5PSI0IiB3aWR0aD0iMiIgaGVpZ2h0PSIyIi8+PHJlY3QgeD0iMiIgeT0iMyIgd2lkdGg9IjIiIGhlaWdodD0iNCIvPjxyZWN0IHg9IjEwIiB5PSIzIiB3aWR0aD0iMiIgaGVpZ2h0PSI0Ii8+PHJlY3QgeD0iMCIgeT0iMiIgd2lkdGg9IjIiIGhlaWdodD0iMyIvPjxyZWN0IHg9IjEyIiB5PSIyIiB3aWR0aD0iMiIgaGVpZ2h0PSIzIi8+PHJlY3QgeD0iNSIgeT0iOCIgd2lkdGg9IjQiIGhlaWdodD0iMiIvPjxyZWN0IHg9IjQiIHk9IjEwIiB3aWR0aD0iNiIgaGVpZ2h0PSIyIi8+PHJlY3QgeD0iNSIgeT0iMTIiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiLz48cmVjdCB4PSI3IiB5PSIxMiIgd2lkdGg9IjIiIGhlaWdodD0iMiIvPjwvZz48L3N2Zz4=&labelColor=0056A0)](https://github.com/GeiserX/awesome-comunitat-valenciana#readme)
 
 Plantilla LaTeX moderna y profesional para la elaboración de **Trabajos de Fin de Grado (TFG)** y **Trabajos de Fin de Máster (TFM)** de la Escuela Politécnica Superior de la Universidad de Alicante.
@@ -54,6 +55,7 @@ Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG
 
 | Guía | Descripción |
 | ------ | ------------- |
+| 🌐 [Uso en Overleaf](docs/OVERLEAF.md) | Plantilla en la galería, compilador LuaLaTeX, límites de compilación y errores |
 | 📝 [Código Fuente](docs/CODIGO_FUENTE.md) | Insertar y resaltar código con minted (40+ lenguajes) |
 | 📊 [Figuras y Gráficas](docs/FIGURAS_GRAFICAS.md) | Crear gráficos con pgfplots y TikZ |
 | 🖼️ [Imágenes y Subfiguras](docs/IMAGENES_SUBFIGURAS.md) | Incluir imágenes, subfiguras y posicionamiento |
@@ -562,10 +564,18 @@ Los colores de las titulaciones se definen en la clase. Para personalizar:
 
 ## 🌐 Uso en Overleaf
 
-[![Abrir en Overleaf](https://img.shields.io/badge/Abrir%20en-Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https://github.com/jmrplens/TFG-TFM_EPS/archive/refs/heads/main.zip&engine=lualatex)
+[![Plantilla en Overleaf](https://img.shields.io/badge/Overleaf-Abrir%20plantilla-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/latex/templates/plantilla-latex-2026-tfg-y-tfm-para-la-eps-de-la-universidad-de-alicante-bachelors-slash-masters-thesis-template/qjntjjjpfjvv)
 
-1. Sube todos los archivos del proyecto a Overleaf (o usa el botón anterior, que
-   ya deja seleccionado LuaLaTeX)
+**La forma más rápida:** abre la
+[plantilla publicada en la galería de Overleaf](https://www.overleaf.com/latex/templates/plantilla-latex-2026-tfg-y-tfm-para-la-eps-de-la-universidad-de-alicante-bachelors-slash-masters-thesis-template/qjntjjjpfjvv)
+y pulsa *Open as Template*: el proyecto se crea con el compilador y la versión
+de TeX Live ya configurados.
+
+Si prefieres subir este repositorio completo (con todo el contenido de ejemplo),
+puedes usar [este enlace](https://www.overleaf.com/docs?snip_uri=https://github.com/jmrplens/TFG-TFM_EPS/archive/refs/heads/main.zip&engine=lualatex)
+o hacerlo a mano:
+
+1. Sube todos los archivos del proyecto a Overleaf
 2. **Menu → Compiler → LuaLaTeX** ⚠️ *paso imprescindible*
 3. **Menu → TeX Live version → 2025** (o la más reciente)
 4. Compila `main.tex`

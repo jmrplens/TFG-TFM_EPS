@@ -9,6 +9,14 @@ confusos. Esta guía explica cómo dejar el proyecto compilando a la primera.
 
 ## ⚡ Resumen rápido
 
+**La vía recomendada es la plantilla publicada en la galería de Overleaf**, que
+ya viene configurada con LuaLaTeX:
+
+👉 **[Plantilla en la galería de Overleaf](https://www.overleaf.com/latex/templates/plantilla-latex-2026-tfg-y-tfm-para-la-eps-de-la-universidad-de-alicante-bachelors-slash-masters-thesis-template/qjntjjjpfjvv)**
+→ *Open as Template*
+
+Si prefieres subir el proyecto tú mismo:
+
 1. **Sube el proyecto** (zip limpio, sin PDF ni archivos auxiliares).
 2. **Menu → Compiler → LuaLaTeX** y **TeX Live version → 2025** (o superior).
 3. **Recompile**. La primera compilación es la más lenta (caché de `minted`).
@@ -19,7 +27,8 @@ confusos. Esta guía explica cómo dejar el proyecto compilando a la primera.
 
 | Método | Cómo |
 | --- | --- |
-| Botón directo | [![Abrir en Overleaf](https://img.shields.io/badge/Abrir%20en-Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https://github.com/jmrplens/TFG-TFM_EPS/archive/refs/heads/main.zip&engine=lualatex) — crea el proyecto **ya configurado con LuaLaTeX** |
+| **Galería de Overleaf** (recomendado) | [Abrir la plantilla publicada](https://www.overleaf.com/latex/templates/plantilla-latex-2026-tfg-y-tfm-para-la-eps-de-la-universidad-de-alicante-bachelors-slash-masters-thesis-template/qjntjjjpfjvv) → *Open as Template*. El compilador y la versión de TeX Live vienen ya configurados |
+| Botón directo desde GitHub | [![Abrir en Overleaf](https://img.shields.io/badge/Abrir%20en-Overleaf-47A141?logo=overleaf&logoColor=white)](https://www.overleaf.com/docs?snip_uri=https://github.com/jmrplens/TFG-TFM_EPS/archive/refs/heads/main.zip&engine=lualatex) — crea el proyecto con **todo el contenido de ejemplo** (más pesado de compilar, ver [sección 5](#5-tiempos-de-compilación-límites-de-overleaf)) |
 | Subida manual | GitHub → *Code* → *Download ZIP* → Overleaf → *New Project* → *Upload Project* |
 | GitHub Sync | Solo en planes de pago: *New Project* → *Import from GitHub* |
 

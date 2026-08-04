@@ -38,6 +38,7 @@
 - [docs/REFERENCIAS_CRUZADAS.md](docs/REFERENCIAS_CRUZADAS.md): Etiquetas, referencias cruzadas y hyperref.
 - [docs/ACCESIBILIDAD.md](docs/ACCESIBILIDAD.md): PDFs accesibles (PDF/UA-2) con TeX Live 2025+.
 - [docs/GUIA_PRINCIPIANTES.md](docs/GUIA_PRINCIPIANTES.md): Guía de LaTeX para usuarios sin experiencia previa.
+- [docs/OVERLEAF.md](docs/OVERLEAF.md): Uso en Overleaf. Plantilla publicada en la galería, selección del compilador (LuaLaTeX obligatorio), versión de TeX Live, minted/shell-escape, límites de compilación y errores frecuentes.
 
 ## Herramientas de revisión automática
 
