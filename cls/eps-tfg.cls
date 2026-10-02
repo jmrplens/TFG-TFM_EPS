@@ -80,6 +80,7 @@
 
 % Configuración de titulación
 \tl_new:N \g__eps_titulacion_tl
+\tl_new:N \g__eps_titulacion_pedida_tl % valor escrito por el usuario (válido o no)
 \tl_new:N \g__eps_titulacion_nombre_tl
 \tl_new:N \g__eps_tipo_trabajo_tl
 \tl_new:N \g__eps_color_grado_tl
@@ -100,6 +101,7 @@
 % Idioma del documento
 \tl_new:N \g__eps_idioma_tl
 \tl_new:N \g__eps_idioma_polyglossia_tl
+\tl_new:N \g__eps_idioma_variante_tl % opciones de polyglossia (p. ej. variant=british)
 \tl_new:N \g__eps_idioma_codigo_tl
 \tl_new:N \g__eps_idioma_biblatex_tl
 
@@ -270,6 +272,7 @@
 %% ============================================================================
 \cs_new_protected:Nn \__eps_setup_titulacion:n
   {
+    \tl_gset:Nn \g__eps_titulacion_pedida_tl { #1 }
     % Si la titulación no existe se avisa y no se toca nada más: el resto de
     % datos (colores, logos) no existen y expandirlos colgaría la compilación.
     \prop_if_in:NnTF \g__eps_titulaciones_prop { #1 / nombre }
@@ -339,16 +342,19 @@
       {
         {espanol} {
           \tl_gset:Nn \g__eps_idioma_polyglossia_tl {spanish}
+          \tl_gclear:N \g__eps_idioma_variante_tl
           \tl_gset:Nn \g__eps_idioma_codigo_tl {es-ES}
           \tl_gset:Nn \g__eps_idioma_biblatex_tl {spanish}
         }
         {valenciano} {
           \tl_gset:Nn \g__eps_idioma_polyglossia_tl {catalan}
+          \tl_gclear:N \g__eps_idioma_variante_tl
           \tl_gset:Nn \g__eps_idioma_codigo_tl {ca-ES-valencia}
           \tl_gset:Nn \g__eps_idioma_biblatex_tl {catalan}
         }
         {ingles} {
           \tl_gset:Nn \g__eps_idioma_polyglossia_tl {english}
+          \tl_gset:Nn \g__eps_idioma_variante_tl {variant=british}
           \tl_gset:Nn \g__eps_idioma_codigo_tl {en-GB}
           \tl_gset:Nn \g__eps_idioma_biblatex_tl {english}
         }
@@ -389,7 +395,8 @@
 % ya se ha leído configuracion.tex)
 \cs_new_protected:Nn \__eps_comprobar_campos:
   {
-    \tl_if_empty:NT \g__eps_titulacion_tl
+    % (si se escribió un valor no válido ya se avisó al leerlo)
+    \tl_if_empty:NT \g__eps_titulacion_pedida_tl
       { \msg_error:nnn { eps-tfg } { campo-requerido } { titulacion } }
     \tl_if_empty:NT \g__eps_titulo_tl
       { \msg_warning:nnn { eps-tfg } { campo-vacio } { titulo } }
@@ -567,6 +574,16 @@
 \NewDocumentCommand{\EPSsiCotutor}{ m m }
   {
     \tl_if_empty:NTF \g__eps_cotutor_tl { #2 } { #1 }
+  }
+
+% Comandos para comprobar si hay departamento de tutor/cotutor
+\NewDocumentCommand{\EPSsiTutorDpto}{ m m }
+  {
+    \tl_if_blank:VTF \g__eps_tutor_dpto_tl { #2 } { #1 }
+  }
+\NewDocumentCommand{\EPSsiCotutorDpto}{ m m }
+  {
+    \tl_if_blank:VTF \g__eps_cotutor_dpto_tl { #2 } { #1 }
   }
 
 % Comando para obtener etiqueta de autor según género (m=masculino, f=femenino, n=neutro)
@@ -1106,21 +1123,15 @@
 \ExplSyntaxOn
 \cs_new_protected:Nn \__eps_idioma_principal:
   {
-    \str_case:VnF \g__eps_idioma_tl
+    \use:e
       {
-        {espanol} { \setmainlanguage{spanish} }
-        {valenciano}
-          {
-            \setmainlanguage{catalan}
-            \setotherlanguage{spanish}
-          }
-        {ingles}
-          {
-            \setmainlanguage[variant=british]{english}
-            \setotherlanguage{spanish}
-          }
+        \exp_not:N \setmainlanguage
+          [ \exp_not:V \g__eps_idioma_variante_tl ]
+          { \exp_not:V \g__eps_idioma_polyglossia_tl }
       }
-      { \setmainlanguage{spanish} }
+    % El resumen en español se escribe con otherlanguage{spanish}
+    \str_if_eq:VnF \g__eps_idioma_polyglossia_tl { spanish }
+      { \setotherlanguage{spanish} }
   }
 \AddToHook { begindocument / before } [ eps-tfg / idioma ]
   { \__eps_idioma_principal: }
@@ -1128,15 +1139,7 @@
 % Cambia al idioma del documento dentro del texto (p. ej. tras un bloque en
 % otro idioma). Se mantiene por compatibilidad con versiones anteriores.
 \cs_new_protected:Nn \__eps_seleccionar_idioma:
-  {
-    \str_case:VnF \g__eps_idioma_tl
-      {
-        {espanol} { \selectlanguage{spanish} }
-        {valenciano} { \selectlanguage{catalan} }
-        {ingles} { \selectlanguage{english} }
-      }
-      { \selectlanguage{spanish} }
-  }
+  { \exp_args:NV \selectlanguage \g__eps_idioma_polyglossia_tl }
 \NewDocumentCommand{\EPSseleccionarIdioma}{}{\__eps_seleccionar_idioma:}
 \ExplSyntaxOff
 

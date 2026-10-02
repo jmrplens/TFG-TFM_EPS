@@ -102,7 +102,8 @@ def main() -> int:
     idioma = str(catalogo.get("/Lang", "—"))
 
     markinfo = catalogo.get("/MarkInfo")
-    marcado = bool(markinfo and markinfo.get_object().get("/Marked", False))
+    # BooleanObject de pypdf no define __bool__: hay que comparar con True
+    marcado = bool(markinfo) and markinfo.get_object().get("/Marked") == True  # noqa: E712
     raiz = catalogo.get("/StructTreeRoot")
     tiene_arbol = raiz is not None
 

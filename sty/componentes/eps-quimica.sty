@@ -30,7 +30,8 @@
   }
 }{%
   \PackageWarning{eps-quimica}{chemmacros no disponible}%
-  \IfFileExists{chemformula.sty}{\RequirePackage{chemformula}}{}%
+  % Solo si nadie ha definido \ch antes (p. ej. mhchem)
+  \@ifundefined{ch}{\IfFileExists{chemformula.sty}{\RequirePackage{chemformula}}{}}{}%
 }
 \IfPackageLoadedTF{chemformula}{}{%
   \PackageWarning{eps-quimica}{chemformula no disponible: \string\ch\space

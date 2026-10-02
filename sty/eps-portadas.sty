@@ -369,7 +369,8 @@
         {\huge\bfseries\EPStitulo}
       \end{spacing}
       \noindent\rule[-1ex]{\textwidth}{3pt}\\[3.5ex]
-      {\large\bfseries\EPSsubtitulo\\[4cm]}
+      % \mbox{} evita el error «There's no line here to end» si no hay subtítulo
+      {\large\bfseries\EPSsubtitulo\mbox{}\\[4cm]}
     \end{minipage}
 
     % Relleno hasta zona central
@@ -382,12 +383,12 @@
       {\EPSautor}\\[2.5ex]
       \textbf{\EPSetiquetaTutor}\\
       {\normalsize\EPStutor\\
-        % \EPStutorDpto es un comando expandible: se comprueba si su
-        % expansión está vacía (\ifx con \empty nunca sería cierto)
-        \ExpandArgs{e}\IfBlankF{\EPStutorDpto}{\small\textit{\EPStutorDpto}\\}%
+        % Línea de departamento solo si se ha indicado (se comprueba el valor
+        % guardado, sin expandir el texto del usuario)
+        \EPSsiTutorDpto{\small\textit{\EPStutorDpto}\\}{}%
         \EPSsiCotutor{%
           \normalsize\EPScotutor\\
-          \ExpandArgs{e}\IfBlankF{\EPScotutorDpto}{\small\textit{\EPScotutorDpto}\\}%
+          \EPSsiCotutorDpto{\small\textit{\EPScotutorDpto}\\}{}%
         }{}%
       }
     \end{minipage}

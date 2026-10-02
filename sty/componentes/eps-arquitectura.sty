@@ -273,7 +273,7 @@
 % la etiqueta en su propia línea y la descripción debajo, sangrada. Se
 % implementa con párrafos normales (sin listas de enumitem) para que funcione
 % igual con y sin etiquetado PDF (latex-lab).
-\newenvironment{normativa}[1][Normativa aplicable]{%
+\newenvironment{normativa}[1][\EPSsegunidioma{Normativa aplicable}{Normativa aplicable}{Applicable regulations}]{%
   \begingroup
   \small
   \subsection*{#1}

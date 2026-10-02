@@ -71,7 +71,8 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
   índice de códigos; un entorno sin `[]` cuya primera línea empieza por `#`
   (`#include`, `#!/bin/bash`) ya no da error.
 - **Portada**: texto alternativo en los logotipos y sin línea vacía cuando no
-  hay departamento.
+  hay departamento; la portada en blanco y negro ya no da error si no hay
+  `subtitulo` (es opcional) y el departamento admite formato (`\textit{...}`).
 - **Scripts**: `revision-rapida.py` deja de dar falsos positivos (de 123 avisos
   sobre la propia plantilla a 3 reales); `instalar.py` comprueba el año de TeX
   Live.

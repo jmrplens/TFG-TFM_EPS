@@ -49,6 +49,7 @@ COMANDOS_PROHIBIDOS = [
     (r"\\bibliographystyle\{", "Usar BibLaTeX con `\\printbibliography`"),
     (r"\\bibliography\{", "Usar BibLaTeX con `\\printbibliography`"),
     (r"\\cite(?![a-zA-Z])", "Usar `\\parencite{}` o `\\textcite{}`"),
+    (r"\\cite[pt](?![a-zA-Z])", "Con biblatex-apa, usar `\\parencite{}` en lugar de `\\citep` y `\\textcite{}` en lugar de `\\citet`"),
     (r"\\include\{", "Usar `\\input{}` para evitar saltos de página forzados"),
 ]
 
@@ -180,6 +181,12 @@ _PATRON_VERB = re.compile(r"\\(?:verb\*?|lstinline(?:\[[^\]]*\])?)([^a-zA-Z\s{])
 _PATRON_MINTINLINE = re.compile(r"\\mintinline(?:\[[^\]]*\])?\{[^}]*\}")
 
 
+# Opciones [..] justo tras \begin{entorno} (admite un nivel de [] anidados)
+_PATRON_OPCIONES_ENTORNO = re.compile(r"\s*\[((?:[^\[\]]|\[[^\]]*\])*)\]")
+# label=clave o label={clave} dentro de esas opciones
+_PATRON_LABEL_OPCION = re.compile(r"(?<![\w-])label\s*=\s*\{?\s*([^,{}\]\s]+)")
+
+
 def eliminar_bloques_codigo(texto: str) -> str:
     """Vacía el contenido de entornos de código y del código en línea.
 
@@ -222,6 +229,13 @@ def eliminar_bloques_codigo(texto: str) -> str:
         if fin == -1:
             fin = len(texto)
         partes.append(texto[pos:m.end()])
+        # La clave label={...} de las opciones del entorno (p. ej.
+        # \begin{pythoncode}[label={cod:x}]) define una etiqueta real: se
+        # conserva como \label{} para que \ref{cod:x} no se marque como rota.
+        opciones = _PATRON_OPCIONES_ENTORNO.match(texto, m.end())
+        if opciones:
+            for etiqueta in _PATRON_LABEL_OPCION.findall(opciones.group(1)):
+                partes.append("\\label{" + etiqueta + "}")
         partes.append(_vaciar(texto[m.end():fin]))
         pos = fin
     partes.append(texto[pos:])
@@ -418,12 +432,14 @@ def analizar_referencias_cruzadas(archivos_tex: list) -> list:
     return problemas
 
 
-# Comandos de cita de BibLaTeX (con variantes en mayúscula y forma con *).
+# Comandos de cita de BibLaTeX y natbib (con variantes en mayúscula y forma con *).
 # Las formas en plural (\parencites, \textcites…) admiten varias claves.
 _COMANDOS_CITA = (
     r"[Cc]ite|[Pp]arencite|[Tt]extcite|[Aa]utocite|[Ff]ootcite|footcitetext"
     r"|[Ss]martcite|[Ss]upercite|[Cc]iteauthor|[Cc]itetitle|citeyear|citedate"
     r"|citeurl|fullcite|footfullcite|nocite|volcite|[Pp]volcite|[Ff]tvolcite"
+    # Comandos natbib (la clase carga biblatex con natbib=true)
+    r"|[Cc]itep|[Cc]itet|[Cc]iteal[pt]|[Cc]itenum|[Cc]itealias[pt]"
 )
 _ARG_OPCIONAL = r"(?:\s*\[[^\]]*\]){0,2}\s*"
 _PATRON_CITA = re.compile(

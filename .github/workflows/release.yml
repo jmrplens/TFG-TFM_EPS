@@ -58,11 +58,11 @@ jobs:
         extra_system_packages: python3-pip
         pre_compile: |
           lualatex --version | head -n 1
-          # TeX Live 2024+ ya incluye latexminted; se instala también desde PyPI
-          # por si la imagen no lo trae o su versión es antigua (no es fatal).
-          pip3 install --break-system-packages latexminted \
-            || pip3 install latexminted \
-            || echo "::warning::No se pudo instalar latexminted desde PyPI; se usa el de TeX Live"
+          # TeX Live 2024+ ya incluye latexminted; PyPI solo si no funciona
+          if ! latexminted --version >/dev/null 2>&1; then
+            echo "::warning::latexminted de TeX Live no disponible; se instala desde PyPI"
+            pip3 install --break-system-packages latexminted || pip3 install latexminted
+          fi
 
     - name: Configurar Python
       uses: actions/setup-python@v6
@@ -124,7 +124,7 @@ jobs:
 
         - TeX Live 2024 o superior
         - LuaLaTeX (obligatorio)
-        - latexminted para resaltado de código (incluido en TeX Live 2024+, o `pip install latexminted`)
+        - latexminted para resaltado de código (incluido en TeX Live 2024+; comprobar con `latexminted --version`)
 
         ### 📖 Documentación
 

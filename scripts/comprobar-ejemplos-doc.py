@@ -203,7 +203,7 @@ def _extraer_balanceado(lineas: list[str], i: int, patron: re.Pattern) -> int:
 def clasificar(ej: Ejemplo) -> None:
     if ej.omitir:
         return
-    codigo = "\n".join(_sin_comentario(l) for l in ej.cuerpo)
+    codigo = "\n".join(_sin_comentario(linea) for linea in ej.cuerpo)
     if not codigo.strip():
         ej.omitir = "bloque vacío o solo comentarios"
         return
@@ -250,7 +250,7 @@ def clasificar(ej: Ejemplo) -> None:
         ej.origen_doc.append(i)
         i += 1
 
-    if not any(_sin_comentario(l).strip() for l in ej.documento) and not ej.preambulo:
+    if not any(_sin_comentario(linea).strip() for linea in ej.documento) and not ej.preambulo:
         ej.omitir = "sin contenido compilable"
 
 
@@ -445,11 +445,11 @@ def main() -> int:
             if not e.omitir:
                 if e.preambulo:
                     print("  [preámbulo]")
-                    for l in e.preambulo:
-                        print(f"    {l}")
+                    for linea in e.preambulo:
+                        print(f"    {linea}")
                     print("  [documento]")
-                for l in e.documento:
-                    print(f"    {l}")
+                for linea in e.documento:
+                    print(f"    {linea}")
             print()
         print(f"Total: {len(ejemplos)} bloques; {len(compilables)} a compilar, "
               f"{len(omitidos)} omitidos.")

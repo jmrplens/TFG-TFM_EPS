@@ -175,11 +175,14 @@ jobs:
         pre_compile: |
           # Versión real de TeX Live de la imagen (se muestra en el comentario del PR)
           lualatex --version | head -n 1 | tee texlive-version.txt
-          # TeX Live 2024+ ya incluye latexminted; se instala también desde PyPI
-          # por si la imagen no lo trae o su versión es antigua (no es fatal).
-          pip3 install --break-system-packages latexminted \
-            || pip3 install latexminted \
-            || echo "::warning::No se pudo instalar latexminted desde PyPI; se usa el de TeX Live"
+          # TeX Live 2024+ ya incluye latexminted: se usa ese (es lo que tienen
+          # los usuarios). Solo si no funciona se recurre a PyPI, con aviso.
+          if latexminted --version >/dev/null 2>&1; then
+            echo "latexminted de TeX Live: $(latexminted --version | head -n 1)"
+          else
+            echo "::warning::latexminted de TeX Live no disponible; se instala desde PyPI"
+            pip3 install --break-system-packages latexminted || pip3 install latexminted
+          fi
 
     - name: Configurar Python
       uses: actions/setup-python@v6
