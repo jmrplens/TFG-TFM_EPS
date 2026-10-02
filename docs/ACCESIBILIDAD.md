@@ -234,7 +234,7 @@ Para que las tablas se etiqueten bien:
 
 ## Ecuaciones matemáticas
 
-Con LuaLaTeX y `unicode-math`, las ecuaciones se etiquetan automáticamente como MathML:
+Con LuaLaTeX y LaTeX 2025-11 o posterior, cada fórmula se etiqueta como `Formula` y lleva adjuntos, sin que tengas que hacer nada, su versión en MathML (generada por `luamml`) y su código LaTeX, que los lectores de pantalla compatibles usan para leerla:
 
 ```latex
 \usepackage{unicode-math}  % Ya incluido en la plantilla
@@ -246,7 +246,7 @@ Con LuaLaTeX y `unicode-math`, las ecuaciones se etiquetan automáticamente como
 \end{equation}
 ```
 
-> **Nota:** Con pdfLaTeX, debes proporcionar archivos MathML separados para accesibilidad completa.
+Escribe las fórmulas siempre en modo matemático (`$...$`, `equation`, `align`...), no con texto en cursiva o símbolos sueltos: solo así se generan el MathML y la etiqueta `Formula`.
 
 ---
 
