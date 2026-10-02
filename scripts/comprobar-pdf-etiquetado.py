@@ -117,6 +117,7 @@ def _enlaces(lector) -> tuple[int, int]:
 
 
 def main() -> int:
+    """Comprueba el PDF, imprime el resumen y devuelve el código de salida."""
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("pdf", help="Ruta al PDF a comprobar")
     parser.add_argument("--titulo", default="", help="Título para el resumen")
@@ -215,9 +216,11 @@ def main() -> int:
     if args.log:
         try:
             avisos = _avisos_tagpdf(args.log)
+            metricas.append(("Avisos de tagpdf", str(sum(avisos.values()))))
         except OSError as exc:
+            # Sin registro el número es desconocido: no se muestra un 0 engañoso
             print(f"Aviso: no se pudo leer {args.log}: {exc}", file=sys.stderr)
-        metricas.append(("Avisos de tagpdf", str(sum(avisos.values()))))
+            metricas.append(("Avisos de tagpdf", "desconocido (no se pudo leer el registro)"))
 
     titulo = args.titulo or f"Información del PDF ({os.path.basename(args.pdf)})"
     md = [f"### {titulo}", "", "| Propiedad | Valor |", "|---|---|"]
