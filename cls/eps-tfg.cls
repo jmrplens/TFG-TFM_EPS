@@ -1314,6 +1314,26 @@
     \AddToHook { cmd / chapter / before }
       { \tag_if_active:T { \tagtool { flush-floats = 0 } } }
   }
+% tcolorbox 6.10 (2026) con capture=hbox (\tcbox, cajas UML de [software]):
+% el título y una 'varwidth upper' van en minipages fuera de cualquier
+% párrafo. Con LaTeX 2026-06 cada minipage cierra la estructura en curso (la
+% sección) como si interrumpiera un párrafo y deja abierto otro que contiene
+% el resto del documento. Con capture=minipage tcolorbox lo evita; con hbox,
+% no. Dentro de la caja se indica que no hay párrafo que interrumpir.
+\cs_new_protected:Npn \__eps_tcb_hbox_sin_parrafo:
+  {
+    \cs_if_exist:NT \tcbox@inner@hbox
+      {
+        \cs_new_eq:NN \__eps_tcb_inner_hbox:n \tcbox@inner@hbox
+        \cs_set:Npn \tcbox@inner@hbox ##1
+          {
+            \cs_if_exist:NT \l__tag_para_bool
+              { \bool_set_false:N \l__tag_para_bool }
+            \__eps_tcb_inner_hbox:n {##1}
+          }
+      }
+  }
+\AddToHook { package / tcolorbox / after } { \__eps_tcb_hbox_sin_parrafo: }
 
 %% (6) Títulos de sección como encabezados (H2...H6). KOMA-Script compone los
 %%     títulos con su propio código y el etiquetado de LaTeX solo reconoce
@@ -1351,6 +1371,26 @@
       { \UseTaggingSocket { sec / title / init } { \__eps_sec_nivel:n {#1} } }
   }
 \bool_new:N \l__eps_sec_sin_numero_bool
+% \chapter con LaTeX 2026-06 o posterior (ver más abajo): mismos ganchos de
+% KOMA que en \section, y el número dentro del encabezado (H1), como en
+% \sectionlinesformat (con \@hangfrom quedaba delante, suelto)
+\cs_new_protected:Npn \__eps_capitulos_etiquetados:
+  {
+    \AddtoDoHook { heading / postinit / chapter }
+      { \__eps_sec_abrir:nn { chapter } }
+    \AddtoDoHook { heading / begingroup / chapter }
+      { \__eps_sec_titulo:nn { chapter } }
+    \cs_set:Npn \chapterlinesformat ##1 ##2 ##3
+      {
+        \tl_if_blank:nTF {##2}
+          { \bool_set_true:N \l__eps_sec_sin_numero_bool }
+          { \bool_set_false:N \l__eps_sec_sin_numero_bool }
+        \UseTaggingSocket { sec / title / hang }
+          { {0} \l__eps_sec_sin_numero_bool {##2} {##3} }
+          { \@hangfrom {##2} }
+        ##3
+      }
+  }
 
 %% (7) accesible = true en \EPSsetup: declara el PDF conforme a PDF/UA-2
 %%     (metadatos XMP pdfuaid:part=2) y vuelve más estrictas las
@@ -1461,6 +1501,18 @@
       {
         \AddtoDoHook { heading / postinit / #1 } { \__eps_sec_abrir:nn {#1} }
         \AddtoDoHook { heading / begingroup / #1 } { \__eps_sec_titulo:nn {#1} }
+      }
+    % \chapter: hasta LaTeX 2025-11 el módulo de secciones de latex-lab lo
+    % redefine y lo etiqueta él. Desde LaTeX 2026-06 ya no (lo hace la nueva
+    % implementación con plantillas, que no se carga): el título del
+    % capítulo quedaba como un párrafo abierto que contenía todo el capítulo.
+    % Se usan entonces los mismos ganchos de KOMA que en \section.
+    \AddToHook { begindocument / before }
+      {
+        \bool_lazy_and:nnT
+          { \cs_if_exist_p:N \ltlabsecdate }
+          { \str_compare_p:eNe { \ltlabsecdate } > { 2026-01-01 } }
+          { \__eps_capitulos_etiquetados: }
       }
     % Igual que la definición de KOMA (\@hangfrom{\hskip #2#3}{#4}), pero el
     % número va en su propio elemento dentro del encabezado
