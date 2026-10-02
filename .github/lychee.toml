@@ -43,6 +43,11 @@ exclude = [
   '^https?://esail\.tamu\.edu/',
   '^https?://(www\.)?overleaf\.com/(project|login|register)',
   '^https?://marketplace\.visualstudio\.com/',
+  # Responde con errores de HTTP/2 a clientes automáticos
+  '^https?://(www\.)?adobe\.com/',
+  # Redirector de CTAN: envía a una réplica al azar y algunas tienen
+  # certificados inválidos (el enlace es correcto)
+  '^https?://mirrors\.ctan\.org/',
   # URLs de ejemplo / marcadores de posición
   '^https?://(www\.)?(ejemplo|example)\.(com|org|es)',
   '^https?://localhost',
