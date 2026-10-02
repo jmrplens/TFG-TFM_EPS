@@ -16,7 +16,7 @@ Plantilla LaTeX moderna y profesional para la elaboración de **Trabajos de Fin 
 ## ✨ Características
 
 - 🎨 **Portadas oficiales** a color y en blanco/negro con diseño profesional
-- 🎓 **21 titulaciones** preconfiguradas (8 grados + 13 másteres)
+- 🎓 **22 titulaciones** preconfiguradas (8 grados + 14 másteres)
 - ⚙️ **Configuración simple** mediante un único archivo
 - 📝 **Bibliografía APA 7** con BibLaTeX + Biber
 - 💻 **Resaltado de código** para 46 lenguajes con minted (temas claro y oscuro)

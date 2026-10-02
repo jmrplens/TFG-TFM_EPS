@@ -14,7 +14,7 @@ Este archivo contiene la clase LaTeX principal de la plantilla TFG/TFM.
 
 - Define la estructura del documento TFG/TFM
 - Configura todas las opciones mediante `\EPSsetup{}`
-- Gestiona 21 titulaciones con sus colores y logos
+- Gestiona 22 titulaciones con sus colores y logos
 - Carga los paquetes necesarios (biblatex, hyperref, etc.)
 
 ### Tecnologías utilizadas
