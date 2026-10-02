@@ -22,9 +22,15 @@
 \RequirePackage{minted}
 \RequirePackage{fontawesome5}
 
-%% Configurar nombres en español para minted/listings
-\renewcommand{\listoflistingscaption}{Índice de Códigos}
-\renewcommand{\listingscaption}{Código}
+%% Selector de textos según el idioma del documento (lo define la clase;
+%% si no existe, se usan los textos en español).
+%% Uso: \EPSsegunidioma{español}{valenciano}{inglés}
+\providecommand\EPSsegunidioma[3]{#1}
+
+%% Nombres de minted/listings según el idioma del documento
+\renewcommand{\listoflistingscaption}{%
+  \EPSsegunidioma{Índice de Códigos}{Índex de Codis}{List of Listings}}
+\renewcommand{\listingscaption}{\EPSsegunidioma{Código}{Codi}{Listing}}
 
 %% Numerar listings por capítulo (igual que figuras y tablas)
 \AtBeginDocument{%
@@ -175,353 +181,132 @@
   },
 }
 
+%% =============================================================================
+%% ENTRADA EN EL ÍNDICE DE CÓDIGOS
+%% =============================================================================
+%% Los entornos por lenguaje usan como título y entrada del índice la
+%% etiqueta del lenguaje (p. ej. «Python»). Si el usuario indica su propio
+%% title={...}, la entrada del índice pasa a ser ese título (salvo que también
+%% indique list entry={...}).
+\tcbset{
+  % #1: título por defecto, #2: texto por defecto de la entrada del índice
+  eps-code-defaults/.code 2 args={%
+    \tcbset{title={#1},list entry={\protect\numberline{\thelisting}#2}}%
+    \let\eps@code@titulo\kvtcb@title
+    \let\eps@code@entrada\kvtcb@listentry
+  },
+  eps-code-entry-from-title/.code={%
+    \ifx\kvtcb@title\eps@code@titulo\else
+      \ifx\kvtcb@listentry\eps@code@entrada
+        % Misma forma que la entrada por defecto, con el título del usuario
+        \begingroup
+        \edef\eps@tempa{\endgroup
+          \noexpand\tcbset{list entry={%
+            \noexpand\protect\noexpand\numberline{\noexpand\thelisting}%
+            \unexpanded\expandafter{\kvtcb@title}}}}%
+        \eps@tempa
+      \fi
+    \fi
+  },
+}
+
 %% Entorno Genérico Simple
 %% Uso: \begin{codigosimple}[opciones extra]{lenguaje}{Titulo}
 \newtcblisting[use counter=listing, list inside=lol, list type=listing]{codigosimple}[3][]{simple-linenos,minted language=#2,title={#3},list entry={\protect\numberline{\thelisting}#3},#1}
 \newtcblisting[use counter=listing, list inside=lol, list type=listing]{codigosimpleNN}[3][]{simple-nolinenos,minted language=#2,title={#3},list entry={\protect\numberline{\thelisting}#3},#1}
 
 %% =============================================================================
-%% ENTORNOS VS CODE LIGHT
+%% ENTORNOS POR LENGUAJE
 %% =============================================================================
-
-% Python
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{pythoncode}[1][]{vscode-light-linenos,minted language=python,title={\faIcon{python}~~Python},list entry={\protect\numberline{\thelisting}Python},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{pythoncodeNN}[1][]{vscode-light-nolinenos,minted language=python,title={\faIcon{python}~~Python},list entry={\protect\numberline{\thelisting}Python},#1}
-
-% JavaScript
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{jscode}[1][]{vscode-light-linenos,minted language=javascript,title={\faIcon{js-square}~~JavaScript},list entry={\protect\numberline{\thelisting}JavaScript},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{jscodeNN}[1][]{vscode-light-nolinenos,minted language=javascript,title={\faIcon{js-square}~~JavaScript},list entry={\protect\numberline{\thelisting}JavaScript},#1}
-
-% TypeScript
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{tscode}[1][]{vscode-light-linenos,minted language=typescript,title={\faIcon{js-square}~~TypeScript},list entry={\protect\numberline{\thelisting}TypeScript},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{tscodeNN}[1][]{vscode-light-nolinenos,minted language=typescript,title={\faIcon{js-square}~~TypeScript},list entry={\protect\numberline{\thelisting}TypeScript},#1}
-
-% SQL
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{sqlcode}[1][]{vscode-light-linenos,minted language=sql,title={\faIcon{database}~~SQL},list entry={\protect\numberline{\thelisting}SQL},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{sqlcodeNN}[1][]{vscode-light-nolinenos,minted language=sql,title={\faIcon{database}~~SQL},list entry={\protect\numberline{\thelisting}SQL},#1}
-
-% C
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{ccode}[1][]{vscode-light-linenos,minted language=c,title={\faIcon{copyright}~~C},list entry={\protect\numberline{\thelisting}C},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{ccodeNN}[1][]{vscode-light-nolinenos,minted language=c,title={\faIcon{copyright}~~C},list entry={\protect\numberline{\thelisting}C},#1}
-
-% C++
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{cppcode}[1][]{vscode-light-linenos,minted language=cpp,title={\faIcon{copyright}~~C++},list entry={\protect\numberline{\thelisting}C++},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{cppcodeNN}[1][]{vscode-light-nolinenos,minted language=cpp,title={\faIcon{copyright}~~C++},list entry={\protect\numberline{\thelisting}C++},#1}
-
-% C#
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{csharpcode}[1][]{vscode-light-linenos,minted language=csharp,title={\faIcon{microsoft}~~C\#},list entry={\protect\numberline{\thelisting}C\#},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{csharpcodeNN}[1][]{vscode-light-nolinenos,minted language=csharp,title={\faIcon{microsoft}~~C\#},list entry={\protect\numberline{\thelisting}C\#},#1}
-
-% Java
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{javacode}[1][]{vscode-light-linenos,minted language=java,title={\faIcon{java}~~Java},list entry={\protect\numberline{\thelisting}Java},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{javacodeNN}[1][]{vscode-light-nolinenos,minted language=java,title={\faIcon{java}~~Java},list entry={\protect\numberline{\thelisting}Java},#1}
-
-% Kotlin
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{kotlincode}[1][]{vscode-light-linenos,minted language=kotlin,title={\faIcon{android}~~Kotlin},list entry={\protect\numberline{\thelisting}Kotlin},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{kotlincodeNN}[1][]{vscode-light-nolinenos,minted language=kotlin,title={\faIcon{android}~~Kotlin},list entry={\protect\numberline{\thelisting}Kotlin},#1}
-
-% Swift
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{swiftcode}[1][]{vscode-light-linenos,minted language=swift,title={\faIcon{apple}~~Swift},list entry={\protect\numberline{\thelisting}Swift},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{swiftcodeNN}[1][]{vscode-light-nolinenos,minted language=swift,title={\faIcon{apple}~~Swift},list entry={\protect\numberline{\thelisting}Swift},#1}
-
-% Go
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{gocode}[1][]{vscode-light-linenos,minted language=go,title={\faIcon{google}~~Go},list entry={\protect\numberline{\thelisting}Go},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{gocodeNN}[1][]{vscode-light-nolinenos,minted language=go,title={\faIcon{google}~~Go},list entry={\protect\numberline{\thelisting}Go},#1}
-
-% Rust
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{rustcode}[1][]{vscode-light-linenos,minted language=rust,title={\faIcon{rust}~~Rust},list entry={\protect\numberline{\thelisting}Rust},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{rustcodeNN}[1][]{vscode-light-nolinenos,minted language=rust,title={\faIcon{rust}~~Rust},list entry={\protect\numberline{\thelisting}Rust},#1}
-
-% PHP
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{phpcode}[1][]{vscode-light-linenos,minted language=php,title={\faIcon{php}~~PHP},list entry={\protect\numberline{\thelisting}PHP},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{phpcodeNN}[1][]{vscode-light-nolinenos,minted language=php,title={\faIcon{php}~~PHP},list entry={\protect\numberline{\thelisting}PHP},#1}
-
-% Ruby
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{rubycode}[1][]{vscode-light-linenos,minted language=ruby,title={\faIcon{gem}~~Ruby},list entry={\protect\numberline{\thelisting}Ruby},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{rubycodeNN}[1][]{vscode-light-nolinenos,minted language=ruby,title={\faIcon{gem}~~Ruby},list entry={\protect\numberline{\thelisting}Ruby},#1}
-
-% R
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{rcode}[1][]{vscode-light-linenos,minted language=r,title={\faIcon{r-project}~~R},list entry={\protect\numberline{\thelisting}R},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{rcodeNN}[1][]{vscode-light-nolinenos,minted language=r,title={\faIcon{r-project}~~R},list entry={\protect\numberline{\thelisting}R},#1}
-
-% HTML
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{htmlcode}[1][]{vscode-light-linenos,minted language=html,title={\faIcon{html5}~~HTML},list entry={\protect\numberline{\thelisting}HTML},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{htmlcodeNN}[1][]{vscode-light-nolinenos,minted language=html,title={\faIcon{html5}~~HTML},list entry={\protect\numberline{\thelisting}HTML},#1}
-
-% CSS
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{csscode}[1][]{vscode-light-linenos,minted language=css,title={\faIcon{css3-alt}~~CSS},list entry={\protect\numberline{\thelisting}CSS},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{csscodeNN}[1][]{vscode-light-nolinenos,minted language=css,title={\faIcon{css3-alt}~~CSS},list entry={\protect\numberline{\thelisting}CSS},#1}
-
-% SASS/SCSS
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{sasscode}[1][]{vscode-light-linenos,minted language=sass,title={\faIcon{sass}~~SASS},list entry={\protect\numberline{\thelisting}SASS},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{sasscodeNN}[1][]{vscode-light-nolinenos,minted language=sass,title={\faIcon{sass}~~SASS},list entry={\protect\numberline{\thelisting}SASS},#1}
-
-% JSON
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{jsoncode}[1][]{vscode-light-linenos,minted language=json,title={\faIcon{code}~~JSON},list entry={\protect\numberline{\thelisting}JSON},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{jsoncodeNN}[1][]{vscode-light-nolinenos,minted language=json,title={\faIcon{code}~~JSON},list entry={\protect\numberline{\thelisting}JSON},#1}
-
-% XML
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{xmlcode}[1][]{vscode-light-linenos,minted language=xml,title={\faIcon{code}~~XML},list entry={\protect\numberline{\thelisting}XML},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{xmlcodeNN}[1][]{vscode-light-nolinenos,minted language=xml,title={\faIcon{code}~~XML},list entry={\protect\numberline{\thelisting}XML},#1}
-
-% YAML
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{yamlcode}[1][]{vscode-light-linenos,minted language=yaml,title={\faIcon{file-code}~~YAML},list entry={\protect\numberline{\thelisting}YAML},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{yamlcodeNN}[1][]{vscode-light-nolinenos,minted language=yaml,title={\faIcon{file-code}~~YAML},list entry={\protect\numberline{\thelisting}YAML},#1}
-
-% Markdown
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{mdcode}[1][]{vscode-light-linenos,minted language=markdown,title={\faIcon{markdown}~~Markdown},list entry={\protect\numberline{\thelisting}Markdown},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{mdcodeNN}[1][]{vscode-light-nolinenos,minted language=markdown,title={\faIcon{markdown}~~Markdown},list entry={\protect\numberline{\thelisting}Markdown},#1}
-
-% LaTeX
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{latexcode}[1][]{vscode-light-linenos,minted language=latex,title={\faIcon{file-alt}~~\LaTeX},list entry={\protect\numberline{\thelisting}\LaTeX},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{latexcodeNN}[1][]{vscode-light-nolinenos,minted language=latex,title={\faIcon{file-alt}~~\LaTeX},list entry={\protect\numberline{\thelisting}\LaTeX},#1}
-
-% Bash/Shell
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{bashcode}[1][]{vscode-light-linenos,minted language=bash,title={\faIcon{terminal}~~Bash},list entry={\protect\numberline{\thelisting}Bash},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{bashcodeNN}[1][]{vscode-light-nolinenos,minted language=bash,title={\faIcon{terminal}~~Bash},list entry={\protect\numberline{\thelisting}Bash},#1}
-
-% PowerShell
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{pscode}[1][]{vscode-light-linenos,minted language=powershell,title={\faIcon{terminal}~~PowerShell},list entry={\protect\numberline{\thelisting}PowerShell},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{pscodeNN}[1][]{vscode-light-nolinenos,minted language=powershell,title={\faIcon{terminal}~~PowerShell},list entry={\protect\numberline{\thelisting}PowerShell},#1}
-
-% Docker
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{dockercode}[1][]{vscode-light-linenos,minted language=dockerfile,title={\faIcon{docker}~~Dockerfile},list entry={\protect\numberline{\thelisting}Dockerfile},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{dockercodeNN}[1][]{vscode-light-nolinenos,minted language=dockerfile,title={\faIcon{docker}~~Dockerfile},list entry={\protect\numberline{\thelisting}Dockerfile},#1}
-
-% Matlab
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{matlabcode}[1][]{vscode-light-linenos,minted language=matlab,title={\faIcon{chart-line}~~MATLAB},list entry={\protect\numberline{\thelisting}MATLAB},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{matlabcodeNN}[1][]{vscode-light-nolinenos,minted language=matlab,title={\faIcon{chart-line}~~MATLAB},list entry={\protect\numberline{\thelisting}MATLAB},#1}
-
-% Scala
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{scalacode}[1][]{vscode-light-linenos,minted language=scala,title={\faIcon{fire}~~Scala},list entry={\protect\numberline{\thelisting}Scala},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{scalacodeNN}[1][]{vscode-light-nolinenos,minted language=scala,title={\faIcon{fire}~~Scala},list entry={\protect\numberline{\thelisting}Scala},#1}
-
-% Lua (nombrado lualangcode para evitar conflicto con paquete luacode)
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{lualangcode}[1][]{vscode-light-linenos,minted language=lua,title={\faIcon{moon}~~Lua},list entry={\protect\numberline{\thelisting}Lua},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{lualangcodeNN}[1][]{vscode-light-nolinenos,minted language=lua,title={\faIcon{moon}~~Lua},list entry={\protect\numberline{\thelisting}Lua},#1}
-
-% Perl
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{perlcode}[1][]{vscode-light-linenos,minted language=perl,title={\faIcon{code}~~Perl},list entry={\protect\numberline{\thelisting}Perl},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{perlcodeNN}[1][]{vscode-light-nolinenos,minted language=perl,title={\faIcon{code}~~Perl},list entry={\protect\numberline{\thelisting}Perl},#1}
-
-% Haskell
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{haskellcode}[1][]{vscode-light-linenos,minted language=haskell,title={\faIcon{code}~~Haskell},list entry={\protect\numberline{\thelisting}Haskell},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{haskellcodeNN}[1][]{vscode-light-nolinenos,minted language=haskell,title={\faIcon{code}~~Haskell},list entry={\protect\numberline{\thelisting}Haskell},#1}
-
-% Makefile
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{makecode}[1][]{vscode-light-linenos,minted language=makefile,title={\faIcon{cogs}~~Makefile},list entry={\protect\numberline{\thelisting}Makefile},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{makecodeNN}[1][]{vscode-light-nolinenos,minted language=makefile,title={\faIcon{cogs}~~Makefile},list entry={\protect\numberline{\thelisting}Makefile},#1}
-
-% INI/Config
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{inicode}[1][]{vscode-light-linenos,minted language=ini,title={\faIcon{sliders-h}~~Config},list entry={\protect\numberline{\thelisting}Config},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{inicodeNN}[1][]{vscode-light-nolinenos,minted language=ini,title={\faIcon{sliders-h}~~Config},list entry={\protect\numberline{\thelisting}Config},#1}
-
-% TOML
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{tomlcode}[1][]{vscode-light-linenos,minted language=toml,title={\faIcon{file-code}~~TOML},list entry={\protect\numberline{\thelisting}TOML},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{tomlcodeNN}[1][]{vscode-light-nolinenos,minted language=toml,title={\faIcon{file-code}~~TOML},list entry={\protect\numberline{\thelisting}TOML},#1}
-
-% Diff
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{diffcode}[1][]{vscode-light-linenos,minted language=diff,title={\faIcon{code-branch}~~Diff},list entry={\protect\numberline{\thelisting}Diff},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{diffcodeNN}[1][]{vscode-light-nolinenos,minted language=diff,title={\faIcon{code-branch}~~Diff},list entry={\protect\numberline{\thelisting}Diff},#1}
-
-% Git
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{gitcode}[1][]{vscode-light-linenos,minted language=bash,title={\faIcon{git-alt}~~Git},list entry={\protect\numberline{\thelisting}Git},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{gitcodeNN}[1][]{vscode-light-nolinenos,minted language=bash,title={\faIcon{git-alt}~~Git},list entry={\protect\numberline{\thelisting}Git},#1}
-
-%% =============================================================================
-%% ENTORNOS VS CODE DARK
-%% =============================================================================
-
-% Python Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{pythoncodeDark}[1][]{vscode-dark-linenos,minted language=python,title={\faIcon{python}~~Python},list entry={\protect\numberline{\thelisting}Python},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{pythoncodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=python,title={\faIcon{python}~~Python},list entry={\protect\numberline{\thelisting}Python},#1}
-
-% JavaScript Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{jscodeDark}[1][]{vscode-dark-linenos,minted language=javascript,title={\faIcon{js-square}~~JavaScript},list entry={\protect\numberline{\thelisting}JavaScript},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{jscodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=javascript,title={\faIcon{js-square}~~JavaScript},list entry={\protect\numberline{\thelisting}JavaScript},#1}
-
-% TypeScript Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{tscodeDark}[1][]{vscode-dark-linenos,minted language=typescript,title={\faIcon{js-square}~~TypeScript},list entry={\protect\numberline{\thelisting}TypeScript},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{tscodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=typescript,title={\faIcon{js-square}~~TypeScript},list entry={\protect\numberline{\thelisting}TypeScript},#1}
-
-% SQL Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{sqlcodeDark}[1][]{vscode-dark-linenos,minted language=sql,title={\faIcon{database}~~SQL},list entry={\protect\numberline{\thelisting}SQL},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{sqlcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=sql,title={\faIcon{database}~~SQL},list entry={\protect\numberline{\thelisting}SQL},#1}
-
-% C Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{ccodeDark}[1][]{vscode-dark-linenos,minted language=c,title={\faIcon{copyright}~~C},list entry={\protect\numberline{\thelisting}C},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{ccodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=c,title={\faIcon{copyright}~~C},list entry={\protect\numberline{\thelisting}C},#1}
-
-% C++ Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{cppcodeDark}[1][]{vscode-dark-linenos,minted language=cpp,title={\faIcon{copyright}~~C++},list entry={\protect\numberline{\thelisting}C++},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{cppcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=cpp,title={\faIcon{copyright}~~C++},list entry={\protect\numberline{\thelisting}C++},#1}
-
-% C# Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{csharpcodeDark}[1][]{vscode-dark-linenos,minted language=csharp,title={\faIcon{microsoft}~~C\#},list entry={\protect\numberline{\thelisting}C\#},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{csharpcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=csharp,title={\faIcon{microsoft}~~C\#},list entry={\protect\numberline{\thelisting}C\#},#1}
-
-% Java Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{javacodeDark}[1][]{vscode-dark-linenos,minted language=java,title={\faIcon{java}~~Java},list entry={\protect\numberline{\thelisting}Java},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{javacodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=java,title={\faIcon{java}~~Java},list entry={\protect\numberline{\thelisting}Java},#1}
-
-% Kotlin Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{kotlincodeDark}[1][]{vscode-dark-linenos,minted language=kotlin,title={\faIcon{android}~~Kotlin},list entry={\protect\numberline{\thelisting}Kotlin},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{kotlincodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=kotlin,title={\faIcon{android}~~Kotlin},list entry={\protect\numberline{\thelisting}Kotlin},#1}
-
-% Swift Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{swiftcodeDark}[1][]{vscode-dark-linenos,minted language=swift,title={\faIcon{apple}~~Swift},list entry={\protect\numberline{\thelisting}Swift},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{swiftcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=swift,title={\faIcon{apple}~~Swift},list entry={\protect\numberline{\thelisting}Swift},#1}
-
-% Go Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{gocodeDark}[1][]{vscode-dark-linenos,minted language=go,title={\faIcon{google}~~Go},list entry={\protect\numberline{\thelisting}Go},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{gocodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=go,title={\faIcon{google}~~Go},list entry={\protect\numberline{\thelisting}Go},#1}
-
-% Rust Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{rustcodeDark}[1][]{vscode-dark-linenos,minted language=rust,title={\faIcon{rust}~~Rust},list entry={\protect\numberline{\thelisting}Rust},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{rustcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=rust,title={\faIcon{rust}~~Rust},list entry={\protect\numberline{\thelisting}Rust},#1}
-
-% PHP Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{phpcodeDark}[1][]{vscode-dark-linenos,minted language=php,title={\faIcon{php}~~PHP},list entry={\protect\numberline{\thelisting}PHP},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{phpcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=php,title={\faIcon{php}~~PHP},list entry={\protect\numberline{\thelisting}PHP},#1}
-
-% Ruby Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{rubycodeDark}[1][]{vscode-dark-linenos,minted language=ruby,title={\faIcon{gem}~~Ruby},list entry={\protect\numberline{\thelisting}Ruby},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{rubycodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=ruby,title={\faIcon{gem}~~Ruby},list entry={\protect\numberline{\thelisting}Ruby},#1}
-
-% R Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{rcodeDark}[1][]{vscode-dark-linenos,minted language=r,title={\faIcon{r-project}~~R},list entry={\protect\numberline{\thelisting}R},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{rcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=r,title={\faIcon{r-project}~~R},list entry={\protect\numberline{\thelisting}R},#1}
-
-% HTML Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{htmlcodeDark}[1][]{vscode-dark-linenos,minted language=html,title={\faIcon{html5}~~HTML},list entry={\protect\numberline{\thelisting}HTML},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{htmlcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=html,title={\faIcon{html5}~~HTML},list entry={\protect\numberline{\thelisting}HTML},#1}
-
-% CSS Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{csscodeDark}[1][]{vscode-dark-linenos,minted language=css,title={\faIcon{css3-alt}~~CSS},list entry={\protect\numberline{\thelisting}CSS},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{csscodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=css,title={\faIcon{css3-alt}~~CSS},list entry={\protect\numberline{\thelisting}CSS},#1}
-
-% JSON Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{jsoncodeDark}[1][]{vscode-dark-linenos,minted language=json,title={\faIcon{code}~~JSON},list entry={\protect\numberline{\thelisting}JSON},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{jsoncodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=json,title={\faIcon{code}~~JSON},list entry={\protect\numberline{\thelisting}JSON},#1}
-
-% Bash Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{bashcodeDark}[1][]{vscode-dark-linenos,minted language=bash,title={\faIcon{terminal}~~Bash},list entry={\protect\numberline{\thelisting}Bash},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{bashcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=bash,title={\faIcon{terminal}~~Bash},list entry={\protect\numberline{\thelisting}Bash},#1}
-
-% Docker Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{dockercodeDark}[1][]{vscode-dark-linenos,minted language=dockerfile,title={\faIcon{docker}~~Dockerfile},list entry={\protect\numberline{\thelisting}Dockerfile},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{dockercodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=dockerfile,title={\faIcon{docker}~~Dockerfile},list entry={\protect\numberline{\thelisting}Dockerfile},#1}
-
-% YAML Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{yamlcodeDark}[1][]{vscode-dark-linenos,minted language=yaml,title={\faIcon{file-code}~~YAML},list entry={\protect\numberline{\thelisting}YAML},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{yamlcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=yaml,title={\faIcon{file-code}~~YAML},list entry={\protect\numberline{\thelisting}YAML},#1}
-
-% MATLAB Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{matlabcodeDark}[1][]{vscode-dark-linenos,minted language=matlab,title={\faIcon{chart-line}~~MATLAB},list entry={\protect\numberline{\thelisting}MATLAB},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{matlabcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=matlab,title={\faIcon{chart-line}~~MATLAB},list entry={\protect\numberline{\thelisting}MATLAB},#1}
-
-% Lua Dark (nombrado lualangcode para evitar conflicto con paquete luacode)
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{lualangcodeDark}[1][]{vscode-dark-linenos,minted language=lua,title={\faIcon{moon}~~Lua},list entry={\protect\numberline{\thelisting}Lua},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{lualangcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=lua,title={\faIcon{moon}~~Lua},list entry={\protect\numberline{\thelisting}Lua},#1}
-
-%% =============================================================================
-%% LENGUAJES ADICIONALES (LIGHT)
-%% =============================================================================
-
-% Nginx
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{nginxcode}[1][]{vscode-light-linenos,minted language=nginx,title={\faIcon{server}~~Nginx},list entry={\protect\numberline{\thelisting}Nginx},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{nginxcodeNN}[1][]{vscode-light-nolinenos,minted language=nginx,title={\faIcon{server}~~Nginx},list entry={\protect\numberline{\thelisting}Nginx},#1}
-
-% Apache
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{apachecode}[1][]{vscode-light-linenos,minted language=apacheconf,title={\faIcon{server}~~Apache},list entry={\protect\numberline{\thelisting}Apache},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{apachecodeNN}[1][]{vscode-light-nolinenos,minted language=apacheconf,title={\faIcon{server}~~Apache},list entry={\protect\numberline{\thelisting}Apache},#1}
-
-% Texto plano (para MikroTik y otros)
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{textcode}[1][]{vscode-light-linenos,minted language=text,title={\faIcon{file-alt}~~Text},list entry={\protect\numberline{\thelisting}Text},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{textcodeNN}[1][]{vscode-light-nolinenos,minted language=text,title={\faIcon{file-alt}~~Text},list entry={\protect\numberline{\thelisting}Text},#1}
-
-% MikroTik (usando sintaxis similar a bash)
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{mikrotikcode}[1][]{vscode-light-linenos,minted language=bash,title={\faIcon{network-wired}~~MikroTik},list entry={\protect\numberline{\thelisting}MikroTik},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{mikrotikcodeNN}[1][]{vscode-light-nolinenos,minted language=bash,title={\faIcon{network-wired}~~MikroTik},list entry={\protect\numberline{\thelisting}MikroTik},#1}
-
-% Assembler/ASM
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{asmcode}[1][]{vscode-light-linenos,minted language=nasm,title={\faIcon{microchip}~~Assembly},list entry={\protect\numberline{\thelisting}Assembly},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{asmcodeNN}[1][]{vscode-light-nolinenos,minted language=nasm,title={\faIcon{microchip}~~Assembly},list entry={\protect\numberline{\thelisting}Assembly},#1}
-
-% Prolog
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{prologcode}[1][]{vscode-light-linenos,minted language=prolog,title={\faIcon{brain}~~Prolog},list entry={\protect\numberline{\thelisting}Prolog},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{prologcodeNN}[1][]{vscode-light-nolinenos,minted language=prolog,title={\faIcon{brain}~~Prolog},list entry={\protect\numberline{\thelisting}Prolog},#1}
-
-% Fortran
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{fortrancode}[1][]{vscode-light-linenos,minted language=fortran,title={\faIcon{calculator}~~Fortran},list entry={\protect\numberline{\thelisting}Fortran},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{fortrancodeNN}[1][]{vscode-light-nolinenos,minted language=fortran,title={\faIcon{calculator}~~Fortran},list entry={\protect\numberline{\thelisting}Fortran},#1}
-
-% VHDL
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{vhdlcode}[1][]{vscode-light-linenos,minted language=vhdl,title={\faIcon{microchip}~~VHDL},list entry={\protect\numberline{\thelisting}VHDL},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{vhdlcodeNN}[1][]{vscode-light-nolinenos,minted language=vhdl,title={\faIcon{microchip}~~VHDL},list entry={\protect\numberline{\thelisting}VHDL},#1}
-
-% Verilog
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{verilogcode}[1][]{vscode-light-linenos,minted language=verilog,title={\faIcon{microchip}~~Verilog},list entry={\protect\numberline{\thelisting}Verilog},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{verilogcodeNN}[1][]{vscode-light-nolinenos,minted language=verilog,title={\faIcon{microchip}~~Verilog},list entry={\protect\numberline{\thelisting}Verilog},#1}
-
-% TeX
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{texcode}[1][]{vscode-light-linenos,minted language=tex,title={\faIcon{file-alt}~~TeX},list entry={\protect\numberline{\thelisting}TeX},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{texcodeNN}[1][]{vscode-light-nolinenos,minted language=tex,title={\faIcon{file-alt}~~TeX},list entry={\protect\numberline{\thelisting}TeX},#1}
-
-%% =============================================================================
-%% LENGUAJES ADICIONALES (DARK)
-%% =============================================================================
-
-% Nginx Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{nginxcodeDark}[1][]{vscode-dark-linenos,minted language=nginx,title={\faIcon{server}~~Nginx},list entry={\protect\numberline{\thelisting}Nginx},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{nginxcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=nginx,title={\faIcon{server}~~Nginx},list entry={\protect\numberline{\thelisting}Nginx},#1}
-
-% Apache Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{apachecodeDark}[1][]{vscode-dark-linenos,minted language=apacheconf,title={\faIcon{server}~~Apache},list entry={\protect\numberline{\thelisting}Apache},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{apachecodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=apacheconf,title={\faIcon{server}~~Apache},list entry={\protect\numberline{\thelisting}Apache},#1}
-
-% Text Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{textcodeDark}[1][]{vscode-dark-linenos,minted language=text,title={\faIcon{file-alt}~~Text},list entry={\protect\numberline{\thelisting}Text},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{textcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=text,title={\faIcon{file-alt}~~Text},list entry={\protect\numberline{\thelisting}Text},#1}
-
-% MikroTik Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{mikrotikcodeDark}[1][]{vscode-dark-linenos,minted language=bash,title={\faIcon{network-wired}~~MikroTik},list entry={\protect\numberline{\thelisting}MikroTik},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{mikrotikcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=bash,title={\faIcon{network-wired}~~MikroTik},list entry={\protect\numberline{\thelisting}MikroTik},#1}
-
-% Assembler Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{asmcodeDark}[1][]{vscode-dark-linenos,minted language=nasm,title={\faIcon{microchip}~~Assembly},list entry={\protect\numberline{\thelisting}Assembly},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{asmcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=nasm,title={\faIcon{microchip}~~Assembly},list entry={\protect\numberline{\thelisting}Assembly},#1}
-
-% Prolog Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{prologcodeDark}[1][]{vscode-dark-linenos,minted language=prolog,title={\faIcon{brain}~~Prolog},list entry={\protect\numberline{\thelisting}Prolog},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{prologcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=prolog,title={\faIcon{brain}~~Prolog},list entry={\protect\numberline{\thelisting}Prolog},#1}
-
-% Fortran Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{fortrancodeDark}[1][]{vscode-dark-linenos,minted language=fortran,title={\faIcon{calculator}~~Fortran},list entry={\protect\numberline{\thelisting}Fortran},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{fortrancodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=fortran,title={\faIcon{calculator}~~Fortran},list entry={\protect\numberline{\thelisting}Fortran},#1}
-
-% VHDL Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{vhdlcodeDark}[1][]{vscode-dark-linenos,minted language=vhdl,title={\faIcon{microchip}~~VHDL},list entry={\protect\numberline{\thelisting}VHDL},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{vhdlcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=vhdl,title={\faIcon{microchip}~~VHDL},list entry={\protect\numberline{\thelisting}VHDL},#1}
-
-% Verilog Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{verilogcodeDark}[1][]{vscode-dark-linenos,minted language=verilog,title={\faIcon{microchip}~~Verilog},list entry={\protect\numberline{\thelisting}Verilog},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{verilogcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=verilog,title={\faIcon{microchip}~~Verilog},list entry={\protect\numberline{\thelisting}Verilog},#1}
-
-% TeX Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{texcodeDark}[1][]{vscode-dark-linenos,minted language=tex,title={\faIcon{file-alt}~~TeX},list entry={\protect\numberline{\thelisting}TeX},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{texcodeDarkNN}[1][]{vscode-dark-nolinenos,minted language=tex,title={\faIcon{file-alt}~~TeX},list entry={\protect\numberline{\thelisting}TeX},#1}
+%% Cada lenguaje define cuatro entornos con la misma firma [opciones]:
+%%   <nombre>code        VS Code claro con números de línea
+%%   <nombre>codeNN      VS Code claro sin números de línea
+%%   <nombre>codeDark    VS Code oscuro con números de línea
+%%   <nombre>codeDarkNN  VS Code oscuro sin números de línea
+%% Las opciones son claves de tcolorbox (title=..., minted options={...}, ...).
+
+%% Define un entorno de código.
+%% #1: nombre del entorno, #2: estilo, #3: lenguaje minted, #4: icono, #5: etiqueta
+%% El argumento opcional se declara como `!O{}': solo se reconoce si el '['
+%% va pegado a \begin{...}. Así nunca se inspecciona la primera línea del
+%% código (con [1][] una primera línea como '#include <x>' o '#!/bin/bash'
+%% provocaba «Illegal parameter number in definition of \next»).
+\newcommand\eps@definircodigo[5]{%
+  \DeclareTCBListing[use counter=listing, list inside=lol, list type=listing]{#1}{ !O{} }{%
+    #2,minted language=#3,%
+    eps-code-defaults={\faIcon{#4}~~#5}{#5},%
+    ##1,%
+    eps-code-entry-from-title%
+  }%
+}
+
+%% Declara las cuatro variantes de un lenguaje.
+%% \eps@lenguaje{prefijo}{lenguaje minted}{icono}{etiqueta}
+\newcommand\eps@lenguaje[4]{%
+  \eps@definircodigo{#1code}{vscode-light-linenos}{#2}{#3}{#4}%
+  \eps@definircodigo{#1codeNN}{vscode-light-nolinenos}{#2}{#3}{#4}%
+  \eps@definircodigo{#1codeDark}{vscode-dark-linenos}{#2}{#3}{#4}%
+  \eps@definircodigo{#1codeDarkNN}{vscode-dark-nolinenos}{#2}{#3}{#4}%
+}
+
+%% Tabla de lenguajes: \eps@lenguaje{prefijo}{lenguaje minted}{icono}{etiqueta}
+\eps@lenguaje{python}{python}{python}{Python}% Python
+\eps@lenguaje{js}{javascript}{js-square}{JavaScript}% JavaScript
+\eps@lenguaje{ts}{typescript}{js-square}{TypeScript}% TypeScript
+\eps@lenguaje{sql}{sql}{database}{SQL}% SQL
+\eps@lenguaje{c}{c}{copyright}{C}% C
+\eps@lenguaje{cpp}{cpp}{copyright}{C++}% C++
+\eps@lenguaje{csharp}{csharp}{microsoft}{C\#}% C#
+\eps@lenguaje{java}{java}{java}{Java}% Java
+\eps@lenguaje{kotlin}{kotlin}{android}{Kotlin}% Kotlin
+\eps@lenguaje{swift}{swift}{apple}{Swift}% Swift
+\eps@lenguaje{go}{go}{google}{Go}% Go
+\eps@lenguaje{rust}{rust}{rust}{Rust}% Rust
+\eps@lenguaje{php}{php}{php}{PHP}% PHP
+\eps@lenguaje{ruby}{ruby}{gem}{Ruby}% Ruby
+\eps@lenguaje{r}{r}{r-project}{R}% R
+\eps@lenguaje{html}{html}{html5}{HTML}% HTML
+\eps@lenguaje{css}{css}{css3-alt}{CSS}% CSS
+\eps@lenguaje{sass}{sass}{sass}{SASS}% SASS/SCSS
+\eps@lenguaje{json}{json}{code}{JSON}% JSON
+\eps@lenguaje{xml}{xml}{code}{XML}% XML
+\eps@lenguaje{yaml}{yaml}{file-code}{YAML}% YAML
+\eps@lenguaje{md}{markdown}{markdown}{Markdown}% Markdown
+\eps@lenguaje{latex}{latex}{file-alt}{\LaTeX}% LaTeX
+\eps@lenguaje{bash}{bash}{terminal}{Bash}% Bash/Shell
+\eps@lenguaje{ps}{powershell}{terminal}{PowerShell}% PowerShell
+\eps@lenguaje{docker}{dockerfile}{docker}{Dockerfile}% Docker
+\eps@lenguaje{matlab}{matlab}{chart-line}{MATLAB}% Matlab
+\eps@lenguaje{scala}{scala}{fire}{Scala}% Scala
+\eps@lenguaje{lualang}{lua}{moon}{Lua}% Lua (nombrado lualangcode para evitar conflicto con paquete luacode)
+\eps@lenguaje{perl}{perl}{code}{Perl}% Perl
+\eps@lenguaje{haskell}{haskell}{code}{Haskell}% Haskell
+\eps@lenguaje{make}{makefile}{cogs}{Makefile}% Makefile
+\eps@lenguaje{ini}{ini}{sliders-h}{Config}% INI/Config
+\eps@lenguaje{toml}{toml}{file-code}{TOML}% TOML
+\eps@lenguaje{diff}{diff}{code-branch}{Diff}% Diff
+\eps@lenguaje{git}{bash}{git-alt}{Git}% Git
+\eps@lenguaje{nginx}{nginx}{server}{Nginx}% Nginx
+\eps@lenguaje{apache}{apacheconf}{server}{Apache}% Apache
+\eps@lenguaje{text}{text}{file-alt}{Text}% Texto plano (para MikroTik y otros)
+\eps@lenguaje{mikrotik}{bash}{network-wired}{MikroTik}% MikroTik (usando sintaxis similar a bash)
+\eps@lenguaje{asm}{nasm}{microchip}{Assembly}% Assembler/ASM
+\eps@lenguaje{prolog}{prolog}{brain}{Prolog}% Prolog
+\eps@lenguaje{fortran}{fortran}{calculator}{Fortran}% Fortran
+\eps@lenguaje{vhdl}{vhdl}{microchip}{VHDL}% VHDL
+\eps@lenguaje{verilog}{verilog}{microchip}{Verilog}% Verilog
+\eps@lenguaje{tex}{tex}{file-alt}{TeX}% TeX
 
 %% =============================================================================
 %% ENTORNOS GENÉRICOS PARA CUALQUIER LENGUAJE
 %% =============================================================================
 
 % Genérico Light
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{codigo}[2][]{vscode-light-linenos,minted language=#2,title={\faIcon{code}~~#2},list entry={\protect\numberline{\thelisting}#2},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{codigoNN}[2][]{vscode-light-nolinenos,minted language=#2,title={\faIcon{code}~~#2},list entry={\protect\numberline{\thelisting}#2},#1}
+\newtcblisting[use counter=listing, list inside=lol, list type=listing]{codigo}[2][]{vscode-light-linenos,minted language=#2,eps-code-defaults={\faIcon{code}~~#2}{#2},#1,eps-code-entry-from-title}
+\newtcblisting[use counter=listing, list inside=lol, list type=listing]{codigoNN}[2][]{vscode-light-nolinenos,minted language=#2,eps-code-defaults={\faIcon{code}~~#2}{#2},#1,eps-code-entry-from-title}
 
 % Genérico Dark
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{codigoDark}[2][]{vscode-dark-linenos,minted language=#2,title={\faIcon{code}~~#2},list entry={\protect\numberline{\thelisting}#2},#1}
-\newtcblisting[use counter=listing, list inside=lol, list type=listing]{codigoDarkNN}[2][]{vscode-dark-nolinenos,minted language=#2,title={\faIcon{code}~~#2},list entry={\protect\numberline{\thelisting}#2},#1}
+\newtcblisting[use counter=listing, list inside=lol, list type=listing]{codigoDark}[2][]{vscode-dark-linenos,minted language=#2,eps-code-defaults={\faIcon{code}~~#2}{#2},#1,eps-code-entry-from-title}
+\newtcblisting[use counter=listing, list inside=lol, list type=listing]{codigoDarkNN}[2][]{vscode-dark-nolinenos,minted language=#2,eps-code-defaults={\faIcon{code}~~#2}{#2},#1,eps-code-entry-from-title}
 
 \endinput

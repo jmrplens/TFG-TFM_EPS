@@ -11,57 +11,78 @@
 %% -----------------------------------------------------------------------------
 \ProvidesFile{eps-comunes.sty}[2026/08/02 v2.2.2 Componentes comunes EPS UA]
 
+% Selector de textos según el idioma del documento (lo define la clase;
+% si no existe, se usan los textos en español).
+% Uso: \EPSsegunidioma{español}{valenciano}{inglés}
+\providecommand\EPSsegunidioma[3]{#1}
+
 % ============================================================================
 % CAJAS DE INFORMACIÓN
 % ============================================================================
 
+% Todas aceptan un título opcional entre llaves y opciones de tcolorbox
+% entre corchetes (ambos opcionales):
+%   \begin{infobox} ... \end{infobox}
+%   \begin{infobox}[opciones] ... \end{infobox}
+%   \begin{infobox}{Título} ... \end{infobox}
+%   \begin{infobox}[opciones]{Título} ... \end{infobox}
+% El título solo se reconoce si la llave va pegada a \begin{...} (o a las
+% opciones): un grupo {...} al principio de la línea siguiente forma parte
+% del cuerpo. Equivale a la especificación de argumentos `O{} !g`, pero sin
+% depender del paquete obsoleto xparse.
+
+\ExplSyntaxOn
+% #1: color, #2: icono, #3: opciones de tcolorbox
+\cs_new_protected:Npn \__eps_alerta:nnn #1#2#3
+  {
+    \peek_catcode:NTF \c_group_begin_token
+      { \__eps_alerta_titulo:nnnn {#1} {#2} {#3} }
+      { \__eps_alerta_caja:nnnn {#1} {#2} {#3} { } }
+  }
+% #4: título
+\cs_new_protected:Npn \__eps_alerta_titulo:nnnn #1#2#3#4
+  { \__eps_alerta_caja:nnnn {#1} {#2} {#3} { \textbf {#4} \par \smallskip } }
+\cs_new_protected:Npn \__eps_alerta_caja:nnnn #1#2#3#4
+  {
+    \begin{tcolorbox}
+      [
+        eps-alert = #1 ,
+        before~upper = { \textcolor {#1} {#2} \hspace {8pt} #4 } ,
+        #3
+      ]
+  }
+% \eps@nuevaalerta{entorno}{color}{icono}
+\cs_new_protected:Npn \eps@nuevaalerta #1#2#3
+  {
+    \NewDocumentEnvironment {#1} { O{} }
+      { \__eps_alerta:nnn {#2} {#3} {##1} }
+      { \end{tcolorbox} }
+  }
+\ExplSyntaxOff
+
 % Caja de información general
-% Uso: \infobox{Texto de información}
-\newtcolorbox{infobox}[1][]{
-  eps-alert=eps-info,
-  before upper={\textcolor{eps-info}{\faInfoCircle}\hspace{8pt}},
-  #1
-}
+% Uso: \begin{infobox}{Título opcional} Texto \end{infobox}
+\eps@nuevaalerta{infobox}{eps-info}{\faInfoCircle}
 
 % Caja de éxito/correcto
-% Uso: \successbox{Texto de éxito}
-\newtcolorbox{successbox}[1][]{
-  eps-alert=eps-success,
-  before upper={\textcolor{eps-success}{\faCheckCircle}\hspace{8pt}},
-  #1
-}
+% Uso: \begin{successbox}{Título opcional} Texto \end{successbox}
+\eps@nuevaalerta{successbox}{eps-success}{\faCheckCircle}
 
 % Caja de advertencia
-% Uso: \warningbox{Texto de advertencia}
-\newtcolorbox{warningbox}[1][]{
-  eps-alert=eps-warning,
-  before upper={\textcolor{eps-warning}{\faExclamationTriangle}\hspace{8pt}},
-  #1
-}
+% Uso: \begin{warningbox}{Título opcional} Texto \end{warningbox}
+\eps@nuevaalerta{warningbox}{eps-warning}{\faExclamationTriangle}
 
 % Caja de peligro/error
-% Uso: \dangerbox{Texto de peligro}
-\newtcolorbox{dangerbox}[1][]{
-  eps-alert=eps-danger,
-  before upper={\textcolor{eps-danger}{\faTimesCircle}\hspace{8pt}},
-  #1
-}
+% Uso: \begin{dangerbox}{Título opcional} Texto \end{dangerbox}
+\eps@nuevaalerta{dangerbox}{eps-danger}{\faTimesCircle}
 
 % Caja de consejo/tip
-% Uso: \tipbox{Texto de consejo}
-\newtcolorbox{tipbox}[1][]{
-  eps-alert=eps-secondary,
-  before upper={\textcolor{eps-secondary}{\faLightbulb}\hspace{8pt}},
-  #1
-}
+% Uso: \begin{tipbox}{Título opcional} Texto \end{tipbox}
+\eps@nuevaalerta{tipbox}{eps-secondary}{\faLightbulb}
 
 % Caja de nota
-% Uso: \notebox{Texto de nota}
-\newtcolorbox{notebox}[1][]{
-  eps-alert=eps-gray,
-  before upper={\textcolor{eps-gray}{\faStickyNote}\hspace{8pt}},
-  #1
-}
+% Uso: \begin{notebox}{Título opcional} Texto \end{notebox}
+\eps@nuevaalerta{notebox}{eps-gray}{\faStickyNote}
 
 % ============================================================================
 % CAJAS CON TÍTULO
@@ -85,14 +106,14 @@
 
 % Caja de ejemplo
 % Uso: \begin{examplebox}[título opcional]...\end{examplebox}
-\newtcolorbox{examplebox}[1][Ejemplo]{
+\newtcolorbox{examplebox}[1][\EPSsegunidioma{Ejemplo}{Exemple}{Example}]{
   eps-float-title=eps-success,
   title={\faFlask~#1},
 }
 
 % Caja de importante
-% Uso: \begin{importantbox}...\end{importantbox}
-\newtcolorbox{importantbox}[1][Importante]{
+% Uso: \begin{importantbox}[título opcional]...\end{importantbox}
+\newtcolorbox{importantbox}[1][\EPSsegunidioma{Importante}{Important}{Important}]{
   eps-float-title=eps-warning,
   title={\faExclamationCircle~#1},
 }
@@ -106,9 +127,9 @@
 \newcommand{\unchecked}{{\color{eps-gray!50}\faSquare}}
 \newcommand{\partialchecked}{{\color{eps-warning}\faMinusSquare}}
 
+% Los \item sin etiqueta muestran la casilla vacía en cualquier nivel.
 \newenvironment{checklist}{%
-  \begin{itemize}[label=\none, leftmargin=1.5em]
-  \renewcommand{\labelitemi}{\unchecked}
+  \begin{itemize}[label=\unchecked, leftmargin=1.5em]
 }{%
   \end{itemize}
 }
@@ -142,6 +163,23 @@
   \begin{itemize}[leftmargin=2.5em, itemsep=0.5em]
 }{%
   \end{itemize}
+}
+
+% ============================================================================
+% ENCABEZADOS CON ICONO (uso interno de los módulos)
+% ============================================================================
+
+% Define un entorno centrado con un encabezado «icono + título» (sin caja).
+% \eps@nuevoencabezadoicono{entorno}{título por defecto}{icono}
+% Genera: \begin{entorno}[título] ... \end{entorno}
+\newcommand{\eps@nuevoencabezadoicono}[3]{%
+  \newenvironment{#1}[1][#2]{%
+    \begin{center}
+    {\small\bfseries#3\hspace{0.5em}##1}
+    \par\vspace{4pt}
+  }{%
+    \end{center}
+  }%
 }
 
 % ============================================================================
@@ -320,51 +358,13 @@
 % TIMELINE/CRONOLOGÍA
 % ============================================================================
 
-% Timeline usando tcolorbox y chain de nodos para control fino de la línea vertical
+% Timeline con línea vertical continua a la izquierda.
+% La primera línea de cada elemento queda alineada verticalmente con su badge
+% y la línea vertical se ajusta a la cantidad de líneas del contenido.
+% Uso: \begin{timeline}
+%        \timeitem{2024}{Descripción del hito}
+%      \end{timeline}
 \newenvironment{timeline}{%
-  \begin{description}[
-    style=multiline,
-    leftmargin=3.5cm,      % Margen para la fecha
-    labelwidth=3cm,        % Ancho de la etiqueta fecha
-    font=\normalfont,      % Fuente de la etiqueta (la gestionamos nosotros)
-    itemsep=1em            % Separación entre items
-  ]
-}{%
-  \end{description}
-}
-
-\newcommand{\timeitem}[2]{%
-  % #1: Fecha (Badge)
-  % #2: Contenido
-  \item[%
-    \tikz[baseline=(badge.base)]{
-       % Nodo badge alineado a la base
-       \node[anchor=east, inner sep=0pt] (badge) {\badge[eps-primary]{#1}};
-       % Círculo conector sobre la línea (visual)
-       \coordinate (conector) at ([xshift=1em]badge.east);
-       \fill[eps-white] (conector) circle (2.5pt);
-       \draw[eps-primary, thick] (conector) circle (2.5pt);
-       % Línea vertical hacia abajo (simulada por item, no continua global)
-       % La línea continua global se puede hacer con un tcolorbox envolvente,
-       % pero para ajustar altura al párrafo exacto usamos overlay relativo.
-    }%
-  ]
-  % Dibujamos la línea vertical en el margen izquierdo usando overlay absoluto relativo a la página/columna
-  % O mejor: un tcolorbox "sidebyside" invisible para cada item
-  \begin{tikzpicture}[remember picture, overlay]
-       % Coordenada del badge en este item
-       \coordinate (badgepos) at (-0.8cm, 0.7em); % Ajuste manual respecto al inicio de texto
-       % Dibujar línea vertical desde el badge hacia abajo cubriendo el párrafo
-       % Usamos parbox height o similar? Difícil.
-       % Volvemos a la estrategia de Borderline Global que funciona mejor, ajustando alineación.
-  \end{tikzpicture}%
-  #2
-}
-
-% Re-definición robusta basada en la petición del usuario:
-% "alineada verticalmente con el badge, la primera linea debe coincidir... la linea vertical se ajustara a la cantidad de lineas"
-
-\renewenvironment{timeline}{%
   \begin{tcolorbox}[
     breakable,
     enhanced,
@@ -380,7 +380,7 @@
   \end{tcolorbox}
 }
 
-\renewcommand{\timeitem}[2]{%
+\newcommand{\timeitem}[2]{%
   \par
   % Aseguramos que estamos en modo horizontal al inicio del párrafo para el anclaje
   \noindent

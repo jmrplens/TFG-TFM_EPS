@@ -908,7 +908,7 @@
 % siunitx (lo cargan los módulos de componentes): coma decimal en español y
 % valenciano, punto en inglés. Se puede cambiar con \sisetup en el preámbulo.
 \AddToHook{package/siunitx/after}{%
-  \sisetup{output-decimal-marker={\EPSsegunidioma{,}{,}{.}}}%
+  \sisetup{output-decimal-marker={\EPSsegunidioma{{,}}{{,}}{.}}}%
 }
 
 \RequirePackage{pgfplots}

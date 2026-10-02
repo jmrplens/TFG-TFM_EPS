@@ -20,10 +20,8 @@
 \ProvidesPackage{eps-componentes}[2026/08/02 v2.2.2 Componentes especializados EPS UA]
 
 % ============================================================================
-% OPCIONES DEL PAQUETE (Modernizado con l3keys)
+% OPCIONES DEL PAQUETE (l3keys + \ProcessKeyOptions del núcleo de LaTeX)
 % ============================================================================
-\RequirePackage{expl3}
-\RequirePackage{l3keys2e}
 
 % Mantenemos los flags legacy para compatibilidad con la lógica de carga
 \newif\if@eps@comunes     \@eps@comunestrue   % Siempre se cargan
@@ -54,7 +52,7 @@
     }
   }
 
-\ProcessKeysOptions { eps-componentes }
+\ProcessKeyOptions [ eps-componentes ]
 \ExplSyntaxOff
 
 % ============================================================================

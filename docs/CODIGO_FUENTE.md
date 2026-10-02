@@ -106,9 +106,9 @@ Con MiKTeX, si tras actualizar e instalar el paquete `minted` no se encuentra `l
 | PHP | `phpcode` | `phpcodeNN` | `phpcodeDark` | `phpcodeDarkNN` |
 | Ruby | `rubycode` | `rubycodeNN` | `rubycodeDark` | `rubycodeDarkNN` |
 | R | `rcode` | `rcodeNN` | `rcodeDark` | `rcodeDarkNN` |
-| Scala | `scalacode` | `scalacodeNN` | - | - |
-| Perl | `perlcode` | `perlcodeNN` | - | - |
-| Haskell | `haskellcode` | `haskellcodeNN` | - | - |
+| Scala | `scalacode` | `scalacodeNN` | `scalacodeDark` | `scalacodeDarkNN` |
+| Perl | `perlcode` | `perlcodeNN` | `perlcodeDark` | `perlcodeDarkNN` |
+| Haskell | `haskellcode` | `haskellcodeNN` | `haskellcodeDark` | `haskellcodeDarkNN` |
 | Lua | `lualangcode` | `lualangcodeNN` | `lualangcodeDark` | `lualangcodeDarkNN` |
 | Prolog | `prologcode` | `prologcodeNN` | `prologcodeDark` | `prologcodeDarkNN` |
 | MATLAB | `matlabcode` | `matlabcodeNN` | `matlabcodeDark` | `matlabcodeDarkNN` |
@@ -120,12 +120,12 @@ Con MiKTeX, si tras actualizar e instalar el paquete `minted` no se encuentra `l
 | ---------- | ------- | ------------------- | ------ | ------------------- |
 | HTML | `htmlcode` | `htmlcodeNN` | `htmlcodeDark` | `htmlcodeDarkNN` |
 | CSS | `csscode` | `csscodeNN` | `csscodeDark` | `csscodeDarkNN` |
-| SASS | `sasscode` | `sasscodeNN` | - | - |
+| SASS | `sasscode` | `sasscodeNN` | `sasscodeDark` | `sasscodeDarkNN` |
 | JSON | `jsoncode` | `jsoncodeNN` | `jsoncodeDark` | `jsoncodeDarkNN` |
-| XML | `xmlcode` | `xmlcodeNN` | - | - |
+| XML | `xmlcode` | `xmlcodeNN` | `xmlcodeDark` | `xmlcodeDarkNN` |
 | YAML | `yamlcode` | `yamlcodeNN` | `yamlcodeDark` | `yamlcodeDarkNN` |
-| Markdown | `mdcode` | `mdcodeNN` | - | - |
-| LaTeX | `latexcode` | `latexcodeNN` | - | - |
+| Markdown | `mdcode` | `mdcodeNN` | `mdcodeDark` | `mdcodeDarkNN` |
+| LaTeX | `latexcode` | `latexcodeNN` | `latexcodeDark` | `latexcodeDarkNN` |
 | TeX | `texcode` | `texcodeNN` | `texcodeDark` | `texcodeDarkNN` |
 
 ### Shell y sistema
@@ -133,13 +133,13 @@ Con MiKTeX, si tras actualizar e instalar el paquete `minted` no se encuentra `l
 | Lenguaje | Light | Light (sin líneas) | Dark | Dark (sin líneas) |
 | ---------- | ------- | ------------------- | ------ | ------------------- |
 | Bash | `bashcode` | `bashcodeNN` | `bashcodeDark` | `bashcodeDarkNN` |
-| PowerShell | `pscode` | `pscodeNN` | - | - |
-| Makefile | `makecode` | `makecodeNN` | - | - |
+| PowerShell | `pscode` | `pscodeNN` | `pscodeDark` | `pscodeDarkNN` |
+| Makefile | `makecode` | `makecodeNN` | `makecodeDark` | `makecodeDarkNN` |
 | Dockerfile | `dockercode` | `dockercodeNN` | `dockercodeDark` | `dockercodeDarkNN` |
-| INI/Config | `inicode` | `inicodeNN` | - | - |
-| TOML | `tomlcode` | `tomlcodeNN` | - | - |
-| Git | `gitcode` | `gitcodeNN` | - | - |
-| Diff | `diffcode` | `diffcodeNN` | - | - |
+| INI/Config | `inicode` | `inicodeNN` | `inicodeDark` | `inicodeDarkNN` |
+| TOML | `tomlcode` | `tomlcodeNN` | `tomlcodeDark` | `tomlcodeDarkNN` |
+| Git | `gitcode` | `gitcodeNN` | `gitcodeDark` | `gitcodeDarkNN` |
+| Diff | `diffcode` | `diffcodeNN` | `diffcodeDark` | `diffcodeDarkNN` |
 
 ### Bases de datos y redes
 

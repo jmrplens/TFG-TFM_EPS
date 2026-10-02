@@ -23,15 +23,6 @@
   \PackageWarning{eps-telecom}{siunitx no disponible, algunas funciones pueden fallar}%
 }
 
-% Configuración para evitar warnings de nullfont en LuaLaTeX
-% Esto fuerza que los números en pgfplots usen modo math
-\pgfkeys{/pgf/number format/assume math mode=true}
-
-% Suprimir warnings de "Missing character in nullfont" en LuaLaTeX
-% Estos warnings ocurren internamente en pgfplots/pgfgantt durante cálculos
-% y son inofensivos (no afectan el output del PDF)
-\tracinglostchars=0
-
 % ============================================================================
 % CARTA DE SMITH
 % ============================================================================
@@ -65,7 +56,7 @@
 % Uso: \begin{smithchartbox}[título]
 %        \smithpoint{0.5}{0.3}{Punto 1}
 %      \end{smithchartbox}
-\newenvironment{smithchartbox}[1][Carta de Smith]{%
+\newenvironment{smithchartbox}[1][\EPSsegunidioma{Carta de Smith}{Carta de Smith}{Smith chart}]{%
   \begin{tcolorbox}[eps-card, title={\faBroadcastTower~#1}, halign=center]
     \begin{smithplot}
 }{%
@@ -89,7 +80,6 @@
 % ============================================================================
 
 % Estilo para diagrama de constelación
-% Nota: Se usa assume math mode para evitar problemas con nullfont en LuaLaTeX
 \pgfplotsset{
   constellation style/.style={
     width=8cm,
@@ -103,7 +93,6 @@
     grid style={eps-gray!30},
     axis line style={eps-gray},
     tick style={eps-gray},
-    tick label style={/pgf/number format/assume math mode=true},
   },
 }
 
@@ -124,7 +113,7 @@
 % Uso: \begin{constellationbox}[título]
 %        \constpoint{1}{1}
 %      \end{constellationbox}
-\newenvironment{constellationbox}[1][Diagrama de constelación]{
+\newenvironment{constellationbox}[1][\EPSsegunidioma{Diagrama de constelación}{Diagrama de constel·lació}{Constellation diagram}]{
   \begin{tcolorbox}[eps-card, title={\faStar~#1}, halign=center]
     \begin{constellationplot}
 }{
@@ -132,17 +121,28 @@
   \end{tcolorbox}
 }
 
-% Punto de constelación
-\newcommand{\constpoint}[2]{%
-  \addplot[only marks, mark=*, mark size=4pt, eps-primary]
-    coordinates {(#1,#2)};
-}
-
 % Punto con etiqueta de bits
+% Uso: \constpointlabel{I}{Q}{etiqueta}
 \newcommand{\constpointlabel}[3]{%
   \addplot[only marks, mark=*, mark size=4pt, eps-primary]
     coordinates {(#1,#2)} node[above right, font=\tiny\ttfamily] {#3};
 }
+
+% Punto de constelación con etiqueta opcional
+% Uso: \constpoint{I}{Q}            (sin etiqueta)
+%      \constpoint{I}{Q}{etiqueta}  (equivale a \constpointlabel)
+% La etiqueta solo se reconoce si la llave va pegada al segundo argumento.
+\ExplSyntaxOn
+\NewDocumentCommand{\constpoint}{mm}
+  {
+    \peek_catcode:NTF \c_group_begin_token
+      { \constpointlabel {#1} {#2} }
+      {
+        \addplot [ only~marks, mark=*, mark~size=4pt, eps-primary ]
+          coordinates { (#1,#2) } ;
+      }
+  }
+\ExplSyntaxOff
 
 % Constelaciones predefinidas
 \newcommand{\qpsk}{%
@@ -286,36 +286,67 @@
   },
 }
 
-% Comandos para señales
-\newcommand{\timinglow}[2]{%
-  \draw[timing signal] (#1,0) -- (#2,0);
+% Comandos para señales (dentro de un tikzpicture)
+% Cada señal ocupa una fila centrada en la coordenada y: el nivel bajo se
+% dibuja en y-0.3 y el alto en y+0.3, de modo que una etiqueta colocada con
+% \draw (0,y) node[left] {CLK}; queda centrada respecto a la señal.
+%   \timinglow{x}{y}{duración}    Nivel bajo desde x durante 'duración'
+%   \timinghigh{x}{y}{duración}   Nivel alto desde x durante 'duración'
+%   \timingclock{x}{y}{ciclos}    Reloj de periodo 1 desde x ('ciclos' ciclos)
+%   \timingrise{x}{y}             Flanco de subida en x
+%   \timingfall{x}{y}             Flanco de bajada en x
+% Si un tramo empieza justo donde acaba el anterior de la misma fila con el
+% nivel contrario, el flanco vertical se dibuja automáticamente.
+\newcommand{\eps@timingsemialto}{0.3}
+
+% #1: x, #2: y, #3: duración, #4: nivel (0 = bajo, 1 = alto)
+\newcommand{\eps@timingtramo}[4]{%
+  \pgfmathsetmacro{\eps@timing@ini}{#1}%
+  \pgfmathsetmacro{\eps@timing@fin}{#1+(#3)}%
+  \pgfmathsetmacro{\eps@timing@nivel}{(#2)+(2*#4-1)*\eps@timingsemialto}%
+  \pgfmathsetmacro{\eps@timing@otro}{(#2)-(2*#4-1)*\eps@timingsemialto}%
+  \@tempswafalse
+  \ifcsname eps@timing@fin@#2\endcsname
+    \ifdim\eps@timing@ini pt=\csname eps@timing@fin@#2\endcsname pt\relax
+      \ifnum\csname eps@timing@nivel@#2\endcsname=#4\relax\else
+        \@tempswatrue
+      \fi
+    \fi
+  \fi
+  \if@tempswa
+    \draw[timing signal] (\eps@timing@ini,\eps@timing@otro)
+      -- (\eps@timing@ini,\eps@timing@nivel) -- (\eps@timing@fin,\eps@timing@nivel);
+  \else
+    \draw[timing signal] (\eps@timing@ini,\eps@timing@nivel)
+      -- (\eps@timing@fin,\eps@timing@nivel);
+  \fi
+  % Estado local de la fila (se descarta al cerrar el tikzpicture)
+  \expandafter\edef\csname eps@timing@fin@#2\endcsname{\eps@timing@fin}%
+  \expandafter\edef\csname eps@timing@nivel@#2\endcsname{#4}%
 }
-\newcommand{\timinghigh}[2]{%
-  \draw[timing signal] (#1,1) -- (#2,1);
+\newcommand{\timinglow}[3]{\eps@timingtramo{#1}{#2}{#3}{0}}
+\newcommand{\timinghigh}[3]{\eps@timingtramo{#1}{#2}{#3}{1}}
+\newcommand{\timingrise}[2]{%
+  \draw[timing signal] (#1,{(#2)-\eps@timingsemialto})
+    -- (#1,{(#2)+\eps@timingsemialto});
 }
-\newcommand{\timingrise}[1]{%
-  \draw[timing signal] (#1,0) -- (#1,1);
+\newcommand{\timingfall}[2]{%
+  \draw[timing signal] (#1,{(#2)+\eps@timingsemialto})
+    -- (#1,{(#2)-\eps@timingsemialto});
 }
-\newcommand{\timingfall}[1]{%
-  \draw[timing signal] (#1,1) -- (#1,0);
-}
-\newcommand{\timingclock}[3]{% inicio, fin, periodo
-  \foreach \i in {#1,#3,...,#2} {
-    \draw[timing clock] (\i,0) -- (\i,1) -- (\i+#3/2,1) -- (\i+#3/2,0);
-  }
+\newcommand{\timingclock}[3]{%
+  \draw[timing clock] (#1,{(#2)-\eps@timingsemialto})
+    \foreach \eps@i in {1,...,#3} {
+      -- ++(0,2*\eps@timingsemialto) -- ++(0.5,0)
+      -- ++(0,-2*\eps@timingsemialto) -- ++(0.5,0)
+    };
 }
 
 % Cronograma de señales (sin caja, centrado)
 % Uso: \begin{timingbox}[Cronograma de la comunicación]
 %        ... TikZ timing diagram ...
 %      \end{timingbox}
-\newenvironment{timingbox}[1][Cronograma de señales]{%
-  \begin{center}
-  {\small\bfseries\faWaveSquare\hspace{0.5em}#1}
-  \par\vspace{4pt}
-}{%
-  \end{center}
-}
+\eps@nuevoencabezadoicono{timingbox}{\EPSsegunidioma{Cronograma de señales}{Cronograma de senyals}{Timing diagram}}{\faWaveSquare}
 
 % ============================================================================
 % PARÁMETROS S - Tabla profesional estilo booktabs
@@ -438,13 +469,7 @@
 % Uso: \begin{radiationbox}[Patrón de la antena Yagi]
 %        \begin{tikzpicture}...
 %      \end{radiationbox}
-\newenvironment{radiationbox}[1][Patrón de radiación]{%
-  \begin{center}
-  {\small\bfseries\faBroadcastTower\hspace{0.5em}#1}
-  \par\vspace{4pt}
-}{%
-  \end{center}
-}
+\eps@nuevoencabezadoicono{radiationbox}{\EPSsegunidioma{Patrón de radiación}{Patró de radiació}{Radiation pattern}}{\faBroadcastTower}
 
 % ============================================================================
 % ESPECTRO DE FRECUENCIAS
@@ -467,13 +492,7 @@
 % Uso: \begin{spectrumbox}[Espectro de la señal modulada]
 %        \begin{tikzpicture}...
 %      \end{spectrumbox}
-\newenvironment{spectrumbox}[1][Espectro de frecuencias]{%
-  \begin{center}
-  {\small\bfseries\faChartArea\hspace{0.5em}#1}
-  \par\vspace{4pt}
-}{%
-  \end{center}
-}
+\eps@nuevoencabezadoicono{spectrumbox}{\EPSsegunidioma{Espectro de frecuencias}{Espectre de freqüències}{Frequency spectrum}}{\faChartArea}
 
 % ============================================================================
 % DIAGRAMA DE OJO
@@ -498,13 +517,7 @@
 % Uso: \begin{eyediagrambox}[Diagrama de la señal QPSK]
 %        \begin{tikzpicture}...
 %      \end{eyediagrambox}
-\newenvironment{eyediagrambox}[1][Diagrama de ojo]{%
-  \begin{center}
-  {\small\bfseries\faEye\hspace{0.5em}#1}
-  \par\vspace{4pt}
-}{%
-  \end{center}
-}
+\eps@nuevoencabezadoicono{eyediagrambox}{\EPSsegunidioma{Diagrama de ojo}{Diagrama d'ull}{Eye diagram}}{\faEye}
 
 % ============================================================================
 % ESPECIFICACIONES RF - Tabla profesional estilo datasheet
@@ -561,13 +574,7 @@
 % Uso: \begin{circuitbox}[Filtro paso bajo]
 %        \begin{circuitikz}...
 %      \end{circuitbox}
-\newenvironment{circuitbox}[1][Esquema del circuito]{%
-  \begin{center}
-  {\small\bfseries\faPlug\hspace{0.5em}#1}
-  \par\vspace{4pt}
-}{%
-  \end{center}
-}
+\eps@nuevoencabezadoicono{circuitbox}{\EPSsegunidioma{Esquema del circuito}{Esquema del circuit}{Circuit schematic}}{\faPlug}
 
 % ============================================================================
 % PROTOCOLO DE COMUNICACIÓN - TRAMAS DE DATOS

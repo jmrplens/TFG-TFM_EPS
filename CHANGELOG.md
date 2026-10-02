@@ -47,6 +47,35 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
   `latexminted` como ejecutable y no usa `pip` en sistemas PEP 668.
 - **Enlaces rotos** en la documentación y emoji dañado en el README.
 
+- **Componentes**:
+  - Los recuadros de aviso (`infobox`, `warningbox`, `dangerbox`, `successbox`,
+    `tipbox`, `notebox`) aceptan un título opcional `{Título}`; antes se
+    imprimía como texto del cuerpo (13 usos en el propio contenido de ejemplo).
+  - `\constpoint` admite la etiqueta como tercer argumento (en la constelación
+    QPSK de ejemplo se perdían 00/01/11/10) y los comandos de diagramas de
+    tiempo (`\timinglow`, `\timinghigh`, `\timingclock`, `\timingrise`,
+    `\timingfall`) usan la sintaxis documentada `{x}{y}{...}`: el diagrama de
+    ejemplo salía descolocado. Ambos fallos los ocultaba un
+    `\tracinglostchars=0` global, eliminado.
+  - Las etiquetas negativas de pgfplots vuelven a usar el signo menos (se
+    quitó `assume math mode` global).
+  - `terminal`: cada `\prompt` empieza línea por sí solo.
+  - `checklist`, `\normaderogada` (tachado), `normativa` (compatible con el
+    etiquetado) y `[geologia]` por separado (`\ch`) funcionaban mal o daban
+    error.
+  - Los módulos ya no cambian el separador decimal de todo el documento; lo
+    decide el idioma.
+  - Textos fijos de los componentes traducidos según el idioma.
+- **Código**: todos los lenguajes tienen variante `Dark`/`DarkNN` (faltaban 13,
+  aunque el contenido de ejemplo las anunciaba); el `title=` aparece en el
+  índice de códigos; un entorno sin `[]` cuya primera línea empieza por `#`
+  (`#include`, `#!/bin/bash`) ya no da error.
+- **Portada**: texto alternativo en los logotipos y sin línea vacía cuando no
+  hay departamento.
+- **Scripts**: `revision-rapida.py` deja de dar falsos positivos (de 123 avisos
+  sobre la propia plantilla a 3 reales); `instalar.py` comprueba el año de TeX
+  Live.
+
 ### Cambiado
 
 - **PDF etiquetado sin declarar PDF/UA-2**: `cls/eps-metadata.tex` usa
