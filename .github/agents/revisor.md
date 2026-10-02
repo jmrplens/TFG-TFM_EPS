@@ -129,6 +129,7 @@ indica: **dimensión**, **severidad** (crítico / importante / menor),
 **Problemas típicos:**
 
 - Tablas con `\hline`.
+- Flotantes con `[H]`, tablas con `\diagbox` o `tblr`, y `tikzpicture` informativos sin `alt` (estropean el PDF accesible).
 - Código en `verbatim` en lugar de `pythoncode`, `jscode`, etc.
 - Figuras sin `\caption{}` o sin `\label{}`.
 - Referencias a figuras o tablas que no existen (`\ref{}` sin `\label{}`).

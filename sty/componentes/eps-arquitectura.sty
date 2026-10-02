@@ -155,9 +155,10 @@
   \small
   \setcounter{partidanum}{0}
   \subsection*{#1}
-  % Suspender tagging PDF/UA-2 para evitar artefactos con longtable+multicolumn
-  % Guard: solo si tagpdf está cargado (LaTeX 2024+ o con DocumentMetadata)
-  \IfPackageLoadedTF{tagpdf}{\SuspendTagging{presupuesto-longtable}}{}%
+  % Con LaTeX 2025-11 o posterior la tabla se etiqueta correctamente (Table,
+  % TH en la cabecera, ColSpan en los capítulos). En versiones anteriores se
+  % suspende el etiquetado para evitar errores con longtable+multicolumn.
+  \IfFormatAtLeastTF{2025-11-01}{}{\SuspendTagging{presupuesto-longtable}}%
   % Columnas con ancho fijo para asegurar alineación correcta y evitar desborde
   % p{1.5cm}: Código
   % p{desc}: Descripción (calculada)
@@ -178,7 +179,7 @@
     \endlastfoot
 }{%
   \end{longtable}
-  \IfPackageLoadedTF{tagpdf}{\ResumeTagging{presupuesto-longtable}}{}%
+  \IfFormatAtLeastTF{2025-11-01}{}{\ResumeTagging{presupuesto-longtable}}%
   \endgroup
 }
 
@@ -297,7 +298,7 @@
 
 % Referencia normativa con estado (vigente/derogada)
 \newcommand{\normavigente}[3]{%
-  \eps@normaitem{\textbf{#1}\hfill\textcolor{eps-success}{\faCheck}}%
+  \eps@normaitem{\textbf{#1}\hfill\EPSiconoTexto{\EPSsegunidioma{Vigente}{Vigent}{In force}}{\textcolor{eps-success}{\faCheck}}}%
     {#2\hfill\textcolor{eps-gray}{#3}}%
 }
 
@@ -474,9 +475,9 @@
 }
 
 % Indicadores rápidos
-\newcommand{\controlok}{\textcolor{eps-success}{\faCheck}}
-\newcommand{\controlno}{\textcolor{eps-danger}{\faTimes}}
-\newcommand{\controlpend}{\textcolor{eps-warning}{\faClock}}
+\newcommand{\controlok}{\EPSiconoTexto{\EPSsegunidioma{Conforme}{Conforme}{Compliant}}{\textcolor{eps-success}{\faCheck}}}
+\newcommand{\controlno}{\EPSiconoTexto{\EPSsegunidioma{No conforme}{No conforme}{Non-compliant}}{\textcolor{eps-danger}{\faTimes}}}
+\newcommand{\controlpend}{\EPSiconoTexto{\EPSsegunidioma{Pendiente}{Pendent}{Pending}}{\textcolor{eps-warning}{\faClock}}}
 
 % ============================================================================
 % SUPERFICIES Y CUADROS - Estilo profesional

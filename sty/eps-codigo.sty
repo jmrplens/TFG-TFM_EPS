@@ -74,6 +74,10 @@
   frame=none,
   autogobble=true,
 }
+% Código en línea (\mintinline) sin cortes en cualquier carácter: los puntos
+% de corte usan modo matemático y, en el PDF etiquetado, cada carácter acaba
+% como una fórmula vacía. Se sigue cortando en los espacios (breaklines).
+\setmintedinline{breakanywhere=false}
 
 %% =============================================================================
 %% ESTILO BASE VS CODE LIGHT

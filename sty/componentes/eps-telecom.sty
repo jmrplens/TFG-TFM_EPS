@@ -382,16 +382,16 @@
 
 % Fila con indicador de cumplimiento (para tablas con columna extra)
 \newcommand{\sparamrowok}[5]{%
-  #1 & #2 & #3 & #4 & #5 & \textcolor{eps-success}{\faCheck} \\
+  #1 & #2 & #3 & #4 & #5 & \EPSiconoTexto{\EPSsegunidioma{Cumple}{Compleix}{Pass}}{\textcolor{eps-success}{\faCheck}} \\
 }
 
 \newcommand{\sparamrowfail}[5]{%
-  #1 & #2 & #3 & #4 & #5 & \textcolor{eps-danger}{\faTimes} \\
+  #1 & #2 & #3 & #4 & #5 & \EPSiconoTexto{\EPSsegunidioma{No cumple}{No compleix}{Fail}}{\textcolor{eps-danger}{\faTimes}} \\
 }
 
 % Indicadores inline de cumplimiento
-\newcommand{\sparamok}{\textcolor{eps-success}{\faCheck}}
-\newcommand{\sparamfail}{\textcolor{eps-danger}{\faTimes}}
+\newcommand{\sparamok}{\EPSiconoTexto{\EPSsegunidioma{Cumple}{Compleix}{Pass}}{\textcolor{eps-success}{\faCheck}}}
+\newcommand{\sparamfail}{\EPSiconoTexto{\EPSsegunidioma{No cumple}{No compleix}{Fail}}{\textcolor{eps-danger}{\faTimes}}}
 
 % ============================================================================
 % DIAGRAMA DE ESTADOS (FSM)

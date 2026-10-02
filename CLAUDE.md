@@ -278,13 +278,16 @@ y la 4. Para quitar los números de línea, usar la variante `NN`
 
 ## Tablas
 
-Usar siempre `booktabs`. Nunca `\hline`.
+Usar siempre `booktabs`. Nunca `\hline`. En tablas de datos, `\EPScabeceraTabla`
+(`[2]` si la cabecera ocupa dos filas) antes del `tabular` marca la cabecera para
+el PDF accesible.
 
 ```latex
 \begin{table}[htbp]
   \centering
   \caption{Comparativa de algoritmos.}
   \label{tab:comparativa}
+  \EPScabeceraTabla  % la fila 1 es cabecera (PDF accesible)
   \begin{tabular}{lccc}
     \toprule
     Algoritmo & Complejidad & Memoria & Estable \\
@@ -509,6 +512,9 @@ Añadir siempre texto alternativo a las imágenes:
 - ❌ Escribir contenido en `main.tex`.
 - ❌ Crear portadas con TikZ manualmente. Usar `\generarportada`.
 - ❌ Usar `\hline` en tablas. Usar `\toprule`, `\midrule`, `\bottomrule`.
+- ❌ Usar `[H]` en figuras/tablas, `\diagbox` o `tblr` (tabularray): estropean el
+  PDF accesible. Usar `[htbp]`, una cabecera de texto y `tabular`.
+- ❌ Dejar un `tikzpicture` informativo sin `alt={...}` (o `artifact` si es decorativo).
 - ❌ Usar `\bibliography{}` + `\bibliographystyle{}`. Usar `\printbibliography`.
 - ❌ Modificar `cls/eps-tfg.cls` para ajustes de formato menores.
 - ❌ Usar paquetes obsoletos: `utf8x`, `t1enc`, `ae`, `times`, `mathptmx`.

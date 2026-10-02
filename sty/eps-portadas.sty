@@ -182,6 +182,9 @@
 \newsavebox{\eps@titleBox}
 
 \newcommand{\eps@optimizeTitleSize}{%
+  % Las cajas de medida no se muestran: no se etiquetan (si no, dejan
+  % estructuras abiertas y desordenan el árbol del PDF etiquetado)
+  \SuspendTagging{eps/portada-medida}%
   % 1. Medir la altura real del logo superior derecho
   \savebox{\eps@logoBox}{\eps@includegraphicsmedida{width=\eps@portadaLogoTRWidth}{\EPSlogoFacultadPortada}}%
   \setlength{\eps@logoH}{\ht\eps@logoBox + \dp\eps@logoBox}%
@@ -228,6 +231,7 @@
     \fi
   \ifdim\eps@titleContentH>0pt
   \repeat
+  \ResumeTagging{eps/portada-medida}%
 }
 
 %% ============================================================================

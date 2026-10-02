@@ -245,6 +245,7 @@ del título se escapan: `title={mi\_script.py}`.
   \centering
   \caption{Título de la tabla.}
   \label{tab:nombre}
+  \EPScabeceraTabla  % la fila 1 es cabecera (PDF accesible)
   \begin{tabular}{lcc}
     \toprule
     Columna 1 & Columna 2 & Columna 3 \\
@@ -328,6 +329,8 @@ Formato de entrada en `referencias.bib`:
 - ❌ Modificar `cls/eps-tfg.cls` para ajustes menores de formato.
 - ❌ Usar `\bibliographystyle{}` + `\bibliography{}`. Usar BibLaTeX con `\printbibliography`.
 - ❌ Usar tablas sin `booktabs` (`\hline` en lugar de `\toprule`/`\midrule`/`\bottomrule`).
+- ❌ Usar `[H]` en figuras/tablas, `\diagbox` o `tblr` (tabularray): estropean el PDF accesible. Usar `[htbp]`, una cabecera de texto y `tabular`.
+- ❌ Dejar un `tikzpicture` informativo sin `alt={...}` (o `artifact` si es decorativo).
 
 ---
 

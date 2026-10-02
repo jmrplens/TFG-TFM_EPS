@@ -7,6 +7,32 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
+### Accesibilidad
+
+- **PDF etiquetado más útil para lectores de pantalla** (sin declarar todavía
+  PDF/UA-2). En el documento de ejemplo los avisos de etiquetado bajan de 258 a
+  66; los que quedan son, sobre todo, una limitación del núcleo de LaTeX.
+  - La portada ya no deja estructuras abiertas: antes casi todo el documento
+    colgaba de un párrafo en la raíz del árbol.
+  - Los iconos decorativos se marcan como artefacto y los que transmiten
+    información se leen como texto (casillas de `checklist`, `\pro`/`\con`,
+    `\rating`, indicadores de cumplimiento). Nuevo `\EPSiconoTexto{texto}{icono}`.
+  - Los fragmentos en otro idioma (el Abstract) llevan su propio `/Lang`.
+  - Las leyendas vuelven a etiquetarse como `Caption` aunque haya cajas de
+    `tcolorbox` con título, y las figuras y tablas se agrupan al final de cada
+    capítulo en lugar de al final del documento.
+  - `\mintinline` ya no genera una fórmula vacía por carácter.
+  - `presupuesto` ya no oculta su contenido en el PDF etiquetado.
+- **Nuevo `\EPScabeceraTabla[<filas>]`**: marca la cabecera de las tablas de
+  datos (`TH`). Sin efecto con LaTeX anterior a 2025-11.
+- **`alt`/`artifact` en `tikzpicture`** también con TeX Live 2024 (allí sin
+  efecto), para que el mismo documento compile en todas las versiones.
+- **Ejemplos**: sin `[H]`, `\diagbox` ni `tblr`; tablas de datos con cabecera
+  y diagramas y gráficas con texto alternativo.
+- **CI**: el resumen de compilación muestra métricas de accesibilidad
+  (figuras con texto alternativo, cabeceras de tabla, idioma, enlaces y avisos
+  de etiquetado por tipo), solo informativas.
+
 ### Corregido
 
 - **La plantilla vuelve a compilar con TeX Live actual (LaTeX 2025-11 o

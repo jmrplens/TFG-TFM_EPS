@@ -265,6 +265,7 @@ números de línea: variante `NN`.
   \centering
   \caption{Resultados de los experimentos.}
   \label{tab:resultados}
+  \EPScabeceraTabla  % la fila 1 es cabecera (PDF accesible)
   \begin{tabular}{lrr}
     \toprule
     Método       & Precisión & Tiempo (ms) \\
@@ -448,6 +449,8 @@ make clean    # Limpiar auxiliares, caché _minted/ e informe-revision.md
 - ❌ `\usepackage{subfigure}` o `subfig`
 - ❌ `\begin{verbatim}` o `lstlisting` para código
 - ❌ `\hline` en tablas
+- ❌ `[H]` en figuras/tablas, `\diagbox` o `tblr` (estropean el PDF accesible)
+- ❌ `tikzpicture` informativo sin `alt={...}`
 - ❌ `\bibliography{}` + `\bibliographystyle{}`
 - ❌ Contenido en `main.tex`
 - ❌ Portadas manuales con TikZ

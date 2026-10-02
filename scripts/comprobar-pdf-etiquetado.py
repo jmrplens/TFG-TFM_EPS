@@ -15,6 +15,11 @@ Imprime un resumen (páginas, versión PDF, etiquetado, idioma, número de
 elementos de estructura, declaración PDF/UA en XMP) y, si existe la variable
 GITHUB_STEP_SUMMARY, lo añade también al resumen del job.
 
+Además muestra métricas de accesibilidad, solo informativas (no hacen fallar
+la comprobación): figuras con y sin texto alternativo, elementos con idioma
+propio (/Lang), celdas de cabecera de tabla, enlaces etiquetados y, con
+--log main.log, los avisos de tagpdf agrupados por tipo.
+
 Códigos de salida:
   0  PDF etiquetado (o --no-exigir)
   1  PDF sin etiquetar, o /Lang distinto de --idioma-esperado
@@ -32,11 +37,15 @@ import sys
 from collections import Counter
 
 
-def _contar_estructura(raiz, limite: int = 200_000) -> Counter:
-    """Recorre el árbol de estructura y cuenta elementos por /S (tipo)."""
+def _contar_estructura(raiz, limite: int = 200_000) -> tuple[Counter, Counter]:
+    """
+    Recorre el árbol de estructura. Devuelve los elementos por /S (tipo) y
+    otras cuentas: figuras con y sin /Alt y elementos con /Lang.
+    """
     from pypdf.generic import ArrayObject, DictionaryObject, IndirectObject
 
     tipos: Counter = Counter()
+    extra: Counter = Counter()
     pila = [raiz.get("/K")]
     vistos = set()
     visitados = 0
@@ -59,10 +68,52 @@ def _contar_estructura(raiz, limite: int = 200_000) -> Counter:
         tipo = nodo.get("/S")
         if tipo is not None:
             tipos[str(tipo).lstrip("/")] += 1
+            if str(tipo) == "/Figure":
+                extra["figuras_alt" if "/Alt" in nodo else "figuras_sin_alt"] += 1
+        if "/Lang" in nodo:
+            extra["con_lang"] += 1
         hijos = nodo.get("/K")
         if hijos is not None:
             pila.append(hijos)
-    return tipos
+    return tipos, extra
+
+
+def _avisos_tagpdf(ruta_log: str) -> Counter:
+    """Agrupa por tipo los avisos de tagpdf del registro de compilación."""
+    with open(ruta_log, encoding="utf-8", errors="replace") as f:
+        log = f.read()
+    avisos: Counter = Counter()
+    patron = r"Package tagpdf Warning: ([^\n]*(?:\n\(tagpdf\)[^\n]*)*)"
+    for texto in re.findall(patron, log):
+        texto = re.sub(r"\n\(tagpdf\)\s*", " ", texto)
+        if "Parent-Child" in texto:
+            par = re.findall(r"'([^']*)'", texto)[:2]
+            clave = "Relación padre-hijo no permitida (" + " → ".join(par) + ")"
+        elif "Destination" in texto:
+            clave = "Destino sin estructura asociada"
+        elif "Alternative text" in texto:
+            clave = "Falta texto alternativo"
+        elif "can not be closed" in texto:
+            clave = "Estructura que no se puede cerrar"
+        elif "still open" in texto:
+            clave = "Estructuras abiertas al final"
+        else:
+            clave = re.sub(r"\d+", "N", texto)[:70]
+        avisos[clave] += 1
+    return avisos
+
+
+def _enlaces(lector) -> tuple[int, int]:
+    """Número de anotaciones de enlace y cuántas están en la estructura."""
+    total = etiquetados = 0
+    for pagina in lector.pages:
+        for anot in pagina.get("/Annots") or []:
+            anot = anot.get_object()
+            if anot.get("/Subtype") == "/Link":
+                total += 1
+                if "/StructParent" in anot:
+                    etiquetados += 1
+    return total, etiquetados
 
 
 def main() -> int:
@@ -73,6 +124,11 @@ def main() -> int:
         "--idioma-esperado",
         default="",
         help="Prefijo esperado de /Lang (p. ej. 'es', 'ca', 'en-GB'); falla si no coincide",
+    )
+    parser.add_argument(
+        "--log",
+        default="",
+        help="Registro de compilación (main.log) para contar los avisos de tagpdf",
     )
     parser.add_argument(
         "--no-exigir",
@@ -108,9 +164,10 @@ def main() -> int:
     tiene_arbol = raiz is not None
 
     tipos: Counter = Counter()
+    extra: Counter = Counter()
     if tiene_arbol:
         try:
-            tipos = _contar_estructura(raiz.get_object())
+            tipos, extra = _contar_estructura(raiz.get_object())
         except Exception as exc:  # noqa: BLE001
             print(f"Aviso: no se pudo recorrer el árbol: {exc}", file=sys.stderr)
 
@@ -142,9 +199,36 @@ def main() -> int:
         ("Declaración PDF/UA (XMP)", declaracion_ua),
     ]
 
+    # Métricas de accesibilidad (informativas)
+    try:
+        enlaces, enlaces_etiq = _enlaces(lector)
+    except Exception:  # noqa: BLE001
+        enlaces = enlaces_etiq = 0
+    metricas = [
+        ("Figuras con texto alternativo", f"{extra['figuras_alt']} de "
+         f"{extra['figuras_alt'] + extra['figuras_sin_alt']}"),
+        ("Celdas de cabecera de tabla (TH)", str(tipos.get("TH", 0))),
+        ("Elementos con idioma propio (/Lang)", str(extra["con_lang"])),
+        ("Enlaces en la estructura", f"{enlaces_etiq} de {enlaces}"),
+    ]
+    avisos: Counter = Counter()
+    if args.log:
+        try:
+            avisos = _avisos_tagpdf(args.log)
+        except OSError as exc:
+            print(f"Aviso: no se pudo leer {args.log}: {exc}", file=sys.stderr)
+        metricas.append(("Avisos de tagpdf", str(sum(avisos.values()))))
+
     titulo = args.titulo or f"Información del PDF ({os.path.basename(args.pdf)})"
     md = [f"### {titulo}", "", "| Propiedad | Valor |", "|---|---|"]
     md += [f"| {k} | {v} |" for k, v in filas]
+    md += ["", "**Accesibilidad (informativo)**", "", "| Métrica | Valor |", "|---|---|"]
+    md += [f"| {k} | {v} |" for k, v in metricas]
+    if avisos:
+        md += ["", "<details><summary>Avisos de tagpdf por tipo</summary>", "",
+               "| Avisos | Tipo |", "|---|---|"]
+        md += [f"| {n} | {k} |" for k, n in avisos.most_common()]
+        md += ["", "</details>"]
     md.append("")
     md.append("✅ PDF etiquetado" if etiquetado else "❌ El PDF NO está etiquetado")
     if esperado:

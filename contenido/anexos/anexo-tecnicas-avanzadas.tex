@@ -54,6 +54,7 @@ El siguiente código genera una tabla que ocupa toda la página en horizontal:
   \caption{Comparativa completa de características por módulo del sistema desarrollado}
   \label{tab:comparativa-modulos_render}
   \small % Fuente más pequeña para que quepa
+  \EPScabeceraTabla
   \begin{tabular}{@{}lccccccccc@{}}
     \toprule
     \textbf{Módulo} &
@@ -98,7 +99,9 @@ Las tablas rotadas son útiles cuando:
   Para tablas complejas con celdas combinadas, considera usar el paquete
   \texttt{tabularray} (ya incluido en la plantilla) en lugar de
   \texttt{multirow}/\texttt{multicolumn}, ya que evita conflictos con
-  \texttt{colortbl} en LuaLaTeX.
+  \texttt{colortbl} en LuaLaTeX. Ten en cuenta, sin embargo, que las tablas
+  de \texttt{tabularray} no se etiquetan como tablas en el PDF accesible:
+  para las tablas de datos usa \texttt{tabular}.
 \end{tipbox}
 
 %% =============================================================================
@@ -122,7 +125,7 @@ con headers y footers correctamente dimensionados:
 
 % Contenido en landscape (puede ocupar varias páginas)
 \section{Diagrama de arquitectura}
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   % Diagrama TikZ o imagen amplia
   \caption{Arquitectura del sistema}
@@ -151,9 +154,10 @@ con headers y footers correctamente dimensionados:
 Esta página está en orientación horizontal para mostrar un diagrama amplio.
 Los márgenes están optimizados para aprovechar el espacio disponible.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \begin{tikzpicture}[
+    alt={Diagrama de flujo del sistema: Inicio, Autenticación y la decisión ¿Válido?; si no es válido se muestra Error y se vuelve a Autenticación. Si es válido se pasa al Menú, que da acceso a los módulos A, B y C; los tres llevan a Proceso y después a Resultado. En la decisión ¿Guardar?, si se guarda se escribe en la BD y luego Fin; si no, se pasa directamente a Fin},
     scale=0.75, transform shape,
     node distance=0.9cm and 1.3cm,
     block/.style={rectangle, draw, fill=blue!10, text width=1.8cm, text centered,
@@ -201,11 +205,12 @@ Los márgenes están optimizados para aprovechar el espacio disponible.
 
 \vspace{0.3cm}
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \small
   \caption{Matriz de trazabilidad requisitos-módulos (aprovechando el ancho de página landscape)}
   \label{tab:trazabilidad-landscape}
+  \EPScabeceraTabla
   \begin{tabular}{l|ccccccccccccc}
     \toprule
     & \textbf{RF01} & \textbf{RF02} & \textbf{RF03} & \textbf{RF04} & \textbf{RF05} &
@@ -231,10 +236,11 @@ Esta es una segunda página en orientación horizontal para verificar que varias
 landscape consecutivas funcionan correctamente. Los encabezados y pies de página
 deben mantenerse consistentes en ambas páginas.
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Tabla adicional de ejemplo en segunda página landscape}
   \label{tab:segunda-landscape}
+  \EPScabeceraTabla
   \begin{tabular}{lp{10cm}cc}
     \toprule
     \textbf{ID} & \textbf{Descripción del requisito} & \textbf{Prioridad} & \textbf{Estado} \\
@@ -312,10 +318,11 @@ en el documento \LaTeX. Esto es útil para adjuntar:
 \subsection{Opciones más utilizadas}
 \label{subsec:opciones-includepdf}
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Opciones principales de \texttt{\textbackslash includepdf}}
   \label{tab:opciones-includepdf}
+  \EPScabeceraTabla
   \begin{tabular}{lp{8cm}}
     \toprule
     \textbf{Opción} & \textbf{Descripción} \\
@@ -345,6 +352,7 @@ ligeramente reducida:
   scale=0.85,
   frame,
   pagecommand={\thispagestyle{plain}},
+  alt={Documento de ejemplo incluido como anexo: «Documento de Ejemplo para Inclusión», dos páginas con una introducción, texto de relleno y datos técnicos (A4, márgenes de 2,5 cm, LuaLaTeX)},
 ]{recursos/pdf_externos/documento_ejemplo.pdf}
 
 \subsection{Múltiples páginas en una hoja}
@@ -374,7 +382,7 @@ incluso invadiendo los márgenes. Para ello se combina el entorno
 \label{subsec:figura-invade-margenes}
 
 \begin{latexcode}[title={Figura de ancho completo}]
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \makebox[\textwidth][c]{%
     \includegraphics[width=1.2\textwidth]{imagen_ancha}
@@ -507,10 +515,11 @@ Las minipáginas permiten crear bloques de contenido lado a lado:
 \section{Resumen de Paquetes Utilizados}
 \label{sec:resumen-paquetes}
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Paquetes y comandos \LaTeX{} para técnicas avanzadas}
   \label{tab:paquetes-avanzados}
+  \EPScabeceraTabla
   \begin{tabular}{llp{6cm}}
     \toprule
     \textbf{Paquete/Clase} & \textbf{Uso} & \textbf{Comando principal} \\

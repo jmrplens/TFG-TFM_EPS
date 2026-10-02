@@ -13,9 +13,9 @@ PGFPlots es un paquete potente para crear gráficas directamente en \LaTeX{}. Pe
 
 Las gráficas de líneas son ideales para mostrar tendencias temporales o relaciones continuas entre variables.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Gráfica de líneas del tiempo de respuesta en milisegundos frente al número de usuarios concurrentes (de 10 a 500). Las tres series crecen con la carga: el tiempo medio pasa de 50 a 800 ms, el percentil 95 de 80 a 1500 ms y el percentil 50 de 30 a 450 ms}]
     \begin{axis}[
       xlabel={Número de usuarios concurrentes},
       ylabel={Tiempo de respuesta (ms)},
@@ -52,9 +52,9 @@ Como se observa en la Figura~\ref{fig:rendimiento}, el sistema mantiene tiempos 
 
 Las gráficas de barras permiten comparar valores discretos entre categorías.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Gráfica de barras con la puntuación de 0 a 10 por criterio de evaluación. Sistema propuesto frente a sistema anterior: usabilidad 8,5 frente a 6,5; rendimiento 7,8 frente a 8,2; seguridad 9,2 frente a 7,0; escalabilidad 7,5 frente a 6,0; documentación 8,0 frente a 5,5}]
     \begin{axis}[
       ybar=8pt,
       width=0.85\textwidth,
@@ -99,9 +99,9 @@ Las gráficas de barras permiten comparar valores discretos entre categorías.
 
 Las gráficas circulares muestran proporciones de un total. Este ejemplo usa el paquete \texttt{pgf-pie}.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Gráfica circular de la distribución del tiempo del proyecto: desarrollo 35 por ciento, análisis 25, pruebas 20, documentación 12 y reuniones 8}]
     \pie[
       text=legend,
       radius=2.5,
@@ -123,9 +123,9 @@ Las gráficas circulares muestran proporciones de un total. Este ejemplo usa el 
 
 Las gráficas de área apiladas son útiles para mostrar la evolución de múltiples series y su contribución al total.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Gráfica de áreas apiladas de usuarios activos por mes, de enero a diciembre. Los usuarios web crecen de 100 a 1400 y los móviles de 50 a 1000, con crecimiento continuo en ambas plataformas}]
     \begin{axis}[
       width=0.85\textwidth,
       height=6cm,
@@ -159,9 +159,9 @@ Las gráficas de área apiladas son útiles para mostrar la evolución de múlti
 
 Las gráficas de dispersión permiten visualizar correlaciones entre variables y ajustar líneas de regresión.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Gráfica de dispersión del tiempo de ejecución en milisegundos frente a la complejidad del código. Los puntos crecen de forma casi lineal, de unos 15 ms con complejidad 10 a 140 ms con complejidad 68, y se ajustan a una recta de regresión}]
     \begin{axis}[
       width=0.85\textwidth,
       height=6cm,
@@ -193,10 +193,11 @@ Las gráficas de dispersión permiten visualizar correlaciones entre variables y
 
 Se han implementado con éxito las siguientes funcionalidades:
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Estado de implementación de funcionalidades}
   \label{tab:funcionalidades}
+  \EPScabeceraTabla
   \begin{tabular}{@{}lcc@{}}
     \toprule
     \textbf{Funcionalidad} & \textbf{Estado} & \textbf{Cobertura tests} \\
@@ -236,10 +237,11 @@ El consumo de memoria se mantiene estable, como muestra la siguiente ecuación p
 
 En la Tabla~\ref{tab:objetivos} se muestra el grado de cumplimiento de cada objetivo:
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Cumplimiento de objetivos}
   \label{tab:objetivos}
+  \EPScabeceraTabla
   \begin{tabular}{@{}lp{6cm}c@{}}
     \toprule
     \textbf{Objetivo} & \textbf{Descripción} & \textbf{Cumplimiento} \\
@@ -256,10 +258,11 @@ En la Tabla~\ref{tab:objetivos} se muestra el grado de cumplimiento de cada obje
 \subsection{Métricas de rendimiento}
 \label{subsec:metricas-rendimiento}
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Métricas de rendimiento del sistema}
   \label{tab:metricas}
+  \EPScabeceraTabla
   \begin{tabular}{@{}lccc@{}}
     \toprule
     \textbf{Métrica} & \textbf{Objetivo} & \textbf{Resultado} & \textbf{Estado} \\
@@ -279,9 +282,9 @@ En la Tabla~\ref{tab:objetivos} se muestra el grado de cumplimiento de cada obje
 
 PGFPlots también permite crear gráficas tridimensionales:
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Superficie tridimensional de la función gaussiana f(x,y) igual a e elevado a menos x al cuadrado menos y al cuadrado, para x e y entre menos 2 y 2, con un máximo de valor 1 en el origen que desciende hacia cero en los bordes}]
     \begin{axis}[
       width=0.7\textwidth,
       height=6cm,
@@ -320,7 +323,7 @@ plot(x, y);
 matlab2tikz('figura.tex');
 
 % En LaTeX:
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \input{figuras/figura.tex}
   \caption{Gráfica importada de MATLAB}
@@ -333,9 +336,9 @@ matlab2tikz('figura.tex');
 \subsection{Gráfica con marcadores sobre puntos específicos}
 \label{subsec:marcadores-puntos}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Gráfica de la temperatura frente al tiempo de 0 a 10 segundos. La temperatura sube rápidamente de 20 a 90 grados en 5 segundos y se estabiliza hasta un máximo de 94 grados. Se marcan el punto medio de la subida, el inicio de la estabilización a los 5 segundos y el máximo, y una línea discontinua indica el umbral crítico de 90 grados}]
     \begin{axis}[
       width=0.85\textwidth,
       height=6cm,
@@ -367,9 +370,9 @@ matlab2tikz('figura.tex');
 \subsection{Gráfica con barras de error}
 \label{subsec:barras-error}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Gráfica del tiempo de respuesta en milisegundos de las configuraciones A a E con barras de error. Sistema A: 120, 95, 150, 80 y 110 ms; sistema B: 140, 110, 130, 100 y 125 ms. El sistema A es más rápido en todas salvo en la C}]
     \begin{axis}[
       width=0.85\textwidth,
       height=6cm,
@@ -421,9 +424,9 @@ matlab2tikz('figura.tex');
 \subsection{Gráfica con área sombreada (intervalo de confianza)}
 \label{subsec:area-confianza}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Gráfica de la precisión media frente a la iteración, de 1 a 10. La media sube de 67 a 90 por ciento con una curva que se aplana al final, rodeada por una banda sombreada de más o menos una desviación estándar}]
     \begin{axis}[
       width=0.85\textwidth,
       height=6cm,
@@ -463,9 +466,9 @@ matlab2tikz('figura.tex');
 \subsection{Gráfica con múltiples ejes Y}
 \label{subsec:multiples-ejes}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Gráfica de doble eje Y por mes, de 1 a 12. Las ventas, en el eje izquierdo, suben de 500 a 1500 unidades y el beneficio, en el eje derecho, de 2000 a 10500 euros; ambas series crecen de forma continua}]
     \begin{axis}[
       width=0.85\textwidth,
       height=6cm,
@@ -505,9 +508,9 @@ matlab2tikz('figura.tex');
 \subsection{Gráfica de distribución (histograma)}
 \label{subsec:histograma}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Histograma de tiempos de respuesta en intervalos de 20 ms entre 0 y 200 ms. La frecuencia máxima, 45, está en el intervalo de 60 a 80 ms; a partir de ahí desciende hasta 3 en el intervalo de 180 a 200 ms}]
     \begin{axis}[
       width=0.85\textwidth,
       height=6cm,
@@ -532,9 +535,9 @@ matlab2tikz('figura.tex');
 
 Las gráficas de radar son útiles para comparar múltiples variables simultáneamente:
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Gráfica de radar que compara dos sistemas en seis criterios puntuados de 0 a 100. Sistema A: usabilidad 85, rendimiento 72, seguridad 90, escalabilidad 68, mantenibilidad 78 y portabilidad 82. Sistema B: 75, 88, 70, 85, 72 y 68}]
     \begin{polaraxis}[
       width=8cm,
       xtick={0,60,120,180,240,300},
@@ -566,9 +569,9 @@ Las gráficas de radar son útiles para comparar múltiples variables simultáne
 
 Para mostrar cronogramas de proyecto:
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Diagrama de Gantt de barras horizontales con la duración en semanas de cada tarea: análisis 2, diseño 3, backend 6, frontend 6, testing 3 y despliegue 2}]
     \begin{axis}[
       width=0.9\textwidth,
       height=5cm,
@@ -595,10 +598,11 @@ Para mostrar cronogramas de proyecto:
 
 Para finalizar, es común presentar un resumen numérico de los resultados:
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Resumen de métricas de evaluación}
   \label{tab:resumen-metricas}
+  \EPScabeceraTabla
   \begin{tabular}{@{}lccccc@{}}
     \toprule
     \textbf{Métrica} & \textbf{Baseline} & \textbf{Propuesta} & \textbf{Mejora} & \textbf{p-valor} & \textbf{Sig.} \\
@@ -644,9 +648,9 @@ El método consiste en colocar la imagen dentro de un nodo TikZ y luego usar las
 
 El siguiente ejemplo muestra cómo señalar diferentes regiones de una imagen:
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Imagen de ejemplo, que representa una captura de pantalla, con anotaciones: un círculo rojo con flecha señala el botón principal, una flecha azul señala la barra de estado, un rectángulo verde discontinuo marca el panel de control y una etiqueta amarilla indica la zona destacada}]
     % Imagen base (usando example-image como placeholder)
     \node[inner sep=0, anchor=south west] (img) at (0,0) {%
       \fbox{\parbox{8cm}{\centering\vspace{3cm}\textit{[Imagen de ejemplo]}\\\small Aquí iría una captura de pantalla\vspace{3cm}}}%
@@ -683,9 +687,9 @@ El siguiente ejemplo muestra cómo señalar diferentes regiones de una imagen:
 
 Para documentación técnica, es común usar marcadores numerados:
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Recuadro que representa un diagrama de arquitectura con cuatro marcadores rojos numerados del 1 al 4, que se explican en la lista de debajo}]
     % Imagen base simulada
     \node[inner sep=0, anchor=south west] (img) at (0,0) {%
       \fbox{\parbox{10cm}{\centering\vspace{2.5cm}\textit{[Diagrama de arquitectura]}\vspace{2.5cm}}}%
@@ -728,9 +732,9 @@ TikZ permite crear ilustraciones vectoriales de alta calidad directamente en el 
 \subsection{Formas geométricas básicas}
 \label{subsec:formas-basicas}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Cuatro formas geométricas en fila: una caja azul con esquinas redondeadas, una esfera roja sombreada, una elipse verde y un hexágono naranja, cada una con su nombre}]
     % Rectángulo con esquinas redondeadas
     \draw[fill=blue!30, rounded corners=5pt] (0,0) rectangle (2,1.5);
     \node at (1, 0.75) {Caja};
@@ -756,9 +760,10 @@ TikZ permite crear ilustraciones vectoriales de alta calidad directamente en el 
 
 Los diagramas de flujo son fundamentales para documentar procesos y algoritmos:
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \begin{tikzpicture}[
+    alt={Diagrama de flujo: Inicio, Leer datos y la decisión ¿Válido?. Si es válido, se pasa a Procesar y después a Fin; si no, se pasa a Mostrar error, que vuelve a Leer datos},
     node distance=1.2cm,
     startstop/.style={rectangle, rounded corners, fill=red!30,
                       draw, minimum width=2.5cm, minimum height=0.8cm},
@@ -793,9 +798,10 @@ Los diagramas de flujo son fundamentales para documentar procesos y algoritmos:
 
 Útil para representar sistemas y sus componentes:
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \begin{tikzpicture}[
+    alt={Diagrama de bloques de un sistema de control realimentado: la entrada x(t) llega a un sumador, que alimenta el sistema H(s) y produce la salida y(t); la salida pasa por el sensor G(s) y vuelve al sumador con signo negativo},
     block/.style={rectangle, draw, fill=blue!20,
                   minimum width=2cm, minimum height=1cm, align=center},
     arrow/.style={thick, ->, >=stealth},
@@ -831,9 +837,9 @@ Los diagramas de flujo son fundamentales para documentar procesos y algoritmos:
 
 Para representar cronologías o secuencias de eventos:
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Línea de tiempo del proyecto con seis hitos: inicio en 2020, análisis en 2021, diseño en 2022, desarrollo en 2023, pruebas en 2024 y despliegue en 2025}]
     % Línea principal
     \draw[thick, ->] (0,0) -- (12,0) node[right] {Tiempo};
 
@@ -862,9 +868,9 @@ Para representar cronologías o secuencias de eventos:
 
 TikZ permite crear iconos y símbolos vectoriales reutilizables:
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Cuatro iconos vectoriales en fila con su nombre debajo: usuario, servidor, base de datos y nube (Cloud)}]
     % Icono de usuario
     \begin{scope}[shift={(0,0)}]
       \draw[fill=blue!40, thick] (0,0.3) circle (0.4);
@@ -916,9 +922,10 @@ TikZ permite crear iconos y símbolos vectoriales reutilizables:
 \subsection{Arquitectura de microservicios}
 \label{subsec:arquitectura-microservicios}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \begin{tikzpicture}[
+    alt={Arquitectura de microservicios: los clientes Web, Móvil y API se conectan al API Gateway, que reparte las peticiones a los servicios Auth, Users y Orders; cada servicio tiene su propia base de datos y todos se comunican de forma asíncrona mediante una cola de mensajes (Message Queue)},
     service/.style={rectangle, draw, fill=blue!20, rounded corners,
                     minimum width=2cm, minimum height=0.8cm, font=\small},
     gateway/.style={rectangle, draw, fill=green!30, rounded corners,
@@ -972,9 +979,9 @@ TikZ permite crear iconos y símbolos vectoriales reutilizables:
 \subsection{Diagrama de capas}
 \label{subsec:diagrama-capas}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Arquitectura en cuatro capas apiladas y conectadas con flechas bidireccionales, de arriba abajo: capa de presentación (UI, controladores), capa de negocio (servicios, lógica), capa de datos (repositorios, ORM) e infraestructura (base de datos, caché)}]
     \tikzset{
       layer/.style={rectangle, draw, thick, minimum width=8cm,
                     minimum height=1cm, align=center}

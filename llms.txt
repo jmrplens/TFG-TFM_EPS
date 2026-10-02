@@ -63,4 +63,4 @@ Idioma: `idioma` (`espanol`, `valenciano`, `ingles`) en `configuracion.tex` camb
 
 Compilación: `make` (completo) o `make quick` (una pasada). Limpiar: `make clean`.
 
-Nunca usar: `pdflatex`, `inputenc`, `subfigure`, `verbatim`/`lstlisting` para código, `\hline` en tablas, `\bibliography{}` + `\bibliographystyle{}`.
+Nunca usar: `pdflatex`, `inputenc`, `subfigure`, `verbatim`/`lstlisting` para código, `\hline` en tablas, `[H]` en flotantes, `\diagbox` o `tblr` (estropean el PDF accesible), `\bibliography{}` + `\bibliographystyle{}`. En tablas de datos, `\EPScabeceraTabla` antes del `tabular`; en `tikzpicture`, `alt={...}`.

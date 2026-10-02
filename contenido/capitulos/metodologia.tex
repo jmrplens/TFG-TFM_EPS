@@ -38,16 +38,16 @@ La estructura básica para insertar una figura es:
 
 Donde las opciones de posición más comunes son:
 \begin{itemize}
-  \item \texttt{H} --- Forzar posición exacta (requiere paquete \texttt{float})
   \item \texttt{h} --- Aquí si es posible (\textit{here})
   \item \texttt{t} --- Parte superior de la página (\textit{top})
   \item \texttt{b} --- Parte inferior de la página (\textit{bottom})
   \item \texttt{p} --- Página dedicada a flotantes (\textit{page})
+  \item \texttt{H} --- Forzar posición exacta (requiere paquete \texttt{float}); no recomendado, porque estropea el etiquetado del PDF accesible. Lo habitual es \texttt{[htbp]}
 \end{itemize}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
-  \begin{tikzpicture}
+  \begin{tikzpicture}[alt={Rectángulo gris que ocupa el lugar de una imagen, con el texto «Imagen de ejemplo»}]
     \draw[fill=gray!20] (0,0) rectangle (8,4);
     \node at (4,2) {\Large Imagen de ejemplo};
   \end{tikzpicture}
@@ -103,7 +103,7 @@ Usa PDF para gráficas vectoriales (exportadas desde Inkscape, MATLAB, Python) y
 Cuando necesitas mostrar varias imágenes relacionadas, usa el entorno \texttt{subfigure} del paquete \texttt{subcaption}:
 
 \begin{codigosimple}{latex}{Sintaxis: Subfiguras}
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
     \centering
@@ -123,11 +123,11 @@ Cuando necesitas mostrar varias imágenes relacionadas, usa el entorno \texttt{s
 \end{figure}
 \end{codigosimple}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
     \centering
-    \begin{tikzpicture}
+    \begin{tikzpicture}[alt={Rectángulo azul con el texto «Subfigura A»}]
       \draw[fill=blue!20] (0,0) rectangle (4,3);
       \node at (2,1.5) {Subfigura A};
     \end{tikzpicture}
@@ -137,7 +137,7 @@ Cuando necesitas mostrar varias imágenes relacionadas, usa el entorno \texttt{s
   \hfill
   \begin{subfigure}[b]{0.45\textwidth}
     \centering
-    \begin{tikzpicture}
+    \begin{tikzpicture}[alt={Rectángulo rojo con el texto «Subfigura B»}]
       \draw[fill=red!20] (0,0) rectangle (4,3);
       \node at (2,1.5) {Subfigura B};
     \end{tikzpicture}
@@ -156,7 +156,7 @@ Puedes referenciar subfiguras individuales: Figura~\ref{fig:sub-a} y Figura~\ref
 Para apilar subfiguras verticalmente, usa saltos de línea:
 
 \begin{codigosimple}{latex}{Sintaxis: Subfiguras verticales}
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \begin{subfigure}[b]{0.8\textwidth}
     \includegraphics[width=\textwidth]{imagen-arriba}
@@ -179,7 +179,7 @@ Para apilar subfiguras verticalmente, usa saltos de línea:
 Para organizar varias imágenes en una cuadrícula, puedes usar un entorno \texttt{tabular} dentro de la figura:
 
 \begin{codigosimple}{latex}{Sintaxis: Múltiples imágenes en cuadrícula}
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \begin{tabular}{ccc}
     \includegraphics[width=0.3\textwidth]{img1} &
@@ -191,31 +191,31 @@ Para organizar varias imágenes en una cuadrícula, puedes usar un entorno \text
 \end{figure}
 \end{codigosimple}
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \begin{tabular}{ccc}
-    \begin{tikzpicture}[scale=0.5]
+    \begin{tikzpicture}[alt={Círculo verde con el número 1}, scale=0.5]
       \draw[fill=green!30] (0,0) circle (1.5);
       \node at (0,0) {1};
     \end{tikzpicture} &
-    \begin{tikzpicture}[scale=0.5]
+    \begin{tikzpicture}[alt={Círculo amarillo con el número 2}, scale=0.5]
       \draw[fill=yellow!30] (0,0) circle (1.5);
       \node at (0,0) {2};
     \end{tikzpicture} &
-    \begin{tikzpicture}[scale=0.5]
+    \begin{tikzpicture}[alt={Círculo naranja con el número 3}, scale=0.5]
       \draw[fill=orange!30] (0,0) circle (1.5);
       \node at (0,0) {3};
     \end{tikzpicture} \\
     Config. A & Config. B & Config. C \\[1em]
-    \begin{tikzpicture}[scale=0.5]
+    \begin{tikzpicture}[alt={Círculo cian con el número 4}, scale=0.5]
       \draw[fill=cyan!30] (0,0) circle (1.5);
       \node at (0,0) {4};
     \end{tikzpicture} &
-    \begin{tikzpicture}[scale=0.5]
+    \begin{tikzpicture}[alt={Círculo magenta con el número 5}, scale=0.5]
       \draw[fill=magenta!30] (0,0) circle (1.5);
       \node at (0,0) {5};
     \end{tikzpicture} &
-    \begin{tikzpicture}[scale=0.5]
+    \begin{tikzpicture}[alt={Círculo marrón con el número 6}, scale=0.5]
       \draw[fill=brown!30] (0,0) circle (1.5);
       \node at (0,0) {6};
     \end{tikzpicture} \\
@@ -232,14 +232,14 @@ Para figuras que ocupen todo el ancho de la página (incluyendo márgenes), usa 
 
 \begin{codigosimple}{latex}{Sintaxis: Figuras a ancho completo}
 % Figura que ocupa todo el ancho del texto
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \includegraphics[width=\textwidth]{imagen-panoramica}
   \caption{Imagen a ancho completo}
 \end{figure}
 
 % Figura más ancha que el texto (sobresale en márgenes)
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \makebox[\textwidth][c]{%
     \includegraphics[width=1.2\textwidth]{imagen-extra-ancha}%
@@ -253,9 +253,10 @@ Para figuras que ocupen todo el ancho de la página (incluyendo márgenes), usa 
 
 La planificación temporal del proyecto se muestra en la Figura~\ref{fig:gantt}.
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \begin{tikzpicture}[
+    alt={Diagrama de Gantt de septiembre a febrero: análisis en septiembre; diseño de mediados de septiembre a finales de octubre; implementación de mediados de octubre a finales de diciembre; pruebas de diciembre a mediados de enero; documentación de mediados de diciembre a mediados de febrero},
     fase/.style={fill=informatica!60, draw=informatica!80, rounded corners=2pt, minimum height=0.6cm},
     mes/.style={font=\footnotesize\sffamily},
     nombre/.style={font=\footnotesize, anchor=east}
@@ -300,9 +301,10 @@ TikZ es un paquete muy potente para crear diagramas vectoriales directamente en 
 
 Los diagramas de flujo son esenciales para documentar algoritmos y procesos:
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \begin{tikzpicture}[
+    alt={Diagrama de flujo: Inicio, Proceso 1 y la decisión ¿Condición?. Si se cumple, se pasa a Proceso 2; si no, a Alternativa, que también lleva a Proceso 2. Proceso 2 termina en Fin},
     node distance=1.5cm,
     startstop/.style={rectangle, rounded corners, minimum width=2.5cm, minimum height=0.8cm, text centered, draw=black, fill=red!30},
     process/.style={rectangle, minimum width=2.5cm, minimum height=0.8cm, text centered, draw=black, fill=blue!20},
@@ -332,9 +334,10 @@ Los diagramas de flujo son esenciales para documentar algoritmos y procesos:
 
 Los diagramas de bloques son útiles para representar arquitecturas de sistemas:
 
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \begin{tikzpicture}[
+    alt={Diagrama de bloques de la arquitectura: el cliente web o móvil se comunica con la API REST, que conecta con la lógica de negocio y con el sistema de caché; la lógica de negocio y la caché acceden a la base de datos},
     block/.style={rectangle, draw, fill=blue!20, text width=2.5cm, text centered, rounded corners, minimum height=1cm},
     line/.style={draw, thick, -latex}
   ]
@@ -437,7 +440,7 @@ A modo de referencia rápida, estos son los comandos más utilizados:
 
 \begin{codigosimple}{latex}{Sintaxis: Resumen de comandos para figuras}
 % Figura básica
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\textwidth]{ruta/imagen}
   \caption{Título de la figura}

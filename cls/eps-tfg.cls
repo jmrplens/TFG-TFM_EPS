@@ -1098,6 +1098,140 @@
 \newtheorem{proposicion}{\EPSsegunidioma{Proposición}{Proposició}{Proposition}}[chapter]
 
 %% ============================================================================
+%% ACCESIBILIDAD DEL PDF ETIQUETADO
+%% ============================================================================
+%% Ajustes para que el árbol de estructura del PDF sea útil para los lectores
+%% de pantalla. Sin \DocumentMetadata (o sin etiquetado activo) no tienen
+%% ningún efecto. Ver docs/ACCESIBILIDAD.md.
+\ExplSyntaxOn
+%% (1) Iconos (fontawesome5). Por defecto son decorativos: se marcan como
+%%     artefacto para que el lector de pantalla no lea el nombre del glifo
+%%     («INFO-CIRCLE», «FOLDER-OPEN»...). Los iconos que transmiten
+%%     información (estado de una tarea, conforme/no conforme...) se escriben
+%%     con \EPSiconoTexto{texto}{icono}, que lee «texto» en su lugar.
+\bool_new:N \l__eps_icono_artefacto_bool
+\bool_set_true:N \l__eps_icono_artefacto_bool
+\cs_new_protected:Npn \__eps_icono_artefacto:n #1
+  {
+    \bool_lazy_and:nnTF { \tag_if_active_p: } { \l__eps_icono_artefacto_bool }
+      {
+        \tag_mc_end_push:
+        \tag_mc_begin:n { artifact }
+        #1
+        \tag_mc_end:
+        \tag_mc_begin_pop:n { }
+      }
+      { #1 }
+  }
+\tl_new:N \l__eps_icono_texto_tl
+\cs_new_protected:Npn \__eps_icono_texto:nn #1 #2
+  {
+    \tag_if_active:TF
+      {
+        \group_begin:
+        \bool_set_false:N \l__eps_icono_artefacto_bool
+        \tag_mc_end_push:
+        \tl_set:Ne \l__eps_icono_texto_tl { \text_expand:n {#1} }
+        \exp_args:Ne \tag_mc_begin:n
+          { actualtext = { \exp_not:V \l__eps_icono_texto_tl } }
+        #2
+        \tag_mc_end:
+        \tag_mc_begin_pop:n { }
+        \group_end:
+      }
+      { #2 }
+  }
+\NewDocumentCommand \EPSiconoTexto { m m } { \__eps_icono_texto:nn {#1} {#2} }
+\cs_new_protected:Npn \__eps_fa_parche:
+  {
+    \cs_if_exist:NT \fontawesome_use_icon:nn
+      {
+        \cs_new_eq:NN \__eps_fa_icono_original:nn \fontawesome_use_icon:nn
+        \cs_set_protected:Npn \fontawesome_use_icon:nn ##1 ##2
+          { \__eps_icono_artefacto:n { \__eps_fa_icono_original:nn {##1} {##2} } }
+      }
+  }
+\AddToHook { package / fontawesome5 / after } { \__eps_fa_parche: }
+
+%% (2) Idioma de los fragmentos en otro idioma (p. ej. el Abstract dentro de
+%%     otherlanguage{english}): polyglossia no lo indica en el PDF, así que
+%%     se pasa a tagpdf para que esas estructuras lleven /Lang. Se comprueba
+%%     al empezar cada capítulo y cada párrafo; el ajuste es local y termina
+%%     con el entorno.
+\tl_new:N \l__eps_tag_idioma_tl
+\cs_new_protected:Npn \__eps_tag_idioma:
+  {
+    \bool_lazy_and:nnT
+      { \tag_if_active_p: }
+      { ! \str_if_eq_p:ee { \languagename } { \g__eps_idioma_polyglossia_tl } }
+      {
+        \str_case_e:nnT { \languagename }
+          {
+            { spanish } { \tl_set:Nn \l__eps_tag_idioma_tl { es-ES } }
+            { english } { \tl_set:Nn \l__eps_tag_idioma_tl { en-GB } }
+            { catalan } { \tl_set:Nn \l__eps_tag_idioma_tl { ca-ES } }
+          }
+          { \exp_args:Ne \tagpdfsetup { text / lang = \l__eps_tag_idioma_tl } }
+      }
+  }
+\AddToHook { cmd / chapter / before } { \__eps_tag_idioma: }
+\AddToHook { para / begin } { \__eps_tag_idioma: }
+
+%% (3) Cabecera de las tablas de datos: \EPScabeceraTabla[<filas>] (por
+%%     defecto 1), justo antes del tabular, marca esas filas como cabecera
+%%     (TH) para que el lector de pantalla asocie cada dato con su columna.
+%%     Sin el módulo de tablas de LaTeX (versiones anteriores a 2025-11) no
+%%     hace nada. En longtable no hace falta: \endhead ya marca la cabecera.
+\NewDocumentCommand \EPScabeceraTabla { O{1} }
+  {
+    \keys_if_exist:nnT { __tag / setup } { table/header-rows }
+      { \tagpdfsetup { table/header-rows = {#1} } }
+  }
+
+%% (4) Texto alternativo en dibujos TikZ y pgfplots:
+%%     \begin{tikzpicture}[alt={...}] (o 'artifact' si es decorativo). LaTeX
+%%     2025-11 o posterior define esas claves; en versiones anteriores se
+%%     definen aquí sin efecto, para que el mismo documento compile en ambas.
+\AddToHook { begindocument / before }
+  {
+    \cs_if_exist:NT \tikzset
+      {
+        \pgfkeysifdefined { /tikz/alt/.@cmd } { }
+          {
+            \tikzset
+              {
+                alt/.code = { } ,
+                actualtext/.code = { } ,
+                artifact/.code = { }
+              }
+          }
+      }
+  }
+
+%% (5) Ajustes que dependen de los módulos de etiquetado de LaTeX 2025-11 o
+%%     posterior (en versiones anteriores esos módulos no existen).
+\IfFormatAtLeastT { 2025-11-01 }
+  {
+    % tcolorbox reasigna el rol «Caption» al título de sus cajas y, a partir
+    % de la primera caja con título, todas las leyendas de figuras y tablas
+    % dejan de ser Caption. Con 'noop' el título de la caja es un párrafo
+    % normal y las leyendas no cambian.
+    \AddToHook { begindocument / before }
+      {
+        \bool_lazy_and:nnT
+          { \tag_if_active_p: }
+          { \socket_if_exist_p:n { tagsupport / tcb / box / title } }
+          { \AssignTaggingSocketPlug { tcb / box / title } { noop } }
+      }
+    % Las figuras y tablas etiquetadas se agrupan en un contenedor que LaTeX
+    % coloca al final del documento; así se coloca al final de cada
+    % capítulo, más cerca del texto que las cita.
+    \AddToHook { cmd / chapter / before }
+      { \tag_if_active:T { \tagtool { flush-floats = 0 } } }
+  }
+\ExplSyntaxOff
+
+%% ============================================================================
 %% CARGAR PAQUETES ADICIONALES
 %% ============================================================================
 % Los paquetes eps-portadas y eps-codigo se cargan desde el directorio sty/
