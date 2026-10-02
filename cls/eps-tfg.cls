@@ -701,18 +701,29 @@
 }
 \ExplSyntaxOn
 \tl_new:N \l__eps_tpt_para_tl
+\tl_new:N \l__eps_tpt_bloque_tl
+% Desde LaTeX 2026-06 el párrafo que sigue a la tabla se abre con el nombre
+% de estructura 'para/textblock' en lugar de \l__tag_para_tag_tl: también
+% se hace Div dentro del entorno (\AssignStructureRole es local).
 \cs_new_protected:Npn \eps@tpt@div
   {
     \bool_lazy_and:nnT { \tag_if_active_p: } { \cs_if_exist_p:N \l__tag_para_tag_tl }
       {
         \tl_set_eq:NN \l__eps_tpt_para_tl \l__tag_para_tag_tl
         \tl_set:Nn \l__tag_para_tag_tl { Div }
+        \cs_if_exist:cT { l__tag_name_para/textblock_tl }
+          {
+            \tl_set_eq:Nc \l__eps_tpt_bloque_tl { l__tag_name_para/textblock_tl }
+            \AssignStructureRole { para/textblock } { Div }
+          }
       }
   }
 \cs_new_protected:Npn \eps@tpt@texto
   {
     \tl_if_empty:NF \l__eps_tpt_para_tl
       { \tl_set_eq:NN \l__tag_para_tag_tl \l__eps_tpt_para_tl }
+    \tl_if_empty:NF \l__eps_tpt_bloque_tl
+      { \tl_set_eq:cN { l__tag_name_para/textblock_tl } \l__eps_tpt_bloque_tl }
   }
 \ExplSyntaxOff
 %% (4) longtable 4.24 (LaTeX 2025-11, TeX Live 2025): al partir una tabla
