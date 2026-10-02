@@ -1319,21 +1319,22 @@
 % párrafo. Con LaTeX 2026-06 cada minipage cierra la estructura en curso (la
 % sección) como si interrumpiera un párrafo y deja abierto otro que contiene
 % el resto del documento. Con capture=minipage tcolorbox lo evita; con hbox,
-% no. Dentro de la caja se indica que no hay párrafo que interrumpir.
-\cs_new_protected:Npn \__eps_tcb_hbox_sin_parrafo:
+% no. Dentro de la caja se hace lo mismo que con capture=minipage: esas
+% minipages no cierran ni abren nada.
+\cs_new_protected:Npn \__eps_tcb_hbox_minipages:
   {
     \cs_if_exist:NT \tcbox@inner@hbox
       {
         \cs_new_eq:NN \__eps_tcb_inner_hbox:n \tcbox@inner@hbox
         \cs_set:Npn \tcbox@inner@hbox ##1
           {
-            \cs_if_exist:NT \l__tag_para_bool
-              { \bool_set_false:N \l__tag_para_bool }
+            \AssignTaggingSocketPlug { minipage / before } { noop }
+            \AssignTaggingSocketPlug { minipage / after } { noop }
             \__eps_tcb_inner_hbox:n {##1}
           }
       }
   }
-\AddToHook { package / tcolorbox / after } { \__eps_tcb_hbox_sin_parrafo: }
+\AddToHook { package / tcolorbox / after } { \__eps_tcb_hbox_minipages: }
 
 %% (6) Títulos de sección como encabezados (H2...H6). KOMA-Script compone los
 %%     títulos con su propio código y el etiquetado de LaTeX solo reconoce
