@@ -1315,12 +1315,12 @@
       { \tag_if_active:T { \tagtool { flush-floats = 0 } } }
   }
 % tcolorbox 6.10 (2026) con capture=hbox (\tcbox, cajas UML de [software]):
-% el título y una 'varwidth upper' van en minipages fuera de cualquier
-% párrafo. Con LaTeX 2026-06 cada minipage cierra la estructura en curso (la
-% sección) como si interrumpiera un párrafo y deja abierto otro que contiene
-% el resto del documento. Con capture=minipage tcolorbox lo evita; con hbox,
-% no. Dentro de la caja se hace lo mismo que con capture=minipage: esas
-% minipages no cierran ni abren nada.
+% el título y una 'varwidth upper' van en minipages. Cada minipage cierra
+% la estructura en curso como si interrumpiera un párrafo y luego abre otro.
+% Si la caja no está dentro de un párrafo (modo vertical), cerraba la
+% sección y dejaba abierto un párrafo con el resto del documento. Con
+% capture=minipage tcolorbox lo evita; con hbox, no. En ese caso se hace lo
+% mismo que con capture=minipage: esas minipages no cierran ni abren nada.
 \cs_new_protected:Npn \__eps_tcb_hbox_minipages:
   {
     \cs_if_exist:NT \tcbox@inner@hbox
@@ -1328,8 +1328,11 @@
         \cs_new_eq:NN \__eps_tcb_inner_hbox:n \tcbox@inner@hbox
         \cs_set:Npn \tcbox@inner@hbox ##1
           {
-            \AssignTaggingSocketPlug { minipage / before } { noop }
-            \AssignTaggingSocketPlug { minipage / after } { noop }
+            \mode_if_vertical:T
+              {
+                \AssignTaggingSocketPlug { minipage / before } { noop }
+                \AssignTaggingSocketPlug { minipage / after } { noop }
+              }
             \__eps_tcb_inner_hbox:n {##1}
           }
       }
