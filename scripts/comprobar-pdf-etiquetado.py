@@ -37,15 +37,53 @@ import sys
 from collections import Counter
 
 
+_NS_ESTANDAR = ("http://iso.org/pdf/ssn", "http://iso.org/pdf2/ssn")
+
+
+def _mapa_roles(raiz) -> dict:
+    """
+    Tabla de los roles propios (p. ej. 'section' en el espacio de nombres de
+    LaTeX) al rol estándar al que equivalen (p. ej. 'H2'), a partir de
+    /RoleMapNS de cada espacio de nombres y del /RoleMap global (PDF 1.7).
+    """
+    directo: dict = {}
+    for ns in raiz.get("/Namespaces") or []:
+        ns = ns.get_object()
+        for rol, destino in (ns.get("/RoleMapNS") or {}).items():
+            destino = destino.get_object() if hasattr(destino, "get_object") else destino
+            nombre = destino[0] if isinstance(destino, list) else destino
+            ns_destino = ""
+            if isinstance(destino, list) and len(destino) > 1:
+                ns_destino = str(destino[1].get_object().get("/NS", ""))
+            directo[(str(ns.get("/NS", "")), str(rol))] = (ns_destino, str(nombre))
+    for rol, destino in (raiz.get("/RoleMap") or {}).items():
+        directo.setdefault(("", str(rol)), ("", str(destino)))
+    return directo
+
+
+def _resolver_rol(mapa: dict, ns: str, rol: str) -> str:
+    """Sigue el mapa de roles hasta un rol estándar (como mucho 10 saltos)."""
+    for _ in range(10):
+        if ns in _NS_ESTANDAR:
+            break
+        sig = mapa.get((ns, rol)) or mapa.get(("", rol))
+        if sig is None or sig == (ns, rol):
+            break
+        ns, rol = sig
+    return rol.lstrip("/")
+
+
 def _contar_estructura(raiz, limite: int = 200_000) -> tuple[Counter, Counter]:
     """
     Recorre el árbol de estructura. Devuelve los elementos por /S (tipo) y
-    otras cuentas: figuras con y sin /Alt y elementos con /Lang.
+    otras cuentas: figuras con y sin /Alt, elementos con /Lang y elementos
+    por rol estándar (H1...H6, Reference) tras resolver el mapa de roles.
     """
     from pypdf.generic import ArrayObject, DictionaryObject, IndirectObject
 
     tipos: Counter = Counter()
     extra: Counter = Counter()
+    mapa = _mapa_roles(raiz)
     pila = [raiz.get("/K")]
     vistos = set()
     visitados = 0
@@ -68,6 +106,9 @@ def _contar_estructura(raiz, limite: int = 200_000) -> tuple[Counter, Counter]:
         tipo = nodo.get("/S")
         if tipo is not None:
             tipos[str(tipo).lstrip("/")] += 1
+            ns = nodo.get("/NS")
+            ns = str(ns.get_object().get("/NS", "")) if ns is not None else ""
+            extra["rol:" + _resolver_rol(mapa, ns, str(tipo))] += 1
             if str(tipo) == "/Figure":
                 extra["figuras_alt" if "/Alt" in nodo else "figuras_sin_alt"] += 1
         if "/Lang" in nodo:
@@ -205,7 +246,12 @@ def main() -> int:
         enlaces, enlaces_etiq = _enlaces(lector)
     except Exception:  # noqa: BLE001
         enlaces = enlaces_etiq = 0
+    encabezados = " · ".join(
+        f"H{n} {extra['rol:H' + str(n)]}" for n in range(1, 7) if extra["rol:H" + str(n)]
+    ) or "ninguno"
     metricas = [
+        ("Encabezados", encabezados),
+        ("Entradas de índice enlazadas (Reference)", str(extra["rol:Reference"])),
         ("Figuras con texto alternativo", f"{extra['figuras_alt']} de "
          f"{extra['figuras_alt'] + extra['figuras_sin_alt']}"),
         ("Celdas de cabecera de tabla (TH)", str(tipos.get("TH", 0))),
