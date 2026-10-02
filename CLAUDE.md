@@ -492,8 +492,8 @@ Las portadas se generan automáticamente. No crear manualmente.
 2025-11 o posterior; `testphase=phase-I` con versiones anteriores, como TeX Live
 2024). El PDF sale
 etiquetado, pero **no declara conformidad PDF/UA-2**: todavía no se alcanza
-(varios paquetes aún no son compatibles con el etiquetado). Los títulos se
-etiquetan como encabezados y los índices llevan enlaces. Ver
+(varios paquetes aún no son compatibles con el etiquetado). Con LaTeX 2025-11 o posterior, los títulos
+se etiquetan como encabezados y los índices llevan enlaces. Ver
 `docs/ACCESIBILIDAD.md`.
 
 Añadir siempre texto alternativo a las imágenes:

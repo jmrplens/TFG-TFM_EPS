@@ -9,10 +9,10 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
 ### Accesibilidad
 
-- **Títulos como encabezados**: `\section`, `\subsection`... se etiquetan como
+- **Títulos como encabezados** (con LaTeX 2025-11 o posterior): `\section`, `\subsection`... se etiquetan como
   `H2`, `H3`... dentro de secciones anidadas (antes eran párrafos), y el
   número del capítulo forma parte de su `H1`. El aspecto no cambia.
-- **Índices navegables**: el índice general y los de figuras, tablas y códigos
+- **Índices navegables** (con LaTeX 2025-11 o posterior): el índice general y los de figuras, tablas y códigos
   se etiquetan como índices (antes eran artefactos que el lector de pantalla
   no leía) y cada entrada lleva su enlace (650 enlaces en el ejemplo, antes
   146). El aspecto no cambia.

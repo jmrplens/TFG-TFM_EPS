@@ -702,7 +702,7 @@ $lualatex = 'lualatex -shell-escape -interaction=nonstopmode -file-line-error -s
 - LaTeX 2025-11 o posterior: `\DocumentMetadata{tagging=on, pdfversion=2.0, lang=es-ES}`.
 - Versiones anteriores (TeX Live 2024, TeX Live 2025 sin actualizar): `testphase=phase-I` (etiquetado básico).
 
-El PDF resultante está **etiquetado pero no declara conformidad PDF/UA-2**: todavía no se alcanza (varios paquetes, como minted, caption o pgfplots, aún no son compatibles con el etiquetado; los títulos sí se etiquetan como encabezados y los índices llevan enlaces). El idioma (`lang`) lo fija la clase a partir de `idioma`.
+El PDF resultante está **etiquetado pero no declara conformidad PDF/UA-2**: todavía no se alcanza (varios paquetes, como minted, caption o pgfplots, aún no son compatibles con el etiquetado; con LaTeX 2025-11 o posterior, los títulos sí se etiquetan como encabezados y los índices llevan enlaces). El idioma (`lang`) lo fija la clase a partir de `idioma`.
 
 Buenas prácticas: `alt={...}` en cada `\includegraphics`, tablas con cabecera clara y texto descriptivo en los enlaces. Ver [ACCESIBILIDAD.md](ACCESIBILIDAD.md).
 

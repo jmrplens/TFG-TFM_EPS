@@ -40,33 +40,45 @@ from collections import Counter
 _NS_ESTANDAR = ("http://iso.org/pdf/ssn", "http://iso.org/pdf2/ssn")
 
 
+def _obj(valor):
+    """Resuelve una referencia indirecta de pypdf (o devuelve el valor tal cual)."""
+    return valor.get_object() if hasattr(valor, "get_object") else valor
+
+
 def _mapa_roles(raiz) -> dict:
     """
     Tabla de los roles propios (p. ej. 'section' en el espacio de nombres de
     LaTeX) al rol estándar al que equivalen (p. ej. 'H2'), a partir de
     /RoleMapNS de cada espacio de nombres y del /RoleMap global (PDF 1.7).
+    Las claves son (espacio de nombres, rol); el /RoleMap global usa el
+    espacio de nombres vacío, el de los elementos sin /NS.
     """
     directo: dict = {}
-    for ns in raiz.get("/Namespaces") or []:
-        ns = ns.get_object()
-        for rol, destino in (ns.get("/RoleMapNS") or {}).items():
-            destino = destino.get_object() if hasattr(destino, "get_object") else destino
+    for ns in _obj(raiz.get("/Namespaces")) or []:
+        ns = _obj(ns)
+        nombre_ns = str(ns.get("/NS", ""))
+        for rol, destino in (_obj(ns.get("/RoleMapNS")) or {}).items():
+            destino = _obj(destino)
             nombre = destino[0] if isinstance(destino, list) else destino
             ns_destino = ""
             if isinstance(destino, list) and len(destino) > 1:
-                ns_destino = str(destino[1].get_object().get("/NS", ""))
-            directo[(str(ns.get("/NS", "")), str(rol))] = (ns_destino, str(nombre))
-    for rol, destino in (raiz.get("/RoleMap") or {}).items():
-        directo.setdefault(("", str(rol)), ("", str(destino)))
+                ns_destino = str(_obj(destino[1]).get("/NS", ""))
+            directo[(nombre_ns, str(rol))] = (ns_destino, str(nombre))
+    for rol, destino in (_obj(raiz.get("/RoleMap")) or {}).items():
+        directo.setdefault(("", str(rol)), ("", str(_obj(destino))))
     return directo
 
 
 def _resolver_rol(mapa: dict, ns: str, rol: str) -> str:
-    """Sigue el mapa de roles hasta un rol estándar (como mucho 10 saltos)."""
+    """
+    Sigue el mapa de roles hasta un rol estándar (como mucho 10 saltos). Un
+    rol con espacio de nombres propio solo se resuelve con el /RoleMapNS de
+    ese espacio; el /RoleMap global solo se aplica a los roles sin /NS.
+    """
     for _ in range(10):
         if ns in _NS_ESTANDAR:
             break
-        sig = mapa.get((ns, rol)) or mapa.get(("", rol))
+        sig = mapa.get((ns, rol))
         if sig is None or sig == (ns, rol):
             break
         ns, rol = sig
