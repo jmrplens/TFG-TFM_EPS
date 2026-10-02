@@ -1,0 +1,66 @@
+# =============================================================================
+# Configuración de lychee (verificación de enlaces de la documentación)
+# =============================================================================
+# Usado por .github/workflows/enlaces.yml. Para ejecutarlo en local:
+#   lychee --config .github/lychee.toml './**/*.md'
+# Referencia: https://lychee.cli.rs/guides/config/
+
+# Reintentos y tiempos de espera generosos: muchos servidores académicos
+# responden lento o limitan la frecuencia de peticiones.
+max_retries = 3
+retry_wait_time = 5
+timeout = 30
+max_concurrency = 8
+
+# Algunos servidores rechazan agentes que no parecen navegadores.
+user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36"
+
+# Códigos aceptados: 2xx y 429 (límite de peticiones: el enlace existe).
+# El 403 NO se acepta globalmente para no ocultar enlaces rotos reales; los
+# sitios que bloquean bots con 403 se excluyen expresamente más abajo.
+accept = ["200..=299", "429"]
+
+# No comprobar enlaces dentro de bloques de código (ejemplos de BibTeX, URLs
+# ficticias de ejemplo, etc.).
+include_verbatim = false
+
+# Excluir direcciones locales y privadas.
+exclude_loopback = true
+exclude_private = true
+exclude_link_local = true
+
+# No comprobar direcciones de correo.
+include_mail = false
+
+# URLs excluidas (expresiones regulares).
+exclude = [
+  # Sitios que bloquean bots (devuelven 403/Cloudflare aunque el enlace existe)
+  '^https?://(dx\.)?doi\.org/',
+  '^https?://tex\.stackexchange\.com/',
+  '^https?://scholar\.google\.[a-z.]+/',
+  '^https?://pgfplots\.sourceforge\.io/',
+  '^https?://oeis\.org/',
+  '^https?://esail\.tamu\.edu/',
+  '^https?://(www\.)?overleaf\.com/(project|login|register)',
+  '^https?://marketplace\.visualstudio\.com/',
+  # Responde con errores de HTTP/2 a clientes automáticos
+  '^https?://(www\.)?adobe\.com/',
+  # Redirector de CTAN: envía a una réplica al azar y algunas tienen
+  # certificados inválidos (el enlace es correcto)
+  '^https?://mirrors\.ctan\.org/',
+  # URLs de ejemplo / marcadores de posición
+  '^https?://(www\.)?(ejemplo|example)\.(com|org|es)',
+  '^https?://localhost',
+  '^https?://127\.0\.0\.1',
+  # Enlaces relativos al propio repositorio en GitHub que solo existen tras
+  # publicar (p. ej. compare/, releases/new)
+  '^https://github\.com/jmrplens/TFG-TFM_EPS/(compare|releases/new)',
+]
+
+# Rutas excluidas (expresiones regulares sobre la ruta del archivo).
+exclude_path = [
+  'docs/assets/',
+  '(^|/)\.claude/',
+  '(^|/)node_modules/',
+  '(^|/)_minted',
+]

@@ -1,6 +1,8 @@
 # ♿ Accesibilidad en Documentos LaTeX
 
-Esta guía explica cómo crear PDFs accesibles usando LaTeX, cumpliendo con estándares PDF/UA para personas con discapacidades visuales o que usen lectores de pantalla.
+Esta guía explica qué hace la plantilla para generar PDFs accesibles (PDF etiquetado) y qué debes hacer tú al escribir para que el resultado sea útil a personas con discapacidades visuales o que usen lectores de pantalla.
+
+> **Estado actual:** la plantilla genera un **PDF etiquetado**, pero **no declara conformidad PDF/UA-2**, porque todavía no se alcanza (ver [Limitaciones conocidas](#limitaciones-conocidas)).
 
 ---
 
@@ -8,8 +10,8 @@ Esta guía explica cómo crear PDFs accesibles usando LaTeX, cumpliendo con est�
 
 - [Introducción](#introducción)
 - [Por qué es importante](#por-qué-es-importante)
-- [Soporte en TeX Live 2025](#soporte-en-tex-live-2025)
-- [Activar PDF etiquetado](#activar-pdf-etiquetado)
+- [Qué hace la plantilla](#qué-hace-la-plantilla)
+- [Limitaciones conocidas](#limitaciones-conocidas)
 - [Texto alternativo para imágenes](#texto-alternativo-para-imágenes)
 - [Tablas accesibles](#tablas-accesibles)
 - [Ecuaciones matemáticas](#ecuaciones-matemáticas)
@@ -49,53 +51,48 @@ A partir de 2025-2026, varias legislaciones exigen documentos accesibles:
 
 ---
 
-## Soporte en TeX Live 2025
+## Qué hace la plantilla
 
-TeX Live 2025 (lanzado en marzo 2025) incluye soporte completo para crear PDFs etiquetados gracias al **LaTeX Tagging Project**.
+El etiquetado ya está activado en `cls/eps-metadata.tex`, que `main.tex` carga antes de `\documentclass`. **No tienes que añadir ni cambiar nada**:
 
-### Requisitos
+```latex
+\IfFormatAtLeastTF{2025-11-01}
+  {\DocumentMetadata{tagging=on, pdfversion=2.0, lang=es-ES}}
+  {\DocumentMetadata{testphase=phase-I, pdfversion=2.0, lang=es-ES}}
+```
 
-- **TeX Live 2025** o superior
-- **LuaLaTeX** (recomendado para mejor soporte de accesibilidad)
-- Paquete `unicode-math` para matemáticas accesibles
+| Versión de LaTeX | Etiquetado |
+| ------------------ | ------------ |
+| LaTeX 2025-11 o posterior (TeX Live 2025 actualizado, TeX Live 2026) | `tagging=on`: árbol de estructura completo (párrafos, listas, figuras con texto alternativo, tablas, fórmulas, índice...) |
+| Anterior a LaTeX 2025-11 (TeX Live 2024, mínimo soportado, o TeX Live 2025 sin actualizar) | `testphase=phase-I`: etiquetado básico |
+
+- **Idioma:** el valor `lang=es-ES` es solo el inicial. La clase lo sustituye por el idioma de `idioma` en `configuracion.tex` (`es-ES`, `ca-ES-valencia` o `en-GB`), así que **no hay que editar `cls/eps-metadata.tex`** al cambiar de idioma.
+- **Estándar:** no se declara `pdfstandard=ua-2`. Declararlo sin cumplirlo escribiría en los metadatos una conformidad falsa.
+- **Compatibilidad:** la clase incluye ajustes para que las opciones de listas de `enumitem`, `\ch` de `chemformula` y `threeparttable` funcionen con el etiquetado.
+- **Desactivar el etiquetado:** con LaTeX 2025-11 o posterior, la única forma es quitar `\input{eps-metadata}` de `main.tex` (cualquier `\DocumentMetadata` carga ya los módulos de etiquetado). A cambio se pierden el etiquetado, los metadatos XMP y la comprobación de motor LuaLaTeX; la compilación apenas se acelera.
 
 ---
 
-## Activar PDF etiquetado
+## Limitaciones conocidas
 
-Para activar el etiquetado PDF/UA-2, añade el siguiente código **antes** de `\documentclass`:
+La conformidad PDF/UA-2 completa no se alcanza todavía por motivos ajenos a lo que escribas:
 
-```latex
-\DocumentMetadata{
-    lang = es-ES,           % Idioma del documento
-    pdfstandard = ua-2,     % Estándar PDF/UA-2
-    testphase = {
-        phase-III,
-        math,
-        table,
-        title,
-        firstaid
-    }
-}
+- **KOMA-Script (`scrbook`)**, base de la clase, aún no soporta el etiquetado: las secciones y subsecciones se etiquetan como párrafos (`P`) en lugar de encabezados (`H2`, `H3`...).
+- El validador encuentra relaciones padre-hijo no permitidas en la estructura (unas 184 en el documento de ejemplo).
+- Varios paquetes que usa la plantilla figuran como **incompatibles** en el estado oficial del etiquetado de LaTeX: `chemformula`, `chemfig`, `minted`, `caption`, `subcaption`, `dirtree`, `listings`, `multirow`, `pgfplots` y `threeparttable`.
+- Las tablas con `booktabs` se etiquetan sin celdas de cabecera (`TH`) salvo que se indique (ver [Tablas accesibles](#tablas-accesibles)).
 
-\documentclass{eps-tfg}
-% ... resto del documento
-```
+### Requisitos
 
-### Opciones de idioma
-
-| Valor | Idioma |
-| ------- | -------- |
-| `es-ES` | Español (España) |
-| `ca-ES` | Valenciano/Catalán |
-| `en-GB` | Inglés británico |
-| `en-US` | Inglés americano |
+- **TeX Live 2024** o posterior (etiquetado completo con LaTeX 2025-11 o posterior)
+- **LuaLaTeX** (obligatorio en esta plantilla; necesario para MathML)
+- Paquete `unicode-math` para matemáticas accesibles (ya incluido)
 
 ---
 
 ## Texto alternativo para imágenes
 
-Todas las imágenes deben tener texto alternativo que describa su contenido:
+Todas las imágenes deben tener texto alternativo (`alt={...}`) que describa su contenido. Sin él, el lector de pantalla solo puede leer el nombre del archivo y la compilación muestra el aviso `Alternative text for graphic is missing`:
 
 ### Imágenes informativas
 
@@ -111,13 +108,10 @@ Todas las imágenes deben tener texto alternativo que describa su contenido:
 
 ### Imágenes decorativas
 
-Las imágenes puramente decorativas deben marcarse como artefactos:
+Las imágenes puramente decorativas deben marcarse como artefactos (los lectores de pantalla las ignoran):
 
 ```latex
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth, decorative]{separador}
-\end{figure}
+\includegraphics[width=0.8\textwidth, artifact]{separador}
 ```
 
 ### Buenas prácticas para texto alternativo
@@ -150,11 +144,14 @@ Las tablas deben tener:
 2. **Caption descriptivo**
 3. **Estructura simple** (evitar celdas combinadas complejas)
 
+Con LaTeX 2025-11 o posterior, indica qué filas son de cabecera con `\tagpdfsetup{table/header-rows={1}}` justo antes del `tabular` (dentro del entorno `table` solo afecta a esa tabla). Así las celdas de la primera fila se etiquetan como `TH` en lugar de `TD`. Con versiones anteriores de LaTeX la clave puede no existir: en ese caso, omítela.
+
 ```latex
 \begin{table}[htbp]
     \centering
     \caption{Comparativa de algoritmos de ordenación}
     \label{tab:algoritmos}
+    \tagpdfsetup{table/header-rows={1}}  % la fila 1 es cabecera (LaTeX 2025-11+)
     \begin{tabular}{lrrr}
         \toprule
         \textbf{Algoritmo} & \textbf{Mejor caso} & \textbf{Caso medio} & \textbf{Peor caso} \\
@@ -194,8 +191,10 @@ Con LuaLaTeX y `unicode-math`, las ecuaciones se etiquetan automáticamente como
 | Herramienta | Descripción | Enlace |
 | ------------- | ------------- | -------- |
 | **Adobe Acrobat Pro** | Comprobador de accesibilidad integrado | [adobe.com](https://www.adobe.com/acrobat) |
-| **PAC 2024** | Verificador PDF/UA gratuito | [pdfua.foundation](https://pdfua.foundation/en/pac-download) |
+| **PAC** | Verificador PDF/UA gratuito | [pdfua.foundation](https://pdfua.foundation/en/pac-download) |
 | **PAVE** | Validador online gratuito | [pave-pdf.org](https://pave-pdf.org/) |
+
+También puedes comprobar que el PDF está etiquetado con `pdfinfo main.pdf` (línea `Tagged: yes`). La integración continua del repositorio genera además un informe de veraPDF a título informativo.
 
 ### Checklist básico
 
@@ -216,7 +215,6 @@ Con LuaLaTeX y `unicode-math`, las ecuaciones se etiquetan automáticamente como
 | Recurso | URL |
 | --------- | ----- |
 | LaTeX Tagging Project | [latex3.github.io/tagging-project](https://latex3.github.io/tagging-project/documentation/usage-instructions) |
-| Overleaf - PDFs accesibles | [overleaf.com/learn](https://www.overleaf.com/learn/latex/Accessibility) |
 | PDF/UA Foundation | [pdfua.foundation](https://pdfua.foundation/) |
 
 ### Tutoriales

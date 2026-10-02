@@ -1,0 +1,60 @@
+name: Verificar enlaces
+
+# Comprueba los enlaces (externos y relativos) de la documentación Markdown
+# con lychee. Configuración y exclusiones en .github/lychee.toml.
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '**.md'
+      - '.github/lychee.toml'
+      - '.github/workflows/enlaces.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '**.md'
+      - '.github/lychee.toml'
+      - '.github/workflows/enlaces.yml'
+  schedule:
+    # Semanal (lunes 05:23 UTC) para detectar enlaces que dejan de funcionar
+    - cron: '23 5 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lychee:
+    name: Comprobar enlaces de la documentación
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+
+    - name: Restaurar caché de lychee
+      uses: actions/cache@v6
+      with:
+        path: .lycheecache
+        key: lychee-${{ github.sha }}
+        restore-keys: lychee-
+
+    - name: Comprobar enlaces con lychee
+      uses: lycheeverse/lychee-action@v2
+      with:
+        # Solo Markdown; docs/assets se excluye en lychee.toml (exclude_path)
+        args: >-
+          --config .github/lychee.toml
+          --cache --max-cache-age 1d
+          --no-progress
+          './**/*.md'
+        fail: true
+        jobSummary: true
+        # Token para evitar el límite de peticiones al comprobar enlaces de GitHub
+        token: ${{ secrets.GITHUB_TOKEN }}

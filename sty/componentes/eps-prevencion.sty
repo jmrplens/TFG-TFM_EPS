@@ -424,13 +424,7 @@
 %        \begin{tikzpicture}...
 %        \riskmarker{3}{4}{5}
 %      \end{riskmapbox}
-\newenvironment{riskmapbox}[1][Mapa de riesgos]{%
-  \begin{center}
-  {\small\bfseries\faMapMarked\hspace{0.5em}#1}
-  \par\vspace{4pt}
-}{%
-  \end{center}
-}
+\eps@nuevoencabezadoicono{riskmapbox}{\EPSsegunidioma{Mapa de riesgos}{Mapa de riscos}{Risk map}}{\faMapMarked}
 
 % Marcador de riesgo en el mapa
 \newcommand{\riskmarker}[3]{%

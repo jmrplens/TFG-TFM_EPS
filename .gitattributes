@@ -1,0 +1,10 @@
+# Archivos que NO se incluyen en el ZIP de GitHub ("Download ZIP"), en los
+# archivos de las releases ni en el botón "Abrir en Overleaf" (que importa
+# ese mismo ZIP). Son material de documentación que solo se ve en GitHub;
+# la plantilla funciona igual sin ellos.
+docs/assets/        export-ignore
+.github/images/     export-ignore
+# PDF de ejemplo ya compilado: subirlo a Overleaf junto al proyecto provoca
+# avisos de "compilación sin PDF" (ver docs/OVERLEAF.md). Está disponible
+# como artefacto de cada release.
+main.pdf            export-ignore

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 actualizar_previews.py
 --------------------------------------------------------------------------------
@@ -29,10 +28,13 @@ Uso:
     python3 actualizar_previews.py --listar        # Solo listar snippets marcados
     python3 actualizar_previews.py --forzar        # Regenerar todos
     python3 actualizar_previews.py --limpiar       # Eliminar previews huérfanos
+    python3 actualizar_previews.py --solo-insertar # Solo insertar enlaces (sin TeX)
 
 Autor: Plantilla TFG/TFM EPS UA
 Licencia: MIT
 """
+
+from __future__ import annotations
 
 import argparse
 import hashlib
@@ -47,7 +49,6 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from multiprocessing import cpu_count
 from pathlib import Path
-from typing import Optional
 
 # =============================================================================
 # CONFIGURACIÓN
@@ -81,7 +82,7 @@ class Snippet:
     codigo: str
     linea_inicio: int
     linea_fin: int
-    nombre_custom: Optional[str] = None
+    nombre_custom: str | None = None
     pasadas: int = 1
     hash: str = field(default="", init=False)
 
@@ -117,7 +118,7 @@ class Manifest:
     def cargar(self):
         if MANIFEST_FILE.exists():
             try:
-                with open(MANIFEST_FILE, "r", encoding="utf-8") as f:
+                with open(MANIFEST_FILE, encoding="utf-8") as f:
                     data = json.load(f)
                     self.snippets = data.get("snippets", {})
                     self.ultima_actualizacion = data.get("ultima_actualizacion", "")
@@ -161,7 +162,7 @@ class Manifest:
 def generar_preambulo() -> str:
     """
     Genera el preámbulo LaTeX usando los paquetes de la plantilla EPS.
-    
+
     Importa los paquetes del proyecto para que las previsualizaciones
     correspondan exactamente a lo que se verá en el documento final.
     """
@@ -239,7 +240,7 @@ def generar_preambulo() -> str:
 \usetikzlibrary{
   tikzmark, calc, shapes.geometric, arrows, backgrounds, shadings,
   shapes.arrows, shapes.symbols, shadows, positioning, fit, automata,
-  patterns, intersections, arrows.meta, shapes, shapes.misc, 
+  patterns, intersections, arrows.meta, shapes, shapes.misc,
   shapes.multipart, patterns.meta, decorations, decorations.pathreplacing,
   decorations.pathmorphing, decorations.markings, shadows.blur,
   matrix, chains, scopes, fadings, er
@@ -498,7 +499,7 @@ def _ejecutar_latex(tex_file: Path, pasadas: int) -> subprocess.CompletedProcess
     env = os.environ.copy()
     env["TEXINPUTS"] = f".:{PROYECTO_ROOT}/cls:{PROYECTO_ROOT}/sty:{PROYECTO_ROOT}/sty/componentes:{env.get('TEXINPUTS', '')}"
     cmd = [LATEX_ENGINE] + LATEX_ARGS + [tex_file.name]
-    
+
     for i in range(pasadas):
         result = subprocess.run(
             cmd, cwd=PROYECTO_ROOT, capture_output=True, text=True,
@@ -509,7 +510,7 @@ def _ejecutar_latex(tex_file: Path, pasadas: int) -> subprocess.CompletedProcess
     return None
 
 
-def _convertir_imagenes(pdf_file: Path, snippet: 'Snippet', nombre: str) -> None:
+def _convertir_imagenes(pdf_file: Path, snippet: Snippet, nombre: str) -> None:
     """Convierte PDF a PNG y WebP."""
     png_temp = PROYECTO_ROOT / f"_temp_{nombre}.png"
     subprocess.run([
@@ -519,12 +520,13 @@ def _convertir_imagenes(pdf_file: Path, snippet: 'Snippet', nombre: str) -> None
 
     if not png_temp.exists():
         return
-        
+
     final_webp = snippet.webp_path
-    subprocess.run([
-        "cwebp", "-q", str(WEBP_QUALITY), str(png_temp), "-o", str(final_webp)
-    ], capture_output=True, timeout=60)
-    
+    if shutil.which("cwebp"):
+        subprocess.run([
+            "cwebp", "-q", str(WEBP_QUALITY), str(png_temp), "-o", str(final_webp)
+        ], capture_output=True, timeout=60)
+
     if not final_webp.exists():
         shutil.copy(png_temp, snippet.png_path)
 
@@ -541,7 +543,7 @@ def _compilar_worker(args: tuple) -> tuple:
 
     try:
         tex_file.write_text(generar_documento(snippet), encoding="utf-8")
-        
+
         error_result = _ejecutar_latex(tex_file, snippet.pasadas)
         if error_result:
             msg = error_result.stderr[-500:] if error_result.stderr else "Error desconocido"
@@ -632,14 +634,14 @@ def obtener_previews_disponibles() -> dict:
             nombre = pdf.stem
             webp = pdf.with_suffix(".webp")
             png = pdf.with_suffix(".png")
-            
+
             if webp.exists():
                 img_path = f"{ASSETS_REL}/{nombre}.webp"
             elif png.exists():
                 img_path = f"{ASSETS_REL}/{nombre}.png"
             else:
                 img_path = None
-            
+
             disponibles[nombre] = {
                 "pdf": f"{ASSETS_REL}/{pdf.name}",
                 "img": img_path,
@@ -685,24 +687,24 @@ def _saltar_preview_existente(lineas: list[str], idx: int) -> int:
     # Saltar líneas vacías
     while next_idx < len(lineas) and not lineas[next_idx].strip():
         next_idx += 1
-    
+
     # Si no hay preview existente, retornar índice original
     if next_idx >= len(lineas) or not _PATRON_PREVIEW_EXISTENTE.match(lineas[next_idx]):
         return idx
-    
+
     # Consumir líneas del preview existente
     while next_idx < len(lineas):
         line = lineas[next_idx].strip()
         es_linea_preview = (
-            not line or 
+            not line or
             line.startswith("**Resultado:**") or
-            line.startswith("<img") or 
+            line.startswith("<img") or
             line.startswith("[📄")
         )
         if not es_linea_preview:
             break
         next_idx += 1
-    
+
     return next_idx - 1
 
 
@@ -759,9 +761,14 @@ def insertar_todos_previews() -> int:
 # LIMPIEZA
 # =============================================================================
 
-def limpiar_huerfanos(snippets: list[Snippet]) -> int:
-    """Elimina previews que ya no tienen snippet asociado."""
-    nombres_validos = {s.nombre_base for s in snippets}
+def limpiar_huerfanos() -> int:
+    """Elimina previews que ya no tienen snippet asociado.
+
+    Los nombres válidos se calculan SIEMPRE a partir de todos los docs/*.md
+    (aunque se use --archivo): de lo contrario se borrarían los previews de
+    los demás documentos.
+    """
+    nombres_validos = {s.nombre_base for s in obtener_todos_snippets()}
     eliminados = 0
 
     if ASSETS_DIR.exists():
@@ -789,7 +796,9 @@ Ejemplos:
   %(prog)s                    Generar e insertar todos los previews
   %(prog)s --listar           Listar snippets marcados sin generar
   %(prog)s --forzar           Regenerar todos (ignorar caché)
-  %(prog)s --limpiar          Eliminar previews huérfanos
+  %(prog)s --limpiar          Eliminar previews huérfanos (de todos los docs)
+  %(prog)s --limpiar --solo-insertar
+                              Limpiar e insertar sin compilar (no requiere TeX)
   %(prog)s --archivo TEXTO    Procesar solo docs/TEXTO.md
         """
     )
@@ -813,12 +822,6 @@ Ejemplos:
     print("🖼️  Actualización de Previews de Documentación")
     print("=" * 60)
 
-    # Verificar dependencias
-    for cmd in ["lualatex", "pdftoppm"]:
-        if not shutil.which(cmd):
-            print(f"❌ Error: '{cmd}' no encontrado")
-            sys.exit(1)
-
     # Obtener snippets
     if args.archivo:
         archivo = DOCS_DIR / f"{args.archivo}.md"
@@ -840,14 +843,26 @@ Ejemplos:
             print(f"   • {s.nombre_base} ({s.archivo_origen}:{s.linea_inicio}, {s.pasadas} pasadas)")
         sys.exit(0)
 
+    # Verificar dependencias (solo hacen falta para generar previews;
+    # --solo-insertar y --limpiar funcionan sin TeX instalado)
+    if not args.solo_insertar:
+        faltan = [cmd for cmd in [LATEX_ENGINE, "pdftoppm"] if not shutil.which(cmd)]
+        if faltan:
+            print(f"❌ Error: no se encontró {', '.join(repr(c) for c in faltan)} "
+                  "(necesario para generar previews; usar --solo-insertar para "
+                  "insertar solo los ya generados)")
+            sys.exit(1)
+        if not shutil.which("cwebp"):
+            print("⚠️  'cwebp' no encontrado: los previews se guardarán como PNG")
+
     # Cargar manifest
     manifest = Manifest()
     manifest.cargar()
 
-    # Limpiar huérfanos
+    # Limpiar huérfanos (siempre respecto a TODOS los docs, también con --archivo)
     if args.limpiar:
-        print("\n🧹 Limpiando previews huérfanos...")
-        eliminados = limpiar_huerfanos(snippets)
+        print("\n🧹 Limpiando previews huérfanos (respecto a todos los docs/*.md)...")
+        eliminados = limpiar_huerfanos()
         print(f"   Eliminados: {eliminados}")
 
     # Generar previews

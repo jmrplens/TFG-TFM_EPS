@@ -193,7 +193,9 @@ una conclusión de plagio como definitiva basándote solo en señales de estilo
 o heurísticas. Clasifica estos casos como "sospecha", cita la ubicación exacta
 del fragmento y recomienda verificación con herramienta especializada
 (Copyleaks, Turnitin) y revisión humana. Para verificación definitiva,
-usar `scripts/revision-rapida.py` con token de API configurado en `.env`.
+usar `scripts/revision-rapida.py --plagio copyleaks|turnitin|todos` con las
+claves en `.env` (pide confirmación antes de enviar el texto; sin `--plagio`
+no se envía nada; Copyleaks exige además `COPYLEAKS_WEBHOOK_URL`).
 
 ---
 
@@ -202,7 +204,8 @@ usar `scripts/revision-rapida.py` con token de API configurado en `.env`.
 **Qué evaluar:**
 
 - Portada generada con `\generarportada[ambas]`.
-- Idioma coherente entre `configuracion.tex` y `cls/eps-metadata.tex`.
+- Idioma configurado (`idioma` en `configuracion.tex`) coherente con el texto
+  del trabajo (el idioma del PDF lo ajusta la clase automáticamente).
 - Titulación correcta en `\EPSsetup{titulacion=...}`.
 - Resumen en el idioma del trabajo + abstract en inglés.
 - Extensión razonable (TFG: 50-100 páginas; TFM: 80-150 páginas).

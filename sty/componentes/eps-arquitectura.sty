@@ -17,18 +17,16 @@
 
 \RequirePackage{pgfgantt}
 \RequirePackage{eurosym}
-% Tachado para normativa derogada (compatible con LuaLaTeX)
+% Tachado para normativa derogada (\sout, compatible con LuaLaTeX).
+% Se carga aunque la clase cargue soul (soul no define \sout); si el usuario
+% ya cargó ulem no se vuelve a cargar para evitar un conflicto de opciones.
 \IfPackageLoadedTF{ulem}{}{%
-  \IfPackageLoadedTF{soul}{}{%
-    \RequirePackage[normalem]{ulem}%
-  }%
+  \RequirePackage[normalem]{ulem}%
 }
+% El formato de los números (separador decimal, etc.) depende del idioma
+% del documento y lo configura la clase; aquí solo se carga siunitx.
 \IfFileExists{siunitx.sty}{%
   \RequirePackage{siunitx}
-  \sisetup{
-    group-separator={.},
-    output-decimal-marker={,},
-  }
 }{%
   \PackageWarning{eps-arquitectura}{siunitx no disponible}%
 }
@@ -96,7 +94,7 @@
 %        \techprop{Módulo de elasticidad}{27000 MPa}
 %      \end{techsheet}
 \newenvironment{techsheet}[1]{%
-  \begin{tcolorbox}[eps-card, title={Ficha técnica: #1}]
+  \begin{tcolorbox}[eps-card, title={\EPSsegunidioma{Ficha técnica:}{Fitxa tècnica:}{Technical data sheet:} #1}]
   \small
   \begin{tabular}{@{}p{5.5cm}p{5.5cm}@{}}
     \toprule
@@ -198,7 +196,7 @@
 
 % Subtotal de capítulo
 \newcommand{\subtotal}[1]{%
-  & & & & \textbf{Subtotal:} & \textbf{\num{#1}~\euro} \\
+  & & & & \textbf{\EPSsegunidioma{Subtotal:}{Subtotal:}{Subtotal:}} &\textbf{\num{#1}~\euro} \\
 }
 
 % Total del presupuesto
@@ -271,28 +269,41 @@
 % Uso: \begin{normativa}[título]
 %        \norma{CTE DB-SE}{Seguridad estructural}{2019}
 %      \end{normativa}
-\newenvironment{normativa}[1][Normativa aplicable]{%
+% Cada referencia ocupa dos líneas (como el estilo «nextline» de enumitem):
+% la etiqueta en su propia línea y la descripción debajo, sangrada. Se
+% implementa con párrafos normales (sin listas de enumitem) para que funcione
+% igual con y sin etiquetado PDF (latex-lab).
+\newenvironment{normativa}[1][\EPSsegunidioma{Normativa aplicable}{Normativa aplicable}{Applicable regulations}]{%
   \begingroup
   \small
   \subsection*{#1}
-  \begin{description}[style=nextline, leftmargin=3cm, labelwidth=2.8cm]
 }{%
-  \end{description}
+  \par
   \endgroup
+}
+
+% Elemento de normativa (uso interno)
+% #1: línea de etiqueta, #2: descripción
+\newcommand{\eps@normaitem}[2]{%
+  \par\addvspace{0.5\baselineskip}%
+  \noindent#1\par\nobreak
+  {\setlength{\leftskip}{3cm}\noindent#2\par}%
 }
 
 % Referencia normativa con descripción
 \newcommand{\norma}[3]{%
-  \item[\textbf{#1} \hfill \textcolor{eps-gray}{(#3)}] #2
+  \eps@normaitem{\textbf{#1}\hfill\textcolor{eps-gray}{(#3)}}{#2}%
 }
 
 % Referencia normativa con estado (vigente/derogada)
 \newcommand{\normavigente}[3]{%
-  \item[\textbf{#1} \hfill \textcolor{eps-success}{\faCheck}] #2 \hfill \textcolor{eps-gray}{#3}
+  \eps@normaitem{\textbf{#1}\hfill\textcolor{eps-success}{\faCheck}}%
+    {#2\hfill\textcolor{eps-gray}{#3}}%
 }
 
 \newcommand{\normaderogada}[3]{%
-  \item[\textbf{#1} \hfill \textcolor{eps-danger}{\faTimes}] \sout{#2} \hfill \textcolor{eps-gray}{#3 -- Derogada}
+  \eps@normaitem{\textbf{#1}\hfill\textcolor{eps-danger}{\faTimes}}%
+    {\sout{#2}\hfill\textcolor{eps-gray}{#3 -- \EPSsegunidioma{Derogada}{Derogada}{Repealed}}}%
 }
 
 % ============================================================================
@@ -340,13 +351,7 @@
 % Uso: \begin{detalleconstructivo}[Encuentro forjado-fachada]
 %        \begin{tikzpicture}...
 %      \end{detalleconstructivo}
-\newenvironment{detalleconstructivo}[1][Detalle constructivo]{%
-  \begin{center}
-  {\small\bfseries\faRulerCombined\hspace{0.5em}#1}
-  \par\vspace{4pt}
-}{%
-  \end{center}
-}
+\eps@nuevoencabezadoicono{detalleconstructivo}{\EPSsegunidioma{Detalle constructivo}{Detall constructiu}{Construction detail}}{\faRulerCombined}
 
 % Cota
 \newcommand{\cota}[1]{%
@@ -358,7 +363,7 @@
 
 % Escala
 \newcommand{\escala}[1]{%
-  \textbf{Escala:} 1:#1
+  \textbf{\EPSsegunidioma{Escala:}{Escala:}{Scale:}} 1:#1
 }
 
 % ============================================================================
@@ -436,13 +441,7 @@
 % Uso: \begin{organigramabox}[Organigrama del proyecto X]
 %        \begin{tikzpicture}...
 %      \end{organigramabox}
-\newenvironment{organigramabox}[1][Organigrama de obra]{%
-  \begin{center}
-  {\small\bfseries\faSitemap\hspace{0.5em}#1}
-  \par\vspace{4pt}
-}{%
-  \end{center}
-}
+\eps@nuevoencabezadoicono{organigramabox}{\EPSsegunidioma{Organigrama de obra}{Organigrama d'obra}{Site organisation chart}}{\faSitemap}
 
 % ============================================================================
 % CONTROL DE CALIDAD - Estilo profesional

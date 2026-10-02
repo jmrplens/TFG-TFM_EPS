@@ -29,7 +29,7 @@ main.tex              → Raíz. Solo estructura (inputs, usepackage, addbibreso
 configuracion.tex     → Datos del usuario (\EPSsetup{...}).
 referencias.bib       → Bibliografía BibLaTeX.
 cls/eps-tfg.cls       → Clase principal (no modificar).
-cls/eps-metadata.tex  → Metadatos PDF/UA-2 (solo cambiar lang= al cambiar idioma).
+cls/eps-metadata.tex  → Etiquetado y metadatos del PDF (no hace falta tocarlo).
 sty/eps-codigo.sty    → Entornos de código (minted).
 sty/eps-componentes.sty → Cargador modular de componentes.
 sty/componentes/      → Módulos: software, telecom, arquitectura, quimica, etc.
@@ -56,9 +56,16 @@ contenido/frontmatter/→ Resumen, agradecimientos.
   titulacion  = informatica,    % ver lista completa abajo
   idioma      = espanol,        % espanol, valenciano, ingles
   fecha       = {Junio 2026},
-  optimizar-tikz = true,
+  borrador    = false,          % true: muestra las notas \todo{}
 }
 ```
+
+`titulacion` es obligatoria (un valor no válido da un error con la lista de
+valores admitidos); si faltan `titulo`, `autor` o `tutor` hay un aviso. Otras
+claves: `cotutor`, `cotutor-genero`, `cotutor-departamento`, `facultad`,
+`universidad`, `ubicacion`. `optimizar-tikz` es obsoleta y no tiene efecto.
+El `configuracion.tex` distribuido trae `borrador = true`: ponerlo a `false`
+en la versión final.
 
 ### Titulaciones disponibles
 
@@ -72,16 +79,12 @@ contenido/frontmatter/→ Resumen, agradecimientos.
 
 ---
 
-## Regla de idioma
+## Idioma
 
-Al cambiar `idioma` en `configuracion.tex`, actualizar también `lang=` en
-`cls/eps-metadata.tex`:
-
-| `idioma` | `lang=` |
-| --- | --- |
-| `espanol` | `es-ES` |
-| `valenciano` | `ca-ES` |
-| `ingles` | `en-GB` |
+`idioma` (`espanol`, `valenciano`, `ingles`) cambia el idioma de todo el
+documento (títulos automáticos, bibliografía, separación silábica) y el del
+PDF (`es-ES`, `ca-ES-valencia`, `en-GB`). **No** hay que editar
+`cls/eps-metadata.tex`. La portada se mantiene en español (formato oficial).
 
 ---
 
@@ -110,38 +113,49 @@ Activar en `main.tex`:
 \begin{notebox}{Título}    Nota adicional.       \end{notebox}
 ```
 
+El título es opcional y se admiten opciones de tcolorbox entre corchetes:
+`\begin{infobox}[colback=white]{Título}`.
+
 ### Contenedores de contenido (siempre disponibles)
 
 ```latex
-\begin{definitionbox}{Definición: término}
+\begin{definitionbox}{Término}
   Descripción del término.
 \end{definitionbox}
 
-\begin{examplebox}{Ejemplo práctico}
+\begin{examplebox}[Ejemplo práctico]
   Caso de uso ilustrativo.
 \end{examplebox}
 ```
 
+`examplebox` e `importantbox` llevan el título opcional entre **corchetes**.
+
 ### Módulo `[software]`
 
+El contenido de estos entornos no es literal: escapar `\&`, `\#`, `\%`, `\_`,
+`\{`, `\}`, `\$` y separar las líneas con `\\`. Para scripts o JSON copiados
+tal cual, usar `bashcode` / `jsoncode`.
+
 ```latex
-% Terminal / consola
-\begin{terminal}[title={bash}]
-$ npm install && npm start
+% Terminal / consola (título opcional entre corchetes)
+\begin{terminal}[bash]
+\prompt npm install \&\& npm start
 \end{terminal}
 
-% Endpoint REST
-\begin{apiendpoint}{POST}{/api/v1/login}{Autenticación de usuario}
-  Body: { "email": "...", "password": "..." }
+% Endpoint REST: {MÉTODO}{/ruta} y descripción con \apidescription
+\begin{apiendpoint}{POST}{/api/v1/login}
+  \apidescription{Autenticación de usuario}
+  \apibody{application/json}{\{"email": "...", "password": "..."\}}
+  \apiresponse{200}{\{"token": "..."\}}
 \end{apiendpoint}
 
-% Árbol de directorios
-\begin{dirtreebox}
-  proyecto/
-  ├── src/
-  │   ├── main.py
-  │   └── utils.py
-  └── tests/
+% Árbol de directorios: \dirtreeitem[nivel]{nombre} («/» final = carpeta)
+\begin{dirtreebox}[Estructura del proyecto]
+  \dirtreeitem[0]{proyecto/}
+  \dirtreeitem[1]{src/}
+  \dirtreeitem[2]{main.py}
+  \dirtreeitem[2]{utils.py}
+  \dirtreeitem[1]{tests/}
 \end{dirtreebox}
 ```
 
@@ -149,8 +163,10 @@ $ npm install && npm start
 
 ```latex
 % Trama de protocolo
-\begin{protocolframe}
-  % Campos de la trama
+\begin{protocolframe}[32]
+  \framefield{8}{Tipo}
+  \framefield{8}{Longitud}
+  \framefield{16}{Checksum}
 \end{protocolframe}
 ```
 
@@ -175,7 +191,7 @@ app.listen(process.env.PORT || 3000);
 \end{jscode}
 
 % C++
-\begin{cppcode}
+\begin{cppcode}[]
 #include <vector>
 std::vector<int> v = {1, 2, 3};
 \end{cppcode}
@@ -193,7 +209,7 @@ SELECT nombre, email FROM usuarios WHERE activo = 1;
 \end{sqlcode}
 
 % JSON
-\begin{jsoncode}
+\begin{jsoncode}[]
 {
   "nombre": "Juan",
   "edad": 25,
@@ -202,7 +218,7 @@ SELECT nombre, email FROM usuarios WHERE activo = 1;
 \end{jsoncode}
 
 % Bash
-\begin{bashcode}
+\begin{bashcode}[]
 #!/bin/bash
 for f in *.tex; do echo "$f"; done
 \end{bashcode}
@@ -216,7 +232,9 @@ services:
 \end{yamlcode}
 ```
 
-**Tema oscuro:** sufijo `Dark` → `pythoncodeDark`, `jscodeDark`, etc.
+**Variantes:** sufijo `NN` sin números de línea (`pythoncodeNN`), `Dark` tema
+oscuro (`pythoncodeDark`) y `DarkNN`. Lista completa (46 lenguajes) en
+`docs/CODIGO_FUENTE.md`; para otros lenguajes, `\begin{codigo}{lenguaje}`.
 
 **Código inline:** `\mintinline{python}{len(lista)}`
 
@@ -224,13 +242,19 @@ services:
 
 ```latex
 \begin{pythoncode}[
-  title={script.py},
-  firstline=5,
-  lastline=20,
-  highlightlines={8,12-15},
-  linenos=false,
+  title={mi\_script.py},
+  minted options={firstline=2, lastline=4, highlightlines={3}},
 ]
+import os
+ruta = os.getcwd()
+print(ruta)
+print("fin")
+\end{pythoncode}
 ```
+
+Las opciones de minted (`firstline`, `lastline`, `highlightlines`...) van
+dentro de `minted options={...}`; los `_` del título se escapan (`\_`). Sin
+números de línea: variante `NN`.
 
 ---
 
@@ -261,7 +285,8 @@ services:
 % Figura simple
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.8\textwidth]{recursos/figuras/arquitectura}
+  \includegraphics[width=0.8\textwidth,
+    alt={Diagrama de la arquitectura del sistema}]{recursos/figuras/arquitectura}
   \caption{Arquitectura del sistema propuesto.}
   \label{fig:arquitectura}
 \end{figure}
@@ -270,13 +295,13 @@ services:
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}[b]{0.48\textwidth}
-    \includegraphics[width=\textwidth]{imagen-a}
+    \includegraphics[width=\textwidth, alt={Escenario A}]{imagen-a}
     \caption{Escenario A.}
     \label{fig:escenario-a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[b]{0.48\textwidth}
-    \includegraphics[width=\textwidth]{imagen-b}
+    \includegraphics[width=\textwidth, alt={Escenario B}]{imagen-b}
     \caption{Escenario B.}
     \label{fig:escenario-b}
   \end{subfigure}
@@ -364,11 +389,13 @@ Prefijos de etiquetas:
 | --- | --- |
 | `chap:` | Capítulo |
 | `sec:` | Sección |
+| `subsec:` | Subsección (opcional; también vale `sec:`) |
 | `fig:` | Figura |
 | `tab:` | Tabla |
 | `eq:` | Ecuación |
 | `cod:` | Bloque de código |
 | `teo:` | Teorema |
+| `def:` | Definición |
 | `anexo:` | Anexo |
 
 ```latex
@@ -409,7 +436,7 @@ Como se muestra en la Figura~\ref{fig:diagrama}...
 ```bash
 make          # Completa: lualatex + biber + 2× lualatex
 make quick    # Solo lualatex (verificar sintaxis)
-make clean    # Limpiar auxiliares
+make clean    # Limpiar auxiliares, caché _minted/ e informe-revision.md
 ```
 
 ---
@@ -436,11 +463,13 @@ Pedir siempre las últimas 30 líneas de `main.log`.
 | --- | --- |
 | `TeX capacity exceeded [main memory size=5000000]` | Compilar con LuaLaTeX (Overleaf: Menu → Compiler → LuaLaTeX) |
 | `You must invoke LaTeX with -shell-escape` | Usar `make` o añadir `-shell-escape` |
-| `Pygments not found` | `pip install latexminted` |
+| `minted v3+ executable is not installed` | Comprobar `latexminted --version` (viene con TeX Live 2024+); si falta, `tlmgr install minted` o `texlive-latex-extra`. No usar `pip install` (PEP 668); `pipx` solo con MiKTeX |
 | `Citation 'X' undefined` | Ejecutar `make` completo (biber) |
 | `Font ... not found` | Instalar TeX Live completo |
-| `Missing $ inserted` | Encerrar símbolo en `$...$` |
+| `Missing $ inserted` | Encerrar símbolo en `$...$`; escapar `\_` (también en `title={...}`); en `terminal` usar `\prompt` en vez de `$` |
 | `File 'X.sty' not found` | `tlmgr install X` |
+| `Package block Error: Some keys specified on the itemize environment are unknown` | Plantilla antigua con LaTeX 2025-11 o posterior: actualizar la plantilla (`cls/`, `sty/`) |
+| `ignored error Infinite glue shrinkage found in box being split` | Fallo conocido de `longtable` 4.24 (LaTeX 2025-11) al partir una `longtable` entre páginas: error ignorado, el PDF es correcto; no hay que hacer nada |
 
 ---
 

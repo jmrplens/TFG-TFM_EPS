@@ -106,6 +106,8 @@ Se cargan siempre automáticamente con cualquier opción.
 
 [📄 Ver PDF](assets/previews/infobox.pdf)
 
+> Todas las cajas de aviso (`infobox`, `successbox`, `warningbox`, `dangerbox`, `tipbox`, `notebox`) aceptan un **título opcional** entre llaves y opciones de tcolorbox entre corchetes: `\begin{warningbox}{Atención}`, `\begin{infobox}[colback=white]{Nota}` o simplemente `\begin{infobox}`.
+
 ---
 
 #### `successbox` - Éxito/Correcto
@@ -557,6 +559,8 @@ Cargar con: `\usepackage[software]{eps-componentes}`
 <img src="assets/previews/terminal.webp" alt="Preview">
 
 [📄 Ver PDF](assets/previews/terminal.pdf)
+
+> El contenido de `terminal` **no es literal**: cada línea empieza con `\prompt` (`$`), `\promptroot` (`#`) o `\promptuser{usuario}`, se separa con `\\` y los caracteres especiales se escapan (`\&`, `\#`, `\%`, `\_`, `\{`, `\}`, `\$`). Una línea que empiece por `[` tras `\\` va entre llaves (`{[INFO]} ...`). Para scripts o salidas largas copiadas tal cual, usa `bashcode`. Comentarios: `\termcomment{texto}`.
 
 ---
 
@@ -1450,6 +1454,9 @@ Para regenerar las imágenes de preview de los componentes:
 ```bash
 cd /ruta/al/proyecto
 python3 .herramientas/actualizar_previews.py --archivo COMPONENTES
+
+# Borrar previews huérfanos (no compila nada)
+python3 .herramientas/actualizar_previews.py --limpiar --solo-insertar
 ```
 
 **Requisitos:** `lualatex`, Python 3.8+

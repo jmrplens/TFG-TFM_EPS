@@ -126,7 +126,7 @@ Como se explica en la Sección~\ref{sec:metodologia}
 
 ```latex
 \chapter{Introducción}
-\label{cap:introduccion}
+\label{chap:introduccion}
 
 \section{Motivación}
 \label{sec:motivacion}
@@ -135,7 +135,7 @@ Como se explica en la Sección~\ref{sec:metodologia}
 \label{subsec:contexto}
 
 % Referencia
-En el Capítulo~\ref{cap:introduccion}...
+En el Capítulo~\ref{chap:introduccion}...
 Ver Sección~\ref{sec:motivacion}...
 ```
 
@@ -205,12 +205,12 @@ Comenzamos con el paso~\ref{item:paso1}...
 
 ```latex
 \begin{theorem}
-    \label{thm:pitagoras}
+    \label{teo:pitagoras}
     En un triángulo rectángulo...
 \end{theorem}
 
 % Referencia
-Por el Teorema~\ref{thm:pitagoras}...
+Por el Teorema~\ref{teo:pitagoras}...
 ```
 
 ### Código fuente (listings)
@@ -222,11 +222,11 @@ Por el Teorema~\ref{thm:pitagoras}...
             print("Hello")
     \end{pythoncode}
     \caption{Función de ejemplo}
-    \label{lst:ejemplo}
+    \label{cod:ejemplo}
 \end{listing}
 
 % Referencia
-El Listado~\ref{lst:ejemplo} muestra...
+El Listado~\ref{cod:ejemplo} muestra...
 ```
 
 ---
@@ -474,18 +474,20 @@ La \figref{fig:diagrama} muestra...
 
 | Prefijo | Uso | Ejemplo |
 | --------- | ----- | --------- |
-| `cap:` | Capítulos | `\label{cap:introduccion}` |
+| `chap:` | Capítulos | `\label{chap:introduccion}` |
 | `sec:` | Secciones | `\label{sec:metodologia}` |
-| `subsec:` | Subsecciones | `\label{subsec:datos}` |
+| `subsec:` | Subsecciones (opcional; también vale `sec:`) | `\label{subsec:datos}` |
 | `fig:` | Figuras | `\label{fig:diagrama}` |
 | `tab:` | Tablas | `\label{tab:resultados}` |
 | `eq:` | Ecuaciones | `\label{eq:einstein}` |
-| `lst:` | Código | `\label{lst:algoritmo}` |
+| `cod:` | Bloques de código | `\label{cod:algoritmo}` |
 | `alg:` | Algoritmos | `\label{alg:ordenacion}` |
-| `thm:` | Teoremas | `\label{thm:fundamental}` |
+| `teo:` | Teoremas | `\label{teo:fundamental}` |
 | `def:` | Definiciones | `\label{def:conjunto}` |
 | `item:` | Items de lista | `\label{item:paso1}` |
-| `app:` | Apéndices | `\label{app:datos}` |
+| `anexo:` | Anexos | `\label{anexo:datos}` |
+
+Es la convención que siguen la propia plantilla (`contenido/`) y los archivos de instrucciones para IA (`CLAUDE.md`, `AGENTS.md`...). `subsec:`, `alg:` e `item:` son prefijos adicionales opcionales.
 
 ### Nombres descriptivos
 
@@ -637,7 +639,7 @@ grep "Label.*multiply defined" main.log
 
 ```latex
 \chapter{Marco Teórico}
-\label{cap:marco_teorico}
+\label{chap:marco_teorico}
 
 \section{Introducción}
 \label{sec:mt_introduccion}
@@ -686,7 +688,7 @@ donde los parámetros se detallan en la Tabla~\ref{tab:parametros}.
 \end{table}
 
 Para más detalles sobre la implementación, consultar el 
-Capítulo~\ref{cap:desarrollo}.
+Capítulo~\ref{chap:desarrollo}.
 ```
 
 ### Con cleveref

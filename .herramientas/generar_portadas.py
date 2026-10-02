@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 generar_portadas.py
 --------------------------------------------------------------------------------
@@ -27,8 +26,6 @@ import re
 import shutil
 import subprocess
 import sys
-import sys
-import tempfile
 import traceback
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from dataclasses import dataclass

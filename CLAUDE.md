@@ -29,7 +29,7 @@ main.tex              → Raíz. Solo estructura, nunca contenido.
 configuracion.tex     → Datos del autor, título, titulación, idioma.
 referencias.bib       → Entradas bibliográficas (BibLaTeX).
 cls/eps-tfg.cls       → Clase principal (no modificar).
-cls/eps-metadata.tex  → Metadatos PDF/UA-2 (solo cambiar lang= si cambia idioma).
+cls/eps-metadata.tex  → Etiquetado PDF y metadatos (no hace falta tocarlo).
 sty/eps-codigo.sty    → Entornos de código con minted.
 sty/eps-componentes.sty → Cargador modular de componentes.
 sty/componentes/      → Módulos por disciplina (software, telecom, etc.).
@@ -63,10 +63,19 @@ Toda la configuración del usuario va en `configuracion.tex` mediante
   titulacion  = informatica,
   idioma      = espanol,
   fecha       = {Junio 2026},
-  optimizar-tikz = true,
-  borrador    = false,
+  borrador    = false,   % true: muestra las notas \todo{} (borradores)
 }
 ```
+
+Otras claves opcionales: `cotutor-genero`, `cotutor-departamento`,
+`facultad`, `universidad`, `ubicacion`. `optimizar-tikz` es obsoleta: se
+acepta, pero no tiene efecto.
+
+- `titulacion` es obligatoria: si falta o no es válida, la compilación se
+  detiene con un error que lista los valores admitidos.
+- Si faltan `titulo`, `autor` o `tutor`, se muestra un aviso.
+- El `configuracion.tex` que se distribuye trae `borrador = true`; hay que
+  ponerlo a `false` para la versión final (oculta las notas `\todo{}`).
 
 ### Titulaciones disponibles
 
@@ -80,19 +89,16 @@ Toda la configuración del usuario va en `configuracion.tex` mediante
 
 ---
 
-## Regla crítica de idioma
+## Idioma
 
-Cuando se cambia `idioma` en `configuracion.tex`, **también** hay que editar
-`cls/eps-metadata.tex` y cambiar el valor de `lang=`:
+`idioma` (`espanol`, `valenciano` o `ingles`) cambia el idioma del documento:
+títulos automáticos (Tabla, Figura, Bibliografía...), nombres de listas y
+teoremas, formato de citas, separación silábica e idioma del PDF (`es-ES`,
+`ca-ES-valencia` o `en-GB`, inglés británico). **No** hay que editar
+`cls/eps-metadata.tex`: la clase fija el idioma del PDF a partir de `idioma`.
 
-| `idioma` en `\EPSsetup` | `lang=` en `eps-metadata.tex` |
-| --- | --- |
-| `espanol` | `es-ES` |
-| `valenciano` | `ca-ES` |
-| `ingles` | `en-GB` |
-
-El idioma afecta a: títulos automáticos (Tabla, Figura, Bibliografía...),
-formato de citas, metadatos PDF y accesibilidad.
+La portada se mantiene siempre en español (formato oficial de la EPS): tipo
+de trabajo, titulación, etiquetas Autor/Tutor y fecha.
 
 ---
 
@@ -137,37 +143,60 @@ Activar en `main.tex` según la titulación del alumno:
   Información adicional.
 \end{notebox}
 
-\begin{definitionbox}{Definición: término}
+\begin{definitionbox}{Término}
   Descripción del término.
 \end{definitionbox}
 
-\begin{examplebox}{Ejemplo}
+\begin{examplebox}[Ejemplo de uso]
   Caso de uso.
 \end{examplebox}
 ```
 
+- En las cajas de aviso (`infobox`, `warningbox`, `dangerbox`, `successbox`,
+  `tipbox`, `notebox`) el título `{...}` es opcional; admiten además opciones
+  de tcolorbox entre corchetes: `\begin{infobox}[colback=white]{Título}`.
+- `definitionbox` exige el término entre llaves: `{Término}`.
+- `examplebox` e `importantbox` llevan el título **entre corchetes** y es
+  opcional (por defecto «Ejemplo» / «Importante»).
+
 ### Entornos del módulo `[software]`
 
+El contenido de `terminal`, `apiendpoint` y `dirtreebox` **no es literal**
+(no es verbatim): se escribe como texto LaTeX, escapando los caracteres
+especiales (`\&`, `\#`, `\%`, `\_`, `\{`, `\}`, `\$`) y separando las líneas
+con `\\`. Para scripts o salidas largas copiadas tal cual, usar `bashcode`.
+
 ```latex
-% Consola de terminal
-\begin{terminal}[title={Terminal}]
-$ git clone https://github.com/usuario/repo.git
-$ cd repo && make
+% Consola de terminal: título opcional entre corchetes
+\begin{terminal}[Terminal]
+\prompt git clone https://github.com/usuario/repo.git\\
+\prompt cd repo \&\& make\\
+\promptroot apt install make\\
+\termcomment{Comentario}
 \end{terminal}
 
-% Endpoint REST
-\begin{apiendpoint}{GET}{/api/v1/usuarios}{Obtiene lista de usuarios}
-  Parámetros: page (int), limit (int)
+% Endpoint REST: {MÉTODO}{/ruta}; la descripción va en \apidescription
+\begin{apiendpoint}{GET}{/api/v1/usuarios}
+  \apidescription{Obtiene la lista de usuarios}
+  \apiparams{
+    page  & int & Página de resultados & No \\
+    limit & int & Elementos por página & No \\
+  }
 \end{apiendpoint}
 
-% Árbol de directorios
-\begin{dirtreebox}
-  .
-  ├── src/
-  │   └── main.py
-  └── tests/
+% Árbol de directorios: \dirtreeitem[nivel]{nombre}; «/» final = carpeta
+\begin{dirtreebox}[Estructura del proyecto]
+  \dirtreeitem[0]{proyecto/}
+  \dirtreeitem[1]{src/}
+  \dirtreeitem[2]{main.py}
+  \dirtreeitem[1]{tests/}
 \end{dirtreebox}
 ```
+
+`\promptuser{usuario}` muestra `usuario@host:~$`. Dentro de `apiendpoint`
+también existen `\apiheaders{...}`, `\apibody{tipo}{contenido}` y
+`\apiresponse{código}{contenido}`; para JSON largo es mejor un `jsoncode`
+aparte (las llaves `{ }` se pierden si no se escapan).
 
 ### Entornos del módulo `[telecom]`
 
@@ -214,25 +243,36 @@ GROUP BY u.id;
 \end{sqlcode}
 ```
 
-**Lenguajes disponibles:** `pythoncode`, `jscode`, `cppcode`, `javacode`,
+**Lenguajes más usados:** `pythoncode`, `jscode`, `cppcode`, `javacode`,
 `matlabcode`, `bashcode`, `sqlcode`, `jsoncode`, `yamlcode`, `htmlcode`,
-`csscode`, `rcode`, `rustcode`, `gocode`, `phpcode`.
+`csscode`, `rcode`, `rustcode`, `gocode`, `phpcode`. La lista completa (46
+lenguajes) está en `docs/CODIGO_FUENTE.md`; para cualquier otro lenguaje de
+Pygments: `\begin{codigo}{lenguaje}`.
 
-**Tema oscuro:** añadir sufijo `Dark` → `pythoncodeDark`, `jscodeDark`, etc.
+**Variantes:** sufijo `NN` sin números de línea (`pythoncodeNN`), `Dark` tema
+oscuro (`pythoncodeDark`) y `DarkNN`.
 
 **Código inline:** `\mintinline{python}{print("hola")}`
 
-**Opciones útiles:**
+**Opciones útiles:** las opciones de minted van dentro de
+`minted options={...}`; los `_` del título se escapan (`\_`).
 
 ```latex
 \begin{pythoncode}[
-  title={mi_script.py},
-  firstline=10,
-  lastline=25,
-  highlightlines={12,15-18},
-  linenos=false,
+  title={mi\_script.py},
+  minted options={firstline=2, lastline=5, highlightlines={3,4}},
 ]
+import math
+def area(radio):
+    r2 = radio ** 2
+    return math.pi * r2
+print(area(2))
+\end{pythoncode}
 ```
+
+Solo se muestran las líneas 2 a 5 (`firstline`, `lastline`) y se resaltan la 3
+y la 4. Para quitar los números de línea, usar la variante `NN`
+(`pythoncodeNN`).
 
 ---
 
@@ -264,7 +304,8 @@ Usar siempre `booktabs`. Nunca `\hline`.
 ```latex
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.8\textwidth]{recursos/figuras/diagrama}
+  \includegraphics[width=0.8\textwidth,
+    alt={Diagrama de bloques: cliente, servidor y base de datos}]{recursos/figuras/diagrama}
   \caption{Diagrama de arquitectura del sistema.}
   \label{fig:arquitectura}
 \end{figure}
@@ -276,13 +317,13 @@ Subfiguras:
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{imagen1}
+    \includegraphics[width=\textwidth, alt={Imagen original}]{imagen1}
     \caption{Antes del procesado.}
     \label{fig:antes}
   \end{subfigure}
   \hfill
   \begin{subfigure}[b]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{imagen2}
+    \includegraphics[width=\textwidth, alt={Imagen procesada}]{imagen2}
     \caption{Después del procesado.}
     \label{fig:despues}
   \end{subfigure}
@@ -409,7 +450,8 @@ Prefijos de etiquetas:
 | Prefijo | Elemento |
 | --- | --- |
 | `chap:` | Capítulo |
-| `sec:` | Sección o subsección |
+| `sec:` | Sección |
+| `subsec:` | Subsección (opcional; también vale `sec:`) |
 | `fig:` | Figura |
 | `tab:` | Tabla |
 | `eq:` | Ecuación |
@@ -441,16 +483,20 @@ Las portadas se generan automáticamente. No crear manualmente.
 
 ---
 
-## Accesibilidad (PDF/UA-2)
+## Accesibilidad (PDF etiquetado)
 
-El archivo `cls/eps-metadata.tex` ya está configurado con `pdfstandard=ua-2`.
-Para añadir texto alternativo a imágenes:
+`cls/eps-metadata.tex` activa el etiquetado del PDF (`tagging=on` con LaTeX
+2025-11 o posterior; `testphase=phase-I` con versiones anteriores, como TeX Live
+2024). El PDF sale
+etiquetado, pero **no declara conformidad PDF/UA-2**: todavía no se alcanza
+(KOMA-Script no etiqueta las secciones y varios paquetes aún no son
+compatibles). Ver `docs/ACCESIBILIDAD.md`.
+
+Añadir siempre texto alternativo a las imágenes:
 
 ```latex
 \includegraphics[width=0.8\textwidth, alt={Descripción de la imagen}]{ruta}
 ```
-
-Ver `docs/ACCESIBILIDAD.md` para la guía completa.
 
 ---
 
@@ -480,12 +526,14 @@ Si el usuario reporta un error, pedir las últimas 30 líneas de `main.log`.
 | `ESTA PLANTILLA REQUIERE LuaLaTeX` | Guard de motor en `cls/eps-metadata.tex`: el motor no es LuaTeX | Compilar con LuaLaTeX (`make`, o en Overleaf Menu → Compiler → LuaLaTeX) |
 | `Undefined control sequence` | Comando no definido o paquete no cargado | Verificar módulo de componentes activo |
 | `You must invoke LaTeX with -shell-escape` | Falta flag | Usar `make` o añadir `-shell-escape` |
-| `Pygments not found` | Python/minted no instalado | `pip install latexminted` |
+| `minted v3+ executable is not installed` / `latexminted` no encontrado | Falta `latexminted` (viene con TeX Live 2024+) | Comprobar `latexminted --version`; si falta, `tlmgr install minted` o instalar `texlive-latex-extra`. No usar `pip install` (falla con PEP 668); `pipx install latexminted` solo con MiKTeX o si el de TeX Live falla |
 | `Citation 'X' undefined` | Biber no ejecutado | `make` completo o `biber main` |
 | `Font ... not found` | TeX Live incompleto | Instalar TeX Live completo |
-| `Missing $ inserted` | Símbolo matemático fuera de modo math | Encerrar en `$...$` |
+| `Missing $ inserted` | Símbolo matemático fuera de modo math, `_` sin escapar (p. ej. en `title={...}` de un entorno de código) o `$` literal en `terminal` | Encerrar en `$...$`; escapar `\_`; en `terminal` usar `\prompt` |
 | `File 'X.sty' not found` | Paquete no instalado | `tlmgr install X` |
 | `I found no \bibdata command` | Usando BibTeX en lugar de Biber | Verificar que se usa `biber`, no `bibtex` |
+| `Package block Error: Some keys specified on the itemize environment are unknown` | Versión antigua de la plantilla compilada con LaTeX 2025-11 o posterior (TeX Live 2025 actualizado, 2026) | Actualizar la plantilla (al menos `cls/` y `sty/`) a la última versión |
+| `ignored error Infinite glue shrinkage found in box being split` | Fallo conocido de `longtable` 4.24 (LaTeX 2025-11) cuando una tabla `longtable` se parte entre páginas | Ninguna: TeX lo marca como error ignorado, la compilación continúa y el PDF sale bien. Desaparecerá al actualizar `longtable` |
 
 ---
 

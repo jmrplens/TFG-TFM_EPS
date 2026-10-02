@@ -11,7 +11,7 @@ on:
       - "**"
   workflow_run:
     workflows:
-      - Release
+      - "Create Release"
     types:
       - completed
   schedule:

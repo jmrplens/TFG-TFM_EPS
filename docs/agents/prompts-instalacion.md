@@ -41,12 +41,12 @@ Para no-desarrolladores: simplemente ejecútalo y sigue las instrucciones.
 TFG/TFM EPS UA. Soy estudiante y no tengo experiencia con LaTeX ni con
 la terminal.
 
-Mi sistema operativo es: [Windows 11 / macOS 14 / Ubuntu 22.04 / otro]
+Mi sistema operativo es: [Windows 11 / macOS 14 / Ubuntu 24.04 / otro]
 
 Por favor, guíame paso a paso para instalar:
 1. Python (si hace falta)
-2. LaTeX (LuaLaTeX + Biber + latexmk)
-3. El paquete latexminted
+2. LaTeX (TeX Live 2024 o posterior: LuaLaTeX + Biber + latexmk)
+3. latexminted (comprobar que viene con TeX Live)
 4. Las herramientas de compilación (make o equivalente)
 
 Al final, quiero poder compilar y obtener un PDF
@@ -94,7 +94,8 @@ o el resaltado de código. El error es:
 [pegar el mensaje de error]
 
 Mi sistema es: [Windows / macOS / Linux]
-¿Tengo instalado latexminted?: [Sí / No / No sé]
+Salida de 'latexminted --version': [pegar o «comando no encontrado»]
+Salida de 'lualatex --version' (primera línea): [pegar]
 
 ¿Qué tengo que hacer para solucionarlo?
 ```
@@ -126,10 +127,14 @@ TFG/TFM EPS UA usando [Copyleaks / Turnitin].
 
 Guíame para:
 1. Crear y configurar el archivo .env a partir de .env.example
+   (para Copyleaks también COPYLEAKS_WEBHOOK_URL y, para probar,
+   COPYLEAKS_SANDBOX=true)
 2. Obtener las credenciales necesarias
-3. Verificar que la integración funciona ejecutando:
-       python3 scripts/revision-rapida.py   (Linux/macOS)
-       python  scripts/revision-rapida.py   (Windows)
+3. Enviar el texto a verificar (solo se envía con --plagio y tras confirmar):
+       python3 scripts/revision-rapida.py --plagio copyleaks   (Linux/macOS)
+       python  scripts/revision-rapida.py --plagio copyleaks   (Windows)
+       python3 scripts/revision-rapida.py --plagio turnitin    (Linux/macOS)
+       python  scripts/revision-rapida.py --plagio turnitin    (Windows)
 ```
 
 ---

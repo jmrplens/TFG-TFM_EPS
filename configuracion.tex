@@ -95,8 +95,9 @@
   %   valenciano - Valenciano/Catalán
   %   ingles     - Inglés
   %
-  % IMPORTANTE: Si cambias el idioma, actualiza también el archivo
-  % 'cls/eps-metadata.tex' para que coincida (ver comentarios allí).
+  % El idioma del PDF (metadatos y accesibilidad) se ajusta automáticamente:
+  % no hace falta tocar 'cls/eps-metadata.tex'.
+  % La portada se mantiene en español (formato oficial de la EPS).
   %
   idioma = espanol,
   
@@ -115,9 +116,7 @@
   % Fecha personalizada (si se omite, usa la fecha actual)
   % fecha = {Junio 2026},
   
-  % Optimizar figuras TikZ (guardar en caché)
-  optimizar-tikz = true,
-  
-  % Modo borrador (muestra notas TODO)
+  % Modo borrador: muestra las notas \todo y \missingfigure.
+  % Ponlo a false para generar la versión final.
   borrador = true,
 }

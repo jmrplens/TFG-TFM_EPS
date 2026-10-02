@@ -126,7 +126,7 @@ Los comandos en LaTeX empiezan con `\` (barra invertida):
 \textit{texto en cursiva}
 \section{Título de sección}
 \ref{etiqueta}                 % Referencia cruzada
-\cite{clave}                   % Cita bibliográfica
+\parencite{clave}              % Cita bibliográfica: (Autor, año)
 ```
 
 ### Entornos
@@ -187,15 +187,21 @@ Si prefieres instalar manualmente, sigue las opciones a continuación.
 3. **Importante:** Selecciona "Install missing packages on-the-fly: Yes"
 4. Completa la instalación (puede tardar 15-30 minutos)
 
-#### Paso 2: Instalar Python y latexminted (para código fuente con colores)
+> **Alternativa:** también puedes instalar [TeX Live para Windows](https://tug.org/texlive/windows.html), que ya incluye todo lo necesario (también `latexminted`).
 
-1. Descarga [Python](https://www.python.org/downloads/)
-2. **Importante:** Marca ✅ "Add Python to PATH" durante la instalación
-3. Abre PowerShell o CMD y ejecuta:
+#### Paso 2: latexminted (para código fuente con colores)
 
-   ```bash
-   pip install latexminted
-   ```
+minted 3 usa el programa `latexminted`. Comprueba si MiKTeX lo ha instalado abriendo PowerShell o CMD:
+
+```bash
+latexminted --version
+```
+
+Si no lo encuentra, actualiza MiKTeX (*MiKTeX Console → Updates*) e instala el paquete `minted`. Si sigue sin aparecer, instálalo con [pipx](https://pipx.pypa.io/) (necesita [Python](https://www.python.org/downloads/) con ✅ "Add Python to PATH"):
+
+```bash
+pipx install latexminted
+```
 
 #### Paso 3: Instalar un editor (ver sección siguiente)
 
@@ -207,10 +213,12 @@ Si prefieres instalar manualmente, sigue las opciones a continuación.
 2. Abre el archivo .pkg y sigue las instrucciones
 3. Reinicia el terminal
 
-#### Paso 2: Instalar latexminted
+#### Paso 2: Comprobar latexminted
+
+MacTeX (TeX Live 2024 o posterior) ya incluye `latexminted`, el programa que usa minted 3. Compruébalo:
 
 ```bash
-pip3 install latexminted
+latexminted --version
 ```
 
 ### Opción 3: Instalación local en Linux (Ubuntu/Debian)
@@ -223,11 +231,13 @@ sudo apt install texlive-full
 sudo apt install texlive-latex-extra texlive-fonts-extra \
                  texlive-luatex texlive-bibtex-extra biber
 
-# latexminted para código con colores (minted 3.x)
-pip3 install latexminted
+# Comprobar latexminted (lo trae texlive-latex-extra; no uses pip)
+latexminted --version
 ```
 
-> **Nota:** Ubuntu/Debian pueden tener versiones antiguas de TeX Live en sus repositorios. Para obtener TeX Live 2025, considera usar la [instalación oficial de TeX Live](https://www.tug.org/texlive/quickinstall.html) en lugar de los paquetes de la distribución.
+> **Importante:** la plantilla necesita **TeX Live 2024 o posterior**. Los paquetes de **Ubuntu 26.04** y **Debian 13** son válidos, pero los de **Ubuntu 24.04, Debian 12 y anteriores son demasiado antiguos**: en esos sistemas usa la [instalación oficial de TeX Live](https://www.tug.org/texlive/quickinstall.html) en lugar de los paquetes de la distribución. Puedes ver tu versión con `lualatex --version`.
+>
+> No instales latexminted con `pip install`: en las distribuciones actuales falla («externally-managed-environment», PEP 668) y no hace falta. Si el `latexminted` del sistema falla al arrancar (p. ej. con Python 3.14), instala uno más reciente con `pipx install latexminted`.
 
 ### Opción 4: Overleaf (alternativa sin instalación)
 
@@ -248,7 +258,7 @@ pdfLaTeX o XeLaTeX la compilación falla.
 **Ventajas:** Sin instalación, funciona en cualquier ordenador, colaboración en tiempo real.
 
 **Desventajas:** Necesitas internet y, sobre todo, **esta plantilla es pesada**: entre
-el etiquetado PDF/UA, `minted` y las figuras TikZ, la primera compilación necesita
+el etiquetado del PDF, `minted` y las figuras TikZ, la primera compilación necesita
 varias pasadas y agota el límite de tiempo del plan gratuito (10 s). En local
 no existe ese límite. Si trabajas en Overleaf, lee antes
 [`OVERLEAF.md`](OVERLEAF.md): explica cómo elegir el compilador y cómo ir compilando
@@ -379,7 +389,7 @@ La tecnología \gls{ml} ha revolucionado muchos campos.
 
 \section{Motivación}
 
-Como se demuestra en \cite{garcia2024}, el problema es relevante.
+Como se ha demostrado \parencite{garcia2024}, el problema es relevante.
 
 \section{Estructura del documento}
 
@@ -455,7 +465,7 @@ El Código~\ref{cod:ejemplo} muestra un ejemplo básico.
 1. Cita en el texto:
 
 ```latex
-Según García \cite{garcia2024}, el resultado es...
+Según \textcite{garcia2024}, el resultado es...
 ```
 
 ---
@@ -469,14 +479,11 @@ Según García \cite{garcia2024}, el resultado es...
 | [Overleaf Learn](https://www.overleaf.com/learn) | EN/ES | Tutorial completo y ejemplos |
 | [LaTeX en 30 minutos](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes) | EN | Introducción rápida |
 | [LaTeX Project](https://www.latex-project.org/help/documentation/) | EN | Documentación oficial |
-| [Manual TEC Costa Rica](https://tecdigital.tec.ac.cr/revistamatematica/Libros/LATEX/LaTeX_2014.pdf) | ES | Libro completo en español |
 | [WikiBooks LaTeX](https://en.wikibooks.org/wiki/LaTeX) | EN | Referencia exhaustiva |
 | [CTAN](https://ctan.org/) | EN | Repositorio de paquetes |
-| [WikiBooks LaTeX](https://en.wikibooks.org/wiki/LaTeX) | EN | Referencia exhaustiva |
 
 ### Vídeos
 
-- [Canal de Overleaf en YouTube](https://www.youtube.com/c/Overleaf) - Tutoriales oficiales
 - Busca "LaTeX tutorial español" en YouTube para contenido en español
 
 ### Cheatsheets (hojas de referencia rápida)
@@ -567,7 +574,7 @@ Esto le enseñará a la IA qué paquetes usamos, cómo se hacen las portadas y l
 
 **Solución:**
 
-1. Asegúrate de que has citado algo con `\cite{}`
+1. Asegúrate de que has citado algo con `\parencite{}` o `\textcite{}`
 2. Compila varias veces o usa `make`
 3. Verifica que `referencias.bib` no tiene errores de sintaxis
 
@@ -575,16 +582,16 @@ Esto le enseñará a la IA qué paquetes usamos, cómo se hacen las portadas y l
 
 **Solución:**
 
-- Instala latexminted: `pip install latexminted`
-- Verifica con: `latexminted --version`
+- Verifica con: `latexminted --version` (viene con TeX Live 2024 o posterior)
+- Si no está: `sudo tlmgr install minted` (TeX Live oficial) o `sudo apt install texlive-latex-extra` (Ubuntu/Debian). Con MiKTeX: `pipx install latexminted`. No uses `pip install`.
 
 ### Compilación muy lenta
 
 **Solución:**
 
 - La primera compilación siempre es lenta
-- Activa `optimizar-tikz = true` en `configuracion.tex`
-- Las siguientes compilaciones serán más rápidas
+- Las siguientes compilaciones serán más rápidas (no borres la carpeta `_minted/`)
+- Carga en `main.tex` solo el módulo de componentes de tu titulación en lugar de `[all]`
 
 ### "You must invoke LaTeX with -shell-escape"
 

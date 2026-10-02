@@ -1,0 +1,92 @@
+name: Ejemplos de la documentación
+
+# Compila los bloques ```latex de los archivos de instrucciones para IA
+# (CLAUDE.md, AGENTS.md, copilot-instructions.md, agentes...) con la plantilla
+# real, para que los ejemplos documentados no se queden desfasados.
+# Script: scripts/comprobar-ejemplos-doc.py (marcador de exclusión:
+# <!-- no-compilar --> justo antes del bloque).
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'CLAUDE.md'
+      - 'AGENTS.md'
+      - 'llms.txt'
+      - '.github/copilot-instructions.md'
+      - '.github/agents/**'
+      - 'docs/agents/**'
+      - 'cls/**'
+      - 'sty/**'
+      - 'configuracion.tex'
+      - 'contenido/anexos/acronimos.tex'
+      - 'scripts/comprobar-ejemplos-doc.py'
+      - '.github/workflows/ejemplos-doc.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'CLAUDE.md'
+      - 'AGENTS.md'
+      - 'llms.txt'
+      - '.github/copilot-instructions.md'
+      - '.github/agents/**'
+      - 'docs/agents/**'
+      - 'cls/**'
+      - 'sty/**'
+      - 'configuracion.tex'
+      - 'contenido/anexos/acronimos.tex'
+      - 'scripts/comprobar-ejemplos-doc.py'
+      - '.github/workflows/ejemplos-doc.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ejemplos:
+    name: Compilar ejemplos de la documentación
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Misma imagen de TeX Live que usa xu-cheng/latex-action (versión más reciente)
+    container: ghcr.io/xu-cheng/texlive-debian:latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Instalar Python
+      run: |
+        apt-get update -y
+        DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+          python3 python3-pip ca-certificates git
+        lualatex --version | head -n 1
+
+    - name: Checkout repository
+      uses: actions/checkout@v7
+
+    - name: Instalar latexminted
+      run: |
+        # TeX Live 2024+ ya incluye latexminted; PyPI solo como respaldo
+        pip3 install --break-system-packages latexminted \
+          || echo "::warning::No se pudo instalar latexminted desde PyPI; se usa el de TeX Live"
+
+    - name: Listar ejemplos extraídos
+      run: python3 scripts/comprobar-ejemplos-doc.py --listar | tail -n 1
+
+    - name: Compilar ejemplos
+      run: python3 scripts/comprobar-ejemplos-doc.py --salida ejemplos-salida --jobs 4 --timeout 300
+
+    - name: Subir logs de los ejemplos fallidos
+      if: failure()
+      uses: actions/upload-artifact@v7
+      with:
+        name: ejemplos-doc-logs
+        path: |
+          ejemplos-salida/**/*.tex
+          ejemplos-salida/**/*.log
+        if-no-files-found: ignore
+        retention-days: 7

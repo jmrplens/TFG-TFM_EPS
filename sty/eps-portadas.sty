@@ -11,7 +11,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{eps-portadas}[2026/08/02 v2.2.2 Portadas TFG/TFM EPS Universidad de Alicante]
 
-\RequirePackage{xparse}
 \RequirePackage{tikz}
 \RequirePackage{tikzpagenodes}
 \RequirePackage{textpos}
@@ -22,6 +21,38 @@
 % Necesario para \pagecolor
 \RequirePackage{xcolor} 
 \RequirePackage{fontspec}
+
+% Selector de textos según el idioma del documento (lo define la clase;
+% si no existe, se usan los textos en español).
+% Uso: \EPSsegunidioma{español}{valenciano}{inglés}
+\providecommand\EPSsegunidioma[3]{#1}
+
+%% ============================================================================
+%% TEXTO ALTERNATIVO DE LOS LOGOTIPOS (accesibilidad PDF/UA)
+%% ============================================================================
+\newcommand{\eps@altLogoUniversidad}{%
+  \EPSsegunidioma{Logotipo de la Universidad de Alicante}%
+    {Logotip de la Universitat d'Alacant}%
+    {University of Alicante logo}}
+\newcommand{\eps@altLogoFacultad}{%
+  \EPSsegunidioma{Logotipo de la Escuela Politécnica Superior}%
+    {Logotip de l'Escola Politècnica Superior}%
+    {Higher Polytechnic School logo}}
+\newcommand{\eps@altLogoGrado}{%
+  \EPSsegunidioma{Logotipo de la titulación}%
+    {Logotip de la titulació}%
+    {Degree logo}: \EPStitulacion}
+
+% Opción de \includegraphics para imágenes que solo se usan para medir (no
+% se muestran): se marcan como artefacto si la clave 'artifact' existe
+% (graphicx de LaTeX 2025 o el módulo de etiquetado de latex-lab).
+\newcommand{\eps@includegraphicsmedida}[2]{%
+  \ifcsname KV@Gin@artifact\endcsname
+    \includegraphics[#1,artifact]{#2}%
+  \else
+    \includegraphics[#1]{#2}%
+  \fi
+}
 
 %% ============================================================================
 %% DEFINICIÓN DE FUENTES DE PORTADA
@@ -152,7 +183,7 @@
 
 \newcommand{\eps@optimizeTitleSize}{%
   % 1. Medir la altura real del logo superior derecho
-  \savebox{\eps@logoBox}{\includegraphics[width=\eps@portadaLogoTRWidth]{\EPSlogoFacultadPortada}}%
+  \savebox{\eps@logoBox}{\eps@includegraphicsmedida{width=\eps@portadaLogoTRWidth}{\EPSlogoFacultadPortada}}%
   \setlength{\eps@logoH}{\ht\eps@logoBox + \dp\eps@logoBox}%
   
   % 2. Calcular espacio vertical disponible
@@ -240,14 +271,14 @@
     % -------------------------------------------------------------------------
     \node[anchor=north east, inner sep=0pt] 
        at ([xshift=\eps@portadaLogoTRX, yshift=\eps@portadaLogoTRY]current page.north east)
-       {\includegraphics[width=\eps@portadaLogoTRWidth]{\EPSlogoFacultadPortada}};
+       {\includegraphics[width=\eps@portadaLogoTRWidth, alt={\eps@altLogoFacultad}]{\EPSlogoFacultadPortada}};
 
     % -------------------------------------------------------------------------
     % ELEMENTO 4: LOGO INFERIOR DERECHA (Universidad)
     % -------------------------------------------------------------------------
     \node[anchor=south east, inner sep=0pt] 
        at ([xshift=\eps@portadaLogoBRX, yshift=\eps@portadaLogoBRY]current page.south east)
-       {\includegraphics[width=\eps@portadaLogoBRWidth]{\EPSlogoUniversidadPortada}};
+       {\includegraphics[width=\eps@portadaLogoBRWidth, alt={\eps@altLogoUniversidad}]{\EPSlogoUniversidadPortada}};
 
     % -------------------------------------------------------------------------
     % CONJUNTO A: TÍTULO + TITULACIÓN
@@ -267,7 +298,7 @@
     % 1. Nodo del Logo
     \node[anchor=south west, inner sep=0] (InfoGradoLogo)
        at ([xshift=\eps@portadaInfoGradoX, yshift=\eps@portadaInfoGradoY]current page.south west)
-       {\includegraphics[height=\eps@portadaInfoGradoLogoHeight]{\EPSlogoGradoPortada}};
+       {\includegraphics[height=\eps@portadaInfoGradoLogoHeight, alt={\eps@altLogoGrado}]{\EPSlogoGradoPortada}};
 
     % 2. Nodo del Texto (Anclado al centro vertical derecho del logo)
     \node[anchor=west, inner sep=0, text width=13cm, align=flush left]
@@ -338,7 +369,8 @@
         {\huge\bfseries\EPStitulo}
       \end{spacing}
       \noindent\rule[-1ex]{\textwidth}{3pt}\\[3.5ex]
-      {\large\bfseries\EPSsubtitulo\\[4cm]}
+      % \mbox{} evita el error «There's no line here to end» si no hay subtítulo
+      {\large\bfseries\EPSsubtitulo\mbox{}\\[4cm]}
     \end{minipage}
 
     % Relleno hasta zona central
@@ -351,10 +383,12 @@
       {\EPSautor}\\[2.5ex]
       \textbf{\EPSetiquetaTutor}\\
       {\normalsize\EPStutor\\
-        \ifx\EPStutorDpto\empty\else\small\textit{\EPStutorDpto}\\\fi
+        % Línea de departamento solo si se ha indicado (se comprueba el valor
+        % guardado, sin expandir el texto del usuario)
+        \EPSsiTutorDpto{\small\textit{\EPStutorDpto}\\}{}%
         \EPSsiCotutor{%
           \normalsize\EPScotutor\\
-          \ifx\EPScotutorDpto\empty\else\small\textit{\EPScotutorDpto}\\\fi
+          \EPSsiCotutorDpto{\small\textit{\EPScotutorDpto}\\}{}%
         }{}%
       }
     \end{minipage}
@@ -366,17 +400,17 @@
     \noindent\begin{minipage}{\textwidth}
       \centering
       \begin{center}
-        \includegraphics[width=3cm]{\EPSlogoGrado}\\
+        \includegraphics[width=3cm, alt={\eps@altLogoGrado}]{\EPSlogoGrado}\\
         {\raggedleft\EPStitulacion}
       \end{center}
       \vspace*{2em}
       \centering
       \noindent
       \begin{minipage}[l]{6cm}
-        \includegraphics[width=5cm]{\EPSlogoFacultad}
+        \includegraphics[width=5cm, alt={\eps@altLogoFacultad}]{\EPSlogoFacultad}
       \end{minipage}
       \begin{minipage}[r]{6cm}
-        \includegraphics[width=5cm]{\EPSlogoUniversidad}
+        \includegraphics[width=5cm, alt={\eps@altLogoUniversidad}]{\EPSlogoUniversidad}
       \end{minipage}
       \\[1cm]
       \MakeUppercase{\EPSubicacion}, \EPSfecha

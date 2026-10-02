@@ -82,6 +82,10 @@ latex.out/
 *.glo
 *.gls
 *.glsdefs
+*.glstex
+*.slg
+*.slo
+*.sls
 *.ist
 
 # gnuplot
@@ -120,10 +124,15 @@ latex.out/
 *.slt[0-9]*
 *.stc[0-9]*
 
-# minted
+# minted (minted 3: _minted/ y archivos *.data.minted temporales;
+# minted 2: _minted-<nombre>/)
 _minted*/
 _minted-*/
+*.data.minted
 *.pyg
+
+# Tagging PDF/UA (luamml genera el MathML de las ecuaciones)
+*-luamml-mathml.html
 
 # morewrites
 *.mw
@@ -292,6 +301,12 @@ __pycache__/
 # Archivos temporales de compilación
 .herramientas/tmp/
 .herramientas/*.log
+# Temporales de actualizar_previews.py si se interrumpe
+/_temp_*
+
+# Informe generado por scripts/revision-rapida.py (puede contener
+# resultados de plagio; se regenera en cada ejecución)
+informe-revision.md
 
 
 # ============================================================================

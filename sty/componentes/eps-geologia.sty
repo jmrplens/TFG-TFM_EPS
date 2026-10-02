@@ -21,6 +21,18 @@
 \IfFileExists{siunitx.sty}{\RequirePackage{siunitx}}{%
   \PackageWarning{eps-geologia}{siunitx no disponible}%
 }
+% Fórmulas minerales (\ch) con chemformula, salvo que ya exista \ch
+% (p. ej. cargado por el módulo quimica o por el usuario con mhchem)
+\@ifundefined{ch}{%
+  \IfFileExists{chemformula.sty}{%
+    \RequirePackage{chemformula}%
+  }{%
+    \PackageWarning{eps-geologia}{chemformula no disponible: \string\ch\space
+      mostrará las fórmulas como texto}%
+  }%
+}{}
+% Fallback: si nadie ha definido \ch, mostrar la fórmula tal cual
+\providecommand{\ch}[1]{\texttt{#1}}
 
 % ============================================================================
 % COLUMNA ESTRATIGRÁFICA
@@ -175,10 +187,10 @@
     \textcolor{eps-secondary}{\faGem}~{\bfseries #1}\\[4pt]
     {\footnotesize
       \begin{tabular}{@{}ll@{}}
-        \textbf{Fórmula:} & \ch{#2} \\
-        \textbf{Sistema:} & #3 \\
-        \textbf{Dureza:} & #4 \\
-        \textbf{Uso:} & #5 \\
+        \textbf{\EPSsegunidioma{Fórmula:}{Fórmula:}{Formula:}} & \ch{#2} \\
+        \textbf{\EPSsegunidioma{Sistema:}{Sistema:}{Crystal system:}} & #3 \\
+        \textbf{\EPSsegunidioma{Dureza:}{Duresa:}{Hardness:}} & #4 \\
+        \textbf{\EPSsegunidioma{Uso:}{Ús:}{Use:}} & #5 \\
       \end{tabular}
     }
   \end{minipage}%
@@ -206,13 +218,7 @@
 % Uso: \begin{rosebox}[Rosa de fracturas]
 %        \begin{tikzpicture}...
 %      \end{rosebox}
-\newenvironment{rosebox}[1][Rosa de orientaciones]{%
-  \begin{center}
-  {\small\bfseries\faCompass\hspace{0.5em}#1}
-  \par\vspace{4pt}
-}{%
-  \end{center}
-}
+\eps@nuevoencabezadoicono{rosebox}{\EPSsegunidioma{Rosa de orientaciones}{Rosa d'orientacions}{Orientation rose}}{\faCompass}
 
 % ============================================================================
 % DATOS ESTRUCTURALES - Estilo profesional
@@ -360,13 +366,7 @@
 % Uso: \begin{isolinebox}[Mapa de isopacas]
 %        \begin{tikzpicture}...
 %      \end{isolinebox}
-\newenvironment{isolinebox}[1][Mapa de isolíneas]{%
-  \begin{center}
-  {\small\bfseries\faMap\hspace{0.5em}#1}
-  \par\vspace{4pt}
-}{%
-  \end{center}
-}
+\eps@nuevoencabezadoicono{isolinebox}{\EPSsegunidioma{Mapa de isolíneas}{Mapa d'isolínies}{Isoline map}}{\faMap}
 
 % ============================================================================
 % ESCALA DE TIEMPO GEOLÓGICO

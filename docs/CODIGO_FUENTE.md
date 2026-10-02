@@ -72,12 +72,17 @@ Cada lenguaje tiene dos variantes:
 
 ### Requisitos
 
-El resaltado de sintaxis usa **minted 3.x** con **latexminted**, que requiere Python. Al compilar con `-shell-escape`, minted ejecuta el resaltado automáticamente.
+El resaltado de sintaxis usa **minted 3.x** con **latexminted** (que incluye Pygments). Al compilar con `-shell-escape`, minted ejecuta el resaltado automáticamente.
+
+`latexminted` viene con **TeX Live 2024 o posterior**; no hace falta instalarlo con `pip`:
 
 ```bash
-# Instalar latexminted (incluye Pygments automáticamente)
-pip install latexminted
+latexminted --version                  # comprobar que está disponible
+sudo tlmgr install minted              # si falta (TeX Live oficial de TUG)
+sudo apt install texlive-latex-extra   # si falta (Debian/Ubuntu)
 ```
+
+Con MiKTeX, si tras actualizar e instalar el paquete `minted` no se encuentra `latexminted`, usa `pipx install latexminted`. No uses `pip install latexminted`: en las distribuciones actuales falla por PEP 668 («externally-managed-environment»).
 
 ---
 
@@ -101,9 +106,9 @@ pip install latexminted
 | PHP | `phpcode` | `phpcodeNN` | `phpcodeDark` | `phpcodeDarkNN` |
 | Ruby | `rubycode` | `rubycodeNN` | `rubycodeDark` | `rubycodeDarkNN` |
 | R | `rcode` | `rcodeNN` | `rcodeDark` | `rcodeDarkNN` |
-| Scala | `scalacode` | `scalacodeNN` | - | - |
-| Perl | `perlcode` | `perlcodeNN` | - | - |
-| Haskell | `haskellcode` | `haskellcodeNN` | - | - |
+| Scala | `scalacode` | `scalacodeNN` | `scalacodeDark` | `scalacodeDarkNN` |
+| Perl | `perlcode` | `perlcodeNN` | `perlcodeDark` | `perlcodeDarkNN` |
+| Haskell | `haskellcode` | `haskellcodeNN` | `haskellcodeDark` | `haskellcodeDarkNN` |
 | Lua | `lualangcode` | `lualangcodeNN` | `lualangcodeDark` | `lualangcodeDarkNN` |
 | Prolog | `prologcode` | `prologcodeNN` | `prologcodeDark` | `prologcodeDarkNN` |
 | MATLAB | `matlabcode` | `matlabcodeNN` | `matlabcodeDark` | `matlabcodeDarkNN` |
@@ -115,12 +120,12 @@ pip install latexminted
 | ---------- | ------- | ------------------- | ------ | ------------------- |
 | HTML | `htmlcode` | `htmlcodeNN` | `htmlcodeDark` | `htmlcodeDarkNN` |
 | CSS | `csscode` | `csscodeNN` | `csscodeDark` | `csscodeDarkNN` |
-| SASS | `sasscode` | `sasscodeNN` | - | - |
+| SASS | `sasscode` | `sasscodeNN` | `sasscodeDark` | `sasscodeDarkNN` |
 | JSON | `jsoncode` | `jsoncodeNN` | `jsoncodeDark` | `jsoncodeDarkNN` |
-| XML | `xmlcode` | `xmlcodeNN` | - | - |
+| XML | `xmlcode` | `xmlcodeNN` | `xmlcodeDark` | `xmlcodeDarkNN` |
 | YAML | `yamlcode` | `yamlcodeNN` | `yamlcodeDark` | `yamlcodeDarkNN` |
-| Markdown | `mdcode` | `mdcodeNN` | - | - |
-| LaTeX | `latexcode` | `latexcodeNN` | - | - |
+| Markdown | `mdcode` | `mdcodeNN` | `mdcodeDark` | `mdcodeDarkNN` |
+| LaTeX | `latexcode` | `latexcodeNN` | `latexcodeDark` | `latexcodeDarkNN` |
 | TeX | `texcode` | `texcodeNN` | `texcodeDark` | `texcodeDarkNN` |
 
 ### Shell y sistema
@@ -128,13 +133,13 @@ pip install latexminted
 | Lenguaje | Light | Light (sin líneas) | Dark | Dark (sin líneas) |
 | ---------- | ------- | ------------------- | ------ | ------------------- |
 | Bash | `bashcode` | `bashcodeNN` | `bashcodeDark` | `bashcodeDarkNN` |
-| PowerShell | `pscode` | `pscodeNN` | - | - |
-| Makefile | `makecode` | `makecodeNN` | - | - |
+| PowerShell | `pscode` | `pscodeNN` | `pscodeDark` | `pscodeDarkNN` |
+| Makefile | `makecode` | `makecodeNN` | `makecodeDark` | `makecodeDarkNN` |
 | Dockerfile | `dockercode` | `dockercodeNN` | `dockercodeDark` | `dockercodeDarkNN` |
-| INI/Config | `inicode` | `inicodeNN` | - | - |
-| TOML | `tomlcode` | `tomlcodeNN` | - | - |
-| Git | `gitcode` | `gitcodeNN` | - | - |
-| Diff | `diffcode` | `diffcodeNN` | - | - |
+| INI/Config | `inicode` | `inicodeNN` | `inicodeDark` | `inicodeDarkNN` |
+| TOML | `tomlcode` | `tomlcodeNN` | `tomlcodeDark` | `tomlcodeDarkNN` |
+| Git | `gitcode` | `gitcodeNN` | `gitcodeDark` | `gitcodeDarkNN` |
+| Diff | `diffcode` | `diffcodeNN` | `diffcodeDark` | `diffcodeDarkNN` |
 
 ### Bases de datos y redes
 
@@ -321,6 +326,8 @@ def ejemplo():
 \end{pythoncode}
 ```
 
+Las opciones de minted van **siempre** dentro de `minted options={...}`; escritas directamente (`[firstline=10]`) dan el error `I do not know the key '/tcb/firstline'`. Fuera de `minted options` solo van opciones de tcolorbox (tabla siguiente).
+
 ### Todas las opciones de minted disponibles
 
 | Opción | Descripción | Ejemplo |
@@ -346,7 +353,7 @@ def ejemplo():
 
 | Opción | Descripción | Ejemplo |
 | -------- | ------------- | --------- |
-| `title` | Título del bloque | `Mi código` |
+| `title` | Título del bloque (escapa `_` como `\_`: `mi\_script.py`) | `Mi código` |
 | `label` | Etiqueta para referencias | `cod:mi-codigo` |
 | `colback` | Color de fondo | `white` |
 | `colframe` | Color del borde | `blue!50!black` |
@@ -620,20 +627,27 @@ O en VS Code, asegúrate de que el archivo `.vscode/settings.json` tenga:
 
 ### Error: "latexminted not found" o "Pygments not found"
 
-**Causa**: Python o latexminted no están instalados.
+El mensaje de minted 3 es `minted v3+ executable is not installed or is not added to PATH`.
+
+**Causa**: falta el programa `latexminted` (TeX Live anterior a 2024 o instalación incompleta).
 
 **Solución**:
 
 ```bash
-# Linux/Mac
-pip install latexminted
-
-# Windows
-py -m pip install latexminted
-
 # Verificar instalación
 latexminted --version
+
+# TeX Live oficial (TUG), Linux/macOS/Windows
+tlmgr install minted
+
+# Debian / Ubuntu (paquetes de la distribución)
+sudo apt install texlive-latex-extra
+
+# Solo MiKTeX, o si el latexminted del sistema falla al arrancar
+pipx install latexminted
 ```
+
+Si tu TeX Live es anterior a 2024, actualízalo: minted 3 y `latexminted` lo necesitan.
 
 ### Error: "Couldn't find lexer"
 

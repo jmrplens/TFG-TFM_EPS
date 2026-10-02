@@ -16,13 +16,14 @@ Plantilla LaTeX moderna y profesional para la elaboración de **Trabajos de Fin 
 ## ✨ Características
 
 - 🎨 **Portadas oficiales** a color y en blanco/negro con diseño profesional
-- 🎓 **21 titulaciones** preconfiguradas (8 grados + 13 másteres)
+- 🎓 **22 titulaciones** preconfiguradas (8 grados + 14 másteres)
 - ⚙️ **Configuración simple** mediante un único archivo
 - 📝 **Bibliografía APA 7** con BibLaTeX + Biber
-- 💻 **Resaltado de código** para 25+ lenguajes con Minted
+- 💻 **Resaltado de código** para 46 lenguajes con minted (temas claro y oscuro)
 - 📊 **Gráficas y diagramas** con TikZ/PGFPlots
 - 📖 **Glosarios y acrónimos** integrados
-- 🚀 **Optimización TikZ** con caché de figuras
+- 🌍 **Tres idiomas**: español, valenciano e inglés (la portada se mantiene en español)
+- ♿ **PDF etiquetado** para lectores de pantalla (accesibilidad en desarrollo)
 - 🔧 **Pensada para trabajar en local** (VS Code, TeXstudio…) y **compatible con Overleaf**
 
 ---
@@ -44,7 +45,7 @@ Incluye:
 
 ---
 
-## � Documentación Especializada
+## 📚 Documentación Especializada
 
 Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG/TFM. Puedes acceder al índice completo o ir directamente a las guías específicas:
 
@@ -56,7 +57,7 @@ Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG
 | Guía | Descripción |
 | ------ | ------------- |
 | 🌐 [Uso en Overleaf](docs/OVERLEAF.md) | Plantilla en la galería, compilador LuaLaTeX, límites de compilación y errores |
-| 📝 [Código Fuente](docs/CODIGO_FUENTE.md) | Insertar y resaltar código con minted (40+ lenguajes) |
+| 📝 [Código Fuente](docs/CODIGO_FUENTE.md) | Insertar y resaltar código con minted (46 lenguajes) |
 | 📊 [Figuras y Gráficas](docs/FIGURAS_GRAFICAS.md) | Crear gráficos con pgfplots y TikZ |
 | 🖼️ [Imágenes y Subfiguras](docs/IMAGENES_SUBFIGURAS.md) | Incluir imágenes, subfiguras y posicionamiento |
 | 📋 [Tablas](docs/TABLAS.md) | Tablas profesionales con booktabs |
@@ -65,7 +66,7 @@ Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG
 | 📖 [Bibliografía](docs/BIBLIOGRAFIA.md) | Gestión de referencias con BibLaTeX |
 | 📓 [Glosarios y Acrónimos](docs/GLOSARIOS_ACRONIMOS.md) | Términos, siglas y símbolos |
 | 🔗 [Referencias Cruzadas](docs/REFERENCIAS_CRUZADAS.md) | Etiquetas, referencias y hyperref |
-| ♿ [Accesibilidad PDF](docs/ACCESIBILIDAD.md) | PDFs accesibles (PDF/UA-2) |
+| ♿ [Accesibilidad PDF](docs/ACCESIBILIDAD.md) | PDF etiquetado y buenas prácticas de accesibilidad |
 | 🤖 [Contexto IA](docs/AI_CONTEXT.md) | Referencia técnica completa para asistentes de IA |
 | 🔄 [Flujos de trabajo IA](docs/AI_WORKFLOWS.md) | Guías paso a paso para tareas comunes |
 
@@ -93,7 +94,7 @@ Esta plantilla incluye una documentación exhaustiva para cada aspecto de tu TFG
 | Redacción de capítulos | [.github/agents/redaccion.md](.github/agents/redaccion.md) | [docs/agents/redaccion-claude.md](docs/agents/redaccion-claude.md) | [docs/agents/prompts-redaccion.md](docs/agents/prompts-redaccion.md) |
 | Revisor tipo tribunal | [.github/agents/revisor.md](.github/agents/revisor.md) | [docs/agents/revisor-claude.md](docs/agents/revisor-claude.md) | [docs/agents/prompts-revisor.md](docs/agents/prompts-revisor.md) |
 
-**Revisión automática:** `python3 scripts/revision-rapida.py` genera un informe estático sin necesidad de IA.
+**Revisión automática:** `python3 scripts/revision-rapida.py` genera un informe estático sin necesidad de IA ni conexión a internet (la verificación de plagio con servicios externos solo se activa con `--plagio`).
 
 **Tip:** Si usas ChatGPT, Gemini u otra IA sin integración directa, copia el contenido de `docs/AI_CONTEXT.md` en el chat para obtener respuestas precisas sobre esta plantilla.
 
@@ -122,24 +123,28 @@ Para ayuda interactiva, usa el **agente de instalación**:
 
 ### Requisitos
 
-- **TeX Live 2024** o superior (recomendado: TeX Live 2025)
+- **TeX Live 2024** o superior (LaTeX 2024-11) o MiKTeX actualizado. El etiquetado completo del PDF se activa con LaTeX 2025-11 o posterior (TeX Live 2025 actualizado o TeX Live 2026)
 - **LuaLaTeX** como motor de compilación
 - **Biber** para bibliografía
-- **Python + latexminted** para resaltado de código (minted 3.x)
+- **latexminted** para resaltado de código (minted 3.x): viene incluido en TeX Live 2024+, no hace falta `pip`
 
 ```bash
-# Ubuntu/Debian (instalación manual)
+# Ubuntu 26.04+ / Debian 13+ (sus paquetes de TeX Live son 2024 o posteriores)
 sudo apt install texlive-full
-pip3 install latexminted
+latexminted --version          # comprobar que está (paquete texlive-latex-extra)
 
-# macOS con Homebrew
-brew install --cask mactex
-pip3 install latexminted
+# Ubuntu 24.04, Debian 12 o anteriores: su TeX Live es demasiado antiguo.
+# Instala TeX Live desde TUG: https://tug.org/texlive/quickinstall.html
 
-# Windows con MiKTeX
-# Descargar desde https://miktex.org/download
-pip install latexminted
+# macOS
+brew install --cask mactex     # MacTeX incluye latexminted
+
+# Windows: TeX Live (https://tug.org/texlive/windows.html) o MiKTeX
+# (https://miktex.org/download). Con MiKTeX, si no encuentra latexminted:
+pipx install latexminted
 ```
+
+Si `latexminted` no aparece con TeX Live, instálalo con `tlmgr install minted` (TeX Live de TUG) o `sudo apt install texlive-latex-extra` (Debian/Ubuntu). No uses `pip install latexminted`: en las distribuciones actuales falla (PEP 668, «externally-managed-environment») y no es necesario. Si el `latexminted` de tu distribución falla al arrancar (p. ej. con Python 3.14), instala uno más reciente con `pipx install latexminted`.
 
 ### Compilación
 
@@ -147,7 +152,7 @@ pip install latexminted
 # Opción 1: Usando Make (recomendado)
 make              # Compilación completa
 make quick        # Compilación rápida (sin bibliografía)
-make clean        # Limpiar archivos auxiliares
+make clean        # Limpiar auxiliares, caché _minted/ e informe-revision.md
 make view         # Abrir PDF generado
 
 # Opción 2: Usando latexmk (compilación continua)
@@ -179,12 +184,14 @@ TFG-TFM_EPS/
 │   └── revision-rapida.py      # Revisor estático del documento
 │
 ├── cls/
-│   └── eps-tfg.cls             # Clase principal
+│   ├── eps-tfg.cls             # Clase principal
+│   └── eps-metadata.tex        # Etiquetado PDF y metadatos (antes de \documentclass)
 │
 ├── sty/
 │   ├── eps-portadas.sty        # Paquete de portadas
 │   ├── eps-codigo.sty          # Estilos de código
-│   └── ...                     # Otros paquetes de estilo
+│   ├── eps-componentes.sty     # Cargador de componentes por titulación
+│   └── componentes/            # Módulos: comunes, software, telecom...
 │
 ├── contenido/
 │   ├── frontmatter/
@@ -254,11 +261,17 @@ Toda la configuración se realiza en el archivo `configuracion.tex`:
   % Titulación (ver lista completa abajo)
   titulacion = informatica,
   
+  % Idioma: espanol, valenciano o ingles (la portada sigue en español)
+  idioma = espanol,
+
   % Opciones
-  optimizar-tikz = true,
-  borrador = true,  % Muestra notas TODO
+  borrador = true,  % Muestra las notas \todo{}; pon false en la versión final
 }
 ```
+
+- `titulacion` es obligatoria: si falta o el valor no existe, la compilación se detiene con un error que lista las titulaciones válidas.
+- `idioma` cambia el idioma de todo el documento (títulos automáticos, bibliografía, separación silábica e idioma del PDF). No hay que tocar ningún otro archivo.
+- `optimizar-tikz` ya no tiene efecto (se acepta por compatibilidad).
 
 ### Titulaciones Disponibles
 
@@ -608,7 +621,7 @@ límites de compilación, avisos normales y solución de errores.
 - ✅ Motor actualizado a **LuaLaTeX**
 - ✅ Bibliografía migrada a **BibLaTeX + Biber**
 - ✅ Sistema de configuración **key-value** moderno
-- ✅ Código con **Minted** (25+ lenguajes)
+- ✅ Código con **Minted**
 - ✅ Logos convertidos a **PDF**
 - ✅ Estructura de carpetas reorganizada
 - ✅ Eliminado conflicto babel/polyglossia
@@ -628,13 +641,17 @@ Si tienes un documento con la versión anterior:
 
 ## 🔧 Solución de Problemas
 
-### Error: "File 'minted.sty' not found"
+### Error: "minted v3+ executable is not installed" o "File 'minted.sty' not found"
 
-Instalar el paquete de Python latexminted:
+minted 3 y su programa auxiliar `latexminted` vienen con TeX Live 2024 o posterior:
 
 ```bash
-pip3 install latexminted
+latexminted --version                  # ¿está instalado?
+sudo tlmgr install minted              # TeX Live de TUG
+sudo apt install texlive-latex-extra   # Debian / Ubuntu
 ```
+
+No uses `pip install latexminted` (falla con PEP 668 y no es necesario). Solo con MiKTeX, o si el `latexminted` de tu distribución no funciona, usa `pipx install latexminted`.
 
 ### Error: "You must invoke LaTeX with -shell-escape"
 
@@ -669,18 +686,16 @@ Verifica que latexminted esté instalado:
 
 ```bash
 latexminted --version
-# Si no está: pip3 install latexminted
+# Si no está: ver el error «minted v3+ executable is not installed» más arriba
 ```
 
 ### Compilación muy lenta
 
-Activa la caché de figuras TikZ en `configuracion.tex`:
+- Carga solo el módulo de componentes de tu titulación en `main.tex` (el ejemplo trae `[all]`).
+- Sustituye el contenido de ejemplo: los capítulos de demostración son la mayor parte del tiempo.
+- No borres la caché `_minted/` entre compilaciones (`make clean` y `latexmk -C` la borran; `latexmk -c` la conserva).
 
-```latex
-\EPSsetup{
-  optimizar-tikz = true,
-}
-```
+La antigua opción `optimizar-tikz` (caché de figuras TikZ) ya no tiene efecto: la externalización de TikZ no es compatible con el PDF etiquetado.
 
 ---
 
@@ -705,8 +720,8 @@ Consulta la [Guía de Contribución](CONTRIBUTING.md) para más detalles.
 | Herramienta | Cómo ejecutar | Para qué sirve |
 | ------------- | --------------- | ---------------- |
 | `scripts/instalar.py` | `python3 scripts/instalar.py` | Comprueba e instala dependencias del entorno |
-| `scripts/revision-rapida.py` | `python3 scripts/revision-rapida.py` | Análisis estático del documento; genera `informe-revision.md` |
-| `.env.example` | Copiar a `.env` y rellenar | Credenciales para Copyleaks y Turnitin (opcional) |
+| `scripts/revision-rapida.py` | `python3 scripts/revision-rapida.py` | Análisis estático del documento (sin conexión); genera `informe-revision.md` |
+| `.env.example` | Copiar a `.env` y rellenar | Credenciales para Copyleaks y Turnitin (opcional). Tenerlas no envía nada: el texto solo se envía con `python3 scripts/revision-rapida.py --plagio copyleaks\|turnitin\|todos` y tras confirmar (`--si` sin terminal interactiva). Copyleaks exige `COPYLEAKS_WEBHOOK_URL` (opcional `COPYLEAKS_SANDBOX=true`) |
 
 La revisión estática también se ejecuta automáticamente en cada push/PR mediante el workflow de GitHub Actions (`.github/workflows/revision.yml`).
 

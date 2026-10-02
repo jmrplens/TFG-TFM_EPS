@@ -1,10 +1,17 @@
 name: Auto-assign
 
+# Asigna a jmrplens los issues y PR abiertos por otras personas.
+# Para PR se usa «pull_request_target»: en PR desde forks, «pull_request»
+# recibe un GITHUB_TOKEN de solo lectura y no puede asignar. Es seguro porque
+# este workflow NO hace checkout ni ejecuta código del PR.
+
 on:
   issues:
     types: [opened]
-  pull_request:
+  pull_request_target:
     types: [opened]
+
+permissions: {}
 
 jobs:
   assign:
@@ -14,7 +21,7 @@ jobs:
       pull-requests: write
     if: >-
       (github.event_name == 'issues' && github.event.issue.user.login != 'jmrplens' && github.event.issue.user.login != 'dependabot[bot]') ||
-      (github.event_name == 'pull_request' && github.event.pull_request.user.login != 'jmrplens' && github.event.pull_request.user.login != 'dependabot[bot]')
+      (github.event_name == 'pull_request_target' && github.event.pull_request.user.login != 'jmrplens' && github.event.pull_request.user.login != 'dependabot[bot]')
     steps:
       - name: Assign to jmrplens
         env:
@@ -25,5 +32,5 @@ jobs:
           gh api \
             --method POST \
             -H "Accept: application/vnd.github+json" \
-            /repos/$REPO/issues/$NUMBER/assignees \
-            -f assignees[]=jmrplens
+            "/repos/$REPO/issues/$NUMBER/assignees" \
+            -f 'assignees[]=jmrplens'

@@ -21,8 +21,8 @@
   \RequirePackage{chemfig}
 }{%
   \PackageWarning{eps-quimica}{chemfig no disponible}%
-  \newcommand{\ch}[1]{\texttt{#1}}% Fallback
 }
+% \ch lo proporciona chemformula (cargado a través de chemmacros)
 \IfFileExists{chemmacros.sty}{%
   \RequirePackage{chemmacros}
   \chemsetup{
@@ -30,11 +30,21 @@
   }
 }{%
   \PackageWarning{eps-quimica}{chemmacros no disponible}%
+  % Solo si nadie ha definido \ch antes (p. ej. mhchem)
+  \@ifundefined{ch}{\IfFileExists{chemformula.sty}{\RequirePackage{chemformula}}{}}{}%
 }
+\IfPackageLoadedTF{chemformula}{}{%
+  \PackageWarning{eps-quimica}{chemformula no disponible: \string\ch\space
+    mostrará las fórmulas como texto}%
+}
+% Fallback: si nadie ha definido \ch, mostrar la fórmula tal cual
+\providecommand{\ch}[1]{\texttt{#1}}
+% Solo ajustes propios del módulo; el formato de los números según el idioma
+% lo configura la clase.
 \IfFileExists{siunitx.sty}{%
   \RequirePackage{siunitx}
   \sisetup{
-    separate-uncertainty=true,
+    uncertainty-mode=separate,
     per-mode=symbol,
   }
 }{%
@@ -251,17 +261,17 @@
 
 % Nota de seguridad en protocolo
 \newcommand{\protocolwarning}[1]{%
-  \item[] \textcolor{eps-warning}{\faExclamationTriangle}~\textbf{Precaución:} #1
+  \item[] \textcolor{eps-warning}{\faExclamationTriangle}~\textbf{\EPSsegunidioma{Precaución:}{Precaució:}{Caution:}} #1
 }
 
 % Nota informativa
 \newcommand{\protocolnote}[1]{%
-  \item[] \textcolor{eps-info}{\faInfoCircle}~\textbf{Nota:} #1
+  \item[] \textcolor{eps-info}{\faInfoCircle}~\textbf{\EPSsegunidioma{Nota:}{Nota:}{Note:}} #1
 }
 
 % Materiales necesarios
 \newcommand{\protocolmaterials}[1]{%
-  \item[] \textcolor{eps-secondary}{\faFlask}~\textbf{Materiales:} #1
+  \item[] \textcolor{eps-secondary}{\faFlask}~\textbf{\EPSsegunidioma{Materiales:}{Materials:}{Materials:}} #1
 }
 
 % ============================================================================
@@ -272,13 +282,7 @@
 % Uso: \begin{chemspectrumbox}[Espectro IR del compuesto]
 %        \begin{tikzpicture}...
 %      \end{chemspectrumbox}
-\newenvironment{chemspectrumbox}[1][Espectro]{%
-  \begin{center}
-  {\small\bfseries\faWaveSquare\hspace{0.5em}#1}
-  \par\vspace{4pt}
-}{%
-  \end{center}
-}
+\eps@nuevoencabezadoicono{chemspectrumbox}{\EPSsegunidioma{Espectro}{Espectre}{Spectrum}}{\faWaveSquare}
 
 % Estilos para espectros
 \pgfplotsset{
@@ -342,13 +346,7 @@
 % Uso: \begin{phasediagrambox}[Diagrama Fe-C]
 %        \begin{tikzpicture}...
 %      \end{phasediagrambox}
-\newenvironment{phasediagrambox}[1][Diagrama de fases]{%
-  \begin{center}
-  {\small\bfseries\faChartLine\hspace{0.5em}#1}
-  \par\vspace{4pt}
-}{%
-  \end{center}
-}
+\eps@nuevoencabezadoicono{phasediagrambox}{\EPSsegunidioma{Diagrama de fases}{Diagrama de fases}{Phase diagram}}{\faChartLine}
 
 % Región de fase
 \tikzset{

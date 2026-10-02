@@ -99,11 +99,14 @@
 
 % Parámetros del endpoint (estilo tabla limpia)
 \newcommand{\apiparams}[1]{%
-  \par\textbf{Parámetros:}\par
+  \par\textbf{\EPSsegunidioma{Parámetros:}{Paràmetres:}{Parameters:}}\par
   \smallskip
   \begin{tabularx}{\linewidth}{@{}l l X l@{}}
     \toprule
-    \textbf{Nombre} & \textbf{Tipo} & \textbf{Descripción} & \textbf{Requerido} \\
+    \textbf{\EPSsegunidioma{Nombre}{Nom}{Name}} &
+    \textbf{\EPSsegunidioma{Tipo}{Tipus}{Type}} &
+    \textbf{\EPSsegunidioma{Descripción}{Descripció}{Description}} &
+    \textbf{\EPSsegunidioma{Requerido}{Requerit}{Required}} \\
     \midrule
     #1
     \bottomrule
@@ -121,7 +124,7 @@
 % Respuesta del endpoint
 % Uso: \apiresponse{código}{contenido}
 \newcommand{\apiresponse}[2]{%
-  \par\textbf{Respuesta} \badge[%
+  \par\textbf{\EPSsegunidioma{Respuesta}{Resposta}{Response}} \badge[%
     \ifnum#1<300 eps-success\else%
     \ifnum#1<400 eps-warning\else%
     eps-danger\fi\fi]{#1}:\par
@@ -136,8 +139,11 @@
 % ============================================================================
 
 % Terminal box (estilo MacOS/VSCode moderno)
+% Uso: \begin{terminal}[Título opcional] ... \end{terminal}
+\newif\ifeps@enterminal
 \newtcolorbox{terminal}[1][Terminal]{
   enhanced,
+  before upper={\eps@enterminaltrue},
   title={#1},
   colback=eps-code-bg,
   colframe=eps-dark,
@@ -168,9 +174,26 @@
 }
 
 % Prompt de terminal
-\newcommand{\prompt}{{\textcolor{eps-terminal-green}{\textbf{\$}}}~}
-\newcommand{\promptroot}{{\textcolor{eps-danger}{\textbf{\#}}}~}
-\newcommand{\promptuser}[1]{{\textcolor{eps-terminal-green}{#1@host:{\raise.17ex\hbox{$\scriptstyle\sim$}}\$}}~}
+% Cada \prompt, \promptroot y \promptuser empieza una línea nueva por sí solo,
+% así que basta con escribir un comando por línea del fuente:
+%   \begin{terminal}[Título]
+%     \prompt npm install
+%     \promptroot systemctl restart nginx
+%   \end{terminal}
+% La forma con \\ al final de cada línea sigue funcionando igual (sin líneas
+% en blanco adicionales). El cuerpo NO es verbatim: hay que escapar & # % _ $.
+% Fuera del entorno terminal los prompts se comportan como texto en línea.
+\newcommand{\eps@terminalnuevalinea}{%
+  \ifeps@enterminal
+    \ifhmode
+      % Si la línea ya se ha cortado (p. ej. con \\) no se añade otro salto
+      \ifnum\lastpenalty=-\@M\else\\\fi
+    \fi
+  \fi
+}
+\newcommand{\prompt}{\eps@terminalnuevalinea{\textcolor{eps-terminal-green}{\textbf{\$}}}~}
+\newcommand{\promptroot}{\eps@terminalnuevalinea{\textcolor{eps-danger}{\textbf{\#}}}~}
+\newcommand{\promptuser}[1]{\eps@terminalnuevalinea{\textcolor{eps-terminal-green}{#1@host:{\raise.17ex\hbox{$\scriptstyle\sim$}}\$}}~}
 
 % Comentario en terminal
 \newcommand{\termcomment}[1]{{\textcolor{eps-gray}{\textit{\# #1}}}}
@@ -229,7 +252,7 @@
 %        \dirtreeitem[0]{proyecto/}
 %        \dirtreeitem[1]{src/}
 %      \end{dirtreebox}
-\newenvironment{dirtreebox}[1][Estructura del proyecto]{%
+\newenvironment{dirtreebox}[1][\EPSsegunidioma{Estructura del proyecto}{Estructura del projecte}{Project structure}]{%
   \begin{tcolorbox}[eps-card, title={\faFolder~#1}]
   \ttfamily\small
 }{%

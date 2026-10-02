@@ -8,7 +8,7 @@
 %% Versión:  2.2.2 (2026/08/02)
 %%
 %% -----------------------------------------------------------------------------
-\NeedsTeXFormat{LaTeX2e}[2022/06/01]
+\NeedsTeXFormat{LaTeX2e}[2024/11/01]
 \ProvidesClass{eps-tfg}[2026/08/02 v2.2.2 Clase TFG/TFM EPS Universidad de Alicante]
 
 %% ============================================================================
@@ -55,10 +55,7 @@
 % tracklang para datatool y glossaries
 \PassOptionsToPackage{spanish}{tracklang}
 
-\RequirePackage{expl3}
-\RequirePackage{xparse}
-\RequirePackage{l3keys2e}
-
+% expl3 y xparse forman parte del núcleo de LaTeX: no hace falta cargarlos.
 \ExplSyntaxOn
 
 %% ============================================================================
@@ -83,6 +80,7 @@
 
 % Configuración de titulación
 \tl_new:N \g__eps_titulacion_tl
+\tl_new:N \g__eps_titulacion_pedida_tl % valor escrito por el usuario (válido o no)
 \tl_new:N \g__eps_titulacion_nombre_tl
 \tl_new:N \g__eps_tipo_trabajo_tl
 \tl_new:N \g__eps_color_grado_tl
@@ -103,6 +101,7 @@
 % Idioma del documento
 \tl_new:N \g__eps_idioma_tl
 \tl_new:N \g__eps_idioma_polyglossia_tl
+\tl_new:N \g__eps_idioma_variante_tl % opciones de polyglossia (p. ej. variant=british)
 \tl_new:N \g__eps_idioma_codigo_tl
 \tl_new:N \g__eps_idioma_biblatex_tl
 
@@ -125,6 +124,8 @@
 
 % Property list para almacenar datos de titulaciones
 \prop_new:N \g__eps_titulaciones_prop
+% Lista de identificadores válidos (para los mensajes de error)
+\clist_new:N \g__eps_titulaciones_clist
 
 % Comando para definir una titulación
 \cs_new_protected:Nn \__eps_define_titulacion:nnnnnnn
@@ -136,6 +137,7 @@
     % #5 = color texto (blanco/negro)
     % #6 = logo variante portada (Blanco/Negro/Color)
     % #7 = logo variante normal (normalmente Negro)
+    \clist_gput_right:Nn \g__eps_titulaciones_clist { #1 }
     \prop_gput:Nnn \g__eps_titulaciones_prop { #1 / nombre } { #2 }
     \prop_gput:Nnn \g__eps_titulaciones_prop { #1 / tipo } { #3 }
     \prop_gput:Nnn \g__eps_titulaciones_prop { #1 / color } { #4 }
@@ -270,16 +272,24 @@
 %% ============================================================================
 \cs_new_protected:Nn \__eps_setup_titulacion:n
   {
+    \tl_gset:Nn \g__eps_titulacion_pedida_tl { #1 }
+    % Si la titulación no existe se avisa y no se toca nada más: el resto de
+    % datos (colores, logos) no existen y expandirlos colgaría la compilación.
+    \prop_if_in:NnTF \g__eps_titulaciones_prop { #1 / nombre }
+      { \__eps_setup_titulacion_datos:n { #1 } }
+      {
+        \msg_error:nnne { eps-tfg } { titulacion-desconocida } { #1 }
+          { \clist_use:Nn \g__eps_titulaciones_clist { ,~ } }
+      }
+  }
+
+\cs_new_protected:Nn \__eps_setup_titulacion_datos:n
+  {
     \tl_gset:Nn \g__eps_titulacion_tl { #1 }
 
     % Obtener datos de la prop list
-    \prop_get:NnNTF \g__eps_titulaciones_prop { #1 / nombre } \l_tmpa_tl
-      {
-        \tl_gset_eq:NN \g__eps_titulacion_nombre_tl \l_tmpa_tl
-      }
-      {
-        \msg_error:nnn { eps-tfg } { titulacion-desconocida } { #1 }
-      }
+    \prop_get:NnN \g__eps_titulaciones_prop { #1 / nombre } \l_tmpa_tl
+    \tl_gset_eq:NN \g__eps_titulacion_nombre_tl \l_tmpa_tl
 
     \prop_get:NnN \g__eps_titulaciones_prop { #1 / tipo } \l_tmpa_tl
     \str_case:VnF \l_tmpa_tl
@@ -332,16 +342,19 @@
       {
         {espanol} {
           \tl_gset:Nn \g__eps_idioma_polyglossia_tl {spanish}
+          \tl_gclear:N \g__eps_idioma_variante_tl
           \tl_gset:Nn \g__eps_idioma_codigo_tl {es-ES}
           \tl_gset:Nn \g__eps_idioma_biblatex_tl {spanish}
         }
         {valenciano} {
           \tl_gset:Nn \g__eps_idioma_polyglossia_tl {catalan}
-          \tl_gset:Nn \g__eps_idioma_codigo_tl {ca-ES}
+          \tl_gclear:N \g__eps_idioma_variante_tl
+          \tl_gset:Nn \g__eps_idioma_codigo_tl {ca-ES-valencia}
           \tl_gset:Nn \g__eps_idioma_biblatex_tl {catalan}
         }
         {ingles} {
           \tl_gset:Nn \g__eps_idioma_polyglossia_tl {english}
+          \tl_gset:Nn \g__eps_idioma_variante_tl {variant=british}
           \tl_gset:Nn \g__eps_idioma_codigo_tl {en-GB}
           \tl_gset:Nn \g__eps_idioma_biblatex_tl {english}
         }
@@ -357,7 +370,7 @@
 \msg_new:nnn { eps-tfg } { titulacion-desconocida }
   {
     La~titulación~'#1'~no~está~definida.~
-    Consulta~la~documentación~para~ver~las~titulaciones~disponibles.
+    Valores~válidos:~#2.
   }
 
 \msg_new:nnn { eps-tfg } { idioma-desconocido }
@@ -369,8 +382,31 @@
 \msg_new:nnn { eps-tfg } { campo-requerido }
   {
     El~campo~'#1'~es~obligatorio.~
-    Usa~\token_to_str:N \EPSsetup \{#1~=~...\}~para~definirlo.
+    Usa~\token_to_str:N \EPSsetup \{#1~=~...\}~en~configuracion.tex~para~definirlo.
   }
+
+\msg_new:nnn { eps-tfg } { campo-vacio }
+  {
+    El~campo~'#1'~está~vacío.~
+    Defínelo~con~\token_to_str:N \EPSsetup \{#1~=~...\}~en~configuracion.tex.
+  }
+
+% Comprobación de los datos imprescindibles (al empezar el documento, cuando
+% ya se ha leído configuracion.tex)
+\cs_new_protected:Nn \__eps_comprobar_campos:
+  {
+    % (si se escribió un valor no válido ya se avisó al leerlo)
+    \tl_if_empty:NT \g__eps_titulacion_pedida_tl
+      { \msg_error:nnn { eps-tfg } { campo-requerido } { titulacion } }
+    \tl_if_empty:NT \g__eps_titulo_tl
+      { \msg_warning:nnn { eps-tfg } { campo-vacio } { titulo } }
+    \tl_if_empty:NT \g__eps_autor_tl
+      { \msg_warning:nnn { eps-tfg } { campo-vacio } { autor } }
+    \tl_if_empty:NT \g__eps_tutor_tl
+      { \msg_warning:nnn { eps-tfg } { campo-vacio } { tutor } }
+  }
+\AddToHook { begindocument / before } [ eps-tfg / campos ]
+  { \__eps_comprobar_campos: }
 
 %% ============================================================================
 %% INTERFAZ DE USUARIO: \EPSsetup
@@ -423,6 +459,9 @@
     titulacion .value_required:n = true,
 
     % Opciones
+    % optimizar-tikz: OBSOLETA y sin efecto. Se acepta para no romper
+    % configuraciones antiguas (la externalización de TikZ no es compatible
+    % con el etiquetado del PDF).
     optimizar-tikz .bool_gset:N = \g__eps_optimizar_tikz_bool,
     optimizar-tikz .default:n = true,
     optimizar-tikz .initial:n = true,
@@ -471,6 +510,36 @@
 \NewExpandableDocumentCommand{\EPSidiomaCodigo}{}{\tl_use:N \g__eps_idioma_codigo_tl}
 \NewExpandableDocumentCommand{\EPSidiomaBiblatex}{}{\tl_use:N \g__eps_idioma_biblatex_tl}
 
+% Selecciona un texto según el idioma del documento (expandible):
+%   \EPSsegunidioma{<español>}{<valenciano>}{<inglés>}
+% Lo usan la clase y los componentes para no dejar textos fijos en español.
+\NewExpandableDocumentCommand{\EPSsegunidioma}{ m m m }
+  {
+    \str_case:VnF \g__eps_idioma_tl
+      {
+        {espanol} {#1}
+        {valenciano} {#2}
+        {ingles} {#3}
+      }
+      {#1}
+  }
+
+% Títulos de las listas de acrónimos y del glosario (usados en main.tex)
+\NewExpandableDocumentCommand{\EPStituloAcronimos}{}
+  {
+    \EPSsegunidioma
+      {Lista~de~Acrónimos~y~Abreviaturas}
+      {Llista~d'Acrònims~i~Abreviatures}
+      {List~of~Acronyms~and~Abbreviations}
+  }
+\NewExpandableDocumentCommand{\EPStituloGlosario}{}
+  {
+    \EPSsegunidioma
+      {Glosario~de~Términos}
+      {Glossari~de~Termes}
+      {Glossary~of~Terms}
+  }
+
 % Comando para obtener la fecha formateada
 \NewDocumentCommand{\EPSfecha}{}
   {
@@ -505,6 +574,16 @@
 \NewDocumentCommand{\EPSsiCotutor}{ m m }
   {
     \tl_if_empty:NTF \g__eps_cotutor_tl { #2 } { #1 }
+  }
+
+% Comandos para comprobar si hay departamento de tutor/cotutor
+\NewDocumentCommand{\EPSsiTutorDpto}{ m m }
+  {
+    \tl_if_blank:VTF \g__eps_tutor_dpto_tl { #2 } { #1 }
+  }
+\NewDocumentCommand{\EPSsiCotutorDpto}{ m m }
+  {
+    \tl_if_blank:VTF \g__eps_cotutor_dpto_tl { #2 } { #1 }
   }
 
 % Comando para obtener etiqueta de autor según género (m=masculino, f=femenino, n=neutro)
@@ -546,25 +625,56 @@
       }
   }
 
-\ExplSyntaxOff
-
 %% ============================================================================
 %% OPCIONES DE CLASE
 %% ============================================================================
-\DeclareOption{borrador}{%
-  \ExplSyntaxOn
-  \bool_gset_true:N \g__eps_borrador_bool
-  \ExplSyntaxOff
-}
-
-\DeclareOption{final}{%
-  \ExplSyntaxOn
-  \bool_gset_false:N \g__eps_borrador_bool
-  \ExplSyntaxOff
-}
+% \documentclass[borrador]{eps-tfg} equivale a borrador = true en \EPSsetup.
+% (Se declaran con la sintaxis expl3 activa: el código de una opción se lee
+% al declararla, no al ejecutarla.)
+\DeclareOption{borrador}{ \bool_gset_true:N \g__eps_borrador_bool }
+\DeclareOption{final}{ \bool_gset_false:N \g__eps_borrador_bool }
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{scrbook}}
 \ProcessOptions\relax
+
+\ExplSyntaxOff
+
+%% ============================================================================
+%% COMPATIBILIDAD CON EL ETIQUETADO (latex-lab)
+%% ============================================================================
+%% Con \DocumentMetadata (cls/eps-metadata.tex) LaTeX carga los módulos de
+%% etiquetado de latex-lab. Desde LaTeX 2025-11 se cargan TODOS (block, math,
+%% table...) y algunos paquetes que usa la plantilla dejan de funcionar.
+%% Estos ajustes no tienen efecto cuando no se usa \DocumentMetadata.
+%%
+%% (1) enumitem: el módulo 'block' redefine itemize/enumerate/description al
+%%     empezar el documento y descarta las opciones de enumitem (noitemsep,
+%%     leftmargin, label=...). Se restauran las versiones de enumitem después
+%%     de 'block'; las listas se siguen etiquetando (L/LI/Lbl/LBody).
+\AddToHook{package/enumitem/after}{%
+  \NewEnvironmentCopy{eps@enit@itemize}{itemize}%
+  \NewEnvironmentCopy{eps@enit@enumerate}{enumerate}%
+  \NewEnvironmentCopy{eps@enit@description}{description}%
+  \AddToHook{begindocument/before}[eps-tfg/enumitem]{%
+    \RenewEnvironmentCopy{itemize}{eps@enit@itemize}%
+    \RenewEnvironmentCopy{enumerate}{eps@enit@enumerate}%
+    \RenewEnvironmentCopy{description}{eps@enit@description}}%
+  \DeclareHookRule{begindocument/before}{eps-tfg/enumitem}{after}{latex-lab-testphase-block}%
+}
+%% (2) chemformula: \ch usa un $ implícito para subíndices y el módulo 'math'
+%%     (que busca el $ de cierre) falla. Se desactiva esa recogida dentro de \ch.
+\AddToHook{package/chemformula/after}{%
+  \NewCommandCopy\eps@ch@original\ch
+  \RenewDocumentCommand\ch{O{}m}{%
+    {\ifdefined\MathCollectFalse\MathCollectFalse\fi\eps@ch@original[#1]{#2}}}%
+}
+%% (3) threeparttable copia \endlist al cargarse ('\let\endtablenotes\endlist');
+%%     'block' redefine las listas después y el par queda desemparejado.
+\AddToHook{package/threeparttable/after}{%
+  \AddToHook{begindocument/before}[eps-tfg/threeparttable]{%
+    \let\endtablenotes\endlist}%
+  \DeclareHookRule{begindocument/before}{eps-tfg/threeparttable}{after}{latex-lab-testphase-block}%
+}
 
 %% ============================================================================
 %% CLASE BASE
@@ -776,7 +886,11 @@
   style=apa,
   sorting=nyt,
   natbib=true,
-  language=spanish,
+  % language=auto: los textos siguen el idioma del documento (polyglossia) y
+  % cada entrada conserva su 'langid', necesario para que biblatex-apa aplique
+  % la capitalización APA a los títulos en inglés. (Forzar language=spanish
+  % la desactivaba.)
+  language=auto,
   url=true,
   doi=true,
   eprint=false
@@ -806,6 +920,12 @@
   automata,
   patterns,
   intersections
+}
+
+% siunitx (lo cargan los módulos de componentes): coma decimal en español y
+% valenciano, punto en inglés. Se puede cambiar con \sisetup en el preámbulo.
+\AddToHook{package/siunitx/after}{%
+  \sisetup{output-decimal-marker={\EPSsegunidioma{{,}}{{,}}{.}}}%
 }
 
 \RequirePackage{pgfplots}
@@ -882,15 +1002,43 @@
 \RequirePackage{afterpage}
 \RequirePackage{rotating}
 
-% Comentarios TODO (desactivar con borrador=false)
+% Comentarios TODO (visibles solo con borrador = true)
+% El paquete se carga siempre para que \setuptodonotes y similares funcionen
+% en el preámbulo. La opción 'borrador' se lee en configuracion.tex, DESPUÉS
+% de cargar la clase, así que las notas se desactivan al empezar el documento.
+\RequirePackage[textsize=tiny,shadow,textwidth=2cm]{todonotes}
 \ExplSyntaxOn
-\bool_if:NTF \g__eps_borrador_bool
+\cs_new_protected:Nn \__eps_configurar_todonotes:
   {
-    \RequirePackage[textsize=tiny,spanish,shadow,textwidth=2cm]{todonotes}
+    % Textos de todonotes según el idioma
+    \str_case:Vn \g__eps_idioma_tl
+      {
+        {espanol}
+          {
+            \use:c { @todonotes@SetTodoListName } { Lista~de~tareas~pendientes }
+            \use:c { @todonotes@SetMissingFigureText } { Figura }
+            \use:c { @todonotes@SetMissingFigureUp } { Figura }
+            \use:c { @todonotes@SetMissingFigureDown } { pendiente }
+          }
+        {valenciano}
+          {
+            \use:c { @todonotes@SetTodoListName } { Llista~de~tasques~pendents }
+            \use:c { @todonotes@SetMissingFigureText } { Figura }
+            \use:c { @todonotes@SetMissingFigureUp } { Figura }
+            \use:c { @todonotes@SetMissingFigureDown } { pendent }
+          }
+      }
+    % Modo final: mismo efecto que la opción 'disable' de todonotes
+    \bool_if:NF \g__eps_borrador_bool
+      {
+        \use:c { @todonotes@disabledtrue }
+        \exp_args:Nc \RenewDocumentCommand { @todo } { O{} m } { }
+        \RenewDocumentCommand \missingfigure { O{} m } { }
+        \RenewDocumentCommand \listoftodos { O{} } { }
+      }
   }
-  {
-    \RequirePackage[disable]{todonotes}
-  }
+\AddToHook { begindocument / before } [ eps-tfg / todonotes ]
+  { \__eps_configurar_todonotes: }
 \ExplSyntaxOff
 
 %% ============================================================================
@@ -913,8 +1061,8 @@
 \RequirePackage{amsfonts}
 \RequirePackage{amssymb}
 \RequirePackage{bm}
-\RequirePackage{mathrsfs}
 \RequirePackage{nicefrac}
+% \mathscr lo proporciona unicode-math (mathrsfs no tendría efecto)
 
 % Soporte Unicode Math (Debe cargarse después de mathtools y otros paquetes ams)
 % Desactivamos comandos de mathtools que entran en conflicto con unicode-math para evitar warnings
@@ -939,14 +1087,15 @@
 %% ============================================================================
 %% TEOREMAS Y DEFINICIONES
 %% ============================================================================
-\newtheorem{teorema}{Teorema}[chapter]
-\newtheorem{theorem}{Theorem}[chapter]
-\newtheorem{ejemplo}{Ejemplo}[chapter]
-\newtheorem{definicion}{Definición}[chapter]
-\newtheorem{definition}{Definition}[chapter]
-\newtheorem{lema}{Lema}[chapter]
-\newtheorem{corolario}{Corolario}[chapter]
-\newtheorem{proposicion}{Proposición}[chapter]
+% Los nombres siguen el idioma del documento (teorema y theorem son sinónimos)
+\newtheorem{teorema}{\EPSsegunidioma{Teorema}{Teorema}{Theorem}}[chapter]
+\newtheorem{theorem}{\EPSsegunidioma{Teorema}{Teorema}{Theorem}}[chapter]
+\newtheorem{ejemplo}{\EPSsegunidioma{Ejemplo}{Exemple}{Example}}[chapter]
+\newtheorem{definicion}{\EPSsegunidioma{Definición}{Definició}{Definition}}[chapter]
+\newtheorem{definition}{\EPSsegunidioma{Definición}{Definició}{Definition}}[chapter]
+\newtheorem{lema}{\EPSsegunidioma{Lema}{Lema}{Lemma}}[chapter]
+\newtheorem{corolario}{\EPSsegunidioma{Corolario}{Corol·lari}{Corollary}}[chapter]
+\newtheorem{proposicion}{\EPSsegunidioma{Proposición}{Proposició}{Proposition}}[chapter]
 
 %% ============================================================================
 %% CARGAR PAQUETES ADICIONALES
@@ -967,31 +1116,37 @@
 %% CONFIGURACIÓN DE HYPERREF Y SELECCIÓN DE IDIOMA (al final)
 %% ============================================================================
 
-% Definir comando auxiliar para seleccionar idioma (debe estar en ExplSyntax)
+% Idioma principal según 'idioma' (configuracion.tex se lee después de cargar
+% la clase). Tiene que ser \setmainlanguage antes de empezar el documento:
+% polyglossia restablece el idioma principal al final de \begin{document},
+% así que un \selectlanguage en \AtBeginDocument no tendría efecto.
 \ExplSyntaxOn
-\cs_new_protected:Nn \__eps_seleccionar_idioma:
+\cs_new_protected:Nn \__eps_idioma_principal:
   {
-    \str_case:VnF \g__eps_idioma_tl
+    \use:e
       {
-        {espanol} { \selectlanguage{spanish} }
-        {valenciano} { \selectlanguage{catalan} }
-        {ingles} { \selectlanguage{english} }
+        \exp_not:N \setmainlanguage
+          [ \exp_not:V \g__eps_idioma_variante_tl ]
+          { \exp_not:V \g__eps_idioma_polyglossia_tl }
       }
-      { \selectlanguage{spanish} } % Fallback
+    % El resumen en español se escribe con otherlanguage{spanish}
+    \str_if_eq:VnF \g__eps_idioma_polyglossia_tl { spanish }
+      { \setotherlanguage{spanish} }
   }
-% Wrapper para llamar desde fuera de ExplSyntax
+\AddToHook { begindocument / before } [ eps-tfg / idioma ]
+  { \__eps_idioma_principal: }
+
+% Cambia al idioma del documento dentro del texto (p. ej. tras un bloque en
+% otro idioma). Se mantiene por compatibilidad con versiones anteriores.
+\cs_new_protected:Nn \__eps_seleccionar_idioma:
+  { \exp_args:NV \selectlanguage \g__eps_idioma_polyglossia_tl }
 \NewDocumentCommand{\EPSseleccionarIdioma}{}{\__eps_seleccionar_idioma:}
 \ExplSyntaxOff
 
 \AtBeginDocument{%
-  % --- Seleccionar idioma según configuración ---
-  \EPSseleccionarIdioma
-  % --- Configurar biblatex según idioma ---
-  % Nota: biblatex requiere el nombre del idioma, no el código
-  % La configuración se hace en la carga del paquete con language=spanish
-  % por defecto. Para otros idiomas, el usuario puede usar
-  % \ExecuteBibliographyOptions{language=english} en el preámbulo.
   % --- Metadatos del PDF ---
+  % pdflang fija el idioma del PDF (y de los metadatos XMP) según 'idioma',
+  % con prioridad sobre el valor 'lang' de cls/eps-metadata.tex.
   \hypersetup{
     % --- Metadatos básicos ---
     pdfauthor = {\EPSautor},
@@ -1000,10 +1155,10 @@
     pdfkeywords = {TFG, TFM, Universidad de Alicante, EPS, \EPStitulacion},
     pdflang = {\EPSidiomaCodigo},
     % --- Metadatos extendidos ---
-    pdfcopyright = {Copyright © \the\year\space \EPSautor. Todos los derechos reservados.},
+    pdfcopyright = {Copyright © \the\year\space \EPSautor. \EPSsegunidioma{Todos los derechos reservados.}{Tots els drets reservats.}{All rights reserved.}},
     pdfcontactemail = {\EPSautorEmail},
     pdfpublisher = {Universidad de Alicante - Escuela Politécnica Superior},
-    pdfcontactcountry = {España},
+    pdfcontactcountry = {\EPSsegunidioma{España}{Espanya}{Spain}},
     pdfcontactcity = {Alicante},
     % --- Información de la plantilla ---
     pdfcreator = {LuaLaTeX con plantilla TFG-TFM EPS UA},

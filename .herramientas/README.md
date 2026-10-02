@@ -63,18 +63,22 @@ python3 .herramientas/actualizar_previews.py --archivo ECUACIONES
 # Solo generar (sin insertar enlaces)
 python3 .herramientas/actualizar_previews.py --solo-generar
 
-# Solo insertar enlaces (sin compilar)
+# Solo insertar enlaces (sin compilar; no necesita LuaLaTeX ni pdftoppm)
 python3 .herramientas/actualizar_previews.py --solo-insertar
 
-# Limpiar previews huérfanos
-python3 .herramientas/actualizar_previews.py --limpiar
+# Limpiar previews huérfanos y reinsertar enlaces, sin compilar
+python3 .herramientas/actualizar_previews.py --limpiar --solo-insertar
 ```
+
+`--limpiar` calcula los previews válidos a partir de **todos** los `docs/*.md`,
+también cuando se combina con `--archivo`, así que nunca borra los previews de
+otros documentos.
 
 ### Requisitos
 
-- Python 3.8+
-- LuaLaTeX con `-shell-escape`
-- poppler-utils (pdftoppm)
+- Python 3.9+
+- LuaLaTeX con `-shell-escape` (solo para generar; no con `--solo-insertar`)
+- poppler-utils (pdftoppm) (solo para generar)
 - (Opcional) cwebp para conversión a WebP
 
 ```bash
@@ -110,11 +114,14 @@ Genera las imágenes de portadas para cada titulación disponible.
 # Generar todas las portadas
 python3 .herramientas/generar_portadas.py
 
-# Solo listar titulaciones
-python3 .herramientas/generar_portadas.py --listar
+# Solo una titulación
+python3 .herramientas/generar_portadas.py --only informatica
 
-# Forzar regeneración
-python3 .herramientas/generar_portadas.py --forzar
+# Sin actualizar la tabla de portadas del README.md
+python3 .herramientas/generar_portadas.py --no-update-readme
+
+# Mostrar información detallada
+python3 .herramientas/generar_portadas.py --verbose
 ```
 
 ---
@@ -127,7 +134,7 @@ Para mayor comodidad, se incluye un Makefile:
 # Desde la raíz del proyecto
 make -f .herramientas/Makefile previews     # Generar e insertar previews
 make -f .herramientas/Makefile listar       # Listar snippets marcados
-make -f .herramientas/Makefile limpiar      # Limpiar huérfanos
+make -f .herramientas/Makefile limpiar      # Limpiar huérfanos (sin compilar)
 make -f .herramientas/Makefile portadas     # Generar portadas
 ```
 

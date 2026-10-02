@@ -18,6 +18,7 @@ on:
       - 'recursos/**'
       - 'contenido/**'
       - '.latexmkrc'
+      - 'scripts/comprobar-pdf-etiquetado.py'
       - '.github/workflows/build.yml'
   pull_request:
     branches: [ main ]
@@ -29,6 +30,7 @@ on:
       - 'recursos/**'
       - 'contenido/**'
       - '.latexmkrc'
+      - 'scripts/comprobar-pdf-etiquetado.py'
       - '.github/workflows/build.yml'
   workflow_dispatch:
 
@@ -36,34 +38,37 @@ permissions:
   contents: read
   pull-requests: write
 
-# Control de concurrencia: cancela builds anteriores del mismo PR/branch
+# Control de concurrencia: cancela builds anteriores del mismo PR/rama.
+# Se usa el número de PR (no el nombre de la rama) para que dos PR de forks
+# distintos con la misma rama (p. ej. «main» o «patch-1») no se cancelen.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
-
-env:
-  TEXLIVE_VERSION: "2025"
 
 jobs:
   # 1. Crear comentario inicial en PR (aparece justo después de la descripción)
+  #    Solo para PR del propio repositorio: en PR desde forks el GITHUB_TOKEN es
+  #    de solo lectura y no puede comentar (el resultado se ve en los checks).
   init-comment:
     name: Iniciar comentario en PR
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    outputs:
-      comment_id: ${{ steps.create-comment.outputs.comment_id }}
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository
 
     steps:
     - name: Create or update initial comment
-      id: create-comment
       uses: actions/github-script@v9
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+          // Marcador único para identificar el comentario de este workflow
+          const marker = '<!-- build-latex-bot -->';
+          const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
           const sha = context.payload.pull_request.head.sha.substring(0, 7);
 
-          const body = `## 📄 Compilación del documento
+          const body = `${marker}
+          ## 📄 Compilación del documento
 
           ⏳ **Compilando...** El documento se está procesando.
 
@@ -78,69 +83,160 @@ jobs:
           *Generado automáticamente por GitHub Actions* 🤖
           `;
 
-          // Buscar comentario existente del bot
-          const { data: comments } = await github.rest.issues.listComments({
+          // Buscar comentario existente del bot (con paginación)
+          const comments = await github.paginate(github.rest.issues.listComments, {
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: context.issue.number,
+            per_page: 100,
           });
-
-          const botComment = comments.find(comment =>
-            comment.user.type === 'Bot' &&
-            comment.body.includes('📄 Compilación del documento')
+          // (también reconoce comentarios antiguos, anteriores al marcador)
+          const botComment = comments.find(c =>
+            c.user?.login === 'github-actions[bot]' &&
+            (c.body?.includes(marker) || c.body?.startsWith('## 📄 Compilación del documento'))
           );
 
-          let commentId;
           if (botComment) {
             await github.rest.issues.updateComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               comment_id: botComment.id,
-              body: body,
+              body,
             });
-            commentId = botComment.id;
           } else {
-            const { data: newComment } = await github.rest.issues.createComment({
+            await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: body,
+              body,
             });
-            commentId = newComment.id;
           }
 
-          core.setOutput('comment_id', commentId);
-
   # 2. Compilar documento
+  #    Matriz de compatibilidad: TeX Live más reciente y TeX Live 2024 (versión
+  #    mínima documentada), y los tres idiomas de la plantilla. Solo la
+  #    configuración principal (español, TeX Live más reciente) publica el PDF.
   build:
-    name: Compilar documento LaTeX
+    name: Compilar (${{ matrix.nombre }})
     runs-on: ubuntu-latest
     timeout-minutes: 30
     # No depender de init-comment para que push y workflow_dispatch funcionen
     if: "!cancelled()"
 
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - nombre: principal
+            texlive: latest
+            idioma: espanol
+            lang: es
+            principal: true
+          - nombre: texlive-2024
+            texlive: '2024'
+            idioma: espanol
+            lang: es
+            principal: false
+          - nombre: valenciano
+            texlive: latest
+            idioma: valenciano
+            lang: ca
+            principal: false
+          - nombre: ingles
+            texlive: latest
+            idioma: ingles
+            lang: en
+            principal: false
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v7
+
+    # Cambia el idioma en la copia de trabajo del runner (no se sube nada).
+    # La clase ajusta el idioma del PDF (/Lang) a partir de «idioma»; el paso
+    # «Comprobar etiquetado del PDF» verifica que el /Lang resultante coincide.
+    - name: Configurar idioma (${{ matrix.idioma }})
+      if: matrix.idioma != 'espanol'
+      env:
+        IDIOMA: ${{ matrix.idioma }}
+      run: |
+        sed -i -E "s/^([[:space:]]*idioma[[:space:]]*=[[:space:]]*)[a-z]+/\1${IDIOMA}/" configuracion.tex
+        grep -nE "^[[:space:]]*idioma[[:space:]]*=[[:space:]]*${IDIOMA}," configuracion.tex
 
     - name: Compile LaTeX document
       uses: xu-cheng/latex-action@v4
       with:
         root_file: main.tex
+        texlive_version: ${{ matrix.texlive }}
         latexmk_use_lualatex: true
         latexmk_shell_escape: true
         os: debian
         extra_system_packages: python3-pip
         pre_compile: |
-          pip3 install --break-system-packages latexminted
-          # Deshabilitar DocumentMetadata en CI (pdfstandard=ua-2 carga el paquete
-          # 'block' experimental que es incompatible con opciones de enumitem).
-          # En local con TeX Live estable funciona correctamente.
-          sed -i 's/\\input{eps-metadata}/%\\input{eps-metadata}/' main.tex
-          echo "Verificando que eps-metadata está comentado:"
-          grep -n "eps-metadata" main.tex
+          # Versión real de TeX Live de la imagen (se muestra en el comentario del PR)
+          lualatex --version | head -n 1 | tee texlive-version.txt
+          # TeX Live 2024+ ya incluye latexminted: se usa ese (es lo que tienen
+          # los usuarios). Solo si no funciona se recurre a PyPI, con aviso.
+          if latexminted --version >/dev/null 2>&1; then
+            echo "latexminted de TeX Live: $(latexminted --version | head -n 1)"
+          else
+            echo "::warning::latexminted de TeX Live no disponible; se instala desde PyPI"
+            pip3 install --break-system-packages latexminted || pip3 install latexminted
+          fi
+
+    - name: Configurar Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: '3.12'
+
+    # El PDF debe estar etiquetado (\DocumentMetadata en cls/eps-metadata.tex)
+    - name: Comprobar etiquetado del PDF
+      run: |
+        pip install --quiet pypdf
+        python3 scripts/comprobar-pdf-etiquetado.py main.pdf \
+          --titulo "PDF (${{ matrix.nombre }})" \
+          --idioma-esperado "${{ matrix.lang }}"
+
+    - name: Resumen de la compilación
+      if: always()
+      env:
+        NOMBRE: ${{ matrix.nombre }}
+        IDIOMA: ${{ matrix.idioma }}
+        TEXLIVE_PEDIDO: ${{ matrix.texlive }}
+        ESTADO: ${{ job.status }}
+      run: |
+        mkdir -p resumen
+        TL="$(cat texlive-version.txt 2>/dev/null || echo 'desconocida')"
+        # Versión de TeX Live («TeX Live 2026») y del núcleo LaTeX («2026-06-01»)
+        TL_CORTA="$(grep -oE 'TeX Live [0-9]{4}' <<< "$TL" || echo "$TL")"
+        KERNEL="$(grep -m1 -oE 'LaTeX2e <[^>]+>' main.log 2>/dev/null | sed -E 's/LaTeX2e <(.*)>/\1/' || true)"
+        {
+          echo "nombre=${NOMBRE}"
+          echo "idioma=${IDIOMA}"
+          echo "texlive_pedido=${TEXLIVE_PEDIDO}"
+          echo "texlive=${TL_CORTA}"
+          echo "kernel=${KERNEL:-?}"
+          echo "estado=${ESTADO}"
+        } > "resumen/${NOMBRE}.txt"
+        cat "resumen/${NOMBRE}.txt"
+        {
+          echo "### Compilación: ${NOMBRE}"
+          echo ""
+          echo "| Idioma | TeX Live | Núcleo LaTeX | Estado |"
+          echo "|---|---|---|---|"
+          echo "| ${IDIOMA} | ${TL_CORTA} | ${KERNEL:-?} | ${ESTADO} |"
+        } >> "$GITHUB_STEP_SUMMARY"
+
+    - name: Subir resumen
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: resumen-${{ matrix.nombre }}
+        path: resumen/
+        retention-days: 7
 
     - name: Upload PDF artifact
+      if: matrix.principal
       uses: actions/upload-artifact@v7
       with:
         name: TFG-TFM_EPS_UA
@@ -151,35 +247,190 @@ jobs:
       if: failure()
       uses: actions/upload-artifact@v7
       with:
-        name: build-logs
+        name: build-logs-${{ matrix.nombre }}
         path: |
           *.log
           *.blg
         retention-days: 7
 
-  # 3. Actualizar comentario con resultado final
+  # 3. Informe de accesibilidad (informativo, NUNCA bloquea el build)
+  #    Valida el PDF principal con veraPDF (perfil PDF/UA-2). La plantilla aún
+  #    no declara conformidad PDF/UA; el informe alimenta la fase de
+  #    investigación de accesibilidad.
+  accesibilidad:
+    name: Informe de accesibilidad (veraPDF)
+    runs-on: ubuntu-latest
+    needs: build
+    if: "!cancelled()"
+    continue-on-error: true
+    timeout-minutes: 15
+    env:
+      # Imagen oficial de veraPDF CLI (https://hub.docker.com/r/verapdf/cli)
+      VERAPDF_IMAGE: verapdf/cli:latest
+
+    steps:
+    # Si la compilación principal falló no hay PDF: se omite el informe
+    - name: Descargar PDF
+      id: pdf
+      continue-on-error: true
+      uses: actions/download-artifact@v8
+      with:
+        name: TFG-TFM_EPS_UA
+        path: pdf
+
+    - name: Validar con veraPDF
+      id: verapdf
+      if: steps.pdf.outcome == 'success'
+      run: |
+        docker pull --quiet "$VERAPDF_IMAGE"
+        VERSION="$(docker run --rm "$VERAPDF_IMAGE" --version 2>&1 | head -n 1 || true)"
+        echo "veraPDF: $VERSION"
+        mkdir -p informe
+        # PDF/UA-2 (ua2) si la versión de veraPDF lo soporta; si no, PDF/UA-1
+        PERFIL=""
+        for flavour in ua2 ua1; do
+          set +e
+          docker run --rm -v "$PWD/pdf:/data:ro" "$VERAPDF_IMAGE" \
+            --flavour "$flavour" --format xml /data/main.pdf > informe/verapdf.xml 2> informe/verapdf.err
+          CODIGO=$?
+          set -e
+          # El código de salida distingue conforme/no conforme; lo que importa
+          # es que se haya generado el informe con ese perfil.
+          if grep -q '<validationReport' informe/verapdf.xml; then
+            PERFIL="$flavour"
+            break
+          fi
+          echo "::warning::veraPDF no pudo validar con --flavour $flavour (código $CODIGO)"
+          cat informe/verapdf.err || true
+        done
+        if [ -z "$PERFIL" ]; then
+          echo "::error::veraPDF no generó ningún informe"
+          exit 1
+        fi
+        # Informe HTML legible con el mismo perfil
+        docker run --rm -v "$PWD/pdf:/data:ro" "$VERAPDF_IMAGE" \
+          --flavour "$PERFIL" --format html /data/main.pdf > informe/verapdf.html || true
+        {
+          echo "perfil=$PERFIL"
+          echo "version=$VERSION"
+        } >> "$GITHUB_OUTPUT"
+
+    - name: Resumir informe
+      if: steps.verapdf.outcome == 'success'
+      env:
+        PERFIL: ${{ steps.verapdf.outputs.perfil }}
+        VERSION: ${{ steps.verapdf.outputs.version }}
+      run: |
+        python3 - <<'EOF'
+        import os
+        import xml.etree.ElementTree as ET
+
+        def local(tag):
+            return tag.rsplit('}', 1)[-1]
+
+        raiz = ET.parse('informe/verapdf.xml').getroot()
+        informe = next((e for e in raiz.iter() if local(e.tag) == 'validationReport'), None)
+        detalles = next((e for e in raiz.iter() if local(e.tag) == 'details'), None)
+        perfil = os.environ.get('PERFIL', '?')
+        lineas = [
+            '### ♿ Informe de accesibilidad (veraPDF)', '',
+            f"- Versión: {os.environ.get('VERSION', '?')}",
+            f"- Perfil: **{perfil}**" + ('' if perfil == 'ua2' else ' (PDF/UA-2 no disponible en esta versión)'),
+        ]
+        if informe is not None:
+            lineas.append(f"- Perfil aplicado: {informe.get('profileName', '?')}")
+            lineas.append(f"- Conforme: **{'sí' if informe.get('isCompliant') == 'true' else 'no'}**")
+        if detalles is not None:
+            lineas.append(f"- Reglas superadas: {detalles.get('passedRules', '?')}")
+            lineas.append(f"- **Reglas incumplidas: {detalles.get('failedRules', '?')}** "
+                          f"({detalles.get('failedChecks', '?')} comprobaciones fallidas)")
+            fallidas = [r for r in detalles if local(r.tag) == 'rule' and r.get('status') == 'failed']
+            fallidas.sort(key=lambda r: -int(r.get('failedChecks', '0') or 0))
+            if fallidas:
+                lineas += ['', '| Cláusula | Test | Fallos | Descripción |', '|---|---|---|---|']
+                for r in fallidas[:25]:
+                    desc = next((d.text or '' for d in r if local(d.tag) == 'description'), '')
+                    desc = ' '.join(desc.split()).replace('|', '\\|')[:160]
+                    lineas.append(f"| {r.get('clause', '')} | {r.get('testNumber', '')} | "
+                                  f"{r.get('failedChecks', '')} | {desc} |")
+                if len(fallidas) > 25:
+                    lineas.append(f"\n… y {len(fallidas) - 25} reglas más (ver artefacto).")
+        lineas += ['', '> Informe informativo: no bloquea la compilación. '
+                       'Informe completo en el artefacto **informe-accesibilidad**.']
+        texto = '\n'.join(lineas) + '\n'
+        print(texto)
+        with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as f:
+            f.write(texto)
+        EOF
+
+    - name: Subir informe de accesibilidad
+      if: always()
+      uses: actions/upload-artifact@v7
+      with:
+        name: informe-accesibilidad
+        path: informe/
+        if-no-files-found: ignore
+        retention-days: 30
+
+  # 4. Actualizar comentario con resultado final (solo PR del propio repo)
   comment-pr:
     name: Actualizar comentario en PR
     runs-on: ubuntu-latest
-    if: always() && github.event_name == 'pull_request' && !cancelled()
+    if: >-
+      always() && !cancelled() &&
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository
     needs: [init-comment, build]
 
     steps:
+    - name: Descargar resúmenes de compilación
+      uses: actions/download-artifact@v8
+      continue-on-error: true
+      with:
+        pattern: resumen-*
+        path: resumen
+        merge-multiple: true
+
     - name: Update PR comment with result
       uses: actions/github-script@v9
+      env:
+        BUILD_RESULT: ${{ needs.build.result }}
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const buildResult = '${{ needs.build.result }}';
-          const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+          const fs = require('fs');
+          const path = require('path');
+          const marker = '<!-- build-latex-bot -->';
+          const buildResult = process.env.BUILD_RESULT;
+          const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
           const prNumber = context.issue.number;
           const sha = context.payload.pull_request.head.sha.substring(0, 7);
 
-          const isSuccess = buildResult === 'success';
-          const statusEmoji = isSuccess ? '✅' : '❌';
-          const statusText = isSuccess ? 'Compilado correctamente' : 'Error de compilación';
+          // Leer los resúmenes de cada configuración de la matriz
+          const orden = ['principal', 'texlive-2024', 'valenciano', 'ingles'];
+          const resumenes = [];
+          if (fs.existsSync('resumen')) {
+            for (const f of fs.readdirSync('resumen')) {
+              const datos = {};
+              for (const linea of fs.readFileSync(path.join('resumen', f), 'utf8').split('\n')) {
+                const i = linea.indexOf('=');
+                if (i > 0) datos[linea.slice(0, i)] = linea.slice(i + 1).trim();
+              }
+              resumenes.push(datos);
+            }
+          }
+          resumenes.sort((a, b) => orden.indexOf(a.nombre) - orden.indexOf(b.nombre));
+          const principal = resumenes.find(r => r.nombre === 'principal');
 
-          let body = `## 📄 Compilación del documento
+          const isSuccess = buildResult === 'success';
+          const principalOk = principal ? principal.estado === 'success' : isSuccess;
+          const statusEmoji = isSuccess ? '✅' : (principalOk ? '⚠️' : '❌');
+          const statusText = isSuccess
+            ? 'Compilado correctamente'
+            : (principalOk ? 'Compilado, pero falla alguna configuración de la matriz' : 'Error de compilación');
+
+          let body = `${marker}
+          ## 📄 Compilación del documento
 
           ${statusEmoji} **${statusText}**
 
@@ -187,26 +438,41 @@ jobs:
           |---------|-------|
           | **Commit** | \`${sha}\` |
           | **PR** | #${prNumber} |
-          | **TeX Live** | ${{ env.TEXLIVE_VERSION }} |
+          | **TeX Live** | ${principal ? `${principal.texlive} (LaTeX ${principal.kernel})` : 'desconocida'} |
           `;
 
-          if (isSuccess) {
+          if (resumenes.length) {
+            body += `
+          ### 🧪 Matriz de compatibilidad
+
+          | Configuración | Idioma | TeX Live | Núcleo LaTeX | Resultado |
+          |---|---|---|---|---|
+          `;
+            for (const r of resumenes) {
+              const ok = r.estado === 'success' ? '✅' : '❌';
+              body += `| ${r.nombre} | ${r.idioma} | ${r.texlive} | ${r.kernel} | ${ok} ${r.estado} |\n`;
+            }
+          }
+
+          if (principalOk) {
             body += `
           ### 📥 Descargar PDF
 
           👉 **[Ver workflow y descargar artefactos](${runUrl})**
 
-          En la sección "Artifacts" encontrarás el archivo **TFG-TFM_EPS_UA** con el PDF compilado.
+          En la sección "Artifacts" encontrarás el archivo **TFG-TFM_EPS_UA** con el PDF compilado
+          y **informe-accesibilidad** con la validación de veraPDF (informativa).
 
           > **Nota:** Los artefactos estarán disponibles durante 90 días.
           `;
-          } else {
+          }
+          if (!isSuccess) {
             body += `
           ### ⚠️ Error en la compilación
 
           👉 **[Ver logs del workflow](${runUrl})**
 
-          Revisa los logs para identificar el problema.
+          Revisa los logs (artefactos \`build-logs-*\`) para identificar el problema.
           `;
           }
 
@@ -215,16 +481,17 @@ jobs:
           *Generado automáticamente por GitHub Actions* 🤖
           `;
 
-          // Buscar y actualizar el comentario del bot
-          const { data: comments } = await github.rest.issues.listComments({
+          // Buscar y actualizar el comentario del bot (con paginación)
+          const comments = await github.paginate(github.rest.issues.listComments, {
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: context.issue.number,
+            per_page: 100,
           });
-
-          const botComment = comments.find(comment =>
-            comment.user.type === 'Bot' &&
-            comment.body.includes('📄 Compilación del documento')
+          // (también reconoce comentarios antiguos, anteriores al marcador)
+          const botComment = comments.find(c =>
+            c.user?.login === 'github-actions[bot]' &&
+            (c.body?.includes(marker) || c.body?.startsWith('## 📄 Compilación del documento'))
           );
 
           if (botComment) {
@@ -232,34 +499,13 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               comment_id: botComment.id,
-              body: body,
+              body,
             });
           } else {
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: body,
+              body,
             });
           }
-
-  # 4. Verificar enlaces
-  check-links:
-    name: Verificar enlaces
-    runs-on: ubuntu-latest
-    # Solo ejecutar en workflow_dispatch, PR, o push (el workflow ya tiene path filters)
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      github.event_name == 'pull_request' ||
-      github.event_name == 'push'
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v7
-
-    - name: Check README links
-      uses: gaurav-nelson/github-action-markdown-link-check@v1
-      with:
-        use-quiet-mode: 'yes'
-        config-file: '.github/mlc_config.json'
-      continue-on-error: true

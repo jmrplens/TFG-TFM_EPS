@@ -85,8 +85,8 @@ Esta plantilla incluye los siguientes paquetes matemáticos:
 \RequirePackage{amsfonts}    % Fuentes matemáticas
 \RequirePackage{amssymb}     % Símbolos matemáticos
 \RequirePackage{bm}          % Negrita en matemáticas
-\RequirePackage{mathrsfs}    % Fuente script
 \RequirePackage{nicefrac}    % Fracciones en línea
+\RequirePackage{unicode-math} % Fuentes matemáticas OpenType (\mathscr, \mathbb...)
 ```
 
 ### Entornos predefinidos para teoremas
@@ -1047,7 +1047,7 @@ $\mathrm{const}$ % Romana (texto)
 $\mathsf{ABC}$  % Sans-serif
 $\mathtt{code}$ % Typewriter
 $\mathcal{L}$   % Caligráfica
-$\mathscr{L}$   % Script (mathrsfs)
+$\mathscr{L}$   % Script (unicode-math: \symscr)
 $\mathbb{R}$    % Blackboard bold
 $\mathfrak{g}$  % Fraktur
 ```

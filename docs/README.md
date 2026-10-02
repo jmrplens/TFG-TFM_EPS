@@ -39,7 +39,7 @@ Ver el **[índice completo de agentes](agents/README.md)** para instrucciones de
 
 ## ♿ Accesibilidad
 
-- **[Accesibilidad PDF](ACCESIBILIDAD.md)**: Crear PDFs accesibles (PDF/UA-2) para lectores de pantalla.
+- **[Accesibilidad PDF](ACCESIBILIDAD.md)**: PDF etiquetado para lectores de pantalla, texto alternativo y tablas accesibles (la conformidad PDF/UA-2 aún no se alcanza).
 
 ---
 
