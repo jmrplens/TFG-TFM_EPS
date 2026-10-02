@@ -1,6 +1,6 @@
 name: Create Release
 
-run-name: "📦 Release ${{ github.event.inputs.version || github.ref_name }}"
+run-name: "📦 Release ${{ inputs.version || github.ref_name }}"
 
 on:
   push:
@@ -16,9 +16,6 @@ on:
 permissions:
   contents: write
 
-env:
-  TEXLIVE_VERSION: "2025"
-
 jobs:
   release:
     name: Crear release
@@ -26,6 +23,26 @@ jobs:
     timeout-minutes: 30
 
     steps:
+    # Validar la versión antes de compilar. Los valores llegan por variables de
+    # entorno (nunca interpolados en el script) para evitar inyección de órdenes.
+    - name: Get version
+      id: version
+      env:
+        EVENTO: ${{ github.event_name }}
+        INPUT_VERSION: ${{ inputs.version }}
+        REF_NAME: ${{ github.ref_name }}
+      run: |
+        if [ "$EVENTO" = "workflow_dispatch" ]; then
+          VERSION="$INPUT_VERSION"
+        else
+          VERSION="$REF_NAME"
+        fi
+        if ! [[ "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          echo "::error::Versión no válida: '$VERSION' (formato esperado: vX.Y.Z)"
+          exit 1
+        fi
+        echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+
     - name: Checkout repository
       uses: actions/checkout@v7
       with:
@@ -40,35 +57,60 @@ jobs:
         os: debian
         extra_system_packages: python3-pip
         pre_compile: |
-          pip3 install --break-system-packages latexminted
-          # Deshabilitar DocumentMetadata en CI (pdfstandard=ua-2 carga el paquete
-          # 'block' experimental que es incompatible con opciones de enumitem).
-          sed -i 's/\\input{eps-metadata}/%\\input{eps-metadata}/' main.tex
+          lualatex --version | head -n 1
+          # TeX Live 2024+ ya incluye latexminted; se instala también desde PyPI
+          # por si la imagen no lo trae o su versión es antigua (no es fatal).
+          pip3 install --break-system-packages latexminted \
+            || pip3 install latexminted \
+            || echo "::warning::No se pudo instalar latexminted desde PyPI; se usa el de TeX Live"
+
+    - name: Configurar Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: '3.12'
+
+    - name: Comprobar etiquetado del PDF
+      run: |
+        pip install --quiet pypdf
+        python3 scripts/comprobar-pdf-etiquetado.py main.pdf --titulo "PDF de la release"
 
     - name: Rename PDF
       run: mv main.pdf TFG-TFM_EPS_UA.pdf
 
-    - name: Get version
-      id: version
+    # Notas de la release: sección «## [X.Y.Z]» de CHANGELOG.md (si existe)
+    # más un bloque fijo con instrucciones de uso.
+    - name: Generate release notes
+      env:
+        VERSION: ${{ steps.version.outputs.VERSION }}
       run: |
-        if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-          echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
-        else
-          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+        NUMERO="${VERSION#v}"
+        NUMERO_RE="${NUMERO//./\\.}"
+        awk -v cab="^## \\\\[${NUMERO_RE}\\\\]" '
+          $0 ~ cab        { dentro = 1; next }
+          dentro && /^## / { exit }
+          dentro && /^---[[:space:]]*$/ { next }
+          dentro          { print }
+        ' CHANGELOG.md > cambios.md
+        if ! grep -q '[^[:space:]]' cambios.md; then
+          echo "::warning::CHANGELOG.md no tiene sección [${NUMERO}]; se usan notas genéricas."
         fi
 
-    - name: Generate release notes
-      id: notes
-      run: |
-        VERSION="${{ steps.version.outputs.VERSION }}"
-        cat << EOF > release_notes.md
-        ## 📦 Plantilla TFG/TFM - EPS Universidad de Alicante
-
-        Esta release **${VERSION}** incluye la plantilla LaTeX actualizada y el documento de ejemplo compilado.
+        {
+          echo "## 📦 Plantilla TFG/TFM - EPS Universidad de Alicante"
+          echo ""
+          if grep -q '[^[:space:]]' cambios.md; then
+            echo "### 📝 Cambios en ${VERSION}"
+            cat cambios.md
+            echo ""
+            echo "Consulta el [CHANGELOG completo](https://github.com/${GITHUB_REPOSITORY}/blob/${VERSION}/CHANGELOG.md)."
+          else
+            echo "Esta release **${VERSION}** incluye la plantilla LaTeX actualizada y el documento de ejemplo compilado."
+          fi
+          cat << 'EOF'
 
         ### 📥 Archivos incluidos
 
-        - **TFG-TFM_EPS_UA.pdf** - Documento de ejemplo compilado
+        - **TFG-TFM_EPS_UA.pdf** - Documento de ejemplo compilado (PDF etiquetado)
         - **Source code** - Código fuente de la plantilla
 
         ### 🚀 Cómo usar
@@ -76,17 +118,17 @@ jobs:
         1. Descarga el código fuente (zip o tar.gz)
         2. Extrae los archivos
         3. Abre el proyecto en tu editor LaTeX favorito
-        4. Compila con **LuaLaTeX** usando el flag \`-shell-escape\`
+        4. Compila con **LuaLaTeX** usando el flag `-shell-escape`
 
         ### 📋 Requisitos
 
-        - TeX Live ${{ env.TEXLIVE_VERSION }} o superior
+        - TeX Live 2024 o superior
         - LuaLaTeX (obligatorio)
-        - latexminted para resaltado de código (\`pip install latexminted\`)
+        - latexminted para resaltado de código (incluido en TeX Live 2024+, o `pip install latexminted`)
 
         ### 📖 Documentación
 
-        Consulta la carpeta \`docs/\` para guías detalladas sobre:
+        Consulta la carpeta `docs/` para guías detalladas sobre:
         - Ecuaciones matemáticas
         - Tablas y figuras
         - Código fuente
@@ -98,12 +140,17 @@ jobs:
 
         > Compilado automáticamente con GitHub Actions 🤖
         EOF
+        } > release_notes.md
+        cat release_notes.md
 
     - name: Create Release
       uses: softprops/action-gh-release@v3
       with:
         tag_name: ${{ steps.version.outputs.VERSION }}
         name: Release ${{ steps.version.outputs.VERSION }}
+        # Si la etiqueta no existe (workflow_dispatch), se crea en el commit
+        # compilado, no en la cabeza de la rama por defecto.
+        target_commitish: ${{ github.sha }}
         body_path: release_notes.md
         draft: false
         prerelease: false

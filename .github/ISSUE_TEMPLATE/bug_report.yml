@@ -60,6 +60,16 @@ body:
     validations:
       required: true
 
+  - type: input
+    id: template-version
+    attributes:
+      label: Versión de la plantilla
+      description: |
+        Aparece en la cabecera de `main.tex` (línea «Versión:») o en la release que descargaste
+      placeholder: "2.2.2"
+    validations:
+      required: true
+
   - type: dropdown
     id: os
     attributes:
@@ -88,9 +98,10 @@ body:
       label: Distribución TeX
       description: ¿Qué distribución de TeX estás usando?
       options:
+        - TeX Live 2026
         - TeX Live 2025
         - TeX Live 2024
-        - TeX Live 2023
+        - TeX Live 2023 o anterior
         - TeX Live (otra versión)
         - MiKTeX
         - MacTeX

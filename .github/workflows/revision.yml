@@ -40,7 +40,7 @@ jobs:
         run: |
           set +e
           python3 scripts/revision-rapida.py
-          echo "informe_existe=$(test -f informe-revision.md && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "informe_existe=$(test -f informe-revision.md && echo true || echo false)" >> "$GITHUB_OUTPUT"
 
       - name: Subir informe como artefacto
         if: steps.revision.outputs.informe_existe == 'true'
