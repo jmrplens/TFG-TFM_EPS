@@ -100,21 +100,21 @@
 %% BACKMATTER - Material final
 %% =======================================================================
 
-% Bibliografía
-\printbibliography[heading=bibintoc,title={Bibliografía}]
+% Bibliografía (el título sigue el idioma del documento)
+\printbibliography[heading=bibintoc]
 
 % Lista de acrónimos
 \printglossary[
   style=modsuper,
   type=\acronymtype,
-  title={Lista de Acrónimos y Abreviaturas}
+  title={\EPStituloAcronimos}
 ]
 
 % Glosario de términos
 \printglossary[
   style=listgroup,
   type=main,
-  title={Glosario de Términos}
+  title={\EPStituloGlosario}
 ]
 \glsaddallunused
 

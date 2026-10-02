@@ -1,7 +1,7 @@
 % =============================================================================
-% METADATOS Y ESTÁNDARES DEL DOCUMENTO (PDF/UA & Tagging)
+% METADATOS Y ESTÁNDARES DEL DOCUMENTO (PDF etiquetado y metadatos)
 % =============================================================================
-% Este archivo configura los estándares de accesibilidad y metadatos PDF.
+% Este archivo configura el etiquetado de accesibilidad y los metadatos PDF.
 % Se carga ANTES de \documentclass para asegurar que el motor PDF se
 % inicialice correctamente.
 
@@ -28,30 +28,29 @@
   \csname @@end\endcsname
 \fi
 
-\DocumentMetadata{
-  % --- Fase de pruebas de accesibilidad (tagging) ---
-  % phase-I:  Etiquetado básico automático.
-  % phase-II: Etiquetado avanzado (puede dar conflictos con minted/float).
-  testphase={phase-I}, 
-  %
-  % --- Estándar PDF ---
-  % Descomenta para forzar estándares específicos. 
-  % ua-2 es el estándar moderno de accesibilidad universal (sugerido).
-  % a-2b es común para archivado a largo plazo.
-  pdfstandard=ua-2,  
-  %
-  % --- Versión PDF ---
-  % 1.7 es el estándar más compatible. 2.0 permite características nuevas.
-  % Para PDF/UA-2 se recomienda usar PDF 2.0.
-  pdfversion=2.0,
-  %
-  % --- Idioma principal del documento ---
-  % IMPORTANTE: Este valor debe coincidir con 'idioma' en configuracion.tex
-  %
-  % Valores según idioma en EPSsetup:
-  %   idioma = espanol    →  lang=es-ES
-  %   idioma = valenciano →  lang=ca-ES
-  %   idioma = ingles     →  lang=en-GB
-  %
-  lang=es-ES
-}
+% --- Etiquetado (tagging) para accesibilidad ---
+% Genera un PDF etiquetado: árbol de estructura (títulos, párrafos, listas,
+% figuras con texto alternativo, tablas...) que usan los lectores de pantalla.
+%  * LaTeX 2025-11 o posterior (TeX Live 2025 actualizado, 2026): 'tagging=on'
+%    activa todos los módulos de etiquetado. Los ajustes de compatibilidad con
+%    enumitem, chemformula y threeparttable están en cls/eps-tfg.cls
+%    (sección «Compatibilidad con el etiquetado»).
+%  * Versiones anteriores (TeX Live 2024): 'phase-I', etiquetado básico. Las
+%    fases más completas de esas versiones no son compatibles con la plantilla.
+%
+% --- Estándar PDF ---
+% NO se declara 'pdfstandard=ua-2': la conformidad PDF/UA-2 todavía no se
+% alcanza con esta base (KOMA-Script y varios paquetes aún no son compatibles
+% con el etiquetado) y declararlo sería una afirmación falsa en los metadatos.
+% Ver docs/ACCESIBILIDAD.md.
+%
+% --- Versión PDF ---
+% PDF 2.0, la versión recomendada para PDF etiquetado.
+%
+% --- Idioma ---
+% 'lang' es solo el valor inicial: la clase lo sustituye por el idioma
+% configurado con 'idioma' en configuracion.tex (es-ES, ca-ES-valencia o
+% en-GB), así que NO hace falta modificarlo al cambiar de idioma.
+\IfFormatAtLeastTF{2025-11-01}
+  {\DocumentMetadata{tagging=on, pdfversion=2.0, lang=es-ES}}
+  {\DocumentMetadata{testphase=phase-I, pdfversion=2.0, lang=es-ES}}
