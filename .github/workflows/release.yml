@@ -48,6 +48,22 @@ jobs:
       with:
         fetch-depth: 0
 
+    # Si la etiqueta ya existe (p. ej. workflow_dispatch con una versión ya
+    # publicada) debe apuntar al commit que se compila; si no, la release
+    # mezclaría el PDF de un commit con la etiqueta de otro.
+    - name: Comprobar etiqueta existente
+      env:
+        VERSION: ${{ steps.version.outputs.VERSION }}
+        COMMIT: ${{ github.sha }}
+      run: |
+        if git rev-parse -q --verify "refs/tags/$VERSION" >/dev/null; then
+          ETIQUETA="$(git rev-parse "refs/tags/$VERSION^{commit}")"
+          if [ "$ETIQUETA" != "$COMMIT" ]; then
+            echo "::error::La etiqueta $VERSION ya existe y apunta a $ETIQUETA, no al commit compilado ($COMMIT)"
+            exit 1
+          fi
+        fi
+
     - name: Compile LaTeX document
       uses: xu-cheng/latex-action@v4
       with:

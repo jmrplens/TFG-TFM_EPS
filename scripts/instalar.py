@@ -199,8 +199,10 @@ def comprobar_latexminted(distribucion: str, anio: int | None) -> tuple[bool, st
     ruta = shutil.which("latexminted")
     if ruta:
         ok, salida = ejecutar(["latexminted", "--version"])
-        version = salida.splitlines()[0][:40] if (ok and salida) else ruta
-        return True, version
+        if ok and salida:
+            return True, salida.splitlines()[0][:40]
+        # Está en el PATH pero no funciona (p. ej. Python incompatible)
+        return False, f"{ruta} no funciona ('latexminted --version' falla)"
     if distribucion == "texlive" and anio is not None and anio >= TEXLIVE_MINIMO:
         return False, f"no está en el PATH (TeX Live {anio} lo incluye en el paquete minted)"
     return False, ""
@@ -225,16 +227,20 @@ def anio_texlive_apt() -> int | None:
     """Año de TeX Live que instalaría apt (versión candidata de texlive-base)."""
     if shutil.which("apt-cache") is None:
         return None
-    _, salida = ejecutar(["apt-cache", "policy", "texlive-base"])
+    # LC_ALL=C: salida en inglés («Candidate:») sea cual sea el idioma
+    _, salida = ejecutar(["env", "LC_ALL=C", "apt-cache", "policy", "texlive-base"])
     m = re.search(r"Candidat[eo]:\s*(?:\d+:)?(\d{4})\.", salida)
     return int(m.group(1)) if m else None
 
 
 def aviso_texlive_antiguo(anio: int | None, origen: str = "instalado") -> str:
     """Texto explicando que la versión de TeX Live es demasiado antigua."""
-    version = f"TeX Live {anio}" if anio else "La versión de TeX Live"
+    if anio:
+        cabecera = f"TeX Live {anio} ({origen}) es demasiado antiguo para esta plantilla:"
+    else:
+        cabecera = f"No se pudo comprobar la versión de TeX Live ({origen}); la plantilla"
     return f"""
-  {version} ({origen}) es demasiado antiguo para esta plantilla:
+  {cabecera}
   necesita TeX Live {TEXLIVE_MINIMO} o posterior (minted 3 con latexminted,
   \\DocumentMetadata y PDF accesible). Con versiones anteriores la
   compilación falla.
@@ -297,7 +303,10 @@ def instrucciones_latexminted(distribucion: str, anio: int | None, so: str) -> s
         ]
     else:
         cmd = "python" if so == "windows" else "python3"
-        lineas.append(f"      {cmd} -m pip install --user latexminted")
+        # Dentro de un entorno virtual '--user' no está permitido
+        en_venv = sys.prefix != getattr(sys, "base_prefix", sys.prefix)
+        usuario = "" if en_venv else " --user"
+        lineas.append(f"      {cmd} -m pip install{usuario} latexminted")
     return "\n".join(lineas)
 
 
@@ -366,7 +375,12 @@ def intentar_instalar_latex_linux(so: str, modo_auto: bool = False) -> str:
         return "error"
 
     anio_apt = anio_texlive_apt()
-    if anio_apt is not None and anio_apt < TEXLIVE_MINIMO:
+    if anio_apt is None:
+        # Sin versión conocida no se instala: podría ser una versión antigua
+        print(rojo("\n  No se pudo determinar qué versión de TeX Live ofrece apt: NO se instala."))
+        print(aviso_texlive_antiguo(None, "versión de apt desconocida"))
+        return "antiguo"
+    if anio_apt < TEXLIVE_MINIMO:
         print(rojo(f"\n  apt ofrece TeX Live {anio_apt}: NO se instala."))
         print(aviso_texlive_antiguo(anio_apt, "versión de apt"))
         return "antiguo"
@@ -424,7 +438,7 @@ INSTRUCCIONES_LATEX = {
       sudo pacman -S texlive-basic texlive-latex texlive-latexrecommended \\
           texlive-latexextra texlive-luatex texlive-fontsrecommended \\
           texlive-fontsextra texlive-langspanish texlive-bibtexextra \\
-          texlive-science texlive-pictures texlive-binextra biber
+          texlive-mathscience texlive-pictures texlive-binextra biber
 
   O todo TeX Live de una vez:
 

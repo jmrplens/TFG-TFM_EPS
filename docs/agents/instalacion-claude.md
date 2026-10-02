@@ -43,7 +43,7 @@ Cuando ayudes con la instalación de esta plantilla, ten en cuenta:
 
 | Herramienta | Para qué sirve | Forma de verificar |
 | --- | --- | --- |
-| TeX Live 2024+ (o MiKTeX actualizado) | Distribución LaTeX | `lualatex --version` (debe indicar TeX Live 2024 o posterior) |
+| TeX Live 2024+ (o MiKTeX actualizado) | Distribución LaTeX | TeX Live: `tex --version` debe indicar `TeX Live 2024` o posterior. MiKTeX: `miktex --version` (y tener los paquetes actualizados con la consola de MiKTeX) |
 | LuaLaTeX | Motor de compilación LaTeX | `lualatex --version` |
 | latexminted | Resaltado de código (minted 3); viene con TeX Live 2024+ | `latexminted --version` |
 | Python 3.9+ | Ejecutar los scripts del proyecto | `python3 --version` |

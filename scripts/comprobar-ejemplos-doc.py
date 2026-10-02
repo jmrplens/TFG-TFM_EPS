@@ -158,7 +158,7 @@ def extraer_ejemplos(raiz: Path, patrones: list[str]) -> list[Ejemplo]:
                             f" ({mm.group('motivo')})" if mm.group("motivo") else "")
                         break
                     vistas += 1
-                    if lineas[k].strip().startswith(("#", "```")):
+                    if lineas[k].strip().startswith(("#", "```", "~~~")):
                         break  # no cruzar encabezados ni otros bloques
                 k -= 1
             clasificar(ej)

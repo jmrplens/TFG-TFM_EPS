@@ -766,7 +766,8 @@ def verificar_plagio_copyleaks(texto: str, api_key: str, webhook_url: str,
     Configuración en .env:
         COPYLEAKS_API_KEY=email@dominio.com:00000000-0000-0000-0000-000000000000
         COPYLEAKS_WEBHOOK_URL=https://servidor-propio.example/copyleaks/{STATUS}
-        COPYLEAKS_SANDBOX=true   # opcional: modo de pruebas, sin consumir créditos
+        # Opcional: modo de pruebas, sin consumir créditos
+        COPYLEAKS_SANDBOX=true
     """
     import base64
     import json
@@ -856,6 +857,7 @@ def verificar_plagio_turnitin(texto: str, api_key: str, tenant_url: str) -> list
     import json
     import time
     import urllib.error
+    import urllib.parse
     import urllib.request
 
     if not tenant_url:
@@ -868,6 +870,30 @@ def verificar_plagio_turnitin(texto: str, api_key: str, tenant_url: str) -> list
         }]
 
     base_url = tenant_url.rstrip("/")
+    origen = urllib.parse.urlsplit(base_url)
+    if origen.scheme != "https" or not origen.hostname:
+        # La clave de API viaja en la cabecera Authorization: solo por HTTPS
+        return [{
+            "tipo": "advertencia",
+            "mensaje": (
+                "TURNITIN_TENANT_URL debe ser una URL https:// "
+                f"(valor actual: {tenant_url!r})"
+            ),
+        }]
+
+    class _MismoOrigen(urllib.request.HTTPRedirectHandler):
+        """Rechaza redirecciones a otro origen o sin HTTPS (no filtrar la clave)."""
+
+        def redirect_request(self, req, fp, code, msg, headers, newurl):
+            nueva = urllib.parse.urlsplit(newurl)
+            if (nueva.scheme, nueva.hostname, nueva.port) != (
+                    origen.scheme, origen.hostname, origen.port):
+                raise urllib.error.HTTPError(
+                    newurl, code, f"redirección a otro origen rechazada: {newurl}",
+                    headers, fp)
+            return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+    opener = urllib.request.build_opener(_MismoOrigen)
     base_headers = {
         "Authorization": f"Bearer {api_key}",
         "X-Turnitin-Integration-Name": "TFG-TFM-EPS-UA",
@@ -887,7 +913,7 @@ def verificar_plagio_turnitin(texto: str, api_key: str, tenant_url: str) -> list
                 headers["Content-Type"] = "application/json"
                 data = json.dumps(body).encode()
         req = urllib.request.Request(url, data=data, headers=headers, method=method)
-        with urllib.request.urlopen(req, timeout=30) as resp:
+        with opener.open(req, timeout=30) as resp:
             raw = resp.read()
             return json.loads(raw) if raw else {}
 

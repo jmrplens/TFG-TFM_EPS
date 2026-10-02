@@ -522,9 +522,10 @@ def _convertir_imagenes(pdf_file: Path, snippet: Snippet, nombre: str) -> None:
         return
 
     final_webp = snippet.webp_path
-    subprocess.run([
-        "cwebp", "-q", str(WEBP_QUALITY), str(png_temp), "-o", str(final_webp)
-    ], capture_output=True, timeout=60)
+    if shutil.which("cwebp"):
+        subprocess.run([
+            "cwebp", "-q", str(WEBP_QUALITY), str(png_temp), "-o", str(final_webp)
+        ], capture_output=True, timeout=60)
 
     if not final_webp.exists():
         shutil.copy(png_temp, snippet.png_path)

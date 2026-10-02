@@ -111,7 +111,7 @@ make clean
 make
 
 # Verificar que no hay errores ni avisos nuevos
-grep -n "^!" main.log
+grep -nE "^!|Warning" main.log
 
 # Si cambias ejemplos LaTeX de CLAUDE.md, AGENTS.md, llms.txt,
 # .github/copilot-instructions.md o los agentes: comprobar que compilan

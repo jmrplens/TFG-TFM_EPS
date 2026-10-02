@@ -269,7 +269,10 @@ jobs:
       VERAPDF_IMAGE: verapdf/cli:latest
 
     steps:
+    # Si la compilación principal falló no hay PDF: se omite el informe
     - name: Descargar PDF
+      id: pdf
+      continue-on-error: true
       uses: actions/download-artifact@v8
       with:
         name: TFG-TFM_EPS_UA
@@ -277,6 +280,7 @@ jobs:
 
     - name: Validar con veraPDF
       id: verapdf
+      if: steps.pdf.outcome == 'success'
       run: |
         docker pull --quiet "$VERAPDF_IMAGE"
         VERSION="$(docker run --rm "$VERAPDF_IMAGE" --version 2>&1 | head -n 1 || true)"

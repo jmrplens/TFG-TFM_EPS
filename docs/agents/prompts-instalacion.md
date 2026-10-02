@@ -133,6 +133,8 @@ Guíame para:
 3. Enviar el texto a verificar (solo se envía con --plagio y tras confirmar):
        python3 scripts/revision-rapida.py --plagio copyleaks   (Linux/macOS)
        python  scripts/revision-rapida.py --plagio copyleaks   (Windows)
+       python3 scripts/revision-rapida.py --plagio turnitin    (Linux/macOS)
+       python  scripts/revision-rapida.py --plagio turnitin    (Windows)
 ```
 
 ---

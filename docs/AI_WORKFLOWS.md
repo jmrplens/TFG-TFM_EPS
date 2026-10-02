@@ -293,8 +293,9 @@ Los resultados se muestran en la Tabla~\ref{tab:nombre-tabla}.
 
 **Pasos:**
 
-1. Los entornos de código (`sty/eps-codigo.sty`) los carga siempre la clase;
-   no dependen de ningún módulo de componentes. Si el título lleva `_`,
+1. Los entornos de código (`sty/eps-codigo.sty`) los carga la clase
+   automáticamente si el archivo está presente en `sty/`; no dependen de
+   ningún módulo de componentes. Si el título lleva `_`,
    escaparlo: `title={mi\_script.py}`.
 
 2. Insertar el bloque:

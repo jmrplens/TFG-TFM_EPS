@@ -121,29 +121,29 @@ recursos/
 
 ```latex
 % Por ancho
-\includegraphics[width=8cm]{recursos/imagenes/foto.jpg}
+\includegraphics[width=8cm, alt={Fotografía de ejemplo}]{recursos/imagenes/foto.jpg}
 
 % Por ancho relativo al texto
-\includegraphics[width=0.7\textwidth]{recursos/imagenes/foto.jpg}
+\includegraphics[width=0.7\textwidth, alt={Fotografía de ejemplo}]{recursos/imagenes/foto.jpg}
 
 % Por altura
-\includegraphics[height=5cm]{recursos/imagenes/foto.jpg}
+\includegraphics[height=5cm, alt={Fotografía de ejemplo}]{recursos/imagenes/foto.jpg}
 
 % Ambos (puede distorsionar)
-\includegraphics[width=6cm, height=4cm]{recursos/imagenes/foto.jpg}
+\includegraphics[width=6cm, height=4cm, alt={Fotografía de ejemplo}]{recursos/imagenes/foto.jpg}
 
 % Mantener proporción con límites
-\includegraphics[width=6cm, height=4cm, keepaspectratio]{recursos/imagenes/foto.jpg}
+\includegraphics[width=6cm, height=4cm, keepaspectratio, alt={Fotografía de ejemplo}]{recursos/imagenes/foto.jpg}
 ```
 
 ### Escalar proporcionalmente
 
 ```latex
 % Al 50% del tamaño original
-\includegraphics[scale=0.5]{recursos/imagenes/foto.jpg}
+\includegraphics[scale=0.5, alt={Fotografía de ejemplo}]{recursos/imagenes/foto.jpg}
 
 % Al 150%
-\includegraphics[scale=1.5]{recursos/imagenes/foto.jpg}
+\includegraphics[scale=1.5, alt={Fotografía de ejemplo}]{recursos/imagenes/foto.jpg}
 ```
 
 ---
@@ -175,10 +175,10 @@ recursos/
 
 ```latex
 % Rotar 90° (vertical a horizontal)
-\includegraphics[width=6cm, angle=90]{recursos/imagenes/grafico.pdf}
+\includegraphics[width=6cm, angle=90, alt={Gráfico de ejemplo}]{recursos/imagenes/grafico.pdf}
 
 % Rotar desde la esquina superior izquierda
-\includegraphics[width=6cm, angle=45, origin=tl]{recursos/imagenes/foto.jpg}
+\includegraphics[width=6cm, angle=45, origin=tl, alt={Fotografía de ejemplo}]{recursos/imagenes/foto.jpg}
 ```
 
 #### Recortar imagen
@@ -188,7 +188,8 @@ recursos/
 \includegraphics[
     width=0.8\textwidth,
     trim={2cm 1cm 2cm 3cm},
-    clip
+    clip,
+    alt={Captura de pantalla recortada}
 ]{recursos/imagenes/captura.png}
 ```
 
@@ -196,7 +197,7 @@ recursos/
 
 ```latex
 % Insertar página 3 de un PDF multipágina
-\includegraphics[page=3, width=\textwidth]{recursos/documentos/manual.pdf}
+\includegraphics[page=3, width=\textwidth, alt={Página 3 del manual}]{recursos/documentos/manual.pdf}
 ```
 
 ---
