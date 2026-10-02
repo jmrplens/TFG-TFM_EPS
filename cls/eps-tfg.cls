@@ -704,7 +704,7 @@
 \tl_new:N \l__eps_tpt_bloque_tl
 % Desde LaTeX 2026-06 el párrafo que sigue a la tabla se abre con el nombre
 % de estructura 'para/textblock' en lugar de \l__tag_para_tag_tl: también
-% se hace Div dentro del entorno (\AssignStructureRole es local).
+% se hace Div dentro del entorno (asignación local).
 \cs_new_protected:Npn \eps@tpt@div
   {
     \bool_lazy_and:nnT { \tag_if_active_p: } { \cs_if_exist_p:N \l__tag_para_tag_tl }
@@ -714,7 +714,7 @@
         \cs_if_exist:cT { l__tag_name_para/textblock_tl }
           {
             \tl_set_eq:Nc \l__eps_tpt_bloque_tl { l__tag_name_para/textblock_tl }
-            \AssignStructureRole { para/textblock } { Div }
+            \tl_set:cn { l__tag_name_para/textblock_tl } { Div }
           }
       }
   }
@@ -1348,7 +1348,9 @@
           }
       }
   }
-\AddToHook { package / tcolorbox / after } { \__eps_tcb_hbox_minipages: }
+% (los sockets de minipage no existen antes de LaTeX 2025-11)
+\IfFormatAtLeastT { 2025-11-01 }
+  { \AddToHook { package / tcolorbox / after } { \__eps_tcb_hbox_minipages: } }
 
 %% (6) Títulos de sección como encabezados (H2...H6). KOMA-Script compone los
 %%     títulos con su propio código y el etiquetado de LaTeX solo reconoce
