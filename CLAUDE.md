@@ -73,8 +73,8 @@ Toda la configuración del usuario va en `configuracion.tex` mediante
 **Grados:** `arquitectura`, `arquitectura-tecnica`, `civil`, `informatica`,
 `multimedia`, `quimica`, `robotica`, `teleco`
 
-**Másteres:** `master-agua`, `master-caminos`, `master-ciberseguridad`,
-`master-edificacion`, `master-geologica`, `master-informatica`,
+**Másteres (TFM):** `master-agua`, `master-caminos`, `master-ciberseguridad`,
+`master-ciencia-datos`, `master-edificacion`, `master-geologica`, `master-informatica`,
 `master-materiales`, `master-moviles`, `master-prevencion`, `master-quimica`,
 `master-robotica`, `master-teleco`, `master-web`
 

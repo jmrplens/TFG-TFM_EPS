@@ -66,7 +66,7 @@ contenido/frontmatter/→ Resumen, agradecimientos.
 `informatica`, `multimedia`, `quimica`, `robotica`, `teleco`
 
 **Másteres (TFM):** `master-agua`, `master-caminos`, `master-ciberseguridad`,
-`master-edificacion`, `master-geologica`, `master-informatica`,
+`master-ciencia-datos`, `master-edificacion`, `master-geologica`, `master-informatica`,
 `master-materiales`, `master-moviles`, `master-prevencion`, `master-quimica`,
 `master-robotica`, `master-teleco`, `master-web`
 

@@ -220,6 +220,7 @@ def generar_preambulo() -> str:
 \definecolor{masterquimica}{RGB}{41,199,255}
 \definecolor{ciberseguridad}{RGB}{9,111,192}
 \definecolor{geologica}{RGB}{245,125,0}
+\definecolor{cienciadatos}{RGB}{121,11,21}
 
 % Colores para código
 \definecolor{codegreen}{rgb}{0,0.6,0}

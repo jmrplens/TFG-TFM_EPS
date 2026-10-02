@@ -182,6 +182,7 @@ El usuario interactúa mediante:
 | `master-agua` | Máster en Gestión Sostenible del Agua |
 | `master-caminos` | Máster en Ingeniería de Caminos, Canales y Puertos |
 | `master-ciberseguridad` | Máster en Ciberseguridad |
+| `master-ciencia-datos` | Máster en Ciencia de Datos |
 | `master-edificacion` | Máster en Gestión de la Edificación |
 | `master-geologica` | Máster en Ingeniería Geológica |
 | `master-informatica` | Máster en Ingeniería Informática |

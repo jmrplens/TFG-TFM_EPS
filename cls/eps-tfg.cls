@@ -230,6 +230,10 @@
   {Máster~Universitario~en~Ingeniería~Geológica}
   {tfm} {geologica} {blanco} {Color} {Negro}
 
+\__eps_define_titulacion:nnnnnnn {master-ciencia-datos}
+  {Máster~Universitario~en~Ciencia~de~Datos}
+  {tfm} {cienciadatos} {blanco} {Color} {Negro}
+
 %% ============================================================================
 %% MAPEO DE LOGOS POR TITULACIÓN
 %% ============================================================================
@@ -259,6 +263,7 @@
 \prop_gput:Nnn \g__eps_logos_map_prop {master-quimica} {LogoQuimica}
 \prop_gput:Nnn \g__eps_logos_map_prop {master-ciberseguridad} {LogoMasterCiberseguridad}
 \prop_gput:Nnn \g__eps_logos_map_prop {master-geologica} {LogoMasterGeologica}
+\prop_gput:Nnn \g__eps_logos_map_prop {master-ciencia-datos} {LogoMasterCienciaDatos}
 
 %% ============================================================================
 %% FUNCIÓN PARA CONFIGURAR TITULACIÓN
@@ -752,6 +757,7 @@
 \definecolor{masterquimica}{RGB}{41,199,255}
 \definecolor{ciberseguridad}{RGB}{9,111,192}
 \definecolor{geologica}{RGB}{245,125,0}
+\definecolor{cienciadatos}{RGB}{121,11,21}
 
 % Colores para código
 \definecolor{codegreen}{rgb}{0,0.6,0}

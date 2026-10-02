@@ -292,6 +292,7 @@ Toda la configuración se realiza en el archivo `configuracion.tex`:
 | `master-quimica` | Ingeniería Química |
 | `master-ciberseguridad` | Ciberseguridad |
 | `master-geologica` | Ingeniería Geológica |
+| `master-ciencia-datos` | Ciencia de Datos |
 
 ---
 
@@ -332,6 +333,7 @@ Cada titulación tiene su propio diseño con colores y logotipos oficiales:
 <img src=".github/images/portadas/portada_master-robotica_color.webp" width="12%" alt="Máster Universitario en Automática y Robótica" title="Máster Universitario en Automática y Robótica"></img>
 <img src=".github/images/portadas/portada_master-teleco_color.webp" width="12%" alt="Máster Universitario en Ingeniería de Telecomunicación" title="Máster Universitario en Ingeniería de Telecomunicación"></img>
 <img src=".github/images/portadas/portada_master-web_color.webp" width="12%" alt="Máster Universitario en Desarrollo de Aplicaciones y Servicios Web" title="Máster Universitario en Desarrollo de Aplicaciones y Servicios Web"></img>
+<img src=".github/images/portadas/portada_master-ciencia-datos_color.webp" width="12%" alt="Máster Universitario en Ciencia de Datos" title="Máster Universitario en Ciencia de Datos"></img>
 </p>
 
 ### Ejemplo: Portada a color y B/N
