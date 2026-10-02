@@ -518,7 +518,7 @@ jobs:
           **TFG-TFM_EPS_UA-accesible** con el PDF compilado con \`accesible = true\` (PDF/UA-2)
           y **informe-accesibilidad** con la validación de veraPDF (informativa).
 
-          > **Nota:** Los artefactos estarán disponibles durante 90 días.
+          > **Nota:** **TFG-TFM_EPS_UA** estará disponible durante 90 días; **TFG-TFM_EPS_UA-accesible** e **informe-accesibilidad**, durante 30 días.
           `;
           }
           if (!isSuccess) {
