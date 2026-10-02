@@ -185,6 +185,11 @@ def main() -> int:
         help="Registro de compilación (main.log) para contar los avisos de tagpdf",
     )
     parser.add_argument(
+        "--ua-esperada",
+        default="",
+        help="Parte de PDF/UA que debe declarar el XMP (p. ej. '2'); falla si no la declara",
+    )
+    parser.add_argument(
         "--no-exigir",
         action="store_true",
         help="No fallar si el PDF no está etiquetado (solo informar)",
@@ -227,19 +232,23 @@ def main() -> int:
 
     # Declaración PDF/UA en los metadatos XMP (pdfuaid:part)
     declaracion_ua = "no"
+    parte_ua = ""
     try:
         meta = catalogo.get("/Metadata")
         if meta is not None:
             xmp = meta.get_object().get_data().decode("utf-8", "replace")
             m = re.search(r"pdfuaid:part\s*(?:=\s*\"|>)\s*(\d+)", xmp)
             if m:
-                declaracion_ua = f"sí (PDF/UA-{m.group(1)})"
+                parte_ua = m.group(1)
+                declaracion_ua = f"sí (PDF/UA-{parte_ua})"
     except Exception:  # noqa: BLE001
         declaracion_ua = "desconocida"
 
     etiquetado = marcado and tiene_arbol
     esperado = args.idioma_esperado.strip().lower()
     idioma_ok = not esperado or idioma.lower() == esperado or idioma.lower().startswith(esperado + "-")
+    ua_esperada = args.ua_esperada.strip()
+    ua_ok = not ua_esperada or parte_ua == ua_esperada
     principales = ", ".join(f"{t} {n}" for t, n in tipos.most_common(8)) or "—"
 
     filas = [
@@ -295,6 +304,9 @@ def main() -> int:
     if esperado:
         md.append(f"✅ Idioma {idioma} (esperado: {esperado})" if idioma_ok
                   else f"❌ Idioma {idioma}, se esperaba {esperado}")
+    if ua_esperada:
+        md.append(f"✅ Declara PDF/UA-{ua_esperada}" if ua_ok
+                  else f"❌ No declara PDF/UA-{ua_esperada} (declaración: {declaracion_ua})")
     texto = "\n".join(md) + "\n"
 
     print(texto)
@@ -311,6 +323,9 @@ def main() -> int:
         return 1
     if not idioma_ok:
         print(f"::error::El idioma del PDF (/Lang {idioma}) no coincide con el esperado ({esperado})")
+        return 1
+    if not ua_ok:
+        print(f"::error::El PDF no declara PDF/UA-{ua_esperada} en el XMP (declaración: {declaracion_ua})")
         return 1
     return 0
 

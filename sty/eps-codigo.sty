@@ -78,6 +78,21 @@
 % de corte usan modo matemático y, en el PDF etiquetado, cada carácter acaba
 % como una fórmula vacía. Se sigue cortando en los espacios (breaklines).
 \setmintedinline{breakanywhere=false}
+% Espacios del código en el PDF etiquetado. El lector de pantalla solo recibe
+% un espacio donde el espacio del código queda pegado a una letra; junto a los
+% cambios de color del resaltado se perdían («deff(x):» en vez de «def f(x):»).
+% Cada espacio del código inserta un espacio real de anchura neta cero
+% (\pdffakespace) y el espacio visible no genera otro. El aspecto no cambia.
+\ExplSyntaxOn
+\cs_new_protected:Npn \eps@codigo@espacio
+  {
+    \tag_if_active:TF
+      { \pdffakespace \tag_spacechar_off: \ \tag_spacechar_on: }
+      { \ }
+  }
+\ExplSyntaxOff
+\IfFormatAtLeastT{2025-11-01}{%
+  \fvset{formatcom*={\let\FV@Space\eps@codigo@espacio}}}
 
 %% =============================================================================
 %% ESTILO BASE VS CODE LIGHT

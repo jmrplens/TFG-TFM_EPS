@@ -9,6 +9,19 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
 ### Accesibilidad
 
+- **Nueva opción `accesible = true`** en `\EPSsetup` (con LaTeX 2025-11 o
+  posterior): declara el PDF conforme a PDF/UA-2, convierte en error la falta
+  de texto alternativo en las imágenes y avisa de `\diagbox` y `tblr`. El
+  documento de ejemplo compilado así es conforme según veraPDF (PDF/UA-2 y
+  WTPDF 1.0). Por defecto sigue desactivada.
+- **Texto de los bloques de código con espacios** (con LaTeX 2025-11 o
+  posterior): el texto etiquetado y el copiado decían `deffibonacci(n):`.
+- Las notas de `threeparttable` ya no quedan dentro de un párrafo (PDF 2.0 no
+  lo permite).
+- `\includepdf` ya no avisa de que falta el texto alternativo cuando lo tiene.
+- **CI**: nueva configuración `accesible` en la matriz, que compila con
+  `accesible = true`; veraPDF valida su PDF además del principal.
+
 - **Títulos como encabezados** (con LaTeX 2025-11 o posterior): `\section`, `\subsection`... se etiquetan como
   `H2`, `H3`... dentro de secciones anidadas (antes eran párrafos), y el
   número del capítulo forma parte de su `H1`. El aspecto no cambia.

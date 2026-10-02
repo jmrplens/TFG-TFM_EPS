@@ -114,8 +114,9 @@ jobs:
 
   # 2. Compilar documento
   #    Matriz de compatibilidad: TeX Live más reciente y TeX Live 2024 (versión
-  #    mínima documentada), y los tres idiomas de la plantilla. Solo la
-  #    configuración principal (español, TeX Live más reciente) publica el PDF.
+  #    mínima documentada), los tres idiomas de la plantilla y el PDF accesible
+  #    (accesible = true). La configuración principal (español, TeX Live más
+  #    reciente) publica el PDF; la accesible publica el suyo para veraPDF.
   build:
     name: Compilar (${{ matrix.nombre }})
     runs-on: ubuntu-latest
@@ -132,21 +133,31 @@ jobs:
             idioma: espanol
             lang: es
             principal: true
+            accesible: false
           - nombre: texlive-2024
             texlive: '2024'
             idioma: espanol
             lang: es
             principal: false
+            accesible: false
           - nombre: valenciano
             texlive: latest
             idioma: valenciano
             lang: ca
             principal: false
+            accesible: false
           - nombre: ingles
             texlive: latest
             idioma: ingles
             lang: en
             principal: false
+            accesible: false
+          - nombre: accesible
+            texlive: latest
+            idioma: espanol
+            lang: es
+            principal: false
+            accesible: true
 
     steps:
     - name: Checkout repository
@@ -162,6 +173,14 @@ jobs:
       run: |
         sed -i -E "s/^([[:space:]]*idioma[[:space:]]*=[[:space:]]*)[a-z]+/\1${IDIOMA}/" configuracion.tex
         grep -nE "^[[:space:]]*idioma[[:space:]]*=[[:space:]]*${IDIOMA}," configuracion.tex
+
+    # accesible = true: declara PDF/UA-2 y convierte en error la falta de texto
+    # alternativo (la compilación falla si alguna imagen no tiene alt).
+    - name: Activar PDF accesible
+      if: matrix.accesible
+      run: |
+        sed -i -E "s/^([[:space:]]*)% (accesible[[:space:]]*=[[:space:]]*true,)/\1\2/" configuracion.tex
+        grep -nE "^[[:space:]]*accesible[[:space:]]*=[[:space:]]*true," configuracion.tex
 
     - name: Compile LaTeX document
       uses: xu-cheng/latex-action@v4
@@ -196,6 +215,7 @@ jobs:
         python3 scripts/comprobar-pdf-etiquetado.py main.pdf \
           --titulo "PDF (${{ matrix.nombre }})" \
           --idioma-esperado "${{ matrix.lang }}" \
+          --ua-esperada "${{ matrix.accesible && '2' || '' }}" \
           --log main.log
 
     - name: Resumen de la compilación
@@ -244,6 +264,14 @@ jobs:
         path: main.pdf
         retention-days: 90
 
+    - name: Upload accessible PDF artifact
+      if: matrix.accesible
+      uses: actions/upload-artifact@v7
+      with:
+        name: TFG-TFM_EPS_UA-accesible
+        path: main.pdf
+        retention-days: 30
+
     - name: Upload log on failure
       if: failure()
       uses: actions/upload-artifact@v7
@@ -255,9 +283,9 @@ jobs:
         retention-days: 7
 
   # 3. Informe de accesibilidad (informativo, NUNCA bloquea el build)
-  #    Valida el PDF principal con veraPDF (perfil PDF/UA-2). La plantilla aún
-  #    no declara conformidad PDF/UA; el informe alimenta la fase de
-  #    investigación de accesibilidad.
+  #    Valida con veraPDF (perfil PDF/UA-2) el PDF principal, que no declara
+  #    conformidad, y el de la configuración «accesible» (accesible = true),
+  #    que la declara y debe ser conforme.
   accesibilidad:
     name: Informe de accesibilidad (veraPDF)
     runs-on: ubuntu-latest
@@ -270,99 +298,124 @@ jobs:
       VERAPDF_IMAGE: verapdf/cli:latest
 
     steps:
-    # Si la compilación principal falló no hay PDF: se omite el informe
-    - name: Descargar PDF
-      id: pdf
+    # Si una compilación falló falta su PDF: se valida el que haya
+    - name: Descargar PDF principal
       continue-on-error: true
       uses: actions/download-artifact@v8
       with:
         name: TFG-TFM_EPS_UA
-        path: pdf
+        path: pdf/principal
+
+    - name: Descargar PDF accesible
+      continue-on-error: true
+      uses: actions/download-artifact@v8
+      with:
+        name: TFG-TFM_EPS_UA-accesible
+        path: pdf/accesible
 
     - name: Validar con veraPDF
       id: verapdf
-      if: steps.pdf.outcome == 'success'
       run: |
+        if ! ls pdf/*/main.pdf >/dev/null 2>&1; then
+          echo "::warning::No hay ningún PDF que validar (¿falló la compilación?)"
+          exit 1
+        fi
         docker pull --quiet "$VERAPDF_IMAGE"
         VERSION="$(docker run --rm "$VERAPDF_IMAGE" --version 2>&1 | head -n 1 || true)"
         echo "veraPDF: $VERSION"
         mkdir -p informe
-        # PDF/UA-2 (ua2) si la versión de veraPDF lo soporta; si no, PDF/UA-1
-        PERFIL=""
-        for flavour in ua2 ua1; do
-          set +e
-          docker run --rm -v "$PWD/pdf:/data:ro" "$VERAPDF_IMAGE" \
-            --flavour "$flavour" --format xml /data/main.pdf > informe/verapdf.xml 2> informe/verapdf.err
-          CODIGO=$?
-          set -e
-          # El código de salida distingue conforme/no conforme; lo que importa
-          # es que se haya generado el informe con ese perfil.
-          if grep -q '<validationReport' informe/verapdf.xml; then
-            PERFIL="$flavour"
-            break
+        for dir in pdf/*/; do
+          nombre="$(basename "$dir")"
+          [ -f "$dir/main.pdf" ] || continue
+          # PDF/UA-2 (ua2) si la versión de veraPDF lo soporta; si no, PDF/UA-1
+          PERFIL=""
+          for flavour in ua2 ua1; do
+            set +e
+            docker run --rm -v "$PWD/$dir:/data:ro" "$VERAPDF_IMAGE" \
+              --flavour "$flavour" --format xml /data/main.pdf \
+              > "informe/$nombre.xml" 2> "informe/$nombre.err"
+            CODIGO=$?
+            set -e
+            # El código de salida distingue conforme/no conforme; lo que importa
+            # es que se haya generado el informe con ese perfil.
+            if grep -q '<validationReport' "informe/$nombre.xml"; then
+              PERFIL="$flavour"
+              break
+            fi
+            echo "::warning::veraPDF no pudo validar $nombre con --flavour $flavour (código $CODIGO)"
+            cat "informe/$nombre.err" || true
+          done
+          if [ -z "$PERFIL" ]; then
+            echo "::error::veraPDF no generó ningún informe para $nombre"
+            continue
           fi
-          echo "::warning::veraPDF no pudo validar con --flavour $flavour (código $CODIGO)"
-          cat informe/verapdf.err || true
+          echo "$PERFIL" > "informe/$nombre.perfil"
+          # Informe HTML legible con el mismo perfil
+          docker run --rm -v "$PWD/$dir:/data:ro" "$VERAPDF_IMAGE" \
+            --flavour "$PERFIL" --format html /data/main.pdf > "informe/$nombre.html" || true
         done
-        if [ -z "$PERFIL" ]; then
-          echo "::error::veraPDF no generó ningún informe"
-          exit 1
-        fi
-        # Informe HTML legible con el mismo perfil
-        docker run --rm -v "$PWD/pdf:/data:ro" "$VERAPDF_IMAGE" \
-          --flavour "$PERFIL" --format html /data/main.pdf > informe/verapdf.html || true
-        {
-          echo "perfil=$PERFIL"
-          echo "version=$VERSION"
-        } >> "$GITHUB_OUTPUT"
+        echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
     - name: Resumir informe
       if: steps.verapdf.outcome == 'success'
       env:
-        PERFIL: ${{ steps.verapdf.outputs.perfil }}
         VERSION: ${{ steps.verapdf.outputs.version }}
       run: |
-        python3 - <<'EOF'
+        python3 - <<'PY'
         import os
         import xml.etree.ElementTree as ET
 
         def local(tag):
             return tag.rsplit('}', 1)[-1]
 
-        raiz = ET.parse('informe/verapdf.xml').getroot()
-        informe = next((e for e in raiz.iter() if local(e.tag) == 'validationReport'), None)
-        detalles = next((e for e in raiz.iter() if local(e.tag) == 'details'), None)
-        perfil = os.environ.get('PERFIL', '?')
-        lineas = [
-            '### ♿ Informe de accesibilidad (veraPDF)', '',
-            f"- Versión: {os.environ.get('VERSION', '?')}",
-            f"- Perfil: **{perfil}**" + ('' if perfil == 'ua2' else ' (PDF/UA-2 no disponible en esta versión)'),
-        ]
-        if informe is not None:
-            lineas.append(f"- Perfil aplicado: {informe.get('profileName', '?')}")
-            lineas.append(f"- Conforme: **{'sí' if informe.get('isCompliant') == 'true' else 'no'}**")
-        if detalles is not None:
-            lineas.append(f"- Reglas superadas: {detalles.get('passedRules', '?')}")
-            lineas.append(f"- **Reglas incumplidas: {detalles.get('failedRules', '?')}** "
-                          f"({detalles.get('failedChecks', '?')} comprobaciones fallidas)")
-            fallidas = [r for r in detalles if local(r.tag) == 'rule' and r.get('status') == 'failed']
-            fallidas.sort(key=lambda r: -int(r.get('failedChecks', '0') or 0))
-            if fallidas:
-                lineas += ['', '| Cláusula | Test | Fallos | Descripción |', '|---|---|---|---|']
-                for r in fallidas[:25]:
-                    desc = next((d.text or '' for d in r if local(d.tag) == 'description'), '')
-                    desc = ' '.join(desc.split()).replace('|', '\\|')[:160]
-                    lineas.append(f"| {r.get('clause', '')} | {r.get('testNumber', '')} | "
-                                  f"{r.get('failedChecks', '')} | {desc} |")
-                if len(fallidas) > 25:
-                    lineas.append(f"\n… y {len(fallidas) - 25} reglas más (ver artefacto).")
-        lineas += ['', '> Informe informativo: no bloquea la compilación. '
-                       'Informe completo en el artefacto **informe-accesibilidad**.']
+        DESCRIPCION = {
+            'principal': 'PDF principal (no declara PDF/UA)',
+            'accesible': 'PDF con accesible = true (declara PDF/UA-2)',
+        }
+        lineas = ['### ♿ Informe de accesibilidad (veraPDF)', '',
+                  f"- Versión: {os.environ.get('VERSION', '?')}"]
+        accesible_conforme = None
+        for nombre in ('principal', 'accesible'):
+            ruta = f'informe/{nombre}.xml'
+            if not os.path.exists(f'informe/{nombre}.perfil'):
+                continue
+            perfil = open(f'informe/{nombre}.perfil', encoding='utf-8').read().strip()
+            raiz = ET.parse(ruta).getroot()
+            informe = next((e for e in raiz.iter() if local(e.tag) == 'validationReport'), None)
+            detalles = next((e for e in raiz.iter() if local(e.tag) == 'details'), None)
+            conforme = informe is not None and informe.get('isCompliant') == 'true'
+            if nombre == 'accesible':
+                accesible_conforme = conforme
+            lineas += ['', f'#### {DESCRIPCION[nombre]}', '',
+                       f"- Perfil: **{perfil}**" + ('' if perfil == 'ua2' else ' (PDF/UA-2 no disponible en esta versión)')]
+            if informe is not None:
+                lineas.append(f"- Perfil aplicado: {informe.get('profileName', '?')}")
+                lineas.append(f"- Conforme: **{'sí' if conforme else 'no'}**")
+            if detalles is not None:
+                lineas.append(f"- Reglas superadas: {detalles.get('passedRules', '?')}")
+                lineas.append(f"- **Reglas incumplidas: {detalles.get('failedRules', '?')}** "
+                              f"({detalles.get('failedChecks', '?')} comprobaciones fallidas)")
+                fallidas = [r for r in detalles if local(r.tag) == 'rule' and r.get('status') == 'failed']
+                fallidas.sort(key=lambda r: -int(r.get('failedChecks', '0') or 0))
+                if fallidas:
+                    lineas += ['', '| Cláusula | Test | Fallos | Descripción |', '|---|---|---|---|']
+                    for r in fallidas[:25]:
+                        desc = next((d.text or '' for d in r if local(d.tag) == 'description'), '')
+                        desc = ' '.join(desc.split()).replace('|', '\\|')[:160]
+                        lineas.append(f"| {r.get('clause', '')} | {r.get('testNumber', '')} | "
+                                      f"{r.get('failedChecks', '')} | {desc} |")
+                    if len(fallidas) > 25:
+                        lineas.append(f"\n… y {len(fallidas) - 25} reglas más (ver artefacto).")
+        lineas += ['', '> El PDF principal no declara PDF/UA: la regla de la declaración '
+                       '(cláusula 5) falla siempre en él. Informe informativo: no bloquea la '
+                       'compilación. Informe completo en el artefacto **informe-accesibilidad**.']
         texto = '\n'.join(lineas) + '\n'
         print(texto)
         with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as f:
             f.write(texto)
-        EOF
+        if accesible_conforme is False:
+            print('::warning::El PDF con accesible = true no es conforme con PDF/UA-2 según veraPDF')
+        PY
 
     - name: Subir informe de accesibilidad
       if: always()
@@ -408,7 +461,7 @@ jobs:
           const sha = context.payload.pull_request.head.sha.substring(0, 7);
 
           // Leer los resúmenes de cada configuración de la matriz
-          const orden = ['principal', 'texlive-2024', 'valenciano', 'ingles'];
+          const orden = ['principal', 'texlive-2024', 'valenciano', 'ingles', 'accesible'];
           const resumenes = [];
           if (fs.existsSync('resumen')) {
             for (const f of fs.readdirSync('resumen')) {
@@ -461,7 +514,8 @@ jobs:
 
           👉 **[Ver workflow y descargar artefactos](${runUrl})**
 
-          En la sección "Artifacts" encontrarás el archivo **TFG-TFM_EPS_UA** con el PDF compilado
+          En la sección "Artifacts" encontrarás el archivo **TFG-TFM_EPS_UA** con el PDF compilado,
+          **TFG-TFM_EPS_UA-accesible** con el PDF compilado con \`accesible = true\` (PDF/UA-2)
           y **informe-accesibilidad** con la validación de veraPDF (informativa).
 
           > **Nota:** Los artefactos estarán disponibles durante 90 días.

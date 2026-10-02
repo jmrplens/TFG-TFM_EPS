@@ -2,7 +2,7 @@
 
 Esta guía explica qué hace la plantilla para generar PDFs accesibles (PDF etiquetado) y qué debes hacer tú al escribir para que el resultado sea útil a personas con discapacidades visuales o que usen lectores de pantalla.
 
-> **Estado actual:** la plantilla genera un **PDF etiquetado**, pero **no declara conformidad PDF/UA-2**, porque todavía no se alcanza (ver [Limitaciones conocidas](#limitaciones-conocidas)).
+> **Estado actual:** la plantilla genera siempre un **PDF etiquetado**. Con la opción [`accesible = true`](#pdf-accesible-accesible--true) además **declara conformidad PDF/UA-2**: el documento de ejemplo supera la validación de veraPDF (PDF/UA-2 y WTPDF 1.0), aunque quedan [limitaciones conocidas](#limitaciones-conocidas).
 
 ---
 
@@ -11,6 +11,7 @@ Esta guía explica qué hace la plantilla para generar PDFs accesibles (PDF etiq
 - [Introducción](#introducción)
 - [Por qué es importante](#por-qué-es-importante)
 - [Qué hace la plantilla](#qué-hace-la-plantilla)
+- [PDF accesible (`accesible = true`)](#pdf-accesible-accesible--true)
 - [Limitaciones conocidas](#limitaciones-conocidas)
 - [Texto alternativo para imágenes](#texto-alternativo-para-imágenes)
 - [Tablas accesibles](#tablas-accesibles)
@@ -67,7 +68,7 @@ El etiquetado ya está activado en `cls/eps-metadata.tex`, que `main.tex` carga 
 | Anterior a LaTeX 2025-11 (TeX Live 2024, mínimo soportado, o TeX Live 2025 sin actualizar) | `testphase=phase-I`: etiquetado básico |
 
 - **Idioma:** el valor `lang=es-ES` es solo el inicial. La clase lo sustituye por el idioma de `idioma` en `configuracion.tex` (`es-ES`, `ca-ES-valencia` o `en-GB`), así que **no hay que editar `cls/eps-metadata.tex`** al cambiar de idioma.
-- **Estándar:** no se declara `pdfstandard=ua-2`. Declararlo sin cumplirlo escribiría en los metadatos una conformidad falsa.
+- **Estándar:** por defecto no se declara `pdfstandard=ua-2`: declararlo sin revisar el documento podría escribir en los metadatos una conformidad falsa. Se declara con [`accesible = true`](#pdf-accesible-accesible--true).
 - **Compatibilidad:** la clase incluye ajustes para que las opciones de listas de `enumitem`, `\ch` de `chemformula` y `threeparttable` funcionen con el etiquetado.
 - **Ajustes de accesibilidad automáticos** (sin efecto si no hay etiquetado):
   - los títulos de capítulo, sección, subsección... se etiquetan como encabezados (`H1`, `H2`, `H3`...) dentro de secciones anidadas, para que el lector de pantalla pueda recorrer el documento por títulos (con LaTeX 2025-11 o posterior);
@@ -78,14 +79,41 @@ El etiquetado ya está activado en `cls/eps-metadata.tex`, que `main.tex` carga 
   - los fragmentos escritos en otro idioma con `otherlanguage` (el Abstract) llevan su propio idioma (`/Lang`), para que el lector de pantalla cambie de voz;
   - las leyendas de figuras y tablas se etiquetan como `Caption` aunque haya cajas de `tcolorbox` con título;
   - las figuras y tablas etiquetadas se agrupan al final de cada capítulo, en lugar de al final del documento;
-  - el código en línea (`\mintinline`) no genera fórmulas vacías.
+  - el código en línea (`\mintinline`) no genera fórmulas vacías;
+  - el texto de los bloques de código conserva los espacios (el lector de pantalla y el texto copiado leen `def fibonacci(n):`, no `deffibonacci(n):`), con LaTeX 2025-11 o posterior;
+  - las notas de `threeparttable` (`tablenotes`) no quedan dentro de un párrafo, algo que PDF 2.0 no permite;
+  - `\includepdf` solo pide el texto alternativo de las páginas que inserta (`alt={...}`), no el de la medida interna que hace `pdfpages`.
 - **Desactivar el etiquetado:** con LaTeX 2025-11 o posterior, la única forma es quitar `\input{eps-metadata}` de `main.tex` (cualquier `\DocumentMetadata` carga ya los módulos de etiquetado). A cambio se pierden el etiquetado, los metadatos XMP y la comprobación de motor LuaLaTeX; la compilación apenas se acelera.
+
+---
+
+## PDF accesible (`accesible = true`)
+
+Cuando tengas la versión final, activa la opción en `configuracion.tex`:
+
+```latex
+\EPSsetup{
+  ...
+  borrador  = false,
+  accesible = true,
+}
+```
+
+Con ella la plantilla:
+
+- **declara el PDF conforme a PDF/UA-2** en los metadatos XMP (`pdfstandard=ua-2`);
+- convierte en **error** la falta de texto alternativo en las imágenes: la compilación se detiene en la línea del `\includegraphics` (o `\includepdf`) que no tenga `alt={...}` (o `artifact` si es decorativa). LaTeX todavía no comprueba los dibujos `tikzpicture`: revisa tú que lleven `alt={...}`;
+- **avisa** si usas construcciones que estropean el PDF accesible: `\diagbox` y las tablas `tblr` de `tabularray`.
+
+Requiere LaTeX 2025-11 o posterior (TeX Live 2025 actualizado o TeX Live 2026): con versiones anteriores el etiquetado es parcial y la opción da un error. También da error si se ha quitado `\input{eps-metadata}` de `main.tex`.
+
+La integración continua del repositorio compila el documento de ejemplo con `accesible = true` y lo valida con veraPDF (PDF/UA-2): es conforme. Un validador comprueba lo que se puede comprobar automáticamente; lo demás depende de ti: que el texto alternativo describa la imagen, que las tablas de datos marquen su cabecera (`\EPScabeceraTabla`), que los enlaces tengan un texto con sentido... Repasa el [checklist](#checklist-básico) antes de activarla.
 
 ---
 
 ## Limitaciones conocidas
 
-La conformidad PDF/UA-2 completa no se alcanza todavía por motivos ajenos a lo que escribas:
+Aunque el documento de ejemplo supera la validación con `accesible = true`, quedan limitaciones ajenas a lo que escribas:
 
 - **KOMA-Script (`scrbook`)**, base de la clase, aún no soporta oficialmente el etiquetado. La clase añade el etiquetado de títulos e índices con los ganchos documentados de KOMA y la interfaz de etiquetado de LaTeX, que todavía está en fase de pruebas y puede cambiar.
 - `\paragraph` (título en línea con el texto) y `\minisec` se etiquetan como párrafos, no como encabezados.
@@ -232,7 +260,7 @@ Con LuaLaTeX y `unicode-math`, las ecuaciones se etiquetan automáticamente como
 | **PAC** | Verificador PDF/UA gratuito | [pdfua.foundation](https://pdfua.foundation/en/pac-download) |
 | **PAVE** | Validador online gratuito | [pave-pdf.org](https://pave-pdf.org/) |
 
-También puedes comprobar que el PDF está etiquetado con `pdfinfo main.pdf` (línea `Tagged: yes`). La integración continua del repositorio genera además un informe de veraPDF a título informativo.
+También puedes comprobar que el PDF está etiquetado con `pdfinfo main.pdf` (línea `Tagged: yes`). La integración continua del repositorio valida además con veraPDF el PDF principal y el compilado con `accesible = true` (artefacto `informe-accesibilidad`).
 
 ### Checklist básico
 
