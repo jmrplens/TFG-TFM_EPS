@@ -17,7 +17,7 @@ help:
 	@echo "  previews        - Generar e insertar previews (solo cambios)"
 	@echo "  previews-forzar - Regenerar todos los previews"
 	@echo "  listar          - Listar snippets marcados en documentación"
-	@echo "  limpiar         - Eliminar previews huérfanos"
+	@echo "  limpiar         - Eliminar previews huérfanos y reinsertar enlaces (no compila)"
 	@echo "  portadas        - Generar portadas para README"
 	@echo "  todo            - Generar previews + portadas"
 
@@ -31,7 +31,7 @@ listar:
 	@$(PYTHON) $(ACTUALIZAR_PREVIEWS) --listar
 
 limpiar:
-	@$(PYTHON) $(ACTUALIZAR_PREVIEWS) --limpiar
+	@$(PYTHON) $(ACTUALIZAR_PREVIEWS) --limpiar --solo-insertar
 
 portadas:
 	@$(PYTHON) $(GENERAR_PORTADAS)

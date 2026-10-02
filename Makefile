@@ -11,7 +11,7 @@
 # Comandos disponibles:
 #   make         - Compilación completa (lualatex + biber + 2x lualatex)
 #   make quick   - Compilación rápida (solo lualatex)
-#   make clean   - Eliminar archivos auxiliares
+#   make clean   - Eliminar archivos auxiliares, caché de minted e informes
 #   make distclean - Eliminar todo lo generado (incluido PDF)
 #   make view    - Abrir el PDF generado
 #   make watch   - Compilación continua (requiere latexmk)
@@ -25,11 +25,19 @@ LATEX_FLAGS = -shell-escape -interaction=nonstopmode -halt-on-error
 BIBER = biber
 VIEWER = xdg-open
 
-# Archivos a limpiar
-AUX_FILES = *.aux *.log *.out *.toc *.lof *.lot *.bbl *.bcf *.blg \
-            *.run.xml *.fls *.fdb_latexmk *.synctex.gz *.nav *.snm \
-            *.vrb *.pyg *.pytxcode *.acn *.acr *.alg *.glg *.glo *.gls \
-            *.ist *.glsdefs *-blx.bib contenido/**/*.aux
+# Archivos a limpiar (los mismos que limpian latexmk y LaTeX Workshop)
+AUX_FILES = *.aux *.log *.out *.toc *.lof *.lot *.lol *.listing *.bbl *.bcf \
+            *.blg *.run.xml *.fls *.fdb_latexmk *.synctex.gz *.xdv *.nav \
+            *.snm *.vrb *.pyg *.pytxcode *.data.minted \
+            *.acn *.acr *.alg *.glg *.glo *.gls *.glog *.glstex *.slg *.slo \
+            *.sls *.ist *.glsdefs *.idx *.ilg *.ind *.loe *.tdo *.xmpi \
+            *-blx.bib *-luamml-mathml.html contenido/*/*.aux
+
+# Directorios de caché de minted (minted 3: _minted; minted 2: _minted-main)
+MINTED_DIRS = _minted _minted-$(MAIN)
+
+# Informes generados por los scripts
+INFORMES = informe-revision.md
 
 .PHONY: all quick clean distclean view watch help
 
@@ -70,8 +78,8 @@ quick:
 # Limpiar archivos auxiliares
 clean:
 	@echo "Limpiando archivos auxiliares..."
-	-rm -f $(AUX_FILES)
-	-rm -rf _minted-$(MAIN)
+	-rm -f $(AUX_FILES) $(INFORMES)
+	-rm -rf $(MINTED_DIRS)
 	@echo "✓ Limpieza completada"
 
 # Limpieza profunda (incluye el PDF)
@@ -104,7 +112,8 @@ help:
 	@echo "║                                                              ║"
 	@echo "║    make quick    Compilación rápida (solo lualatex)          ║"
 	@echo "║                                                              ║"
-	@echo "║    make clean    Eliminar archivos auxiliares                ║"
+	@echo "║    make clean    Eliminar archivos auxiliares, caché de      ║"
+	@echo "║                  minted (_minted) e informe-revision.md      ║"
 	@echo "║                                                              ║"
 	@echo "║    make distclean  Eliminar todo (incluido PDF)              ║"
 	@echo "║                                                              ║"

@@ -77,12 +77,32 @@ push @generated_exts, 'fls', 'fdb_latexmk', 'synctex.gz', 'xdv';
 push @generated_exts, 'nav', 'snm', 'vrb';  # Beamer
 push @generated_exts, 'pyg', 'listing', 'lol';  # Minted/listings
 push @generated_exts, 'idx', 'ilg', 'ind';  # Índices
+push @generated_exts, 'glstex', 'slg', 'slo', 'sls', 'glog';  # Glosarios (otros)
+push @generated_exts, 'loe', 'tdo', 'xmpi';  # thmtools, todonotes, xmpincl
 
-# Directorios a limpiar
-$clean_ext = 'synctex.gz synctex.gz(busy) run.xml %R-blx.bib';
+# Otros archivos a limpiar (latexmk -c y -C)
+$clean_ext = 'synctex.gz synctex.gz(busy) run.xml %R-blx.bib %R-luamml-mathml.html';
 
-# Limpiar directorio de minted con clean
-$clean_full_ext = '_minted-%R/';
+# Caché de minted: minted 3 usa el directorio _minted/ (y deja archivos
+# temporales *.data.minted si se interrumpe la compilación); minted 2 usaba
+# _minted-<nombre>/. latexmk solo borra directorios vacíos con $clean_full_ext,
+# así que se eliminan con un hook que solo actúa en la limpieza completa
+# (latexmk -C). Con latexmk -c la caché se conserva a propósito: acelera
+# la siguiente compilación.
+# (add_hook() imprime un aviso de depuración en cada ejecución: se silencia.)
+if (defined &add_hook) {
+    require File::Spec;
+    open(my $nulo, '>', File::Spec->devnull());
+    my $salida_anterior = select($nulo);
+    add_hook('cleanup_extra_full', sub {
+        require File::Path;
+        File::Path::remove_tree('_minted', '_minted-' . $root_filename);
+        unlink glob('*.data.minted');
+        return 0;
+    });
+    select($salida_anterior);
+    close($nulo);
+}
 
 # ============================================================================
 # VISOR DE PDF
