@@ -70,6 +70,8 @@ El etiquetado ya está activado en `cls/eps-metadata.tex`, que `main.tex` carga 
 - **Estándar:** no se declara `pdfstandard=ua-2`. Declararlo sin cumplirlo escribiría en los metadatos una conformidad falsa.
 - **Compatibilidad:** la clase incluye ajustes para que las opciones de listas de `enumitem`, `\ch` de `chemformula` y `threeparttable` funcionen con el etiquetado.
 - **Ajustes de accesibilidad automáticos** (sin efecto si no hay etiquetado):
+  - los títulos de capítulo, sección, subsección... se etiquetan como encabezados (`H1`, `H2`, `H3`...) dentro de secciones anidadas, para que el lector de pantalla pueda recorrer el documento por títulos (con LaTeX 2025-11 o posterior);
+  - el índice general y los de figuras, tablas y códigos se etiquetan como índices, con un enlace en cada entrada (con LaTeX 2025-11 o posterior);
   - la portada no deja estructuras sueltas en el árbol del PDF;
   - los iconos decorativos (los de las cajas de aviso, el árbol de directorios, etc.) se marcan como artefacto, para que el lector de pantalla no lea el nombre del glifo («INFO-CIRCLE»);
   - los iconos que transmiten información se leen como texto: las casillas de `checklist` («Hecho», «Pendiente», «En curso»), `\pro`/`\con` («Ventaja», «Inconveniente»), `\rating{4}{5}` («4 de 5») y los indicadores de cumplimiento (`\controlok`, `\sparamok`...). Para tus propios iconos con significado, usa `\EPSiconoTexto{texto}{icono}`, por ejemplo `\EPSiconoTexto{Aprobado}{\faCheck}`;
@@ -85,8 +87,8 @@ El etiquetado ya está activado en `cls/eps-metadata.tex`, que `main.tex` carga 
 
 La conformidad PDF/UA-2 completa no se alcanza todavía por motivos ajenos a lo que escribas:
 
-- **KOMA-Script (`scrbook`)**, base de la clase, aún no soporta el etiquetado: las secciones y subsecciones se etiquetan como párrafos (`P`) en lugar de encabezados (`H2`, `H3`...).
-- Los índices (general, de figuras, de tablas y de códigos) se marcan como artefacto: el lector de pantalla no los lee y sus enlaces no están en la estructura. Los marcadores (*bookmarks*) del PDF sí permiten navegar.
+- **KOMA-Script (`scrbook`)**, base de la clase, aún no soporta oficialmente el etiquetado. La clase añade el etiquetado de títulos e índices con los ganchos documentados de KOMA y la interfaz de etiquetado de LaTeX, que todavía está en fase de pruebas y puede cambiar.
+- `\paragraph` (título en línea con el texto) y `\minisec` se etiquetan como párrafos, no como encabezados.
 - LaTeX no asocia todavía los destinos de las referencias cruzadas a figuras y tablas con su estructura (aviso `Destination ... has no related structure`). Es una limitación del núcleo de LaTeX.
 - Varios paquetes que usa la plantilla figuran como **incompatibles** en el estado oficial del etiquetado de LaTeX: `chemformula`, `chemfig`, `minted`, `caption`, `subcaption`, `dirtree`, `listings`, `multirow`, `pgfplots` y `threeparttable`.
 - Las tablas con `booktabs` se etiquetan sin celdas de cabecera (`TH`) salvo que se indique (ver [Tablas accesibles](#tablas-accesibles)).

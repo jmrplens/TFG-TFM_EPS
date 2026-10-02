@@ -348,7 +348,7 @@ Formato de entrada en `referencias.bib`:
 | `File 'X.sty' not found` | Paquete no instalado | `tlmgr install X` |
 | `Missing $ inserted` | `_` sin escapar (p. ej. en `title={...}`) o `$` literal en `terminal` | Escapar `\_`; en `terminal` usar `\prompt` |
 | `Package block Error: Some keys specified on the itemize environment are unknown` | Versión antigua de la plantilla compilada con LaTeX 2025-11 o posterior | Actualizar la plantilla (al menos `cls/` y `sty/`) a la última versión |
-| `ignored error Infinite glue shrinkage found in box being split` | Fallo conocido de `longtable` 4.24 (LaTeX 2025-11) al partir una `longtable` entre páginas | Ninguna: es un error ignorado, la compilación continúa y el PDF es correcto |
+| `ignored error Infinite glue shrinkage found in box being split` | Fallo de `longtable` 4.24 (LaTeX 2025-11) al partir una tabla entre páginas, con una versión antigua de la plantilla | Actualizar `cls/` (la clase corrige `longtable` 4.24). Detiene `latexmk` antes de terminar las pasadas y los números de página de los índices pueden quedar mal |
 
 ---
 

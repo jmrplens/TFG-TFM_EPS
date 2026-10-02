@@ -492,8 +492,9 @@ Las portadas se generan automáticamente. No crear manualmente.
 2025-11 o posterior; `testphase=phase-I` con versiones anteriores, como TeX Live
 2024). El PDF sale
 etiquetado, pero **no declara conformidad PDF/UA-2**: todavía no se alcanza
-(KOMA-Script no etiqueta las secciones y varios paquetes aún no son
-compatibles). Ver `docs/ACCESIBILIDAD.md`.
+(varios paquetes aún no son compatibles con el etiquetado). Con LaTeX 2025-11 o posterior, los títulos
+se etiquetan como encabezados y los índices llevan enlaces. Ver
+`docs/ACCESIBILIDAD.md`.
 
 Añadir siempre texto alternativo a las imágenes:
 
@@ -539,7 +540,7 @@ Si el usuario reporta un error, pedir las últimas 30 líneas de `main.log`.
 | `File 'X.sty' not found` | Paquete no instalado | `tlmgr install X` |
 | `I found no \bibdata command` | Usando BibTeX en lugar de Biber | Verificar que se usa `biber`, no `bibtex` |
 | `Package block Error: Some keys specified on the itemize environment are unknown` | Versión antigua de la plantilla compilada con LaTeX 2025-11 o posterior (TeX Live 2025 actualizado, 2026) | Actualizar la plantilla (al menos `cls/` y `sty/`) a la última versión |
-| `ignored error Infinite glue shrinkage found in box being split` | Fallo conocido de `longtable` 4.24 (LaTeX 2025-11) cuando una tabla `longtable` se parte entre páginas | Ninguna: TeX lo marca como error ignorado, la compilación continúa y el PDF sale bien. Desaparecerá al actualizar `longtable` |
+| `ignored error Infinite glue shrinkage found in box being split` | Fallo de `longtable` 4.24 (LaTeX 2025-11) al partir una tabla entre páginas, con una versión antigua de la plantilla | Actualizar `cls/` (la clase corrige `longtable` 4.24). Detiene `latexmk` antes de terminar las pasadas y los números de página de los índices pueden quedar mal |
 
 ---
 

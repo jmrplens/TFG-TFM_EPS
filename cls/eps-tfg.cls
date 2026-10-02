@@ -675,6 +675,31 @@
     \let\endtablenotes\endlist}%
   \DeclareHookRule{begindocument/before}{eps-tfg/threeparttable}{after}{latex-lab-testphase-block}%
 }
+%% (4) longtable 4.24 (LaTeX 2025-11, TeX Live 2025): al partir una tabla
+%%     entre páginas daba «Infinite glue shrinkage found in box being split».
+%%     TeX lo trata como error ignorado (el PDF sale bien), pero latexmk se
+%%     detiene antes de terminar las pasadas y quedan mal los números de página
+%%     de los índices. Se aplica la misma corrección que longtable 4.25
+%%     (latex3/latex2e gh/1907): encogimiento finito en lugar de \vss. Solo
+%%     afecta a la versión 4.24; las demás no se tocan.
+\ExplSyntaxOn
+\cs_new_protected:Npn \__eps_longtable_encogimiento_finito:
+  {
+    % (\vss está dentro de \vbox{...}: regex busca también en los grupos)
+    \tl_set_eq:NN \l_tmpa_tl \LT@output
+    \regex_replace_all:nnN
+      { \c{copy} \c{LT@foot} \c{vss} }
+      { \c{copy} \c{LT@foot} \c{vskip} \c{z@} \c{@plus} 1fil \c{@minus} \c{normalbaselineskip} }
+      \l_tmpa_tl
+    \cs_set_eq:NN \LT@output \l_tmpa_tl
+  }
+\cs_new_eq:NN \eps@longtable@finito \__eps_longtable_encogimiento_finito:
+\ExplSyntaxOff
+\AddToHook{package/longtable/after}{%
+  \@ifpackagelater{longtable}{2025/10/13}%
+    {\@ifpackagelater{longtable}{2025/12/23}{}{\eps@longtable@finito}}%
+    {}%
+}
 
 %% ============================================================================
 %% CLASE BASE
@@ -1228,6 +1253,150 @@
     % capítulo, más cerca del texto que las cita.
     \AddToHook { cmd / chapter / before }
       { \tag_if_active:T { \tagtool { flush-floats = 0 } } }
+  }
+
+%% (6) Títulos de sección como encabezados (H2...H6). KOMA-Script compone los
+%%     títulos con su propio código y el etiquetado de LaTeX solo reconoce
+%%     \chapter: \section, \subsection... salían como párrafos normales. Se
+%%     enganchan los sockets de etiquetado de secciones del núcleo a los
+%%     ganchos documentados de KOMA (heading/postinit, heading/begingroup y
+%%     \sectionlinesformat). La composición de los títulos no cambia.
+\cs_new:Npn \__eps_sec_nivel:n #1
+  {
+    \str_case:nnF {#1}
+      {
+        { part } { -1 } { chapter } { 0 } { section } { 1 }
+        { subsection } { 2 } { subsubsection } { 3 }
+        { paragraph } { 4 } { subparagraph } { 5 }
+      }
+      { 6 }
+  }
+% Cierra la sección anterior del mismo nivel (o inferior) y abre la nueva
+\cs_new_protected:Npn \__eps_sec_abrir:nn #1 #2
+  {
+    \tag_if_active:T
+      {
+        \UseTaggingSocket { sec / end } { \__eps_sec_nivel:n {#1} }
+        \UseTaggingSocket { sec / begin }
+          {
+            { \__eps_sec_nivel:n {#1} }
+            { tag = \UseStructureName { sec / \__eps_sec_nivel:n {#1} } }
+          }
+      }
+  }
+% El párrafo del título se etiqueta como encabezado del nivel (H2, H3...)
+\cs_new_protected:Npn \__eps_sec_titulo:nn #1 #2
+  {
+    \tag_if_active:T
+      { \UseTaggingSocket { sec / title / init } { \__eps_sec_nivel:n {#1} } }
+  }
+\bool_new:N \l__eps_sec_sin_numero_bool
+
+%% (7) Índices etiquetados y con enlaces. Las entradas de los índices de KOMA
+%%     (tocbasic) no llaman a los ganchos del etiquetado: el índice general y
+%%     las listas de figuras, tablas y códigos salían como artefactos (el
+%%     lector de pantalla no los leía) y sin enlaces. Se componen con las
+%%     rutinas del núcleo, que sí los llaman, con las mismas medidas que KOMA.
+% Como en KOMA, una entrada no queda sola al pie de la página separada de la
+% primera de sus subentradas: no se corta antes de una entrada más profunda.
+\int_new:N \g__eps_toc_nivel_int
+\cs_new_protected:Npn \__eps_toc_entrada:nnn #1 #2 #3
+  {
+    \int_compare:nNnT {#1} > { \g__eps_toc_nivel_int } { \nobreak }
+    \int_gset:Nn \g__eps_toc_nivel_int {#1}
+    \@dottedtocline {#1} {#2} {#3}
+  }
+\cs_new_protected:Npn \__eps_indices_etiquetados:
+  {
+    \cs_set:Npn \l@section       { \__eps_toc_entrada:nnn {1} {1.5em} {2.3em} }
+    \cs_set:Npn \l@subsection    { \__eps_toc_entrada:nnn {2} {3.8em} {3.2em} }
+    \cs_set:Npn \l@subsubsection { \__eps_toc_entrada:nnn {3} {7.0em} {4.1em} }
+    \cs_set:Npn \l@paragraph     { \__eps_toc_entrada:nnn {4} {10em} {5em} }
+    \cs_set:Npn \l@subparagraph  { \__eps_toc_entrada:nnn {5} {12em} {6em} }
+    \cs_set:Npn \l@figure        { \__eps_toc_entrada:nnn {1} {1.5em} {2.3em} }
+    \cs_set:Npn \l@table         { \__eps_toc_entrada:nnn {1} {1.5em} {2.3em} }
+    \cs_if_exist:NT \l@listing
+      { \cs_set:Npn \l@listing { \__eps_toc_entrada:nnn {1} {1.5em} {2.3em} } }
+    % Capítulo: como el de latex-lab para 'report', con la tipografía y el
+    % espaciado de KOMA (sin línea de puntos)
+    \cs_set:Npn \l@chapter ##1 ##2
+      {
+        \int_compare:nNnT { \c@tocdepth } > { -1 }
+          {
+            \addpenalty { -\@highpenalty }
+            \int_gzero:N \g__eps_toc_nivel_int
+            \addvspace { 1.0em \@plus \p@ }
+            \setlength \@tempdima { 1.5em }
+            \group_begin:
+              \parindent \z@
+              \rightskip \@tocrmarg
+              \parfillskip -\rightskip
+              \leavevmode
+              \usekomafont { chapterentry }
+              \advance \leftskip \@tempdima
+              \hskip -\leftskip
+              \UseHookWithArguments { contentsline/text/before } {4}
+                { \toclevel@chapter } {##1} {##2} { \@contentsline@destination }
+              \use:c { contentsline@text@0@format } {##1}
+              \UseHookWithArguments { contentsline/text/after } {4}
+                { \toclevel@chapter } {##1} {##2} { \@contentsline@destination }
+              \nobreak \hfill \nobreak
+              \hb@xt@ \@pnumwidth
+                {
+                  \hss
+                  \usekomafont { chapterentrypagenumber }
+                  \UseHookWithArguments { contentsline/page/before } {4}
+                    { \toclevel@chapter } {##1} {##2} { \@contentsline@destination }
+                  ##2
+                  \UseHookWithArguments { contentsline/page/after } {4}
+                    { \toclevel@chapter } {##1} {##2} { \@contentsline@destination }
+                  \kern -\p@ \kern \p@
+                }
+              \par
+              \penalty \@highpenalty
+            \group_end:
+          }
+      }
+  }
+\IfFormatAtLeastT { 2025-11-01 }
+  {
+    \clist_map_inline:nn
+      { section , subsection , subsubsection , paragraph , subparagraph }
+      {
+        \AddtoDoHook { heading / postinit / #1 } { \__eps_sec_abrir:nn {#1} }
+        \AddtoDoHook { heading / begingroup / #1 } { \__eps_sec_titulo:nn {#1} }
+      }
+    % Igual que la definición de KOMA (\@hangfrom{\hskip #2#3}{#4}), pero el
+    % número va en su propio elemento dentro del encabezado
+    \cs_set:Npn \sectionlinesformat #1 #2 #3 #4
+      {
+        \IfUseNumber
+          { \bool_set_false:N \l__eps_sec_sin_numero_bool }
+          { \bool_set_true:N \l__eps_sec_sin_numero_bool }
+        \UseTaggingSocket { sec / title / hang }
+          {
+            { \__eps_sec_nivel:n {#1} }
+            \l__eps_sec_sin_numero_bool
+            { \hskip #2 #3 }
+            {#4}
+          }
+          { \@hangfrom { \hskip #2 #3 } }
+        #4
+      }
+    \AddToHook { begindocument / end }
+      {
+        \bool_lazy_and:nnT { \tag_if_active_p: }
+          { \cs_if_exist_p:N \ltlabtocdate }  % módulo de índices de latex-lab
+          { \__eps_indices_etiquetados: }
+      }
+    % En \chapter el número dejaba de leerse (artefacto): ahora forma parte
+    % del encabezado. Igual que la definición de KOMA (\@hangfrom{#2}{#3}).
+    \cs_set:Npn \chapterlinesformat #1 #2 #3
+      {
+        \@hangfrom
+          { \tl_if_blank:nF {#2} { \UseTaggingSocket { sec / title / number } {0} {#2} } }
+          {#3}
+      }
   }
 \ExplSyntaxOff
 

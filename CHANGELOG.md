@@ -9,6 +9,16 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
 ### Accesibilidad
 
+- **Títulos como encabezados** (con LaTeX 2025-11 o posterior): `\section`, `\subsection`... se etiquetan como
+  `H2`, `H3`... dentro de secciones anidadas (antes eran párrafos), y el
+  número del capítulo forma parte de su `H1`. El aspecto no cambia.
+- **Índices navegables** (con LaTeX 2025-11 o posterior): el índice general y los de figuras, tablas y códigos
+  se etiquetan como índices (antes eran artefactos que el lector de pantalla
+  no leía) y cada entrada lleva su enlace (650 enlaces en el ejemplo, antes
+  146). El aspecto no cambia.
+- **CI**: las métricas de accesibilidad cuentan también los encabezados y las
+  entradas de índice enlazadas.
+
 - **PDF etiquetado más útil para lectores de pantalla** (sin declarar todavía
   PDF/UA-2). En el documento de ejemplo los avisos de etiquetado bajan de 258 a
   66; los que quedan son, sobre todo, una limitación del núcleo de LaTeX.
@@ -34,6 +44,11 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
   de etiquetado por tipo), solo informativas.
 
 ### Corregido
+
+- **`Infinite glue shrinkage found in box being split`** con `longtable` 4.24
+  (TeX Live 2025): la clase aplica la corrección de `longtable` 4.25. El error
+  hacía que `latexmk` se detuviera antes de terminar las pasadas y los números
+  de página de los índices podían quedar mal.
 
 - **La plantilla vuelve a compilar con TeX Live actual (LaTeX 2025-11 o
   posterior)**: con `\DocumentMetadata` el documento completo fallaba (opciones

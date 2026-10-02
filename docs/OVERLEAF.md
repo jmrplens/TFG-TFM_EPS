@@ -207,7 +207,7 @@ logs y **son inofensivos**:
 | `Package tracklang Warning: No 'datatool' support for dialect 'spanish'` | Limitación de `datatool`; no afecta a glosarios ni acrónimos |
 | `Index style file output.ist not found` (primera pasada) | `glossaries` lanza `makeindex` antes de escribir el `.ist`; se resuelve en la siguiente pasada |
 | `Underfull \hbox` / `Overfull \hbox` | Avisos tipográficos habituales |
-| `ignored error Infinite glue shrinkage found in box being split` | Fallo conocido de `longtable` 4.24 (LaTeX 2025-11) al partir una tabla larga entre páginas; el PDF es correcto |
+| `ignored error Infinite glue shrinkage found in box being split` | Fallo de `longtable` 4.24 (LaTeX 2025-11) al partir una tabla larga entre páginas. Solo con versiones antiguas de la plantilla: la clase actual lo corrige. Actualiza `cls/` |
 | `lualatex: unrecognized option '-no-pdf'` | Solo si el menú *Compiler* no está en LuaLaTeX y actúa el `.latexmkrc` |
 
 El aviso `Package tagpdf Warning: engine/output mode xetex doesn't support the

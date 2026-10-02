@@ -672,7 +672,7 @@ $lualatex = 'lualatex -shell-escape -interaction=nonstopmode -file-line-error -s
 | `The key 'eps-tfg/...' is unknown` | Clave de `\EPSsetup` inexistente | Usar solo las claves de este documento |
 | `La titulación '...' no está definida` | Valor de `titulacion` no válido | Usar uno de los identificadores de la tabla |
 | `Package block Error: Some keys specified on the itemize environment are unknown` | Versión antigua de la plantilla con LaTeX 2025-11+ | Actualizar la plantilla (`cls/`, `sty/`) |
-| `ignored error Infinite glue shrinkage found in box being split` | Fallo conocido de `longtable` 4.24 (LaTeX 2025-11) al partir una `longtable` entre páginas | Ninguna: es un error ignorado y el PDF es correcto |
+| `ignored error Infinite glue shrinkage found in box being split` | Fallo de `longtable` 4.24 (LaTeX 2025-11) al partir una tabla entre páginas, con una versión antigua de la plantilla | Actualizar `cls/` (la clase corrige `longtable` 4.24). Detiene `latexmk` antes de terminar las pasadas y los números de página de los índices pueden quedar mal |
 | `File not found` | Ruta incorrecta | Verificar nombre y ubicación |
 | `Font ... not found` | Fuente no instalada | Usar TeX Live completo |
 
@@ -702,7 +702,7 @@ $lualatex = 'lualatex -shell-escape -interaction=nonstopmode -file-line-error -s
 - LaTeX 2025-11 o posterior: `\DocumentMetadata{tagging=on, pdfversion=2.0, lang=es-ES}`.
 - Versiones anteriores (TeX Live 2024, TeX Live 2025 sin actualizar): `testphase=phase-I` (etiquetado básico).
 
-El PDF resultante está **etiquetado pero no declara conformidad PDF/UA-2**: todavía no se alcanza (KOMA-Script no etiqueta las secciones y varios paquetes, como minted, caption o pgfplots, aún no son compatibles con el etiquetado). El idioma (`lang`) lo fija la clase a partir de `idioma`.
+El PDF resultante está **etiquetado pero no declara conformidad PDF/UA-2**: todavía no se alcanza (varios paquetes, como minted, caption o pgfplots, aún no son compatibles con el etiquetado; con LaTeX 2025-11 o posterior, los títulos sí se etiquetan como encabezados y los índices llevan enlaces). El idioma (`lang`) lo fija la clase a partir de `idioma`.
 
 Buenas prácticas: `alt={...}` en cada `\includegraphics`, tablas con cabecera clara y texto descriptivo en los enlaces. Ver [ACCESIBILIDAD.md](ACCESIBILIDAD.md).
 
