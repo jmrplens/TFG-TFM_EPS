@@ -112,8 +112,10 @@ recursos/
 ### Sintaxis mínima
 
 ```latex
-\includegraphics{recursos/imagenes/mi-imagen.png}
+\includegraphics[alt={Descripción breve de la imagen}]{recursos/imagenes/mi-imagen.png}
 ```
+
+> **Accesibilidad:** el PDF de la plantilla está etiquetado. Añade siempre `alt={...}` con una descripción de lo que muestra la imagen (o `artifact` si es puramente decorativa); sin él, los lectores de pantalla solo pueden leer el nombre del archivo. Ver [ACCESIBILIDAD.md](ACCESIBILIDAD.md).
 
 ### Con tamaño específico
 
@@ -152,6 +154,8 @@ recursos/
 
 | Opción | Descripción | Ejemplo |
 | -------- | ------------- | --------- |
+| `alt` | Texto alternativo (accesibilidad) | `alt={Diagrama de bloques del sistema}` |
+| `artifact` | Imagen decorativa, ignorada por lectores de pantalla | (sin valor) |
 | `width` | Ancho de la imagen | `5cm`, `0.8\textwidth` |
 | `height` | Alto de la imagen | `4cm`, `0.5\textheight` |
 | `scale` | Escala proporcional | `0.5`, `1.2` |
@@ -211,7 +215,7 @@ El entorno `figure` permite:
 ```latex <!-- preview -->
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.7\textwidth]{example-image-a}
+    \includegraphics[width=0.7\textwidth, alt={Imagen de ejemplo A}]{example-image-a}
     \caption{Descripción de la imagen}
     \label{fig:mi-figura}
 \end{figure}
@@ -300,14 +304,14 @@ La \autoref{fig:mi-figura} ilustra el proceso.
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{example-image-a}
+        \includegraphics[width=\textwidth, alt={Muestra antes del tratamiento}]{example-image-a}
         \caption{Antes del tratamiento}
         \label{fig:antes}
     \end{subfigure}
     \hfill
     \begin{subfigure}[b]{0.48\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{example-image-b}
+        \includegraphics[width=\textwidth, alt={Muestra después del tratamiento}]{example-image-b}
         \caption{Después del tratamiento}
         \label{fig:despues}
     \end{subfigure}

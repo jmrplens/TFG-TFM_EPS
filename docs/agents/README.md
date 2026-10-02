@@ -67,7 +67,7 @@ un informe estructurado de mejora.
 Si usas ChatGPT, Gemini u otra IA sin integración de archivos:
 
 1. Abre el archivo de prompts correspondiente (`prompts-*.md`)
-2. Copia el prompt que necesites (están identificados como I01, I02... / R01, R02... / V01, V02...)
+2. Copia el prompt que necesites (están identificados como I01–I08 para instalación, P01–P12 para redacción y R01–R12 para revisión)
 3. Sustituye los valores entre `[corchetes]` y pégalo en el chat
 
 ---

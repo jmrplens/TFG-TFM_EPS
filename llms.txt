@@ -12,6 +12,9 @@
 
 ## Agentes especializados
 
+- [.github/agents/instalacion.md](.github/agents/instalacion.md): Agente de instalación para GitHub Copilot. Guía a un estudiante sin experiencia para instalar TeX Live 2024+ (o usar Overleaf), latexminted y make en Windows, macOS o Linux, y diagnostica errores de compilación.
+- [docs/agents/instalacion-claude.md](docs/agents/instalacion-claude.md): Versión del agente de instalación para Claude.
+- [docs/agents/prompts-instalacion.md](docs/agents/prompts-instalacion.md): Prompts reutilizables de instalación y diagnóstico del entorno.
 - [.github/agents/redaccion.md](.github/agents/redaccion.md): Agente de redacción para GitHub Copilot. Genera capítulos y secciones completas en LaTeX respetando las convenciones de la plantilla. Cubre 6 flujos: capítulo desde cero, expandir esquema, mejorar fragmento, resumen/abstract, conclusiones, introducción.
 - [.github/agents/revisor.md](.github/agents/revisor.md): Agente revisor tipo tribunal para GitHub Copilot. Evalúa el documento en 8 dimensiones: estructura, coherencia, bibliografía, lenguaje, formato LaTeX, figuras/tablas, plagio semántico y normativa EPS UA.
 - [docs/agents/redaccion-claude.md](docs/agents/redaccion-claude.md): Versión del agente de redacción para Claude, con ejemplos de código LaTeX completos para cada flujo de trabajo.
@@ -27,7 +30,7 @@
 
 ## Documentación por tema
 
-- [docs/CODIGO_FUENTE.md](docs/CODIGO_FUENTE.md): Guía de entornos de código con minted (40+ lenguajes, temas claro/oscuro, opciones avanzadas).
+- [docs/CODIGO_FUENTE.md](docs/CODIGO_FUENTE.md): Guía de entornos de código con minted (46 lenguajes, temas claro/oscuro, opciones avanzadas).
 - [docs/FIGURAS_GRAFICAS.md](docs/FIGURAS_GRAFICAS.md): Gráficas con PGFPlots y TikZ.
 - [docs/IMAGENES_SUBFIGURAS.md](docs/IMAGENES_SUBFIGURAS.md): Imágenes, subfiguras y posicionamiento.
 - [docs/TABLAS.md](docs/TABLAS.md): Tablas profesionales con booktabs, tablas largas, tablas de color.
@@ -36,26 +39,27 @@
 - [docs/BIBLIOGRAFIA.md](docs/BIBLIOGRAFIA.md): Gestión de referencias con BibLaTeX, formatos de entrada, comandos de cita.
 - [docs/GLOSARIOS_ACRONIMOS.md](docs/GLOSARIOS_ACRONIMOS.md): Acrónimos, glosarios y símbolos.
 - [docs/REFERENCIAS_CRUZADAS.md](docs/REFERENCIAS_CRUZADAS.md): Etiquetas, referencias cruzadas y hyperref.
-- [docs/ACCESIBILIDAD.md](docs/ACCESIBILIDAD.md): PDFs accesibles (PDF/UA-2) con TeX Live 2025+.
+- [docs/ACCESIBILIDAD.md](docs/ACCESIBILIDAD.md): PDF etiquetado y buenas prácticas de accesibilidad (texto alternativo, tablas, idioma). La conformidad PDF/UA-2 todavía no se alcanza.
 - [docs/GUIA_PRINCIPIANTES.md](docs/GUIA_PRINCIPIANTES.md): Guía de LaTeX para usuarios sin experiencia previa.
 - [docs/OVERLEAF.md](docs/OVERLEAF.md): Uso en Overleaf. Plantilla publicada en la galería, selección del compilador (LuaLaTeX obligatorio), versión de TeX Live, minted/shell-escape, límites de compilación y errores frecuentes.
 
 ## Herramientas de revisión automática
 
-- [scripts/revision-rapida.py](scripts/revision-rapida.py): Script Python de análisis estático. Detecta referencias rotas, figuras sin caption, citas sin entrada .bib, comandos prohibidos y registro informal. Genera `informe-revision.md`. Acepta token de API de plagio en `.env`.
+- [scripts/revision-rapida.py](scripts/revision-rapida.py): Script Python de análisis estático. Detecta referencias rotas, figuras sin caption, citas sin entrada .bib, comandos prohibidos y registro informal. Genera `informe-revision.md`. Sin conexión a internet por defecto: solo envía el texto a Copyleaks/Turnitin con `--plagio` y tras confirmar (claves en `.env`).
+- [scripts/instalar.py](scripts/instalar.py): Comprueba el entorno (TeX Live 2024+, LuaLaTeX, Biber, latexmk, latexminted, make) y ofrece instalar lo que falte.
 
 ## Archivos clave del proyecto
 
 - [main.tex](main.tex): Archivo raíz. Solo estructura (inputs, usepackage, addbibresource). No contiene texto de contenido.
 - [configuracion.tex](configuracion.tex): Configuración del usuario mediante `\EPSsetup{...}`. Título, autor, tutor, titulación, idioma.
 - [referencias.bib](referencias.bib): Base de datos bibliográfica en formato BibLaTeX.
-- [cls/eps-metadata.tex](cls/eps-metadata.tex): Metadatos PDF/UA-2. El valor `lang=` debe coincidir con `idioma` en `configuracion.tex`.
+- [cls/eps-metadata.tex](cls/eps-metadata.tex): Etiquetado del PDF y metadatos. No hace falta editarlo: el idioma del PDF se toma de `idioma` en `configuracion.tex`.
 
 ## Resumen de reglas para IA
 
 Motor: **LuaLaTeX** (nunca pdfLaTeX). Bibliografía: **BibLaTeX + Biber**. Código: **minted 3.x**.
 
-Regla de idioma: si `idioma = espanol` → `lang=es-ES`; si `idioma = valenciano` → `lang=ca-ES`; si `idioma = ingles` → `lang=en-GB`.
+Idioma: `idioma` (`espanol`, `valenciano`, `ingles`) en `configuracion.tex` cambia el idioma del documento y del PDF; no hay que tocar `cls/eps-metadata.tex`. La portada se mantiene en español. Requisito: TeX Live 2024 o posterior (etiquetado completo con LaTeX 2025-11+).
 
 Compilación: `make` (completo) o `make quick` (una pasada). Limpiar: `make clean`.
 

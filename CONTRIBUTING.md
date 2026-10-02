@@ -53,7 +53,7 @@ Si usas ChatGPT, Claude, Copilot u otro asistente de IA para contribuir, el proy
 
 ### Requisitos
 
-- **TeX Live 2025+** o **MiKTeX** con LuaLaTeX
+- **TeX Live 2024** o posterior (recomendado: LaTeX 2025-11 o posterior, para probar el etiquetado completo) o **MiKTeX** actualizado, con LuaLaTeX
 - **Git** para control de versiones
 - Editor recomendado: **VS Code** con [LaTeX Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop)
 
@@ -110,8 +110,20 @@ make clean
 # Compilar desde cero
 make
 
-# Verificar que no hay errores
+# Verificar que no hay errores ni avisos nuevos
+grep -n "^!" main.log
+
+# Si cambias ejemplos LaTeX de CLAUDE.md, AGENTS.md, llms.txt,
+# .github/copilot-instructions.md o los agentes: comprobar que compilan
+python3 scripts/comprobar-ejemplos-doc.py
 ```
+
+La integración continua compila el documento con TeX Live actual y 2024 (en
+español, valenciano e inglés) y comprueba que el PDF está etiquetado, compila
+los ejemplos de los archivos para IA y verifica los enlaces de la
+documentación (lychee: un enlace roto hace fallar la comprobación). Un bloque
+` ```latex ` que no deba compilarse se marca con
+`<!-- no-compilar: motivo -->` en la línea anterior.
 
 ### 4. Enviar Pull Request
 

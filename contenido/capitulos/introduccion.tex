@@ -1,5 +1,5 @@
 \chapter{Introducción (Ejemplos de contenido y estilos)}
-\label{ch:introduccion}
+\label{chap:introduccion}
 
 Este capítulo presenta una guía completa de las capacidades de \LaTeX{} y de esta
 plantilla para la elaboración de Trabajos Fin de Grado y Trabajos Fin de Máster
@@ -195,8 +195,8 @@ en línea y cualquier recurso con URL. Siempre debe incluir \texttt{urldate}
 
 \begin{warningbox}{Citar Wikipedia}
 Wikipedia solo debería citarse como fuente primaria en casos excepcionales.
-Cuando sea necesario, usa \texttt{@online} con \texttt{note={Wikipedia,
-La enciclopedia libre}} y, siempre que sea posible, cita la fuente
+Cuando sea necesario, usa \texttt{@online} con \texttt{note=\{Wikipedia,
+La enciclopedia libre\}} y, siempre que sea posible, cita la fuente
 primaria que Wikipedia referencia.
 \end{warningbox}
 
@@ -699,13 +699,16 @@ En la página~\pageref{sec:listas} comienza...
 Para mantener el código organizado, usa prefijos consistentes:
 
 \begin{description}
-  \item[ch:] Capítulos --- \verb|\label{ch:introduccion}|
+  \item[chap:] Capítulos --- \verb|\label{chap:introduccion}|
   \item[sec:] Secciones --- \verb|\label{sec:metodologia}|
+  \item[subsec:] Subsecciones (opcional) --- \verb|\label{subsec:datos}|
   \item[fig:] Figuras --- \verb|\label{fig:diagrama}|
   \item[tab:] Tablas --- \verb|\label{tab:resultados}|
   \item[eq:] Ecuaciones --- \verb|\label{eq:formula}|
-  \item[lst:] Códigos --- \verb|\label{lst:algoritmo}|
-  \item[apx:] Anexos --- \verb|\label{apx:manual}|
+  \item[cod:] Bloques de código --- \verb|\label{cod:algoritmo}|
+  \item[teo:] Teoremas --- \verb|\label{teo:pitagoras}|
+  \item[def:] Definiciones --- \verb|\label{def:derivada}|
+  \item[anexo:] Anexos --- \verb|\label{anexo:manual}|
 \end{description}
 
 \minisec{Ejemplos de uso}
@@ -713,7 +716,7 @@ Para mantener el código organizado, usa prefijos consistentes:
 \begin{itemize}
   \item Referencia a sección: Ver la Sección~\ref{sec:listas} para información sobre listas.
   \item Referencia a página: Las citas se explican en la página~\pageref{sec:citas}.
-  \item Referencia a capítulo: El Capítulo~\ref{ch:introduccion} contiene ejemplos básicos.
+  \item Referencia a capítulo: El Capítulo~\ref{chap:introduccion} contiene ejemplos básicos.
 \end{itemize}
 
 \begin{tipbox}

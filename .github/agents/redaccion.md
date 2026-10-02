@@ -49,7 +49,7 @@ el estilo académico de la EPS UA.
 ```latex
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.8\textwidth]{recursos/figuras/nombre}
+  \includegraphics[width=0.8\textwidth, alt={Descripción breve}]{recursos/figuras/nombre}
   \caption{Descripción clara de la figura.}
   \label{fig:nombre}
 \end{figure}
@@ -90,9 +90,11 @@ def funcion(parametro):
 \end{pythoncode}
 ```
 
-Lenguajes: `pythoncode`, `jscode`, `cppcode`, `javacode`, `matlabcode`,
-`bashcode`, `sqlcode`, `jsoncode`, `yamlcode`, `htmlcode`, `csscode`,
-`rcode`, `rustcode`, `gocode`, `phpcode`.
+Lenguajes más usados: `pythoncode`, `jscode`, `cppcode`, `javacode`,
+`matlabcode`, `bashcode`, `sqlcode`, `jsoncode`, `yamlcode`, `htmlcode`,
+`csscode`, `rcode`, `rustcode`, `gocode`, `phpcode` (lista completa en
+`docs/CODIGO_FUENTE.md`). Escapar `_` en el título (`title={mi\_script.py}`);
+las opciones de minted van en `minted options={...}`.
 
 ### Cajas de aviso (módulo comunes)
 
@@ -103,19 +105,30 @@ Lenguajes: `pythoncode`, `jscode`, `cppcode`, `javacode`, `matlabcode`,
 \begin{successbox}{Título} Texto.  \end{successbox}
 \begin{tipbox}{Título}     Texto.  \end{tipbox}
 \begin{notebox}{Título}    Texto.  \end{notebox}
-\begin{definitionbox}{Definición: término} Texto. \end{definitionbox}
-\begin{examplebox}{Ejemplo} Texto. \end{examplebox}
+\begin{definitionbox}{Término} Texto. \end{definitionbox}
+\begin{examplebox}[Ejemplo] Texto. \end{examplebox}
 ```
+
+El título de las cajas de aviso es opcional. `examplebox` e `importantbox`
+llevan el título entre corchetes.
 
 ### Módulo [software]
 
+El contenido de `terminal` y `apiendpoint` no es literal: escapar `\&`,
+`\#`, `\%`, `\_`, `\{`, `\}`, `\$` y separar líneas con `\\`. Para scripts o
+salidas copiadas tal cual, usar `bashcode`.
+
 ```latex
-\begin{terminal}[title={bash}]
-$ comando --opcion valor
+\begin{terminal}[bash]
+\prompt comando --opcion valor
 \end{terminal}
 
-\begin{apiendpoint}{GET}{/api/v1/recurso}{Descripción del endpoint}
-  Parámetros: id (int), formato (string)
+\begin{apiendpoint}{GET}{/api/v1/recurso}
+  \apidescription{Descripción del endpoint}
+  \apiparams{
+    id      & int    & Identificador & Sí \\
+    formato & string & json o xml    & No \\
+  }
 \end{apiendpoint}
 ```
 

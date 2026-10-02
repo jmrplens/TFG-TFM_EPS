@@ -48,8 +48,10 @@ Si prefieres subir el proyecto tú mismo:
 > ⚠️ **Sube el proyecto limpio.** Si el zip incluye el PDF y los auxiliares
 > (`main.pdf`, `main.aux`, `_minted/`…), Overleaf puede mostrar avisos como
 > *«This project contains a file called output.pdf»* y no enseñar el PDF
-> generado. Un `git clone` o el ZIP de GitHub ya vienen limpios (están en
-> `.gitignore`); si compilaste en local, ejecuta `make clean` antes de subir.
+> generado. El ZIP de GitHub (y el botón «Abrir en Overleaf», que lo usa) ya
+> viene limpio: no incluye `main.pdf` ni las imágenes de la documentación
+> (`docs/assets/`, `.github/images/`). Si subes una carpeta en la que has
+> compilado en local, ejecuta antes `make clean` y borra `main.pdf`.
 
 ---
 
@@ -81,7 +83,7 @@ Aunque olvides ese paso, el proyecto trae dos protecciones:
 >
 > 💡 **¿Por qué falla con XeLaTeX/pdfLaTeX?** Esos motores tienen una memoria
 > principal fija (5.000.000 de palabras) que no se puede ampliar en Overleaf. El
-> preámbulo de la plantilla (KOMA + tagging PDF/UA + biblatex + glossaries +
+> preámbulo de la plantilla (KOMA + etiquetado PDF + biblatex + glossaries +
 > tcolorbox + minted + los módulos de componentes) no cabe en ella. LuaTeX
 > reserva memoria dinámicamente y no tiene ese límite.
 
@@ -93,11 +95,14 @@ Aunque olvides ese paso, el proyecto trae dos protecciones:
 
 | Componente | Versión mínima | Motivo |
 | --- | --- | --- |
-| TeX Live | 2024 (recomendado 2025) | `\DocumentMetadata`, tagging PDF/UA-2 |
+| TeX Live | 2024 (recomendado 2025 o posterior) | `\DocumentMetadata`, etiquetado del PDF, `latexminted` |
 | minted | 3.x | Entornos de código (`pythoncode`, `jscode`…) |
 | biblatex | 3.19+ | Estilo APA 7 con Biber |
 
-Con TeX Live 2023 o anterior fallará el tagging PDF/UA y `minted` 3.
+Con TeX Live 2023 o anterior la plantilla no compila (`\DocumentMetadata`,
+minted 3 y `latexminted` necesitan TeX Live 2024). El etiquetado completo del
+PDF se activa automáticamente cuando el LaTeX de Overleaf es 2025-11 o
+posterior; con versiones anteriores se usa un etiquetado básico.
 
 ---
 
@@ -179,11 +184,13 @@ documentos grandes, y además es cómoda mientras escribes.
 > ⚠️ Si en algún momento pulsas **Clear cached files**, la siguiente compilación
 > vuelve a ser «desde cero»: repite el proceso progresivo.
 >
-> ℹ️ Desactivar el etiquetado de accesibilidad (comentar `testphase={phase-I}` y
-> `pdfstandard=ua-2` en `cls/eps-metadata.tex`) apenas ahorra tiempo (~5 % en
-> las pruebas realizadas) y sacrifica el PDF/UA-2: **no** es la palanca que
-> buscas. El contenido —bloques `minted`, figuras TikZ y tablas largas— es lo
-> que domina el tiempo de compilación.
+> ℹ️ Desactivar el etiquetado de accesibilidad apenas ahorra tiempo (~5 % en
+> las pruebas realizadas): **no** es la palanca que buscas. Con LaTeX 2025-11
+> o posterior la única forma de desactivarlo es quitar `\input{eps-metadata}`
+> de `main.tex` (cualquier `\DocumentMetadata` carga ya el etiquetado), y con
+> ello se pierden el PDF etiquetado, los metadatos XMP y la comprobación de
+> motor LuaLaTeX. El contenido —bloques `minted`, figuras TikZ y tablas
+> largas— es lo que domina el tiempo de compilación.
 
 ---
 
@@ -200,6 +207,7 @@ logs y **son inofensivos**:
 | `Package tracklang Warning: No 'datatool' support for dialect 'spanish'` | Limitación de `datatool`; no afecta a glosarios ni acrónimos |
 | `Index style file output.ist not found` (primera pasada) | `glossaries` lanza `makeindex` antes de escribir el `.ist`; se resuelve en la siguiente pasada |
 | `Underfull \hbox` / `Overfull \hbox` | Avisos tipográficos habituales |
+| `ignored error Infinite glue shrinkage found in box being split` | Fallo conocido de `longtable` 4.24 (LaTeX 2025-11) al partir una tabla larga entre páginas; el PDF es correcto |
 | `lualatex: unrecognized option '-no-pdf'` | Solo si el menú *Compiler* no está en LuaLaTeX y actúa el `.latexmkrc` |
 
 El aviso `Package tagpdf Warning: engine/output mode xetex doesn't support the
@@ -219,6 +227,7 @@ XeLaTeX. Cambia el compilador a LuaLaTeX.
 | `File 'eps-tfg.cls' not found` | Se subió solo `main.tex` | Sube el proyecto completo con sus carpetas (`cls/`, `sty/`, `contenido/`…) |
 | `Citation 'X' undefined` o glosario vacío | Falta una pasada de Biber/makeglossaries | Pulsa *Recompile* otra vez; Overleaf los ejecuta vía `latexmk` |
 | `Package minted Error: ... latexminted` | TeX Live antiguo | Menu → TeX Live version → 2025 |
+| `Package block Error: Some keys specified on the itemize environment are unknown` | Copia antigua de la plantilla con un LaTeX reciente | Actualiza `cls/` y `sty/` a la última versión de la plantilla |
 | Errores raros justo después de cambiar de compilador | Auxiliares de la compilación anterior | *Logs and output files* → **Clear cached files** y recompila |
 
 ---

@@ -13,7 +13,8 @@ todos los scripts del proyecto antes de empezar a escribir.
 
 - **Motor de compilación:** LuaLaTeX (no pdfLaTeX ni XeLaTeX)
 - **Bibliografía:** BibLaTeX + Biber (no BibTeX)
-- **Código fuente en PDF:** minted 3.x → requiere Python y el paquete `latexminted`
+- **Distribución LaTeX:** TeX Live 2024 o posterior (o MiKTeX actualizado)
+- **Código fuente en PDF:** minted 3.x → usa el programa `latexminted`, incluido en TeX Live 2024+
 - **Compilación:** Makefile con `make`, `make quick`, `make watch`
 - **Revisor estático:** `python3 scripts/revision-rapida.py`
 - **Script de instalación:** `python3 scripts/instalar.py`
@@ -91,21 +92,39 @@ Si `make quick` produce errores:
 **Ubuntu/Debian:**
 
 ```bash
-sudo apt-get install python3 python3-pip
+sudo apt-get install python3
 ```
+
+(Python solo hace falta para los scripts del proyecto; `latexminted` no se
+instala con pip.)
 
 ---
 
-### latexminted (paquete Python)
+### latexminted
 
-Necesario para que minted 3.x resalte el código fuente en el PDF.
+Necesario para que minted 3.x resalte el código fuente en el PDF. Viene con
+TeX Live 2024 o posterior. Comprobar:
 
 ```bash
-pip install latexminted        # Windows
-pip3 install latexminted       # Linux / macOS
+latexminted --version
 ```
 
-El script `instalar.py` ofrece instalarlo automáticamente al ejecutarlo.
+Si falta:
+
+```bash
+sudo tlmgr install minted              # TeX Live oficial (TUG)
+sudo apt-get install texlive-latex-extra   # Debian / Ubuntu
+```
+
+- **MiKTeX:** actualizar MiKTeX e instalar el paquete `minted`; si aun así no
+  aparece, `pipx install latexminted`.
+- **No** recomendar `pip install latexminted`: no hace falta y en Ubuntu
+  23.04+/Debian 12+/Homebrew falla por PEP 668 («externally-managed-environment»).
+- Si el `latexminted` del sistema falla al arrancar (p. ej. con Python 3.14),
+  instalar uno más reciente con `pipx install latexminted`.
+
+El script `instalar.py` detecta `latexminted` y explica cómo conseguirlo según
+el sistema.
 
 ---
 
@@ -113,13 +132,22 @@ El script `instalar.py` ofrece instalarlo automáticamente al ejecutarlo.
 
 #### Ubuntu / Debian / Mint
 
+La plantilla necesita **TeX Live 2024 o posterior**. Los paquetes de
+**Ubuntu 26.04+ y Debian 13+** sirven:
+
 ```bash
 sudo apt-get update
 sudo apt-get install texlive-full latexmk biber
 ```
 
-Nota: `texlive-full` ocupa ~4-6 GB. Si el espacio es limitado, usar
-`texlive-luatex` e instalar paquetes adicionales con `tlmgr`.
+Nota: `texlive-full` ocupa ~4-6 GB. Si el espacio es limitado, instalar
+`texlive-luatex texlive-latex-extra texlive-fonts-extra texlive-bibtex-extra
+texlive-lang-spanish biber latexmk` (con TeX Live de la distribución no se
+usa `tlmgr`).
+
+En **Ubuntu 24.04, Debian 12 o anteriores** el TeX Live de `apt` es demasiado
+antiguo: instalar TeX Live desde TUG
+(<https://www.tug.org/texlive/quickinstall.html>).
 
 #### macOS
 
@@ -135,7 +163,10 @@ brew install --cask mactex
 
 #### Windows
 
-Opción recomendada — MiKTeX:
+Opción A — TeX Live (incluye todo, también `latexminted`):
+<https://www.tug.org/texlive/windows.html>
+
+Opción B — MiKTeX:
 
 1. Descargar desde <https://miktex.org/download>
 2. Instalar seleccionando **"Instalar paquetes faltantes automáticamente"**
@@ -150,7 +181,9 @@ sudo dnf install texlive-scheme-full latexmk
 #### Arch Linux / Manjaro
 
 ```bash
-sudo pacman -S texlive-most texlive-lang biber
+sudo pacman -S texlive-meta texlive-langspanish biber
+# o por colecciones: texlive-basic texlive-latex texlive-latexextra texlive-luatex
+# texlive-fontsextra texlive-bibtexextra texlive-binextra ...
 ```
 
 ---
@@ -202,13 +235,18 @@ Si el alumno quiere activar la detección de plagio con Copyleaks o Turnitin:
    ```
 
 2. Abrir `.env` con cualquier editor de texto y rellenar las claves
+   (Copyleaks necesita además `COPYLEAKS_WEBHOOK_URL`, una URL `https://`
+   propia; `COPYLEAKS_SANDBOX=true` permite probar sin gastar créditos)
 3. Consultar `.env.example` para instrucciones sobre cómo obtener las claves
-4. Ejecutar el revisor estático para comprobar:
+4. Tener las claves en `.env` **no envía nada**. El texto solo se envía al
+   pedirlo explícitamente, y el script pide confirmación antes:
 
    ```bash
-   python3 scripts/revision-rapida.py   # Linux / macOS
-   python  scripts/revision-rapida.py   # Windows
+   python3 scripts/revision-rapida.py --plagio copyleaks   # o turnitin, todos
    ```
+
+   Sin terminal interactiva (p. ej. en un script) hay que añadir `--si` para
+   confirmar el envío.
 
 ---
 
@@ -217,10 +255,10 @@ Si el alumno quiere activar la detección de plagio con Copyleaks o Turnitin:
 | Error | Causa | Solución |
 | --- | --- | --- |
 | `python3: command not found` | Python no instalado | Instalar Python y añadir al PATH |
-| `pip: command not found` | pip no en PATH | Usar `python3 -m pip install ...` |
 | `lualatex: command not found` | LaTeX no instalado | Instalar TeX Live / MiKTeX |
 | `You must invoke LaTeX with -shell-escape` | Compilar directamente sin Makefile | Usar `make` o añadir `-shell-escape` |
-| `Pygments not found` | latexminted no instalado | `pip install latexminted` |
+| `minted v3+ executable is not installed` | Falta `latexminted` o TeX Live anterior a 2024 | Ver la sección «latexminted» |
+| `Package block Error: Some keys specified on the itemize environment are unknown` | Copia antigua de la plantilla con LaTeX 2025-11+ | Actualizar la plantilla (`cls/`, `sty/`) |
 | `Citation 'X' undefined` | Biber no se ha ejecutado | Usar `make` completo (no `make quick`) |
 | `Font ... not found` | TeX Live incompleto | Instalar `texlive-full` o actualizar en MiKTeX Console |
 | `I found no \bibdata command` | Usando BibTeX en lugar de Biber | Verificar que el compilador usa Biber |

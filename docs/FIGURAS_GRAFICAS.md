@@ -278,12 +278,6 @@ Esta plantilla carga los siguientes paquetes para gráficas:
 \end{figure}
 ```
 
-**Resultado:**
-
-<img src="assets/previews/FIGURAS_GRAFICAS_005.webp" alt="Preview">
-
-[📄 Ver PDF](assets/previews/FIGURAS_GRAFICAS_005.pdf)
-
 ### Gráfica de barras agrupadas
 
 ```latex <!-- preview -->
@@ -1224,16 +1218,14 @@ La plantilla incluye el paquete `pgf-pie` para gráficas circulares.
 
 ### Compilación muy lenta
 
-**Solución**: Reduce el número de muestras o usa externalización:
+**Solución**: Reduce el número de muestras o genera la gráfica como PDF aparte e inclúyela con `\includegraphics` (con `alt={...}`):
 
 ```latex
 % Menos muestras
 \addplot[domain=-5:5, samples=50] {sin(deg(x))};
-
-% O habilita externalización en el preámbulo
-\usepgfplotslibrary{external}
-\tikzexternalize[prefix=cache/]
 ```
+
+> La externalización de TikZ (`\tikzexternalize`) no es compatible con el PDF etiquetado de la plantilla, por eso la antigua opción `optimizar-tikz` ya no tiene efecto.
 
 ### Error "Dimension too large"
 

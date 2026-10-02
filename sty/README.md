@@ -12,6 +12,9 @@ Esta carpeta contiene los paquetes auxiliares de la plantilla.
 | --------- | ------------- |
 | `eps-portadas.sty` | Genera las portadas oficiales (color y B/N) |
 | `eps-codigo.sty` | Estilos de código fuente tipo VS Code |
+| `eps-componentes.sty` | Cargador modular de componentes: `\usepackage[software,telecom]{eps-componentes}` (opciones `software`, `telecom`, `arquitectura`, `quimica`, `geologia`, `prevencion`, `all`) |
+| `componentes/eps-comunes.sty` | Cajas de aviso, contenedores y elementos comunes (siempre se carga) |
+| `componentes/eps-*.sty` | Un módulo por disciplina (ver [docs/COMPONENTES.md](../docs/COMPONENTES.md)) |
 
 ---
 
@@ -31,18 +34,21 @@ Genera las portadas oficiales del TFG/TFM usando TikZ para el diseño gráfico.
 | **tikzpagenodes** | Referencia a coordenadas de la página |
 | **textpos** | Posicionamiento absoluto de bloques de texto |
 | **geometry** | Ajuste temporal de márgenes para portada |
-| **xstring** | Cálculo de longitud del título para ajuste automático |
+| **setspace**, **afterpage**, **fontspec** | Interlineado, salto tras la portada y fuentes de portada |
+| **xstring** | Utilidades de cadenas (cargado por compatibilidad) |
 
 #### Estructura
 
 ```text
 eps-portadas.sty
-├── VARIABLES DE TAMAÑO
-│   ├── \eps@FuenteTamano (tamaño título)
-│   ├── \eps@interlinportada (interlineado)
-│   └── \eps@TamTrabajo, \eps@TamOtros
+├── FUENTES DE PORTADA
+│   └── \FuenteTitulo, \FuentePortada
+├── VARIABLES CONFIGURABLES
+│   ├── Posiciones: \eps@portadaTituloX/Y, \eps@portadaInfoGradoX/Y...
+│   ├── Tamaños: \eps@sizeTitulo, \eps@sizeGrado, \eps@sizeTipoTrabajo, \eps@sizeInfo
+│   └── Interlineado: \eps@leadingTitulo, \eps@leadingGrado, \eps@leadingInfo
 ├── AJUSTE AUTOMÁTICO DE TÍTULO
-│   └── \eps@ajustar@tamano@titulo
+│   └── \eps@optimizeTitleSize (reduce el tamaño de 2 en 2 pt si no cabe)
 ├── PORTADA A COLOR
 │   └── \portadacolor
 │       ├── TikZ: fondo color + franja negra
@@ -55,8 +61,9 @@ eps-portadas.sty
 #### Comandos principales
 
 ```latex
-\portadacolor    % Portada con fondo del color del grado
-\portadabn       % Portada en blanco y negro
+\generarportada[ambas]   % Color + B/N (por defecto); también solo-color, solo-bn
+\portadacolor            % Portada con fondo del color del grado
+\portadabn               % Portada en blanco y negro
 ```
 
 #### Variables de la clase que utiliza
@@ -65,11 +72,12 @@ eps-portadas.sty
 \EPStitulo           % Título del trabajo
 \EPSsubtitulo        % Subtítulo (opcional)
 \EPSautor            % Nombre del autor
-\EPSlabelAutor       % "Autor" / "Autora" / "Autoría"
+\EPSetiquetaAutor    % "Autor" / "Autora" / "Autoría" (según genero)
 \EPStutor            % Nombre del tutor
-\EPSlabelTutor       % "Tutor" / "Tutora" / "Tutoría"
+\EPSetiquetaTutor    % "Tutor" / "Tutora" / "Tutores" / "Tutoras"... (según
+                     % tutor-genero y, si hay cotutor, cotutor-genero)
 \EPScotutor          % Nombre del cotutor (opcional)
-\EPSlabelCotutor     % "Cotutor" / "Cotutora" / "Cotutoría"
+\EPSsiCotutor{con}{sin}  % Elige texto según haya cotutor o no
 \EPSfecha            % Fecha de presentación
 \EPStipoTrabajo      % "Trabajo Fin de Grado/Máster"
 \EPStitulacion       % Nombre completo de la titulación
@@ -131,10 +139,12 @@ eps-codigo.sty
 │   ├── vscode-light-base
 │   ├── vscode-light-linenos
 │   └── vscode-dark-base...
-└── ENTORNOS DE CÓDIGO
-    ├── pythoncode, javacode, cppcode...
-    ├── pythoncode*, javacode*... (sin líneas)
-    └── genericcode (lenguaje configurable)
+└── ENTORNOS DE CÓDIGO (46 lenguajes)
+    ├── pythoncode, javacode, cppcode...        (con números de línea)
+    ├── pythoncodeNN, javacodeNN...             (sin números de línea)
+    ├── pythoncodeDark, pythoncodeDarkNN...     (tema oscuro)
+    └── codigo, codigoNN, codigoDark, codigoDarkNN, codigosimple
+                                                (lenguaje como argumento)
 ```
 
 #### Colores definidos
@@ -158,32 +168,34 @@ eps-codigo.sty
 
 | Entorno | Lenguaje | Con líneas | Sin líneas |
 | --------- | ---------- | ------------ | ------------ |
-| Python | python | `pythoncode` | `pythoncode*` |
-| Java | java | `javacode` | `javacode*` |
-| C++ | cpp | `cppcode` | `cppcode*` |
-| C | c | `ccode` | `ccode*` |
-| JavaScript | javascript | `jscode` | `jscode*` |
-| HTML | html | `htmlcode` | `htmlcode*` |
-| CSS | css | `csscode` | `csscode*` |
-| SQL | sql | `sqlcode` | `sqlcode*` |
-| LaTeX | latex | `latexcode` | `latexcode*` |
-| Bash | bash | `bashcode` | `bashcode*` |
-| MATLAB | matlab | `matlabcode` | `matlabcode*` |
-| Genérico | (param) | `genericcode` | `genericcode*` |
+| Python | python | `pythoncode` | `pythoncodeNN` |
+| Java | java | `javacode` | `javacodeNN` |
+| C++ | cpp | `cppcode` | `cppcodeNN` |
+| C | c | `ccode` | `ccodeNN` |
+| JavaScript | javascript | `jscode` | `jscodeNN` |
+| HTML | html | `htmlcode` | `htmlcodeNN` |
+| CSS | css | `csscode` | `csscodeNN` |
+| SQL | sql | `sqlcode` | `sqlcodeNN` |
+| LaTeX | latex | `latexcode` | `latexcodeNN` |
+| Bash | bash | `bashcode` | `bashcodeNN` |
+| MATLAB | matlab | `matlabcode` | `matlabcodeNN` |
+| Genérico | (argumento) | `\begin{codigo}{lenguaje}` | `\begin{codigoNN}{lenguaje}` |
+
+Lista completa y variantes `Dark`/`DarkNN` en [docs/CODIGO_FUENTE.md](../docs/CODIGO_FUENTE.md).
 
 #### Uso de los entornos
 
 ```latex
-% Con números de línea (por defecto)
-\begin{pythoncode}[title={mi_script.py}]
+% Con números de línea (por defecto); los _ del título se escapan
+\begin{pythoncode}[title={mi\_script.py}]
 def hello():
     print("Hello, World!")
 \end{pythoncode}
 
 % Sin números de línea
-\begin{pythoncode*}[title={ejemplo.py}]
+\begin{pythoncodeNN}[title={ejemplo.py}]
 x = 42
-\end{pythoncode*}
+\end{pythoncodeNN}
 
 % Código inline
 \mintinline{python}{print("Hello")}
@@ -193,10 +205,13 @@ x = 42
 
 ```latex
 \begin{pythoncode}[
-  title={nombre_archivo.py},    % Título en la barra superior
-  label={lst:ejemplo},          % Para referencias cruzadas
+  title={nombre\_archivo.py},   % Título en la barra superior
+  label={cod:ejemplo},          % Para referencias cruzadas
+  minted options={firstline=2, highlightlines={3}},  % Opciones de minted
 ]
 ```
+
+Las opciones son de tcolorbox; las de minted van dentro de `minted options={...}`.
 
 ---
 
@@ -206,21 +221,28 @@ x = 42
 
 En `eps-codigo.sty`, añadir al final:
 
+Sigue el patrón de los entornos existentes (`\newtcblisting` con contador
+`listing` para que aparezcan en el índice de códigos). Ejemplo para Elixir:
+
 ```latex
-%% Nuevo lenguaje: Ruby
-\DeclareTCBListing{rubycode}{ O{} }{
+%% Nuevo lenguaje: Elixir
+\newtcblisting[use counter=listing, list inside=lol, list type=listing]{elixircode}[1][]{
   vscode-light-linenos,
-  minted language=ruby,
-  title={\faCode~Ruby},
+  minted language=elixir,
+  title={\faIcon{code}~~Elixir},
+  list entry={\protect\numberline{\thelisting}Elixir},
   #1
 }
-\DeclareTCBListing{rubycode*}{ O{} }{
+\newtcblisting[use counter=listing, list inside=lol, list type=listing]{elixircodeNN}[1][]{
   vscode-light-nolinenos,
-  minted language=ruby,
-  title={\faCode~Ruby},
+  minted language=elixir,
+  title={\faIcon{code}~~Elixir},
+  list entry={\protect\numberline{\thelisting}Elixir},
   #1
 }
 ```
+
+Para un uso puntual no hace falta definir nada: `\begin{codigo}{elixir} ... \end{codigo}`.
 
 ### Cambiar colores del tema
 
@@ -239,7 +261,7 @@ Cambiar los estilos base para usar `vscode-dark-*` en lugar de `vscode-light-*`.
 
 ## 📋 Requisitos
 
-- **minted**: Requiere `-shell-escape` y latexminted instalado (`pip install latexminted`)
+- **minted 3**: requiere `-shell-escape` y el programa `latexminted`, que viene con TeX Live 2024 o posterior (comprobar con `latexminted --version`; no hace falta `pip`)
 - **fontawesome5**: Iconos incluidos en TeX Live
 - **tcolorbox**: Versión 4.0+ para biblioteca minted
 

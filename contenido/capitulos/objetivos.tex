@@ -1,5 +1,5 @@
 \chapter{Objetivos (Ejemplos de tablas)}
-\label{ch:objetivos}
+\label{chap:objetivos}
 
 Este capítulo presenta los objetivos del trabajo y demuestra las diferentes formas de crear tablas en \LaTeX{}. Las tablas son \glspl{flotante} fundamentales para presentar datos de forma estructurada, típicamente obtenidos de \glspl{query} a bases de datos.
 
@@ -56,11 +56,13 @@ Donde la especificación de columnas puede ser:
 \begin{table}[H]
   \centering
   \begin{tabular}{lcc}
+    \toprule
            & Columna A & Columna B \\
-    \hline
+    \midrule
     Fila 1 & Dato 1A   & Dato 1B \\
     Fila 2 & Dato 2A   & Dato 2B \\
-    \hline
+    Fila 3 & Dato 3A   & Dato 3B \\
+    \bottomrule
   \end{tabular}
   \caption{Ejemplo de tabla simple}
   \label{tab:ejemplo}

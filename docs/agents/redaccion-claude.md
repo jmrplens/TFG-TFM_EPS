@@ -55,7 +55,8 @@ Contenido de la subsección.
 | Prefijo | Elemento |
 | --- | --- |
 | `chap:` | Capítulo |
-| `sec:` | Sección / subsección |
+| `sec:` | Sección |
+| `subsec:` | Subsección (opcional; también vale `sec:`) |
 | `fig:` | Figura |
 | `tab:` | Tabla |
 | `eq:` | Ecuación |
@@ -87,7 +88,8 @@ Contenido de la subsección.
 ```latex
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.8\textwidth]{recursos/figuras/nombre-imagen}
+  \includegraphics[width=0.8\textwidth,
+    alt={Descripción breve de la imagen}]{recursos/figuras/nombre-imagen}
   \caption{Descripción clara y concisa de la figura.}
   \label{fig:nombre-imagen}
 \end{figure}
@@ -102,13 +104,13 @@ Subfiguras:
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}[b]{0.48\textwidth}
-    \includegraphics[width=\textwidth]{recursos/figuras/imagen-a}
+    \includegraphics[width=\textwidth, alt={Imagen A}]{recursos/figuras/imagen-a}
     \caption{Primera variante.}
     \label{fig:imagen-a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[b]{0.48\textwidth}
-    \includegraphics[width=\textwidth]{recursos/figuras/imagen-b}
+    \includegraphics[width=\textwidth, alt={Imagen B}]{recursos/figuras/imagen-b}
     \caption{Segunda variante.}
     \label{fig:imagen-b}
   \end{subfigure}
@@ -198,7 +200,7 @@ ORDER BY total_pedidos DESC;
 \end{sqlcode}
 
 % Bash/Terminal
-\begin{bashcode}
+\begin{bashcode}[]
 #!/bin/bash
 for archivo in contenido/capitulos/*.tex; do
     echo "Procesando: $archivo"
@@ -207,11 +209,15 @@ done
 \end{bashcode}
 ```
 
-**Lenguajes disponibles:** `pythoncode`, `jscode`, `cppcode`, `javacode`,
+**Lenguajes más usados:** `pythoncode`, `jscode`, `cppcode`, `javacode`,
 `matlabcode`, `bashcode`, `sqlcode`, `jsoncode`, `yamlcode`, `htmlcode`,
-`csscode`, `rcode`, `rustcode`, `gocode`, `phpcode`.
+`csscode`, `rcode`, `rustcode`, `gocode`, `phpcode` (lista completa de 46
+lenguajes en `docs/CODIGO_FUENTE.md`).
 
-Sufijo `Dark` para tema oscuro: `pythoncodeDark`, `jscodeDark`, etc.
+Sufijos: `NN` sin números de línea, `Dark` tema oscuro (`pythoncodeDark`) y
+`DarkNN`. Las opciones de minted van en
+`minted options={firstline=2, highlightlines={3}}` y los `_` del título se
+escapan: `title={mi\_script.py}`.
 
 ### Cajas de aviso
 
@@ -240,48 +246,60 @@ Sufijo `Dark` para tema oscuro: `pythoncodeDark`, `jscodeDark`, etc.
   Información adicional no crítica.
 \end{notebox}
 
-\begin{definitionbox}{Definición: Aprendizaje Automático}
+\begin{definitionbox}{Aprendizaje Automático}
   El aprendizaje automático es una rama de la inteligencia artificial que
   permite a los sistemas aprender de los datos sin ser programados
   explícitamente \parencite{mitchell1997}.
 \end{definitionbox}
 
-\begin{examplebox}{Ejemplo: clasificación binaria}
+\begin{examplebox}[Ejemplo: clasificación binaria]
   Dado un conjunto de correos electrónicos, el objetivo es clasificarlos
   como spam (1) o no spam (0).
 \end{examplebox}
 ```
 
+En las cajas de aviso el título `{...}` es opcional y admiten opciones de
+tcolorbox entre corchetes (`\begin{infobox}[colback=white]{Título}`).
+`definitionbox` lleva el término entre llaves; `examplebox` e `importantbox`,
+el título entre **corchetes**.
+
 ### Módulo [software]
 
+El contenido de `terminal`, `apiendpoint` y `dirtreebox` **no es literal**:
+hay que escapar `\&`, `\#`, `\%`, `\_`, `\{`, `\}`, `\$` y separar las
+líneas con `\\`. Para scripts, salidas largas o JSON copiados tal cual,
+usar `bashcode` / `jsoncode`.
+
 ```latex
-% Terminal
-\begin{terminal}[title={Instalación de dependencias}]
-$ pip install -r requirements.txt
-Successfully installed numpy-1.24.0 pandas-2.0.0 scikit-learn-1.3.0
-$ python main.py --config config.yaml
-[INFO] Modelo cargado correctamente
-[INFO] Iniciando entrenamiento...
+% Terminal: \prompt para el usuario ($), \promptroot para root (#).
+% Una línea que empiece por [ tras \\ va entre llaves: {[INFO]}
+\begin{terminal}[Instalación de dependencias]
+\prompt pip install -r requirements.txt\\
+Successfully installed numpy-1.24.0 pandas-2.0.0 scikit-learn-1.3.0\\
+\prompt python main.py --config config.yaml\\
+{[INFO]} Modelo cargado correctamente\\
+{[INFO]} Iniciando entrenamiento...
 \end{terminal}
 
-% Endpoint REST
-\begin{apiendpoint}{POST}{/api/v1/prediccion}{Realiza una predicción}
-  Body: { "datos": [...], "modelo": "v2" }
-  Respuesta: { "prediccion": 0.87, "confianza": 0.92 }
+% Endpoint REST: {MÉTODO}{/ruta}; descripción, parámetros y respuesta
+\begin{apiendpoint}{POST}{/api/v1/prediccion}
+  \apidescription{Realiza una predicción}
+  \apibody{application/json}{\{"datos": [...], "modelo": "v2"\}}
+  \apiresponse{200}{\{"prediccion": 0.87, "confianza": 0.92\}}
 \end{apiendpoint}
 
-% Árbol de directorios
-\begin{dirtreebox}
-  proyecto/
-  ├── src/
-  │   ├── modelo.py
-  │   ├── preprocesado.py
-  │   └── evaluacion.py
-  ├── datos/
-  │   ├── entrenamiento/
-  │   └── prueba/
-  ├── tests/
-  └── requirements.txt
+% Árbol de directorios: \dirtreeitem[nivel]{nombre} («/» final = carpeta)
+\begin{dirtreebox}[Estructura del proyecto]
+  \dirtreeitem[0]{proyecto/}
+  \dirtreeitem[1]{src/}
+  \dirtreeitem[2]{modelo.py}
+  \dirtreeitem[2]{preprocesado.py}
+  \dirtreeitem[2]{evaluacion.py}
+  \dirtreeitem[1]{datos/}
+  \dirtreeitem[2]{entrenamiento/}
+  \dirtreeitem[2]{prueba/}
+  \dirtreeitem[1]{tests/}
+  \dirtreeitem[1]{requirements.txt}
 \end{dirtreebox}
 ```
 

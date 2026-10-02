@@ -47,23 +47,19 @@ Escuela Politécnica Superior (EPS) de la Universidad de Alicante (UA).
 | `cls/eps-tfg.cls` | Clase principal; cambios rompen toda la plantilla |
 | `sty/*.sty` | Paquetes de estilo; requieren conocimiento profundo |
 | `sty/componentes/*.sty` | Módulos especializados |
-| `cls/eps-metadata.tex` | Solo cambiar `lang=` si se cambia el idioma |
+| `cls/eps-metadata.tex` | Etiquetado y metadatos del PDF; no hace falta tocarlo (tampoco al cambiar de idioma) |
 | `.latexmkrc` | Configuración de compilación |
 | `Makefile` | Automatización de compilación |
 | `.github/workflows/*.yml` | CI/CD |
 | `scripts/instalar.py` | Script de instalación; requiere coherencia con el agente |
 | `scripts/revision-rapida.py` | Revisor estático; lógica de análisis sensible |
 
-### Regla crítica de idioma
+### Idioma
 
-Si se cambia `idioma` en `configuracion.tex`, **siempre** actualizar también
-`cls/eps-metadata.tex`:
-
-```text
-idioma = espanol    →  lang=es-ES
-idioma = valenciano →  lang=ca-ES
-idioma = ingles     →  lang=en-GB
-```
+`idioma` en `configuracion.tex` (`espanol`, `valenciano`, `ingles`) cambia el
+idioma de todo el documento y el del PDF (`es-ES`, `ca-ES-valencia`, `en-GB`).
+**No** se edita `cls/eps-metadata.tex`: la clase fija el idioma del PDF a
+partir de `idioma`. La portada se mantiene en español (formato oficial).
 
 ---
 
@@ -72,7 +68,7 @@ idioma = ingles     →  lang=en-GB
 ```bash
 make          # Compilación completa (lualatex + biber + 2× lualatex)
 make quick    # Una sola pasada de lualatex (para verificar sintaxis)
-make clean    # Eliminar archivos auxiliares
+make clean    # Eliminar auxiliares, caché _minted/ e informe-revision.md
 make watch    # Compilación continua con latexmk
 ```
 
@@ -116,7 +112,7 @@ TFG-TFM_EPS/
 
 Toda la configuración se hace en `configuracion.tex` mediante `\EPSsetup{...}`.
 
-### Claves obligatorias
+### Claves principales
 
 ```latex
 \EPSsetup{
@@ -126,8 +122,19 @@ Toda la configuración se hace en `configuracion.tex` mediante `\EPSsetup{...}`.
   tutor-departamento = {Departamento de ...},
   titulacion  = informatica,   % ver tabla de titulaciones
   fecha       = {Junio 2026},
+  borrador    = false,         % true muestra las notas \todo{}
 }
 ```
+
+- `titulacion` es obligatoria: si falta o tiene un valor no válido, la
+  compilación se detiene con un error que lista los valores admitidos.
+- Si faltan `titulo`, `autor` o `tutor` se muestra un aviso.
+- Otras claves: `subtitulo`, `genero`, `email`, `tutor-genero`, `cotutor`,
+  `cotutor-genero`, `cotutor-departamento`, `idioma`, `facultad`,
+  `universidad`, `ubicacion`. `optimizar-tikz` es obsoleta (se acepta, pero
+  no tiene efecto).
+- El `configuracion.tex` distribuido trae `borrador = true`; para la versión
+  final hay que ponerlo a `false`.
 
 ### Titulaciones disponibles
 
@@ -162,22 +169,36 @@ Activar en `main.tex` según la titulación:
 \begin{successbox}{Título} ... \end{successbox}
 \begin{tipbox}{Título}     ... \end{tipbox}
 \begin{notebox}{Título}    ... \end{notebox}
-\begin{definitionbox}{Título} ... \end{definitionbox}
-\begin{examplebox}{Título}    ... \end{examplebox}
+\begin{definitionbox}{Término} ... \end{definitionbox}
+\begin{examplebox}[Título]     ... \end{examplebox}
 ```
+
+En las cajas de aviso el título es opcional (`\begin{infobox} ... \end{infobox}`)
+y admiten opciones de tcolorbox: `\begin{infobox}[colback=white]{Título}`.
+`examplebox` e `importantbox` llevan el título opcional **entre corchetes**.
 
 ### Entornos del módulo `[software]`
 
+El contenido de `terminal`, `apiendpoint` y `dirtreebox` no es literal:
+escapar `\&`, `\#`, `\%`, `\_`, `\{`, `\}`, `\$` y separar líneas con `\\`.
+Para scripts o salidas copiadas tal cual, usar `bashcode`.
+
 ```latex
-\begin{terminal}[title={bash}]
-  $ comando --opcion
+\begin{terminal}[bash]
+\prompt comando --opcion\\
+\promptroot apt install paquete
 \end{terminal}
 
-\begin{apiendpoint}{GET}{/api/v1/recurso}{Descripción}
-  ...
+\begin{apiendpoint}{GET}{/api/v1/recurso}
+  \apidescription{Descripción}
 \end{apiendpoint}
 
-\begin{jsoncode}
+\begin{dirtreebox}[Estructura]
+  \dirtreeitem[0]{proyecto/}
+  \dirtreeitem[1]{main.py}
+\end{dirtreebox}
+
+\begin{jsoncode}[]
 { "clave": "valor" }
 \end{jsoncode}
 ```
@@ -204,11 +225,14 @@ int main() { return 0; }
 \end{cppcode}
 ```
 
-Variantes disponibles: `pythoncode`, `jscode`, `cppcode`, `javacode`,
+Lenguajes más usados: `pythoncode`, `jscode`, `cppcode`, `javacode`,
 `matlabcode`, `bashcode`, `sqlcode`, `jsoncode`, `yamlcode`, `htmlcode`,
-`csscode`, `rcode`, `rustcode`, `gocode`, `phpcode`.
+`csscode`, `rcode`, `rustcode`, `gocode`, `phpcode` (lista completa de 46
+lenguajes en `docs/CODIGO_FUENTE.md`; otros: `\begin{codigo}{lenguaje}`).
 
-Sufijo `Dark` para tema oscuro: `pythoncodeDark`, `jscodeDark`, etc.
+Sufijos: `NN` sin números de línea, `Dark` tema oscuro, `DarkNN`. Las opciones
+de minted van en `minted options={firstline=2, highlightlines={3}}` y los `_`
+del título se escapan: `title={mi\_script.py}`.
 
 ---
 
@@ -236,7 +260,7 @@ Sufijo `Dark` para tema oscuro: `pythoncodeDark`, `jscodeDark`, etc.
 ```latex
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.8\textwidth]{recursos/figuras/imagen}
+  \includegraphics[width=0.8\textwidth, alt={Descripción breve}]{recursos/figuras/imagen}
   \caption{Descripción.}
   \label{fig:nombre}
 \end{figure}
@@ -252,10 +276,13 @@ Prefijos de etiquetas a respetar:
 | --- | --- |
 | `chap:` | Capítulo |
 | `sec:` | Sección |
+| `subsec:` | Subsección (opcional; también vale `sec:`) |
 | `fig:` | Figura |
 | `tab:` | Tabla |
 | `eq:` | Ecuación |
 | `cod:` | Bloque de código |
+| `teo:` | Teorema |
+| `def:` | Definición |
 | `anexo:` | Anexo |
 
 ---
@@ -312,10 +339,13 @@ Formato de entrada en `referencias.bib`:
 | `ESTA PLANTILLA REQUIERE LuaLaTeX` | Guard de motor de la plantilla: el motor no es LuaTeX | Compilar con LuaLaTeX (`make`) |
 | `Undefined control sequence \EPSsetup` | `configuracion.tex` cargado antes de la clase | Verificar orden en `main.tex` |
 | `You must invoke LaTeX with -shell-escape` | Falta flag en compilación | Usar `make` o añadir `-shell-escape` |
-| `Pygments not found` | `latexminted` no instalado | `pip install latexminted` |
+| `minted v3+ executable is not installed` | Falta `latexminted` (viene con TeX Live 2024+) | Comprobar `latexminted --version`; si falta, `tlmgr install minted` o `texlive-latex-extra`. No usar `pip install` (PEP 668); `pipx install latexminted` solo con MiKTeX |
 | `Citation 'X' undefined` | Biber no ejecutado | Ejecutar `make` completo |
 | `Font ... not found` | TeX Live incompleto | Instalar TeX Live completo |
 | `File 'X.sty' not found` | Paquete no instalado | `tlmgr install X` |
+| `Missing $ inserted` | `_` sin escapar (p. ej. en `title={...}`) o `$` literal en `terminal` | Escapar `\_`; en `terminal` usar `\prompt` |
+| `Package block Error: Some keys specified on the itemize environment are unknown` | Versión antigua de la plantilla compilada con LaTeX 2025-11 o posterior | Actualizar la plantilla (al menos `cls/` y `sty/`) a la última versión |
+| `ignored error Infinite glue shrinkage found in box being split` | Fallo conocido de `longtable` 4.24 (LaTeX 2025-11) al partir una `longtable` entre páginas | Ninguna: es un error ignorado, la compilación continúa y el PDF es correcto |
 
 ---
 
@@ -386,7 +416,10 @@ automáticamente como GitHub Action en cada push/PR que modifique archivos `.tex
 
 **Verificación de plagio (opcional):**
 Copiar `.env.example` a `.env` y rellenar las claves de Copyleaks o Turnitin.
-El revisor las detecta automáticamente y añade el resultado al informe.
+Tener claves en `.env` no envía nada: el texto solo se manda con
+`--plagio copyleaks|turnitin|todos` y tras confirmar (`--si` para confirmar sin
+terminal interactiva). Copyleaks exige además `COPYLEAKS_WEBHOOK_URL`
+(opcional `COPYLEAKS_SANDBOX=true` para pruebas).
 
 ---
 

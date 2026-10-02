@@ -524,7 +524,7 @@ Línea 2 (con 1cm de separación)
 
 ### Opciones avanzadas con enumitem
 
-> ⚠️ **Nota sobre accesibilidad PDF/UA-2**: Las opciones de `enumitem` (`noitemsep`, `nosep`, etc.) **no son compatibles** con el paquete experimental `block` que se activa al usar `\DocumentMetadata{}` para accesibilidad. Si necesitas PDFs accesibles, usa listas sin opciones personalizadas.
+> ℹ️ **Nota sobre el PDF etiquetado**: con `\DocumentMetadata` (activo en la plantilla), LaTeX sustituye las listas por las del módulo de etiquetado `block`, que no entienden las opciones de `enumitem`. La clase `eps-tfg` incluye un ajuste de compatibilidad para que opciones como `noitemsep` o `nosep` sigan funcionando. Si usas una copia antigua de la plantilla con LaTeX 2025-11 o posterior y ves `Package block Error: Some keys specified on the itemize environment are unknown`, actualiza la plantilla.
 
 ```latex <!-- preview -->
 % \usepackage{enumitem}

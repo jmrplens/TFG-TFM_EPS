@@ -45,13 +45,14 @@ la referencia técnica de `AI_CONTEXT.md`.
   titulacion  = informatica,
   idioma      = espanol,
   fecha       = {Junio 2026},
-  optimizar-tikz = true,
-  borrador    = false,
+  borrador    = false,   % true: muestra las notas \todo{}
 }
 ```
 
-1. Si el idioma no es `espanol`, actualizar también `cls/eps-metadata.tex`
-   (ver flujo 7).
+1. `titulacion` es obligatoria: si falta o no es válida, la compilación se
+   detiene con un error que lista los valores admitidos. El
+   `configuracion.tex` distribuido trae `borrador = true`; ponerlo a `false`
+   para la versión final.
 2. Verificar con `make quick`.
 
 **Titulaciones más comunes:**
@@ -187,7 +188,8 @@ colisiones (ej: `garcia2024redes`).
 ```latex
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.8\textwidth]{recursos/figuras/nombre-imagen}
+  \includegraphics[width=0.8\textwidth,
+    alt={Descripción breve de la imagen}]{recursos/figuras/nombre-imagen}
   \caption{Descripción clara y concisa de la figura.}
   \label{fig:nombre-imagen}
 \end{figure}
@@ -205,13 +207,13 @@ Como se muestra en la Figura~\ref{fig:nombre-imagen}, el sistema...
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}[b]{0.48\textwidth}
-    \includegraphics[width=\textwidth]{recursos/figuras/imagen-a}
+    \includegraphics[width=\textwidth, alt={Primera variante}]{recursos/figuras/imagen-a}
     \caption{Primera variante.}
     \label{fig:imagen-a}
   \end{subfigure}
   \hfill
   \begin{subfigure}[b]{0.48\textwidth}
-    \includegraphics[width=\textwidth]{recursos/figuras/imagen-b}
+    \includegraphics[width=\textwidth, alt={Segunda variante}]{recursos/figuras/imagen-b}
     \caption{Segunda variante.}
     \label{fig:imagen-b}
   \end{subfigure}
@@ -220,7 +222,7 @@ Como se muestra en la Figura~\ref{fig:nombre-imagen}, el sistema...
 \end{figure}
 ```
 
-**Para accesibilidad (PDF/UA-2):**
+**Accesibilidad:** el PDF está etiquetado; añadir siempre `alt={...}`:
 
 ```latex
 \includegraphics[width=0.8\textwidth, alt={Descripción para lectores de pantalla}]{ruta}
@@ -291,8 +293,9 @@ Los resultados se muestran en la Tabla~\ref{tab:nombre-tabla}.
 
 **Pasos:**
 
-1. Verificar que el módulo de componentes adecuado está activo en `main.tex`
-   (para `jsoncode`, `sqlcode`, `bashcode` se necesita `[software]`).
+1. Los entornos de código (`sty/eps-codigo.sty`) los carga siempre la clase;
+   no dependen de ningún módulo de componentes. Si el título lleva `_`,
+   escaparlo: `title={mi\_script.py}`.
 
 2. Insertar el bloque:
 
@@ -340,13 +343,16 @@ El Código~\ref{cod:clasificador} muestra la implementación del clasificador.
 | `gocode` | Go |
 | `phpcode` | PHP |
 
-Añadir `Dark` al nombre para tema oscuro: `pythoncodeDark`, `jscodeDark`.
+Sufijos: `NN` sin números de línea, `Dark` tema oscuro (`pythoncodeDark`) y
+`DarkNN`. Lista completa (46 lenguajes) en `docs/CODIGO_FUENTE.md`. Las
+opciones de minted van dentro de `minted options={...}`, por ejemplo
+`minted options={firstline=2, highlightlines={3}}`.
 
 ---
 
 ## 7. Cambiar el idioma del documento
 
-**Archivos a editar:** `configuracion.tex` + `cls/eps-metadata.tex`
+**Archivo a editar:** solo `configuracion.tex`
 
 **Pasos:**
 
@@ -358,33 +364,23 @@ Añadir `Dark` al nombre para tema oscuro: `pythoncodeDark`, `jscodeDark`.
 }
 ```
 
-1. En `cls/eps-metadata.tex`, actualizar el valor de `lang=`:
-
-```latex
-\DocumentMetadata{
-  lang        = ca-ES,   % ← cambiar según idioma
-  pdfstandard = ua-2,
-  pdfversion  = 2.0,
-  testphase   = {phase-I},
-}
-```
-
-   Tabla de correspondencia:
-
-   | `idioma` | `lang=` |
-   | --- | --- |
-   | `espanol` | `es-ES` |
-   | `valenciano` | `ca-ES` |
-   | `ingles` | `en-GB` |
-
 1. Compilar con `make` completo.
+
+**No** hay que editar `cls/eps-metadata.tex`: la clase fija el idioma del PDF
+a partir de `idioma` (`es-ES`, `ca-ES-valencia` o `en-GB`).
 
 **Qué cambia con el idioma:**
 
 - Títulos automáticos: "Tabla" / "Taula" / "Table", "Figura" / "Figura" / "Figure", etc.
-- Formato de fechas en bibliografía.
+- Nombres de índices, teoremas, listados de código y bibliografía.
+- Formato de citas y fechas en la bibliografía.
 - Metadatos del PDF (accesibilidad).
-- Separación silábica automática.
+- Separación silábica automática (`ingles` usa inglés británico).
+
+**Qué no cambia:** la portada, que se mantiene en español (formato oficial de
+la EPS). El resumen (español) y el abstract (inglés) de
+`contenido/frontmatter/preliminares.tex` ya van dentro de `otherlanguage`, así
+que conservan su idioma sea cual sea el idioma principal.
 
 ---
 
@@ -486,13 +482,15 @@ grep -n "Error\|error\|Warning" main.log | grep -v "^#" | head -30
 | --- | --- | --- |
 | `Undefined control sequence \nombre` | Comando no definido | Verificar que el módulo de componentes está activo; revisar ortografía |
 | `You must invoke LaTeX with -shell-escape` | Falta flag | Usar `make` en lugar de `lualatex` directo |
-| `Pygments not found` / `latexminted` | Python no instalado | `pip install latexminted` |
+| `minted v3+ executable is not installed` | Falta `latexminted` | Comprobar `latexminted --version` (viene con TeX Live 2024+); si falta, `tlmgr install minted` o `texlive-latex-extra`. No usar `pip install` (PEP 668); `pipx` solo con MiKTeX |
 | `Citation 'X' undefined` | Biber no ejecutado | Ejecutar `make` completo |
 | `Missing $ inserted` | Símbolo matemático fuera de modo math | Encerrar en `$...$` |
 | `File 'X.sty' not found` | Paquete TeX no instalado | `tlmgr install X` |
 | `Font ... not found` | TeX Live incompleto | Instalar TeX Live completo |
 | `I found no \bibdata command` | Usando BibTeX en lugar de Biber | Verificar `.latexmkrc` y usar `make` |
-| `Package babel Error` | Conflicto de idioma | Verificar que `idioma` y `lang=` coinciden |
+| `El idioma '...' no está soportado` | Valor de `idioma` no válido | Usar `espanol`, `valenciano` o `ingles` |
+| `La titulación '...' no está definida` | Valor de `titulacion` no válido | Usar uno de los identificadores que lista el error |
+| `Package block Error: Some keys specified on the itemize environment are unknown` | Plantilla antigua con LaTeX 2025-11+ | Actualizar la plantilla (`cls/`, `sty/`) |
 | `Runaway argument` | Llave `{` o `}` sin cerrar | Revisar el bloque indicado en el log |
 
 1. Si el error persiste, buscar la línea exacta en el log:
@@ -588,16 +586,12 @@ Pasos de instalación...
 \end{axis}
 ```
 
-1. Si la gráfica tarda en compilar, activar la caché de TikZ en
-   `configuracion.tex`:
-
-```latex
-\EPSsetup{
-  optimizar-tikz = true,
-}
-```
+1. Si la gráfica tarda mucho en compilar, reducir el número de puntos
+   (`samples=`) o generar la figura como PDF externo e incluirla con
+   `\includegraphics`. (La antigua opción `optimizar-tikz` ya no tiene efecto:
+   la externalización de TikZ no es compatible con el etiquetado del PDF.)
 
 ---
 
-*Última actualización: Febrero 2026. Ver `docs/AI_CONTEXT.md` para la
+*Ver `docs/AI_CONTEXT.md` para la
 referencia técnica completa.*

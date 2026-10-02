@@ -28,6 +28,7 @@ resolver el problema automáticamente.
 - Interpretar mensajes de error de LaTeX y proponer soluciones concretas
 - Dar instrucciones de instalación adaptadas al SO del alumno
 - Guiar la configuración del archivo `.env` para la detección de plagio
+  (las claves solo se usan con `scripts/revision-rapida.py --plagio ...`)
 - Explicar qué hace cada herramienta (LuaLaTeX, Biber, latexmk, minted)
   en términos accesibles para estudiantes sin experiencia técnica
 - Detectar si el problema está en el PATH, en permisos, o en la instalación
@@ -42,35 +43,48 @@ Cuando ayudes con la instalación de esta plantilla, ten en cuenta:
 
 | Herramienta | Para qué sirve | Forma de verificar |
 | --- | --- | --- |
-| Python 3.8+ | Ejecutar scripts y minted | `python3 --version` |
-| pip | Instalar paquetes Python | `pip --version` |
-| latexminted | Resaltado de código en PDF | `pip show latexminted` |
+| TeX Live 2024+ (o MiKTeX actualizado) | Distribución LaTeX | `lualatex --version` (debe indicar TeX Live 2024 o posterior) |
 | LuaLaTeX | Motor de compilación LaTeX | `lualatex --version` |
+| latexminted | Resaltado de código (minted 3); viene con TeX Live 2024+ | `latexminted --version` |
+| Python 3.9+ | Ejecutar los scripts del proyecto | `python3 --version` |
 | Biber | Gestión de bibliografía | `biber --version` |
 | latexmk | Automatización de compilación | `latexmk --version` |
 | make | Atajos del Makefile | `make --version` |
 
 ### Instalación rápida por SO
 
-**Ubuntu / Debian:**
+**Ubuntu 26.04+ / Debian 13+** (TeX Live de la distribución ≥ 2024):
 
 ```bash
-sudo apt-get install texlive-full latexmk biber python3 python3-pip make
-pip3 install latexminted
+sudo apt-get update
+sudo apt-get install texlive-full latexmk biber python3 make
+latexminted --version   # lo incluye texlive-latex-extra
 ```
+
+**Ubuntu 24.04, Debian 12 o anteriores:** su TeX Live es demasiado antiguo
+(2023 o anterior). Instalar TeX Live desde TUG:
+<https://www.tug.org/texlive/quickinstall.html>.
 
 **macOS:**
 
 ```bash
-brew install --cask mactex
-pip3 install latexminted
+brew install --cask mactex   # incluye latexminted
+latexminted --version
 ```
 
 **Windows:**
 
-- TeX Live: <https://www.tug.org/texlive/> o MiKTeX: <https://miktex.org/>
-- Python: <https://www.python.org/downloads/> (marcar "Add to PATH")
-- Tras instalar: `pip install latexminted`
+- TeX Live: <https://www.tug.org/texlive/> (incluye latexminted) o MiKTeX: <https://miktex.org/>
+- Python: <https://www.python.org/downloads/> (marcar "Add to PATH"), para los scripts
+- Solo con MiKTeX, si `latexminted --version` falla tras actualizar MiKTeX e
+  instalar el paquete `minted`: `pipx install latexminted`
+
+**No recomendar `pip install latexminted`:** no hace falta con TeX Live 2024+
+y en Ubuntu 23.04+/Debian 12+/Homebrew falla por PEP 668
+(«externally-managed-environment»). Si falta `latexminted` con TeX Live:
+`tlmgr install minted` (TeX Live de TUG) o `texlive-latex-extra` (apt). Si el
+`latexminted` del sistema falla al arrancar (p. ej. con Python 3.14), usar
+`pipx install latexminted`.
 
 ### Compilación manual (sin make)
 
@@ -87,11 +101,11 @@ lualatex -shell-escape -interaction=nonstopmode main.tex
 | --- | --- | --- |
 | `command not found: lualatex` | LaTeX no instalado o no en PATH | Instalar TeX Live / MiKTeX |
 | `You must invoke LaTeX with -shell-escape` | Falta el flag | Usar `make` o añadir `-shell-escape` |
-| `Pygments not found` / `latexminted not found` | Paquete Python no instalado | `pip install latexminted` |
+| `minted v3+ executable is not installed` / `latexminted not found` | Falta `latexminted` o TeX Live anterior a 2024 | `latexminted --version`; `tlmgr install minted` o `texlive-latex-extra`; con MiKTeX `pipx install latexminted` |
 | `Citation 'X' undefined` | Biber no ejecutado | Usar `make` completo, no `make quick` |
 | `Font ... not found` | TeX Live incompleto | Instalar `texlive-fonts-recommended` o paquete completo |
 | `I found no \bibdata command` | Usando BibTeX en lugar de Biber | El Makefile ya usa Biber; no invocar BibTeX manualmente |
-| `Package minted Error: missing Pygments` | Python no en PATH | Comprobar que Python está en el PATH del sistema |
+| `Package block Error: Some keys specified on the itemize environment are unknown` | Copia antigua de la plantilla con LaTeX 2025-11+ | Actualizar la plantilla (`cls/`, `sty/`) |
 
 ---
 
@@ -102,4 +116,3 @@ lualatex -shell-escape -interaction=nonstopmode main.tex
 - Confirmar que cada paso funcionó antes de seguir
 - Si hay un error, pedir el mensaje completo (no el resumen)
 - Para Windows: tener en cuenta que `python3` puede ser `python`
-  y `pip3` puede ser `pip`
