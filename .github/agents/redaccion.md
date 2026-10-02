@@ -62,6 +62,7 @@ el estilo académico de la EPS UA.
   \centering
   \caption{Título de la tabla.}
   \label{tab:nombre}
+  \EPScabeceraTabla  % la fila 1 es cabecera (PDF accesible)
   \begin{tabular}{lcc}
     \toprule
     Columna 1 & Columna 2 & Columna 3 \\
@@ -141,6 +142,8 @@ salidas copiadas tal cual, usar `bashcode`.
 - ❌ `\usepackage{subfigure}` o `subfig` → usar `subcaption`
 - ❌ `\begin{verbatim}` o `lstlisting` → usar entornos `*code`
 - ❌ `\hline` en tablas → usar `\toprule`, `\midrule`, `\bottomrule`
+- ❌ `[H]`, `\diagbox` o `tblr` → usar `[htbp]`, cabecera de texto y `tabular`
+- ❌ `tikzpicture` informativo sin `alt={...}`
 - ❌ `\bibliography{}` + `\bibliographystyle{}` → usar `\printbibliography`
 - ❌ `\cite{}` directo → usar `\parencite{}` o `\textcite{}`
 - ❌ Contenido en `main.tex`

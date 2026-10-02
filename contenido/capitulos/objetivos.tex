@@ -53,7 +53,7 @@ Donde la especificación de columnas puede ser:
 \label{subsec:tabla-simple}
 
 \begin{codigosimple}{latex}{Sintaxis: Tabla simple}
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \begin{tabular}{lcc}
     \toprule
@@ -69,8 +69,9 @@ Donde la especificación de columnas puede ser:
 \end{table}
 \end{codigosimple}
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
+  \EPScabeceraTabla
   \begin{tabular}{lcc}
     \toprule
                & Columna A & Columna B \\
@@ -90,7 +91,7 @@ Donde la especificación de columnas puede ser:
 El paquete \texttt{booktabs} proporciona líneas horizontales más elegantes y profesionales. Esta plantilla ya lo incluye.
 
 \begin{codigosimple}{latex}{Sintaxis: recomendado}
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Tabla con estilo booktabs}
   \begin{tabular}{@{}lcc@{}}
@@ -108,10 +109,11 @@ El paquete \texttt{booktabs} proporciona líneas horizontales más elegantes y p
 Usa siempre \texttt{booktabs} para tablas profesionales. Evita líneas verticales y usa solo \verb|\toprule|, \verb|\midrule| y \verb|\bottomrule|.
 \end{infobox}
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Tabla con estilo booktabs}
   \label{tab:booktabs}
+  \EPScabeceraTabla
   \begin{tabular}{@{}lcc@{}}
     \toprule
     \textbf{Concepto} & \textbf{Valor} & \textbf{Unidad} \\
@@ -136,10 +138,11 @@ m{5cm}  % Centrado verticalmente
 b{5cm}  % Alineado abajo
 \end{codigosimple}
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Parámetros de posicionamiento de elementos flotantes}
   \label{tab:parametros}
+  \EPScabeceraTabla
   \begin{tabular}{cp{10cm}}
     \toprule
     \textbf{Parámetro} & \textbf{Significado} \\
@@ -148,7 +151,7 @@ b{5cm}  % Alineado abajo
     \texttt{t} & Sitúa el elemento en la parte superior de la página \\
     \texttt{b} & Sitúa el elemento en la parte inferior de la página \\
     \texttt{p} & Sitúa el elemento en una página dedicada solo a flotantes \\
-    \texttt{H} & Fuerza la posición exacta (requiere paquete \texttt{float}) \\
+    \texttt{H} & Fuerza la posición exacta (requiere paquete \texttt{float}); no recomendado: estropea el etiquetado del PDF accesible \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -156,43 +159,40 @@ b{5cm}  % Alineado abajo
 \subsection{Tabla con multicolumna y multifila}
 \label{subsec:tabla-multicolrow}
 
-Para combinar celdas se recomienda usar el paquete moderno \texttt{tabularray} que evita conflictos con otros paquetes:
+Para combinar celdas se recomienda usar \texttt{tabular} con \verb|\multirow| (paquete \texttt{multirow}) y \verb|\multicolumn|, porque así la tabla se etiqueta como tabla en el PDF accesible. El paquete \texttt{tabularray} (entorno \texttt{tblr}) sigue cargado en la plantilla, pero sus tablas no se etiquetan como tablas en el PDF accesible:
 
 \begin{codigosimple}{latex}{Sintaxis: Tabla con multicolumna y multifila}
-% Sintaxis tabularray para combinar celdas
-\begin{tblr}{
-  colspec = {llccc},
-  cell{2}{1} = {r=2}{},  % Combina 2 filas
-  cell{4}{1} = {c=3}{},  % Combina 3 columnas
-}
+% Combinar celdas con multirow y multicolumn
+\begin{tabular}{llccc}
+  \toprule
   Cabecera & Col2 & Col3 & Col4 & Col5 \\
-  Fase A   & Tarea 1 & 1 & 10 & 100 \\
-           & Tarea 2 & 2 & 20 & 200 \\
-  Total    &         &   & 30 & 300 \\
-\end{tblr}
+  \midrule
+  \multirow{2}{*}{Fase A} & Tarea 1 & 1 & 10 & 100 \\
+                          & Tarea 2 & 2 & 20 & 200 \\
+  \midrule
+  \multicolumn{3}{l}{Total} & 30 & 300 \\  % Combina 3 columnas
+  \bottomrule
+\end{tabular}
 \end{codigosimple}
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
-  \caption{Ejemplo de tabla con celdas combinadas (tabularray)}
+  \caption{Ejemplo de tabla con celdas combinadas}
   \label{tab:multicolrow}
-  \begin{tblr}{
-    colspec = {llccc},
-    row{1} = {font=\bfseries},
-    row{6} = {font=\bfseries},
-    hline{1} = {1pt},
-    hline{2,4,6,7} = {0.5pt},
-    cell{2}{1} = {r=2}{},
-    cell{4}{1} = {r=2}{},
-    cell{6}{1} = {c=3}{},
-  }
-    Fase     & Tarea        & Personal & Tiempo (h) & Coste (€) \\
-    Análisis & Requisitos   & 2        & 20         & 1.000     \\
-             & Arquitectura & 2        & 40         & 2.400     \\
-    Diseño   & Prototipado  & 2        & 40         & 2.400     \\
-             & UI/UX        & 1        & 30         & 1.800     \\
-    Total    &              &          & 130        & 7.600     \\
-  \end{tblr}
+  \EPScabeceraTabla
+  \begin{tabular}{llccc}
+    \toprule
+    \textbf{Fase} & \textbf{Tarea} & \textbf{Personal} & \textbf{Tiempo (h)} & \textbf{Coste (€)} \\
+    \midrule
+    \multirow{2}{*}{Análisis} & Requisitos   & 2 & 20 & 1.000 \\
+                              & Arquitectura & 2 & 40 & 2.400 \\
+    \midrule
+    \multirow{2}{*}{Diseño}   & Prototipado  & 2 & 40 & 2.400 \\
+                              & UI/UX        & 1 & 30 & 1.800 \\
+    \midrule
+    \multicolumn{3}{l}{\textbf{Total}} & \textbf{130} & \textbf{7.600} \\
+    \bottomrule
+  \end{tabular}
 \end{table}
 
 \subsection{Tabla con colores alternados}
@@ -208,11 +208,12 @@ Usando el paquete \texttt{xcolor} con la opción \texttt{table}:
 \end{tabular}
 \end{codigosimple}
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Especificaciones técnicas del sistema}
   \label{tab:specs}
   \rowcolors{2}{gray!15}{white}
+  \EPScabeceraTabla
   \begin{tabular}{@{}lcc@{}}
     \toprule
     \textbf{Componente} & \textbf{Especificación} & \textbf{Requisito} \\
@@ -249,8 +250,9 @@ Crea la estructura básica con un generador online, luego ajusta manualmente el 
 Para forzar que una tabla aparezca en un lugar específico:
 
 \begin{codigosimple}{latex}{Sintaxis: Forzar posición de tablas}
-% Opción 1: Usar el especificador H
-\begin{table}[H]  % Requiere paquete float
+% Opción 1: Permitir varias posiciones (evitar [H]: estropea
+% el etiquetado del PDF accesible)
+\begin{table}[htbp]
   ...
 \end{table}
 
@@ -277,11 +279,12 @@ Para añadir notas al pie dentro de una tabla, se usa el paquete \texttt{threepa
 \end{threeparttable}
 \end{codigosimple}
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Comparativa de tecnologías web con notas}
   \label{tab:tecnologias-notas}
   \begin{threeparttable}
+    \EPScabeceraTabla
     \begin{tabular}{@{}lccc@{}}
       \toprule
       \textbf{Framework} & \textbf{Rendimiento}\tnote{a} & \textbf{Popularidad}\tnote{b} & \textbf{Curva} \\
@@ -316,13 +319,14 @@ Se pueden colorear celdas individuales usando \verb|\cellcolor{color}|:
 >{\columncolor{gray!20}}c
 \end{codigosimple}
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Matriz de evaluación de riesgos}
   \label{tab:matriz-riesgos}
+  \EPScabeceraTabla
   \begin{tabular}{c|ccccc}
     \toprule
-    \diagbox{Impacto}{Probabilidad} & Muy bajo & Bajo & Medio & Alto & Muy alto \\
+    Impacto / Probabilidad & Muy bajo & Bajo & Medio & Alto & Muy alto \\
     \midrule
     Muy alto & \cellcolor{yellow!50}M & \cellcolor{orange!50}A & \cellcolor{red!50}MA & \cellcolor{red!70}MA & \cellcolor{red!90}MA \\
     Alto     & \cellcolor{green!50}B & \cellcolor{yellow!50}M & \cellcolor{orange!50}A & \cellcolor{red!50}MA & \cellcolor{red!70}MA \\
@@ -349,10 +353,11 @@ Para que una tabla ocupe todo el ancho disponible, se usa \texttt{tabularx}:
 \end{tabularx}
 \end{codigosimple}
 
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Cronograma del proyecto usando todo el ancho}
   \label{tab:cronograma}
+  \EPScabeceraTabla
   \begin{tabularx}{\textwidth}{@{}lXcccc@{}}
     \toprule
     \textbf{Fase} & \textbf{Descripción de actividades} & \textbf{M1} & \textbf{M2} & \textbf{M3} & \textbf{M4} \\
@@ -373,7 +378,7 @@ A modo de referencia rápida:
 
 \begin{codigosimple}{latex}{Sintaxis: Resumen de comandos para tablas}
 % Estructura básica
-\begin{table}[H]
+\begin{table}[htbp]
   \centering
   \caption{Título}
   \label{tab:etiqueta}

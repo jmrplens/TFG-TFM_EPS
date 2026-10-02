@@ -69,6 +69,14 @@ El etiquetado ya está activado en `cls/eps-metadata.tex`, que `main.tex` carga 
 - **Idioma:** el valor `lang=es-ES` es solo el inicial. La clase lo sustituye por el idioma de `idioma` en `configuracion.tex` (`es-ES`, `ca-ES-valencia` o `en-GB`), así que **no hay que editar `cls/eps-metadata.tex`** al cambiar de idioma.
 - **Estándar:** no se declara `pdfstandard=ua-2`. Declararlo sin cumplirlo escribiría en los metadatos una conformidad falsa.
 - **Compatibilidad:** la clase incluye ajustes para que las opciones de listas de `enumitem`, `\ch` de `chemformula` y `threeparttable` funcionen con el etiquetado.
+- **Ajustes de accesibilidad automáticos** (sin efecto si no hay etiquetado):
+  - la portada no deja estructuras sueltas en el árbol del PDF;
+  - los iconos decorativos (los de las cajas de aviso, el árbol de directorios, etc.) se marcan como artefacto, para que el lector de pantalla no lea el nombre del glifo («INFO-CIRCLE»);
+  - los iconos que transmiten información se leen como texto: las casillas de `checklist` («Hecho», «Pendiente», «En curso»), `\pro`/`\con` («Ventaja», «Inconveniente»), `\rating{4}{5}` («4 de 5») y los indicadores de cumplimiento (`\controlok`, `\sparamok`...). Para tus propios iconos con significado, usa `\EPSiconoTexto{texto}{icono}`, por ejemplo `\EPSiconoTexto{Aprobado}{\faCheck}`;
+  - los fragmentos escritos en otro idioma con `otherlanguage` (el Abstract) llevan su propio idioma (`/Lang`), para que el lector de pantalla cambie de voz;
+  - las leyendas de figuras y tablas se etiquetan como `Caption` aunque haya cajas de `tcolorbox` con título;
+  - las figuras y tablas etiquetadas se agrupan al final de cada capítulo, en lugar de al final del documento;
+  - el código en línea (`\mintinline`) no genera fórmulas vacías.
 - **Desactivar el etiquetado:** con LaTeX 2025-11 o posterior, la única forma es quitar `\input{eps-metadata}` de `main.tex` (cualquier `\DocumentMetadata` carga ya los módulos de etiquetado). A cambio se pierden el etiquetado, los metadatos XMP y la comprobación de motor LuaLaTeX; la compilación apenas se acelera.
 
 ---
@@ -78,7 +86,8 @@ El etiquetado ya está activado en `cls/eps-metadata.tex`, que `main.tex` carga 
 La conformidad PDF/UA-2 completa no se alcanza todavía por motivos ajenos a lo que escribas:
 
 - **KOMA-Script (`scrbook`)**, base de la clase, aún no soporta el etiquetado: las secciones y subsecciones se etiquetan como párrafos (`P`) en lugar de encabezados (`H2`, `H3`...).
-- El validador encuentra relaciones padre-hijo no permitidas en la estructura (unas 184 en el documento de ejemplo).
+- Los índices (general, de figuras, de tablas y de códigos) se marcan como artefacto: el lector de pantalla no los lee y sus enlaces no están en la estructura. Los marcadores (*bookmarks*) del PDF sí permiten navegar.
+- LaTeX no asocia todavía los destinos de las referencias cruzadas a figuras y tablas con su estructura (aviso `Destination ... has no related structure`). Es una limitación del núcleo de LaTeX.
 - Varios paquetes que usa la plantilla figuran como **incompatibles** en el estado oficial del etiquetado de LaTeX: `chemformula`, `chemfig`, `minted`, `caption`, `subcaption`, `dirtree`, `listings`, `multirow`, `pgfplots` y `threeparttable`.
 - Las tablas con `booktabs` se etiquetan sin celdas de cabecera (`TH`) salvo que se indique (ver [Tablas accesibles](#tablas-accesibles)).
 
@@ -105,6 +114,26 @@ Todas las imágenes deben tener texto alternativo (`alt={...}`) que describa su 
     \label{fig:arquitectura}
 \end{figure}
 ```
+
+### Diagramas y gráficas (TikZ, pgfplots)
+
+Un `tikzpicture` sin texto alternativo **no existe para un lector de pantalla** (y LaTeX no avisa). Añade `alt` en sus opciones:
+
+```latex
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[alt={Diagrama de flujo: entrada, validación y,
+      si es correcta, almacenamiento en la base de datos}]
+        \node[draw] (a) {Entrada};
+        \node[draw, right=of a] (b) {Validación};
+        \draw[->] (a) -- (b);
+    \end{tikzpicture}
+    \caption{Flujo de validación de datos.}
+    \label{fig:flujo-validacion}
+\end{figure}
+```
+
+Si el dibujo es solo decorativo, usa `artifact` en lugar de `alt`.
 
 ### Imágenes decorativas
 
@@ -144,14 +173,21 @@ Las tablas deben tener:
 2. **Caption descriptivo**
 3. **Estructura simple** (evitar celdas combinadas complejas)
 
-Con LaTeX 2025-11 o posterior, indica qué filas son de cabecera con `\tagpdfsetup{table/header-rows={1}}` justo antes del `tabular` (dentro del entorno `table` solo afecta a esa tabla). Así las celdas de la primera fila se etiquetan como `TH` en lugar de `TD`. Con versiones anteriores de LaTeX la clave puede no existir: en ese caso, omítela.
+Indica qué filas son de cabecera con `\EPScabeceraTabla` justo antes del `tabular` (dentro del entorno `table` solo afecta a esa tabla). Así las celdas de la primera fila se etiquetan como `TH` en lugar de `TD` y el lector de pantalla asocia cada dato con su columna. Si la cabecera ocupa dos filas, usa `\EPScabeceraTabla[2]`. Con versiones de LaTeX anteriores a 2025-11 no hace nada (no da error). En `longtable` no hace falta: las filas de `\endfirsthead`/`\endhead` ya son cabecera.
+
+Para que las tablas se etiqueten bien:
+
+- usa `tabular`, `tabularx` o `longtable` con `booktabs`, y `\multicolumn`/`\multirow` para combinar celdas;
+- **evita** `tabularray` (`tblr`): sus tablas no se etiquetan como tablas;
+- **evita** `\diagbox`: deja la tabla abierta y todo el texto que sigue queda dentro de ella. Usa una cabecera de texto, como «Impacto / Probabilidad»;
+- no uses `[H]` en figuras y tablas (paquete `float`): la leyenda acaba dentro del párrafo anterior. Usa `[htbp]`.
 
 ```latex
 \begin{table}[htbp]
     \centering
     \caption{Comparativa de algoritmos de ordenación}
     \label{tab:algoritmos}
-    \tagpdfsetup{table/header-rows={1}}  % la fila 1 es cabecera (LaTeX 2025-11+)
+    \EPScabeceraTabla  % la fila 1 es cabecera
     \begin{tabular}{lrrr}
         \toprule
         \textbf{Algoritmo} & \textbf{Mejor caso} & \textbf{Caso medio} & \textbf{Peor caso} \\

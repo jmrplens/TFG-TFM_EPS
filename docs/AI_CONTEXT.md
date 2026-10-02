@@ -583,6 +583,7 @@ Añadir siempre texto alternativo (`alt={...}`) a las imágenes: el PDF está et
     \centering
     \caption{Título de la tabla.}
     \label{tab:ejemplo}
+    \EPScabeceraTabla  % la fila 1 es cabecera (PDF accesible)
     \begin{tabular}{lcc}
         \toprule
         Columna 1 & Columna 2 & Columna 3 \\

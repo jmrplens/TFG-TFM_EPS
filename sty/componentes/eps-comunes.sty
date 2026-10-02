@@ -122,10 +122,11 @@
 % LISTAS ESPECIALES
 % ============================================================================
 
-% Checklist con casillas
-\newcommand{\checked}{{\color{eps-success}\faCheckSquare}}
-\newcommand{\unchecked}{{\color{eps-gray!50}\faSquare}}
-\newcommand{\partialchecked}{{\color{eps-warning}\faMinusSquare}}
+% Checklist con casillas. En el PDF etiquetado cada casilla se lee como texto
+% («Hecho», «Pendiente», «En curso») en lugar de como un icono sin nombre.
+\newcommand{\checked}{\EPSiconoTexto{\EPSsegunidioma{Hecho}{Fet}{Done}}{{\color{eps-success}\faCheckSquare}}}
+\newcommand{\unchecked}{\EPSiconoTexto{\EPSsegunidioma{Pendiente}{Pendent}{Pending}}{{\color{eps-gray!50}\faSquare}}}
+\newcommand{\partialchecked}{\EPSiconoTexto{\EPSsegunidioma{En curso}{En curs}{In progress}}{{\color{eps-warning}\faMinusSquare}}}
 
 % Los \item sin etiqueta muestran la casilla vacía en cualquier nivel.
 \newenvironment{checklist}{%
@@ -135,8 +136,8 @@
 }
 
 % Lista de pros y contras
-\newcommand{\pro}{\item[{\color{eps-success}\faPlusCircle}]}
-\newcommand{\con}{\item[{\color{eps-danger}\faMinusCircle}]}
+\newcommand{\pro}{\item[\EPSiconoTexto{\EPSsegunidioma{Ventaja}{Avantatge}{Pro}}{{\color{eps-success}\faPlusCircle}}]}
+\newcommand{\con}{\item[\EPSiconoTexto{\EPSsegunidioma{Inconveniente}{Inconvenient}{Con}}{{\color{eps-danger}\faMinusCircle}}]}
 
 \newenvironment{proscons}{%
   \begin{itemize}[leftmargin=1.5em]
@@ -276,13 +277,17 @@
 
 % Indicador de rating
 \ExplSyntaxOn
+% En el PDF etiquetado se lee como «4 de 5» (o «4 out of 5»)
 \NewDocumentCommand{\rating}{mm}
   {
-    \int_step_inline:nn { #2 }
+    \EPSiconoTexto { #1~\EPSsegunidioma{de}{de}{out~of}~#2 }
       {
-        \int_compare:nNnTF { ##1 } > { #1 }
-          { \textcolor{eps-gray!20}{\faStar} }
-          { \textcolor{eps-warning}{\faStar} }
+        \int_step_inline:nn { #2 }
+          {
+            \int_compare:nNnTF { ##1 } > { #1 }
+              { \textcolor{eps-gray!20}{\faStar} }
+              { \textcolor{eps-warning}{\faStar} }
+          }
       }
   }
 \ExplSyntaxOff

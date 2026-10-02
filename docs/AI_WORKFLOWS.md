@@ -243,6 +243,7 @@ Como se muestra en la Figura~\ref{fig:nombre-imagen}, el sistema...
   \centering
   \caption{Título descriptivo de la tabla.}
   \label{tab:nombre-tabla}
+  \EPScabeceraTabla  % la fila 1 es cabecera (PDF accesible)
   \begin{tabular}{lcc}
     \toprule
     Columna 1 & Columna 2 & Columna 3 \\

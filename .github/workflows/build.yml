@@ -195,7 +195,8 @@ jobs:
         pip install --quiet pypdf
         python3 scripts/comprobar-pdf-etiquetado.py main.pdf \
           --titulo "PDF (${{ matrix.nombre }})" \
-          --idioma-esperado "${{ matrix.lang }}"
+          --idioma-esperado "${{ matrix.lang }}" \
+          --log main.log
 
     - name: Resumen de la compilación
       if: always()

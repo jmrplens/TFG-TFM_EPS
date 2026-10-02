@@ -939,7 +939,7 @@ Macros para dibujar diagramas de temporización de señales digitales.
 \end{codigosimple}
 
 \begin{center}
-\begin{tikzpicture}
+\begin{tikzpicture}[alt={Diagrama de temporización de tres señales digitales a lo largo de 8 ciclos: CLK es un reloj periódico; DATA está en bajo 1 ciclo, en alto 2, en bajo 1, en alto 3 y en bajo 1; EN está en bajo 2 ciclos, en alto 5 y en bajo 1}]
   % Señal de reloj
   \draw (0,2) node[left] {CLK};
   \timingclock{0}{2}{8}
