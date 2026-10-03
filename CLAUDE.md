@@ -76,6 +76,9 @@ acepta, pero no tiene efecto.
 - Si faltan `titulo`, `autor` o `tutor`, se muestra un aviso.
 - El `configuracion.tex` que se distribuye trae `borrador = true`; hay que
   ponerlo a `false` para la versión final (oculta las notas `\todo{}`).
+- `accesible = true` (opcional, versión final, LaTeX 2025-11 o posterior)
+  declara el PDF conforme a PDF/UA-2 y hace que falte `alt={...}` en un
+  `\includegraphics` sea un error. Ver `docs/ACCESIBILIDAD.md`.
 
 ### Titulaciones disponibles
 
@@ -491,8 +494,8 @@ Las portadas se generan automáticamente. No crear manualmente.
 `cls/eps-metadata.tex` activa el etiquetado del PDF (`tagging=on` con LaTeX
 2025-11 o posterior; `testphase=phase-I` con versiones anteriores, como TeX Live
 2024). El PDF sale
-etiquetado, pero **no declara conformidad PDF/UA-2**: todavía no se alcanza
-(varios paquetes aún no son compatibles con el etiquetado). Con LaTeX 2025-11 o posterior, los títulos
+etiquetado; solo declara conformidad PDF/UA-2 con `accesible = true` en
+`\EPSsetup` (el documento de ejemplo es entonces conforme según veraPDF). Con LaTeX 2025-11 o posterior, los títulos
 se etiquetan como encabezados y los índices llevan enlaces. Ver
 `docs/ACCESIBILIDAD.md`.
 

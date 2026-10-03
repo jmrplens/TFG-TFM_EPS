@@ -135,6 +135,9 @@ Toda la configuración se hace en `configuracion.tex` mediante `\EPSsetup{...}`.
   no tiene efecto).
 - El `configuracion.tex` distribuido trae `borrador = true`; para la versión
   final hay que ponerlo a `false`.
+- `accesible = true` (opcional, versión final, LaTeX 2025-11 o posterior)
+  declara el PDF conforme a PDF/UA-2 y hace que falte `alt={...}` en un
+  `\includegraphics` sea un error. Ver `docs/ACCESIBILIDAD.md`.
 
 ### Titulaciones disponibles
 

@@ -9,6 +9,28 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
 ### Accesibilidad
 
+- **Nueva opción `accesible = true`** en `\EPSsetup` (con LaTeX 2025-11 o
+  posterior): declara el PDF conforme a PDF/UA-2, convierte en error la falta
+  de texto alternativo en las imágenes y avisa de `\diagbox` y `tblr`. El
+  documento de ejemplo compilado así es conforme según veraPDF (PDF/UA-2 y
+  WTPDF 1.0). Por defecto sigue desactivada.
+- **Texto de los bloques de código con espacios** (con LaTeX 2025-11 o
+  posterior): el texto etiquetado y el copiado decían `deffibonacci(n):`.
+- Las notas de `threeparttable` ya no quedan dentro de un párrafo (PDF 2.0 no
+  lo permite).
+- `\includepdf` ya no avisa de que falta el texto alternativo cuando lo tiene.
+- **Compatibilidad con LaTeX 2026-06 (TeX Live 2026)**, que cambió el
+  etiquetado de los títulos y de algunas cajas (el PDF con `accesible = true`
+  no era conforme):
+  - `\chapter` ya no se etiquetaba: el título quedaba como un párrafo que
+    contenía todo el capítulo. Vuelve a ser un `H1` con su número dentro.
+  - Las cajas de `tcolorbox` con `capture=hbox` y título o `varwidth upper`
+    (las de UML del módulo `[software]`) dejaban abierto un párrafo con el
+    resto del documento.
+  - Las notas de `threeparttable` volvían a quedar dentro de un párrafo.
+- **CI**: nueva configuración `accesible` en la matriz, que compila con
+  `accesible = true`; veraPDF valida su PDF además del principal.
+
 - **Títulos como encabezados** (con LaTeX 2025-11 o posterior): `\section`, `\subsection`... se etiquetan como
   `H2`, `H3`... dentro de secciones anidadas (antes eran párrafos), y el
   número del capítulo forma parte de su `H1`. El aspecto no cambia.

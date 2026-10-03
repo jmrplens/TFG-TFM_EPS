@@ -97,6 +97,7 @@
 % Opciones booleanas
 \bool_new:N \g__eps_optimizar_tikz_bool
 \bool_new:N \g__eps_borrador_bool
+\bool_new:N \g__eps_accesible_bool
 
 % Idioma del documento
 \tl_new:N \g__eps_idioma_tl
@@ -391,6 +392,18 @@
     Defínelo~con~\token_to_str:N \EPSsetup \{#1~=~...\}~en~configuracion.tex.
   }
 
+\msg_new:nnn { eps-tfg } { accesible-sin-etiquetado }
+  {
+    accesible~=~true~necesita~LaTeX~2025-11~o~posterior~y~el~PDF~etiquetado~
+    (\token_to_str:N \input{eps-metadata}~en~main.tex).~
+    No~se~declara~la~conformidad~PDF/UA-2.
+  }
+\msg_new:nnn { eps-tfg } { accesible-no-compatible }
+  {
+    #1~no~es~compatible~con~el~PDF~accesible:~#2.~
+    Ver~docs/ACCESIBILIDAD.md.
+  }
+
 % Comprobación de los datos imprescindibles (al empezar el documento, cuando
 % ya se ha leído configuracion.tex)
 \cs_new_protected:Nn \__eps_comprobar_campos:
@@ -469,6 +482,11 @@
     borrador .bool_gset:N = \g__eps_borrador_bool,
     borrador .default:n = true,
     borrador .initial:n = false,
+
+    % Declarar el PDF conforme a PDF/UA-2 (ver docs/ACCESIBILIDAD.md)
+    accesible .bool_gset:N = \g__eps_accesible_bool,
+    accesible .default:n = true,
+    accesible .initial:n = false,
 
     % Idioma del documento (espanol, valenciano, ingles)
     idioma .code:n = { \__eps_setup_idioma:n { #1 } },
@@ -674,7 +692,40 @@
   \AddToHook{begindocument/before}[eps-tfg/threeparttable]{%
     \let\endtablenotes\endlist}%
   \DeclareHookRule{begindocument/before}{eps-tfg/threeparttable}{after}{latex-lab-testphase-block}%
+  % threeparttable empieza con \noindent: todo el entorno queda dentro de un
+  % párrafo y la lista de notas (tablenotes) quedaba dentro de un P, lo que
+  % PDF 2.0 no permite. Ese párrafo exterior se etiqueta como Div (que sí
+  % puede contener la tabla y la lista); los de dentro vuelven a ser P.
+  \AddToHook{env/threeparttable/begin}{\eps@tpt@div}%
+  \AddToHook{env/tablenotes/begin}{\eps@tpt@texto}%
 }
+\ExplSyntaxOn
+\tl_new:N \l__eps_tpt_para_tl
+\tl_new:N \l__eps_tpt_bloque_tl
+% Desde LaTeX 2026-06 el párrafo que sigue a la tabla se abre con el nombre
+% de estructura 'para/textblock' en lugar de \l__tag_para_tag_tl: también
+% se hace Div dentro del entorno (asignación local).
+\cs_new_protected:Npn \eps@tpt@div
+  {
+    \bool_lazy_and:nnT { \tag_if_active_p: } { \cs_if_exist_p:N \l__tag_para_tag_tl }
+      {
+        \tl_set_eq:NN \l__eps_tpt_para_tl \l__tag_para_tag_tl
+        \tl_set:Nn \l__tag_para_tag_tl { Div }
+        \cs_if_exist:cT { l__tag_name_para/textblock_tl }
+          {
+            \tl_set_eq:Nc \l__eps_tpt_bloque_tl { l__tag_name_para/textblock_tl }
+            \tl_set:cn { l__tag_name_para/textblock_tl } { Div }
+          }
+      }
+  }
+\cs_new_protected:Npn \eps@tpt@texto
+  {
+    \tl_if_empty:NF \l__eps_tpt_para_tl
+      { \tl_set_eq:NN \l__tag_para_tag_tl \l__eps_tpt_para_tl }
+    \tl_if_empty:NF \l__eps_tpt_bloque_tl
+      { \tl_set_eq:cN { l__tag_name_para/textblock_tl } \l__eps_tpt_bloque_tl }
+  }
+\ExplSyntaxOff
 %% (4) longtable 4.24 (LaTeX 2025-11, TeX Live 2025): al partir una tabla
 %%     entre páginas daba «Infinite glue shrinkage found in box being split».
 %%     TeX lo trata como error ignorado (el PDF sale bien), pero latexmk se
@@ -700,6 +751,26 @@
     {\@ifpackagelater{longtable}{2025/12/23}{}{\eps@longtable@finito}}%
     {}%
 }
+%% (5) pdfpages cuenta las páginas del PDF incluido con un \includegraphics
+%%     sin texto alternativo dentro de una caja de medida (que no llega al
+%%     PDF): cada \includepdf daba el aviso «Alternative text for graphic is
+%%     missing» aunque llevara alt={...}. Esa medida se hace sin etiquetado.
+\ExplSyntaxOn
+\cs_new_protected:Npn \__eps_pdfpages_medida_sin_etiquetado:
+  {
+    \cs_if_exist:NT \AM@getpagecount
+      {
+        \tl_set_eq:NN \l_tmpa_tl \AM@getpagecount
+        \regex_replace_once:nnN
+          { \c{includegraphics} }
+          { \c{SuspendTagging} \cB\{ eps-pdfpages \cE\} \c{includegraphics} }
+          \l_tmpa_tl
+        \cs_set_eq:NN \AM@getpagecount \l_tmpa_tl
+      }
+  }
+\cs_new_eq:NN \eps@pdfpages@medida \__eps_pdfpages_medida_sin_etiquetado:
+\ExplSyntaxOff
+\AddToHook{package/pdfpages/after}{\eps@pdfpages@medida}
 
 %% ============================================================================
 %% CLASE BASE
@@ -1254,6 +1325,32 @@
     \AddToHook { cmd / chapter / before }
       { \tag_if_active:T { \tagtool { flush-floats = 0 } } }
   }
+% tcolorbox 6.10 (2026) con capture=hbox (\tcbox, cajas UML de [software]):
+% el título y una 'varwidth upper' van en minipages. Cada minipage cierra
+% la estructura en curso como si interrumpiera un párrafo y luego abre otro.
+% Si la caja no está dentro de un párrafo (modo vertical), cerraba la
+% sección y dejaba abierto un párrafo con el resto del documento. Con
+% capture=minipage tcolorbox lo evita; con hbox, no. En ese caso se hace lo
+% mismo que con capture=minipage: esas minipages no cierran ni abren nada.
+\cs_new_protected:Npn \__eps_tcb_hbox_minipages:
+  {
+    \cs_if_exist:NT \tcbox@inner@hbox
+      {
+        \cs_new_eq:NN \__eps_tcb_inner_hbox:n \tcbox@inner@hbox
+        \cs_set:Npn \tcbox@inner@hbox ##1
+          {
+            \mode_if_vertical:T
+              {
+                \AssignTaggingSocketPlug { minipage / before } { noop }
+                \AssignTaggingSocketPlug { minipage / after } { noop }
+              }
+            \__eps_tcb_inner_hbox:n {##1}
+          }
+      }
+  }
+% (los sockets de minipage no existen antes de LaTeX 2025-11)
+\IfFormatAtLeastT { 2025-11-01 }
+  { \AddToHook { package / tcolorbox / after } { \__eps_tcb_hbox_minipages: } }
 
 %% (6) Títulos de sección como encabezados (H2...H6). KOMA-Script compone los
 %%     títulos con su propio código y el etiquetado de LaTeX solo reconoce
@@ -1291,8 +1388,64 @@
       { \UseTaggingSocket { sec / title / init } { \__eps_sec_nivel:n {#1} } }
   }
 \bool_new:N \l__eps_sec_sin_numero_bool
+% \chapter con LaTeX 2026-06 o posterior (ver más abajo): mismos ganchos de
+% KOMA que en \section, y el número dentro del encabezado (H1), como en
+% \sectionlinesformat (con \@hangfrom quedaba delante, suelto)
+\cs_new_protected:Npn \__eps_capitulos_etiquetados:
+  {
+    \AddtoDoHook { heading / postinit / chapter }
+      { \__eps_sec_abrir:nn { chapter } }
+    \AddtoDoHook { heading / begingroup / chapter }
+      { \__eps_sec_titulo:nn { chapter } }
+    \cs_set:Npn \chapterlinesformat ##1 ##2 ##3
+      {
+        \tl_if_blank:nTF {##2}
+          { \bool_set_true:N \l__eps_sec_sin_numero_bool }
+          { \bool_set_false:N \l__eps_sec_sin_numero_bool }
+        \UseTaggingSocket { sec / title / hang }
+          { {0} \l__eps_sec_sin_numero_bool {##2} {##3} }
+          { \@hangfrom {##2} }
+        ##3
+      }
+  }
 
-%% (7) Índices etiquetados y con enlaces. Las entradas de los índices de KOMA
+%% (7) accesible = true en \EPSsetup: declara el PDF conforme a PDF/UA-2
+%%     (metadatos XMP pdfuaid:part=2) y vuelve más estrictas las
+%%     comprobaciones: la falta de texto alternativo pasa a ser un error y
+%%     se avisa de las construcciones que estropean el PDF accesible.
+%%     Requiere LaTeX 2025-11 o posterior y el etiquetado activo.
+\cs_new_protected:Npn \__eps_accesible_no_compatible:nn #1 #2
+  { \msg_warning:nnnn { eps-tfg } { accesible-no-compatible } {#1} {#2} }
+\cs_new_protected:Npn \__eps_accesible_activar:
+  {
+    \SetKeys [ document / metadata ] { pdfstandard = ua-2 }
+    \msg_redirect_name:nnn { tag } { alt-text-missing } { error }
+    \AddToHook { cmd / diagbox / before }
+      {
+        \__eps_accesible_no_compatible:nn { \token_to_str:N \diagbox }
+          { deja~la~tabla~abierta~y~el~texto~siguiente~queda~dentro~de~ella }
+      }
+    \AddToHook { env / tblr / begin }
+      {
+        \__eps_accesible_no_compatible:nn { tblr~(tabularray) }
+          { la~tabla~no~se~etiqueta~como~tabla;~usa~tabular }
+      }
+  }
+\AddToHook { begindocument / before }
+  {
+    \bool_if:NT \g__eps_accesible_bool
+      {
+        \IfFormatAtLeastTF { 2025-11-01 }
+          {
+            \tag_if_active:TF
+              { \__eps_accesible_activar: }
+              { \msg_error:nn { eps-tfg } { accesible-sin-etiquetado } }
+          }
+          { \msg_error:nn { eps-tfg } { accesible-sin-etiquetado } }
+      }
+  }
+
+%% (8) Índices etiquetados y con enlaces. Las entradas de los índices de KOMA
 %%     (tocbasic) no llaman a los ganchos del etiquetado: el índice general y
 %%     las listas de figuras, tablas y códigos salían como artefactos (el
 %%     lector de pantalla no los leía) y sin enlaces. Se componen con las
@@ -1365,6 +1518,18 @@
       {
         \AddtoDoHook { heading / postinit / #1 } { \__eps_sec_abrir:nn {#1} }
         \AddtoDoHook { heading / begingroup / #1 } { \__eps_sec_titulo:nn {#1} }
+      }
+    % \chapter: hasta LaTeX 2025-11 el módulo de secciones de latex-lab lo
+    % redefine y lo etiqueta él. Desde LaTeX 2026-06 ya no (lo hace la nueva
+    % implementación con plantillas, que no se carga): el título del
+    % capítulo quedaba como un párrafo abierto que contenía todo el capítulo.
+    % Se usan entonces los mismos ganchos de KOMA que en \section.
+    \AddToHook { begindocument / before }
+      {
+        \bool_lazy_and:nnT
+          { \cs_if_exist_p:N \ltlabsecdate }
+          { \str_compare_p:eNe { \ltlabsecdate } > { 2026-01-01 } }
+          { \__eps_capitulos_etiquetados: }
       }
     % Igual que la definición de KOMA (\@hangfrom{\hskip #2#3}{#4}), pero el
     % número va en su propio elemento dentro del encabezado

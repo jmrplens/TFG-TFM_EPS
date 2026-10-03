@@ -65,7 +65,9 @@ valores admitidos); si faltan `titulo`, `autor` o `tutor` hay un aviso. Otras
 claves: `cotutor`, `cotutor-genero`, `cotutor-departamento`, `facultad`,
 `universidad`, `ubicacion`. `optimizar-tikz` es obsoleta y no tiene efecto.
 El `configuracion.tex` distribuido trae `borrador = true`: ponerlo a `false`
-en la versión final.
+en la versión final. `accesible = true` (opcional, LaTeX 2025-11 o posterior)
+declara el PDF conforme a PDF/UA-2 y convierte en error la falta de `alt={...}`
+en `\includegraphics`.
 
 ### Titulaciones disponibles
 
