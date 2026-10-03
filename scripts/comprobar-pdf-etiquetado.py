@@ -190,6 +190,12 @@ def main() -> int:
         help="Parte de PDF/UA que debe declarar el XMP (p. ej. '2'); falla si no la declara",
     )
     parser.add_argument(
+        "--exigir-estructura",
+        action="store_true",
+        help="Fallar si faltan encabezados (H1, H2), entradas de índice enlazadas o "
+        "texto alternativo en alguna figura (veraPDF no lo detecta)",
+    )
+    parser.add_argument(
         "--no-exigir",
         action="store_true",
         help="No fallar si el PDF no está etiquetado (solo informar)",
@@ -304,6 +310,17 @@ def main() -> int:
     if esperado:
         md.append(f"✅ Idioma {idioma} (esperado: {esperado})" if idioma_ok
                   else f"❌ Idioma {idioma}, se esperaba {esperado}")
+    problemas_estructura = []
+    if args.exigir_estructura:
+        for nivel in (1, 2):
+            if not extra["rol:H" + str(nivel)]:
+                problemas_estructura.append(f"no hay encabezados H{nivel}")
+        if not extra["rol:Reference"]:
+            problemas_estructura.append("el índice no tiene entradas enlazadas (Reference)")
+        if extra["figuras_sin_alt"]:
+            problemas_estructura.append(f"{extra['figuras_sin_alt']} figuras sin texto alternativo")
+        md.append("❌ Estructura: " + "; ".join(problemas_estructura) if problemas_estructura
+                  else "✅ Estructura: encabezados, índice enlazado y texto alternativo")
     if ua_esperada:
         md.append(f"✅ Declara PDF/UA-{ua_esperada}" if ua_ok
                   else f"❌ No declara PDF/UA-{ua_esperada} (declaración: {declaracion_ua})")
@@ -323,6 +340,9 @@ def main() -> int:
         return 1
     if not idioma_ok:
         print(f"::error::El idioma del PDF (/Lang {idioma}) no coincide con el esperado ({esperado})")
+        return 1
+    if problemas_estructura:
+        print("::error::Estructura del PDF incompleta: " + "; ".join(problemas_estructura))
         return 1
     if not ua_ok:
         print(f"::error::El PDF no declara PDF/UA-{ua_esperada} en el XMP (declaración: {declaracion_ua})")

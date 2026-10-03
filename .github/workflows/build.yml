@@ -203,6 +203,7 @@ jobs:
           --titulo "PDF (${{ matrix.nombre }})" \
           --idioma-esperado "${{ matrix.lang }}" \
           --ua-esperada "${{ matrix.ua }}" \
+          ${{ matrix.ua == '2' && '--exigir-estructura' || '' }} \
           --log main.log
 
     - name: Resumen de la compilación
