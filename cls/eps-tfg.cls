@@ -1543,28 +1543,62 @@
           }
       }
   }
+% Texto automático (#1: variable donde se guarda): la leyenda de la figura
+% en curso, si se conoce, o «Imagen N»
+\cs_new_protected:Npn \__eps_alt_texto:N #1
+  {
+    \bool_lazy_and:nnTF
+      { \int_compare_p:nNn { \l__eps_alt_flotante_int } > { 0 } }
+      { \tl_if_exist_p:c { g__eps_alt_flotante_ \int_use:N \l__eps_alt_flotante_int _tl } }
+      { \tl_set_eq:Nc #1 { g__eps_alt_flotante_ \int_use:N \l__eps_alt_flotante_int _tl } }
+      {
+        \int_gincr:N \g__eps_alt_imagen_int
+        \tl_set:Ne #1
+          {
+            \EPSsegunidioma { Imagen } { Imatge } { Image }
+            \c_space_tl \int_use:N \g__eps_alt_imagen_int
+          }
+      }
+  }
 % #1: el archivo de la imagen
 \cs_new_protected:Npn \__eps_alt_relleno:n #1
   {
     \tl_if_empty:NT \l__tag_graphic_alt_tl
       {
-        \bool_lazy_and:nnTF
-          { \int_compare_p:nNn { \l__eps_alt_flotante_int } > { 0 } }
-          { \tl_if_exist_p:c { g__eps_alt_flotante_ \int_use:N \l__eps_alt_flotante_int _tl } }
-          {
-            \tl_set_eq:Nc \l__tag_graphic_alt_tl
-              { g__eps_alt_flotante_ \int_use:N \l__eps_alt_flotante_int _tl }
-          }
-          {
-            \int_gincr:N \g__eps_alt_imagen_int
-            \tl_set:Ne \l__tag_graphic_alt_tl
-              {
-                \EPSsegunidioma { Imagen } { Imatge } { Image }
-                \c_space_tl \int_use:N \g__eps_alt_imagen_int
-              }
-          }
+        \__eps_alt_texto:N \l__tag_graphic_alt_tl
         \msg_warning:nnee { eps-tfg } { alt-falta }
           {#1} { \l__tag_graphic_alt_tl }
+      }
+  }
+% Dibujos TikZ (y gráficas pgfplots) dentro de una figura: sin alt={...}, el
+% dibujo era un artefacto que el lector de pantalla no leía (y LaTeX no
+% avisaba). Se le da el mismo texto automático que a una imagen. Fuera de
+% las figuras no se toca: muchos componentes dibujan con TikZ por dentro.
+% #1: las opciones del dibujo
+\bool_new:N \l__eps_tikz_dentro_bool
+\cs_new_protected:Npn \__eps_tikz_alt:n #1
+  {
+    \bool_if:NF \l__eps_tikz_dentro_bool
+      {
+        \bool_set_true:N \l__eps_tikz_dentro_bool
+        \int_compare:nNnT { \l__eps_alt_flotante_int } > { 0 }
+          {
+            % Sus opciones (alt, artifact...) eligen el modo de etiquetado;
+            % sin ninguna se queda en «text»
+            \tag_socket_use:nn { tikz / picture / init } {#1}
+            \str_if_eq:eeT
+              { \str_use:c { l__socket_tagsupport/tikz/picture/begin_plug_str } }
+              { text }
+              {
+                \__eps_alt_texto:N \l__tikz_tagging_alt_tl
+                \AssignTaggingSocketPlug { tikz / picture / begin } { alt }
+                \AssignTaggingSocketPlug { tikz / picture / end } { alt }
+                \cs_set:Npn \pgfsys@begin@text { }
+                \cs_set:Npn \pgfsys@end@text { }
+                \msg_warning:nnee { eps-tfg } { alt-falta }
+                  { tikzpicture } { \l__tikz_tagging_alt_tl }
+              }
+          }
       }
   }
 \cs_new_protected:Npn \__eps_alt_automatico:
@@ -1580,6 +1614,15 @@
             \AddToHook { env / ##1 / begin } { \__eps_alt_flotante_inicio: }
             \AddToHook { env / ##1 / end } { \__eps_alt_flotante_fin: }
           }
+      }
+    % Antes del código de latex-lab (etiqueta «tikz»), que ya usa el modo
+    \bool_lazy_and:nnT
+      { \socket_if_exist_p:n { tagsupport/tikz/picture/begin } }
+      { \str_if_exist_p:c { l__socket_tagsupport/tikz/picture/begin_plug_str } }
+      {
+        \AddToHookWithArguments { cmd/tikz@picture/before } [ eps-tfg/tikz-alt ]
+          { \__eps_tikz_alt:n {##1} }
+        \DeclareHookRule { cmd/tikz@picture/before } { eps-tfg/tikz-alt } { before } { tikz }
       }
   }
 \IfFormatAtLeastT { 2025-11-01 }
