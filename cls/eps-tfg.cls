@@ -1374,6 +1374,9 @@
             \AddtoDoHook { heading / endgroup / ##1 }
               { \tag_if_active:T { \UseTaggingSocket { recordtarget } } \use_none:n }
           }
+        % Anclas de \phantomsection (glossaries, bibliografía en el índice...)
+        \AddToHook { cmd / phantomsection / after }
+          { \tag_if_active:T { \UseTaggingSocket { recordtarget } } }
       }
   }
 \IfFormatAtLeastT { 2025-11-01 }
