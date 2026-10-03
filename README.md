@@ -23,7 +23,7 @@ Plantilla LaTeX moderna y profesional para la elaboración de **Trabajos de Fin 
 - 📊 **Gráficas y diagramas** con TikZ/PGFPlots
 - 📖 **Glosarios y acrónimos** integrados
 - 🌍 **Tres idiomas**: español, valenciano e inglés (la portada se mantiene en español)
-- ♿ **PDF etiquetado** para lectores de pantalla y opción `accesible = true` para declararlo conforme a PDF/UA-2
+- ♿ **PDF accesible**: etiquetado para lectores de pantalla y declarado conforme a PDF/UA-2 (verificado con veraPDF)
 - 🔧 **Pensada para trabajar en local** (VS Code, TeXstudio…) y **compatible con Overleaf**
 
 ---
@@ -266,7 +266,7 @@ Toda la configuración se realiza en el archivo `configuracion.tex`:
 
   % Opciones
   borrador = true,  % Muestra las notas \todo{}; pon false en la versión final
-  % accesible = true, % Versión final: PDF/UA-2 (ver docs/ACCESIBILIDAD.md)
+  accesible = true, % PDF/UA-2 (ver docs/ACCESIBILIDAD.md)
 }
 ```
 

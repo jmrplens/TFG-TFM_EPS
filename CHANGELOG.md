@@ -9,6 +9,20 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
 ### Accesibilidad
 
+- **PDF/UA-2 por defecto**: `accesible = true` viene activada en
+  `configuracion.tex` (y es el valor inicial de la clase). Con LaTeX anterior a
+  2025-11 o sin `\input{eps-metadata}` solo avisa (antes daba error).
+- **Texto alternativo automático**: una imagen sin `alt={...}` ya no recibe
+  el nombre del archivo, sino su leyenda con el número («Figura 3.2: …») o
+  «Imagen N», con un aviso claro que indica el archivo y el texto usado. La
+  falta de texto alternativo ya no detiene la compilación.
+- **`\paragraph` y `\subparagraph` como encabezados**: el título en línea es
+  un encabezado y el texto que le sigue, un párrafo aparte. El aspecto no
+  cambia.
+- **CI**: veraPDF valida el PDF de cada idioma (español, valenciano e inglés)
+  y la comprobación falla si alguno no es conforme con PDF/UA-2. La
+  configuración `accesible` de la matriz desaparece: ahora es la principal.
+
 - **Nueva opción `accesible = true`** en `\EPSsetup` (con LaTeX 2025-11 o
   posterior): declara el PDF conforme a PDF/UA-2, convierte en error la falta
   de texto alternativo en las imágenes y avisa de `\diagbox` y `tblr`. El
