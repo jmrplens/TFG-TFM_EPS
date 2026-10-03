@@ -21,7 +21,8 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
   falta de texto alternativo no detiene la compilación.
 - **Dibujos TikZ y gráficas pgfplots** sin `alt={...}` dentro de una figura:
   reciben el mismo texto automático que las imágenes (antes eran un artefacto
-  que el lector de pantalla no leía, sin ningún aviso).
+  que el lector de pantalla no leía, sin ningún aviso). Se respetan `alt`,
+  `artifact` y un `tagging-setup={text}` explícito.
 - **Enlaces de los índices asociados a su destino**: las entradas de la lista
   de figuras, la de tablas y los capítulos sin número del índice enlazaban con
   anclas sin estructura (59 avisos `Destination ... has no related structure`

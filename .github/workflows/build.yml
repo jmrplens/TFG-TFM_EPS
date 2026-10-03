@@ -281,8 +281,10 @@ jobs:
   # 3. Accesibilidad: veraPDF (PDF/UA-2) valida el PDF de cada idioma, que
   #    declara PDF/UA-2 (accesible = true). El job falla si alguno no es
   #    conforme, para detectar en la PR cualquier cambio que estropee la
-  #    accesibilidad (p. ej. una versión nueva de LaTeX o de un paquete). Si
-  #    veraPDF no se puede ejecutar (fallo de infraestructura), solo avisa.
+  #    accesibilidad (p. ej. una versión nueva de LaTeX o de un paquete).
+  #    También falla si veraPDF arranca pero no da informe de un PDF (p. ej.
+  #    un PDF que no sabe leer). Si veraPDF no se puede descargar o no hay
+  #    PDF que validar (fallo de infraestructura o de compilación), solo avisa.
   accesibilidad:
     name: Informe de accesibilidad (veraPDF)
     runs-on: ubuntu-latest
@@ -311,6 +313,7 @@ jobs:
         # Una marca por PDF esperado; se quita solo cuando veraPDF da su
         # informe. Las que quedan salen en el resumen como «sin informe».
         mkdir -p informe
+        rm -f informe/.fallo-sin-informe
         for nombre in $PDF_ESPERADOS; do
           : > "informe/$nombre.sin-informe"
         done
@@ -339,6 +342,8 @@ jobs:
           if ! grep -q '<validationReport' "informe/$nombre.xml"; then
             echo "::warning::veraPDF no pudo validar el PDF «$nombre» (código $CODIGO)"
             cat "informe/$nombre.err" || true
+            # veraPDF funciona (ya ha dado su versión): el problema es el PDF
+            : > informe/.fallo-sin-informe
             continue
           fi
           rm -f "informe/$nombre.sin-informe"
@@ -407,6 +412,9 @@ jobs:
             f.write(texto)
         if no_conformes:
             print(f"::error::PDF no conforme con PDF/UA-2 según veraPDF: {', '.join(no_conformes)}")
+            sys.exit(1)
+        if os.path.exists('informe/.fallo-sin-informe'):
+            print('::error::veraPDF no pudo validar alguno de los PDF (ver el paso anterior)')
             sys.exit(1)
         PY
 

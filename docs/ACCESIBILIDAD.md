@@ -179,7 +179,7 @@ Un `tikzpicture` sin texto alternativo es un artefacto: el lector de pantalla so
 \end{figure}
 ```
 
-Si el dibujo es solo decorativo, usa `artifact` en lugar de `alt`.
+Si el dibujo es solo decorativo, usa `artifact` en lugar de `alt`. Si prefieres que el lector de pantalla lea los textos de los nodos (el comportamiento de LaTeX), indícalo con `tagging-setup={text}`: la plantilla lo respeta y no añade el texto automático.
 
 ### Imágenes decorativas
 

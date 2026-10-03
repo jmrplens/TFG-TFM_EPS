@@ -179,11 +179,12 @@ def _metricas_base(tipos: Counter, extra: Counter) -> dict:
     return valores
 
 
-def _comparar_linea_base(ruta: str, tipos: Counter, extra: Counter, avisos: Counter,
+def _comparar_linea_base(ruta: str, tipos: Counter, extra: Counter, avisos: Counter | None,
                          con_log: bool) -> tuple[list, list]:
     """
     Compara con la línea base (JSON): «minimos» por métrica y
-    «avisos_tagpdf_max». Devuelve (empeoramientos, mejoras).
+    «avisos_tagpdf_max». Devuelve (empeoramientos, mejoras). avisos es None si
+    se pidió el registro (con_log) pero no se pudo leer.
     """
     with open(ruta, encoding="utf-8") as f:
         base = json.load(f)
@@ -197,6 +198,10 @@ def _comparar_linea_base(ruta: str, tipos: Counter, extra: Counter, avisos: Coun
             mejor.append(f"{nombre} {valor} (línea base {minimo})")
     maximo = base.get("avisos_tagpdf_max")
     if maximo is not None and con_log:
+        if avisos is None:
+            # Número desconocido: no puede contar como igual ni como mejor
+            peor.append(f"avisos de tagpdf desconocidos (no se pudo leer el registro; máximo {maximo})")
+            return peor, mejor
         total = sum(avisos.values())
         if total > maximo:
             peor.append(f"avisos de tagpdf {total} (máximo {maximo})")
@@ -328,9 +333,11 @@ def main() -> int:
         ("Enlaces en la estructura", f"{enlaces_etiq} de {enlaces}"),
     ]
     avisos: Counter = Counter()
+    log_leido = False
     if args.log:
         try:
             avisos = _avisos_tagpdf(args.log)
+            log_leido = True
             metricas.append(("Avisos de tagpdf", str(sum(avisos.values()))))
         except OSError as exc:
             # Sin registro el número es desconocido: no se muestra un 0 engañoso
@@ -365,7 +372,8 @@ def main() -> int:
                   else "✅ Estructura: encabezados, índice enlazado y texto alternativo")
     problemas_base, mejoras_base = [], []
     if args.linea_base:
-        problemas_base, mejoras_base = _comparar_linea_base(args.linea_base, tipos, extra, avisos, bool(args.log))
+        problemas_base, mejoras_base = _comparar_linea_base(
+            args.linea_base, tipos, extra, avisos if log_leido else None, bool(args.log))
         md.append("❌ Peor que la línea base: " + "; ".join(problemas_base) if problemas_base
                   else "✅ Igual o mejor que la línea base")
     if ua_esperada:

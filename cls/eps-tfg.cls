@@ -1602,6 +1602,7 @@
 % las figuras no se toca: muchos componentes dibujan con TikZ por dentro.
 % #1: las opciones del dibujo
 \bool_new:N \l__eps_tikz_dentro_bool
+\str_new:N \l__eps_tikz_modo_str
 \cs_new_protected:Npn \__eps_tikz_alt:n #1
   {
     \bool_if:NF \l__eps_tikz_dentro_bool
@@ -1609,12 +1610,23 @@
         \bool_set_true:N \l__eps_tikz_dentro_bool
         \int_compare:nNnT { \l__eps_alt_flotante_int } > { 0 }
           {
-            % Sus opciones (alt, artifact...) eligen el modo de etiquetado;
-            % sin ninguna se queda en «text»
+            % Sus opciones (alt, artifact, tagging-setup...) eligen el modo de
+            % etiquetado. Una marca provisional distingue «no eligen ninguno»
+            % de un tagging-setup={text} explícito, que se respeta.
+            \str_set_eq:Nc \l__eps_tikz_modo_str
+              { l__socket_tagsupport/tikz/picture/begin_plug_str }
+            \str_set:cn { l__socket_tagsupport/tikz/picture/begin_plug_str }
+              { eps-sin-modo }
             \tag_socket_use:nn { tikz / picture / init } {#1}
-            \str_if_eq:eeT
+            \str_if_eq:eeTF
               { \str_use:c { l__socket_tagsupport/tikz/picture/begin_plug_str } }
-              { text }
+              { eps-sin-modo }
+              {
+                \str_set_eq:cN { l__socket_tagsupport/tikz/picture/begin_plug_str }
+                  \l__eps_tikz_modo_str
+              }
+              { \str_clear:N \l__eps_tikz_modo_str }
+            \str_if_eq:VnT \l__eps_tikz_modo_str { text }
               {
                 \__eps_alt_texto:N \l__tikz_tagging_alt_tl
                 \AssignTaggingSocketPlug { tikz / picture / begin } { alt }
