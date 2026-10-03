@@ -113,8 +113,9 @@ jobs:
           }
 
   # 2. Compilar documento
-  #    Matriz de compatibilidad: TeX Live más reciente y TeX Live 2024 (versión
-  #    mínima documentada) y los tres idiomas de la plantilla. Con TeX Live
+  #    Matriz de compatibilidad: TeX Live más reciente, TeX Live 2025 (LaTeX
+  #    2025-11, el primero con etiquetado completo) y TeX Live 2024 (versión
+  #    mínima documentada), y los tres idiomas de la plantilla. Con TeX Live
   #    2025 o posterior el PDF declara PDF/UA-2 (accesible = true, por defecto)
   #    y veraPDF valida el de cada idioma. La configuración principal (español,
   #    TeX Live más reciente) publica además el PDF para descargar.
@@ -134,6 +135,12 @@ jobs:
             idioma: espanol
             lang: es
             principal: true
+            ua: '2'
+          - nombre: texlive-2025
+            texlive: '2025'
+            idioma: espanol
+            lang: es
+            principal: false
             ua: '2'
           - nombre: texlive-2024
             texlive: '2024'
@@ -203,7 +210,7 @@ jobs:
           --titulo "PDF (${{ matrix.nombre }})" \
           --idioma-esperado "${{ matrix.lang }}" \
           --ua-esperada "${{ matrix.ua }}" \
-          ${{ matrix.ua == '2' && '--exigir-estructura' || '' }} \
+          ${{ matrix.ua == '2' && '--exigir-estructura --linea-base scripts/linea-base-accesibilidad.json' || '' }} \
           --log main.log
 
     - name: Resumen de la compilación
@@ -274,8 +281,10 @@ jobs:
   # 3. Accesibilidad: veraPDF (PDF/UA-2) valida el PDF de cada idioma, que
   #    declara PDF/UA-2 (accesible = true). El job falla si alguno no es
   #    conforme, para detectar en la PR cualquier cambio que estropee la
-  #    accesibilidad (p. ej. una versión nueva de LaTeX o de un paquete). Si
-  #    veraPDF no se puede ejecutar (fallo de infraestructura), solo avisa.
+  #    accesibilidad (p. ej. una versión nueva de LaTeX o de un paquete).
+  #    También falla si veraPDF arranca pero no da informe de un PDF (p. ej.
+  #    un PDF que no sabe leer). Si veraPDF no se puede descargar o no hay
+  #    PDF que validar (fallo de infraestructura o de compilación), solo avisa.
   accesibilidad:
     name: Informe de accesibilidad (veraPDF)
     runs-on: ubuntu-latest
@@ -286,7 +295,7 @@ jobs:
       # Imagen oficial de veraPDF CLI (https://hub.docker.com/r/verapdf/cli)
       VERAPDF_IMAGE: verapdf/cli:latest
       # Configuraciones de la matriz con ua: '2' (deben coincidir)
-      PDF_ESPERADOS: principal valenciano ingles
+      PDF_ESPERADOS: principal texlive-2025 valenciano ingles
 
     steps:
     # Un PDF por idioma (pdf/pdf-<configuración>/main.pdf). Si una
@@ -304,6 +313,7 @@ jobs:
         # Una marca por PDF esperado; se quita solo cuando veraPDF da su
         # informe. Las que quedan salen en el resumen como «sin informe».
         mkdir -p informe
+        rm -f informe/.fallo-sin-informe
         for nombre in $PDF_ESPERADOS; do
           : > "informe/$nombre.sin-informe"
         done
@@ -332,6 +342,8 @@ jobs:
           if ! grep -q '<validationReport' "informe/$nombre.xml"; then
             echo "::warning::veraPDF no pudo validar el PDF «$nombre» (código $CODIGO)"
             cat "informe/$nombre.err" || true
+            # veraPDF funciona (ya ha dado su versión): el problema es el PDF
+            : > informe/.fallo-sin-informe
             continue
           fi
           rm -f "informe/$nombre.sin-informe"
@@ -401,6 +413,9 @@ jobs:
         if no_conformes:
             print(f"::error::PDF no conforme con PDF/UA-2 según veraPDF: {', '.join(no_conformes)}")
             sys.exit(1)
+        if os.path.exists('informe/.fallo-sin-informe'):
+            print('::error::veraPDF no pudo validar alguno de los PDF (ver el paso anterior)')
+            sys.exit(1)
         PY
 
     - name: Subir informe de accesibilidad
@@ -447,7 +462,7 @@ jobs:
           const sha = context.payload.pull_request.head.sha.substring(0, 7);
 
           // Leer los resúmenes de cada configuración de la matriz
-          const orden = ['principal', 'texlive-2024', 'valenciano', 'ingles'];
+          const orden = ['principal', 'texlive-2025', 'texlive-2024', 'valenciano', 'ingles'];
           const resumenes = [];
           if (fs.existsSync('resumen')) {
             for (const f of fs.readdirSync('resumen')) {

@@ -19,6 +19,14 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
   el nombre del archivo, sino su leyenda con el número («Figura 3.2: …») o
   «Imagen N», con un aviso claro que indica el archivo y el texto usado. La
   falta de texto alternativo no detiene la compilación.
+- **Dibujos TikZ y gráficas pgfplots** sin `alt={...}` dentro de una figura:
+  reciben el mismo texto automático que las imágenes (antes eran un artefacto
+  que el lector de pantalla no leía, sin ningún aviso). Se respetan `alt`,
+  `artifact` y un `tagging-setup={text}` explícito.
+- **Enlaces de los índices asociados a su destino**: las entradas de la lista
+  de figuras, la de tablas y los capítulos sin número del índice enlazaban con
+  anclas sin estructura (59 avisos `Destination ... has no related structure`
+  en el ejemplo). Los avisos de etiquetado bajan de 61 a 2.
 - **`\paragraph` y `\subparagraph` como encabezados**: el título en línea es
   un encabezado y el texto que le sigue, un párrafo aparte. El aspecto no
   cambia.
@@ -31,7 +39,9 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - **CI**: veraPDF valida el PDF de cada idioma (español, valenciano e inglés)
   y la comprobación falla si alguno no es conforme con PDF/UA-2. El script de
   comprobación exige además encabezados, índice enlazado y texto alternativo
-  en todas las figuras (veraPDF no lo detecta).
+  en todas las figuras (veraPDF no lo detecta), y falla si el etiquetado
+  empeora respecto a la línea base de `scripts/linea-base-accesibilidad.json`.
+  Nueva configuración `texlive-2025` en la matriz (LaTeX 2025-11).
 
 - **Texto de los bloques de código con espacios** (con LaTeX 2025-11 o
   posterior): el texto etiquetado y el copiado decían `deffibonacci(n):`.

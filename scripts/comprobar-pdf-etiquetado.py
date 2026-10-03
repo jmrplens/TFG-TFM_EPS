@@ -31,6 +31,7 @@ Requiere: Python 3.9+, pypdf.
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import re
 import sys
@@ -169,6 +170,46 @@ def _enlaces(lector) -> tuple[int, int]:
     return total, etiquetados
 
 
+def _metricas_base(tipos: Counter, extra: Counter) -> dict:
+    """Métricas que compara la línea base."""
+    valores = {f"H{n}": extra["rol:H" + str(n)] for n in range(1, 7)}
+    valores["Reference"] = extra["rol:Reference"]
+    valores["TH"] = tipos.get("TH", 0)
+    valores["Figuras con texto alternativo"] = extra["figuras_alt"]
+    return valores
+
+
+def _comparar_linea_base(ruta: str, tipos: Counter, extra: Counter, avisos: Counter | None,
+                         con_log: bool) -> tuple[list, list]:
+    """
+    Compara con la línea base (JSON): «minimos» por métrica y
+    «avisos_tagpdf_max». Devuelve (empeoramientos, mejoras). avisos es None si
+    se pidió el registro (con_log) pero no se pudo leer.
+    """
+    with open(ruta, encoding="utf-8") as f:
+        base = json.load(f)
+    peor, mejor = [], []
+    valores = _metricas_base(tipos, extra)
+    for nombre, minimo in base.get("minimos", {}).items():
+        valor = valores.get(nombre, 0)
+        if valor < minimo:
+            peor.append(f"{nombre} {valor} (mínimo {minimo})")
+        elif valor > minimo:
+            mejor.append(f"{nombre} {valor} (línea base {minimo})")
+    maximo = base.get("avisos_tagpdf_max")
+    if maximo is not None and con_log:
+        if avisos is None:
+            # Número desconocido: no puede contar como igual ni como mejor
+            peor.append(f"avisos de tagpdf desconocidos (no se pudo leer el registro; máximo {maximo})")
+            return peor, mejor
+        total = sum(avisos.values())
+        if total > maximo:
+            peor.append(f"avisos de tagpdf {total} (máximo {maximo})")
+        elif total < maximo:
+            mejor.append(f"avisos de tagpdf {total} (línea base {maximo})")
+    return peor, mejor
+
+
 def main() -> int:
     """Comprueba el PDF, imprime el resumen y devuelve el código de salida."""
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
@@ -194,6 +235,12 @@ def main() -> int:
         action="store_true",
         help="Fallar si faltan encabezados (H1, H2), entradas de índice enlazadas o "
         "texto alternativo en alguna figura (veraPDF no lo detecta)",
+    )
+    parser.add_argument(
+        "--linea-base",
+        default="",
+        help="JSON con los mínimos (encabezados, entradas de índice...) y el máximo de "
+        "avisos de tagpdf; falla si el PDF empeora respecto a ellos",
     )
     parser.add_argument(
         "--no-exigir",
@@ -286,9 +333,11 @@ def main() -> int:
         ("Enlaces en la estructura", f"{enlaces_etiq} de {enlaces}"),
     ]
     avisos: Counter = Counter()
+    log_leido = False
     if args.log:
         try:
             avisos = _avisos_tagpdf(args.log)
+            log_leido = True
             metricas.append(("Avisos de tagpdf", str(sum(avisos.values()))))
         except OSError as exc:
             # Sin registro el número es desconocido: no se muestra un 0 engañoso
@@ -321,6 +370,12 @@ def main() -> int:
             problemas_estructura.append(f"{extra['figuras_sin_alt']} figuras sin texto alternativo")
         md.append("❌ Estructura: " + "; ".join(problemas_estructura) if problemas_estructura
                   else "✅ Estructura: encabezados, índice enlazado y texto alternativo")
+    problemas_base, mejoras_base = [], []
+    if args.linea_base:
+        problemas_base, mejoras_base = _comparar_linea_base(
+            args.linea_base, tipos, extra, avisos if log_leido else None, bool(args.log))
+        md.append("❌ Peor que la línea base: " + "; ".join(problemas_base) if problemas_base
+                  else "✅ Igual o mejor que la línea base")
     if ua_esperada:
         md.append(f"✅ Declara PDF/UA-{ua_esperada}" if ua_ok
                   else f"❌ No declara PDF/UA-{ua_esperada} (declaración: {declaracion_ua})")
@@ -343,6 +398,13 @@ def main() -> int:
         return 1
     if problemas_estructura:
         print("::error::Estructura del PDF incompleta: " + "; ".join(problemas_estructura))
+        return 1
+    if mejoras_base:
+        print("::notice::Mejor que la línea base (se puede actualizar "
+              f"{args.linea_base}): " + "; ".join(mejoras_base))
+    if problemas_base:
+        print("::error::El etiquetado del PDF ha empeorado respecto a la línea base: "
+              + "; ".join(problemas_base))
         return 1
     if not ua_ok:
         print(f"::error::El PDF no declara PDF/UA-{ua_esperada} en el XMP (declaración: {declaracion_ua})")
