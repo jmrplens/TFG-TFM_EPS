@@ -1334,6 +1334,30 @@
     \AddToHook { cmd / chapter / before }
       { \tag_if_active:T { \tagtool { flush-floats = 0 } } }
   }
+% Leyendas: con el etiquetado, LaTeX redefine \@makecaption con su formato
+% estándar («Figura 1: texto») y se perdían las fuentes de \captionsetup
+% (etiqueta en negrita, texto en tamaño pequeño). Se aplican las del paquete
+% caption: \captionfont y \captiontextfont a toda la leyenda y
+% \captionlabelfont a la etiqueta.
+\cs_new_protected:Npn \__eps_leyendas_con_formato:
+  {
+    \bool_lazy_and:nnT
+      { \cs_if_exist_p:N \captionlabelfont }
+      { \socket_if_exist_p:n { caption/label } }
+      {
+        \NewSocketPlug { caption/label } { eps-tfg }
+          { { \captionlabelfont ##1: } ~ }
+        \AssignSocketPlug { caption/label } { eps-tfg }
+        \AddToHookWithArguments { cmd/@makecaption/before }
+          {
+            \cs_if_exist_use:N \captionfont
+            \cs_if_exist_use:N \captionsize
+            \cs_if_exist_use:N \captiontextfont
+          }
+      }
+  }
+\IfFormatAtLeastT { 2025-11-01 }
+  { \AddToHook { begindocument / before } { \__eps_leyendas_con_formato: } }
 % tcolorbox 6.10 (2026) con capture=hbox (\tcbox, cajas UML de [software]):
 % el título y una 'varwidth upper' van en minipages. Cada minipage cierra
 % la estructura en curso como si interrumpiera un párrafo y luego abre otro.
@@ -1348,7 +1372,10 @@
         \cs_new_eq:NN \__eps_tcb_inner_hbox:n \tcbox@inner@hbox
         \cs_set:Npn \tcbox@inner@hbox ##1
           {
-            \mode_if_vertical:T
+            % (sin \DocumentMetadata esos sockets no existen)
+            \bool_lazy_and:nnT
+              { \mode_if_vertical_p: }
+              { \socket_if_exist_p:n { tagsupport / minipage / before } }
               {
                 \AssignTaggingSocketPlug { minipage / before } { noop }
                 \AssignTaggingSocketPlug { minipage / after } { noop }
