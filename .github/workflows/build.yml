@@ -285,6 +285,8 @@ jobs:
     env:
       # Imagen oficial de veraPDF CLI (https://hub.docker.com/r/verapdf/cli)
       VERAPDF_IMAGE: verapdf/cli:latest
+      # Configuraciones de la matriz con ua: '2' (deben coincidir)
+      PDF_ESPERADOS: principal valenciano ingles
 
     steps:
     # Un PDF por idioma (pdf/pdf-<configuración>/main.pdf). Si una
@@ -299,11 +301,16 @@ jobs:
     - name: Validar con veraPDF
       id: verapdf
       run: |
+        # Una marca por PDF esperado; se quita solo cuando veraPDF da su
+        # informe. Las que quedan salen en el resumen como «sin informe».
+        mkdir -p informe
+        for nombre in $PDF_ESPERADOS; do
+          : > "informe/$nombre.sin-informe"
+        done
         if ! ls pdf/*/main.pdf >/dev/null 2>&1; then
           echo "::warning::No hay ningún PDF que validar (¿falló la compilación?)"
           exit 0
         fi
-        mkdir -p informe
         if ! docker pull --quiet "$VERAPDF_IMAGE"; then
           echo "::warning::No se pudo descargar veraPDF: no se valida la accesibilidad"
           exit 0
@@ -327,13 +334,14 @@ jobs:
             cat "informe/$nombre.err" || true
             continue
           fi
+          rm -f "informe/$nombre.sin-informe"
           # Informe HTML legible
           docker run --rm -v "$PWD/$dir:/data:ro" "$VERAPDF_IMAGE" \
             --flavour ua2 --format html /data/main.pdf > "informe/$nombre.html" || true
         done
 
     - name: Resumir y comprobar
-      if: steps.verapdf.outcome == 'success'
+      if: always() && steps.verapdf.outcome == 'success'
       env:
         VERSION: ${{ steps.verapdf.outputs.version }}
       run: |
@@ -377,8 +385,13 @@ jobs:
                     desc = ' '.join(desc.split()).replace('|', '\\|')[:160]
                     detalle.append(f"| {r.get('clause', '')} | {r.get('testNumber', '')} | "
                                    f"{r.get('failedChecks', '')} | {desc} |")
-        if not informes:
-            lineas.append('| — | sin informe | — | — |')
+        sin_informe = sorted(glob.glob('informe/*.sin-informe'))
+        for ruta in sin_informe:
+            nombre = os.path.basename(ruta)[:-len('.sin-informe')]
+            lineas.append(f'| {nombre} | ⚠️ sin informe | — | — |')
+        if sin_informe:
+            print('::warning::Sin informe de veraPDF para: '
+                  + ', '.join(os.path.basename(r)[:-len('.sin-informe')] for r in sin_informe))
         lineas += detalle
         lineas += ['', '> Informe completo en el artefacto **informe-accesibilidad**.']
         texto = '\n'.join(lineas) + '\n'

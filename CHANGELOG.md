@@ -9,13 +9,16 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
 ### Accesibilidad
 
-- **PDF/UA-2 por defecto**: `accesible = true` viene activada en
-  `configuracion.tex` (y es el valor inicial de la clase). Con LaTeX anterior a
-  2025-11 o sin `\input{eps-metadata}` solo avisa (antes daba error).
+- **PDF/UA-2 por defecto**: nueva opción `accesible` en `\EPSsetup`, activada
+  en `configuracion.tex` y como valor inicial de la clase. Con LaTeX 2025-11 o
+  posterior declara el PDF conforme a PDF/UA-2 y avisa de `\diagbox` y
+  `tblr`; el documento de ejemplo es conforme según veraPDF (PDF/UA-2 y
+  WTPDF 1.0) en español, valenciano e inglés. Con LaTeX anterior a 2025-11 o
+  sin `\input{eps-metadata}` solo avisa.
 - **Texto alternativo automático**: una imagen sin `alt={...}` ya no recibe
   el nombre del archivo, sino su leyenda con el número («Figura 3.2: …») o
   «Imagen N», con un aviso claro que indica el archivo y el texto usado. La
-  falta de texto alternativo ya no detiene la compilación.
+  falta de texto alternativo no detiene la compilación.
 - **`\paragraph` y `\subparagraph` como encabezados**: el título en línea es
   un encabezado y el texto que le sigue, un párrafo aparte. El aspecto no
   cambia.
@@ -26,14 +29,10 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - Compilar sin `\input{eps-metadata}` vuelve a funcionar con las cajas UML
   (`capture=hbox`).
 - **CI**: veraPDF valida el PDF de cada idioma (español, valenciano e inglés)
-  y la comprobación falla si alguno no es conforme con PDF/UA-2. La
-  configuración `accesible` de la matriz desaparece: ahora es la principal.
+  y la comprobación falla si alguno no es conforme con PDF/UA-2. El script de
+  comprobación exige además encabezados, índice enlazado y texto alternativo
+  en todas las figuras (veraPDF no lo detecta).
 
-- **Nueva opción `accesible = true`** en `\EPSsetup` (con LaTeX 2025-11 o
-  posterior): declara el PDF conforme a PDF/UA-2, convierte en error la falta
-  de texto alternativo en las imágenes y avisa de `\diagbox` y `tblr`. El
-  documento de ejemplo compilado así es conforme según veraPDF (PDF/UA-2 y
-  WTPDF 1.0). Por defecto sigue desactivada.
 - **Texto de los bloques de código con espacios** (con LaTeX 2025-11 o
   posterior): el texto etiquetado y el copiado decían `deffibonacci(n):`.
 - Las notas de `threeparttable` ya no quedan dentro de un párrafo (PDF 2.0 no
@@ -48,8 +47,6 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
     (las de UML del módulo `[software]`) dejaban abierto un párrafo con el
     resto del documento.
   - Las notas de `threeparttable` volvían a quedar dentro de un párrafo.
-- **CI**: nueva configuración `accesible` en la matriz, que compila con
-  `accesible = true`; veraPDF valida su PDF además del principal.
 
 - **Títulos como encabezados** (con LaTeX 2025-11 o posterior): `\section`, `\subsection`... se etiquetan como
   `H2`, `H3`... dentro de secciones anidadas (antes eran párrafos), y el
