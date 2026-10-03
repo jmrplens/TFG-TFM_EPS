@@ -1,6 +1,6 @@
 # 📖 Contexto Técnico para IA - Plantilla TFG/TFM EPS UA
 
-Este documento proporciona información técnica detallada para que los asistentes de IA puedan dar respuestas precisas sobre esta plantilla LaTeX (versión 2.2.2). Todo lo que aparece aquí existe en `cls/` y `sty/`: si un comando no está en este documento ni en [COMPONENTES.md](COMPONENTES.md), no lo inventes.
+Este documento proporciona información técnica detallada para que los asistentes de IA puedan dar respuestas precisas sobre esta plantilla LaTeX (versión 2.3.0). Todo lo que aparece aquí existe en `cls/` y `sty/`: si un comando no está en este documento ni en [COMPONENTES.md](COMPONENTES.md), no lo inventes.
 
 ## Índice📋
 
