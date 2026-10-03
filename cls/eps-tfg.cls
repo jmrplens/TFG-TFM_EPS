@@ -1356,8 +1356,27 @@
           }
       }
   }
+% Destinos de los enlaces de los índices: la lista de figuras y la de tablas
+% enlazan con el ancla que crea el paquete caption («figure.caption.N») y el
+% índice general, con la de los capítulos sin número («chapter*.N»). LaTeX no
+% las asociaba a ninguna estructura (aviso «Destination ... has no related
+% structure»). Se registran: la de la leyenda, con la figura o tabla; la del
+% capítulo, con su sección.
+\cs_new_protected:Npn \__eps_destinos_registrados:
+  {
+    \socket_if_exist:nT { tagsupport/recordtarget }
+      {
+        \AddToHookWithArguments { cmd/@makecaption/before }
+          { \tag_if_active:T { \UseTaggingSocket { recordtarget } } }
+        \AddtoDoHook { heading / endgroup / chapter }
+          { \tag_if_active:T { \UseTaggingSocket { recordtarget } } \use_none:n }
+      }
+  }
 \IfFormatAtLeastT { 2025-11-01 }
-  { \AddToHook { begindocument / before } { \__eps_leyendas_con_formato: } }
+  {
+    \AddToHook { begindocument / before }
+      { \__eps_leyendas_con_formato: \__eps_destinos_registrados: }
+  }
 % tcolorbox 6.10 (2026) con capture=hbox (\tcbox, cajas UML de [software]):
 % el título y una 'varwidth upper' van en minipages. Cada minipage cierra
 % la estructura en curso como si interrumpiera un párrafo y luego abre otro.
