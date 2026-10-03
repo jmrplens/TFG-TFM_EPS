@@ -396,7 +396,16 @@
   {
     accesible~=~true~necesita~LaTeX~2025-11~o~posterior~y~el~PDF~etiquetado~
     (\token_to_str:N \input{eps-metadata}~en~main.tex).~
-    No~se~declara~la~conformidad~PDF/UA-2.
+    No~se~declara~la~conformidad~PDF/UA-2.~
+    Para~quitar~este~aviso:~accesible~=~false~en~configuracion.tex.
+  }
+\msg_new:nnn { eps-tfg } { alt-falta }
+  {
+    Falta~el~texto~alternativo~de~la~imagen~'#1'.\\
+    En~el~PDF~se~usa~'#2'.\\
+    Describe~la~imagen~con~
+    \token_to_str:N \includegraphics[alt={...}]{...}~
+    (o~'artifact'~si~es~decorativa).~Ver~docs/ACCESIBILIDAD.md.
   }
 \msg_new:nnn { eps-tfg } { accesible-no-compatible }
   {
@@ -486,7 +495,7 @@
     % Declarar el PDF conforme a PDF/UA-2 (ver docs/ACCESIBILIDAD.md)
     accesible .bool_gset:N = \g__eps_accesible_bool,
     accesible .default:n = true,
-    accesible .initial:n = false,
+    accesible .initial:n = true,
 
     % Idioma del documento (espanol, valenciano, ingles)
     idioma .code:n = { \__eps_setup_idioma:n { #1 } },
@@ -1325,6 +1334,30 @@
     \AddToHook { cmd / chapter / before }
       { \tag_if_active:T { \tagtool { flush-floats = 0 } } }
   }
+% Leyendas: con el etiquetado, LaTeX redefine \@makecaption con su formato
+% estándar («Figura 1: texto») y se perdían las fuentes de \captionsetup
+% (etiqueta en negrita, texto en tamaño pequeño). Se aplican las del paquete
+% caption: \captionfont y \captiontextfont a toda la leyenda y
+% \captionlabelfont a la etiqueta.
+\cs_new_protected:Npn \__eps_leyendas_con_formato:
+  {
+    \bool_lazy_and:nnT
+      { \cs_if_exist_p:N \captionlabelfont }
+      { \socket_if_exist_p:n { caption/label } }
+      {
+        \NewSocketPlug { caption/label } { eps-tfg }
+          { { \captionlabelfont ##1: } ~ }
+        \AssignSocketPlug { caption/label } { eps-tfg }
+        \AddToHookWithArguments { cmd/@makecaption/before }
+          {
+            \cs_if_exist_use:N \captionfont
+            \cs_if_exist_use:N \captionsize
+            \cs_if_exist_use:N \captiontextfont
+          }
+      }
+  }
+\IfFormatAtLeastT { 2025-11-01 }
+  { \AddToHook { begindocument / before } { \__eps_leyendas_con_formato: } }
 % tcolorbox 6.10 (2026) con capture=hbox (\tcbox, cajas UML de [software]):
 % el título y una 'varwidth upper' van en minipages. Cada minipage cierra
 % la estructura en curso como si interrumpiera un párrafo y luego abre otro.
@@ -1339,7 +1372,10 @@
         \cs_new_eq:NN \__eps_tcb_inner_hbox:n \tcbox@inner@hbox
         \cs_set:Npn \tcbox@inner@hbox ##1
           {
-            \mode_if_vertical:T
+            % (sin \DocumentMetadata esos sockets no existen)
+            \bool_lazy_and:nnT
+              { \mode_if_vertical_p: }
+              { \socket_if_exist_p:n { tagsupport / minipage / before } }
               {
                 \AssignTaggingSocketPlug { minipage / before } { noop }
                 \AssignTaggingSocketPlug { minipage / after } { noop }
@@ -1379,6 +1415,15 @@
             { \__eps_sec_nivel:n {#1} }
             { tag = \UseStructureName { sec / \__eps_sec_nivel:n {#1} } }
           }
+        % Título en línea: el párrafo que sigue empieza con él
+        \bool_lazy_and:nnT
+          {
+            \bool_lazy_or_p:nn
+              { \str_if_eq_p:nn {#1} { paragraph } }
+              { \str_if_eq_p:nn {#1} { subparagraph } }
+          }
+          { \legacy_if_p:n { @startsection@runin } }
+          { \UseTaggingSocket { sec / title / init } { \__eps_sec_nivel:n {#1} } }
       }
   }
 % El párrafo del título se etiqueta como encabezado del nivel (H2, H3...)
@@ -1388,6 +1433,22 @@
       { \UseTaggingSocket { sec / title / init } { \__eps_sec_nivel:n {#1} } }
   }
 \bool_new:N \l__eps_sec_sin_numero_bool
+% Títulos en línea (\paragraph, \subparagraph): el párrafo que empieza con
+% el título se abre como encabezado (H5, H6) y, tras el título, se parte
+% (sec/title/split) para que el texto siga en un párrafo normal. Es lo que
+% hace LaTeX con la clase book; KOMA compone el título cuando el párrafo ya
+% ha empezado, así que el encabezado se prepara al iniciar el título.
+\cs_new_protected:Npn \__eps_sec_en_linea:nnnn #1 #2 #3 #4
+  {
+    \hskip #2
+    \tl_if_blank:nTF {#3}
+      { \bool_set_true:N \l__eps_sec_sin_numero_bool }
+      { \bool_set_false:N \l__eps_sec_sin_numero_bool }
+    \UseTaggingSocket { sec / title / runin / number }
+      { { \__eps_sec_nivel:n {#1} } \l__eps_sec_sin_numero_bool } {#3}
+    #4
+    \UseTaggingSocket { sec / title / split }
+  }
 % \chapter con LaTeX 2026-06 o posterior (ver más abajo): mismos ganchos de
 % KOMA que en \section, y el número dentro del encabezado (H1), como en
 % \sectionlinesformat (con \@hangfrom quedaba delante, suelto)
@@ -1409,17 +1470,15 @@
       }
   }
 
-%% (7) accesible = true en \EPSsetup: declara el PDF conforme a PDF/UA-2
-%%     (metadatos XMP pdfuaid:part=2) y vuelve más estrictas las
-%%     comprobaciones: la falta de texto alternativo pasa a ser un error y
-%%     se avisa de las construcciones que estropean el PDF accesible.
-%%     Requiere LaTeX 2025-11 o posterior y el etiquetado activo.
+%% (7) accesible = true en \EPSsetup (por defecto): declara el PDF conforme
+%%     a PDF/UA-2 (metadatos XMP pdfuaid:part=2) y avisa de las
+%%     construcciones que estropean el PDF accesible. Requiere LaTeX 2025-11
+%%     o posterior y el etiquetado activo; si no, se avisa y no se declara.
 \cs_new_protected:Npn \__eps_accesible_no_compatible:nn #1 #2
   { \msg_warning:nnnn { eps-tfg } { accesible-no-compatible } {#1} {#2} }
 \cs_new_protected:Npn \__eps_accesible_activar:
   {
     \SetKeys [ document / metadata ] { pdfstandard = ua-2 }
-    \msg_redirect_name:nnn { tag } { alt-text-missing } { error }
     \AddToHook { cmd / diagbox / before }
       {
         \__eps_accesible_no_compatible:nn { \token_to_str:N \diagbox }
@@ -1439,13 +1498,97 @@
           {
             \tag_if_active:TF
               { \__eps_accesible_activar: }
-              { \msg_error:nn { eps-tfg } { accesible-sin-etiquetado } }
+              { \msg_warning:nn { eps-tfg } { accesible-sin-etiquetado } }
           }
-          { \msg_error:nn { eps-tfg } { accesible-sin-etiquetado } }
+          { \msg_warning:nn { eps-tfg } { accesible-sin-etiquetado } }
       }
   }
 
-%% (8) Índices etiquetados y con enlaces. Las entradas de los índices de KOMA
+%% (8) Texto alternativo automático. Una imagen sin alt={...} recibía como
+%%     texto alternativo el nombre del archivo. Ahora, si está en una figura
+%%     con leyenda, recibe «Figura 3.2: <leyenda>» (la leyenda va después de
+%%     la imagen: se toma del .aux de la compilación anterior) y, si no,
+%%     «Imagen N». Se avisa, con el archivo y el texto usado, para que el
+%%     autor escriba una descripción de verdad.
+\int_new:N \g__eps_alt_flotante_int   % figuras y subfiguras abiertas
+\int_new:N \l__eps_alt_flotante_int   % la figura en curso (0: ninguna)
+\int_new:N \g__eps_alt_imagen_int     % imágenes sin alt ni leyenda
+\tl_new:N \l__eps_alt_tl
+\tl_new:N \g__eps_alt_tl
+% Lo escribe en el .aux cada figura con leyenda
+\cs_new_protected:Npn \eps@altflotante #1 #2
+  { \tl_gclear_new:c { g__eps_alt_flotante_#1_tl } \tl_gset:cn { g__eps_alt_flotante_#1_tl } {#2} }
+\cs_new_protected:Npn \__eps_alt_flotante_inicio:
+  {
+    \int_gincr:N \g__eps_alt_flotante_int
+    \int_set_eq:NN \l__eps_alt_flotante_int \g__eps_alt_flotante_int
+    \tl_clear:N \@currentlabelname
+  }
+\cs_new_protected:Npn \__eps_alt_flotante_fin:
+  {
+    \tl_if_empty:NF \@currentlabelname
+      {
+        % La leyenda que guarda hyperref empieza con un cambio de idioma de
+        % polyglossia dentro de \texorpdfstring: se usa su versión para PDF
+        \group_begin:
+          \cs_set_eq:NN \texorpdfstring \use_ii:nn
+          \tl_gset:Ne \g__eps_alt_tl
+            { \text_purify:n { \figurename \c_space_tl \@currentlabel :~ \@currentlabelname } }
+        \group_end:
+        \tl_set_eq:NN \l__eps_alt_tl \g__eps_alt_tl
+        \iow_now:Ne \@auxout
+          {
+            \token_to_str:N \eps@altflotante
+            { \int_use:N \l__eps_alt_flotante_int } { \exp_not:V \l__eps_alt_tl }
+          }
+      }
+  }
+% #1: el archivo de la imagen
+\cs_new_protected:Npn \__eps_alt_relleno:n #1
+  {
+    \tl_if_empty:NT \l__tag_graphic_alt_tl
+      {
+        \bool_lazy_and:nnTF
+          { \int_compare_p:nNn { \l__eps_alt_flotante_int } > { 0 } }
+          { \tl_if_exist_p:c { g__eps_alt_flotante_ \int_use:N \l__eps_alt_flotante_int _tl } }
+          {
+            \tl_set_eq:Nc \l__tag_graphic_alt_tl
+              { g__eps_alt_flotante_ \int_use:N \l__eps_alt_flotante_int _tl }
+          }
+          {
+            \int_gincr:N \g__eps_alt_imagen_int
+            \tl_set:Ne \l__tag_graphic_alt_tl
+              {
+                \EPSsegunidioma { Imagen } { Imatge } { Image }
+                \c_space_tl \int_use:N \g__eps_alt_imagen_int
+              }
+          }
+        \msg_warning:nnee { eps-tfg } { alt-falta }
+          {#1} { \l__tag_graphic_alt_tl }
+      }
+  }
+\cs_new_protected:Npn \__eps_alt_automatico:
+  {
+    \cs_if_exist:cT { __socket_tagsupport/graphic/begin_plug_alt:w }
+      {
+        \cs_new_eq:Nc \__eps_alt_plug_original:w
+          { __socket_tagsupport/graphic/begin_plug_alt:w }
+        \cs_set_protected:cpn { __socket_tagsupport/graphic/begin_plug_alt:w } ##1
+          { \__eps_alt_relleno:n {##1} \__eps_alt_plug_original:w {##1} }
+        \clist_map_inline:nn { figure , figure* , subfigure }
+          {
+            \AddToHook { env / ##1 / begin } { \__eps_alt_flotante_inicio: }
+            \AddToHook { env / ##1 / end } { \__eps_alt_flotante_fin: }
+          }
+      }
+  }
+\IfFormatAtLeastT { 2025-11-01 }
+  {
+    \AddToHook { begindocument / before }
+      { \tag_if_active:T { \__eps_alt_automatico: } }
+  }
+
+%% (9) Índices etiquetados y con enlaces. Las entradas de los índices de KOMA
 %%     (tocbasic) no llaman a los ganchos del etiquetado: el índice general y
 %%     las listas de figuras, tablas y códigos salían como artefactos (el
 %%     lector de pantalla no los leía) y sin enlaces. Se componen con las
@@ -1548,6 +1691,10 @@
           { \@hangfrom { \hskip #2 #3 } }
         #4
       }
+    % Igual que la definición de KOMA (\hskip #2#3#4), con el título en su
+    % propio encabezado
+    \cs_set:Npn \sectioncatchphraseformat #1 #2 #3 #4
+      { \__eps_sec_en_linea:nnnn {#1} {#2} {#3} {#4} }
     \AddToHook { begindocument / end }
       {
         \bool_lazy_and:nnT { \tag_if_active_p: }

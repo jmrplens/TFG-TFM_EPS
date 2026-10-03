@@ -120,9 +120,10 @@
   % Ponlo a false para generar la versión final.
   borrador = true,
 
-  % PDF accesible: declara el PDF conforme a PDF/UA-2 y convierte en error la
-  % falta de texto alternativo. Actívalo en la versión final, después de
-  % revisar tu documento (ver docs/ACCESIBILIDAD.md). Requiere TeX Live 2025
-  % actualizado o posterior.
-  % accesible = true,
+  % PDF accesible (PDF/UA-2): el PDF se declara conforme a la norma de
+  % accesibilidad. A cada imagen sin texto alternativo se le pone uno
+  % automático (su leyenda o «Imagen N») y se avisa: escribe tú la
+  % descripción con alt={...} (ver docs/ACCESIBILIDAD.md). Requiere TeX Live
+  % 2025 actualizado o posterior; con versiones anteriores solo avisa.
+  accesible = true,
 }

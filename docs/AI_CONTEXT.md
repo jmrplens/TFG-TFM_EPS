@@ -170,7 +170,7 @@ Si `titulacion` falta o tiene un valor no válido, la compilación se detiene co
 | Clave | Tipo | Por defecto | Descripción |
 | ------- | ------ | ------------- | ------------- |
 | `borrador` | booleano | false | `true` muestra las notas `\todo{}` (modo borrador). El `configuracion.tex` distribuido trae `borrador = true`: ponerlo a `false` para la versión final. También vale `\documentclass[borrador]{eps-tfg}` |
-| `accesible` | booleano | false | `true` declara el PDF conforme a PDF/UA-2 y convierte en error la falta de `alt={...}` en `\includegraphics`/`\includepdf`; avisa de `\diagbox` y `tblr`. Requiere LaTeX 2025-11 o posterior. Para la versión final (ver `docs/ACCESIBILIDAD.md`) |
+| `accesible` | booleano | true | Declara el PDF conforme a PDF/UA-2 y avisa de `\diagbox` y `tblr`. Una imagen sin `alt={...}` recibe un texto automático (su leyenda o «Imagen N») y un aviso. Requiere LaTeX 2025-11 o posterior (si no, solo avisa). `false` no declara la conformidad (ver `docs/ACCESIBILIDAD.md`) |
 | `optimizar-tikz` | booleano | — | **Obsoleta, sin efecto.** Se acepta para no romper configuraciones antiguas (la externalización de TikZ no es compatible con el etiquetado del PDF) |
 
 ### Idioma
@@ -703,7 +703,7 @@ $lualatex = 'lualatex -shell-escape -interaction=nonstopmode -file-line-error -s
 - LaTeX 2025-11 o posterior: `\DocumentMetadata{tagging=on, pdfversion=2.0, lang=es-ES}`.
 - Versiones anteriores (TeX Live 2024, TeX Live 2025 sin actualizar): `testphase=phase-I` (etiquetado básico).
 
-El PDF resultante está **etiquetado**; solo **declara conformidad PDF/UA-2 con `accesible = true`** (el documento de ejemplo es entonces conforme según veraPDF, aunque varios paquetes, como minted, caption o pgfplots, figuran aún como no compatibles con el etiquetado). Con LaTeX 2025-11 o posterior, los títulos se etiquetan como encabezados y los índices llevan enlaces. El idioma (`lang`) lo fija la clase a partir de `idioma`.
+El PDF resultante está **etiquetado** y, por defecto (`accesible = true`), **declara conformidad PDF/UA-2** (el documento de ejemplo es conforme según veraPDF, aunque varios paquetes, como minted, caption o pgfplots, figuran aún como no compatibles con el etiquetado). Con LaTeX 2025-11 o posterior, los títulos (también `\paragraph`) se etiquetan como encabezados y los índices llevan enlaces. Una imagen sin `alt={...}` recibe un texto automático (su leyenda o «Imagen N») y un aviso. El idioma (`lang`) lo fija la clase a partir de `idioma`.
 
 Buenas prácticas: `alt={...}` en cada `\includegraphics`, tablas con cabecera clara y texto descriptivo en los enlaces. Ver [ACCESIBILIDAD.md](ACCESIBILIDAD.md).
 

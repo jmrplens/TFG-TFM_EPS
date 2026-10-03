@@ -2,7 +2,7 @@
 
 Esta guía explica qué hace la plantilla para generar PDFs accesibles (PDF etiquetado) y qué debes hacer tú al escribir para que el resultado sea útil a personas con discapacidades visuales o que usen lectores de pantalla.
 
-> **Estado actual:** la plantilla genera siempre un **PDF etiquetado**. Con la opción [`accesible = true`](#pdf-accesible-accesible--true) además **declara conformidad PDF/UA-2**: el documento de ejemplo supera la validación de veraPDF (PDF/UA-2 y WTPDF 1.0), aunque quedan [limitaciones conocidas](#limitaciones-conocidas).
+> **Estado actual:** la plantilla genera un **PDF etiquetado** y, por defecto ([`accesible = true`](#pdf-accesible-accesible--true)), lo **declara conforme a PDF/UA-2**. El documento de ejemplo supera la validación de veraPDF (PDF/UA-2 y WTPDF 1.0) en los tres idiomas, aunque quedan [limitaciones conocidas](#limitaciones-conocidas).
 
 ---
 
@@ -68,16 +68,17 @@ El etiquetado ya está activado en `cls/eps-metadata.tex`, que `main.tex` carga 
 | Anterior a LaTeX 2025-11 (TeX Live 2024, mínimo soportado, o TeX Live 2025 sin actualizar) | `testphase=phase-I`: etiquetado básico |
 
 - **Idioma:** el valor `lang=es-ES` es solo el inicial. La clase lo sustituye por el idioma de `idioma` en `configuracion.tex` (`es-ES`, `ca-ES-valencia` o `en-GB`), así que **no hay que editar `cls/eps-metadata.tex`** al cambiar de idioma.
-- **Estándar:** por defecto no se declara `pdfstandard=ua-2`: declararlo sin revisar el documento podría escribir en los metadatos una conformidad falsa. Se declara con [`accesible = true`](#pdf-accesible-accesible--true).
+- **Estándar:** por defecto se declara `pdfstandard=ua-2` (opción [`accesible`](#pdf-accesible-accesible--true)).
 - **Compatibilidad:** la clase incluye ajustes para que las opciones de listas de `enumitem`, `\ch` de `chemformula` y `threeparttable` funcionen con el etiquetado.
 - **Ajustes de accesibilidad automáticos** (sin efecto si no hay etiquetado):
-  - los títulos de capítulo, sección, subsección... se etiquetan como encabezados (`H1`, `H2`, `H3`...) dentro de secciones anidadas, para que el lector de pantalla pueda recorrer el documento por títulos (con LaTeX 2025-11 o posterior);
+  - los títulos de capítulo, sección, subsección... se etiquetan como encabezados (`H1`, `H2`, `H3`...) dentro de secciones anidadas, para que el lector de pantalla pueda recorrer el documento por títulos (con LaTeX 2025-11 o posterior). También los títulos en línea de `\paragraph` y `\subparagraph`: el título es un encabezado y el texto que le sigue, un párrafo aparte;
+  - una imagen sin texto alternativo recibe uno automático (ver [Texto alternativo para imágenes](#texto-alternativo-para-imágenes)), en lugar del nombre del archivo;
   - el índice general y los de figuras, tablas y códigos se etiquetan como índices, con un enlace en cada entrada (con LaTeX 2025-11 o posterior);
   - la portada no deja estructuras sueltas en el árbol del PDF;
   - los iconos decorativos (los de las cajas de aviso, el árbol de directorios, etc.) se marcan como artefacto, para que el lector de pantalla no lea el nombre del glifo («INFO-CIRCLE»);
   - los iconos que transmiten información se leen como texto: las casillas de `checklist` («Hecho», «Pendiente», «En curso»), `\pro`/`\con` («Ventaja», «Inconveniente»), `\rating{4}{5}` («4 de 5») y los indicadores de cumplimiento (`\controlok`, `\sparamok`...). Para tus propios iconos con significado, usa `\EPSiconoTexto{texto}{icono}`, por ejemplo `\EPSiconoTexto{Aprobado}{\faCheck}`;
   - los fragmentos escritos en otro idioma con `otherlanguage` (el Abstract) llevan su propio idioma (`/Lang`), para que el lector de pantalla cambie de voz;
-  - las leyendas de figuras y tablas se etiquetan como `Caption` aunque haya cajas de `tcolorbox` con título;
+  - las leyendas de figuras y tablas se etiquetan como `Caption` aunque haya cajas de `tcolorbox` con título, y conservan las fuentes de `\captionsetup` (con el etiquetado, LaTeX las compone con su propio formato);
   - las figuras y tablas etiquetadas se agrupan al final de cada capítulo, en lugar de al final del documento;
   - el código en línea (`\mintinline`) no genera fórmulas vacías;
   - el texto de los bloques de código conserva los espacios (el lector de pantalla y el texto copiado leen `def fibonacci(n):`, no `deffibonacci(n):`), con LaTeX 2025-11 o posterior;
@@ -89,34 +90,34 @@ El etiquetado ya está activado en `cls/eps-metadata.tex`, que `main.tex` carga 
 
 ## PDF accesible (`accesible = true`)
 
-Cuando tengas la versión final, activa la opción en `configuracion.tex`:
+La opción está activada en el `configuracion.tex` que se distribuye:
 
 ```latex
 \EPSsetup{
   ...
-  borrador  = false,
-  accesible = true,
+  accesible = true,   % PDF/UA-2 (por defecto)
 }
 ```
 
 Con ella la plantilla:
 
 - **declara el PDF conforme a PDF/UA-2** en los metadatos XMP (`pdfstandard=ua-2`);
-- convierte en **error** la falta de texto alternativo en las imágenes: la compilación se detiene en la línea del `\includegraphics` (o `\includepdf`) que no tenga `alt={...}` (o `artifact` si es decorativa). LaTeX todavía no comprueba los dibujos `tikzpicture`: revisa tú que lleven `alt={...}`;
 - **avisa** si usas construcciones que estropean el PDF accesible: `\diagbox` y las tablas `tblr` de `tabularray`.
 
-Requiere LaTeX 2025-11 o posterior (TeX Live 2025 actualizado o TeX Live 2026): con versiones anteriores el etiquetado es parcial y la opción da un error. También da error si se ha quitado `\input{eps-metadata}` de `main.tex`.
+La falta de texto alternativo **no detiene la compilación**: la imagen recibe un texto automático y se muestra un aviso (ver [Texto alternativo para imágenes](#texto-alternativo-para-imágenes)). Revisa los avisos `Package eps-tfg Warning: Falta el texto alternativo...` antes de entregar.
 
-La integración continua del repositorio compila el documento de ejemplo con `accesible = true` y lo valida con veraPDF (PDF/UA-2): es conforme. Un validador comprueba lo que se puede comprobar automáticamente; lo demás depende de ti: que el texto alternativo describa la imagen, que las tablas de datos marquen su cabecera (`\EPScabeceraTabla`), que los enlaces tengan un texto con sentido... Repasa el [checklist](#checklist-básico) antes de activarla.
+Requiere LaTeX 2025-11 o posterior (TeX Live 2025 actualizado o TeX Live 2026). Con versiones anteriores (o si se ha quitado `\input{eps-metadata}` de `main.tex`) el etiquetado es parcial: la opción solo muestra un aviso y no declara nada. Para no declarar la conformidad, pon `accesible = false`.
+
+La integración continua del repositorio compila el documento de ejemplo en español, valenciano e inglés y valida cada PDF con veraPDF (PDF/UA-2); la comprobación falla si alguno deja de ser conforme. Un validador comprueba lo que se puede comprobar automáticamente; lo demás depende de ti: que el texto alternativo describa la imagen, que las tablas de datos marquen su cabecera (`\EPScabeceraTabla`), que los enlaces tengan un texto con sentido... Repasa el [checklist](#checklist-básico) antes de entregar.
 
 ---
 
 ## Limitaciones conocidas
 
-Aunque el documento de ejemplo supera la validación con `accesible = true`, quedan limitaciones ajenas a lo que escribas:
+Aunque el documento de ejemplo supera la validación, quedan limitaciones ajenas a lo que escribas:
 
 - **KOMA-Script (`scrbook`)**, base de la clase, aún no soporta oficialmente el etiquetado. La clase añade el etiquetado de títulos e índices con los ganchos documentados de KOMA y la interfaz de etiquetado de LaTeX, que todavía está en fase de pruebas y puede cambiar.
-- `\paragraph` (título en línea con el texto) y `\minisec` se etiquetan como párrafos, no como encabezados.
+- `\minisec` se etiqueta como párrafo, no como encabezado (no tiene nivel en la jerarquía de títulos).
 - LaTeX no asocia todavía los destinos de las referencias cruzadas a figuras y tablas con su estructura (aviso `Destination ... has no related structure`). Es una limitación del núcleo de LaTeX.
 - Varios paquetes que usa la plantilla figuran como **incompatibles** en el estado oficial del etiquetado de LaTeX: `chemformula`, `chemfig`, `minted`, `caption`, `subcaption`, `dirtree`, `listings`, `multirow`, `pgfplots` y `threeparttable`.
 - Las tablas con `booktabs` se etiquetan sin celdas de cabecera (`TH`) salvo que se indique (ver [Tablas accesibles](#tablas-accesibles)).
@@ -131,7 +132,23 @@ Aunque el documento de ejemplo supera la validación con `accesible = true`, que
 
 ## Texto alternativo para imágenes
 
-Todas las imágenes deben tener texto alternativo (`alt={...}`) que describa su contenido. Sin él, el lector de pantalla solo puede leer el nombre del archivo y la compilación muestra el aviso `Alternative text for graphic is missing`:
+Todas las imágenes deben tener texto alternativo (`alt={...}`) que describa su contenido.
+
+Si una imagen no lo tiene, la plantilla le pone uno automático, para que el lector de pantalla no lea el nombre del archivo:
+
+- si está en una figura con leyenda, la leyenda con su número: «Figura 3.2: Arquitectura del sistema propuesto». La leyenda va después de la imagen, así que se toma de la compilación anterior: con `make` (o `latexmk`) aparece desde la segunda pasada;
+- si no, «Imagen 1», «Imagen 2»...
+
+Y avisa con el archivo y el texto que ha usado:
+
+```text
+Package eps-tfg Warning: Falta el texto alternativo de la imagen
+(eps-tfg)                'recursos/figuras/arquitectura.pdf'.
+(eps-tfg)                En el PDF se usa 'Figura 3.2: Arquitectura del sistema propuesto'.
+```
+
+El texto automático solo dice qué es la imagen, no lo que muestra: escribe una descripción de verdad con `alt={...}`.
+
 
 ### Imágenes informativas
 
@@ -260,7 +277,7 @@ Escribe las fórmulas siempre en modo matemático (`$...$`, `equation`, `align`.
 | **PAC** | Verificador PDF/UA gratuito | [pdfua.foundation](https://pdfua.foundation/en/pac-download) |
 | **PAVE** | Validador online gratuito | [pave-pdf.org](https://pave-pdf.org/) |
 
-También puedes comprobar que el PDF está etiquetado con `pdfinfo main.pdf` (línea `Tagged: yes`). La integración continua del repositorio valida además con veraPDF el PDF principal y el compilado con `accesible = true` (artefacto `informe-accesibilidad`).
+También puedes comprobar que el PDF está etiquetado con `pdfinfo main.pdf` (línea `Tagged: yes`). La integración continua del repositorio valida además con veraPDF el PDF de cada idioma (artefacto `informe-accesibilidad`).
 
 ### Checklist básico
 
