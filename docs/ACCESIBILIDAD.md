@@ -78,7 +78,7 @@ El etiquetado ya está activado en `cls/eps-metadata.tex`, que `main.tex` carga 
   - los iconos decorativos (los de las cajas de aviso, el árbol de directorios, etc.) se marcan como artefacto, para que el lector de pantalla no lea el nombre del glifo («INFO-CIRCLE»);
   - los iconos que transmiten información se leen como texto: las casillas de `checklist` («Hecho», «Pendiente», «En curso»), `\pro`/`\con` («Ventaja», «Inconveniente»), `\rating{4}{5}` («4 de 5») y los indicadores de cumplimiento (`\controlok`, `\sparamok`...). Para tus propios iconos con significado, usa `\EPSiconoTexto{texto}{icono}`, por ejemplo `\EPSiconoTexto{Aprobado}{\faCheck}`;
   - los fragmentos escritos en otro idioma con `otherlanguage` (el Abstract) llevan su propio idioma (`/Lang`), para que el lector de pantalla cambie de voz;
-  - las leyendas de figuras y tablas se etiquetan como `Caption` aunque haya cajas de `tcolorbox` con título;
+  - las leyendas de figuras y tablas se etiquetan como `Caption` aunque haya cajas de `tcolorbox` con título, y conservan las fuentes de `\captionsetup` (con el etiquetado, LaTeX las compone con su propio formato);
   - las figuras y tablas etiquetadas se agrupan al final de cada capítulo, en lugar de al final del documento;
   - el código en línea (`\mintinline`) no genera fórmulas vacías;
   - el texto de los bloques de código conserva los espacios (el lector de pantalla y el texto copiado leen `def fibonacci(n):`, no `deffibonacci(n):`), con LaTeX 2025-11 o posterior;

@@ -19,6 +19,12 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - **`\paragraph` y `\subparagraph` como encabezados**: el título en línea es
   un encabezado y el texto que le sigue, un párrafo aparte. El aspecto no
   cambia.
+- **Leyendas con su formato en el PDF etiquetado**: con el etiquetado, LaTeX
+  componía las leyendas con su formato estándar y se perdían las fuentes de
+  `\captionsetup` (etiqueta «Figura 1:» en negrita, texto en tamaño
+  pequeño). Vuelven a verse igual que sin etiquetado.
+- Compilar sin `\input{eps-metadata}` vuelve a funcionar con las cajas UML
+  (`capture=hbox`).
 - **CI**: veraPDF valida el PDF de cada idioma (español, valenciano e inglés)
   y la comprobación falla si alguno no es conforme con PDF/UA-2. La
   configuración `accesible` de la matriz desaparece: ahora es la principal.
