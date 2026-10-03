@@ -1,0 +1,14 @@
+{
+  "_descripcion": "Línea base del documento de ejemplo con TeX Live 2025 y 2026 (accesible = true). scripts/comprobar-pdf-etiquetado.py --linea-base falla si el PDF tiene menos de estos mínimos o más avisos de tagpdf que el máximo. Si un cambio la mejora, la CI lo indica: actualiza aquí los valores.",
+  "minimos": {
+    "H1": 18,
+    "H2": 73,
+    "H3": 165,
+    "H4": 10,
+    "H5": 1,
+    "Reference": 530,
+    "TH": 118,
+    "Figuras con texto alternativo": 43
+  },
+  "avisos_tagpdf_max": 2
+}

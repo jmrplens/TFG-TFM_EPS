@@ -1358,18 +1358,22 @@
   }
 % Destinos de los enlaces de los índices: la lista de figuras y la de tablas
 % enlazan con el ancla que crea el paquete caption («figure.caption.N») y el
-% índice general, con la de los capítulos sin número («chapter*.N»). LaTeX no
+% índice general, con la de los capítulos y secciones sin número
+% («chapter*.N», «section*.N»). LaTeX no
 % las asociaba a ninguna estructura (aviso «Destination ... has no related
 % structure»). Se registran: la de la leyenda, con la figura o tabla; la del
-% capítulo, con su sección.
+% título, con su sección.
 \cs_new_protected:Npn \__eps_destinos_registrados:
   {
     \socket_if_exist:nT { tagsupport/recordtarget }
       {
         \AddToHookWithArguments { cmd/@makecaption/before }
           { \tag_if_active:T { \UseTaggingSocket { recordtarget } } }
-        \AddtoDoHook { heading / endgroup / chapter }
-          { \tag_if_active:T { \UseTaggingSocket { recordtarget } } \use_none:n }
+        \clist_map_inline:nn { chapter , section , subsection }
+          {
+            \AddtoDoHook { heading / endgroup / ##1 }
+              { \tag_if_active:T { \UseTaggingSocket { recordtarget } } \use_none:n }
+          }
       }
   }
 \IfFormatAtLeastT { 2025-11-01 }
