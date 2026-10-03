@@ -108,7 +108,7 @@ La falta de texto alternativo **no detiene la compilación**: la imagen recibe u
 
 Requiere LaTeX 2025-11 o posterior (TeX Live 2025 actualizado o TeX Live 2026). Con versiones anteriores (o si se ha quitado `\input{eps-metadata}` de `main.tex`) el etiquetado es parcial: la opción solo muestra un aviso y no declara nada. Para no declarar la conformidad, pon `accesible = false`.
 
-La integración continua del repositorio compila el documento de ejemplo en español, valenciano e inglés y valida cada PDF con veraPDF (PDF/UA-2); la comprobación falla si alguno deja de ser conforme. Un validador comprueba lo que se puede comprobar automáticamente; lo demás depende de ti: que el texto alternativo describa la imagen, que las tablas de datos marquen su cabecera (`\EPScabeceraTabla`), que los enlaces tengan un texto con sentido... Repasa el [checklist](#checklist-básico) antes de entregar.
+La integración continua del repositorio compila el documento de ejemplo en español, valenciano e inglés (y con TeX Live 2025) y valida cada PDF con veraPDF (PDF/UA-2); la comprobación falla si alguno deja de ser conforme o si el etiquetado empeora respecto a una línea base (encabezados, entradas de índice, avisos de LaTeX). Un validador comprueba lo que se puede comprobar automáticamente; lo demás depende de ti: que el texto alternativo describa la imagen, que las tablas de datos marquen su cabecera (`\EPScabeceraTabla`), que los enlaces tengan un texto con sentido... Repasa el [checklist](#checklist-básico) antes de entregar.
 
 ---
 
@@ -118,7 +118,6 @@ Aunque el documento de ejemplo supera la validación, quedan limitaciones ajenas
 
 - **KOMA-Script (`scrbook`)**, base de la clase, aún no soporta oficialmente el etiquetado. La clase añade el etiquetado de títulos e índices con los ganchos documentados de KOMA y la interfaz de etiquetado de LaTeX, que todavía está en fase de pruebas y puede cambiar.
 - `\minisec` se etiqueta como párrafo, no como encabezado (no tiene nivel en la jerarquía de títulos).
-- LaTeX no asocia todavía los destinos de las referencias cruzadas a figuras y tablas con su estructura (aviso `Destination ... has no related structure`). Es una limitación del núcleo de LaTeX.
 - Varios paquetes que usa la plantilla figuran como **incompatibles** en el estado oficial del etiquetado de LaTeX: `chemformula`, `chemfig`, `minted`, `caption`, `subcaption`, `dirtree`, `listings`, `multirow`, `pgfplots` y `threeparttable`.
 - Las tablas con `booktabs` se etiquetan sin celdas de cabecera (`TH`) salvo que se indique (ver [Tablas accesibles](#tablas-accesibles)).
 
@@ -164,7 +163,7 @@ El texto automático solo dice qué es la imagen, no lo que muestra: escribe una
 
 ### Diagramas y gráficas (TikZ, pgfplots)
 
-Un `tikzpicture` sin texto alternativo **no existe para un lector de pantalla** (y LaTeX no avisa). Añade `alt` en sus opciones:
+Un `tikzpicture` sin texto alternativo es un artefacto: el lector de pantalla solo lee los textos de sus nodos, sueltos. Dentro de una figura, la plantilla le pone el mismo texto automático que a una imagen (su leyenda con el número) y avisa; fuera de las figuras no puede saber si el dibujo es informativo o decorativo y no hace nada. Añade siempre `alt` en sus opciones:
 
 ```latex
 \begin{figure}[htbp]

@@ -113,8 +113,9 @@ jobs:
           }
 
   # 2. Compilar documento
-  #    Matriz de compatibilidad: TeX Live más reciente y TeX Live 2024 (versión
-  #    mínima documentada) y los tres idiomas de la plantilla. Con TeX Live
+  #    Matriz de compatibilidad: TeX Live más reciente, TeX Live 2025 (LaTeX
+  #    2025-11, el primero con etiquetado completo) y TeX Live 2024 (versión
+  #    mínima documentada), y los tres idiomas de la plantilla. Con TeX Live
   #    2025 o posterior el PDF declara PDF/UA-2 (accesible = true, por defecto)
   #    y veraPDF valida el de cada idioma. La configuración principal (español,
   #    TeX Live más reciente) publica además el PDF para descargar.
@@ -134,6 +135,12 @@ jobs:
             idioma: espanol
             lang: es
             principal: true
+            ua: '2'
+          - nombre: texlive-2025
+            texlive: '2025'
+            idioma: espanol
+            lang: es
+            principal: false
             ua: '2'
           - nombre: texlive-2024
             texlive: '2024'
@@ -203,7 +210,7 @@ jobs:
           --titulo "PDF (${{ matrix.nombre }})" \
           --idioma-esperado "${{ matrix.lang }}" \
           --ua-esperada "${{ matrix.ua }}" \
-          ${{ matrix.ua == '2' && '--exigir-estructura' || '' }} \
+          ${{ matrix.ua == '2' && '--exigir-estructura --linea-base scripts/linea-base-accesibilidad.json' || '' }} \
           --log main.log
 
     - name: Resumen de la compilación
@@ -286,7 +293,7 @@ jobs:
       # Imagen oficial de veraPDF CLI (https://hub.docker.com/r/verapdf/cli)
       VERAPDF_IMAGE: verapdf/cli:latest
       # Configuraciones de la matriz con ua: '2' (deben coincidir)
-      PDF_ESPERADOS: principal valenciano ingles
+      PDF_ESPERADOS: principal texlive-2025 valenciano ingles
 
     steps:
     # Un PDF por idioma (pdf/pdf-<configuración>/main.pdf). Si una
@@ -447,7 +454,7 @@ jobs:
           const sha = context.payload.pull_request.head.sha.substring(0, 7);
 
           // Leer los resúmenes de cada configuración de la matriz
-          const orden = ['principal', 'texlive-2024', 'valenciano', 'ingles'];
+          const orden = ['principal', 'texlive-2025', 'texlive-2024', 'valenciano', 'ingles'];
           const resumenes = [];
           if (fs.existsSync('resumen')) {
             for (const f of fs.readdirSync('resumen')) {
