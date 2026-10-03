@@ -1,7 +1,7 @@
 # Instrucciones para GitHub Copilot — Plantilla TFG/TFM EPS UA
 
 Plantilla LaTeX para TFG/TFM de la Escuela Politécnica Superior (EPS),
-Universidad de Alicante. Versión 2.2.2 (2026).
+Universidad de Alicante. Versión 2.3.0 (2026).
 
 ---
 

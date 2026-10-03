@@ -7,6 +7,8 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
+## [2.3.0] - 2026-10-03
+
 ### Accesibilidad
 
 - **PDF/UA-2 por defecto**: nueva opción `accesible` en `\EPSsetup`, activada
@@ -444,17 +446,18 @@ Esta versión representa una reescritura completa de la plantilla con tecnologí
 - [x] GitHub Actions para CI/CD
 - [x] Archivos de contexto y agentes para asistentes de IA
 - [x] Plantilla publicada en la galería de Overleaf (2.2.2)
-- [x] Español, valenciano e inglés funcionales (sin publicar)
+- [x] Español, valenciano e inglés funcionales (2.3.0)
+- [x] Conformidad PDF/UA-2 por defecto (2.3.0, ver `docs/ACCESIBILIDAD.md`)
 
 ### Próximas versiones
 
-- [ ] Conformidad PDF/UA-2 (ver `docs/ACCESIBILIDAD.md`)
 - [ ] Reimplementar plantilla de póster
 - [ ] Añadir tema de presentación Beamer
 - [ ] Temas de color alternativos
 - [ ] Integración con Zotero/Mendeley
 
-[Sin publicar]: https://github.com/jmrplens/TFG-TFM_EPS/compare/v2.2.2...HEAD
+[Sin publicar]: https://github.com/jmrplens/TFG-TFM_EPS/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/jmrplens/TFG-TFM_EPS/compare/v2.2.2...v2.3.0
 [2.2.2]: https://github.com/jmrplens/TFG-TFM_EPS/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/jmrplens/TFG-TFM_EPS/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/jmrplens/TFG-TFM_EPS/compare/v2.1.0...v2.2.0

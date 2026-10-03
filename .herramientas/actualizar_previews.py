@@ -8,7 +8,7 @@ Proyecto: Plantilla TFG/TFM EPS Universidad de Alicante
 Autor:    José Manuel Requena Plens
 Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
 Licencia: MIT
-Versión:  2.2.2
+Versión:  2.3.0
 --------------------------------------------------------------------------------
 
 Este script:

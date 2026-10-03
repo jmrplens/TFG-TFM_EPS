@@ -5,11 +5,11 @@
 %% Autor:    José Manuel Requena Plens
 %% Enlace:   https://github.com/jmrplens/TFG-TFM_EPS
 %% Licencia: MIT
-%% Versión:  2.2.2 (2026/08/02)
+%% Versión:  2.3.0 (2026/10/03)
 %%
 %% -----------------------------------------------------------------------------
 \NeedsTeXFormat{LaTeX2e}[2024/11/01]
-\ProvidesClass{eps-tfg}[2026/08/02 v2.2.2 Clase TFG/TFM EPS Universidad de Alicante]
+\ProvidesClass{eps-tfg}[2026/10/03 v2.3.0 Clase TFG/TFM EPS Universidad de Alicante]
 
 %% ============================================================================
 %% COMPROBACIÓN DEL MOTOR: LuaLaTeX obligatorio
