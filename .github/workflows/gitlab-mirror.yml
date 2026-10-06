@@ -230,13 +230,17 @@ jobs:
             # Write only what differs. The loop used to rewrite every
             # release and link on every run, and GitLab can answer 500 to a
             # PUT that rewrites a release with the values it already holds.
-            # GitLab stores released_at with milliseconds, so the instants
-            # are compared.
+            # GitLab stores released_at with milliseconds and GitHub without,
+            # so both are compared as instants, fraction included.
             current=$(current_release "$tag_encoded")
             if [ -z "$current" ]; then
               request_json POST "${gitlab_api}/releases" "$create_release_payload"
             elif ! jq -e --argjson want "$update_release_payload" '
-                def instant: if . == null or . == "" then null else sub("\\.[0-9]+"; "") | fromdateiso8601 end;
+                def instant:
+                  if . == null or . == "" then null
+                  else (sub("\\.[0-9]+"; "") | fromdateiso8601)
+                    + ((capture("\\.(?<f>[0-9]+)").f // "0") | "0." + . | tonumber)
+                  end;
                 .name == $want.name
                 and .description == $want.description
                 and (.released_at | instant) == ($want.released_at | instant)' <<<"$current" >/dev/null; then
