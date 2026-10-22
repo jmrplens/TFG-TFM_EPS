@@ -12,6 +12,8 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 - **Financiación**: Ko-fi vuelve como segunda plataforma junto a GitHub
   Sponsors, en el botón de patrocinio del repositorio y en los enlaces de
   contacto de las issues.
+- **Documentación**: la guía de accesibilidad cambia PAVE, cuya web dejó de
+  responder, por veraPDF, el validador que ya usa la integración continua.
 
 ## [2.3.0] - 2026-10-03
 
