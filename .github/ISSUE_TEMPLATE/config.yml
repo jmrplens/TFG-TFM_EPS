@@ -6,6 +6,9 @@ contact_links:
   - name: 💬 Stack Exchange (TeX)
     url: https://tex.stackexchange.com/
     about: Comunidad de preguntas y respuestas sobre LaTeX
-  - name: 💖 Apoya el proyecto
+  - name: 💖 Apoya el proyecto en GitHub Sponsors
     url: https://github.com/sponsors/jmrplens
     about: Si la plantilla te ha sido útil, considera apoyar al desarrollador
+  - name: ☕ Apoya el proyecto en Ko-fi
+    url: https://ko-fi.com/jmrplens
+    about: Si lo prefieres, apoya al desarrollador con una donación en Ko-fi
