@@ -274,7 +274,7 @@ Escribe las fórmulas siempre en modo matemático (`$...$`, `equation`, `align`.
 | ------------- | ------------- | -------- |
 | **Adobe Acrobat Pro** | Comprobador de accesibilidad integrado | [adobe.com](https://www.adobe.com/acrobat) |
 | **PAC** | Verificador PDF/UA gratuito | [pdfua.foundation](https://pdfua.foundation/en/pac-download) |
-| **PAVE** | Validador online gratuito | [pave-pdf.org](https://pave-pdf.org/) |
+| **veraPDF** | Validador PDF/UA de código abierto, el que usa la integración continua | [verapdf.org](https://verapdf.org/) |
 
 También puedes comprobar que el PDF está etiquetado con `pdfinfo main.pdf` (línea `Tagged: yes`). La integración continua del repositorio valida además con veraPDF el PDF de cada idioma (artefacto `informe-accesibilidad`).
 
