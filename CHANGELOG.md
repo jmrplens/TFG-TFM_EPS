@@ -7,6 +7,12 @@ y este proyecto adhiere a [Versionado Semántico](https://semver.org/lang/es/).
 
 ## [Sin publicar]
 
+### Cambiado
+
+- **Financiación**: Ko-fi vuelve como segunda plataforma junto a GitHub
+  Sponsors, en el botón de patrocinio del repositorio y en los enlaces de
+  contacto de las issues.
+
 ## [2.3.0] - 2026-10-03
 
 ### Accesibilidad
